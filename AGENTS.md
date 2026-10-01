@@ -1,10 +1,12 @@
 # Repository Operating Notes
 
 ## Product
-Describe in 2–4 sentences what this repository operates and who uses it.
+BidZizi is being rebuilt for company-hosted auction events. This repository currently operates the fresh staging foundation: a Next.js page and a read-only Neon database connection check. Project maintainers use it to verify hosting and database connectivity before implementing auction workflows.
 
 ## Durable invariants
-List only constraints that should survive ordinary refactors: security boundaries, canonical identity/data rules, external contracts, or other expensive-to-reverse commitments.
+- Database credentials stay on the server and outside Git, client bundles, and public responses.
+- Connectivity status comes from a live database query; cached, build-time, or fictional results must not be reported as a verified connection.
+- This rebuild imports no legacy application code or database contents. Old resources remain separate until explicitly retired.
 
 ## Work style
 - Investigate relevant code and run the product before assuming the task language describes the correct implementation.
@@ -14,7 +16,7 @@ List only constraints that should survive ordinary refactors: security boundarie
 - For interface changes, inspect the rendered result; passing tests alone is not completion.
 
 ## Context
-Point to relevant `docs/` by topic. Read only what the task requires.
+- Staging resources, connection ownership, and deployment verification: `docs/STAGING_CONNECTIVITY.md`.
 
 ## Contracted work
 Frozen implementation contracts live in `tasks/`.
