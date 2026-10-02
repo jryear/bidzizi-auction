@@ -1,20 +1,75 @@
 # BidZizi
 
-Fresh Next.js staging foundation connected to an empty Neon database. The homepage and `/api/health/database` each run a server-side `SELECT 1` at request time. The endpoint returns HTTP 200 and `connected: 1` on success, or a generic HTTP 503 on failure.
+BidZizi is being rebuilt for company-hosted auction events. The current product priority is a mobile bidder experience that feels native, reputable, and remarkable. PWA/SPA behavior is an intended direction; it is not implemented by this scaffold.
 
-Use Node.js 24 and pnpm 12.4.2:
+## What exists now
+
+This repository, [`jryear/bidzizi-auction`](https://github.com/jryear/bidzizi-auction), contains a fresh Next.js App Router foundation using React, TypeScript, and `pg`.
+
+- `/` displays a server-side database connectivity check.
+- `/api/health/database` performs `SELECT 1` at request time with caching disabled. Success returns HTTP 200 with `ok: true`, `connected: 1`, and `checkedAt`; failure returns a generic HTTP 503 without provider errors or credentials.
+- Auction records, migrations, authentication, bidder sessions, bidding, Clerk, and Ably are not implemented. There is no test suite or CI configuration. Playwright is installed but has no configured checks.
+- There is no PWA manifest, icon set, service worker, installation flow, or bidder navigation yet. No legacy application code or database contents were imported.
+
+| Location | Responsibility |
+| --- | --- |
+| `src/app/page.tsx` | Current connectivity page |
+| `src/app/api/health/database/route.ts` | Live connectivity endpoint |
+| `src/lib/database.ts` | Server-only Neon pool and verified TLS checks |
+| `src/app/globals.css` | Current page styling |
+| `docs/STAGING_CONNECTIVITY.md` | Provider identities, connection procedure, and deployment evidence boundaries |
+| `tasks/` | Generic contract and review templates; no frozen product contract yet |
+
+A read-only browser inspection on 2026-10-02 observed “Database connected” at `staging.bidzizi.com`. The deployed Git revision, current Neon branch/schema, and Git deployment wiring were not independently verified during that inspection. Service metadata and retained operational evidence belong in [staging connectivity](docs/STAGING_CONNECTIVITY.md); homepage health alone is not deployment provenance or auction acceptance.
+
+## Bidder-first discovery
+
+Explore this proposed journey in a small interactive mobile prototype:
+
+**QR/event entry → open-lot browsing → lot detail → identity at the bid boundary → review and submit → authoritative bid standing.**
+
+Public browsing and asking for identity at the first bid are proposals, not established access rules. Phone-based identity versus invitation-based admission remains undecided. Currency, opening amounts, increments, competing-bid ordering, retries, and lot closing also need agreement before a bidding contract is frozen.
+
+Use labeled fixtures to discover the experience. Inspect it on phone and desktop, including browser back, reload, keyboard/focus behavior, pending submission, outbid/stale standing, interruption, connection loss, and closed lots. Agree on the visual and interaction direction before binding the interface to durable state. A cached or offline view must never imply that a new bid was accepted.
+
+The proposed first operational slice is two identified, admitted test bidders on one seeded open lot: a valid bid persists in PostgreSQL, reload restores correct standing, and competing, stale, retried, and closed-lot requests have agreed, truthful outcomes. This is a candidate scope, not an existing feature or frozen contract. Prepare runtime and isolated test-storage preflight, then freeze independent evidence before implementation. Keep release acceptance separate from local completion.
+
+[The existing discovery draft](docs/PRODUCT_SLICE_001_DISCOVERY.md) proposes a different, staff-first draft-event outcome. It remains a provisional draft, not an accepted decision or authority for the current bidder-first direction. Reconcile it before freezing a product contract.
+
+## Local development
+
+Use **Node.js 24** (`.nvmrc`) and **pnpm 12.4.2** (`package.json`). Select Node 24 in your shell before running commands; do not assume the default `node` matches `.nvmrc`.
+
+Configure `.env.local` with authorized development credentials using the connection procedure in [staging connectivity](docs/STAGING_CONNECTIVITY.md). The app requires `DATABASE_URL`: a pooled Neon PostgreSQL URL with a supported TLS mode. The server validates the Neon pooled endpoint and enforces certificate verification. Never commit environment files or `.vercel/`, expose credentials to the client, or reuse a shared staging database for destructive test setup.
 
 ```bash
+node --version
+pnpm --version
 pnpm install --frozen-lockfile
-vercel env pull .env.local --environment development --scope saturn-ea53
 pnpm dev
 ```
 
-The local directory must be linked to `bidzizi-clean-staging` before pulling variables. `DATABASE_URL` must be the pooled Neon URL with TLS configured. Never commit `.env.local` or `.vercel/`.
+The actual scripts are:
+
+| Command | Purpose |
+| --- | --- |
+| `pnpm dev` | Start the Next.js development server |
+| `pnpm typecheck` | Run TypeScript without emitting application code |
+| `pnpm build` | Create a production Next.js build |
+| `pnpm start` | Serve an existing production build |
+
+There is no `test` script yet. Build and type checks do not establish bidder behavior, provider identity, or release acceptance.
+
+## Contracted implementation
+
+Discovery precedes a frozen contract. Commit the task TOML and all declared executable evidence to a trusted base before implementation; generic template examples are not BidZizi acceptance criteria. See [AGENTS.md](AGENTS.md) for repository guardrails.
+
+The external trust anchor is `~/code/_kernel/verify.py`, currently version 3.0.0. Use `python3` (Python 3.11 or later). Supply the trusted base through the CLI or trusted execution environment, never through candidate-controlled TOML. Set `FROZEN_BASE_SHA` to the committed contract-and-evidence revision and replace `<task>` with the actual frozen task name:
 
 ```bash
-pnpm typecheck
-pnpm build
+python3 ~/code/_kernel/verify.py --version
+python3 ~/code/_kernel/verify.py tasks/<task>.toml --repo . --base "$FROZEN_BASE_SHA" --baseline
+python3 ~/code/_kernel/verify.py tasks/<task>.toml --repo . --base "$FROZEN_BASE_SHA" --claim "<completion claim>" --implementer-model "<actual model/runtime>"
 ```
 
-See [staging connections](docs/STAGING_CONNECTIVITY.md) for service identities and verification boundaries. Auction workflows, Clerk, and Ably have not been implemented in this fresh app.
+Acceptance must be RED on base and GREEN on candidate; regressions must pass on both, and adversarial checks on candidate. Each tree needs explicitly isolated disposable test storage: `VERIFY_TREE` and `VERIFY_ROOT` do not isolate databases or environment variables. Harness/infrastructure failures must exit 99, not count as ordinary RED. A supported verdict proves the frozen evidence, while UI judgment, connected-service checks, and release evidence remain separate requirements for their respective claims.
