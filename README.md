@@ -9,7 +9,7 @@ This repository, [`jryear/bidzizi-auction`](https://github.com/jryear/bidzizi-au
 - `/` displays a server-side database connectivity check.
 - `/api/health/database` performs `SELECT 1` at request time with caching disabled. Success returns HTTP 200 with `ok: true`, `connected: 1`, and `checkedAt`; failure returns a generic HTTP 503 without provider errors or credentials.
 - Auction records, migrations, authentication, bidder sessions, bidding, Clerk, and Ably are not implemented. There is no test suite or CI configuration. Playwright is installed but has no configured checks.
-- There is no PWA manifest, icon set, service worker, installation flow, or bidder navigation yet. No legacy application code or database contents were imported.
+- The Next.js app has no PWA manifest, icon set, service worker, installation flow, or bidder navigation yet; the bidder experience exists only as the simulated prototype in `prototypes/lanyard` ([below](#bidder-design-foundation-prototype-a-lanyard)). No legacy application code or database contents were imported.
 
 | Location | Responsibility |
 | --- | --- |
@@ -17,6 +17,8 @@ This repository, [`jryear/bidzizi-auction`](https://github.com/jryear/bidzizi-au
 | `src/app/api/health/database/route.ts` | Live connectivity endpoint |
 | `src/lib/database.ts` | Server-only Neon pool and verified TLS checks |
 | `src/app/globals.css` | Current page styling |
+| `prototypes/lanyard/` | Prototype A: the selected bidder design foundation. Static, simulated, not part of the Next.js app |
+| `docs/BIDDER_FOUNDATION_HANDOFF.md` | Observed state, requested next pass, open decisions, and verification for the bidder foundation |
 | `docs/STAGING_CONNECTIVITY.md` | Provider identities, connection procedure, and deployment evidence boundaries |
 | `tasks/` | Generic contract and review templates; no frozen product contract yet |
 
@@ -35,6 +37,23 @@ Use labeled fixtures to discover the experience. Inspect it on phone and desktop
 The proposed first operational slice is two identified, admitted test bidders on one seeded open lot: a valid bid persists in PostgreSQL, reload restores correct standing, and competing, stale, retried, and closed-lot requests have agreed, truthful outcomes. This is a candidate scope, not an existing feature or frozen contract. Prepare runtime and isolated test-storage preflight, then freeze independent evidence before implementation. Keep release acceptance separate from local completion.
 
 [The existing discovery draft](docs/PRODUCT_SLICE_001_DISCOVERY.md) proposes a different, staff-first draft-event outcome. It remains a provisional draft, not an accepted decision or authority for the current bidder-first direction. Reconcile it before freezing a product contract.
+
+## Bidder design foundation (prototype A, Lanyard)
+
+On 2026-10-02 the user selected prototype A as the canonical bidder foundation, valuing its design language, page layouts, onboarding, and bidding interactions. It lives in [`prototypes/lanyard`](prototypes/lanyard) and was promoted unchanged. This records a visual and interaction decision, not a product contract or an accepted set of rules. See [the handoff](docs/BIDDER_FOUNDATION_HANDOFF.md) and [design notes](prototypes/lanyard/DESIGN_NOTES.md).
+
+It is static HTML, CSS, and ES modules with no build step or dependencies, independent of the Next.js app. **Everything behind it is simulated**: the server, identity (any phone number, any six digits), the clock, rival bidders, and connection state live in the browser's localStorage. None of it is operational truth, and its open rules are marked A1–A12 rather than decided.
+
+```bash
+cd prototypes/lanyard
+PORT=4321 node serve.mjs            # http://127.0.0.1:4321 (loopback only)
+node evidence/walk.mjs              # journey checks; writes ~40 screenshots to evidence/shots (gitignored)
+node evidence/webkit-smoke.mjs      # core journey in WebKit
+```
+
+Run the evidence scripts after `pnpm install --frozen-lockfile` on Node 24; they import Playwright from the repository's `node_modules` and take `URL=` to target another port. These are prototype regression checks, not contract evidence for `verify.py`.
+
+Provenance: branch `bidder-foundation-a`, exact-source checkpoint tag `bidder-foundation-a-checkpoint` (commit `04548fc`), promoted from the untracked `prototypes/lanyard` in the main checkout at `/Users/jryear/code/bidzizi`, where a preview was served on port 4321. The branch is local: not pushed, not merged, not deployed.
 
 ## Local development
 

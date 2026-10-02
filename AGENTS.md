@@ -2,11 +2,12 @@
 
 ## Product and context
 
-BidZizi is a rebuild for company-hosted auctions. The current priority is a native-feeling mobile bidder experience; the repository currently implements only a Next.js staging page and a live, read-only Neon connectivity check. Authentication, auction data, bidding, and PWA behavior do not exist yet.
+BidZizi is a rebuild for company-hosted auctions. The current priority is a native-feeling mobile bidder experience; the repository currently implements only a Next.js staging page and a live, read-only Neon connectivity check, plus a simulated bidder prototype (`prototypes/lanyard`) that is not wired to either. Authentication, auction data, bidding, and PWA behavior do not exist yet in the application.
 
 - [README.md](README.md): current scaffold, run commands, bidder-first discovery, and contract workflow.
 - [Staging connectivity](docs/STAGING_CONNECTIVITY.md): mutable provider identities, connection procedure, and operational evidence.
 - [Existing discovery draft](docs/PRODUCT_SLICE_001_DISCOVERY.md): provisional staff-first draft-event proposal, not an accepted direction. Preserve inherited work and reconcile it with the current bidder-first priority before freezing a contract.
+- [Bidder foundation handoff](docs/BIDDER_FOUNDATION_HANDOFF.md): the selected simulated prototype (`prototypes/lanyard`), what it does and does not contain, the requested next pass, and open decisions. Read it before bidder-interface work.
 
 Public browsing, identity at first bid, phone versus invitation admission, and auction semantics remain proposals or open decisions. Do not infer bidding authority from successful sign-in or treat a prototype as a settled product rule.
 
@@ -18,6 +19,15 @@ Public browsing, identity at first bid, phone versus invitation admission, and a
 - When bidding is implemented, derive identity, admission, lot state, and bid standing from server authority. Display acceptance only after durable server confirmation. Pending, stale, offline, or uncertain outcomes must not appear accepted.
 - Represent monetary amounts as integers in the agreed minor unit. Currency, scale, increments, ordering, retry semantics, and close behavior must be settled before the contract is frozen; this file does not choose them.
 - Honor the requested effect scope. Commits, pushes, provider configuration, migrations, data writes, and deployments are separate actions; a passing check does not authorize them.
+
+## Bidder design foundation
+
+The user selected `prototypes/lanyard` (prototype A) on 2026-10-02 as the canonical bidder foundation. Preserve its design language, page composition, onboarding, and bid interactions. A change to that language needs the user's decision; passing checks do not grant visual acceptance.
+
+- It is simulated. Its server, identity, clock, rivals, and fixtures are browser-local and are never operational truth. Its rules (USD, $25 steps, a 6:00 PM close, retry behavior) are fixtures; the A1–A12 markers list what is undecided. Do not promote any of them into a contract by copying.
+- Keep it isolated: no imports into or from `src/`, no production credentials or services, and no edits that bend it to fit the Next.js app. Production code reuses its design deliberately, under a frozen contract.
+- Entering a Member ID, business name, or invitation text never authorizes acting for a business. Authority comes from server-held admission, whatever the prototype shows.
+- Real auto-bidding is a later contract. Any auto-bid in the prototype is a labeled simulation.
 
 ## Work style and inspection
 
