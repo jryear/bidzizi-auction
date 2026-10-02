@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1A1814">
+  <title>Holiday Trade Show · BidZizi prototype</title>
+  <link rel="preload" href="assets/fonts/fraunces-vf.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/instrument-sans-vf.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="stage">
+    <div class="stage-left" aria-hidden="true">
+      <p class="brand">BidZizi</p>
+      <p class="brand-sub">Bidder journey prototype<br>Direction: <b>Lanyard</b></p>
+    </div>
+    <div class="shell" id="shell" data-chrome="tabs">
+      <div id="view"></div>
+      <nav id="tabbar" aria-label="Sections"></nav>
+    </div>
+    <aside id="proto" class="proto" aria-label="Prototype review controls"></aside>
+  </div>
+  <button id="proto-handle" type="button" aria-label="Open prototype review controls">Prototype</button>
+  <dialog id="sheet" aria-labelledby="sheet-title"></dialog>
+  <div id="toasts"></div>
+  <div id="live" class="sr" role="status" aria-live="polite"></div>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

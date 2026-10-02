@@ -1,0 +1,21 @@
+// Safari-engine pass of the core journey (browse → lot → identity → bid → confirmed). Run: node evidence/webkit-smoke.mjs
+import { webkit, devices } from '../../../node_modules/@playwright/test/index.mjs';
+const OUT = new URL('./shots/', import.meta.url).pathname;
+const b = await webkit.launch();
+const ctx = await b.newContext({ ...devices['iPhone 13'] });
+const p = await ctx.newPage();
+const errs = []; p.on('console', m => m.type() === 'error' && errs.push(m.text())); p.on('pageerror', e => errs.push(e.message));
+await p.goto(process.env.URL || 'http://127.0.0.1:4321/'); await p.waitForSelector('#view h1');
+await p.click('a[data-key="browse"]'); await p.waitForSelector('.card');
+await p.screenshot({ path: OUT + 'wk-1-lots.png' });
+await p.evaluate(() => { location.hash = '#/lot/dinner'; }); await p.waitForSelector('.detail');
+await p.click('[data-key="cta"]'); await p.waitForSelector('#sheet[open]');
+await p.fill('#f-phone', '5550100142'); await p.click('[data-action="id-phone"]');
+await p.fill('#f-code', '123456'); await p.click('[data-action="id-code"]');
+await p.click('[data-action="id-who"]'); await p.waitForSelector('#amt');
+await p.waitForTimeout(500); await p.screenshot({ path: OUT + 'wk-2-bid-sheet.png' });
+await p.click('#cta'); await p.waitForSelector('.result.t-green', { timeout: 6000 });
+await p.waitForTimeout(400); await p.screenshot({ path: OUT + 'wk-3-accepted.png' });
+const ok = errs.length === 0;
+console.log(ok ? 'PASS  WebKit journey, no console errors' : 'FAIL  ' + errs.join(' | '));
+await b.close(); process.exit(ok ? 0 : 1);
