@@ -50,7 +50,21 @@ export const assumptions = {
   A10: ['Retries', 'A retry re-sends the same request key, so a repeat cannot place a second bid. While a bid is sending or unconfirmed, another bid on that lot is blocked. The real retry semantics are undecided.'],
   A11: ['Who sees names', 'Every bidder sees business and person names on every bid. Privacy for bidders is undecided.'],
   A12: ['Returning later', 'Identity and standing persist in this browser only. Real session recovery (new device, cleared storage) is undecided.'],
+  A13: ['Member ID', 'Format, who issues it, what it proves, and what besides it authorizes acting for a business are all undecided. Here it is optional, typed by the bidder, never checked, and never shown to other bidders. A Member ID alone gives no access to any business: business and name are still required.'],
+  A14: ['Saturn Barter network context', 'How the network appears to bidders, and whether it changes any bidding rule, is undecided. The prototype only labels the identity step and the account with it. It changes no rule and makes no claim about this event.'],
+  A15: ['Phone verification', 'The provider, code expiry, resend limits and failure handling are undecided. Verification here is simulated: nothing is sent and any 6 digits pass.'],
+  A16: ['Watching', 'Whether watching belongs to a person or a business, whether others can see it, and what it notifies are undecided. Here it is a list on this device only. It places no bid, is seen by no one, and sends no notifications.'],
+  A17: ['Additional users', 'Roles, permissions, whether an added person can bid, and whether standing is shared across a business are undecided. Here it is only a list kept on this device. Nothing is sent to anyone and added people cannot do anything.'],
+  A18: ['Appearance settings', 'Which options exist and where they persist (device or person) are undecided. Here: text size, lot layout and reduced motion, kept on this device only.'],
+  A19: ['Nonprofit donation', 'What a donation is, who receives it, whether money moves through this app, and any receipt are all undecided and must not be invented. The prototype shows where access would live and takes no amount and no payment.'],
+  A20: ['Auto-bid (private maximum)', 'How a maximum is confirmed and stored, increments, tie order, and who can see it are undecided. This is a labeled simulation: after an explicit confirmation the maximum is saved by the simulated server and shown only to you. It places no bids and does not change who is leading. It must be at least the next minimum bid, in $25 steps.'],
+  A21: ['Sponsor welcome and event information', 'The wording, who may write it, and what event information belongs here are undecided. The text on these screens is placeholder, built only from the fixtures.'],
+  A22: ['Search scope', 'Searches lot number, title, short description, sponsor and category. Not the long description or bidders. The real scope is undecided. The query is kept with the filters.'],
+  A23: ['Navigation and header', 'Four sections in a pill bar (Lots, Watching, My bids, Event). The bar is hidden on a lot page so the bid bar stays reachable; there a BidZizi header with the business chip stays on screen. How that header relates to the pass bar is undecided. Prototype B could not be inspected, so these follow the written request, not B.'],
 };
+
+// Saturn Barter network context. A label only: it changes no rule here (A14).
+export const network = { name: 'Saturn Barter' };
 
 // Distinct visual marks for sponsors (squares). Drawn for this prototype; fictional.
 export const LOGOS = {

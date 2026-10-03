@@ -24,7 +24,7 @@ Public browsing, identity at first bid, phone versus invitation admission, and a
 
 The user selected `prototypes/lanyard` (prototype A) on 2026-10-02 as the canonical bidder foundation. Preserve its design language, page composition, onboarding, and bid interactions. A change to that language needs the user's decision; passing checks do not grant visual acceptance.
 
-- It is simulated. Its server, identity, clock, rivals, and fixtures are browser-local and are never operational truth. Its rules (USD, $25 steps, a 6:00 PM close, retry behavior) are fixtures; the A1–A12 markers list what is undecided. Do not promote any of them into a contract by copying.
+- It is simulated. Its server, identity, clock, rivals, and fixtures are browser-local and are never operational truth. Its rules (USD, $25 steps, a 6:00 PM close, retry behavior) are fixtures; the A1–A23 markers list what is undecided. Do not promote any of them into a contract by copying.
 - Keep it isolated: no imports into or from `src/`, no production credentials or services, and no edits that bend it to fit the Next.js app. Production code reuses its design deliberately, under a frozen contract.
 - Entering a Member ID, business name, or invitation text never authorizes acting for a business. Authority comes from server-held admission, whatever the prototype shows.
 - Real auto-bidding is a later contract. Any auto-bid in the prototype is a labeled simulation.

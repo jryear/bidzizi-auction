@@ -42,13 +42,15 @@ The proposed first operational slice is two identified, admitted test bidders on
 
 On 2026-10-02 the user selected prototype A as the canonical bidder foundation, valuing its design language, page layouts, onboarding, and bidding interactions. It lives in [`prototypes/lanyard`](prototypes/lanyard) and was promoted unchanged. This records a visual and interaction decision, not a product contract or an accepted set of rules. See [the handoff](docs/BIDDER_FOUNDATION_HANDOFF.md) and [design notes](prototypes/lanyard/DESIGN_NOTES.md).
 
-It is static HTML, CSS, and ES modules with no build step or dependencies, independent of the Next.js app. **Everything behind it is simulated**: the server, identity (any phone number, any six digits), the clock, rival bidders, and connection state live in the browser's localStorage. None of it is operational truth, and its open rules are marked A1–A12 rather than decided.
+It is static HTML, CSS, and ES modules with no build step or dependencies, independent of the Next.js app. **Everything behind it is simulated**: the server, identity (any phone number, any six digits), the clock, rival bidders, and connection state live in the browser's localStorage. None of it is operational truth, and its open rules are marked A1–A23 rather than decided.
 
 ```bash
 cd prototypes/lanyard
 PORT=4321 node serve.mjs            # http://127.0.0.1:4321 (loopback only)
 node evidence/walk.mjs              # journey checks; writes ~40 screenshots to evidence/shots (gitignored)
 node evidence/webkit-smoke.mjs      # core journey in WebKit
+node evidence/walk-foundation.mjs   # second-pass checks (Member ID, watching, search, event screens, maximum)
+node evidence/webkit-foundation.mjs # second-pass checks in WebKit
 ```
 
 Run the evidence scripts after `pnpm install --frozen-lockfile` on Node 24; they import Playwright from the repository's `node_modules` and take `URL=` to target another port. These are prototype regression checks, not contract evidence for `verify.py`.

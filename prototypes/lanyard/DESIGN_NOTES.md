@@ -1,6 +1,6 @@
 # Lanyard: bidder journey prototype
 
-Status: **prototype candidate, awaiting the user's visual decision.** Not accepted, not connected to the app. Simulated server, fictional content.
+Status: **selected as the bidder design foundation (visual decision by the user, 2026-10-02); extended by a second simulated pass (see "Second pass" below).** The second-pass screens have not had a visual decision. Not connected to the app. Simulated server, fictional content.
 
 ## Run it
 
@@ -9,6 +9,8 @@ cd prototypes/lanyard
 node serve.mjs            # http://127.0.0.1:4321  (loopback only; PORT=... to change)
 node evidence/walk.mjs    # drives the journey in Chromium: 42 assertions + ~40 screenshots in evidence/shots
 node evidence/webkit-smoke.mjs   # core journey in WebKit (iPhone 13 emulation)
+node evidence/walk-foundation.mjs      # second pass: 80 assertions
+node evidence/webkit-foundation.mjs    # second pass in WebKit: 14 assertions
 ```
 
 On a phone-width window it is the whole screen. On a wide window it is a 430px phone column with a **Review controls** rail (dark, monospace, on purpose unlike the product). On widths under 1100px the rail opens from the "Prototype" edge tab.
@@ -27,9 +29,19 @@ On a phone-width window it is the whole screen. On a wide window it is a 430px p
 
 Server, identity (any phone/6 digits), the clock (starts 2:42 PM), rival bidders, connection state. All live in this browser's localStorage. The **Review controls** can force every state: succeeds / rival lands first / bidding closes first / fails to send / times out (landed or not), go offline, close bidding, seed a demo bidder.
 
-## Assumptions (marked A1–A12 inline; toggle in the rail)
+## Assumptions (marked A1–A23 inline; toggle in the rail)
 
-Public browsing · phone-code identity · business↔person relationship (no permissions invented) · what a bid commits you to (no payment/donation semantics) · USD, $25 steps, opening bids · single 6:00 PM close, no extension · race ordering · nothing designed after close · leader raising own bid · retry semantics · who sees names · returning-later recovery. Full text is in `src/data.js` and the rail.
+Public browsing · phone-code identity · business↔person relationship (no permissions invented) · what a bid commits you to (no payment/donation semantics) · USD, $25 steps, opening bids · single 6:00 PM close, no extension · race ordering · nothing designed after close · leader raising own bid · retry semantics · who sees names · returning-later recovery. Pass 2 adds A13–A23: Member ID · Saturn Barter context · phone verification · watching · additional users · appearance · nonprofit donation · auto-bid · sponsor welcome and event info · search scope · navigation and header. Full text is in `src/data.js` and the rail.
+
+## Second pass (simulated; same language)
+
+- **Pill bar.** Four sections (Lots, Watching, My bids, Event) in an ink pill, selected item in paper: it echoes the pass above it. Hidden on a lot page so the bid bar stays reachable. Built from a written request; prototype B could not be opened, so it is not B (A23).
+- **BidZizi header on a lot page.** Back (labelled for where you came from), the wordmark, and the business chip. On the main screens the pass bar remains the header.
+- **Watching is a bookmark, in ink, never marigold** (marigold still means "yours"). It lives on cards, rows and lot pages, and has its own screen. It is not bidding and never touches My bids or the attention badge (A16).
+- **Identity under a network band.** Phone, simulated code, then business, name and an optional Member ID under "Saturn Barter". A Member ID alone is refused; it never unlocks a business (A13, A14, A15).
+- **Private maximum is a promise the screen keeps small.** Form, then a separate confirmation with a tick-box in the pinned footer, then a saving state, and only then "saved". It places no bid, and every state says so (A20).
+- **Donation is an honest blank.** An access point that says "Not decided yet" and takes nothing (A19).
+- **Search** sits above the category chips, searches in place without re-creating the field, and is kept with the filters (A22).
 
 ## Content
 
@@ -45,4 +57,4 @@ Six lots come **verbatim** from the shared kit (`src/fixtures.shared.js`, copied
 
 ## Rejected / not done on purpose
 
-Quick-bid buttons on cards (a single "open the lot" action per card keeps the interaction consistent); a countdown clock (closing rules undecided); watchlists, auto-bid, payment screens (not in the journey and not decided).
+Quick-bid buttons on cards (a single "open the lot" action per card keeps the interaction consistent); a countdown clock (closing rules undecided); payment screens, a donation amount or recipient, real auto-bidding, a dark theme, admin or staff screens (not decided, or out of scope). Watching and a private maximum were rejected in the first pass and are added in the second.

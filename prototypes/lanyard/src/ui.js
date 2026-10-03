@@ -17,6 +17,9 @@ const PATHS = {
   ticket: 'M3 8a2 2 0 012-2h14a2 2 0 012 2v2a2 2 0 000 4v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2a2 2 0 000-4V8zM14 6v12',
   info: 'M12 11v6M12 7.5v.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z', question: 'M9.5 9a2.5 2.5 0 115 0c0 1.7-2.5 2-2.5 4M12 17v.5',
   x: 'M7 7l10 10M17 7L7 17', arrowUp: 'M12 19V5M6 11l6-6 6 6', sliders: 'M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M6 15v4',
+  bookmark: 'M7 4h10v16l-5-4-5 4z', search: 'M11 18a7 7 0 100-14 7 7 0 000 14zM20 20l-4-4', right: 'M9 5l7 7-7 7',
+  users: 'M9 11a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM2.5 20a6.5 6.5 0 0113 0M16 4.3a3.5 3.5 0 010 6.4M18 14a6.5 6.5 0 013.5 6',
+  heart: 'M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z', text: 'M4 19L10 5l6 14M6 14h8M18 9v8M15 12.5h6',
 };
 export const icon = (name, cls = '') =>
   `<svg class="ic ${cls}" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${name === 'spinner' ? '<path d="M21 12a9 9 0 11-6.2-8.56" class="spin"/>' : `<path d="${PATHS[name]}"/>`}</svg>`;

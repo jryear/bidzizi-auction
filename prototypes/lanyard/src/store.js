@@ -15,10 +15,11 @@ const clone = (o) => JSON.parse(JSON.stringify(o));
 function fresh() {
   return {
     v: 1, t0: Date.now(), identity: null, online: true,
-    server: { lots: seedLots(), keys: {}, closed: false },
+    server: { lots: seedLots(), keys: {}, closed: false, maxes: {} },
     snap: { asOf: timeLabel(CLOCK0_MIN), lots: seedLots(), closed: false },
     outbox: [], lastViewed: null, seq: 0, drafts: {}, flow: {},
-    ui: { view: 'cards', cat: 'All', sort: 'number' },
+    watch: {}, maxes: {}, mflow: {}, extra: [],
+    ui: { view: 'cards', cat: 'All', sort: 'number', q: '', text: 'standard', motion: 'system' },
     sim: { next: 'accept', assumptions: true },
   };
 }
@@ -28,6 +29,13 @@ function load() {
     if (s?.v === 1) {
       // A reload mid-flight loses the in-flight request: truthfully, its outcome is unknown.
       s.outbox.forEach((e) => { if (e.status === 'sending') { e.status = 'unconfirmed'; } });
+      // State saved by the first pass lacks the newer fields: fill them in rather than discard a session.
+      const d = fresh();
+      s.ui = { ...d.ui, ...s.ui };
+      for (const k of ['watch', 'maxes', 'mflow', 'extra']) s[k] ??= d[k];
+      s.server.maxes ??= {};
+      // A maximum still being saved when the page went away has an unknown outcome, like a bid.
+      Object.values(s.maxes).forEach((m) => { if (m.status === 'saving') m.status = 'unconfirmed'; });
       return s;
     }
   } catch { /* fall through */ }
@@ -38,8 +46,10 @@ export let state = load();
 const subs = new Set();
 let pending = false;
 export const subscribe = (fn) => (subs.add(fn), () => subs.delete(fn));
+/** Write to localStorage without telling subscribers (for typing in a field that must keep focus). */
+export function persist() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch { /* storage full or blocked */ } }
 export function commit() {
-  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch { /* storage full or blocked */ }
+  persist();
   if (!pending) { pending = true; queueMicrotask(() => { pending = false; subs.forEach((f) => f()); }); }
 }
 export function update(fn) { fn(state); commit(); }
@@ -169,6 +179,59 @@ export async function checkStatus(key) {
   return { landed: false };
 }
 
+// ---- watching (A16): a list on this device. Separate from bids: it places nothing and tells no one ----
+export const isWatching = (id) => !!state.watch[id];
+export const watchedLots = () => lots.filter((l) => state.watch[l.id]);
+export function toggleWatch(id) { update((s) => { if (s.watch[id]) delete s.watch[id]; else s.watch[id] = true; }); return isWatching(id); }
+
+// ---- additional users (A17): a list only; nothing is sent and nobody gains any ability ----------------
+export const extraUsers = () => state.extra.filter((u) => state.identity && u.business === state.identity.business);
+export function addExtraUser(name, phone) {
+  update((s) => { s.extra.push({ id: `u${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`, business: s.identity.business, name, phone }); });
+}
+export const removeExtraUser = (id) => update((s) => { s.extra = s.extra.filter((u) => u.id !== id); });
+
+// ---- private maximum (A20): a labeled simulation. It is saved, never acted on --------------------------
+// Like a bid, a maximum is "saved" only after the simulated server confirms. It places no bids.
+const sameWho = (a, b) => !!a && !!b && a.business === b.business && a.person === b.person;
+export const myMax = (lotId) => { const m = state.maxes[lotId]; return m && sameWho(m.who, state.identity) ? m : null; };
+const setMaxRec = (lotId, patch) => update((s) => { if (s.maxes[lotId]) Object.assign(s.maxes[lotId], patch); });
+
+export function saveMax(lotId, cents) {
+  const key = `m${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
+  update((s) => {
+    const prev = s.maxes[lotId] && s.maxes[lotId].status === 'saved' ? { ...s.maxes[lotId], prev: null } : s.maxes[lotId]?.prev ?? null;
+    s.maxes[lotId] = { key, amount: cents, status: 'saving', reason: null, who: { ...s.identity }, prev };
+  });
+  return transmitMax(lotId, key);
+}
+export const retryMax = (lotId) => { setMaxRec(lotId, { status: 'saving', reason: null }); return transmitMax(lotId, state.maxes[lotId].key); };
+
+async function transmitMax(lotId, key) {
+  const cur = () => (state.maxes[lotId]?.key === key ? state.maxes[lotId] : null);
+  if (!state.online) { await wait(700); return cur() && setMaxRec(lotId, { status: 'failed', reason: 'offline' }); }
+  await wait(1100);
+  const m = cur(); if (!m) return;
+  if (state.server.closed) return setMaxRec(lotId, { status: 'failed', reason: 'closed' });
+  state.server.maxes[lotId] = { key, amount: m.amount, who: m.who };
+  return setMaxRec(lotId, { status: 'saved', prev: null, confirmedAt: timeLabel(nowMin()) });
+}
+export async function checkMax(lotId) {
+  if (!state.online) return { offline: true };
+  await wait(800);
+  const m = state.maxes[lotId]; if (!m) return {};
+  if (state.server.maxes[lotId]?.key === m.key) { setMaxRec(lotId, { status: 'saved', prev: null, confirmedAt: timeLabel(nowMin()) }); return { landed: true }; }
+  setMaxRec(lotId, { status: 'failed', reason: 'lost' });
+  return { landed: false };
+}
+/** Drop a failed attempt: any earlier saved maximum is still what the server holds. */
+export function discardMax(lotId) { update((s) => { const m = s.maxes[lotId]; if (m?.prev) s.maxes[lotId] = m.prev; else delete s.maxes[lotId]; }); }
+export function removeMax(lotId) {
+  if (!state.online) return { offline: true };
+  update((s) => { delete s.maxes[lotId]; delete s.server.maxes[lotId]; });
+  return { removed: true };
+}
+
 // ---- simulation controls (prototype-only) --------------------------------------------------
 export function rivalBids(lotId) {
   const lot = lotById(lotId), t = serverTop(lotId);
@@ -190,7 +253,7 @@ export function signOut() { update((s) => { s.identity = null; }); }
 export function seedDemo() {
   reset();
   const who = { business: event.business, person: event.participant };
-  state.identity = { ...who, phone: '•••• 0142' };
+  state.identity = { ...who, phone: '•••• 0142', memberId: 'DEMO-0142' };
   serverPlace('cabin', who, 35000);                       // leading
   serverPlace('dinner', who, 47500);                      // outbid below
   serverPlace('dinner', rivals[0], 50000);
@@ -198,5 +261,8 @@ export function seedDemo() {
   state.outbox.push({ key: 'seed-fail', lotId: 'ceramics', amount: 12500, status: 'failed', reason: 'offline', who });
   state.outbox.push({ key: 'seed-unc', lotId: 'bicycle', amount: 30000, status: 'unconfirmed', reason: null, who });
   state.lastViewed = 'dinner';
+  state.watch = { coffee: true, symphony: true };
+  state.maxes.cabin = { key: 'seed-max', amount: 50000, status: 'saved', reason: null, who: { ...who }, prev: null, confirmedAt: timeLabel(nowMin()) };
+  state.server.maxes.cabin = { key: 'seed-max', amount: 50000, who: { ...who } };
   commit();
 }

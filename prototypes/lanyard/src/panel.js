@@ -17,6 +17,9 @@ const QUESTIONS = [
   ['Am I leading?', 'Seed the demo bidder, then compare cards, lot pages, and My bids.'],
   ['Can I return to exactly where I was?', 'Scroll Lots, open a lot, press Back. Also: switch tabs, then reload.'],
   ['Is it the same interaction everywhere?', 'Bid from a card’s lot, from My bids, and from a failed ticket: the same sheet each time.'],
+  ['Does a Member ID let me act for a business?', 'No. Forget identity, bid, and try leaving Business empty with a Member ID filled in.'],
+  ['Is watching separate from bidding?', 'Bookmark a lot on a card or lot page. It appears in Watching and never in My bids.'],
+  ['Is the maximum honest about being a simulation?', 'Open a lot, Set a maximum, and read the confirmation. Go offline and save: it says not saved.'],
 ];
 
 export function panelHtml(route) {
@@ -33,9 +36,11 @@ export function panelHtml(route) {
       <li><button data-p="go" data-to="/lot/cabin">3 · Open a lot</button></li>
       <li><button data-p="bid-cabin">4 · Bid (asks who you are first)</button></li>
       <li><button data-p="go" data-to="/bids">5 · Standing in My bids</button></li>
-      <li><button data-p="go" data-to="/event">6 · How bidding works</button></li>
+      <li><button data-p="go" data-to="/event">6 · Event, sponsors, settings</button></li>
+      <li><button data-p="go" data-to="/watching">7 · Watching (separate from My bids)</button></li>
+      <li><button data-p="max-cabin">8 · Private maximum (simulation)</button></li>
     </ol>
-    <div class="p-row"><button data-p="seed">Seed a demo bidder (leading, outbid, not placed, unconfirmed)</button></div>
+    <div class="p-row"><button data-p="seed">Seed a demo bidder (leading, outbid, not placed, unconfirmed, two watched lots, one saved maximum)</button></div>
     <div class="p-row"><button data-p="signout">Forget identity (try the first-bid ask again)</button><button data-p="reset" class="danger">Reset everything</button></div>
   </section>
 
@@ -46,10 +51,11 @@ export function panelHtml(route) {
       <button data-p="online" aria-pressed="${state.online}">${icon(state.online ? 'check' : 'wifiOff', 'sm')} Connection: ${state.online ? 'online' : 'OFFLINE'}</button>
       <button data-p="close-event" aria-pressed="${closed}">${closed ? 'Reopen bidding' : 'Close bidding now'}</button>
     </div>
+    <p class="p-fine">The outcome picker above only affects bids. Saving a private maximum follows the connection switch: offline it is not saved; online it is saved after about a second.</p>
     <p class="p-fine">While offline the app keeps showing the last standings it heard (${esc(state.snap.asOf)}). Rival bids made now stay hidden until it reconnects.</p>
   </section>
 
-  <section><h3>Display</h3><label class="p-check"><input type="checkbox" data-p="assume-toggle" ${state.sim.assumptions ? 'checked' : ''}> Show assumption markers (A1–A12)</label></section>
+  <section><h3>Display</h3><label class="p-check"><input type="checkbox" data-p="assume-toggle" ${state.sim.assumptions ? 'checked' : ''}> Show assumption markers (A1–A23)</label></section>
 
   <section><h3>Where to look</h3><ul class="p-q">${QUESTIONS.map(([q, a]) => `<li><b>${q}</b><span>${a}</span></li>`).join('')}</ul></section>
 
