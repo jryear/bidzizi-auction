@@ -1,0 +1,12 @@
+{"name":"before-Next-implicit-now-and-constructor","pass":true}
+{"name":"before-Next-callable-Date","pass":false,"error":"Class constructor EvidenceDate cannot be invoked without 'new'"}
+{"name":"before-Next-native-own-statics","pass":false,"error":"The expression evaluated to a falsy value:\n\n  assert.ok(Object.hasOwn(Date,'UTC')&&Object.hasOwn(Date,'parse'))\n"}
+{"name":"after-actual-Next-own-properties","pass":false,"error":"Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n-   'UTC',\n    'length',\n    'name',\n    'now',\n-   'parse',\n    'prototype'\n  ]\n"}
+{"name":"after-actual-Next-UTC","pass":false,"error":"Date.UTC is not a function"}
+{"name":"after-actual-Next-parse","pass":false,"error":"Date.parse is not a function"}
+{"name":"after-actual-Next-callable-Date","pass":false,"error":"Class constructor EvidenceDate cannot be invoked without 'new'"}
+{"name":"after-actual-Next-implicit-now-and-constructor","pass":true}
+{"name":"after-actual-Next-explicit-constructor","pass":true}
+{"name":"after-actual-Next-subclass-and-prototype","pass":true}
+{"name":"actual-pg-timestamptz-parser-after-Next","pass":false,"error":"Date.UTC is not a function"}
+{"failures":7,"exit":1}

@@ -1,0 +1,108 @@
+# PROPOSED003 only. Concrete evidence is authored, not yet frozen or candidate-validated.
+spec_version = 1
+id = "staging-manual-bid-003"
+project = "bidzizi"
+goal = "Server-enrolled synthetic bidders with distinct person, business, current catalog VIEW and event BID authority can confirm a manual bid on an open immutable selected lot through A, recover its durable actor-owned receipt, and observe authoritative competing/outbid standing."
+bypass_policy = "fail"
+
+[scope]
+include = ["src/*", "public/*", "migrations/*", "scripts/*", "docs/*", "README.md", "AGENTS.md", "package.json", "next-env.d.ts", "tests/implementation/*"]
+exclude = ["*.env*", "pnpm-lock.yaml", "vercel.json", ".vercel/*", ".claims/*"]
+protected = ["prototypes/*", "src/lib/database.ts", "src/server/config.ts", "src/server/db.ts", "tasks/staging-staff-drafts-001.toml", "tasks/staging-preview-database-boundary-001a.toml", "tasks/staging-catalog-002.toml", "tests/acceptance/*", "migrations/001_staging_staff.sql", "migrations/002_staging_catalog.sql"]
+test_files = ["*test*", "*spec*", "*__tests__*"]
+
+[worktree]
+link = ["node_modules"]
+
+[[checks]]
+name = "Manual durable business bid, complete SQL receipts/retry and real A two-browser outbid"
+kind = "acceptance"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-manual-bid/run.mjs acceptance"
+evidence = ["tests/acceptance/staging-manual-bid/*"]
+timeout = 600
+
+[[checks]]
+name = "Current VIEW/BID authority, queued post-lock DB close, atomic storage and interrupted browser recovery"
+kind = "adversarial"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-manual-bid/run.mjs adversarial"
+evidence = ["tests/acceptance/staging-manual-bid/*"]
+timeout = 900
+
+[[checks]]
+name = "Cumulative002 / Immutable saved approval, explicit staff recovery, A viewer and real DB-clock transition"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-catalog/run.mjs acceptance"
+evidence = ["tests/acceptance/staging-catalog/*", "CUMULATIVE_BINDING.json"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative002 / Scoped viewer and operator authority, selected readiness, UTC boundaries, split transaction and app-clock challenges"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-catalog/run.mjs adversarial"
+evidence = ["tests/acceptance/staging-catalog/*", "CUMULATIVE_BINDING.json"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative002 / Cumulative original v1 acceptance"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts-v1/run.mjs acceptance"
+evidence = ["tests/acceptance/staff-drafts-v1/*", "tests/acceptance/staff-drafts/seed.sql"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative002 / Cumulative original v1 empty-event adversarial cases"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts-v1/run.mjs adversarial"
+evidence = ["tests/acceptance/staff-drafts-v1/*", "tests/acceptance/staff-drafts/seed.sql"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative002 / Cumulative unchanged v2 staff acceptance"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts/run.mjs acceptance"
+evidence = ["tests/acceptance/staff-drafts/*"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative002 / Cumulative unchanged v2 populated-lot adversarial cases"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts/run.mjs adversarial"
+evidence = ["tests/acceptance/staff-drafts/*"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative002 / Cumulative v2 controlled response race, stored text and restart"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts/context-race.mjs"
+evidence = ["tests/acceptance/staff-drafts/*"]
+timeout = 180
+
+[[checks]]
+name = "Cumulative002 / Cumulative001a dedicated Preview selector"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-preview-database-boundary/run.mjs selector"
+evidence = ["tests/acceptance/staging-preview-database-boundary/*"]
+timeout = 180
+
+[[checks]]
+name = "Cumulative002 / Cumulative001a real adapter target and verified TLS"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-preview-database-boundary/run.mjs adapter"
+evidence = ["tests/acceptance/staging-preview-database-boundary/*"]
+timeout = 240
+
+[[checks]]
+name = "Cumulative002 / Existing admin prototype model"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node prototypes/admin-studio/evidence/model-check.mjs"
+timeout = 120
+
+[[checks]]
+name = "Cumulative002 / TypeScript"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node node_modules/typescript/bin/tsc --noEmit --incremental false"
+timeout = 180
+
+[notes]
+context = "PROPOSED bounded synthetic staging-usd-manual-v1 only: USD integer cents, increment2500, cap1000000000; first minimum immutable approved opening then current+2500; arbitrary integer >=minimum, no grid. If next minimum exceeds cap return minimumAmountMinor=null/canBid=false and stable AMOUNT_LIMIT. Direct valid leading-business self-raise returns stable UNSUPPORTED_SELF_RAISE preserving bid/standing, a testversion limitation rather than live prohibition. Current catalog002 VIEW and003 BID are separate necessary checks on POST, standing, receipt and replay; neither creates the other. Person/session, business-person can_bid, business/network active and event BID records are server-held. Typed Member ID grants nothing. Actor/requestUUID binds event/lot/business/amount/ruleset. Accepted and authorized terminal-rejection receipts durable/immutable, all reads/replays recheck authority. Fixed ruleset requires immutableevent.increment2500; otherapprovedincrements return sealedUNSUPPORTED_RULESET/no receipt. Authorization/expiry rechecked withclock_timestampafterwaits. Per-lot lock precedes clock_timestamp() decision time; acceptance is decidedAt while open, not HTTP start or COMMIT wall time. Bid/receipt/standing atomic; interrupted transport remains unconfirmed. All28 concrete groups must finish. Unique disposable PG18 roles/DB, source copy/Next process and Chromium only, no inherited runtime .env. Transparent clock v3 replaces defective c221; both failed versions and raw evidence are additive. Corrected002trusted base7eef3e7 and all additive failure evidence are pinned cumulatively; full002baseline pending parent. Syntax/binding inspection is not GREEN; parent and independent redteam review pending before003freeze."
+out_of_scope = "Real SMS/member verification/admission, live currency/increments/limits/close rules, real self-raise policy, auto-bid/private maxima, donations/payments/settlement, production/provider effects, pushes/deployments, organization onboarding. No003trusted base or supported completion claim exists yet."

@@ -1,0 +1,11 @@
+{
+  "exit": 1,
+  "actual_control": "Serialized browser initializer must preserve exact native own property names",
+  "failure": "Without explicit callback strictness SkewDate acquired own caller/arguments properties",
+  "product_changes": false,
+  "files_sha256": {
+    "browser-Date-controls.failed.log": "a60b6d04e08c25c9b70d380d4e0a4688cd717cd196161aa58c2e55e044cb0a74",
+    "browser.mjs": "d23473bec9dd5872e291e6b9f4fc27be9718da1f27248a2a36bc463fd34c8532",
+    "preparation-browser-date-checks.cjs": "fa146ddb9f2ae9bbe416c6aec1c8051e0db6d4d1a3f82fdea9d82ed8db06394b"
+  }
+}

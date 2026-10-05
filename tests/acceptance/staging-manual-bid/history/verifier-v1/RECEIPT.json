@@ -1,0 +1,19 @@
+{
+  "source_probes_sha256": "e6ac9667c260a4a0e172abdfac0282bf367ee5c74cc024ea8a2100e09bea57a5",
+  "source_run_sha256": "097ef93c6026dafd216d35dc7afa7cb51465a7899df9ad83e590b914ced55f75",
+  "original_list_exit": 0,
+  "original_counts": {
+    "acceptance": 7,
+    "adversarial": 21
+  },
+  "mutant": "All28unique groups/functions retained; modes overwritten to unknownvalue in disposablecopy only",
+  "mutant_argv": [
+    "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+    "run.mjs",
+    "acceptance"
+  ],
+  "mutant_exit": 0,
+  "mutant_elapsed": 0.153,
+  "mutant_output": "0 independent acceptance cases passed.\n",
+  "app_or_db_runs": 0
+}

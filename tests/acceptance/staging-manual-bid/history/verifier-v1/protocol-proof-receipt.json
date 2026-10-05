@@ -1,0 +1,10 @@
+{
+  "hashes": {
+    "manual003-mode-probe/protocol.mjs": "5399e9497f6d1aec98de1a31a4d7fc1b317a9b7b65b9cc5ba6f463adf82ac101",
+    "manual003-current-protocol.mjs": "9348d3f6303f60be5e2f572f32eef8ed79e434ccbc8c9da63cf7f9e88ecc8642"
+  },
+  "original_counterexamples_accepted": 3,
+  "revised_counterexamples_rejected": 3,
+  "revised_honest_controls_accepted": 2,
+  "application_or_db_processes": 0
+}

@@ -1,0 +1,67 @@
+{
+  "archive_base": "2ea7f80e7e576cc0ae2e573528163b2bc7729155",
+  "cases": [
+    {
+      "name": "primitives-c221",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "--require",
+        "/tmp/task-root/catalog002-clock-correction-v3/tests/acceptance/staging-catalog/history/clock-probe-v2/app-clock-skew.cjs",
+        "/tmp/task-root/catalog002-clock-correction-v3/date-primitives-proof.cjs"
+      ],
+      "exit": 1,
+      "elapsed": 0.084,
+      "log": "/tmp/task-root/catalog002-clock-correction-v3/primitives-c221.log",
+      "log_sha256": "b98341b87e01b23e4402f110b419ab42f00bcb5bef1352a599edc3d2deac7d73"
+    },
+    {
+      "name": "primitives-v3",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "--require",
+        "/tmp/task-root/catalog002-clock-correction-v3/tests/acceptance/staging-catalog/app-clock-skew.cjs",
+        "/tmp/task-root/catalog002-clock-correction-v3/date-primitives-proof.cjs"
+      ],
+      "exit": 0,
+      "elapsed": 0.049,
+      "log": "/tmp/task-root/catalog002-clock-correction-v3/primitives-v3.log",
+      "log_sha256": "a241c2de73deb30c5da526e3491da84bea26ebc3c9cc22d958d58a820b62c8a5"
+    },
+    {
+      "name": "next-pg-c221",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "/tmp/task-root/catalog002-clock-correction-v3/next-pg-proof.mjs",
+        "/tmp/task-root/catalog002-clock-correction-v3/tests/acceptance/staging-catalog/history/clock-probe-v2/app-clock-skew.cjs"
+      ],
+      "exit": 1,
+      "elapsed": 8.241,
+      "log": "/tmp/task-root/catalog002-clock-correction-v3/next-pg-c221.log",
+      "log_sha256": "4b91a89e98072899e3f7ad93d6b765b84e0aa9bbe2324520e9f56ede59c65879"
+    },
+    {
+      "name": "next-pg-v3",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "/tmp/task-root/catalog002-clock-correction-v3/next-pg-proof.mjs",
+        "/tmp/task-root/catalog002-clock-correction-v3/tests/acceptance/staging-catalog/app-clock-skew.cjs"
+      ],
+      "exit": 0,
+      "elapsed": 8.514,
+      "log": "/tmp/task-root/catalog002-clock-correction-v3/next-pg-v3.log",
+      "log_sha256": "084e695e380a1a6f58f6ef2e6a29cb125d13bf6dbf293aeedfb0b73e651c21df"
+    },
+    {
+      "name": "stream-v3",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "/tmp/task-root/catalog002-clock-correction-v3/stream-proof.mjs",
+        "/tmp/task-root/catalog002-clock-correction-v3/tests/acceptance/staging-catalog/app-clock-skew.cjs"
+      ],
+      "exit": 0,
+      "elapsed": 0.128,
+      "log": "/tmp/task-root/catalog002-clock-correction-v3/stream-v3.log",
+      "log_sha256": "9984cb4e35c2a37ff20cb127d9625a7c40a60c25b1fce8b26fafec61586d5010"
+    }
+  ]
+}

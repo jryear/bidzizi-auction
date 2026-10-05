@@ -1,0 +1,11 @@
+{
+  "scope": "Pre-freeze evidence ownership correction only. No app/server/provider/DB/browser product execution.",
+  "reason": "Original X14 places own bid outside browser, then assumes personal owned history absent from context/standing DTOs.",
+  "original_source_sha256": "10e2438aa460a5d9391c2ab75aa45ad31b6d8a07a009bb72544604175c919cad",
+  "corrected_source_sha256": "824d4c28a9de7d8c168276f3d399b232405a4b4eb52ebecf31bcfc4df811f8c8",
+  "prior_preparation_receipt_sha256": "fd4bf64d911e2bb81a0a9bd1490b26471c78c61621f85fceae9fcbd3f888d159",
+  "prior_independent_receipt_sha256": "f048360edb0b85b2b67ea590d7ed5cfe45bd6784fc280d1f4c66c9b136c8fb60",
+  "correction_diff_sha256": "f903e022c69e098991670d90e981efa72a5ffe5ff1372e0ff98c527d2e2a3016",
+  "original_actual_product_failure": null,
+  "original_reasoning_finding": "Concrete test setup defect identified read-only; no full product run occurred."
+}

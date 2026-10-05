@@ -1,0 +1,55 @@
+{
+  "base": "20a3930142324e57ae58be7a232f8dfa676245fd",
+  "cases": [
+    {
+      "name": "node-original",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "/tmp/task-root/catalog002-clock-correction/stream-proof.mjs",
+        "/tmp/task-root/catalog002-clock-correction/tests/acceptance/staging-catalog/history/clock-probe-v1/app-clock-skew.cjs"
+      ],
+      "exit": 1,
+      "elapsed": 0.137,
+      "log": "/tmp/task-root/catalog002-clock-correction/node-original.log",
+      "log_sha256": "09561b38dca3be6a7d922edb0365378c3c2cd640aba71d1f2a49d9dfa3f62555"
+    },
+    {
+      "name": "node-corrected",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "/tmp/task-root/catalog002-clock-correction/stream-proof.mjs",
+        "/tmp/task-root/catalog002-clock-correction/tests/acceptance/staging-catalog/app-clock-skew.cjs"
+      ],
+      "exit": 0,
+      "elapsed": 0.14,
+      "log": "/tmp/task-root/catalog002-clock-correction/node-corrected.log",
+      "log_sha256": "eb08890bdf19bd2b4ae329c9ac9e00dc61f27a1c47149030eaa828f1b97bd269"
+    },
+    {
+      "name": "next-original",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "/tmp/task-root/catalog002-clock-correction/next-proof.mjs",
+        "/tmp/task-root/catalog002-clock-correction/tests/acceptance/staging-catalog/history/clock-probe-v1/app-clock-skew.cjs",
+        "/tmp/task-root/catalog002-clock-correction/next-base20a"
+      ],
+      "exit": 1,
+      "elapsed": 7.209,
+      "log": "/tmp/task-root/catalog002-clock-correction/next-original.log",
+      "log_sha256": "3e211716f88414404919506a2d0cfd79c3d2865c8cea88a8778e938ffddde102"
+    },
+    {
+      "name": "next-corrected",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "/tmp/task-root/catalog002-clock-correction/next-proof.mjs",
+        "/tmp/task-root/catalog002-clock-correction/tests/acceptance/staging-catalog/app-clock-skew.cjs",
+        "/tmp/task-root/catalog002-clock-correction/next-base20a"
+      ],
+      "exit": 0,
+      "elapsed": 7.238,
+      "log": "/tmp/task-root/catalog002-clock-correction/next-corrected.log",
+      "log_sha256": "cfd9bb38dc34f49f22d86b9532dfad3feee5fdd752d9463fe140f6ef1a5476dc"
+    }
+  ]
+}

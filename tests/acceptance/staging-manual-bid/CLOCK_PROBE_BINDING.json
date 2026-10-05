@@ -1,0 +1,16 @@
+{
+  "status": "Transparent Date v3 bytes match final corrected002 trusted base; full002 baseline and003driver/candidate evidence pending.",
+  "original_frozen_base": "20a3930142324e57ae58be7a232f8dfa676245fd",
+  "original_sha256": "9ced895c9071ee0588f06503a68541d333a2dee526c7d975a423f13ebccc010d",
+  "corrected_source": "/tmp/task-root/catalog002-clock-correction/tests/acceptance/staging-catalog/app-clock-skew.cjs",
+  "corrected_sha256": "c221351b8ef42e708c0cfcb0d794ef18efd25b4ab74541dac786ccc98e9ed5e5",
+  "defect": "Original instrumented end only when headers not sent; streamed Next writeHead could commit headers before the proof marker.",
+  "history": "Original source is preserved additively. Root reports original five-group development run incomplete and original exit/duration not retained; no completion claim.",
+  "required_before_freeze": "Review003 contract/evidence and run finite feature-absence baseline plus weak-candidate challenges; no003candidate verdict exists.",
+  "corrected_frozen_base": "edcfa47b114d033706ab61e715f4eb0dd6db4c2d",
+  "second_defect": "Root observed actual catalog503/TypeErrorDate after skew restart despite session200 and expected31536000000ms workerheader. Header proves reach, not semantic compatibility.",
+  "replacement_sha256": "08aaf2090133693cf3683edc3fd560e74fc3be4d49cfed67e073860b32117704",
+  "replacement_source": "/tmp/task-root/catalog002-clock-correction-v3/tests/acceptance/staging-catalog/app-clock-skew.cjs",
+  "replacement_trusted_base": "7eef3e74688604fdf1a9ffaf0fc7899d0a45290d",
+  "author_reproduction_receipt": "history/clock-probe-v2/REPRODUCTION_RECEIPT.json"
+}

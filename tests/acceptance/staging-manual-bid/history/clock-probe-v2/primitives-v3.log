@@ -1,0 +1,12 @@
+{"name":"before-Next-implicit-now-and-constructor","pass":true}
+{"name":"before-Next-callable-Date","pass":true}
+{"name":"before-Next-native-own-statics","pass":true}
+{"name":"after-actual-Next-own-properties","pass":true}
+{"name":"after-actual-Next-UTC","pass":true}
+{"name":"after-actual-Next-parse","pass":true}
+{"name":"after-actual-Next-callable-Date","pass":true}
+{"name":"after-actual-Next-implicit-now-and-constructor","pass":true}
+{"name":"after-actual-Next-explicit-constructor","pass":true}
+{"name":"after-actual-Next-subclass-and-prototype","pass":true}
+{"name":"actual-pg-timestamptz-parser-after-Next","pass":true}
+{"failures":0,"exit":0}

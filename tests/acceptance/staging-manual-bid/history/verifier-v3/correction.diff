@@ -1,0 +1,90 @@
+--- prior/bound-probes.mjs
++++ revised/bound-probes.mjs
+@@ -343,10 +343,23 @@
+   });
+  }),
+  caseOf('BID-X14','offline snapshot is timestamped stale and reload recovers DB truth','adversarial',async f=>{
+-  const j=await login(f,'bidder-juniper'),h=await login(f,'bidder-harbor'),first=intent(f);
+-  await assertDurable(f,j,first,await post(f,j,first));
+-  await withBrowser(f,async({signed})=>{
+-   const ui=await signed(),beforeRead=await f.dbNow();await openLot(ui,f);
++  const h=await login(f,'bidder-harbor');
++  await withBrowser(f,async({signed})=>{
++   const ui=await signed();await openLot(ui,f);let first;
++   await ui.page.route('**'+paths(f).bid,async route=>{
++    assert.equal(route.request().method(),'POST');first=route.request().postDataJSON();await route.continue();
++   });
++   const acceptedHTTP=ui.page.waitForResponse(r=>r.url().endsWith(paths(f).bid)&&r.request().method()==='POST');
++   const dialog=await review(ui,OPENING);await confirm(dialog);
++   const accepted=await httpPacket(await bounded(acceptedHTTP,'Offline-case actual A bid response'));
++   await expect(dialog).toHaveAttribute('data-bid-state','accepted');
++   await expect(dialog.locator('[data-owned-request="'+first.requestId+'"]')).toBeVisible();
++   const j={person:{id:f.fixtures.personJuniper},cookie:await browserCookie(ui)};
++   const ownReceipt=await assertDurable(f,j,first,accepted);
++   await ui.page.unroute('**'+paths(f).bid);
++   await dialog.getByRole('button',{name:'Keep browsing',exact:true}).click();
++   await ui.frame.locator('a[href="#/lots"]').first().click();
++   const beforeRead=await f.dbNow();await openLot(ui,f);
+    await expect(ui.frame.locator('.standing')).toContainText(/leading/i);
+    const stamp=await ui.frame.locator('[data-standing-as-of]').getAttribute('data-standing-as-of');
+    assert.ok(Number.isFinite(Date.parse(stamp))&&Date.parse(stamp)>=beforeRead.getTime()-1&&Date.parse(stamp)<=(await f.dbNow()).getTime(),
+@@ -361,9 +374,17 @@
+    await expect(asOf).toHaveAttribute('data-standing-as-of',stamp);
+    await expect(ui.frame.locator('[data-action="bid"]').first()).toBeDisabled();
+    assert.equal(captured.bz_manual_bids.length,1);
++   const afterCompeting=await rows(f);
++   const recoveredHTTP=ui.page.waitForResponse(r=>r.url().endsWith(paths(f).receipt(first.requestId))&&r.request().method()==='GET');
+    await ui.context.setOffline(false);await ui.page.reload({waitUntil:'domcontentloaded'});await openLot(ui,f);
++   const recovered=await httpPacket(await bounded(recoveredHTTP,'Reload must recover the browser-owned durable operation'));
++   assert.equal(recovered.status,200);noStore(recovered);noSecrets(recovered);
++   assert.deepEqual(Object.keys(recovered.data),['receipt']);assert.deepEqual(recovered.data.receipt,ownReceipt);
+    await expect(ui.frame.locator('.standing')).toContainText(/outbid/i);
+    await assertStandingSQL(f,await standing(f,j),12751,f.fixtures.businessHarbor,2,2);
++   await immutableReceipt(f,j,first,ownReceipt);
++   assert.deepEqual(await rows(f),afterCompeting,'Reload/receipt lookup cannot bid again or mutate durable standing.');
++   assert.deepEqual(ui.errors,[]);
+   });
+  }),
+  caseOf('BID-X15-rest','Origin JSON size malformed UUID and cap validation','adversarial',async f=>{
+--- prior/CONTRACT.md
++++ revised/CONTRACT.md
+@@ -151,8 +151,13 @@
+ accepted merely because HTTP resolved. A shared business lead cannot fabricate a
+ coworker's individual accepted request. Captured old authorized context/receipt
+ cannot repopulate the new person after logout/sign-in. Offline standing keeps its
+-confirmed DB-bracketed as-of timestamp, stale label and disabled sending; refresh
+-recovers current SQL standing. No simulated rival/max/donation/payment writes.
++confirmed DB-bracketed as-of timestamp, stale label and disabled sending. After an
++actual A-confirmed own bid, reload recovers the browser-retained operation UUID
++through the existing currently authorized receipt GET and pairs that immutable
++receipt with fresh SQL standing before identifying outbid. Retained keys/intent
++are recovery pointers, never cached acceptance. An empty browser has no fabricated
++individual bid history. No history endpoint or simulated rival/max/donation/payment
++writes are introduced.
+ 
+ ## Evidence and freeze
+ 
+--- prior/ASSERTIONS.md
++++ revised/ASSERTIONS.md
+@@ -31,7 +31,7 @@
+ | BID-X10 | Actual app-only365day preload marker plus compatible Date/PG proof; receipt decision DB-bracketed. Browser Date±day preserves genuine open controls; forged request times cannot open preopen/closed lots. Closed cannot send; preopen A cannot disclose lots. Standing serverNow independently DB-bracketed and phase agrees with immutable SQL window | bound-probes.mjs clock, protocol.mjs standing |
+ | BID-X12 | Abort before delivery => unconfirmed and no SQL; no-receipt Check status then Try again retains exact original UUID/payload and commits once. Received HTTP503 on another lot also stays unconfirmed with full rollback | bound-probes.mjs interrupted transport |
+ | BID-X13 | Capture genuinely authorized old-person receipt/context before logout, hold across second-person sign-in, deliver actual200; current actor identity and controls remain current; no old accepted ownership or person text, SQL unchanged | bound-probes.mjs context races |
+-| BID-X14 | Actual confirmed standing has DB-bracketed visible as-of timestamp; offline keeps that exact stamp/stale label and disabled sending while rival commits independently; reconnect/reload shows authoritative outbid/count2 | bound-probes.mjs offline |
++| BID-X14 | Actual A review/confirm receives201; captured actor/UUID agrees with durable SQL and visible ownership. Confirmed standing has DB-bracketed as-of; offline keeps its stamp/stale label and disabled sending while rival commits. Reload GETs that exact owned receipt, verifies complete immutable receipt, then shows authoritative outbid/count2 with no further writes | bound-probes.mjs offline |
+ | BID-X15-rest | Origin/content-type/JSON/size/UUID/cap malformed requests sealed errors and no changes. Cap1000000000 and exact cap-increment edge/one-cent-over edge prove null versus available next minimum. Approved event increment5000 cannot silently become2500: sealed UNSUPPORTED_RULESET/no writes/context disabled | bound-probes.mjs boundary validation |
+ | BID-X16 | Reuse accepted session under flag-off/production/custom Preview/unsafe origin/unsafe DB settings; all protected transports/context deny without rows changing; restore local gating and fresh session retrieves original immutable receipt | bound-probes.mjs mode guards |
+ | BID-X17 | Restart only the own app process; old and fresh sessions read identical immutable catalog, receipt and bid plus current standing; full privileged SQL unchanged and no fixture reset | bound-probes.mjs restart |
+--- prior/README.md
++++ revised/README.md
+@@ -47,3 +47,10 @@
+ 
+ Real admission/identity/SMS, money/close/self-raise rules, auto-bid, donations,
+ payments, production, onboarding and deployment remain outside this test slice.
++
++The X14 browser-ownership correction is preserved in history/verifier-v3 with
++prior source, preparation/independent receipts and an explicit diff. The original
++X14 submitted its own bid outside the browser and incorrectly required personal
++outbid history after empty browser login. Revised X14 places the first bid through
++actual A and observes reload recovery of its durable actor-owned UUID. This is a
++pre-freeze evidence correction; no original product execution outcome is invented.

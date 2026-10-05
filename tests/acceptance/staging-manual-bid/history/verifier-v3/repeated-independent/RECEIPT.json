@@ -1,0 +1,120 @@
+{
+  "scope": "Eight repeated pure independent counterexample probes after X14 pre-freeze correction; not product execution.",
+  "status": "PURE_PROBE_OUTCOMES_ONLY_NOT_CANDIDATE_VERDICT",
+  "checks": [
+    {
+      "name": "case-list",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "/tmp/task-root/staging-manual-bid003/run.mjs",
+        "list"
+      ],
+      "cwd": "/tmp/task-root/staging-manual-bid003",
+      "exit": 0,
+      "expected": 0,
+      "seconds": 0.164,
+      "log": "history/verifier-v3/repeated-independent/case-list.log",
+      "log_sha256": "3eaaa8c6cc05f53a562c80fca1add61ea3994289e06f01fb4c84b5793ceaa8b9"
+    },
+    {
+      "name": "invalid-mode",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "/tmp/task-root/staging-manual-bid003/run.mjs",
+        "unknown"
+      ],
+      "cwd": "/tmp/task-root/staging-manual-bid003",
+      "exit": 99,
+      "expected": 99,
+      "seconds": 0.022,
+      "log": "history/verifier-v3/repeated-independent/invalid-mode.log",
+      "log_sha256": "9f727f81251412a9e737bfe06e664e59673e6ad33d82600e4bc129d679a79f7a"
+    },
+    {
+      "name": "sealed-DTO-time-replay",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "/tmp/task-root/staging-manual-bid003/preparation-protocol-checks.mjs"
+      ],
+      "cwd": "/tmp/task-root/staging-manual-bid003",
+      "exit": 0,
+      "expected": 0,
+      "seconds": 0.038,
+      "log": "history/verifier-v3/repeated-independent/sealed-DTO-time-replay.log",
+      "log_sha256": "d2b2c29f3595b287aaf115309984d0dff398da5009ec39b664355dd9daf3a939"
+    },
+    {
+      "name": "exact-browser-Date-initializer",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "/tmp/task-root/staging-manual-bid003/preparation-browser-date-checks.cjs"
+      ],
+      "cwd": "/tmp/task-root/staging-manual-bid003",
+      "exit": 0,
+      "expected": 0,
+      "seconds": 0.023,
+      "log": "history/verifier-v3/repeated-independent/exact-browser-Date-initializer.log",
+      "log_sha256": "af5e20014e2bddfbe30977424e09d6efca9f050d3112fd207f09c1e99dd84f31"
+    },
+    {
+      "name": "actual-Next-Date-PG-parser",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "--require",
+        "/tmp/task-root/staging-manual-bid003/app-clock-skew.cjs",
+        "/tmp/task-root/staging-manual-bid003/preparation-next-date-primitives.cjs"
+      ],
+      "cwd": "/tmp/task-root/staging-manual-bid003",
+      "exit": 0,
+      "expected": 0,
+      "seconds": 0.038,
+      "log": "history/verifier-v3/repeated-independent/actual-Next-Date-PG-parser.log",
+      "log_sha256": "a241c2de73deb30c5da526e3491da84bea26ebc3c9cc22d958d58a820b62c8a5"
+    },
+    {
+      "name": "unknown-modes",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "/tmp/task-root/staging-manual-bid003/history/verifier-v3/repeated-independent/independent-zos80sf_/run.mjs",
+        "acceptance"
+      ],
+      "cwd": "/tmp/task-root/staging-manual-bid003/history/verifier-v3/repeated-independent/independent-zos80sf_",
+      "exit": 99,
+      "expected": 99,
+      "seconds": 0.158,
+      "log": "history/verifier-v3/repeated-independent/unknown-modes.log",
+      "log_sha256": "12076ecdb2c90d90eb182628be7819da0f6b83587de855fcbfd22818dbe50d8b"
+    },
+    {
+      "name": "acceptance-too-short",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "/tmp/task-root/staging-manual-bid003/history/verifier-v3/repeated-independent/independent-fw6spwad/run.mjs",
+        "acceptance"
+      ],
+      "cwd": "/tmp/task-root/staging-manual-bid003/history/verifier-v3/repeated-independent/independent-fw6spwad",
+      "exit": 99,
+      "expected": 99,
+      "seconds": 0.161,
+      "log": "history/verifier-v3/repeated-independent/acceptance-too-short.log",
+      "log_sha256": "12076ecdb2c90d90eb182628be7819da0f6b83587de855fcbfd22818dbe50d8b"
+    },
+    {
+      "name": "missing-driver",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "/tmp/task-root/staging-manual-bid003/history/verifier-v3/repeated-independent/independent-gcokxsmv/run.mjs",
+        "acceptance"
+      ],
+      "cwd": "/tmp/task-root/staging-manual-bid003/history/verifier-v3/repeated-independent/independent-gcokxsmv",
+      "exit": 99,
+      "expected": 99,
+      "seconds": 0.022,
+      "log": "history/verifier-v3/repeated-independent/missing-driver.log",
+      "log_sha256": "d7da3ff91f2f2a809ba622374aad77ebeca1a32e1206efee81ff6e28d4b10341"
+    }
+  ],
+  "source_sha256": "824d4c28a9de7d8c168276f3d399b232405a4b4eb52ebecf31bcfc4df811f8c8",
+  "preparation_receipt_sha256": "f89380b9aa4b5d4c5ed722d41701d9846ba21275b3ed9df4545c39d7fb1b5565",
+  "full_product_or_provider_execution": false
+}

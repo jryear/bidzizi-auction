@@ -1,0 +1,25 @@
+{
+  "stage": "read-only003proposalredteam",
+  "hashes_at_review": {
+    "run.mjs": "097ef93c6026dafd216d35dc7afa7cb51465a7899df9ad83e590b914ced55f75",
+    "protocol.mjs": "9348d3f6303f60be5e2f572f32eef8ed79e434ccbc8c9da63cf7f9e88ecc8642",
+    "fixtures.mjs": "2f5566ff9735c3ee9f7114056734174f3390541060206373fda0df7370224a91",
+    "harness.mjs": "c8765ca8a8574e76e04ba8afed0d520d0bcc914eb1c987d88f3f14a56baf309f",
+    "probes.mjs": "95c62076f5ef81491dabf8e7c0944cd90ce3f237f3402a0de7ecf9d7def2cc43",
+    "bound-probes.mjs": "ef37d9d5432cf3604a753adcb6dd1806daa0ac413b09d37fa36aebf581d570db",
+    "driver.mjs": "17d23d6c772a296c886dac7be6703e8f854e0d47548244a629106c16d304a235",
+    "browser.mjs": "55177176cc1faa16826bd923721f0bb0a835bdde5c7651595ab141e159a86d9b"
+  },
+  "findings": [
+    "run mode mutant retains28uniqueIDs/functions but selects0cases and exits0; pin requiredmodes/executedcounts",
+    "denied helper allows privileged nesteddebug and successfulstanding helper allows privateactor/unbracketedserverNow; sealDTOs andDBtime bracket",
+    "actor-owned UUID global-vs-scoped and concurrentidentical retry are not challenged",
+    "cap-INCREMENT and cap-INCREMENT+1 numericboundary notchallenged",
+    "accepted receipt replay afterrealclose notchallenged",
+    "approved fixture numbers numeric1/3 vs catalog002 preservedstring01/03",
+    "nearclock SECONDprecision DBreleasefixture must be labeled separately fromcatalog002savedHHMMconversion",
+    "ownedclone setupIO beforetry can be rawexit1 insteadinfra99"
+  ],
+  "application_or_provider_changes": false,
+  "status": "Findings/probes delivered to author/root, no modelpassvote and no fullmanualcandidateexecution"
+}

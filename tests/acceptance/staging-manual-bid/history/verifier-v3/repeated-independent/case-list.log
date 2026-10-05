@@ -1,0 +1,229 @@
+[
+  {
+    "id": "BID-A01",
+    "name": "context",
+    "mode": "acceptance",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-A02",
+    "name": "durable-first",
+    "mode": "acceptance",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-A03/A05",
+    "name": "competing-higher",
+    "mode": "acceptance",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-A04/X07",
+    "name": "retry-and-conflict",
+    "mode": "acceptance",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-A06",
+    "name": "same-business-people",
+    "mode": "acceptance",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-X01",
+    "name": "admission-denials",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-X02",
+    "name": "typed-claims",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-X03",
+    "name": "tenant-and-receipt",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-X04",
+    "name": "revocation",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-X05",
+    "name": "equal-race",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-X06",
+    "name": "stale-and-terminal-retry",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-X08-before",
+    "name": "window-denials",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "before",
+      "transitionOpen": true
+    }
+  },
+  {
+    "id": "BID-X08-closed",
+    "name": "window-denials",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "closed",
+      "transitionOpen": false
+    }
+  },
+  {
+    "id": "BID-X11",
+    "name": "atomic-failure",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-X15",
+    "name": "validation",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-A07/A08",
+    "name": "A review, pending confirmation and independent two-browser outbid",
+    "mode": "acceptance",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-A09",
+    "name": "lost acknowledgement recovers original UUID and one durable bid",
+    "mode": "acceptance",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-X04-rest",
+    "name": "network admission business person and session revocation",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-X07-rest",
+    "name": "changed authorized event lot business and ruleset under one key",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-X08-unselected",
+    "name": "unselected draft and cross-event lot cannot become public or bid",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-X09",
+    "name": "actual lot-lock wait crosses immutable DB close boundary",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open",
+      "queuedClose": true
+    }
+  },
+  {
+    "id": "BID-X10",
+    "name": "browser clock and forged timestamps do not authorize open or closed bids",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-X12",
+    "name": "aborted request preserves intent without fabricated acceptance",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-X13",
+    "name": "previously authorized context and receipt cannot repopulate another actor",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-X14",
+    "name": "offline snapshot is timestamped stale and reload recovers DB truth",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-X15-rest",
+    "name": "Origin JSON size malformed UUID and cap validation",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-X16",
+    "name": "flag production custom origin and unsafe local DB deny prior sessions",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open"
+    }
+  },
+  {
+    "id": "BID-X17",
+    "name": "full immutable release receipt bid and standing survive process restart",
+    "mode": "adversarial",
+    "scenario": {
+      "phase": "open"
+    }
+  }
+]

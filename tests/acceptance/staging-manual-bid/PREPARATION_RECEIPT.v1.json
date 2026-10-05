@@ -1,0 +1,47 @@
+{
+  "status": "PROPOSAL_NOT_FROZEN",
+  "files": {
+    "ASSERTIONS.md": "47e92ddb9ec9b3fe3f41b3ea0b69040ec3a227b2622a7c15ae8a4a1775c1ea4a",
+    "CONTRACT.md": "17a53667fb56a222555f14670378007f5d166a7f751bb954d06f34a4a303b923",
+    "README.md": "dfc97149a35d2e6e9aa1f89d0f2e3c5eb301337060818899585d7f3006811a99",
+    "driver.mjs": "c4b68ade19e7c9d1b8e28eb6223450a53306d366038e3028979dc586abfa3301",
+    "probes.mjs": "3f7724f2bed7413e88facc6daacaee51fbc149ed168a79f1240d74e8b71ae59d",
+    "run.mjs": "82966695e3cc799f2039d01f9244ff1ab0480d1c02caab6f55fe9c4d4b1a422b",
+    "staging-manual-bid-003.toml": "d596be3912dffe4ae76d9b42848f01bb4c8968d4580f39474320c2e9316fb028"
+  },
+  "checks": [
+    {
+      "file": "driver.mjs",
+      "syntax_exit": 0
+    },
+    {
+      "file": "probes.mjs",
+      "syntax_exit": 0
+    },
+    {
+      "file": "run.mjs",
+      "syntax_exit": 0
+    },
+    {
+      "file": "staging-manual-bid-003.toml",
+      "toml_parse": "ok",
+      "checks_declared": 5
+    },
+    {
+      "draft_runner": "acceptance",
+      "exit": 99,
+      "expected_exit": 99,
+      "message": "HARNESS: Draft bid003 driver is not bound to reviewed catalog002 schema, independent disposable SQL fixtures, and protected browser evidence.",
+      "stdout": ""
+    },
+    {
+      "draft_runner": "adversarial",
+      "exit": 99,
+      "expected_exit": 99,
+      "message": "HARNESS: Draft bid003 driver is not bound to reviewed catalog002 schema, independent disposable SQL fixtures, and protected browser evidence.",
+      "stdout": ""
+    }
+  ],
+  "app_or_provider_operations": false,
+  "remaining": "Bind reviewed002 schema/fixtures and every pending browser/boundary probe; review fixture choices/overflow and immutable request scope; freeze only after independent author/red-team review and trusted-base evidence."
+}
