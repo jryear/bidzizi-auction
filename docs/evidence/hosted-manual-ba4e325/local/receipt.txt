@@ -1,0 +1,15 @@
+SUPPORTED  staging-manual-bid-003  (30 files changed)
+  [accep] base:fail -> candidate:pass  Manual durable business bid, complete SQL receipts/retry and real A two-browser outbid
+  [adver] base:fail -> candidate:pass  Current VIEW/BID authority, queued post-lock DB close, atomic storage and interrupted browser recovery
+  [regre] base:pass -> candidate:pass  Cumulative002 / Immutable saved approval, explicit staff recovery, A viewer and real DB-clock transition
+  [regre] base:pass -> candidate:pass  Cumulative002 / Scoped viewer and operator authority, selected readiness, UTC boundaries, split transaction and app-clock challenges
+  [regre] base:pass -> candidate:pass  Cumulative002 / Cumulative original v1 acceptance
+  [regre] base:pass -> candidate:pass  Cumulative002 / Cumulative original v1 empty-event adversarial cases
+  [regre] base:pass -> candidate:pass  Cumulative002 / Cumulative unchanged v2 staff acceptance
+  [regre] base:pass -> candidate:pass  Cumulative002 / Cumulative unchanged v2 populated-lot adversarial cases
+  [regre] base:pass -> candidate:pass  Cumulative002 / Cumulative v2 controlled response race, stored text and restart
+  [regre] base:pass -> candidate:pass  Cumulative002 / Cumulative001a dedicated Preview selector
+  [regre] base:pass -> candidate:pass  Cumulative002 / Cumulative001a real adapter target and verified TLS
+  [regre] base:pass -> candidate:pass  Cumulative002 / Existing admin prototype model
+  [regre] base:pass -> candidate:pass  Cumulative002 / TypeScript
+  logged -> /Users/jryear/Documents/Codex/2026-10-02/task-3/gates/003-clean-ba4e-kernel.jsonl

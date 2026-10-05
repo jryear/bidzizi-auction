@@ -1,0 +1,93 @@
+{
+  "sourceCommit": "961c987880fde553196199be6b81ded3ec216c72",
+  "effect": "Remove inherited default/table privileges and apply narrow direct permissions on approved isolateddatabase",
+  "rawExit": 0,
+  "all17TableDataDigestsUnchanged": true,
+  "snapshots": {
+    "bz_orgs": {
+      "rows": 2,
+      "sha256": "2a4f3e47f5cc6558d511f8557e94f084089666d923f198aa5fc8ee01e6023163"
+    },
+    "bz_people": {
+      "rows": 10,
+      "sha256": "6045018d7ac3e7849b4d1cebac461ea6c9516ebdff3d08523b34f670efcfcdc3"
+    },
+    "bz_staff_grants": {
+      "rows": 2,
+      "sha256": "9b05dcb4b58ce5b2e2053e594abc70a490b48ce41e3a3a7cd7c6c7097717da24"
+    },
+    "bz_sessions": {
+      "rows": 14,
+      "sha256": "434f40e32914adfdecf86e178bdd6ae61de0c7ed7ea254dbf3fcc9d7cab1811a"
+    },
+    "bz_events": {
+      "rows": 6,
+      "sha256": "22e05403499f24f57b6de0795d5dd3a59721907dc42ed5f98968b3ca35c27aa3"
+    },
+    "bz_lots": {
+      "rows": 19,
+      "sha256": "90b252215aa94843fefbc45a71a2cbb1807ea6071b70c38d9d0a3cdcc72175e2"
+    },
+    "bz_requests": {
+      "rows": 16,
+      "sha256": "631c76657337f36566f188822c384a96313f75e72b64b0ff1467f04ddbd4661a"
+    },
+    "bz_event_view_grants": {
+      "rows": 2,
+      "sha256": "cc990f01b6e1a2a2bf20eda1b47e6bedfba5cab3689faae1a83564e2dde641e2"
+    },
+    "bz_catalog_approvals": {
+      "rows": 2,
+      "sha256": "f71e6ae3f0f21fea20b159a9142c50fcb4bdeba6425aefa72a2d9790b99aedd0"
+    },
+    "bz_catalog_lots": {
+      "rows": 4,
+      "sha256": "acb1143f44f21995b8d472da8c1d7ddf50ceaced0b2a19b516f14afe19c9f70f"
+    },
+    "bz_businesses": {
+      "rows": 3,
+      "sha256": "31586968d210d1b4bbf32f019809bc126042297da4da0e7bcd2e3b4c1fd5c985"
+    },
+    "bz_business_person_memberships": {
+      "rows": 7,
+      "sha256": "31a056ddc700914c637e54dd67e17fea859b8908a5accc0d1ff311a69a1fb76b"
+    },
+    "bz_org_business_memberships": {
+      "rows": 3,
+      "sha256": "ad0d6823ddbda92b4a9275238620c428f3e72c3a120a8b6f43880faa983794f7"
+    },
+    "bz_event_bidder_admissions": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "bz_lot_standing": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "bz_manual_bids": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "bz_bid_receipts": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  },
+  "operatorOutput": {
+    "target": "br-autumn-surf-arrxv906",
+    "migration": "003_staging_manual_bid.sql",
+    "syntheticMissingRowsInserted": {
+      "organizations": 0,
+      "people": 0,
+      "businesses": 0,
+      "memberships": 0,
+      "networks": 0,
+      "staffGrants": 0
+    },
+    "existingRowsReplaced": false,
+    "eventAdmissionsCreated": false,
+    "bidsCreated": false,
+    "runtimeAuthorityFields": "read-only"
+  },
+  "credentialsPrinted": false
+}

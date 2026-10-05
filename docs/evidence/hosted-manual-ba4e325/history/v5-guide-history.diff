@@ -1,0 +1,46 @@
+--- v4-guide
++++ v5-guide
+@@ -1,7 +1,8 @@
+ # Hosted manual-bid003 evidence
+ 
+-Prepared external evidence; it has not been run against a provider. Syntax and
+-preparation checks are separate from application, kernel or hosted results.
++Prepared external evidence; actual runs are retained in the receipt directories
++and described below. The current complete release result is still pending. Syntax
++and preparation checks are separate from application, kernel or hosted results.
+ The release owner executes this only after clean local003/cumulative verification,
+ approved isolated migration/runtime grants and an exact READY protected Preview.
+ 
+@@ -100,7 +101,9 @@
+    Independent empty browser sees current standing without fabricated owned history.
+ 8. Actual201 commits before acknowledgement drops; unconfirmed UI. Check status
+    GETs original UUID and restores exact receipt with no bid/standing mutation.
+-9. Abort-before/noSQL/no receipt; Check status404; Try again keeps identical intent.
++9. Abort-before/noSQL stays unconfirmed. Original-UUID Check status404 shows
++   “Bid not recorded” with enabled Try again and no green/owned success; SQL remains
++   unchanged. Try again keeps identical intent.
+    Juniper coworker commits independently; stale reviewed Juniper request receives
+    actual durable SELF_RAISE409 and remains visibly rejected, with no green result.
+ 10. Other actor's receipt, typed identity/role/member claims, other business and
+@@ -173,3 +176,21 @@
+ capabilities may be true; no extra grants/role edits occur. All14 hosted groups and
+ scoped writes remain intact. The incorrect unexecuted v3 and receipts are preserved
+ with an explicit role-only diff; pure role controls cover allowed and denied cases.
++
++
++Preparation v5 preserves actual hosted failures `2d799952` (default privileges,
++before any event creation) and `2506c6c8` (8 completed groups, then an external
++assertion mismatch). The latter runner incorrectly required `unconfirmed` after
++an authorized original-UUID receipt404. Frozen BID-X12 requires visible absence
++and same-intent Try again at that point; actual A exposes `rejected` plus “Bid not
++recorded”. The replacement external helper checks that observable state, explicit
++absence text, enabled retry, no green result and no owned request. The transport
++abort assertion remains strict `unconfirmed`; all14 groups and SQL assertions
++remain, with an added no-mutation comparison and `phone-not-recorded` capture.
++
++The original `phone-outbid` capture remains. An additional
++`phone-outbid-standing` capture scrolls the actual standing into view at the same
++SQL/owned-receipt checkpoint. Recovery and visual changes have separate retained
++diffs in `evidence/remote-manual-bid-runner-history/`. The v4 source and failed
++receipt/screenshot hashes remain additive history. No v5 hosted pass is claimed by
++these preparation controls; the release owner must rerun every group.

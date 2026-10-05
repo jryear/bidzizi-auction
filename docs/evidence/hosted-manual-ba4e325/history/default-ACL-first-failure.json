@@ -1,0 +1,76 @@
+{
+  "at": "2026-10-05T08:19:53.640Z",
+  "runnerVersion": "v4-role-boundary",
+  "commit": "f152f633ea49050efa203167f1545a089a8f3dcb",
+  "origin": "https://bidzizi-clean-staging-2l8k0zvf9-saturn-ea53.vercel.app",
+  "deployment": {
+    "id": "dpl_EbFeg8mRbW8EkqRKQGqWHJaxiD4f",
+    "state": "READY",
+    "target": null,
+    "meta": {
+      "githubCommitSha": "f152f633ea49050efa203167f1545a089a8f3dcb",
+      "githubCommitRef": "staging-e2e",
+      "githubOrg": "jryear",
+      "githubRepo": "bidzizi-auction"
+    }
+  },
+  "runId": "2d799952",
+  "syntheticOnly": true,
+  "checks": [
+    {
+      "invariant": "Exact READY Preview metadata, clean local Git tree and deployed A scripts bind the supplied source; generated Preview remains protected.",
+      "passed": true
+    }
+  ],
+  "verdict": "failed",
+  "executionLimitSeconds": 480,
+  "limitations": [
+    "Release owner obtains and validates exact READY provider metadata and dedicated approved runtime before stdin execution.",
+    "Fixed synthetic globals are read only. This runner inserts only its unique event VIEW/BID grants; no production/member/SMS/payment data.",
+    "Hosted app process clock skew, received real503 rollback, global authority revocation and process restart remain the independently frozen local003 checks.",
+    "This is synthetic USD/increment2500/cap1000000000 evidence, not live auction policy."
+  ],
+  "runnerSHA256": "857ff585abdf14e82817ba2f08eeddd18810711e3a20f122b96779f8357824ec",
+  "sourceTree": "ddd329d46fe1a47da66b3440075f35c3471658cc",
+  "protocolHashes": {
+    "migrations/001_staging_staff.sql": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a",
+    "migrations/002_staging_catalog.sql": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3",
+    "migrations/003_staging_manual_bid.sql": "e8e985e67aa5f47df7cd9f9baf56c19fb30915fa99662b3a4e469a9a98e36cf8",
+    "src/app/api/bidder/events/[eventId]/context/route.ts": "39d7cacf9065dbc2e783c0b7fdbc91d35a0800c3a8f560bce7cc96dde1abbd44",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/bid-receipts/[requestId]/route.ts": "c549573051ab78ab7ece0193fee2821a271220e889f11aad445c4e3a749f20df",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/bids/route.ts": "b666d43dbd97801f99734e5708865d41091e1a010eb9b5b0ee5564dbe91a39c7",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/standing/route.ts": "f688759f11445f734610905d90be6dc2ae0b569ea1534863d03e924b66a045a4",
+    "src/server/auth.ts": "7f6151c248366902cc0a000af59301135a1c0eeb118983b00ead9cef7b44dd9e",
+    "src/server/catalog.ts": "21cb5aa6d1454057792a97eddd668004a90bdb5b9e03569d8b3d806dd57059fe",
+    "src/server/config.ts": "ace65fff9519b55182616914ecb5a0cc9e644d76bde2037808ab2adc687085fe",
+    "src/server/db.ts": "c79b7447abedfb3d7e5c4a46f6dac2554eedc16ed64639f7d94be5ad0d83994e",
+    "src/server/draft.ts": "981feead0cff19acd9fe9697c71852ecc7205ee5558beeebaa09aceaf3c1fcbb",
+    "src/server/http.ts": "134c97f03b4be7dd7bbbbe10a7bc6c40cd38a16f802305c0126df603a4c81359",
+    "src/server/manual-bids.ts": "e9f1087098a344226200fa63cabdff9dcf09b1acd678c8f839db6023babe3b98",
+    "src/server/staff.ts": "7b3a6ac608c3fb88af41946bb82cac294373770b98d3de65fc89606f375cd849",
+    "tasks/staging-manual-bid-003.toml": "94c52b35597376d3988614ce0d2df9379098d9faf6b9b7912d599d16d46e6b6e",
+    "tests/acceptance/staging-manual-bid/protocol.mjs": "8ec41e55a65ccbea2a60c64bc3e6f97ee164cdadd7cc7901e9cbe34456d07a3b"
+  },
+  "staticHashes": {
+    "public/staging-catalog/app.js": "9656dd1efe0df5ada65fa6ed6158c4b2a674b264e1da2d3a8e6762b52c283782",
+    "public/staging-catalog/bidding.js": "026754e2b729b39d3c6b70af72069b057257c3282c9e3c4e2429fb224e4c5f0c",
+    "public/staging-catalog/data.js": "9277415a391117036d4794e4b7956fd1e364d956f7f10c4b9d942ff031697a63",
+    "public/staging-catalog/store.js": "be9f6441a24ab4da30b8a9a6ac5b8b90f27fff3c1f5818a517dcb915e991bc82",
+    "public/staging-catalog/ui.js": "ba798dd174ecd6f521513b74c954046854c7923d10233ce2a81bd32ade8910c4",
+    "public/staging-catalog/views.js": "df1043b9380e5ce8ce047e79aa4e8e4dfd9060df662d577e141e21ba5e21d305"
+  },
+  "operatorCapabilities": {
+    "rolsuper": false,
+    "rolcreatedb": true,
+    "rolcreaterole": true,
+    "rolreplication": true,
+    "rolbypassrls": true,
+    "rolinherit": true
+  },
+  "failedDuring": "readonly global synthetic preflight",
+  "failureType": "AssertionError",
+  "failureMessage": "Missing expected rejection.",
+  "infrastructureFailure": false,
+  "elapsedSeconds": 4,
+  "completedGroups": 1
+}

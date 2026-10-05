@@ -1,0 +1,46 @@
+{
+  "at": "2026-10-05T09:25:00.576Z",
+  "verdict": "passed",
+  "sourceCommit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+  "deployment": {
+    "id": "dpl_94PKQenH3zvdAwB32PPTxJc6QDmf",
+    "state": "READY",
+    "target": null,
+    "meta": {
+      "githubCommitSha": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "githubCommitRef": "staging-e2e",
+      "githubOrg": "jryear",
+      "githubRepo": "bidzizi-auction"
+    }
+  },
+  "origin": "https://bidzizi-clean-staging-ovcmw8h7k-saturn-ea53.vercel.app",
+  "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+  "approvalId": "5e6568ed-61e7-43d0-9765-2bae78d49a36",
+  "actorId": "20000000-0000-4000-8000-000000000003",
+  "requestId": "99f2aa24-0c93-419b-a9ca-0481f3c26c89",
+  "lotId": "4c62ec27-3354-4d22-a79d-9c5726d15227",
+  "phase": "closed",
+  "file": "additional-outbid-standing.png",
+  "sha256": "d120e3766c7898c19a3a53fc3924b58b6934effd934185db761a557958dddeb1",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "standingBounds": {
+    "x": 18,
+    "y": 387.265625,
+    "width": 354,
+    "height": 216.9375
+  },
+  "controlsBounds": {
+    "x": 0,
+    "y": 665,
+    "width": 390,
+    "height": 107
+  },
+  "browserErrors": [],
+  "bidsBefore": 8,
+  "bidsAfter": 8,
+  "runnerSHA256": "e990a5e351278c7ebabb63c9086f779f835e86c6e2c0ad4bad3a69a64a39e8e7",
+  "scope": "Read-only additional capture after full14 pass. Restores only a known synthetic operation intent from its existing immutable bid to request the same actor-owned server receipt; no acceptance/history is injected and no bid is submitted. Explicit center scroll keeps the full actual standing above controls."
+}

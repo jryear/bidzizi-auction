@@ -1,0 +1,90 @@
+{
+  "at": "2026-10-05T09:27:22.793Z",
+  "verdict": "passed",
+  "sourceCommit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+  "origin": "https://bidzizi-clean-staging-ovcmw8h7k-saturn-ea53.vercel.app",
+  "deployment": {
+    "id": "dpl_94PKQenH3zvdAwB32PPTxJc6QDmf",
+    "state": "READY",
+    "target": null,
+    "meta": {
+      "githubCommitSha": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "githubCommitRef": "staging-e2e",
+      "githubOrg": "jryear",
+      "githubRepo": "bidzizi-auction"
+    }
+  },
+  "eventId": "9280a1f9-27df-438c-893b-7d6069d46a59",
+  "approvalId": "f55e8acd-3783-4caa-bf60-4064fa686452",
+  "observedDatabaseTime": "2026-10-05T09:27:22.530Z",
+  "phase": "open",
+  "initialBids": 0,
+  "finalBids": 0,
+  "browserErrors": [],
+  "screenshotAnimations": "disabled (finite animations advance to their actual end)",
+  "staffScriptSHA256": "438270354e6c0bd47132d810c44893cf7e52956020eea8b2bc371d7ac516ba82",
+  "screenshots": [
+    {
+      "file": "desktop-event.png",
+      "sha256": "be757292f01a22542b01454f7aeb7555432aaa7163d53d8d23ced5b8695e9c91",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "sourceCommit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "origin": "https://bidzizi-clean-staging-ovcmw8h7k-saturn-ea53.vercel.app"
+    },
+    {
+      "file": "desktop-lots.png",
+      "sha256": "1a9d01e28ff93f574b7191613f692358a2a234f3c294640b81f49ee0b18cba76",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "sourceCommit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "origin": "https://bidzizi-clean-staging-ovcmw8h7k-saturn-ea53.vercel.app"
+    },
+    {
+      "file": "phone-welcome.png",
+      "sha256": "d4ca58c9d1ba4f3e1f3363c50bff9ea445ec2ea91e6b6e6f468a6b2669801f9e",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sourceCommit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "origin": "https://bidzizi-clean-staging-ovcmw8h7k-saturn-ea53.vercel.app"
+    },
+    {
+      "file": "phone-catalog.png",
+      "sha256": "d270b8fd80632939eeb15fe553b1b77dcd1a8492bf71f3670924c318c50fa331",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sourceCommit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "origin": "https://bidzizi-clean-staging-ovcmw8h7k-saturn-ea53.vercel.app"
+    },
+    {
+      "file": "phone-detail.png",
+      "sha256": "866de757f166932fe5c98cd76b1e301afab48c400d74a1a9ee2d8ac366a540a5",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sourceCommit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "origin": "https://bidzizi-clean-staging-ovcmw8h7k-saturn-ea53.vercel.app"
+    },
+    {
+      "file": "phone-review.png",
+      "sha256": "4299d90de40684d97b085a3017f77112007af12d845cc74ca80e87a290915047",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sourceCommit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "origin": "https://bidzizi-clean-staging-ovcmw8h7k-saturn-ea53.vercel.app"
+    }
+  ],
+  "runnerSHA256": "97ef8b41afd048df1f9563412a16d3ce10bdf0c0133fc98e82dca76a0e7cf7b6",
+  "scope": "Actual deployed desktop staff and 390px bidder surfaces; read/review only, synthetic sessions revoked. Actual staff A welcome/catalog/lot navigation and loaded local images verified. No bid submitted and no physical-device claim."
+}

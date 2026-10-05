@@ -1,0 +1,263 @@
+{
+  "at": "2026-10-05T08:46:57.373Z",
+  "runnerVersion": "v4-role-boundary",
+  "commit": "961c987880fde553196199be6b81ded3ec216c72",
+  "origin": "https://bidzizi-clean-staging-n3pqty4xh-saturn-ea53.vercel.app",
+  "deployment": {
+    "id": "dpl_3PX1djwGwC33Q9XCHLWDkzVr4d1B",
+    "state": "READY",
+    "target": null,
+    "meta": {
+      "githubCommitSha": "961c987880fde553196199be6b81ded3ec216c72",
+      "githubCommitRef": "staging-e2e",
+      "githubOrg": "jryear",
+      "githubRepo": "bidzizi-auction"
+    }
+  },
+  "runId": "2506c6c8",
+  "syntheticOnly": true,
+  "checks": [
+    {
+      "invariant": "Exact READY Preview metadata, clean local Git tree and deployed A scripts bind the supplied source; generated Preview remains protected.",
+      "passed": true
+    },
+    {
+      "invariant": "Verified-TLS runtime/operator roles are separate; exact fixed test people/business/network memberships exist and runtime cannot modify authority or immutable history.",
+      "passed": true
+    },
+    {
+      "invariant": "Staff APIs create/save/approve one unique event and selected01+03 with a real shared minute window; only operator adds scoped VIEW/BID fixtures, leaving all globals unchanged.",
+      "passed": true
+    },
+    {
+      "invariant": "Catalog stays hidden before SQL opening; early bid has stable durable NOT_OPEN receipt. Staff-only/member-only/VIEW-only/BID-without-VIEW/unlisted/other-tenant actors cannot bid/read/recover and no target rows change.",
+      "passed": true
+    },
+    {
+      "invariant": "Actual retained390px A windows open on real SQL time; context is person/business specific, supported manual minimum is10000, auto-bid stays unavailable and original NOT_OPEN retry remains immutable.",
+      "passed": true
+    },
+    {
+      "invariant": "Actual A review writes nothing, held POST remains visibly pending without success, then201/ownedUUID and complete SQL bid/receipt/standing agree before acceptance.",
+      "passed": true
+    },
+    {
+      "invariant": "A offline snapshot retains its DB-bracketed timestamp/disabled send while actual second-user A bid12751 commits; original browser reload GETs its owned receipt and shows authoritative outbid/count2. Empty browser shares standing without fabricated individual ownership.",
+      "passed": true
+    },
+    {
+      "invariant": "After actual201 commits but transport acknowledgement is dropped, A remains unconfirmed; Check status GETs the originalUUID and restores exact durable acceptance without a second bid or standing mutation.",
+      "passed": true
+    }
+  ],
+  "verdict": "failed",
+  "executionLimitSeconds": 480,
+  "limitations": [
+    "Release owner obtains and validates exact READY provider metadata and dedicated approved runtime before stdin execution.",
+    "Fixed synthetic globals are read only. This runner inserts only its unique event VIEW/BID grants; no production/member/SMS/payment data.",
+    "Hosted app process clock skew, received real503 rollback, global authority revocation and process restart remain the independently frozen local003 checks.",
+    "This is synthetic USD/increment2500/cap1000000000 evidence, not live auction policy."
+  ],
+  "runnerSHA256": "857ff585abdf14e82817ba2f08eeddd18810711e3a20f122b96779f8357824ec",
+  "sourceTree": "5e6c268bcbfb7ed0f4be12a7cb0e16847e47d424",
+  "protocolHashes": {
+    "migrations/001_staging_staff.sql": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a",
+    "migrations/002_staging_catalog.sql": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3",
+    "migrations/003_staging_manual_bid.sql": "e8e985e67aa5f47df7cd9f9baf56c19fb30915fa99662b3a4e469a9a98e36cf8",
+    "src/app/api/bidder/events/[eventId]/context/route.ts": "39d7cacf9065dbc2e783c0b7fdbc91d35a0800c3a8f560bce7cc96dde1abbd44",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/bid-receipts/[requestId]/route.ts": "c549573051ab78ab7ece0193fee2821a271220e889f11aad445c4e3a749f20df",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/bids/route.ts": "b666d43dbd97801f99734e5708865d41091e1a010eb9b5b0ee5564dbe91a39c7",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/standing/route.ts": "f688759f11445f734610905d90be6dc2ae0b569ea1534863d03e924b66a045a4",
+    "src/server/auth.ts": "7f6151c248366902cc0a000af59301135a1c0eeb118983b00ead9cef7b44dd9e",
+    "src/server/catalog.ts": "21cb5aa6d1454057792a97eddd668004a90bdb5b9e03569d8b3d806dd57059fe",
+    "src/server/config.ts": "ace65fff9519b55182616914ecb5a0cc9e644d76bde2037808ab2adc687085fe",
+    "src/server/db.ts": "c79b7447abedfb3d7e5c4a46f6dac2554eedc16ed64639f7d94be5ad0d83994e",
+    "src/server/draft.ts": "981feead0cff19acd9fe9697c71852ecc7205ee5558beeebaa09aceaf3c1fcbb",
+    "src/server/http.ts": "134c97f03b4be7dd7bbbbe10a7bc6c40cd38a16f802305c0126df603a4c81359",
+    "src/server/manual-bids.ts": "e9f1087098a344226200fa63cabdff9dcf09b1acd678c8f839db6023babe3b98",
+    "src/server/staff.ts": "7b3a6ac608c3fb88af41946bb82cac294373770b98d3de65fc89606f375cd849",
+    "tasks/staging-manual-bid-003.toml": "94c52b35597376d3988614ce0d2df9379098d9faf6b9b7912d599d16d46e6b6e",
+    "tests/acceptance/staging-manual-bid/protocol.mjs": "8ec41e55a65ccbea2a60c64bc3e6f97ee164cdadd7cc7901e9cbe34456d07a3b"
+  },
+  "staticHashes": {
+    "public/staging-catalog/app.js": "9656dd1efe0df5ada65fa6ed6158c4b2a674b264e1da2d3a8e6762b52c283782",
+    "public/staging-catalog/bidding.js": "026754e2b729b39d3c6b70af72069b057257c3282c9e3c4e2429fb224e4c5f0c",
+    "public/staging-catalog/data.js": "9277415a391117036d4794e4b7956fd1e364d956f7f10c4b9d942ff031697a63",
+    "public/staging-catalog/store.js": "be9f6441a24ab4da30b8a9a6ac5b8b90f27fff3c1f5818a517dcb915e991bc82",
+    "public/staging-catalog/ui.js": "ba798dd174ecd6f521513b74c954046854c7923d10233ce2a81bd32ade8910c4",
+    "public/staging-catalog/views.js": "df1043b9380e5ce8ce047e79aa4e8e4dfd9060df662d577e141e21ba5e21d305"
+  },
+  "operatorCapabilities": {
+    "rolsuper": false,
+    "rolcreatedb": true,
+    "rolcreaterole": true,
+    "rolreplication": true,
+    "rolbypassrls": true,
+    "rolinherit": true
+  },
+  "eventId": "a7d1e79a-35c7-4291-8a85-40abdb158fe8",
+  "approvalId": "eb7fc7d6-21e0-4b18-bd87-735048666a17",
+  "schedule": {
+    "opensAt": "2026-10-05T08:49:00.000Z",
+    "closesAt": "2026-10-05T08:53:00.000Z"
+  },
+  "catalogSnapshotSHA256": "dd12b0a568d29cfe8926d7e4ab09779d18ca486ee06d0506b66085242b65ff4d",
+  "operatorWrites": [
+    {
+      "table": "bz_event_view_grants",
+      "operation": "INSERT",
+      "eventId": "a7d1e79a-35c7-4291-8a85-40abdb158fe8",
+      "people": [
+        "20000000-0000-4000-8000-000000000003",
+        "20000000-0000-4000-8000-000000000004",
+        "20000000-0000-4000-8000-000000000005",
+        "20000000-0000-4000-8000-000000000007"
+      ]
+    },
+    {
+      "table": "bz_event_bidder_admissions",
+      "operation": "INSERT",
+      "eventId": "a7d1e79a-35c7-4291-8a85-40abdb158fe8",
+      "grants": [
+        [
+          "20000000-0000-4000-8000-000000000003",
+          "BID"
+        ],
+        [
+          "20000000-0000-4000-8000-000000000004",
+          "BID"
+        ],
+        [
+          "20000000-0000-4000-8000-000000000005",
+          "BID"
+        ],
+        [
+          "20000000-0000-4000-8000-000000000007",
+          "VIEW"
+        ],
+        [
+          "20000000-0000-4000-8000-000000000010",
+          "BID"
+        ]
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "phone-scheduled.png",
+      "sha256": "67a95b8a843d79604dea46fba95b7ae42112e9f8842e6e23dfaa00ab9ccbd935",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "961c987880fde553196199be6b81ded3ec216c72",
+      "eventId": "a7d1e79a-35c7-4291-8a85-40abdb158fe8",
+      "approvalId": "eb7fc7d6-21e0-4b18-bd87-735048666a17"
+    },
+    {
+      "file": "phone-review.png",
+      "sha256": "188ce6e3780b8028639a60b0c2073ca09f7dd3eb69e0f3d7092530ee20dc1c81",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "961c987880fde553196199be6b81ded3ec216c72",
+      "eventId": "a7d1e79a-35c7-4291-8a85-40abdb158fe8",
+      "approvalId": "eb7fc7d6-21e0-4b18-bd87-735048666a17"
+    },
+    {
+      "file": "phone-pending.png",
+      "sha256": "04652e240e66737c5a7b9eb6997750df3b7efa07638d5e98793511b4eecfc9b1",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "961c987880fde553196199be6b81ded3ec216c72",
+      "eventId": "a7d1e79a-35c7-4291-8a85-40abdb158fe8",
+      "approvalId": "eb7fc7d6-21e0-4b18-bd87-735048666a17"
+    },
+    {
+      "file": "phone-accepted.png",
+      "sha256": "77929d723354e2a25939bad121bb2ec388b23b18ca487d215b0059803d36b1e5",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "961c987880fde553196199be6b81ded3ec216c72",
+      "eventId": "a7d1e79a-35c7-4291-8a85-40abdb158fe8",
+      "approvalId": "eb7fc7d6-21e0-4b18-bd87-735048666a17"
+    },
+    {
+      "file": "phone-offline.png",
+      "sha256": "47f1c826a04cd91d22882dfc38aa197f7a5a4b054f7217cb33657a86e2ecbc19",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "961c987880fde553196199be6b81ded3ec216c72",
+      "eventId": "a7d1e79a-35c7-4291-8a85-40abdb158fe8",
+      "approvalId": "eb7fc7d6-21e0-4b18-bd87-735048666a17"
+    },
+    {
+      "file": "phone-harbor-leading.png",
+      "sha256": "166a793a39f69a702ec401edd48b641280e885895f0b6f5008d4e90ff46414bd",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "961c987880fde553196199be6b81ded3ec216c72",
+      "eventId": "a7d1e79a-35c7-4291-8a85-40abdb158fe8",
+      "approvalId": "eb7fc7d6-21e0-4b18-bd87-735048666a17"
+    },
+    {
+      "file": "phone-outbid.png",
+      "sha256": "2e653fd49ab5968a20ec2f2a440f2c0ea597470364796ca01e0ee8442cb4e462",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "961c987880fde553196199be6b81ded3ec216c72",
+      "eventId": "a7d1e79a-35c7-4291-8a85-40abdb158fe8",
+      "approvalId": "eb7fc7d6-21e0-4b18-bd87-735048666a17"
+    },
+    {
+      "file": "phone-empty-browser-standing.png",
+      "sha256": "c73d63a679cb57745deb600439fc57e7101f6af2a514302e2fe4e7c35ad737fc",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "961c987880fde553196199be6b81ded3ec216c72",
+      "eventId": "a7d1e79a-35c7-4291-8a85-40abdb158fe8",
+      "approvalId": "eb7fc7d6-21e0-4b18-bd87-735048666a17"
+    },
+    {
+      "file": "phone-unconfirmed-committed.png",
+      "sha256": "4f971eaaf53bee6a06920a2931dec88dbecc4603a19c7a14430017aef1d0cdd7",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "961c987880fde553196199be6b81ded3ec216c72",
+      "eventId": "a7d1e79a-35c7-4291-8a85-40abdb158fe8",
+      "approvalId": "eb7fc7d6-21e0-4b18-bd87-735048666a17"
+    },
+    {
+      "file": "phone-recovered.png",
+      "sha256": "8f5003c8f7d5d6ea114300e6dd8a9ba7936e18ae7eb84cbabe711eea8df314e0",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "961c987880fde553196199be6b81ded3ec216c72",
+      "eventId": "a7d1e79a-35c7-4291-8a85-40abdb158fe8",
+      "approvalId": "eb7fc7d6-21e0-4b18-bd87-735048666a17"
+    }
+  ],
+  "failedDuring": "abort-before stable retry and received rejection",
+  "failureType": "Error",
+  "failureMessage": "expect(locator).toHaveAttribute(expected) failed\n\nLocator:  locator('iframe[title=\"BidZizi event\"]').contentFrame().locator('dialog#sheet')\nExpected: \"unconfirmed\"\nReceived: \"rejected\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('iframe[title=\"BidZizi event\"]').contentFrame().locator('dialog#sheet') with timeout 5000ms\n  - waiting for locator('iframe[title=\"BidZizi event\"]').contentFrame().locator('dialog#sheet')\n    14 × locator resolved to <dialog open=\"\" id=\"sheet\" data-bid-state=\"rejected\" aria-labelledby=\"sheet-title\" data-lot=\"18e0b709-adb9-44d3-abf9-be3d3f3bc840\">…</dialog>\n       - unexpected value \"rejected\"\n",
+  "infrastructureFailure": false,
+  "elapsedSeconds": 144,
+  "completedGroups": 8
+}

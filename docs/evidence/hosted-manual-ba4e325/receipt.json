@@ -1,0 +1,362 @@
+{
+  "at": "2026-10-05T09:12:20.781Z",
+  "runnerVersion": "v5-no-receipt-recovery",
+  "commit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+  "origin": "https://bidzizi-clean-staging-ovcmw8h7k-saturn-ea53.vercel.app",
+  "deployment": {
+    "id": "dpl_94PKQenH3zvdAwB32PPTxJc6QDmf",
+    "state": "READY",
+    "target": null,
+    "meta": {
+      "githubCommitSha": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "githubCommitRef": "staging-e2e",
+      "githubOrg": "jryear",
+      "githubRepo": "bidzizi-auction"
+    }
+  },
+  "runId": "b46aaed8",
+  "syntheticOnly": true,
+  "checks": [
+    {
+      "invariant": "Exact READY Preview metadata, clean local Git tree and deployed A scripts bind the supplied source; generated Preview remains protected.",
+      "passed": true
+    },
+    {
+      "invariant": "Verified-TLS runtime/operator roles are separate; exact fixed test people/business/network memberships exist and runtime cannot modify authority or immutable history.",
+      "passed": true
+    },
+    {
+      "invariant": "Staff APIs create/save/approve one unique event and selected01+03 with a real shared minute window; only operator adds scoped VIEW/BID fixtures, leaving all globals unchanged.",
+      "passed": true
+    },
+    {
+      "invariant": "Catalog stays hidden before SQL opening; early bid has stable durable NOT_OPEN receipt. Staff-only/member-only/VIEW-only/BID-without-VIEW/unlisted/other-tenant actors cannot bid/read/recover and no target rows change.",
+      "passed": true
+    },
+    {
+      "invariant": "Actual retained390px A windows open on real SQL time; context is person/business specific, supported manual minimum is10000, auto-bid stays unavailable and original NOT_OPEN retry remains immutable.",
+      "passed": true
+    },
+    {
+      "invariant": "Actual A review writes nothing, held POST remains visibly pending without success, then201/ownedUUID and complete SQL bid/receipt/standing agree before acceptance.",
+      "passed": true
+    },
+    {
+      "invariant": "A offline snapshot retains its DB-bracketed timestamp/disabled send while actual second-user A bid12751 commits; original browser reload GETs its owned receipt and shows authoritative outbid/count2. Empty browser shares standing without fabricated individual ownership.",
+      "passed": true
+    },
+    {
+      "invariant": "After actual201 commits but transport acknowledgement is dropped, A remains unconfirmed; Check status GETs the originalUUID and restores exact durable acceptance without a second bid or standing mutation.",
+      "passed": true
+    },
+    {
+      "invariant": "Abort-before creates no bid/receipt; Check status confirms absence and Try again retains identical original intent. Another same-business person can commit; real terminal409 stays visibly rejected without fabricated owned success.",
+      "passed": true
+    },
+    {
+      "invariant": "Another actor cannot recover owned receipt, business/person/member/header claims cannot grant authority, and unselected/unknown lots remain opaque; all scoped SQL and global authority stay unchanged.",
+      "passed": true
+    },
+    {
+      "invariant": "Two separately admitted businesses race on empty lot03 at the same minimum: one durable acceptance and one stable BELOW_MINIMUM rejection; replay keeps exact outcomes. Concurrent identical actor/UUID then commits one second bid/receipt/version.",
+      "passed": true
+    },
+    {
+      "invariant": "Genuine formerly authorized Harbor receipt and Juniper context responses captured before logout cannot repopulate the newly signed-in person; visible attribution/ownership and scoped SQL remain current.",
+      "passed": true
+    },
+    {
+      "invariant": "Actual hosted bid starts while open, waits on independently observed lot lock and is durably CLOSED at post-lock DB time; retained A automatically closes, sending disables and prior accepted receipt/replay remains immutable.",
+      "passed": true
+    },
+    {
+      "invariant": "All actual phone pages have no script errors, global authority and approved snapshot remain exact, scoped bid outcomes persist, and every own test session is revoked in SQL without changing auction history.",
+      "passed": true
+    }
+  ],
+  "verdict": "passed",
+  "executionLimitSeconds": 480,
+  "limitations": [
+    "Release owner obtains and validates exact READY provider metadata and dedicated approved runtime before stdin execution.",
+    "Fixed synthetic globals are read only. This runner inserts only its unique event VIEW/BID grants; no production/member/SMS/payment data.",
+    "Hosted app process clock skew, received real503 rollback, global authority revocation and process restart remain the independently frozen local003 checks.",
+    "This is synthetic USD/increment2500/cap1000000000 evidence, not live auction policy."
+  ],
+  "runnerSHA256": "9fac3c2302b3721860913f03deb10308a5c8a5b1f6b90c294531bcbc9d2b4b32",
+  "sourceTree": "9bb3d9b5b2e1af84810c5da8a913503b0fa1e396",
+  "protocolHashes": {
+    "migrations/001_staging_staff.sql": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a",
+    "migrations/002_staging_catalog.sql": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3",
+    "migrations/003_staging_manual_bid.sql": "e8e985e67aa5f47df7cd9f9baf56c19fb30915fa99662b3a4e469a9a98e36cf8",
+    "src/app/api/bidder/events/[eventId]/context/route.ts": "39d7cacf9065dbc2e783c0b7fdbc91d35a0800c3a8f560bce7cc96dde1abbd44",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/bid-receipts/[requestId]/route.ts": "c549573051ab78ab7ece0193fee2821a271220e889f11aad445c4e3a749f20df",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/bids/route.ts": "b666d43dbd97801f99734e5708865d41091e1a010eb9b5b0ee5564dbe91a39c7",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/standing/route.ts": "f688759f11445f734610905d90be6dc2ae0b569ea1534863d03e924b66a045a4",
+    "src/server/auth.ts": "7f6151c248366902cc0a000af59301135a1c0eeb118983b00ead9cef7b44dd9e",
+    "src/server/catalog.ts": "21cb5aa6d1454057792a97eddd668004a90bdb5b9e03569d8b3d806dd57059fe",
+    "src/server/config.ts": "ace65fff9519b55182616914ecb5a0cc9e644d76bde2037808ab2adc687085fe",
+    "src/server/db.ts": "c79b7447abedfb3d7e5c4a46f6dac2554eedc16ed64639f7d94be5ad0d83994e",
+    "src/server/draft.ts": "981feead0cff19acd9fe9697c71852ecc7205ee5558beeebaa09aceaf3c1fcbb",
+    "src/server/http.ts": "134c97f03b4be7dd7bbbbe10a7bc6c40cd38a16f802305c0126df603a4c81359",
+    "src/server/manual-bids.ts": "e9f1087098a344226200fa63cabdff9dcf09b1acd678c8f839db6023babe3b98",
+    "src/server/staff.ts": "7b3a6ac608c3fb88af41946bb82cac294373770b98d3de65fc89606f375cd849",
+    "tasks/staging-manual-bid-003.toml": "94c52b35597376d3988614ce0d2df9379098d9faf6b9b7912d599d16d46e6b6e",
+    "tests/acceptance/staging-manual-bid/protocol.mjs": "8ec41e55a65ccbea2a60c64bc3e6f97ee164cdadd7cc7901e9cbe34456d07a3b"
+  },
+  "staticHashes": {
+    "public/staging-catalog/app.js": "9656dd1efe0df5ada65fa6ed6158c4b2a674b264e1da2d3a8e6762b52c283782",
+    "public/staging-catalog/bidding.js": "026754e2b729b39d3c6b70af72069b057257c3282c9e3c4e2429fb224e4c5f0c",
+    "public/staging-catalog/data.js": "9277415a391117036d4794e4b7956fd1e364d956f7f10c4b9d942ff031697a63",
+    "public/staging-catalog/store.js": "be9f6441a24ab4da30b8a9a6ac5b8b90f27fff3c1f5818a517dcb915e991bc82",
+    "public/staging-catalog/ui.js": "ba798dd174ecd6f521513b74c954046854c7923d10233ce2a81bd32ade8910c4",
+    "public/staging-catalog/views.js": "df1043b9380e5ce8ce047e79aa4e8e4dfd9060df662d577e141e21ba5e21d305"
+  },
+  "operatorCapabilities": {
+    "rolsuper": false,
+    "rolcreatedb": true,
+    "rolcreaterole": true,
+    "rolreplication": true,
+    "rolbypassrls": true,
+    "rolinherit": true
+  },
+  "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+  "approvalId": "5e6568ed-61e7-43d0-9765-2bae78d49a36",
+  "schedule": {
+    "opensAt": "2026-10-05T09:14:00.000Z",
+    "closesAt": "2026-10-05T09:18:00.000Z"
+  },
+  "catalogSnapshotSHA256": "1d02958ed13d71fd8852a44250ef11c9084f43249387aafde2eff2854c8fb62a",
+  "operatorWrites": [
+    {
+      "table": "bz_event_view_grants",
+      "operation": "INSERT",
+      "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+      "people": [
+        "20000000-0000-4000-8000-000000000003",
+        "20000000-0000-4000-8000-000000000004",
+        "20000000-0000-4000-8000-000000000005",
+        "20000000-0000-4000-8000-000000000007"
+      ]
+    },
+    {
+      "table": "bz_event_bidder_admissions",
+      "operation": "INSERT",
+      "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+      "grants": [
+        [
+          "20000000-0000-4000-8000-000000000003",
+          "BID"
+        ],
+        [
+          "20000000-0000-4000-8000-000000000004",
+          "BID"
+        ],
+        [
+          "20000000-0000-4000-8000-000000000005",
+          "BID"
+        ],
+        [
+          "20000000-0000-4000-8000-000000000007",
+          "VIEW"
+        ],
+        [
+          "20000000-0000-4000-8000-000000000010",
+          "BID"
+        ]
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "phone-scheduled.png",
+      "sha256": "9c83e1a9172e4ebff21f905c62f321ee73eca3a955be851f9a4b939f19d6040f",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+      "approvalId": "5e6568ed-61e7-43d0-9765-2bae78d49a36"
+    },
+    {
+      "file": "phone-review.png",
+      "sha256": "556fa8f9818197a1bb6ab19e2ddae6cc5aa1cdf83d93617ec610e66055e8719c",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+      "approvalId": "5e6568ed-61e7-43d0-9765-2bae78d49a36"
+    },
+    {
+      "file": "phone-pending.png",
+      "sha256": "01884041e6bc2b9c180e3beb884b23b90e115393fb13f9687fa1f46e879f1a81",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+      "approvalId": "5e6568ed-61e7-43d0-9765-2bae78d49a36"
+    },
+    {
+      "file": "phone-accepted.png",
+      "sha256": "829b3baa8807d917f54cf4eb850f3316be1de2da2f35d5825d3ab6cb967dd48b",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+      "approvalId": "5e6568ed-61e7-43d0-9765-2bae78d49a36"
+    },
+    {
+      "file": "phone-offline.png",
+      "sha256": "f8ce30c94f049769cf2989d88f3cc99e88c96f2cd908016676d22b00ddfb3b9d",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+      "approvalId": "5e6568ed-61e7-43d0-9765-2bae78d49a36"
+    },
+    {
+      "file": "phone-harbor-leading.png",
+      "sha256": "d774658525dab6f031209c3b1632c862efadb2b77af892ceeeee75cda9bbda91",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+      "approvalId": "5e6568ed-61e7-43d0-9765-2bae78d49a36"
+    },
+    {
+      "file": "phone-outbid.png",
+      "sha256": "66b205bcfee28569111d0ed5a7088fde4a306e2d8e643e647bd56338e1a54f99",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+      "approvalId": "5e6568ed-61e7-43d0-9765-2bae78d49a36"
+    },
+    {
+      "file": "phone-outbid-standing.png",
+      "sha256": "a34be1fba15afeb925de6391912090614c2f6b4709beef48b0b41eed8ae3340b",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+      "approvalId": "5e6568ed-61e7-43d0-9765-2bae78d49a36"
+    },
+    {
+      "file": "phone-empty-browser-standing.png",
+      "sha256": "7d229d21451863b4c3be91ee935e3d7bdd1313c8b401024ca22dcec9873ff5bc",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+      "approvalId": "5e6568ed-61e7-43d0-9765-2bae78d49a36"
+    },
+    {
+      "file": "phone-unconfirmed-committed.png",
+      "sha256": "b0e04419d1543f60eb0db56709f17bfad194927f66cd7391ad80ecb1b872d231",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+      "approvalId": "5e6568ed-61e7-43d0-9765-2bae78d49a36"
+    },
+    {
+      "file": "phone-recovered.png",
+      "sha256": "00c360dbc8cdedc285472557e62b5023e34829ebbc4a2c669c4c5fb1c4c6fd2d",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+      "approvalId": "5e6568ed-61e7-43d0-9765-2bae78d49a36"
+    },
+    {
+      "file": "phone-not-recorded.png",
+      "sha256": "be11431a4961935978146716a75be2c7a3059d4b888d28fa1bd4373e591577cc",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+      "approvalId": "5e6568ed-61e7-43d0-9765-2bae78d49a36"
+    },
+    {
+      "file": "phone-rejected.png",
+      "sha256": "df1f242cb1e429bf249c121f69e503b1897730c13be2e812a0ebbbbdc51428ad",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+      "approvalId": "5e6568ed-61e7-43d0-9765-2bae78d49a36"
+    },
+    {
+      "file": "phone-switched-actor.png",
+      "sha256": "7d229d21451863b4c3be91ee935e3d7bdd1313c8b401024ca22dcec9873ff5bc",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+      "approvalId": "5e6568ed-61e7-43d0-9765-2bae78d49a36"
+    },
+    {
+      "file": "phone-closed.png",
+      "sha256": "7ff2481b4507d4b170a405e0c1ffc804be281dcb33e5b706dbb2aecc681cc5bb",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "commit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "eventId": "40edf721-c7a3-4a2b-bc98-9744cf3316c1",
+      "approvalId": "5e6568ed-61e7-43d0-9765-2bae78d49a36"
+    }
+  ],
+  "concurrentRace": {
+    "lotId": "4c62ec27-3354-4d22-a79d-9c5726d15227",
+    "actors": [
+      "20000000-0000-4000-8000-000000000003",
+      "20000000-0000-4000-8000-000000000004"
+    ],
+    "requestIds": [
+      "99f2aa24-0c93-419b-a9ca-0481f3c26c89",
+      "574d5fa8-cf93-4d40-9210-71930d53f03f"
+    ],
+    "statuses": [
+      201,
+      409
+    ],
+    "acceptedBusinessId": "30000000-0000-4000-8000-000000000001",
+    "duplicateRequestId": "0849e93e-5ee2-42f2-931f-66ea5dfc845a"
+  },
+  "closeLock": {
+    "transactionStartedAt": "2026-10-05T09:17:57.586Z",
+    "closesAt": "2026-10-05T09:18:00.000Z",
+    "decidedAt": "2026-10-05T09:18:00.098Z",
+    "requestId": "5ab5926b-3ee8-4556-974e-3eca138da1de"
+  },
+  "finalScopedRowsSHA256": "f7019aa227c40eade8730d407fed20a86aac5fd637601dfa04bc025a98f79da1",
+  "elapsedSeconds": 344,
+  "completedGroups": 14
+}

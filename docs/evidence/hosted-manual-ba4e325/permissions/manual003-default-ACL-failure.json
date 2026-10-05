@@ -1,0 +1,8 @@
+{
+  "sourceCommit": "f152f633ea49050efa203167f1545a089a8f3dcb",
+  "failedHostedRun": "2d799952",
+  "failedReceiptSHA256": "0d7a0bddd8a4cdb7efa2fb76de1bbeae33cda17b4f4394190718657c65f1c690",
+  "actualDefaultACL": "{staging_e2e_app=arwd/staging_e2e_owner}",
+  "scope": "Only new003tables inherited broad UPDATE/DELETE/authority-field privileges. Prior001/002tables remained narrow. Failure occurred before any event or bid creation.",
+  "correction": "Explicit REVOKE on new003tables and owner future defaults in this isolated database, followed by existing narrow direct grants. No behavioral evidence changed."
+}

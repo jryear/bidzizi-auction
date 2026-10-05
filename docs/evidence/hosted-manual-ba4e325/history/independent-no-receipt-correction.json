@@ -1,0 +1,56 @@
+{
+  "kind": "independent-external-runner-no-receipt-correction",
+  "sourceCommit": "961c987880fde553196199be6b81ded3ec216c72",
+  "runnerVersion": "v5-no-receipt-recovery",
+  "runnerSHA256": "9fac3c2302b3721860913f03deb10308a5c8a5b1f6b90c294531bcbc9d2b4b32",
+  "guideSHA256": "f93a9c9e339686db2f088e68962253e88456f01018555f6efd31f6077cf40a21",
+  "launcherUnchangedSHA256": "78875df196b588b253c526d7565dcd74bc153e521013affd6373022d49ddb074",
+  "scope": "Outside-repository additive runner/docs/history and disposable exact-source local PG18/Chromium only. No provider calls, secrets, global shared rows, app or frozen evidence edits.",
+  "reason": "The second external unconfirmed assertion followed current-authority original-UUID GET404. Frozen CONTRACT148-150 and BID-X12 require visible absence plus same-key retry, not continued transport uncertainty. Actual A sets internal not-recorded, exposes rejected dataset, absence text and Try again. Original abort assertion remains unconfirmed.",
+  "proofs": [
+    {
+      "mode": "old",
+      "exitCode": 1,
+      "passedControls": 3,
+      "elapsedSeconds": 13.334
+    },
+    {
+      "mode": "corrected",
+      "exitCode": 0,
+      "passedControls": 7,
+      "elapsedSeconds": 8.254
+    },
+    {
+      "mode": "pure",
+      "exitCode": 0,
+      "passedControls": 12,
+      "elapsedSeconds": 0.005
+    }
+  ],
+  "all14GroupsPreserved": true,
+  "post404CompleteScopedSQLEqualityAdded": true,
+  "originalOutbidScreenshotRetained": true,
+  "extraOutbidStandingScreenshot": "phone-outbid-standing.png after actual .standing.scrollIntoViewIfNeeded at the existing owned-receipt/SQL checkpoint",
+  "extraNoReceiptScreenshot": "phone-not-recorded.png",
+  "actualHostedFailurePreserved": {
+    "runId": "2506c6c8",
+    "runnerSHA256": "857ff585abdf14e82817ba2f08eeddd18810711e3a20f122b96779f8357824ec",
+    "receiptSHA256": "b314bebe16eb8e528e59c88e7f2cde6ff343d28566b2cce83b9a612b254cb078",
+    "completedGroups": 8,
+    "originalFilesRemainExact": true
+  },
+  "files": {
+    "/tmp/task-root/manual003-no-receipt-control/control.mjs": "4f57b6869e662a4f9f97d9f55356d231565bd663b50a8bd80f07b8df7a51a102",
+    "/tmp/task-root/manual003-no-receipt-control/SOURCE_BINDING.json": "a68044f19fd3f2437ec64fda58def6088b805a79f0b9ac53dda2304d1696521a",
+    "/tmp/task-root/manual003-no-receipt-control/logs/old.json": "4a809d6b645eea2ae72a51f9906739568a733deac593372f64720777abe68b71",
+    "/tmp/task-root/manual003-no-receipt-control/logs/corrected.json": "281c3f26f0ab73a99c0952899a8680071a344957616d2c438dd6f9a21fd9da72",
+    "/tmp/task-root/manual003-no-receipt-control/logs/pure.json": "a33881730c8bb5392814c43eb6c181f3425351d52ed825721296482bc59501de",
+    "/Users/jryear/Documents/Codex/2026-10-02/task-3/evidence/remote-manual-bid-runner-history/v5-no-receipt-recovery.diff": "78b20f5718cc0756d5356fdb97fd67f26da2b0278998f577a2f482c6ccb3e2d3",
+    "/Users/jryear/Documents/Codex/2026-10-02/task-3/evidence/remote-manual-bid-runner-history/v5-outbid-standing-capture.diff": "30fe929c3420397801f9017d1e219e756075a2c5ae6884e031dbf78e2aa62818",
+    "/Users/jryear/Documents/Codex/2026-10-02/task-3/evidence/remote-manual-bid-runner-history/v5-guide-history.diff": "d06d82e4df21f6f1952a99d8236dd7c830f83534d459dadd9e97d4ee9de18add"
+  },
+  "limits": [
+    "This controls the assertion correction only; no full hosted/kernel product verdict is claimed.",
+    "Release owner must execute all14 groups against exact protected READY961. Future publication is separately source-bound."
+  ]
+}

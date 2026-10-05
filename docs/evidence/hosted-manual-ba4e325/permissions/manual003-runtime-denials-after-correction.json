@@ -1,0 +1,7 @@
+{
+  "sourceCommit": "961c987880fde553196199be6b81ded3ec216c72",
+  "approvedRuntimeRole": "staging_e2e_app",
+  "actualHostedZeroRowDenials": 9,
+  "rawExit": 0,
+  "rowsWritten": 0
+}

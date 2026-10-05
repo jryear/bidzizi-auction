@@ -1,0 +1,65 @@
+{
+  "kind": "independent-local-default-acl-reproduction",
+  "baseSource": "f152f633ea49050efa203167f1545a089a8f3dcb",
+  "correctedSource": "961c987880fde553196199be6b81ded3ec216c72",
+  "operatorSourceSHA256": "a44abc02d5ad8f46d0c1b981f469e63fe034a34cb4d737b733e082933a9577b6",
+  "probeSHA256": "3c34220f4dbd10d89a43ffa91377054be1c0ed8cf787c52f0739d971b305e5fa",
+  "scope": "Owned disposable PG18 databases/private Unix sockets only; no provider/app/protected edits. Each cluster stopped and removed.",
+  "initialInfrastructureFailure": {
+    "exitCode": 99,
+    "stage": "initdb",
+    "retained": "history/old-infrastructure99.json"
+  },
+  "proofs": [
+    {
+      "mode": "old",
+      "exitCode": 1,
+      "actual42501Denials": 0,
+      "expectedDenials": 17,
+      "passedControls": 3,
+      "elapsedSeconds": 0.744
+    },
+    {
+      "mode": "corrected",
+      "exitCode": 0,
+      "actual42501Denials": 17,
+      "expectedDenials": 17,
+      "passedControls": 8,
+      "elapsedSeconds": 0.741
+    },
+    {
+      "mode": "corrected-public",
+      "exitCode": 0,
+      "actual42501Denials": 17,
+      "expectedDenials": 17,
+      "passedControls": 8,
+      "elapsedSeconds": 0.75
+    }
+  ],
+  "rowsPreserved": true,
+  "priorAndUnrelatedACLsPreserved": true,
+  "correctionIdempotent": true,
+  "futureOwnerTableNoAppOrPublicDataPrivileges": true,
+  "frozenAndFeatureBytesUnchangedBetweenRevisions": true,
+  "originalHostedFailureRetainedSHA256": "0d7a0bddd8a4cdb7efa2fb76de1bbeae33cda17b4f4394190718657c65f1c690",
+  "limits": [
+    "Independent deployment-setup proof only; not a complete003/kernel/hosted product verdict.",
+    "Replicates global owner default table grants as reported. No provider metadata or permission state was queried by this agent.",
+    "Append-only INSERT permission controls use zero rows; actual003 persistence remains covered by frozen/hosted product evidence."
+  ],
+  "files": {
+    "probe.mjs": "3c34220f4dbd10d89a43ffa91377054be1c0ed8cf787c52f0739d971b305e5fa",
+    "operator.diff": "972730f97c3709baab58c65cec9d37ff15a72b1698e07f510457e8bc14fe90d3",
+    "history/operator-f152.mjs": "8b0b99e1489dec93fcbe2e40bfab8edd96c028562c130339121dc6bf426f61d3",
+    "history/operator-corrected.mjs": "a44abc02d5ad8f46d0c1b981f469e63fe034a34cb4d737b733e082933a9577b6",
+    "history/001_staging_staff.sql": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a",
+    "history/002_staging_catalog.sql": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3",
+    "history/003_staging_manual_bid.sql": "e8e985e67aa5f47df7cd9f9baf56c19fb30915fa99662b3a4e469a9a98e36cf8",
+    "history/seed-people.sql": "f6bb72cd50476bb35025bdae787605d345a5d71bccfc1c6b926359a67a76d8c2",
+    "history/old-infrastructure99.json": "9241d5e50a8a9fbb08b26f798ec3a87bda16475ed2435ba508600464e577c263",
+    "history/hosted-f152-2d799952-receipt.json": "0d7a0bddd8a4cdb7efa2fb76de1bbeae33cda17b4f4394190718657c65f1c690",
+    "logs/old.json": "d72d437c1cfc090b1b123b48f6f938b04f32d6a3e42c2dc082d760090086c611",
+    "logs/corrected.json": "01b19a583dd9b398e0ac323d984730ddd02dfbeffcb1f5276bc7cb37e78e0222",
+    "logs/corrected-public.json": "039304d76dfde841db5c268742cc3fb24cb0a94d8d88a8d26318d7af411dc7ca"
+  }
+}

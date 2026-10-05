@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-05T09:24:08.892760+00:00",
+  "rawExit": 1,
+  "stage": "owned durable operation",
+  "reason": "No current outbid Harbor operation remained after group12 made Harbor leading on both lots; no provider write. Correct capture selects the existing Juniper outbid operation instead.",
+  "applicationHostedVerdict": "passed14",
+  "applicationSource": "ba4e3257681081c127c9c70191d6ec379de64ab4"
+}

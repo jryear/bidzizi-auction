@@ -1,0 +1,27 @@
+{
+  "candidate": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+  "base": "d1913e61b793c83cb9dbdad93fbad2d3295d464f",
+  "rawExit": 0,
+  "elapsedSeconds": 769.514,
+  "dirtyBeforeClaim": false,
+  "argv": [
+    "python3",
+    "/Users/jryear/code/_kernel/verify.py",
+    "tasks/staging-manual-bid-003.toml",
+    "--repo",
+    "/Users/jryear/code/bidzizi-staging-e2e",
+    "--base",
+    "d1913e61b793c83cb9dbdad93fbad2d3295d464f",
+    "--claim",
+    "Currently authorized synthetic person/business/view/bid admission can review and durably place a manual bid through A, recover immutable actor-owned receipts and observe authoritative competing/outbid standing; queued decisions use post-lock DB time and interrupted outcomes remain unconfirmed.",
+    "--implementer-model",
+    "GPT-6 Codex runtime",
+    "--verifier-access",
+    "yes",
+    "--verifier-inspection-reported",
+    "yes",
+    "--log",
+    "/Users/jryear/Documents/Codex/2026-10-02/task-3/gates/003-clean-ba4e-kernel.jsonl"
+  ],
+  "log": "003-clean-ba4e-receipt.txt"
+}

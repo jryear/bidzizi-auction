@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-05T09:18:38.504Z",
+  "sourceCommit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+  "deployment": {
+    "id": "dpl_94PKQenH3zvdAwB32PPTxJc6QDmf",
+    "state": "READY",
+    "target": null,
+    "meta": {
+      "githubCommitSha": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+      "githubCommitRef": "staging-e2e",
+      "githubOrg": "jryear",
+      "githubRepo": "bidzizi-auction"
+    }
+  },
+  "origin": "https://bidzizi-clean-staging-ovcmw8h7k-saturn-ea53.vercel.app",
+  "eventId": "9280a1f9-27df-438c-893b-7d6069d46a59",
+  "approvalId": "f55e8acd-3783-4caa-bf60-4064fa686452",
+  "staffURL": "https://bidzizi-clean-staging-ovcmw8h7k-saturn-ea53.vercel.app/admin?event=9280a1f9-27df-438c-893b-7d6069d46a59",
+  "bidderURL": "https://bidzizi-clean-staging-ovcmw8h7k-saturn-ea53.vercel.app/events/9280a1f9-27df-438c-893b-7d6069d46a59",
+  "opensAt": "2026-10-05T09:20:00.000Z",
+  "closesAt": "2026-10-05T21:20:00.000Z",
+  "timeZone": "America/Los_Angeles",
+  "syntheticOnly": true,
+  "initialBids": 0,
+  "fixturePurpose": "Twelve-hour demo window; separate from the four-minute hosted close-boundary proof.",
+  "operatorScope": "VIEW/BID inserts only for this newly created synthetic event; no prior event or global authority replaced.",
+  "runnerSHA256": "aa2bf72813b8c2368b2ef5b6e150f9a2992c83b9f83d73ea732c8cd9f9062df9"
+}
