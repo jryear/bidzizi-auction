@@ -1,0 +1,311 @@
+{
+  "source_commit": "5285648085fad3fbb84aa8f6f9105cb64ebe0df1",
+  "source_tree": "2598e68a06d32fd0e767fe6f995d1c616a84a64c",
+  "grader_base": "9748ee57da6d3bbc0826df5c9e2271edce28ac24",
+  "snapshot": "/tmp/bz-v1-replay-t5h2h67w",
+  "source_manifest": {
+    "src/app/admin/page.tsx": {
+      "sha256": "a4cf8236ed14402116aaeab9aa89eb0e2d15d9c9141408948ef191e47a167aac",
+      "git_blob": "0f2ffd7a6af4e57b036f0959b0e9234138a6c64e"
+    },
+    "src/app/api/admin/events/[id]/route.ts": {
+      "sha256": "0ff716401ab95aa84d53ce9afd4fb97c24f9930643bfe96d34ff3055261a5641",
+      "git_blob": "f089e0ad6950163d53d2fbe82148cbdc4a023652"
+    },
+    "src/app/api/admin/events/route.ts": {
+      "sha256": "fcd7cc294e8ce0a7a8ae721a7e7e212ffce5df61ab2f6612e26784c2c3acbe51",
+      "git_blob": "6e1e593eae5c717afffd750e3d71ce5c1015689d"
+    },
+    "src/app/api/health/database/route.ts": {
+      "sha256": "a93589ff6dd9a794b5f81d7aaa17d839b79b9f2067f5593e70ed7625c5212513",
+      "git_blob": "ddfe2d504c703c8203cf593fe6f81304af3de230"
+    },
+    "src/app/api/session/logout/route.ts": {
+      "sha256": "16cd2c9bab409037cd7d0c7ed22649c11112b1f91e379ad4a1f827eb0773aa48",
+      "git_blob": "3744800aca577bcca0e68c114a19ff89e2f58693"
+    },
+    "src/app/api/session/route.ts": {
+      "sha256": "c6d22397409606f409b45bb3b71cc616300e63f5df7dac55c74c55859de920d1",
+      "git_blob": "eeed9a0f60478056211f209e14f0300ecab07107"
+    },
+    "src/app/api/test-auth/login/route.ts": {
+      "sha256": "dd850ab8d91ffecee6edf25cc0d4fd7bad48eb2b84381d0b7772bf667cff190a",
+      "git_blob": "19f6ee1d3b34ab512ecf36ce5abe7734966a5d46"
+    },
+    "src/app/globals.css": {
+      "sha256": "7e24ff5b5635116641295178d6b052bc8388ca6e117ba9d8b4bd724623b5e355",
+      "git_blob": "bdf7da35d45058956ccf836a785bad9f484c5a73"
+    },
+    "src/app/layout.tsx": {
+      "sha256": "1d56c29545ddf183ff90012d3e1ef81d4695f9dc7e7f4831ab7dd1fbc7e83d9a",
+      "git_blob": "620637083b20873aebe77338aee1b230f4e19cdf"
+    },
+    "src/app/page.tsx": {
+      "sha256": "949069d0d1ec607e2f68ea0dec6b9b36edd5634a0b2e3f7cad211b511a512cd0",
+      "git_blob": "a5e2725ca12b529c5c64b167ca5a3e37bde804f4"
+    },
+    "src/lib/database.ts": {
+      "sha256": "321a9ac69283cedc95cfc3aac1036149a5a09d429ae4108554ddba61b628964e",
+      "git_blob": "a5d92ece79e595ad5c16b1f21a0ae1ff51caf46b"
+    },
+    "src/server/auth.ts": {
+      "sha256": "f6bdcc9ef0402fcddb33a73aa8f9288f58d9fbdab8b7d8b963dcca9e6fa2378b",
+      "git_blob": "595706d1904b7a39b8751f24c31dff41df1069b9"
+    },
+    "src/server/config.ts": {
+      "sha256": "489f127a7de53aeae0c3cd7554f3670e952664dc7e742b8a013a54441df3f907",
+      "git_blob": "bd07251d3aed0a951e4e45883626208ebbd1b58e"
+    },
+    "src/server/db.ts": {
+      "sha256": "c70ede0754162bfb76b42349972d32befce197958a63bab19b7019f1344ffcbe",
+      "git_blob": "746bf2b4f7c01d26f032920e6f2cfe21b5cc6ad5"
+    },
+    "src/server/draft.ts": {
+      "sha256": "981feead0cff19acd9fe9697c71852ecc7205ee5558beeebaa09aceaf3c1fcbb",
+      "git_blob": "f38136c9b7ac83c96fa5784cfd2ee731ef888ebf"
+    },
+    "src/server/http.ts": {
+      "sha256": "134c97f03b4be7dd7bbbbe10a7bc6c40cd38a16f802305c0126df603a4c81359",
+      "git_blob": "095df9ce0830a70f993795363096cd9ad7684fd8"
+    },
+    "src/server/staff.ts": {
+      "sha256": "7b3a6ac608c3fb88af41946bb82cac294373770b98d3de65fc89606f375cd849",
+      "git_blob": "eecda079cda226d9fd6d8c7c5167f6cde00908b0"
+    },
+    "public/staging-admin/index.html": {
+      "sha256": "336bcabb3d410796efcbf734ff5509558c54b4055ff3d1d457b54d128c56bee8",
+      "git_blob": "57c09e992251fb672415ea893d8aa533d7807b45"
+    },
+    "public/staging-admin/model.js": {
+      "sha256": "b081ca833bf6fe314ec64cac2ad9616cef2928fbffc08f68f7139d88c8f9e719",
+      "git_blob": "4597b539e9000002457e31d0754e779de0bb19dd"
+    },
+    "public/staging-admin/studio.css": {
+      "sha256": "8500cd9c3fe858e1b9a6c2b8ffcaade433e6016ed6160595fe39d69a1e4215b9",
+      "git_blob": "125b2eda2987f3ed0353686c948a08a2234eda3f"
+    },
+    "public/staging-admin/studio.js": {
+      "sha256": "5eb7afbde51418f6efe6bded1d299faef41448fe5291b7f017fe3e7c8b9e02d9",
+      "git_blob": "ace9ec1971ccadb50731dcc3ea28ee12dd60807d"
+    },
+    "public/staging-bidder-preview/assets/fonts/fraunces-vf.woff2": {
+      "sha256": "7e744849028e2219e2aa1bc467dc4032980dc4487c9c3da3010081cd72d3b103",
+      "git_blob": "ac36911a51c0be651c6324c8eb3a463fd4cc96fd"
+    },
+    "public/staging-bidder-preview/assets/fonts/instrument-sans-vf.woff2": {
+      "sha256": "2ee17598a98d8a59e4df8152d015bec9ab8e4d5672cc0ab42bef806b568e3971",
+      "git_blob": "8611e41b14c75cfc8360e50d0d22a22d20a1de50"
+    },
+    "public/staging-bidder-preview/assets/lots/bicycle.jpg": {
+      "sha256": "f8922acfde2e2321a5cab29b8ea3a02638b804ce41fcc496a2465f94b4afd562",
+      "git_blob": "b17a4f168766c5fe52cd315dd2ab8b23a43c6d92"
+    },
+    "public/staging-bidder-preview/assets/lots/cabin.jpg": {
+      "sha256": "8c95864f191f680540b784f580a0d89805539fd24148070158828aa5a4ae3ff0",
+      "git_blob": "c334072160be59cc8731b338e2c23e9b089c71c9"
+    },
+    "public/staging-bidder-preview/assets/lots/ceramics.jpg": {
+      "sha256": "cf1f3d7874d79e29d43244707c8581db0fda2b92bdeeeaf4bffe5455a4a8eca1",
+      "git_blob": "c73ed81456a3a7c58c0739949bd9dfdc0da94001"
+    },
+    "public/staging-bidder-preview/assets/lots/coffee.jpg": {
+      "sha256": "6e61073ce05b0cab98e8d8e003a9debe6a02af63e0f401282b46482722779323",
+      "git_blob": "b487e5f9cc54bbefd76b0b6aff0cd1a1c01f990c"
+    },
+    "public/staging-bidder-preview/assets/lots/dinner.jpg": {
+      "sha256": "d11d9891c82e760d6f21a42269d411caf0a238f6e1ec6968a54b6cecc0d982b2",
+      "git_blob": "ca9ffb5df9eca22db9bd0011b0b874ea70d0270e"
+    },
+    "public/staging-bidder-preview/assets/lots/flowers.jpg": {
+      "sha256": "3a9833fd59633593d20064661d0b5c98c167d10d7bfa984fd4e9ed7961d28918",
+      "git_blob": "db3cda2ee9a9e4b9c5d075d1ff7d780aaa6a3335"
+    },
+    "public/staging-bidder-preview/index.html": {
+      "sha256": "ebb98a420906b4dd21a3993f6a033b89d8c94912931bcc730cf7f9482a4bd581",
+      "git_blob": "88c73cec5e8c25b8b0c24f5fe6dc9560ff663927"
+    },
+    "public/staging-bidder-preview/src/app.js": {
+      "sha256": "f2ce992e4dd68aa8a230cad4ea5b1608773f9e0b195ce1f8154e363b8c9c855e",
+      "git_blob": "5dcb45f3175955e6edde1adb9131e6d07d72e120"
+    },
+    "public/staging-bidder-preview/src/data.js": {
+      "sha256": "77421d2d75f3a491e98fd3684e7668ab7a2e3032fb40becad7ed96da4f9b3a9d",
+      "git_blob": "061809930d9e705060168d2d07c3d0872f8d1337"
+    },
+    "public/staging-bidder-preview/src/store.js": {
+      "sha256": "b0a9da26a2a88eb677954974a2ef624deae6a863cd845961ef5286a607faf8b9",
+      "git_blob": "0bd5acd545c96f7ee2119c1cfc4506bcc93edf19"
+    },
+    "public/staging-bidder-preview/src/ui.js": {
+      "sha256": "ba798dd174ecd6f521513b74c954046854c7923d10233ce2a81bd32ade8910c4",
+      "git_blob": "ba80d34dff9aceb232a6fb88c3cc2c9fe76f85a8"
+    },
+    "public/staging-bidder-preview/src/views.js": {
+      "sha256": "120143f393828ce9362f8bffd68dccd1c465d79dfd6ad958e92d983e85f56019",
+      "git_blob": "ab9888be4cd8bf02523cbe124d0ad0aaf0611b60"
+    },
+    "public/staging-bidder-preview/styles.css": {
+      "sha256": "4ae25afaf22044d7967202cd1d51de27615f18d3172ba099c0bcb968a92389bb",
+      "git_blob": "647e8c3328033852fad0acb4dab80ce14b06b0c4"
+    },
+    "migrations/001_staging_staff.sql": {
+      "sha256": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a",
+      "git_blob": "6dda1e2859d8078bd24675b5f9332ffc1af03225"
+    },
+    "scripts/migrate-staging.mjs": {
+      "sha256": "fc950f93fee3dc273adb23470157784d398a557e5821c0618e7e89e8c9a32124",
+      "git_blob": "eeb2b5b68ca022d74214bfd0e72f58ff50f596c2"
+    },
+    "package.json": {
+      "sha256": "33e14f23b472c46939ded502b0eb7aa7e1f00ab1d2d8d93de36863e2206ce722",
+      "git_blob": "7cc14dd8aac1d9113c5b0f9272940f3100b4eec2"
+    },
+    "pnpm-lock.yaml": {
+      "sha256": "4d034c5147ca042fcfb57c8429d0766705d25ad4e7c39269a2cfcf34213d9c2a",
+      "git_blob": "8fd1adf1395f1cc0fcf4a17b25cbcde857aa5802"
+    },
+    "next.config.ts": {
+      "sha256": "dbb2046b5e03ff053711679f392c7caaa08fc79e2e0a4ae7efd0152254a7be72",
+      "git_blob": "64f7cd636516f729dc5c93df62addf85bbec6209"
+    },
+    "tsconfig.json": {
+      "sha256": "6e3e1fba1547e5d6ffe754598bdda409e008dd043476ac82513eb778c12ccdd0",
+      "git_blob": "62d7c64cd49785270032c82afba3062a36f8babe"
+    },
+    "next-env.d.ts": {
+      "sha256": "0f70629890b72a0a82e91972cc032c04b658b26c265373cb711cf576bfbf8fcc",
+      "git_blob": "a419cbe4e3a5e8d4b481b851dbf4ac767de069e6"
+    },
+    "AGENTS.md": {
+      "sha256": "8e8b5e13c2e34c825acc2ab17740f6de183bc79283f9184f556ea0e706204251",
+      "git_blob": "9620ce8327cc9ff682d04c4ccc0478ef149c12b9"
+    }
+  },
+  "source_manifest_sha256": "672fdbc68c18550a2f74381e6e03041b7a5943d61ed74a6ffd32e4b2dc2749f3",
+  "grader_manifest": {
+    "tasks/staging-staff-drafts-001.toml": {
+      "sha256": "af1955259beccb1257a37b5b9feaf68e7c76a43db5eab94c18dfec3d2632bed9",
+      "git_blob": "4eb6ea4dddac986f952faa26495b98dd8838ff61"
+    },
+    "tests/acceptance/staff-drafts/README.md": {
+      "sha256": "22c6fca20cc447ee2b7b7065e7af216c0752dde3909da9e727cd1cc79dbb759c",
+      "git_blob": "a95575a933c6aa255e78d417df84b0d7bf4ba30e"
+    },
+    "tests/acceptance/staff-drafts/harness.mjs": {
+      "sha256": "b856d7a26f74630b35122314f2caa74e4e80cc49f560434053e74b725da686d7",
+      "git_blob": "de1dd097670efc60fa216cf941dbcb35ad063cb2"
+    },
+    "tests/acceptance/staff-drafts/protocol.mjs": {
+      "sha256": "ab543ee6193726d20d6f38051d6229ff96830c60bf25eba1617d2e25e463ecf0",
+      "git_blob": "3cadcbc251ef7fb3293557418a950dc35bcf780d"
+    },
+    "tests/acceptance/staff-drafts/run.mjs": {
+      "sha256": "b31c62fe13a3fcafdcf8f9d66a135b8fd394f6432c0a3c0d0298319aad3e20e0",
+      "git_blob": "22493ec2949a7adde7e97791e7b519314110f5e6"
+    },
+    "tests/acceptance/staff-drafts/seed.sql": {
+      "sha256": "e476babf9ecc5e498b461b2396926a4773ba50b5dbe41722a89b1ce4270c909f",
+      "git_blob": "fdc5d2840e2ab1a1d8df93230ef7e5e5f6335227"
+    }
+  },
+  "grader_manifest_sha256": "d758799fbbeb93740d55278b1ec0b7f1b6f7e2bceff769a6451bd2fb020d3895",
+  "node_modules_realpath": "/Users/jryear/code/bidzizi-staging-e2e/node_modules",
+  "commands": {
+    "acceptance": "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts/run.mjs acceptance",
+    "adversarial": "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts/run.mjs adversarial"
+  },
+  "limits": "Direct unmodified v1 grader replay only, not v1 kernel SUPPORTED. Installed dependencies linked as infrastructure; each grader owns a disposable PG cluster and loopback app.",
+  "node_runtime": "v24.4.1",
+  "postgres_runtime": "postgres (PostgreSQL) 18.6 (Homebrew)",
+  "results": {
+    "acceptance": {
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staff-drafts/run.mjs",
+        "acceptance"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 10.739,
+      "log": "/tmp/bz-v1-replay-t5h2h67w/acceptance.log",
+      "log_sha256": "908995c9c9a0f015dd87b9eda002526b7b07332e6db7b12e6365373f92d9b4af",
+      "pass_lines": [
+        "PASS 1: Clearly test-mode session derives person and organization grants from PostgreSQL; opaque cookie is stored only hashed.",
+        "PASS 2: Create retry returns one durable event and identical receipt.",
+        "PASS 3: Incomplete event and lot drafts persist atomically; an independent session reads the same DB-confirmed revision.",
+        "PASS 4: Ordered lots, idempotent recovery, changed-key rejection, and stale revision conflict preserve later edits.",
+        "PASS 5: Actual A saved-draft preview and a new browser context show server-persisted event edits.",
+        "PASS 6: Failed save stays unconfirmed, preserves edits and saved preview, then retries to one durable save.",
+        "PASS 7: Stale browser save shows a conflict; explicit reload recovers the authoritative revision without overwrite.",
+        "PASS 8: Lost response after commit stays unconfirmed, and retry recovers its existing receipt without another revision.",
+        "PASS 9: Real database transaction rejection cannot appear Saved or leave partial rows; restored database plus retry persists the retained draft."
+      ]
+    },
+    "adversarial": {
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staff-drafts/run.mjs",
+        "adversarial"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 18.411,
+      "log": "/tmp/bz-v1-replay-t5h2h67w/adversarial.log",
+      "log_sha256": "c58ee3e39b4dfd4863d76995e371e8d4506be1318943a3aa963ca5ce2e6378ca",
+      "pass_lines": [
+        "PASS 1: Anonymous/forged/member-only identity and another tenant cannot read, list, or write staff drafts.",
+        "PASS 2: Login and authenticated writes enforce same-origin JSON; rejected CSRF does not change data.",
+        "PASS 3: Unknown ownership/history fields, invalid minor units, and duplicate lot identities reject atomically.",
+        "PASS 4: Concurrent stale writers yield one durable revision and one conflict.",
+        "PASS 5: Composite tenant ownership prevents lot reparenting across organizations.",
+        "PASS 6: Revoked staff grant is checked on reads, writes, and idempotent replay.",
+        "PASS 7: Person revocation, logout, and expiry invalidate existing server sessions.",
+        "PASS 8: Flag-off, production, and custom-domain Preview contexts deny test login and existing staff sessions; forwarded host cannot enable them.",
+        "PASS 9: Local auth requires both a loopback origin and explicitly disposable bz_test_* database; valid prior staff cookies cannot bypass either."
+      ]
+    }
+  },
+  "post_run_input_changes": [],
+  "recovery_argv": [
+    [
+      "git",
+      "archive",
+      "--format=tar",
+      "5285648085fad3fbb84aa8f6f9105cb64ebe0df1",
+      "src",
+      "public",
+      "migrations",
+      "scripts",
+      "package.json",
+      "pnpm-lock.yaml",
+      "next.config.ts",
+      "tsconfig.json",
+      "next-env.d.ts",
+      "AGENTS.md"
+    ],
+    [
+      "git",
+      "archive",
+      "--format=tar",
+      "9748ee57da6d3bbc0826df5c9e2271edce28ac24",
+      "tasks/staging-staff-drafts-001.toml",
+      "tests/acceptance/staff-drafts"
+    ]
+  ],
+  "recovery_cwd": "/Users/jryear/code/bidzizi-staging-e2e",
+  "execution_cwd": "/tmp/bz-v1-replay-t5h2h67w",
+  "original_empty_event_case_binding": {
+    "path": "tests/acceptance/staff-drafts/run.mjs",
+    "created_empty_event_line": 186,
+    "empty_event_validation_lines": [
+      200,
+      224
+    ],
+    "zero_lot_assertion_line": 224,
+    "empty_event_concurrency_lines": [
+      227,
+      234
+    ],
+    "outcome": "Original adversarial groups2,3,4 completed unmodified with exit0."
+  }
+}

@@ -46,3 +46,11 @@ SUPPORTED  staging-staff-drafts-001  (36 files changed)
   logged -> /Users/jryear/code/bidzizi-staging-e2e/.claims/claims.jsonl
 
 The first candidate result remains CONTRADICTED and is not relabeled. Stable initialized textarea names fixed the fresh-browser field lookup; no frozen evidence changed. The later SUPPORTED result covers the local synthetic staff-draft contract, not parent/Claude acceptance or release. Claude's bounded review attempt timed out at180seconds with no completed review; no retry, credential refresh or fallback was used. Parent/Claude contract acceptance, protected deployment/HTTPS cookies/Neon-browser E2E remain pending. No real phone/SMS, catalog publication, auction bid or payment is included.
+
+Clean committed candidate rerun — 2026-10-05T03:42:50.864939+00:00
+head=5285648085fad3fbb84aa8f6f9105cb64ebe0df1 dirty_before_log=false
+base=3983c89aaff31b7a4452d0657111bdada0455343
+actual_exit=0 verdict=SUPPORTED protected_changes=[] out_of_scope=[]
+Exact result is docs/evidence/staff-528-clean-result.json; private process receipt remains outside the candidate.
+Original unmodified v1 graders from9748ee5 also passed against5285648: acceptance9/9 exit0, adversarial9/9 exit0. Binding: docs/evidence/staff-528-original-v1-replay.json.
+These receipts bind earlier source5285648; adding them later does not claim a self-referential current-head evaluation.

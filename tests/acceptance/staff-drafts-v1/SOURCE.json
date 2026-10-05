@@ -1,0 +1,13 @@
+{
+  "frozen_base": "9748ee57da6d3bbc0826df5c9e2271edce28ac24",
+  "original_directory": "tests/acceptance/staff-drafts/",
+  "sha256": {
+    "README.md": "22c6fca20cc447ee2b7b7065e7af216c0752dde3909da9e727cd1cc79dbb759c",
+    "harness.mjs": "b856d7a26f74630b35122314f2caa74e4e80cc49f560434053e74b725da686d7",
+    "protocol.mjs": "ab543ee6193726d20d6f38051d6229ff96830c60bf25eba1617d2e25e463ecf0",
+    "run.mjs": "b31c62fe13a3fcafdcf8f9d66a135b8fd394f6432c0a3c0d0298319aad3e20e0",
+    "seed.sql": "e476babf9ecc5e498b461b2396926a4773ba50b5dbe41722a89b1ce4270c909f",
+    "staging-staff-drafts-001.original.toml": "af1955259beccb1257a37b5b9feaf68e7c76a43db5eab94c18dfec3d2632bed9"
+  },
+  "seed_path_note": "Original protocol seed path uses tests/acceptance/staff-drafts/seed.sql; that v2 protected file is byte-identical."
+}

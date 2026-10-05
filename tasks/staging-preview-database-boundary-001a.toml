@@ -1,0 +1,79 @@
+spec_version = 1
+id = "staging-preview-database-boundary-001a"
+project = "bidzizi"
+goal = "The staging staff database adapter exclusively selects its dedicated Preview secret, refuses managed-variable fallback and non-staging deployed contexts, and preserves explicit disposable local tests and verified Neon pooled TLS."
+bypass_policy = "fail"
+
+[scope]
+include = ["src/server/config.ts", "src/server/db.ts", "docs/*", "README.md", "AGENTS.md", "next-env.d.ts"]
+exclude = ["*.env*", "pnpm-lock.yaml", "vercel.json", ".vercel/*", ".claims/*"]
+protected = ["prototypes/*", "src/lib/database.ts", "tasks/staging-staff-drafts-001.toml", "tests/acceptance/staff-drafts/*", "tests/acceptance/staff-drafts-v1/*", "tests/acceptance/staging-preview-database-boundary/*"]
+test_files = ["*test*", "*spec*", "*__tests__*"]
+
+[worktree]
+link = ["node_modules"]
+
+[[checks]]
+name = "Dedicated Preview selector and explicit disposable local boundary"
+kind = "acceptance"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-preview-database-boundary/run.mjs selector"
+evidence = ["tests/acceptance/staging-preview-database-boundary/*"]
+timeout = 180
+
+[[checks]]
+name = "Actual staff Pool uses selected target and retains verified pooled Neon TLS"
+kind = "adversarial"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-preview-database-boundary/run.mjs adapter"
+evidence = ["tests/acceptance/staging-preview-database-boundary/*"]
+timeout = 240
+
+[[checks]]
+name = "Cumulative staff v1 acceptance including original browser recovery"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts-v1/run.mjs acceptance"
+evidence = ["tests/acceptance/staff-drafts-v1/*", "tests/acceptance/staff-drafts/seed.sql"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative staff v1 adversarial including original empty draft cases"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts-v1/run.mjs adversarial"
+evidence = ["tests/acceptance/staff-drafts-v1/*", "tests/acceptance/staff-drafts/seed.sql"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative staff v2 durable drafts and recovery"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts/run.mjs acceptance"
+evidence = ["tests/acceptance/staff-drafts/*"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative staff v2 authorization validation and concurrent writer cases"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts/run.mjs adversarial"
+evidence = ["tests/acceptance/staff-drafts/*"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative staff v2 delayed tenant response stored text and process restart"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts/context-race.mjs"
+evidence = ["tests/acceptance/staff-drafts/*"]
+timeout = 180
+
+[[checks]]
+name = "Existing admin prototype model"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node prototypes/admin-studio/evidence/model-check.mjs"
+timeout = 120
+
+[[checks]]
+name = "TypeScript"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node node_modules/typescript/bin/tsc --noEmit --incremental false"
+timeout = 180
+
+[notes]
+context = "Release inspection found integration-managed DATABASE_URL changed after push. Export databaseConnectionURL() from src/server/config.ts and route actual src/server/db.ts Pool construction through it. In any VERCEL or VERCEL_ENV context, only VERCEL=1, VERCEL_ENV=preview and BIDZIZI_APP_MODE=staging may select nonempty BIDZIZI_STAGING_DATABASE_URL; DATABASE_URL must never serve as deployed staff fallback. Outside Vercel, DATABASE_URL may be used only if disposableDatabase(new URL(value)) succeeds: explicit local-test mode and disposable opt-in, authenticated loopback nonstandard-port bz_test_* database. No authority is conferred by selecting a URL; original test-session/origin/grant gates remain cumulative evidence. The real adapter retains Neon pooled-host validation, allowed TLS modes, URL TLS-override stripping and rejectUnauthorized:true; only explicit disposable local mode has ssl:false. Pure fixed cases run in fresh isolated Node24 processes. A protected loader intercepts pg and @vercel/functions and resolves the existing relative TypeScript config import; fake Pool captures actual options and its connect sentinel prevents transactions and network. All network entry points in the worker are blocked and zero attempts asserted. Cases must finish assertions to score; no model vote or metadata contributes. Missing export is finite ordinary baseline RED. Missing runtime/dependency is infrastructure99; worker timeout is candidate1/base99, never feature-absence RED. Original staff v1 files are byte-preserved from9748ee57da6d3bbc0826df5c9e2271edce28ac24; its original seed-path reference is satisfied by the identical protected v2 seed. Staff v2 packet3983c89aaff31b7a4452d0657111bdada0455343 stays unchanged."
+out_of_scope = "No provider reads/writes, real database connections, migrations, hosted login/data writes, production authority, catalog scheduling, bids, SMS, payments, UI feature changes, or change to the existing read-only src/lib/database.ts adapter. Preview variable configuration and exact hosted revision/target/HTTPS E2E are separate authorized release gates. Pending-save, complete preview fidelity, UI creation/reorder and crypto-generator gaps are not added or claimed by this correction."
