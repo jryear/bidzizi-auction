@@ -1,0 +1,11 @@
+{
+  "exit": 1,
+  "elapsed": 11.439,
+  "argv": [
+    "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+    "tests/acceptance/staging-catalog/run.mjs",
+    "adversarial"
+  ],
+  "graderBase": "edcfa47b114d033706ab61e715f4eb0dd6db4c2d",
+  "cleanCommittedCandidateClaim": false
+}

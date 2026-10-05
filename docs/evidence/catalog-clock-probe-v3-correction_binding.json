@@ -1,0 +1,100 @@
+{
+  "prior_frozen_base": "edcfa47b114d033706ab61e715f4eb0dd6db4c2d",
+  "archive_base": "2ea7f80e7e576cc0ae2e573528163b2bc7729155",
+  "archive_sha256": "7fb6bd051f7192c47a29a50db35e7a6c01eb5006092892738d04d1715802575a",
+  "actual_next_date_extension_sha256": "c315f9bbbc29947d2deba08e38a659fc9b7855b7226f6fac05fb18253237c813",
+  "prior_preload_sha256": "c221351b8ef42e708c0cfcb0d794ef18efd25b4ab74541dac786ccc98e9ed5e5",
+  "replacement_preload_sha256": "08aaf2090133693cf3683edc3fd560e74fc3be4d49cfed67e073860b32117704",
+  "install_files": {
+    "tests/acceptance/staging-catalog/app-clock-skew.cjs": "08aaf2090133693cf3683edc3fd560e74fc3be4d49cfed67e073860b32117704",
+    "tests/acceptance/staging-catalog/history/clock-probe-v2/002-development-adversarial-v2.json": "2c7a50a4178080ae52ee765c68fd71469a432dba101b942e7c57867f33f8b2b5",
+    "tests/acceptance/staging-catalog/history/clock-probe-v2/002-development-adversarial-v2.txt": "a5ab0f319aca67c4784ee9310b38e784294dddb050af9fef6239feb0c6298737",
+    "tests/acceptance/staging-catalog/history/clock-probe-v2/002-development-adversarial-v3.json": "dee7bf57044a58483e85d98af1589ba99f7aa580c37d4b7d4b0be2298e085c17",
+    "tests/acceptance/staging-catalog/history/clock-probe-v2/002-development-adversarial-v3.txt": "a5ab0f319aca67c4784ee9310b38e784294dddb050af9fef6239feb0c6298737",
+    "tests/acceptance/staging-catalog/history/clock-probe-v2/README.md": "6d06c38397cd7b32cf0a6f20a4af9c7045284f3bd3c4de8a28ed5baa5858703b",
+    "tests/acceptance/staging-catalog/history/clock-probe-v2/REPRODUCTION_RECEIPT.json": "f32ea044b4d57351b009bcf967ae4875ea44b4fd72ab09a8f8728c60846afd24",
+    "tests/acceptance/staging-catalog/history/clock-probe-v2/app-clock-skew.cjs": "c221351b8ef42e708c0cfcb0d794ef18efd25b4ab74541dac786ccc98e9ed5e5",
+    "tests/acceptance/staging-catalog/history/clock-probe-v2/date-primitives-proof.cjs": "36643065ecb972214071dfc9b11b858abcd11dc88996793e382372ccfc5f39f3",
+    "tests/acceptance/staging-catalog/history/clock-probe-v2/next-pg-c221.log": "4b91a89e98072899e3f7ad93d6b765b84e0aa9bbe2324520e9f56ede59c65879",
+    "tests/acceptance/staging-catalog/history/clock-probe-v2/next-pg-proof.mjs": "0ad81ab048e3c5bb12d89838c57069ca8f3c8f99a67e2312cb01e14ebd9a53ab",
+    "tests/acceptance/staging-catalog/history/clock-probe-v2/next-pg-v3.log": "084e695e380a1a6f58f6ef2e6a29cb125d13bf6dbf293aeedfb0b73e651c21df",
+    "tests/acceptance/staging-catalog/history/clock-probe-v2/primitives-c221.log": "b98341b87e01b23e4402f110b419ab42f00bcb5bef1352a599edc3d2deac7d73",
+    "tests/acceptance/staging-catalog/history/clock-probe-v2/primitives-v3.log": "a241c2de73deb30c5da526e3491da84bea26ebc3c9cc22d958d58a820b62c8a5",
+    "tests/acceptance/staging-catalog/history/clock-probe-v2/staff-proof-harness.mjs": "4e2a37bffc314894a2e82cf8aad9dae28ca45b542d4624b5b3cfcf2c90f3fe3b",
+    "tests/acceptance/staging-catalog/history/clock-probe-v2/staff-proof-protocol.mjs": "18da022f0e0db48dedacfbf78aff0d3bf3f34ac05ecff195934ab8d95d689cc1",
+    "tests/acceptance/staging-catalog/history/clock-probe-v2/stream-proof.mjs": "3a43bcf9ef2841db116612c44f799451feab93500adbe69619b10431dd177021",
+    "tests/acceptance/staging-catalog/history/clock-probe-v2/stream-server.cjs": "0637e40a37e3636dbb604246187bc1d2a58f2084ca073de42d547a8a92e51be0",
+    "tests/acceptance/staging-catalog/history/clock-probe-v2/stream-v3.log": "9984cb4e35c2a37ff20cb127d9625a7c40a60c25b1fce8b26fafec61586d5010"
+  },
+  "diff_sha256": "0b2e7395018b2196f985778f6bc3f8a089dfccb3b028341d251add494e6309a5",
+  "reproduction": {
+    "archive_base": "2ea7f80e7e576cc0ae2e573528163b2bc7729155",
+    "cases": [
+      {
+        "name": "primitives-c221",
+        "argv": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "--require",
+          "/tmp/task-root/catalog002-clock-correction-v3/tests/acceptance/staging-catalog/history/clock-probe-v2/app-clock-skew.cjs",
+          "/tmp/task-root/catalog002-clock-correction-v3/date-primitives-proof.cjs"
+        ],
+        "exit": 1,
+        "elapsed": 0.084,
+        "log": "/tmp/task-root/catalog002-clock-correction-v3/primitives-c221.log",
+        "log_sha256": "b98341b87e01b23e4402f110b419ab42f00bcb5bef1352a599edc3d2deac7d73"
+      },
+      {
+        "name": "primitives-v3",
+        "argv": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "--require",
+          "/tmp/task-root/catalog002-clock-correction-v3/tests/acceptance/staging-catalog/app-clock-skew.cjs",
+          "/tmp/task-root/catalog002-clock-correction-v3/date-primitives-proof.cjs"
+        ],
+        "exit": 0,
+        "elapsed": 0.049,
+        "log": "/tmp/task-root/catalog002-clock-correction-v3/primitives-v3.log",
+        "log_sha256": "a241c2de73deb30c5da526e3491da84bea26ebc3c9cc22d958d58a820b62c8a5"
+      },
+      {
+        "name": "next-pg-c221",
+        "argv": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/tmp/task-root/catalog002-clock-correction-v3/next-pg-proof.mjs",
+          "/tmp/task-root/catalog002-clock-correction-v3/tests/acceptance/staging-catalog/history/clock-probe-v2/app-clock-skew.cjs"
+        ],
+        "exit": 1,
+        "elapsed": 8.241,
+        "log": "/tmp/task-root/catalog002-clock-correction-v3/next-pg-c221.log",
+        "log_sha256": "4b91a89e98072899e3f7ad93d6b765b84e0aa9bbe2324520e9f56ede59c65879"
+      },
+      {
+        "name": "next-pg-v3",
+        "argv": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/tmp/task-root/catalog002-clock-correction-v3/next-pg-proof.mjs",
+          "/tmp/task-root/catalog002-clock-correction-v3/tests/acceptance/staging-catalog/app-clock-skew.cjs"
+        ],
+        "exit": 0,
+        "elapsed": 8.514,
+        "log": "/tmp/task-root/catalog002-clock-correction-v3/next-pg-v3.log",
+        "log_sha256": "084e695e380a1a6f58f6ef2e6a29cb125d13bf6dbf293aeedfb0b73e651c21df"
+      },
+      {
+        "name": "stream-v3",
+        "argv": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/tmp/task-root/catalog002-clock-correction-v3/stream-proof.mjs",
+          "/tmp/task-root/catalog002-clock-correction-v3/tests/acceptance/staging-catalog/app-clock-skew.cjs"
+        ],
+        "exit": 0,
+        "elapsed": 0.128,
+        "log": "/tmp/task-root/catalog002-clock-correction-v3/stream-v3.log",
+        "log_sha256": "9984cb4e35c2a37ff20cb127d9625a7c40a60c25b1fce8b26fafec61586d5010"
+      }
+    ]
+  },
+  "application_changes": "None; actualHTTP uses archived feature-absent2ea source and disposable localPG",
+  "source_app_execution": "No current mutable candidate checkout executed",
+  "kernel_status": "Parent must freeze additive correction and run entire actual baseline/candidate suite"
+}
