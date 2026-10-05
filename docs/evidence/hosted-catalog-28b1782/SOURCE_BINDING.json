@@ -1,0 +1,27 @@
+{
+  "applicationCommit": "28b1782009f51d5e37cb463f928440dbd5bcb929",
+  "sourceTree": "be969c308da9a077c3dac6f715e8de085a237589",
+  "deployment": {
+    "id": "dpl_AEmR2fJnMDbRjLe2KobebfzcC5S3",
+    "origin": "https://bidzizi-clean-staging-req1fy34y-saturn-ea53.vercel.app",
+    "state": "READY",
+    "target": null,
+    "branch": "staging-e2e",
+    "repository": "jryear/bidzizi-auction"
+  },
+  "localFrozenBase": "7eef3e74688604fdf1a9ffaf0fc7899d0a45290d",
+  "localVerdict": "SUPPORTED, all11 fixed/cumulative checks",
+  "hostedVerdict": "passed, all12 groups",
+  "runnerSHA256": "340822006f52a1382762f9a5ffbfe77f2bf2dfe2dab764e9c25ee229d7cc530e",
+  "filesSha256": {
+    "phone-closed-detail.png": "6c69d644d66c037ef872fe76f225eb94b08647ec79bca7e8aeaa967c628027e2",
+    "phone-open-detail.png": "e23cfd2c250953864dd5799b4421b59e106fd09db379c043ee77251c69109aac",
+    "desktop-approved.png": "0b2b90757b0823b347da006fa919c01837f060a1a00d812265db04da90e3223f",
+    "phone-closed-catalog.png": "d84fcd6412e6a9220a9501c4544b0dd4ecf4b50023b813d01f98d4aebec8bd47",
+    "002-clean-28b-result.json": "9b6aaf022a2b889622fab9492f92727539ec73744871d9a0d4fa16cbf7fa8f77",
+    "002-clean-28b-receipt.txt": "bfd78594b6aa0639f115e65c9848da8debee2519a7880501762cf168ab8768b0",
+    "phone-scheduled.png": "ab97c398e4c4582641e8945be3aef5db28743cba8297825b21da99fcfea1bfe3",
+    "receipt.json": "b91e556fcd6895b549156ef6b49f5737072424b8458dc78efa826872ed8bac8e"
+  },
+  "limits": "Synthetic isolated staging only. Actual Chromium desktop/390px screenshots. No physical device, real membership, manual bids, SMS or payment."
+}

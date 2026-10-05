@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "python3",
+    "/Users/jryear/code/_kernel/verify.py",
+    "tasks/staging-catalog-002.toml",
+    "--repo",
+    ".",
+    "--base",
+    "7eef3e74688604fdf1a9ffaf0fc7899d0a45290d",
+    "--claim",
+    "Synthetic staff approve one immutable selected saved catalog; current event VIEW grants receive A welcome before inclusive DB opening, selected rows at opening and retained read-only details after exclusive close, with durable approval recovery and no browser/app-clock authority.",
+    "--implementer-model",
+    "GPT-6 Codex runtime",
+    "--verifier-access",
+    "yes",
+    "--verifier-inspection-reported",
+    "yes",
+    "--log",
+    "/Users/jryear/Documents/Codex/2026-10-02/task-3/gates/002-clean-28b-kernel.jsonl"
+  ],
+  "rawExit": 0,
+  "elapsedSeconds": 363.678,
+  "candidate": "28b1782009f51d5e37cb463f928440dbd5bcb929",
+  "log": "002-clean-28b-receipt.txt"
+}

@@ -1,0 +1,159 @@
+{
+  "at": "2026-10-05T07:46:22.666Z",
+  "commit": "28b1782009f51d5e37cb463f928440dbd5bcb929",
+  "origin": "https://bidzizi-clean-staging-req1fy34y-saturn-ea53.vercel.app",
+  "runId": "70809f4b",
+  "runnerVersion": "v5-exact-lot-fixture-readiness",
+  "syntheticOnly": true,
+  "checks": [
+    {
+      "invariant": "Clean local source and deployed catalog/admin scripts match the supplied commit; generated Preview is protected and anonymous API is no-store test mode.",
+      "passed": true
+    },
+    {
+      "invariant": "Approved NOINHERIT runtime uses verified TLS, has no administrative role flags and cannot change people/grants, immutable approvals/lots or session ownership; separately named object-owner operator is non-superuser with managed capabilities recorded.",
+      "passed": true
+    },
+    {
+      "invariant": "Actual staff UI creates this unique synthetic event and confirms HTTPS session/hash storage and identical create replay.",
+      "passed": true
+    },
+    {
+      "invariant": "UI edits three complete lots and assigns only01+03 to one real minute window; pending save remains unconfirmed and complete SQL equals saved data.",
+      "passed": true
+    },
+    {
+      "invariant": "Approval abort-before and lost-after-commit recover one identical request/receipt and complete immutable SQL snapshot for lots01+03.",
+      "passed": true
+    },
+    {
+      "invariant": "Only the operator inserts Juniper VIEW for this newly UI-created fixture; staff identity alone and ungranted viewer have no audience access.",
+      "passed": true
+    },
+    {
+      "invariant": "Actual phone A shows authorized welcome/sponsors but omits every lot before SQL opening despite forged browser/header time.",
+      "passed": true
+    },
+    {
+      "invariant": "Other-tenant staff and ungranted/VIEW-only viewers cannot read private drafts or approve/write; complete target rows and receipts remain unchanged.",
+      "passed": true
+    },
+    {
+      "invariant": "Later saved draft/name/sponsor/lot edits and current-staff replay cannot alter approved content or shared schedule.",
+      "passed": true
+    },
+    {
+      "invariant": "Real SQL opening automatically updates the retained scheduled phone within15seconds without Refresh/reload; exactly approved01+03 and full organization-provided details appear, with bidding disabled.",
+      "passed": true
+    },
+    {
+      "invariant": "Real SQL close automatically updates the retained open phone/detail within15seconds without Refresh/reload; explicit closed disclosure, disabled bid control, fixed snapshot and receipt remain.",
+      "passed": true
+    },
+    {
+      "invariant": "Hosted sessions revoke cleanly; immutable snapshot remains intact, all phone/desktop browser checks complete without script errors.",
+      "passed": true
+    }
+  ],
+  "verdict": "passed",
+  "executionLimitSeconds": 295,
+  "limitations": [
+    "Commit is supplied by release owner and compared to clean local source/static deployed files; owner must separately bind the generated deployment to this Git commit.",
+    "Hosted evidence skews browser Date and brackets serverNow against SQL; app-process Date skew remains the separately frozen local instrumentation check.",
+    "No real bidder admission, bids, phone/SMS or payment is exercised."
+  ],
+  "runnerSHA256": "340822006f52a1382762f9a5ffbfe77f2bf2dfe2dab764e9c25ee229d7cc530e",
+  "sourceTree": "be969c308da9a077c3dac6f715e8de085a237589",
+  "protocolHashes": {
+    "tasks/staging-catalog-002.toml": "8471a498746bca32c86bcfbbafe451a90de4991a3e8f660aee50dec05bebea14",
+    "tests/acceptance/staging-catalog/protocol.mjs": "2284e048df0c14fa2de87333b5fbd2c272f806f3074e10981cf3df62bc878ea9",
+    "tests/acceptance/staging-catalog/checks.mjs": "de63eaf65ebaf423188088e2afda9b6022b5f4983eeef8a500fc63b31b5c0817",
+    "src/server/catalog.ts": "21cb5aa6d1454057792a97eddd668004a90bdb5b9e03569d8b3d806dd57059fe",
+    "src/server/db.ts": "c79b7447abedfb3d7e5c4a46f6dac2554eedc16ed64639f7d94be5ad0d83994e",
+    "src/server/config.ts": "ace65fff9519b55182616914ecb5a0cc9e644d76bde2037808ab2adc687085fe",
+    "migrations/002_staging_catalog.sql": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3"
+  },
+  "sourceHashes": {
+    "public/staging-admin/studio.js": "958a56b2ba6b87c6023a4169621fae86efe7e0be65af37be08e3e262617554fe",
+    "public/staging-catalog/app.js": "32e03408223dc0c83a4a3f0611458a182d90a4ec5fbd2358d3f20a7fafed1a4f",
+    "public/staging-catalog/data.js": "b3d9e5cdf701c34e21c36a80958b0fda702fdc04af8d63581afbd5112fa48eef",
+    "public/staging-catalog/store.js": "be9f6441a24ab4da30b8a9a6ac5b8b90f27fff3c1f5818a517dcb915e991bc82",
+    "public/staging-catalog/ui.js": "ba798dd174ecd6f521513b74c954046854c7923d10233ce2a81bd32ade8910c4",
+    "public/staging-catalog/views.js": "8f78058bad8f45c3df75b8808af31fd6a2e8f2f6a7fdbcd21f23ccba6ccf3d5a"
+  },
+  "vercelRequestId": "pdx1::sd277-1791186382940-cb30e3f69c1d",
+  "databaseRoles": [
+    {
+      "role": "staging_e2e_app",
+      "database": "bz_staging_e2e",
+      "rolsuper": false,
+      "rolcreatedb": false,
+      "rolcreaterole": false,
+      "rolreplication": false,
+      "rolbypassrls": false,
+      "rolinherit": false
+    },
+    {
+      "role": "staging_e2e_owner",
+      "database": "bz_staging_e2e",
+      "rolsuper": false,
+      "rolcreatedb": true,
+      "rolcreaterole": true,
+      "rolreplication": true,
+      "rolbypassrls": true,
+      "rolinherit": true
+    }
+  ],
+  "eventId": "e0946fc3-6aa5-45ee-8372-24866667bf85",
+  "fixtureReadiness": {
+    "submittedOpenings": [
+      2500,
+      2500,
+      2500
+    ],
+    "intendedOpenings": [
+      2500,
+      2500,
+      2500
+    ],
+    "submittedLotCount": 3,
+    "savedOpenings": [
+      2500,
+      2500,
+      2500
+    ],
+    "reviewText": "Review catalog\n×\n2 selected saved lots\n\nRevision 2 · October 5, 2026\n\n7:48 AM–7:49 AM UTC\n\nLot 01\nHosted catalog E2E 70809f4b lot 1\nLot 03\nHosted catalog E2E 70809f4b lot 3\n\nApproval fixes this saved copy and shared window. The catalog appears at opening and stays read-only after closing. Bidding is not enabled.\n\nKeep editing\nApprove catalog",
+    "approveEnabled": true
+  },
+  "schedule": {
+    "opensAt": "2026-10-05T07:48:00.000Z",
+    "closesAt": "2026-10-05T07:49:00.000Z"
+  },
+  "approvalId": "0a08d52f-5b40-45fc-a61d-381004b1b4aa",
+  "snapshotSHA256": "f0207dedcd9f7c96e673cf10d63827960c433855aaee64c60b0e63a8ada943b0",
+  "operatorWrites": [
+    {
+      "table": "bz_event_view_grants",
+      "operation": "INSERT",
+      "personId": "20000000-0000-4000-8000-000000000003",
+      "eventId": "e0946fc3-6aa5-45ee-8372-24866667bf85"
+    }
+  ],
+  "phoneNavigationRequests": {
+    "scheduled": 2,
+    "open": 2,
+    "closed": 2
+  },
+  "openObservation": {
+    "serverNow": "2026-10-05T07:48:00.222Z",
+    "phase": "open",
+    "automaticPhoneDeadlineSeconds": 15
+  },
+  "closeObservation": {
+    "serverNow": "2026-10-05T07:49:00.278Z",
+    "phase": "closed",
+    "automaticPhoneDeadlineSeconds": 15
+  },
+  "checkCount": 12,
+  "elapsedSeconds": 160
+}
