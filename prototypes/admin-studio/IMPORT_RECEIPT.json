@@ -1,0 +1,21 @@
+{
+  "source": "/Users/jryear/Documents/Codex/2026-10-02/task-3/admin-prototype",
+  "bidder_base": "99156cc4e4f8240c536fbab2d5d13ba4acc3e4dc",
+  "branch": "admin-journey",
+  "files": {
+    "index.html": "54cab558d35299028bf5825895cf14feb8865bf8c3e0dd0ad96a918ccaf42233",
+    "studio.css": "b900343f7bc2ef7fea3485164eb53ecd78db3242366c64eefdae3e3695dde162",
+    "studio.js": "934779346cbd38697dfae96e6d1a1de1f32131bde02c2bbcf16474aac4549579",
+    "model.js": "2e81691f03b4b6fe1ecfae0f530de33a53b4f8aa124d625fc6587f3ec14e0727",
+    "bidder/index.html": "c4d863ff1bb2fdd045e8ec3aeda8bc3ddd375eb063513d831bc51a73132c5390",
+    "bidder/styles.css": "4ae25afaf22044d7967202cd1d51de27615f18d3172ba099c0bcb968a92389bb",
+    "bidder/src/ui.js": "019b5ed3d8436f48b84b00d29a113609698583662fb19b0aad0d5fc8c8040866",
+    "bidder/src/store.js": "523b0d827dbe4366162d4328a60c483acb9e4770e5b382f8abfe618b258b4ec6",
+    "bidder/src/sheets.js": "7faa34c7f7e798cfcafee91fd2a9b95c8d33ebc5117992ffa905a972eb15f73b",
+    "bidder/src/panel.js": "f7ef73bf00db0b892abbd92ea983e08fca895c7f2205a3896cfb5e866157a970",
+    "bidder/src/data.js": "70376387e1b54f9fbd329186c5e13a99794683705c79a7af782b25be9ebfdc0a",
+    "bidder/src/views.js": "145cfa98f3dee942230300cc0393ddcf9bce27dc86a2ab23e028238cd5e7a6c0",
+    "bidder/src/fixtures.shared.js": "9447568b0afc5970533d0f0766a11a23f0871c65f423f58afd517c6d5794a97f",
+    "bidder/src/app.js": "ccd3fdd5b1f684272e7984525f7e5f8c4daef9c59f7b2c90d84da33a197598ee"
+  }
+}

@@ -1,0 +1,44 @@
+spec_version = 1
+id = "staging-staff-drafts-001"
+project = "bidzizi"
+goal = "Pre-enrolled synthetic test staff can create and edit organization-owned incomplete event and lot drafts, receive PostgreSQL-confirmed Saved, reload them in an independent browser, and see the same saved revision through A's bidder preview, with tenant authorization and safe recovery."
+bypass_policy = "fail"
+
+[scope]
+include = ["src/*", "public/*", "migrations/*", "scripts/*", "docs/*", "README.md", "AGENTS.md", "package.json", "next-env.d.ts", "tests/implementation/*"]
+exclude = ["*.env*", "pnpm-lock.yaml", "vercel.json", ".vercel/*", ".claims/*"]
+protected = ["prototypes/*", "src/lib/database.ts", "tests/acceptance/staff-drafts/*"]
+test_files = ["*test*", "*spec*", "*__tests__*"]
+
+[worktree]
+link = ["node_modules"]
+
+[[checks]]
+name = "Durable staff drafts, independent browser reload, actual A saved preview, retry and conflict recovery"
+kind = "acceptance"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts/run.mjs acceptance"
+evidence = ["tests/acceptance/staff-drafts/*"]
+timeout = 300
+
+[[checks]]
+name = "Session deployment gate, tenant revocation, CSRF, atomic validation, retry and concurrency boundaries"
+kind = "adversarial"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts/run.mjs adversarial"
+evidence = ["tests/acceptance/staff-drafts/*"]
+timeout = 300
+
+[[checks]]
+name = "Existing admin prototype model"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node prototypes/admin-studio/evidence/model-check.mjs"
+timeout = 120
+
+[[checks]]
+name = "TypeScript"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node node_modules/typescript/bin/tsc --noEmit --incremental false"
+timeout = 180
+
+[notes]
+context = "Accepted UI foundation is A and approved Event/Lots admin studio with plain copy. First real slice deliberately allows incomplete drafts and uses explicit Save. Staff identities and organization grants are synthetic pre-enrolled server records. Browser identity, role, organization, Member ID, provider, bid history and count never confer authority. Test auth requires explicit BIDZIZI_STAGING_TEST_AUTH=true and either no VERCEL, BIDZIZI_APP_MODE=local-test, loopback APP_ORIGIN and explicitly disposable bz_test_* local DB, or VERCEL_ENV=preview, BIDZIZI_APP_MODE=staging and exact generated .vercel.app origin. Production denies login and existing test sessions even with the flag. Opaque random sessions are stored only as hashes with expiry/revocation, cookies HttpOnly/SameSite and Secure on HTTPS; all protected responses no-store. Mutations require exact configured Origin and JSON, payload <=64KiB, whitelist validation and atomic expected-revision/idempotency transaction; every replay rechecks current authority. Existing Neon pooled/TLS connectivity adapter remains immutable. Evidence allocates independent local PostgreSQL18 cluster/database/credentials and Next process per tree/mode, never shared staging; setup/connectivity/browser-launch/timeouts are exit99 rather than RED. The protected harness relies only on local tools and installed node_modules and never sends SMS/email or applies fixtures to external databases."
+out_of_scope = "No real phone/SMS verification, organization onboarding, bidder membership/admission, catalog publication/scheduling, actual bidding, auto-bid, donation/payment/settlement, image upload/storage, production-data access or release claim. Preview is an authenticated saved-draft view, not an audience catalog; audience draft content must not be exposed. Fixture monetary fields use integer minor-unit values without freezing operational currency or increment semantics. The standalone prototype and current SELECT1 adapter must remain unchanged. Provider configuration, branch creation, deployment and final remote E2E are separate approved operations outside this kernel verdict."

@@ -1,0 +1,15 @@
+-- Synthetic, deliberately small staff/tenant boundary. No real members or data.
+INSERT INTO bz_orgs(id,name,initials) VALUES
+ ('10000000-0000-4000-8000-000000000001','Saturn Barter','SB'),
+ ('10000000-0000-4000-8000-000000000002','Pine Street Exchange','PE')
+ ON CONFLICT(id) DO NOTHING;
+INSERT INTO bz_people(id,alias,name,active,is_test) VALUES
+ ('20000000-0000-4000-8000-000000000001','staff-saturn','Test Saturn Staff',true,true),
+ ('20000000-0000-4000-8000-000000000002','staff-pine','Test Pine Staff',true,true),
+ ('20000000-0000-4000-8000-000000000003','bidder-juniper','Test Juniper Bidder',true,true),
+ ('20000000-0000-4000-8000-000000000004','bidder-harbor','Test Harbor Bidder',true,true)
+ ON CONFLICT(id) DO NOTHING;
+INSERT INTO bz_staff_grants(person_id,org_id,active) VALUES
+ ('20000000-0000-4000-8000-000000000001','10000000-0000-4000-8000-000000000001',true),
+ ('20000000-0000-4000-8000-000000000002','10000000-0000-4000-8000-000000000002',true)
+ ON CONFLICT(person_id,org_id) DO NOTHING;

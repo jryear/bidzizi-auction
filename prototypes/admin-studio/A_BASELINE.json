@@ -1,0 +1,23 @@
+{
+  "revision": "99156cc4e4f8240c536fbab2d5d13ba4acc3e4dc",
+  "files": {
+    "assets/fonts/fraunces-vf.woff2": "7e744849028e2219e2aa1bc467dc4032980dc4487c9c3da3010081cd72d3b103",
+    "assets/fonts/instrument-sans-vf.woff2": "2ee17598a98d8a59e4df8152d015bec9ab8e4d5672cc0ab42bef806b568e3971",
+    "assets/lots/bicycle.jpg": "f8922acfde2e2321a5cab29b8ea3a02638b804ce41fcc496a2465f94b4afd562",
+    "assets/lots/cabin.jpg": "8c95864f191f680540b784f580a0d89805539fd24148070158828aa5a4ae3ff0",
+    "assets/lots/ceramics.jpg": "cf1f3d7874d79e29d43244707c8581db0fda2b92bdeeeaf4bffe5455a4a8eca1",
+    "assets/lots/coffee.jpg": "6e61073ce05b0cab98e8d8e003a9debe6a02af63e0f401282b46482722779323",
+    "assets/lots/dinner.jpg": "d11d9891c82e760d6f21a42269d411caf0a238f6e1ec6968a54b6cecc0d982b2",
+    "assets/lots/flowers.jpg": "3a9833fd59633593d20064661d0b5c98c167d10d7bfa984fd4e9ed7961d28918",
+    "index.html": "c4d863ff1bb2fdd045e8ec3aeda8bc3ddd375eb063513d831bc51a73132c5390",
+    "src/app.js": "c0dba54a8c94829bc6cb8d0a714d34991477b72a91f4c6386a7ae1b3be678922",
+    "src/data.js": "badc199939c97e853345501e5ec1d19cabe0d4d59a11bdc0c314ac645c64adee",
+    "src/fixtures.shared.js": "9447568b0afc5970533d0f0766a11a23f0871c65f423f58afd517c6d5794a97f",
+    "src/panel.js": "f7ef73bf00db0b892abbd92ea983e08fca895c7f2205a3896cfb5e866157a970",
+    "src/sheets.js": "de3826288d52717bb1ff737325800601dd6b21bed6b8fcac13a9498d7cb1fe2c",
+    "src/store.js": "c86773cf433b1fff259ad7d6ea378415e3030c7d319401fcb0e744add723d346",
+    "src/ui.js": "019b5ed3d8436f48b84b00d29a113609698583662fb19b0aad0d5fc8c8040866",
+    "src/views.js": "bb91c34c4b173e6b6e9ba6377824245f272490dbfd7ef5ad9931f86d24e5656d",
+    "styles.css": "8d28cd334d4896ab68eb047555b443e9a6198e3f94a59601c15bbf64dd7f96b1"
+  }
+}

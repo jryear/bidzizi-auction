@@ -10,7 +10,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "dev:admin": "node prototypes/admin-studio/serve.mjs",
+    "check:admin": "node prototypes/admin-studio/evidence/model-check.mjs",
+    "check:admin:browser": "node prototypes/admin-studio/evidence/browser-check.mjs"
   },
   "dependencies": {
     "@vercel/functions": "^3.9.9",

@@ -29,6 +29,12 @@ The user selected `prototypes/lanyard` (prototype A) on 2026-10-02 as the canoni
 - Entering a Member ID, business name, or invitation text never authorizes acting for a business. Authority comes from server-held admission, whatever the prototype shows.
 - Real auto-bidding is a later contract. Any auto-bid in the prototype is a labeled simulation.
 
+## Admin design prototype
+
+The user approved the first admin Event/Lots prototype and its simplified copy, then requested it on a separate worktree. It lives in `prototypes/admin-studio`; read [the handoff](docs/ADMIN_JOURNEY_HANDOFF.md) before changing it. It is isolated from `src/` and production services, like the A foundation.
+
+BidZizi contains organizations; Saturn is the first example organization and Holiday Trade Show is its event. Staff enter items internally. The organization supplies items; optional event sponsors are separate. Staff select lots together and assign a shared opening/closing window. The audience catalog appears when bidding opens. Organization onboarding, staff authorization, multiple windows, and real scheduler/bidding behavior remain future work. Prototype rules are not a frozen contract.
+
 ## Work style and inspection
 
 Prefer one owner for a complete user outcome through interface, authority, persistence, and recovery. Resolve reversible implementation choices autonomously; surface decisions that change product meaning, security boundaries, durable data contracts, or external commitments.

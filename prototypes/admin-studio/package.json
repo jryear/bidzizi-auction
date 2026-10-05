@@ -1,0 +1,1 @@
+{"name":"bidzizi-admin-journey-prototype","private":true,"type":"module","engines":{"node":"24.x"},"packageManager":"pnpm@12.4.2","scripts":{"dev":"node serve.mjs","check":"node evidence/model-check.mjs"}}

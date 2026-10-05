@@ -57,6 +57,17 @@ Run the evidence scripts after `pnpm install --frozen-lockfile` on Node 24; they
 
 Provenance: branch `bidder-foundation-a`, exact-source checkpoint tag `bidder-foundation-a-checkpoint` (commit `04548fc`), promoted from the untracked `prototypes/lanyard` in the main checkout at `/Users/jryear/code/bidzizi`, where a preview was served on port 4321. The branch is local: not pushed, not merged, not deployed.
 
+## Admin journey prototype
+
+The approved first admin journey is available separately in [`prototypes/admin-studio`](prototypes/admin-studio/README.md), on the local `admin-journey` branch. It uses the selected A bidder renderers with draft data and the simplified admin wording.
+
+```bash
+pnpm dev:admin          # http://127.0.0.1:4331/#/event
+pnpm check:admin        # nine prototype model checks
+```
+
+Organization staff edit event details and lots, bulk-assign one shared bidding window, inspect the interactive bidder preview, fix missing content, and approve a scheduled catalog copy. The catalog appears when bidding opens. Drafts, scheduling, organization switching, and bids remain browser-local simulations; the Next.js app is unchanged. See [the admin handoff](docs/ADMIN_JOURNEY_HANDOFF.md) for the exact base, scope, and checks.
+
 ## Local development
 
 Use **Node.js 24** (`.nvmrc`) and **pnpm 12.4.2** (`package.json`). Select Node 24 in your shell before running commands; do not assume the default `node` matches `.nvmrc`.
