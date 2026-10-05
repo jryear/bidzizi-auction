@@ -1,0 +1,7 @@
+CONTROL healthy authenticated Event/API/full SQL; protected001+002+003; unique local scoped runtime role
+FAIL NAV_WORKSPACE_ABSENT: NAV_WORKSPACE_ABSENT: exactly one new Event Studio navigation
+
+0 !== 1
+
+CASE_RESULT {"id":"NAV_WORKSPACE_ABSENT","expectedBaseExit":1,"actualExit":1,"durationMs":952,"message":"NAV_WORKSPACE_ABSENT: exactly one new Event Studio navigation\n\n0 !== 1\n","classification":"ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"}
+RUN_RECEIPT /Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v2/NAV_WORKSPACE_ABSENT/RUN_RECEIPT.json

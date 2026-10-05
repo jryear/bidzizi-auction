@@ -1,0 +1,18 @@
+CONTROL Node24 --check actual copied static admin studio.js
+CONTROL healthy authenticated Event/API/full SQL; protected001+002+003; unique local scoped runtime role
+CASE_RESULT {"id":"STALE_DRAFT_SESSION","expectedBaseExit":0,"actualExit":0,"durationMs":1552,"message":"All contracted observations completed","classification":"ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"}
+CASE_RESULT {"id":"STALE_APPROVAL_SESSION","expectedBaseExit":0,"actualExit":0,"durationMs":1941,"message":"All contracted observations completed","classification":"ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"}
+CASE_RESULT {"id":"UNRESOLVED_WRITES_BLOCK","expectedBaseExit":0,"actualExit":0,"durationMs":2153,"message":"All contracted observations completed","classification":"ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"}
+CASE_RESULT {"id":"MALFORMED_SAVE_RECOVERY","expectedBaseExit":0,"actualExit":0,"durationMs":2601,"message":"All contracted observations completed","classification":"ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"}
+CASE_RESULT {"id":"DIRTY_REPLACEMENT","expectedBaseExit":0,"actualExit":0,"durationMs":966,"message":"All contracted observations completed","classification":"ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"}
+FAIL APPROVED_NOTICE_ASYNC: APPROVED_NOTICE_ASYNC: first approved read refreshes hint without input/tab change
++ actual - expected
+
++ 'Working draft. Save changes before approving a catalog.'
+- 'Working draft. Changes do not alter the approved catalog.'
+
+CASE_RESULT {"id":"APPROVED_NOTICE_ASYNC","expectedBaseExit":1,"actualExit":1,"durationMs":528,"message":"APPROVED_NOTICE_ASYNC: first approved read refreshes hint without input/tab change\n+ actual - expected\n\n+ 'Working draft. Save changes before approving a catalog.'\n- 'Working draft. Changes do not alter the approved catalog.'\n","classification":"ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"}
+CASE_RESULT {"id":"APPROVED_NOTICE_PRIORITY","expectedBaseExit":0,"actualExit":0,"durationMs":1516,"message":"All contracted observations completed","classification":"ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"}
+CASE_RESULT {"id":"APPROVAL_RESPONSE_VARIANTS","expectedBaseExit":0,"actualExit":0,"durationMs":4319,"message":"All contracted observations completed","classification":"ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"}
+CASE_RESULT {"id":"SELECTED_SUBSET_IMMUTABLE","expectedBaseExit":0,"actualExit":0,"durationMs":850,"message":"All contracted observations completed","classification":"ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"}
+RUN_RECEIPT /Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/adversarial/RUN_RECEIPT.json

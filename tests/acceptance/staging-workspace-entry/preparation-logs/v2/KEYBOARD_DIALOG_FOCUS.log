@@ -1,0 +1,4 @@
+CONTROL healthy authenticated Event/API/full SQL; protected001+002+003; unique local scoped runtime role
+FAIL KEYBOARD_DIALOG_FOCUS: Replacement restores a live control or heading focus: {"tag":"BODY","connected":true,"id":""}
+CASE_RESULT {"id":"KEYBOARD_DIALOG_FOCUS","expectedBaseExit":0,"actualExit":1,"durationMs":954,"message":"Replacement restores a live control or heading focus: {\"tag\":\"BODY\",\"connected\":true,\"id\":\"\"}","classification":"ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"}
+RUN_RECEIPT /Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v2/KEYBOARD_DIALOG_FOCUS/RUN_RECEIPT.json

@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "mode": "APPROVAL_RESPONSE_VARIANTS",
+  "sourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+  "verifyTree": "direct-characterization",
+  "frozenContract": false,
+  "kernelInvoked": false,
+  "mutant": null,
+  "actualExit": 0,
+  "durationMs": 8214,
+  "results": [
+    {
+      "id": "APPROVAL_RESPONSE_VARIANTS",
+      "expectedBaseExit": 0,
+      "actualExit": 0,
+      "durationMs": 3958,
+      "message": "All contracted observations completed",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    }
+  ],
+  "casePlanSHA256": "fc9a2aec7ef365d528fdb1817db87fe42092bd5cac5cf2a94b50f425fb2b47c9"
+}

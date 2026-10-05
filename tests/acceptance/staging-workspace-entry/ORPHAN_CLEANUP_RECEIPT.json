@@ -1,0 +1,19 @@
+{
+  "cleanup": [
+    {
+      "ownedDirectory": "/tmp/task-root/bz-workspace-APWjLh",
+      "priorUnhandledCallbackVersion": "v2",
+      "ownedNextProcessGroup": 39923,
+      "postgresStopExit": 0,
+      "disposableOnly": true
+    },
+    {
+      "ownedDirectory": "/tmp/task-root/bz-workspace-B27f4D",
+      "priorUnhandledCallbackVersion": "v2",
+      "ownedNextProcessGroup": 40754,
+      "postgresStopExit": 0,
+      "disposableOnly": true
+    }
+  ],
+  "scope": "Only new-harness v2 callback-crash leftovers; no shared or parent fixture directories"
+}

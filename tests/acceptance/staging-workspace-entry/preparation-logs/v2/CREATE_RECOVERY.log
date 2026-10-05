@@ -1,0 +1,40 @@
+CONTROL healthy authenticated Event/API/full SQL; protected001+002+003; unique local scoped runtime role
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+TargetClosedError2: "route.fetch: Request context disposed.
+Call log:
+[2m  - → POST http://127.0.0.1:62910/api/admin/events[22m
+[2m    - user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36[22m
+[2m    - accept: */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - cookie: bz_session=[REDACTED_DISPOSABLE_SESSION][22m
+[2m    - origin: http://127.0.0.1:62910[22m
+[2m    - referer: http://127.0.0.1:62910/staging-admin/index.html[22m
+[2m    - content-type: application/json[22m
+[2m    - sec-ch-ua: "HeadlessChrome";v="153", "Not_A Brand";v="8", "Chromium";v="153"[22m
+[2m    - sec-ch-ua-mobile: ?0[22m
+[2m    - sec-ch-ua-platform: "macOS"[22m
+[2m    - content-length: 147[22m
+" while running route callback.
+Consider awaiting `await page.unrouteAll({ behavior: 'ignoreErrors' })`
+before the end of the test to ignore remaining routes in flight.
+    at /Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/checks.mjs:30:279 {
+  log: [
+    '  - → POST http://127.0.0.1:62910/api/admin/events',
+    '    - user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36',
+    '    - accept: */*',
+    '    - accept-encoding: gzip,deflate,br',
+    '    - cookie: bz_session=[REDACTED_DISPOSABLE_SESSION]',
+    '    - origin: http://127.0.0.1:62910',
+    '    - referer: http://127.0.0.1:62910/staging-admin/index.html',
+    '    - content-type: application/json',
+    '    - sec-ch-ua: "HeadlessChrome";v="153", "Not_A Brand";v="8", "Chromium";v="153"',
+    '    - sec-ch-ua-mobile: ?0',
+    '    - sec-ch-ua-platform: "macOS"',
+    '    - content-length: 147'
+  ]
+}
+
+Node.js v24.4.1

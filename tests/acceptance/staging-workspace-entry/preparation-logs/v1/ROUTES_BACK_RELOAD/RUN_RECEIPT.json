@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "mode": "ROUTES_BACK_RELOAD",
+  "sourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+  "verifyTree": "direct-characterization",
+  "frozenContract": false,
+  "kernelInvoked": false,
+  "mutant": null,
+  "actualExit": 99,
+  "durationMs": 4893,
+  "results": [
+    {
+      "id": "ROUTES_BACK_RELOAD",
+      "expectedBaseExit": 0,
+      "actualExit": 99,
+      "durationMs": 1051,
+      "message": "frame.evaluate: Frame was detached",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    }
+  ],
+  "casePlanSHA256": "df50e4590b449829d9851d335784d936d2b83d2e89fe162d5a2f564490effd27"
+}

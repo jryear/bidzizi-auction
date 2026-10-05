@@ -1,0 +1,15 @@
+CONTROL healthy authenticated Event/API/full SQL; protected001+002+003; unique local scoped runtime role
+HARNESS CREATE_RECOVERY: expect(locator).toBeDisabled() failed
+
+Locator: locator('iframe[title="BidZizi admin workspace"]').contentFrame().locator('[data-action="close-modal"]')
+Expected: disabled
+Error: strict mode violation: locator('[data-action="close-modal"]') resolved to 2 elements:
+    1) <button disabled class="modal-close" data-action="close-modal" aria-label="Close dialog">×</button> aka getByRole('button', { name: 'Close dialog' })
+    2) <button disabled class="btn" data-action="close-modal">Cancel</button> aka getByRole('button', { name: 'Cancel' })
+
+Call log:
+  - Expect "toBeDisabled" locator('iframe[title="BidZizi admin workspace"]').contentFrame().locator('[data-action="close-modal"]') with timeout 5000ms
+  - waiting for locator('iframe[title="BidZizi admin workspace"]').contentFrame().locator('[data-action="close-modal"]')
+
+CASE_RESULT {"id":"CREATE_RECOVERY","expectedBaseExit":0,"actualExit":99,"durationMs":889,"message":"expect(locator).toBeDisabled() failed\n\nLocator: locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('[data-action=\"close-modal\"]')\nExpected: disabled\nError: strict mode violation: locator('[data-action=\"close-modal\"]') resolved to 2 elements:\n    1) <button disabled class=\"modal-close\" data-action=\"close-modal\" aria-label=\"Close dialog\">×</button> aka getByRole('button', { name: 'Close dialog' })\n    2) <button disabled class=\"btn\" data-action=\"close-modal\">Cancel</button> aka getByRole('button', { name: 'Cancel' })\n\nCall log:\n  - Expect \"toBeDisabled\" locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('[data-action=\"close-modal\"]') with timeout 5000ms\n  - waiting for locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('[data-action=\"close-modal\"]')\n","classification":"ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"}
+RUN_RECEIPT /Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v1/CREATE_RECOVERY/RUN_RECEIPT.json

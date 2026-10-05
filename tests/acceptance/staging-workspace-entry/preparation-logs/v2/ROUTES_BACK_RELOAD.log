@@ -1,0 +1,3 @@
+CONTROL healthy authenticated Event/API/full SQL; protected001+002+003; unique local scoped runtime role
+CASE_RESULT {"id":"ROUTES_BACK_RELOAD","expectedBaseExit":0,"actualExit":0,"durationMs":1244,"message":"All contracted observations completed","classification":"ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"}
+RUN_RECEIPT /Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v2/ROUTES_BACK_RELOAD/RUN_RECEIPT.json

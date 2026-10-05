@@ -1,0 +1,22 @@
+{
+  "redactions": [
+    {
+      "trackedRedactedPath": "tests/acceptance/staging-workspace-entry/preparation-logs/v2/acceptance.log",
+      "privateRawPath": "/tmp/bidzizi004-private-raw-9b9eb90n/preparation-logs__v2__acceptance.log",
+      "rawSHA256": "de3e8650e8559f19c97cd2819467da15ddeb9a30399a38e47834248040d1f75e",
+      "redactedSHA256": "0351707680257fb90231dc5a541131298030db07b42c7cf8ca39012c4e0a7d43",
+      "reason": "Playwright callback teardown diagnostic included ephemeral synthetic local-only session cookie; not provider/product credentials or delivery evidence",
+      "privateFileMode": "0600",
+      "privateDirectoryMode": "0700"
+    },
+    {
+      "trackedRedactedPath": "tests/acceptance/staging-workspace-entry/preparation-logs/v2/CREATE_RECOVERY.log",
+      "privateRawPath": "/tmp/bidzizi004-private-raw-9b9eb90n/preparation-logs__v2__CREATE_RECOVERY.log",
+      "rawSHA256": "2a537b0bf642b88b3ccb1984f23d04756a3d6b8643e550cc0b39e6a3f2ae70c4",
+      "redactedSHA256": "fa0c265747dd80bb26eb9c7448f1bb6e0bf63cdb5bb37f033f4165f870ad7a58",
+      "reason": "Playwright callback teardown diagnostic included ephemeral synthetic local-only session cookie; not provider/product credentials or delivery evidence",
+      "privateFileMode": "0600",
+      "privateDirectoryMode": "0700"
+    }
+  ]
+}

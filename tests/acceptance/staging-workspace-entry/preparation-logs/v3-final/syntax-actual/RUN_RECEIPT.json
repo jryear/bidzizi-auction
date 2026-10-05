@@ -1,0 +1,16 @@
+{
+  "version": 3,
+  "mode": "syntax",
+  "actualExit": 0,
+  "durationMs": 38,
+  "actualNodeVersion": "v24.4.1",
+  "actualNodeRuntime": "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+  "sourcePath": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/public/staging-admin/studio.js",
+  "sourceSHA256": "438270354e6c0bd47132d810c44893cf7e52956020eea8b2bc371d7ac516ba82",
+  "sourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+  "syntaxEvidenceSHA256": "5b471e2180b1a69e4dc716a583b5109a23d20a417081d98cc7ac8a6a36e82120",
+  "expectedBaseExit": 0,
+  "stderr": "",
+  "classification": "ACTUAL_APPLICATION_CURRENT_TREE_SYNTAX",
+  "kernelInvoked": false
+}

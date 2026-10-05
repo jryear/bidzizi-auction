@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "mode": "UNRESOLVED_WRITES_BLOCK",
+  "sourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+  "verifyTree": "direct-characterization",
+  "frozenContract": false,
+  "kernelInvoked": false,
+  "mutant": null,
+  "actualExit": 99,
+  "durationMs": 5578,
+  "results": [
+    {
+      "id": "UNRESOLVED_WRITES_BLOCK",
+      "expectedBaseExit": 0,
+      "actualExit": 99,
+      "durationMs": 1647,
+      "message": "expect(locator).toBeDisabled() failed\n\nLocator: locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('[data-action=\"close-modal\"]')\nExpected: disabled\nError: strict mode violation: locator('[data-action=\"close-modal\"]') resolved to 2 elements:\n    1) <button disabled class=\"modal-close\" data-action=\"close-modal\" aria-label=\"Close dialog\">×</button> aka getByRole('button', { name: 'Close dialog' })\n    2) <button disabled class=\"btn\" data-action=\"close-modal\">Cancel</button> aka getByRole('button', { name: 'Cancel' })\n\nCall log:\n  - Expect \"toBeDisabled\" locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('[data-action=\"close-modal\"]') with timeout 5000ms\n  - waiting for locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('[data-action=\"close-modal\"]')\n",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    }
+  ],
+  "casePlanSHA256": "df50e4590b449829d9851d335784d936d2b83d2e89fe162d5a2f564490effd27"
+}

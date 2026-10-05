@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "mode": "adversarial",
+  "sourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+  "verifyTree": "direct-characterization",
+  "frozenContract": false,
+  "kernelInvoked": false,
+  "mutant": null,
+  "actualExit": 1,
+  "durationMs": 19862,
+  "results": [
+    {
+      "id": "STALE_DRAFT_SESSION",
+      "expectedBaseExit": 0,
+      "actualExit": 0,
+      "durationMs": 1560,
+      "message": "All contracted observations completed",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    },
+    {
+      "id": "STALE_APPROVAL_SESSION",
+      "expectedBaseExit": 0,
+      "actualExit": 0,
+      "durationMs": 1904,
+      "message": "All contracted observations completed",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    },
+    {
+      "id": "UNRESOLVED_WRITES_BLOCK",
+      "expectedBaseExit": 0,
+      "actualExit": 0,
+      "durationMs": 2163,
+      "message": "All contracted observations completed",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    },
+    {
+      "id": "MALFORMED_SAVE_RECOVERY",
+      "expectedBaseExit": 0,
+      "actualExit": 0,
+      "durationMs": 2574,
+      "message": "All contracted observations completed",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    },
+    {
+      "id": "DIRTY_REPLACEMENT",
+      "expectedBaseExit": 0,
+      "actualExit": 0,
+      "durationMs": 970,
+      "message": "All contracted observations completed",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    },
+    {
+      "id": "APPROVED_NOTICE_ASYNC",
+      "expectedBaseExit": 1,
+      "actualExit": 1,
+      "durationMs": 518,
+      "message": "APPROVED_NOTICE_ASYNC: first approved read refreshes hint without input/tab change\n+ actual - expected\n\n+ 'Working draft. Save changes before approving a catalog.'\n- 'Working draft. Changes do not alter the approved catalog.'\n",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    },
+    {
+      "id": "APPROVED_NOTICE_PRIORITY",
+      "expectedBaseExit": 0,
+      "actualExit": 0,
+      "durationMs": 1522,
+      "message": "All contracted observations completed",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    },
+    {
+      "id": "APPROVAL_RESPONSE_VARIANTS",
+      "expectedBaseExit": 0,
+      "actualExit": 0,
+      "durationMs": 3643,
+      "message": "All contracted observations completed",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    },
+    {
+      "id": "SELECTED_SUBSET_IMMUTABLE",
+      "expectedBaseExit": 0,
+      "actualExit": 0,
+      "durationMs": 852,
+      "message": "All contracted observations completed",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    }
+  ],
+  "casePlanSHA256": "fc9a2aec7ef365d528fdb1817db87fe42092bd5cac5cf2a94b50f425fb2b47c9"
+}

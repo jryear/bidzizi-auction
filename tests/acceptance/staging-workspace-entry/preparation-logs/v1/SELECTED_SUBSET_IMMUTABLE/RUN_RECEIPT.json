@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "mode": "SELECTED_SUBSET_IMMUTABLE",
+  "sourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+  "verifyTree": "direct-characterization",
+  "frozenContract": false,
+  "kernelInvoked": false,
+  "mutant": null,
+  "actualExit": 0,
+  "durationMs": 5048,
+  "results": [
+    {
+      "id": "SELECTED_SUBSET_IMMUTABLE",
+      "expectedBaseExit": 0,
+      "actualExit": 0,
+      "durationMs": 1185,
+      "message": "All contracted observations completed",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    }
+  ],
+  "casePlanSHA256": "df50e4590b449829d9851d335784d936d2b83d2e89fe162d5a2f564490effd27"
+}

@@ -1,0 +1,18 @@
+CONTROL healthy authenticated Event/API/full SQL; protected001+002+003; unique local scoped runtime role
+FAIL REACHABILITY: Bounded reachability: nav[aria-label="Event Studio"] unreachable 1440/true/false; nav[aria-label="Event Studio"] unreachable 1440/true/true; nav[aria-label="Event Studio"] unreachable 1440/false/false; nav[aria-label="Event Studio"] unreachable 1440/false/true; nav[aria-label="Event Studio"] unreachable 1280/true/false; nav[aria-label="Event Studio"] unreachable 1280/true/true; nav[aria-label="Event Studio"] unreachable 1280/false/false; nav[aria-label="Event Studio"] unreachable 1280/false/true
++ actual - expected
+
++ [
++   'nav[aria-label="Event Studio"] unreachable 1440/true/false',
++   'nav[aria-label="Event Studio"] unreachable 1440/true/true',
++   'nav[aria-label="Event Studio"] unreachable 1440/false/false',
++   'nav[aria-label="Event Studio"] unreachable 1440/false/true',
++   'nav[aria-label="Event Studio"] unreachable 1280/true/false',
++   'nav[aria-label="Event Studio"] unreachable 1280/true/true',
++   'nav[aria-label="Event Studio"] unreachable 1280/false/false',
++   'nav[aria-label="Event Studio"] unreachable 1280/false/true'
++ ]
+- []
+
+CASE_RESULT {"id":"REACHABILITY","expectedBaseExit":1,"actualExit":1,"durationMs":1854,"message":"Bounded reachability: nav[aria-label=\"Event Studio\"] unreachable 1440/true/false; nav[aria-label=\"Event Studio\"] unreachable 1440/true/true; nav[aria-label=\"Event Studio\"] unreachable 1440/false/false; nav[aria-label=\"Event Studio\"] unreachable 1440/false/true; nav[aria-label=\"Event Studio\"] unreachable 1280/true/false; nav[aria-label=\"Event Studio\"] unreachable 1280/true/true; nav[aria-label=\"Event Studio\"] unreachable 1280/false/false; nav[aria-label=\"Event Studio\"] unreachable 1280/false/true\n+ actual - expected\n\n+ [\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/true/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/true/true',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/false/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/false/true',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/true/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/true/true',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/false/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/false/true'\n+ ]\n- []\n","classification":"ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"}
+RUN_RECEIPT /Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/RUN_RECEIPT.json

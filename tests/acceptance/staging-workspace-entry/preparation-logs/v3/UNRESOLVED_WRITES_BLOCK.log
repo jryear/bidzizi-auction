@@ -1,0 +1,4 @@
+CONTROL Node24 --check actual copied static admin studio.js
+CONTROL healthy authenticated Event/API/full SQL; protected001+002+003; unique local scoped runtime role
+CASE_RESULT {"id":"UNRESOLVED_WRITES_BLOCK","expectedBaseExit":0,"actualExit":0,"durationMs":2811,"message":"All contracted observations completed","classification":"ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"}
+RUN_RECEIPT /Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/UNRESOLVED_WRITES_BLOCK/RUN_RECEIPT.json
