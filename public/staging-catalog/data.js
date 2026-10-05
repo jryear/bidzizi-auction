@@ -10,7 +10,7 @@ export function timeText(value){return new Intl.DateTimeFormat('en-US',{timeZone
 export function dateText(value){return new Intl.DateTimeFormat('en-US',{timeZone:'UTC',month:'long',day:'numeric',year:'numeric'}).format(new Date(value));}
 export function applyAudience(p){
  Object.keys(event).forEach(k=>delete event[k]);
- Object.assign(catalog,{phase:p.phase,serverNow:p.serverNow,schedule:structuredClone(p.schedule),organization:structuredClone(p.organization)});
+ Object.assign(catalog,{phase:p.phase,serverNow:p.serverNow,schedule:structuredClone(p.schedule),organization:structuredClone(p.organization),approvalId:p.catalog?.approvalId||null});
  Object.assign(event,structuredClone(p.event),{host:p.organization.name,cover:photo(p.event.cover),date:dateText(p.schedule.opensAt),opens:timeText(p.schedule.opensAt),closes:timeText(p.schedule.closesAt),timezone:'UTC'});
  const visible=p.phase!=='scheduled'&&p.catalog!==null;
  lots.splice(0,lots.length,...(visible?p.catalog.lots.map(l=>({...structuredClone(l),image:photo(l.image),sponsor:l.provider.name})):[]));
