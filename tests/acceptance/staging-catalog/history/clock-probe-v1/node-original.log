@@ -1,0 +1,6 @@
+{"mode":"end","status":200,"header":"31536000000","body":{"workerNow":1822711999734,"workerConstructorNow":1822711999734,"explicit":946684800000},"elapsed":16,"error":null}
+{"mode":"explicit","status":200,"header":null,"body":{"workerNow":1822711999740,"workerConstructorNow":1822711999740,"explicit":946684800000},"elapsed":1,"error":"Actual worker proof header missing/wrong"}
+{"mode":"array","status":200,"header":null,"body":{"workerNow":1822711999741,"workerConstructorNow":1822711999741,"explicit":946684800000},"elapsed":1,"error":"Actual worker proof header missing/wrong"}
+{"mode":"flush","status":200,"header":null,"body":{"workerNow":1822711999742,"workerConstructorNow":1822711999742,"explicit":946684800000},"elapsed":1,"error":"Actual worker proof header missing/wrong"}
+{"mode":"implicit","status":200,"header":null,"body":{"workerNow":1822711999742,"workerConstructorNow":1822711999742,"explicit":946684800000},"elapsed":1,"error":"Actual worker proof header missing/wrong"}
+{"failures":4,"totalElapsedMs":44,"exit":1}

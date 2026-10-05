@@ -23,3 +23,7 @@ deactivation/expiry including after close, dirty review and both lost-response
 stages, event-scoped viewer matrix, Pine provider rendering, closed A retention.
 Original v1/v2/001a graders are unchanged and cumulative. This ledger records
 authoring changes and limits; it contributes no score or model vote.
+
+## Frozen clock probe correction
+
+Original base20a3930 instrumented response.end after Next already committed headers. Actual application development reached five groups then the missing worker-proof header; its nested exit was not retained and no verdict was claimed. Independent streamed Node and archived Next reproductions fail with the original probe and pass with writeHead stamping. Original source, failing log and measured reproduction commands remain in tests/acceptance/staging-catalog/history/clock-probe-v1. The predicate, API assertions, cumulative checks and TOML are unchanged. This explicit instrumentation correction requires a new trusted feature-absent base and complete baseline/candidate rerun; it cannot turn missing proof into pass.

@@ -1,0 +1,11 @@
+{
+  "frozen_base": "20a3930142324e57ae58be7a232f8dfa676245fd",
+  "fixture_path": "tests/acceptance/staging-catalog/app-clock-skew.cjs",
+  "fixture_sha256": "9ced895c9071ee0588f06503a68541d333a2dee526c7d975a423f13ebccc010d",
+  "command": "VERIFY_TREE=candidate /Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-catalog/run.mjs adversarial",
+  "log_sha256": "7ab3d941c5172104a9dcbe1acaac5d5cd922683b54b31ffa60e8e9eddc546975",
+  "observed": "Five groups completed, then missing worker header proof; overall run incomplete.",
+  "exit": null,
+  "elapsed_seconds": null,
+  "limits": "Parent confirms original process exit/duration were not retained; outer log-printing process0 is not the grader exit. Development backend uncommitted and changing; not a kernel candidate verdict."
+}
