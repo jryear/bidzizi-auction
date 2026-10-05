@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Draft bidder preview · BidZizi</title>
+    <link rel="stylesheet" href="../lanyard/styles.css" />
+    <style>
+      html,
+      body {
+        background: var(--paper);
+      }
+      .shell {
+        max-width: 430px;
+        margin: auto;
+        min-height: 100dvh;
+        box-shadow: none;
+      }
+      .preview-band {
+        background: var(--paper-2);
+        border-bottom: 1px solid var(--line);
+        padding: 9px 14px;
+        font-size: 11px;
+        line-height: 1.5;
+        color: var(--ink-2);
+      }
+      .preview-band b {
+        color: var(--ink);
+      }
+      .pass {
+        position: relative;
+      }
+      .pass:before {
+        display: none;
+      }
+      .preview-nav {
+        padding: 10px 16px;
+        display: flex;
+        gap: 18px;
+        border-bottom: 1px solid var(--line);
+        font-size: 13px;
+      }
+      .preview-nav a {
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      .d-body {
+        padding-bottom: 24px;
+      }
+      .preview-disabled {
+        margin: 14px 16px;
+        padding: 12px;
+        border: 1px dashed var(--line);
+        border-radius: 10px;
+        font-size: 13px;
+        color: var(--ink-2);
+      }
+      .welcome-image {
+        width: 100%;
+        height: 210px;
+        object-fit: cover;
+      }
+      .welcome-body {
+        padding: 24px 18px;
+      }
+      .welcome-body h1 {
+        font: 600 42px/1.05 var(--serif);
+        letter-spacing: -0.02em;
+        margin: 12px 0 18px;
+      }
+      .welcome-body p {
+        margin: 14px 0;
+        font-size: 15px;
+        color: var(--ink-2);
+      }
+      .welcome-body .btn {
+        margin: 22px 0;
+      }
+      .sponsors {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+      .sponsors span {
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: var(--card);
+        padding: 8px;
+        font-size: 12px;
+      }
+      .entry-facts {
+        border-block: 1px dashed var(--line);
+        padding: 10px 0;
+        margin: 20px 0;
+      }
+      .preview-window {
+        padding: 12px 16px;
+        background: var(--paper-2);
+        font-size: 13px;
+      }
+      .preview-window b {
+        display: block;
+      }
+      .detail .stub-side {
+        min-width: 105px;
+      }
+      .pass-text b {
+        font-size: 15px;
+      }
+      .empty-preview {
+        padding: 28px 16px;
+      }
+      .preview-band a {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <div class="preview-band">
+        <b>Draft preview · simulation</b><br />All draft lots shown. No
+        admission or bidding. Later-window visibility undecided.
+      </div>
+      <nav class="preview-nav" aria-label="Preview navigation">
+        <a href="#welcome">Welcome</a><a href="#lots">Lots</a>
+      </nav>
+      <div id="view"></div>
+    </div>
+    <script type="module" src="preview.js"></script>
+  </body>
+</html>

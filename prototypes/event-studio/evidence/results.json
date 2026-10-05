@@ -1,0 +1,240 @@
+{
+  "at": "2026-10-05T18:45:03.830Z",
+  "runtime": "v24.4.1",
+  "results": [
+    {
+      "name": "seed has two organization events",
+      "ok": true
+    },
+    {
+      "name": "seed exposes unassigned and uncategorized counts",
+      "ok": true
+    },
+    {
+      "name": "bulk assignment without a target validates",
+      "ok": true
+    },
+    {
+      "name": "search keeps input focus while narrowing rows",
+      "ok": true
+    },
+    {
+      "name": "empty search has a recovery action",
+      "ok": true
+    },
+    {
+      "name": "switching events changes catalog",
+      "ok": true
+    },
+    {
+      "name": "returning event retains its catalog",
+      "ok": true
+    },
+    {
+      "name": "whitespace name is rejected",
+      "ok": true
+    },
+    {
+      "name": "new event starts empty and isolated",
+      "ok": true
+    },
+    {
+      "name": "physical details save independently of windows",
+      "ok": true
+    },
+    {
+      "name": "amounts beyond two decimal places rejected",
+      "ok": true
+    },
+    {
+      "name": "increment example shows next eligible bid",
+      "ok": true
+    },
+    {
+      "name": "opening and increment persist as integer cents",
+      "ok": true
+    },
+    {
+      "name": "repeated duplicate clicks create exactly one copy",
+      "ok": true
+    },
+    {
+      "name": "incomplete draft lot remains clearly actionable",
+      "ok": true
+    },
+    {
+      "name": "incomplete setup blocks readiness review",
+      "ok": true
+    },
+    {
+      "name": "readiness Resolve opens the actionable lot filter",
+      "ok": true
+    },
+    {
+      "name": "case-insensitive duplicate category is rejected",
+      "ok": true
+    },
+    {
+      "name": "bulk category assignment reaches all selected lots",
+      "ok": true
+    },
+    {
+      "name": "reversed bidding interval is rejected",
+      "ok": true
+    },
+    {
+      "name": "two bidding windows remain separate from categories",
+      "ok": true
+    },
+    {
+      "name": "unassigned view empties after bulk assignment",
+      "ok": true
+    },
+    {
+      "name": "one window per lot stored as a single reference",
+      "ok": true
+    },
+    {
+      "name": "draft preview shows all three staff draft lots",
+      "ok": true
+    },
+    {
+      "name": "preview reuses A detail and has no bid action",
+      "ok": true
+    },
+    {
+      "name": "preview welcome contains edited event details",
+      "ok": true
+    },
+    {
+      "name": "browser Back closes preview without leaving lots",
+      "ok": true
+    },
+    {
+      "name": "reload recovers unsaved editor draft",
+      "ok": true
+    },
+    {
+      "name": "close retains editor draft",
+      "ok": true
+    },
+    {
+      "name": "local readiness review records current revision",
+      "ok": true
+    },
+    {
+      "name": "saved data and readiness review survive reload",
+      "ok": true
+    },
+    {
+      "name": "readiness Inspect opens completed content rather than an empty issue filter",
+      "ok": true
+    },
+    {
+      "name": "event switching does not mix categories windows or reviews",
+      "ok": true
+    },
+    {
+      "name": "live draft changes before apply",
+      "ok": true
+    },
+    {
+      "name": "display draft survives reload without being applied",
+      "ok": true
+    },
+    {
+      "name": "applied display remains unchanged while editing draft",
+      "ok": true
+    },
+    {
+      "name": "repeated apply remains a single local configuration",
+      "ok": true
+    },
+    {
+      "name": "SMS prerequisites block simulated check",
+      "ok": true
+    },
+    {
+      "name": "SMS pending state prevents repeated checks",
+      "ok": true
+    },
+    {
+      "name": "reload of pending SMS is interrupted without success",
+      "ok": true
+    },
+    {
+      "name": "SMS fixture passes with explicit no-delivery truth",
+      "ok": true
+    },
+    {
+      "name": "donation wording persists with no payment controls",
+      "ok": true
+    },
+    {
+      "name": "access destination contains one shared QR",
+      "ok": true
+    },
+    {
+      "name": "QR presentation keeps same event link",
+      "ok": true
+    },
+    {
+      "name": "print action creates printable shared-link sheet",
+      "ok": true
+    },
+    {
+      "name": "sponsor is optional event presentation",
+      "ok": true
+    },
+    {
+      "name": "content edit makes prior review stale",
+      "ok": true
+    },
+    {
+      "name": "close restores opener keyboard focus",
+      "ok": true
+    },
+    {
+      "name": "lot filters survive reload",
+      "ok": true
+    },
+    {
+      "name": "storage failure leaves editor open with truthful error",
+      "ok": true
+    },
+    {
+      "name": "storage failure can recover and save without stale event reference",
+      "ok": true
+    },
+    {
+      "name": "1280 laptop has no page overflow",
+      "ok": true
+    },
+    {
+      "name": "1024 laptop has no page overflow",
+      "ok": true
+    },
+    {
+      "name": "60 visible lots can be selected for bulk work",
+      "ok": true
+    },
+    {
+      "name": "bulk assignment persists all 60 items",
+      "ok": true
+    },
+    {
+      "name": "no browser console or page errors",
+      "ok": true
+    },
+    {
+      "name": "all browser requests remain on loopback",
+      "ok": true
+    },
+    {
+      "name": "WebKit editor closes with Escape and recovers draft",
+      "ok": true
+    }
+  ],
+  "errors": [],
+  "externalRequests": []
+}
