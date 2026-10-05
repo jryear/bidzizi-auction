@@ -1,6 +1,6 @@
 {
   "status": "Bounded independently authored runnable preparation complete; root audit/review/freeze pending; no application implementation",
-  "version": 3,
+  "version": 4,
   "actualModel": "gpt-6.1-sol",
   "reasoningEffort": "high",
   "tools": [
@@ -57,7 +57,7 @@
         "id": "NAV_WORKSPACE_ABSENT",
         "expectedBaseExit": 1,
         "actualExit": 1,
-        "durationMs": 933,
+        "durationMs": 842,
         "message": "NAV_WORKSPACE_ABSENT: exactly one new Event Studio navigation\n\n0 !== 1\n",
         "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
       },
@@ -65,7 +65,7 @@
         "id": "DURABLE_SAVED_PREVIEW",
         "expectedBaseExit": 0,
         "actualExit": 0,
-        "durationMs": 5875,
+        "durationMs": 5697,
         "message": "All contracted observations completed",
         "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
       },
@@ -73,7 +73,7 @@
         "id": "CREATE_RECOVERY",
         "expectedBaseExit": 0,
         "actualExit": 0,
-        "durationMs": 860,
+        "durationMs": 785,
         "message": "All contracted observations completed",
         "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
       },
@@ -81,7 +81,7 @@
         "id": "ROUTES_BACK_RELOAD",
         "expectedBaseExit": 0,
         "actualExit": 0,
-        "durationMs": 716,
+        "durationMs": 734,
         "message": "All contracted observations completed",
         "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
       },
@@ -89,15 +89,15 @@
         "id": "KEYBOARD_DIALOG_FOCUS",
         "expectedBaseExit": 1,
         "actualExit": 1,
-        "durationMs": 512,
-        "message": "Escape restores picker focus",
+        "durationMs": 940,
+        "message": "Replacement restores a live control or heading focus after close/task/frame completion: {\"tag\":\"BODY\",\"connected\":true,\"id\":\"\"}",
         "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
       },
       {
         "id": "REACHABILITY",
         "expectedBaseExit": 1,
         "actualExit": 1,
-        "durationMs": 1404,
+        "durationMs": 1431,
         "message": "Bounded reachability: nav[aria-label=\"Event Studio\"] unreachable 1440/true/false; nav[aria-label=\"Event Studio\"] unreachable 1440/true/true; nav[aria-label=\"Event Studio\"] unreachable 1440/false/false; nav[aria-label=\"Event Studio\"] unreachable 1440/false/true; nav[aria-label=\"Event Studio\"] unreachable 1280/true/false; nav[aria-label=\"Event Studio\"] unreachable 1280/true/true; nav[aria-label=\"Event Studio\"] unreachable 1280/false/false; nav[aria-label=\"Event Studio\"] unreachable 1280/false/true\n+ actual - expected\n\n+ [\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/true/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/true/true',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/false/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/false/true',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/true/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/true/true',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/false/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/false/true'\n+ ]\n- []\n",
         "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
       },
@@ -105,7 +105,7 @@
         "id": "STALE_DRAFT_SESSION",
         "expectedBaseExit": 0,
         "actualExit": 0,
-        "durationMs": 1436,
+        "durationMs": 1310,
         "message": "All contracted observations completed",
         "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
       },
@@ -113,7 +113,7 @@
         "id": "STALE_APPROVAL_SESSION",
         "expectedBaseExit": 0,
         "actualExit": 0,
-        "durationMs": 1759,
+        "durationMs": 1604,
         "message": "All contracted observations completed",
         "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
       },
@@ -121,7 +121,7 @@
         "id": "UNRESOLVED_WRITES_BLOCK",
         "expectedBaseExit": 0,
         "actualExit": 0,
-        "durationMs": 2228,
+        "durationMs": 2119,
         "message": "All contracted observations completed",
         "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
       },
@@ -129,7 +129,7 @@
         "id": "MALFORMED_SAVE_RECOVERY",
         "expectedBaseExit": 0,
         "actualExit": 0,
-        "durationMs": 2799,
+        "durationMs": 2463,
         "message": "All contracted observations completed",
         "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
       },
@@ -137,7 +137,7 @@
         "id": "DIRTY_REPLACEMENT",
         "expectedBaseExit": 0,
         "actualExit": 0,
-        "durationMs": 1039,
+        "durationMs": 917,
         "message": "All contracted observations completed",
         "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
       },
@@ -145,7 +145,7 @@
         "id": "APPROVED_NOTICE_ASYNC",
         "expectedBaseExit": 1,
         "actualExit": 1,
-        "durationMs": 336,
+        "durationMs": 338,
         "message": "APPROVED_NOTICE_ASYNC: first approved read refreshes hint without input/tab change\n+ actual - expected\n\n+ 'Working draft. Save changes before approving a catalog.'\n- 'Working draft. Changes do not alter the approved catalog.'\n",
         "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
       },
@@ -153,7 +153,7 @@
         "id": "APPROVED_NOTICE_PRIORITY",
         "expectedBaseExit": 0,
         "actualExit": 0,
-        "durationMs": 1290,
+        "durationMs": 1273,
         "message": "All contracted observations completed",
         "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
       },
@@ -161,7 +161,7 @@
         "id": "APPROVAL_RESPONSE_VARIANTS",
         "expectedBaseExit": 0,
         "actualExit": 0,
-        "durationMs": 3868,
+        "durationMs": 3593,
         "message": "All contracted observations completed",
         "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
       },
@@ -169,23 +169,181 @@
         "id": "SELECTED_SUBSET_IMMUTABLE",
         "expectedBaseExit": 0,
         "actualExit": 0,
-        "durationMs": 810,
+        "durationMs": 826,
         "message": "All contracted observations completed",
         "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
       }
     ],
-    "acceptanceInnerDurationMs": 14256,
-    "adversarialInnerDurationMs": 19619,
-    "actualRawCommandDurationsSeconds": {
-      "acceptance": 19.147,
-      "adversarial": 24.497
-    },
-    "actualModeHashes": {
-      "acceptance": "39b6aa1a162445a3c74861dac0a5f63e3a74f13b48453e7751e868e671b1ebd9",
-      "adversarial": "a9c2bb6f3b29cdf9e712b18099e13dfcb7159dacf744a8e539b4b094f061bf18"
-    },
-    "syntax": {
-      "version": 3,
+    "modeReceipts": [
+      "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/acceptance/RUN_RECEIPT.json",
+      "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/adversarial/RUN_RECEIPT.json"
+    ],
+    "commands": [
+      {
+        "id": "syntax",
+        "rawExit": 0,
+        "expectedExit": 0,
+        "durationSeconds": 0.072,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+          "syntax",
+          "--output",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/syntax"
+        ]
+      },
+      {
+        "id": "acceptance",
+        "rawExit": 1,
+        "expectedExit": 1,
+        "durationSeconds": 18.994,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+          "acceptance",
+          "--output",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/acceptance"
+        ]
+      },
+      {
+        "id": "adversarial",
+        "rawExit": 1,
+        "expectedExit": 1,
+        "durationSeconds": 23.165,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+          "adversarial",
+          "--output",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/adversarial"
+        ]
+      },
+      {
+        "id": "KEYBOARD_DIALOG_FOCUS",
+        "rawExit": 1,
+        "expectedExit": 1,
+        "durationSeconds": 10.144,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+          "KEYBOARD_DIALOG_FOCUS",
+          "--output",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/KEYBOARD_DIALOG_FOCUS"
+        ]
+      },
+      {
+        "id": "missing-consumption-guard",
+        "rawExit": 0,
+        "expectedExit": 0,
+        "durationSeconds": 8.224,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/v4-missing-consumption-control.mjs",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/missing-consumption-guard"
+        ]
+      },
+      {
+        "id": "evidence-parse-browser.mjs",
+        "rawExit": 0,
+        "expectedExit": 0,
+        "durationSeconds": 0.039,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "--check",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/browser.mjs"
+        ]
+      },
+      {
+        "id": "evidence-parse-checks.mjs",
+        "rawExit": 0,
+        "expectedExit": 0,
+        "durationSeconds": 0.038,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "--check",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/checks.mjs"
+        ]
+      },
+      {
+        "id": "evidence-parse-fixtures.mjs",
+        "rawExit": 0,
+        "expectedExit": 0,
+        "durationSeconds": 0.02,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "--check",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/fixtures.mjs"
+        ]
+      },
+      {
+        "id": "evidence-parse-harness.mjs",
+        "rawExit": 0,
+        "expectedExit": 0,
+        "durationSeconds": 0.039,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "--check",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/harness.mjs"
+        ]
+      },
+      {
+        "id": "evidence-parse-oracle-controls.mjs",
+        "rawExit": 0,
+        "expectedExit": 0,
+        "durationSeconds": 0.036,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "--check",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/oracle-controls.mjs"
+        ]
+      },
+      {
+        "id": "evidence-parse-protocol.mjs",
+        "rawExit": 0,
+        "expectedExit": 0,
+        "durationSeconds": 0.039,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "--check",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/protocol.mjs"
+        ]
+      },
+      {
+        "id": "evidence-parse-run.mjs",
+        "rawExit": 0,
+        "expectedExit": 0,
+        "durationSeconds": 0.02,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "--check",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs"
+        ]
+      },
+      {
+        "id": "evidence-parse-syntax.mjs",
+        "rawExit": 0,
+        "expectedExit": 0,
+        "durationSeconds": 0.02,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "--check",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/syntax.mjs"
+        ]
+      },
+      {
+        "id": "evidence-parse-v4-missing-consumption-control.mjs",
+        "rawExit": 0,
+        "expectedExit": 0,
+        "durationSeconds": 0.04,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "--check",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/v4-missing-consumption-control.mjs"
+        ]
+      }
+    ],
+    "syntaxReceipt": {
+      "version": 4,
       "mode": "syntax",
       "actualExit": 0,
       "durationMs": 38,
@@ -193,12 +351,102 @@
       "actualNodeRuntime": "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
       "sourcePath": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/public/staging-admin/studio.js",
       "sourceSHA256": "438270354e6c0bd47132d810c44893cf7e52956020eea8b2bc371d7ac516ba82",
-      "sourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
-      "syntaxEvidenceSHA256": "5b471e2180b1a69e4dc716a583b5109a23d20a417081d98cc7ac8a6a36e82120",
+      "sourceCommit": "08530e822a05ddce13e35e9982183c92b1dd2371",
+      "syntaxEvidenceSHA256": "5cc57a784a3845da68a7ef2cbcc98b76085290a14a85b6d27774bf30cbc43a44",
       "expectedBaseExit": 0,
       "stderr": "",
       "classification": "ACTUAL_APPLICATION_CURRENT_TREE_SYNTAX",
-      "kernelInvoked": false
+      "contractFreezeStatus": "not independently determined by runner",
+      "kernelInvokedByRunner": false,
+      "parentVerificationTree": null
+    },
+    "affectedDirectReceipt": {
+      "version": 4,
+      "mode": "KEYBOARD_DIALOG_FOCUS",
+      "plannedSourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+      "actualSourceCommit": "08530e822a05ddce13e35e9982183c92b1dd2371",
+      "actualSourceHashes": {
+        "docs/decisions/event-studio-workspace-2026-10-05.json": "39f77e308060cc5a419e90e914ed3cf96d315f5daee6592e7126daa983ffa9d1",
+        "docs/proposed/staging-workspace-entry-004.toml": "4d7024615654494ffdb22c79a41f26d9e33d1d3317cf44d62d9ce868e2415c11",
+        "docs/proposed/workspace-entry-selector-manifest.v1.json": "fd5db6b7eb85e9a9f6f820d4095c104ee8ebe52a619ac9d9e20e2659b18f9473",
+        "src/app/admin/page.tsx": "a4cf8236ed14402116aaeab9aa89eb0e2d15d9c9141408948ef191e47a167aac",
+        "src/server/staff.ts": "7b3a6ac608c3fb88af41946bb82cac294373770b98d3de65fc89606f375cd849",
+        "src/server/catalog.ts": "21cb5aa6d1454057792a97eddd668004a90bdb5b9e03569d8b3d806dd57059fe",
+        "src/server/config.ts": "ace65fff9519b55182616914ecb5a0cc9e644d76bde2037808ab2adc687085fe",
+        "src/server/db.ts": "c79b7447abedfb3d7e5c4a46f6dac2554eedc16ed64639f7d94be5ad0d83994e",
+        "public/staging-admin/model.js": "b081ca833bf6fe314ec64cac2ad9616cef2928fbffc08f68f7139d88c8f9e719",
+        "public/staging-bidder-preview/src/app.js": "f2ce992e4dd68aa8a230cad4ea5b1608773f9e0b195ce1f8154e363b8c9c855e",
+        "public/staging-bidder-preview/src/data.js": "77421d2d75f3a491e98fd3684e7668ab7a2e3032fb40becad7ed96da4f9b3a9d",
+        "migrations/002_staging_catalog.sql": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3",
+        "migrations/001_staging_staff.sql": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a",
+        "migrations/003_staging_manual_bid.sql": "e8e985e67aa5f47df7cd9f9baf56c19fb30915fa99662b3a4e469a9a98e36cf8",
+        "tests/acceptance/staging-manual-bid/harness.mjs": "2d1ccba3f005f2113c93f3aa086fdf37f93ab5c5640482705acb641a4bf8c97a",
+        "tests/acceptance/staging-manual-bid/seed-people.sql": "f6bb72cd50476bb35025bdae787605d345a5d71bccfc1c6b926359a67a76d8c2",
+        "tests/acceptance/staging-catalog/protocol.mjs": "2284e048df0c14fa2de87333b5fbd2c272f806f3074e10981cf3df62bc878ea9",
+        "tests/acceptance/staff-drafts/context-race.mjs": "39784ffa2264af1a1ef8c6f22433595da2dadad9f8e00047b73eece9b5260592",
+        "docs/reviews/workspace-entry-004.redteam.json": "a2d9d107474e103d3e4db53e3a73bab349c88234acf3012cca0a8b713458d0bf",
+        "docs/reviews/workspace-entry-004.claude.json": "99e9ebe5910e14a0d133fd0ee0f47353229171264eb450361c0d8341b2fa879d",
+        "public/staging-admin/studio.js": "438270354e6c0bd47132d810c44893cf7e52956020eea8b2bc371d7ac516ba82",
+        "public/staging-admin/studio.css": "87e3f81eb270ea5b0f1a615cc2998ca97a91e0338739569f70c31bda0284495a",
+        "public/staging-admin/index.html": "336bcabb3d410796efcbf734ff5509558c54b4055ff3d1d457b54d128c56bee8",
+        "public/staging-bidder-preview/src/views.js": "120143f393828ce9362f8bffd68dccd1c465d79dfd6ad958e92d983e85f56019",
+        "src/app/api/admin/events/route.ts": "fcd7cc294e8ce0a7a8ae721a7e7e212ffce5df61ab2f6612e26784c2c3acbe51",
+        "src/app/api/admin/events/[id]/route.ts": "0ff716401ab95aa84d53ce9afd4fb97c24f9930643bfe96d34ff3055261a5641",
+        "src/app/api/admin/events/[id]/catalog-approval/route.ts": "9a1821daa8db2089d10b3068093642476d7cc548f43a4292c5e54cc95d819556",
+        "src/app/api/session/route.ts": "c6d22397409606f409b45bb3b71cc616300e63f5df7dac55c74c55859de920d1",
+        "src/app/api/session/logout/route.ts": "16cd2c9bab409037cd7d0c7ed22649c11112b1f91e379ad4a1f827eb0773aa48",
+        "src/app/api/test-auth/login/route.ts": "dd850ab8d91ffecee6edf25cc0d4fd7bad48eb2b84381d0b7772bf667cff190a",
+        "package.json": "33e14f23b472c46939ded502b0eb7aa7e1f00ab1d2d8d93de36863e2206ce722",
+        "pnpm-lock.yaml": "4d034c5147ca042fcfb57c8429d0766705d25ad4e7c39269a2cfcf34213d9c2a"
+      },
+      "currentEvidenceHashes": {
+        "CASE_PLAN.json": "12203090524eb6d839684baef8353f2a95b5c640568561ef8899d957d343e803",
+        "SOURCE_BINDING.json": "dc2c963de09a0a39cb9827747fb8b160861685bbaa02b615a345e418cf8b3168",
+        "run.mjs": "be8b7a4e47d8da2a760fc7fbc72bd06c0c86830704d33ceef2687ebea4753a44",
+        "checks.mjs": "af70922df30db691a010acce8cb6fe45887cff0711bb1fa3c713cdf80b4656a6",
+        "browser.mjs": "7a7a266afa621f4e8d885dbf89e1616c4f6303c5694a4c9dfefe429a3083839a",
+        "fixtures.mjs": "9c33b55486c048364746363a65baa465e775ad25cec2a9198d8a8cd8de1387d2",
+        "protocol.mjs": "2284e048df0c14fa2de87333b5fbd2c272f806f3074e10981cf3df62bc878ea9",
+        "harness.mjs": "f56f3f11ffefabfd6bd7bf5a0e77f505b76978ea780267769a2f0f660cc3c59f",
+        "syntax.mjs": "5cc57a784a3845da68a7ef2cbcc98b76085290a14a85b6d27774bf30cbc43a44",
+        "seed-people.sql": "f6bb72cd50476bb35025bdae787605d345a5d71bccfc1c6b926359a67a76d8c2"
+      },
+      "sourceCommit": "08530e822a05ddce13e35e9982183c92b1dd2371",
+      "verifyTree": "direct-characterization",
+      "contractFreezeStatus": "not independently determined by runner",
+      "kernelInvokedByRunner": false,
+      "parentVerificationTree": null,
+      "mutant": null,
+      "actualExit": 1,
+      "durationMs": 5272,
+      "results": [
+        {
+          "id": "KEYBOARD_DIALOG_FOCUS",
+          "expectedBaseExit": 1,
+          "actualExit": 1,
+          "durationMs": 1326,
+          "message": "Replacement restores a live control or heading focus after close/task/frame completion: {\"tag\":\"BODY\",\"connected\":true,\"id\":\"\"}",
+          "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
+        }
+      ],
+      "casePlanSHA256": "12203090524eb6d839684baef8353f2a95b5c640568561ef8899d957d343e803"
+    },
+    "missingConsumptionControl": {
+      "version": 4,
+      "observerControl": true,
+      "classification": "SIMULATED_MISSING_CONSUMPTION_GUARD",
+      "expectedEvidenceExit": 99,
+      "actualEvidenceExit": 99,
+      "controlScriptExit": 0,
+      "durationMs": 8008,
+      "message": "Matched actual application JSON consumption missing before deadline: /api/admin/events/explicit-missing-consumption-v4",
+      "evidenceHashes": {
+        "CASE_PLAN.json": "12203090524eb6d839684baef8353f2a95b5c640568561ef8899d957d343e803",
+        "browser.mjs": "7a7a266afa621f4e8d885dbf89e1616c4f6303c5694a4c9dfefe429a3083839a",
+        "checks.mjs": "af70922df30db691a010acce8cb6fe45887cff0711bb1fa3c713cdf80b4656a6",
+        "run.mjs": "be8b7a4e47d8da2a760fc7fbc72bd06c0c86830704d33ceef2687ebea4753a44",
+        "syntax.mjs": "5cc57a784a3845da68a7ef2cbcc98b76085290a14a85b6d27774bf30cbc43a44"
+      }
     }
   },
   "controls": {
@@ -444,13 +692,14 @@
   },
   "testedVsProbesVsInferredVsBlocked": {
     "tested": [
-      "Actual clean baseline authenticated shell, Event/list APIs, complete direct SQL, all3 migrations and bounded runtime roles before finite new-nav absence",
-      "Final6acceptance+9adversarial cases on same final source/helper bindings;15named results11pass4finiteRED",
-      "Final affected5direct race cases with matched actual frame Response.json consumption then microtask/two animation-frame flush; missing observer signal99 control",
-      "Actual Tab/Enter/Escape/dialog Back and real beforeunload event; observed replacement BODY focus defect retained",
-      "Independent authored full fixture/five-field edit+untouched event/lot expectation binds submitted wire, durable receipt, complete SQL and full savedA packet/rendered content; restart/fresh-session/reload recovery",
-      "Assigned and unassigned incomplete unselected drafts do not block explicit selected saved subset; immutable complete approval/window SQL after later draft edit",
-      "Separate Node24syntax actual0, isolated invalidJS1, unavailable runtime99; all new mjs parse checks0"
+      "Actual baseline authenticated shell, Event/list APIs, complete SQL, all3 migrations and bounded runtime roles before finite new-nav absence",
+      "v4 final6acceptance+9adversarial cases on same source/helper/declared-plan hashes;15named results11pass4finite1, zero99",
+      "v4 affected KEYBOARD direct matches actual final acceptance: native Escape focus controls pass, replacement closed/settled then finite BODY focus failure; later visible style assertion unreached",
+      "Actual matched frame Response.json consumption barriers retained in v4 full adversarial mode; missing observer signal99 control repeated",
+      "Actual Tab/Enter/native Escape/dialog Back and real beforeunload event; route/hashchange/nativeclose/task/rAF observables logged in keyboard trace",
+      "Independent authored full fixture/five-field edit and untouched event/lot expectation binds wire, receipt, complete SQL and complete saved A preview packet/rendering; restart/fresh-session/reload recovery",
+      "Selected complete saved subset with assigned/unassigned incomplete unselected drafts; immutable approval/window SQL after later draft edits",
+      "v4 actual syntax0 and9newmjs parse0; v3 isolated invalidJS1/unavailable runtime99 controls remain historical source-bound evidence"
     ],
     "probes": [
       "Renamed-only nav fails geometry; duplicate Event controls fail uniqueness; synthetic nav DOM positive reference passes. Actual baseline screenshot precedes mutations. These are oracle sensitivity, not chosen workspace implementation.",
@@ -474,13 +723,14 @@
     "history/v1/CORRECTIONS.json and full rawv1results retained; harness assumptions were not application defects",
     "history/v2/CORRECTIONS.json retains v2raw1unhandled callback crashes as invalid application evidence; sequencing/teardown corrected. Two orphan fixtures cleaned.",
     "history/v3-ui-characterization/FINAL_DELTA.json retains separate-syntax/source-binding change;15UIpredicates unchanged",
-    "history/v3-150ms-predecessor/CORRECTION.json marks150msrace0as historical exercise, superseded by actual consumption barrier. Prior controls retained."
+    "history/v3-150ms-predecessor/CORRECTION.json marks150msrace0as historical exercise, superseded by actual consumption barrier. Prior controls retained.",
+    "history/v3-08530-predecessor retains all predecessor executable/plan/manifest/README/summary bytes; original v3-final raw logs unchanged. v4 corrects native keyboard completion and exact failure-stage attribution without app edits or weakening replacement focus."
   ],
   "redactionProvenance": "tests/acceptance/staging-workspace-entry/REDACTION_PROVENANCE.json",
   "bindings": {
-    "evidenceManifestSHA256": "2a00e6b1be288d9fe97d3ec6c60ee55d544d559da901ff6533a973173d8ec2ec",
+    "evidenceManifestSHA256": "Final EVIDENCE_BINDING.json covers source, fixtures, raw logs, screenshots and this summary; self excluded and bound by containing Git commit to avoid recursive summary/hash.",
     "protectedSourceManifestSHA256": "40908c6431e20738a6dba4c74cf5812b8a04da9224b11f42f2b60ff346d40dab",
-    "casePlanSHA256": "9ddfa6e30585d4969406e1d46feefe00799aa351dab37557f2183488b65cd1fa",
+    "casePlanSHA256": "12203090524eb6d839684baef8353f2a95b5c640568561ef8899d957d343e803",
     "sourceBindingSHA256": "dc2c963de09a0a39cb9827747fb8b160861685bbaa02b615a345e418cf8b3168",
     "fixtureSeedSHA256": "f6bb72cd50476bb35025bdae787605d345a5d71bccfc1c6b926359a67a76d8c2",
     "delayedSaturnPineOriginalSHA256": "39784ffa2264af1a1ef8c6f22433595da2dadad9f8e00047b73eece9b5260592"
@@ -501,14 +751,23 @@
   },
   "remainingBoundary": "Complete new independently owned preparation packet only. Root sequentially reviews it before any application implementation; no freeze/green/application/release claim.",
   "runnerParentProvenanceCaveat": {
-    "status": "Final execution bytes retained; metadata-only integration correction pending root beforefreeze",
-    "fields": "Current runner receipt frozenContract:false and kernelInvoked:false describe this direct preparation but must not determine future parent kernel/freeze provenance. Syntax has the same kernelInvoked wording.",
-    "recommendedRootVersionedMetadata": {
-      "contractFreezeStatus": "not independently determined by runner",
-      "kernelInvokedByRunner": false,
-      "parentVerificationTree": "VERIFY_TREE or null"
-    },
-    "UIAssertionsChanged": false,
-    "reasonNotRerun": "Parent explicitly authorized retaining finaltestedbytes and flagging metadata caveat after final bounded runs."
+    "status": "Resolved in version4 runner and syntax receipts",
+    "contractFreezeStatus": "not independently determined by runner",
+    "kernelInvokedByRunner": false,
+    "parentVerificationTree": "VERIFY_TREE or null",
+    "predecessorMetadataRetained": "history/v3-08530-predecessor and unchanged historical raw receipts"
+  },
+  "v4Corrections": {
+    "predecessorCommit": "08530e822a05ddce13e35e9982183c92b1dd2371",
+    "predecessorSourcesAndSummary": "history/v3-08530-predecessor/",
+    "predeclaredDelta": "V4_DELTA_PLAN.json",
+    "keyboardPredecessorCorrection": "v3-final acceptance failed first Escape restores picker focus and never reached replacement. The historical direct BODY trace was incorrectly used to explain that final-mode result. Predecessor raw records and summaries remain retained; its Escape failure was a timing-sensitive test observation, not settled product evidence.",
+    "actualV4KeyboardStage": "Both final acceptance and direct keyboard case passed first native Escape and Back-with-modal Escape, after actual matching route/hashchange completion before trigger and actual cancel+close/open=false with task/microtask/two-rAF flush after key. Actual Tab reached replacement, replacement loaded and modal closed, task/frame completion finished; first finite failing step is connected BODY instead of control/heading. Visible-focus-style assertion following replacement is not reached and not claimed.",
+    "metadataCorrection": "UI and syntax receipts version4 report unknown contract freeze status, kernelInvokedByRunner false, parentVerificationTree VERIFY_TREE or null. Runner does not claim parent provenance.",
+    "provenanceFindingCorrection": "Root/redteam initially read the moving v4 worktree plan while auditing08530. Both subsequently withdrew the reported immutable plan mismatch. Exact original08530plan,manifest and final receipts bind9ddfa6e30585d4969406e1d46feefe00799aa351dab37557f2183488b65cd1fa; our immutable audit is V4_PREDECESSOR_PROVENANCE_AUDIT.json. No original binding drift exists.",
+    "currentPlanSHA256": "12203090524eb6d839684baef8353f2a95b5c640568561ef8899d957d343e803",
+    "planUnchangedAfterFinalRuns": true,
+    "historicalControlsScope": "v3 controls and five direct consumption cases bind predecessor helper bytes; preserved as historical sensitivity evidence. v4 repeats full15 actual modes, affected keyboard direct, missing-consumption guard and syntax, not source-sandbox mutants.",
+    "noApplicationEditsOrNewUICases": true
   }
 }

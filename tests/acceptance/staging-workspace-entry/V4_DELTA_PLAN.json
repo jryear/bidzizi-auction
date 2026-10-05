@@ -1,0 +1,37 @@
+{
+  "version": 4,
+  "predecessorCommit": "08530e822a05ddce13e35e9982183c92b1dd2371",
+  "recordedBeforeImplementationAndRuns": true,
+  "scope": "Only native Escape completion, accurate failure-step reporting, parent-provenance metadata; same15 UI cases, no app edits",
+  "correction": "v3 final mode failed Escape restores picker focus; historical direct replacement BODY trace does not explain final-mode failure",
+  "barrier": "Before Escape arm actual modal cancel and close listeners; after native key require cancel+close and open=false within8s, then bounded task/microtask/two-rAF flush before finite focus equality. Missing event/closure/flush deadline99. Keep replacement focus assertion and flush after actual closed replacement.",
+  "expectedBase": {
+    "acceptance": 1,
+    "adversarial": 1,
+    "KEYBOARD_DIALOG_FOCUS": 1,
+    "syntax": 0,
+    "missingActualJSONConsumption": 99
+  },
+  "expectedKeyboardStep": "Unknown until settled native event observation. Historical replacement BODY predicts1 only after Escape controls complete; no defect claim from raw key transport.",
+  "metadata": "version4; contractFreezeStatus not independently determined by runner; kernelInvokedByRunner false; parentVerificationTree VERIFY_TREE or null",
+  "requiredSourceBindings": [
+    "public/staging-admin/studio.js",
+    "public/staging-admin/index.html",
+    "public/staging-admin/studio.css",
+    "checks.mjs",
+    "browser.mjs",
+    "run.mjs",
+    "syntax.mjs",
+    "CASE_PLAN.json"
+  ],
+  "commands": [
+    "syntax",
+    "acceptance",
+    "adversarial",
+    "KEYBOARD_DIALOG_FOCUS",
+    "missing-consumption observer guard"
+  ],
+  "noKernelOld13FreezeOrAppImplementation": true,
+  "additionalPreimplementationSourceFinding": "Event click schedules hashchange; actual application hashchange handler focuses workspace. Require matching actual route hashchange plus task/rAF completion before picker.focus/Enter. Prior raw Escape trace is not settled product evidence.",
+  "provenanceCorrection": "Root/redteam reported predecessor plan drift between run receipts and committed plan. Preserve predecessor manifest/plan/receipts; v4 declared plan finalized before runs; final manifest measured after all final sources/summaries. Historical receipts retain their recorded case-plan hashes, no same-hash claim."
+}

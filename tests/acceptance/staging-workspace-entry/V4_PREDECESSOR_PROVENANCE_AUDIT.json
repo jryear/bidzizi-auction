@@ -1,0 +1,15 @@
+{
+  "immutablePredecessorPlanSHA256": "9ddfa6e30585d4969406e1d46feefe00799aa351dab37557f2183488b65cd1fa",
+  "immutablePredecessorManifestPlanSHA256": "9ddfa6e30585d4969406e1d46feefe00799aa351dab37557f2183488b65cd1fa",
+  "historicalRunPlanSHA256": {
+    "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/syntax-actual/RUN_RECEIPT.json": null,
+    "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVED_NOTICE_PRIORITY/RUN_RECEIPT.json": "9ddfa6e30585d4969406e1d46feefe00799aa351dab37557f2183488b65cd1fa",
+    "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/adversarial/RUN_RECEIPT.json": "9ddfa6e30585d4969406e1d46feefe00799aa351dab37557f2183488b65cd1fa",
+    "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-STALE_APPROVAL_SESSION/RUN_RECEIPT.json": "9ddfa6e30585d4969406e1d46feefe00799aa351dab37557f2183488b65cd1fa",
+    "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/syntax-invalid/RUN_RECEIPT.json": null,
+    "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVAL_RESPONSE_VARIANTS/RUN_RECEIPT.json": "9ddfa6e30585d4969406e1d46feefe00799aa351dab37557f2183488b65cd1fa",
+    "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVED_NOTICE_ASYNC/RUN_RECEIPT.json": "9ddfa6e30585d4969406e1d46feefe00799aa351dab37557f2183488b65cd1fa",
+    "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/RUN_RECEIPT.json": "9ddfa6e30585d4969406e1d46feefe00799aa351dab37557f2183488b65cd1fa",
+    "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-STALE_DRAFT_SESSION/RUN_RECEIPT.json": "9ddfa6e30585d4969406e1d46feefe00799aa351dab37557f2183488b65cd1fa"
+  }
+}

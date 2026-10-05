@@ -1,0 +1,17 @@
+{
+  "version": 4,
+  "observerControl": true,
+  "classification": "SIMULATED_MISSING_CONSUMPTION_GUARD",
+  "expectedEvidenceExit": 99,
+  "actualEvidenceExit": 99,
+  "controlScriptExit": 0,
+  "durationMs": 8008,
+  "message": "Matched actual application JSON consumption missing before deadline: /api/admin/events/explicit-missing-consumption-v4",
+  "evidenceHashes": {
+    "CASE_PLAN.json": "12203090524eb6d839684baef8353f2a95b5c640568561ef8899d957d343e803",
+    "browser.mjs": "7a7a266afa621f4e8d885dbf89e1616c4f6303c5694a4c9dfefe429a3083839a",
+    "checks.mjs": "af70922df30db691a010acce8cb6fe45887cff0711bb1fa3c713cdf80b4656a6",
+    "run.mjs": "be8b7a4e47d8da2a760fc7fbc72bd06c0c86830704d33ceef2687ebea4753a44",
+    "syntax.mjs": "5cc57a784a3845da68a7ef2cbcc98b76085290a14a85b6d27774bf30cbc43a44"
+  }
+}

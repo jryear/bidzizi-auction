@@ -623,7 +623,7 @@
     "external services",
     "push"
   ],
-  "preparationVersion": 3,
+  "preparationVersion": 4,
   "correctionHistory": "history/v1/CORRECTIONS.json",
   "v3DeltaBeforeRunnerChanges": "history/v2/CORRECTIONS.json",
   "syntaxRegression": {
@@ -638,5 +638,7 @@
     "observable": "Actual window.fetch Response.json settlement for matched read path/method/status/sequence, then microtask/two animation-frame flush",
     "missingOrDeadlineExit": 99,
     "predecessor": "history/v3-150ms-predecessor/CORRECTION.json"
-  }
+  },
+  "v4DeltaPlan": "V4_DELTA_PLAN.json",
+  "nativeEscapeCompletion": "Actual cancel+close/open=false, then bounded task/microtask/two-rAF completion before focus assertion; no event/closure deadline99; no focus polling"
 }
