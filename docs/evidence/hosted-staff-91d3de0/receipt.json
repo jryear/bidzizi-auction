@@ -1,0 +1,63 @@
+{
+  "at": "2026-10-05T04:40:14.960Z",
+  "commit": "91d3de0dbd9ac3176f4235ae616df6989620fb37",
+  "origin": "https://bidzizi-clean-staging-gnfu6vvk7-saturn-ea53.vercel.app",
+  "checks": [
+    {
+      "invariant": "Generated deployment requires Vercel access; permitted anonymous API is test-mode and no-store.",
+      "passed": true
+    },
+    {
+      "invariant": "Direct SQL uses the approved isolated database and restricted runtime with verified TLS.",
+      "passed": true
+    },
+    {
+      "invariant": "Hosted staff login issues a Secure/HttpOnly/SameSite cookie and stores only its opaque-token hash in approved SQL.",
+      "passed": true
+    },
+    {
+      "invariant": "UI-created event is durable in approved SQL; identical create retry returns its original receipt.",
+      "passed": true
+    },
+    {
+      "invariant": "UI Add lot, edits and bulk window assignment save complete data; held pending save cannot display Saved before acknowledgement.",
+      "passed": true
+    },
+    {
+      "invariant": "UI reorder matches complete SQL order; actual A catalog and lot show saved content.",
+      "passed": true
+    },
+    {
+      "invariant": "An independent empty-storage browser reloads the same hosted event and complete saved lot.",
+      "passed": true
+    },
+    {
+      "invariant": "Hosted lost acknowledgement stays unconfirmed; retry recovers one committed revision.",
+      "passed": true
+    },
+    {
+      "invariant": "Hosted stale browser save cannot overwrite; explicit reload recovers authoritative content.",
+      "passed": true
+    },
+    {
+      "invariant": "Hosted other-tenant staff and bidder read/write denials leave full event, lot and receipt SQL unchanged.",
+      "passed": true
+    },
+    {
+      "invariant": "Hosted logout revokes the existing session in SQL; saved data remains intact and browsers report no script errors.",
+      "passed": true
+    }
+  ],
+  "verdict": "passed",
+  "syntheticOnly": true,
+  "runtimePrivileges": {
+    "role": "staging_e2e_app",
+    "database": "bz_staging_e2e",
+    "rolsuper": false,
+    "rolcreatedb": false,
+    "rolcreaterole": false,
+    "rolreplication": false,
+    "rolbypassrls": false
+  },
+  "eventId": "a5454ef4-f5ec-4de8-9f0d-2984b714c40e"
+}

@@ -1,0 +1,16 @@
+{
+  "sourceCommit": "91d3de0dbd9ac3176f4235ae616df6989620fb37",
+  "deploymentId": "dpl_Gnw4Jh5w71E7tuGp6whMnD7fWzCF",
+  "origin": "https://bidzizi-clean-staging-gnfu6vvk7-saturn-ea53.vercel.app",
+  "kernelBase": "e1abd3af7698052b57d864ce4f657e3597889fe1",
+  "kernelVerdict": "SUPPORTED",
+  "kernelDirtyBeforeLog": false,
+  "hostedGroups": 11,
+  "hostedVerdict": "passed",
+  "runnerSHA256": "4912e5388ae915db7cebd7da03263fb986fa76659f17f854ef652ea9c34b71f2",
+  "launcherSHA256": "fe7dc735403af6779d406adba035626c13f14cf1db87ce347b75a9fa7857281f",
+  "receiptSHA256": "921a625ee768987fee10d451f2ec943707945835b65c2e036e9e25ed5e0dc8ab",
+  "publicGitHubNewPayloadPublished": false,
+  "releaseRunnerIndependentFrozenEvidence": false,
+  "credentialsIncluded": false
+}
