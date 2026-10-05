@@ -1,0 +1,45 @@
+# PROPOSED ONLY: no trusted base or executable evidence yet. Test rules require explicit review before freeze.
+spec_version = 1
+id = "staging-manual-bid-003"
+project = "bidzizi"
+goal = "Two separately identified and server-admitted synthetic bidders can act for their authorized businesses on one open released lot, place manual bids, recover a durable receipt and authoritative standing, and observe competing/outbid outcomes through A."
+bypass_policy = "fail"
+
+[scope]
+include = ["src/*", "public/*", "migrations/*", "scripts/*", "docs/*", "README.md", "AGENTS.md", "package.json", "next-env.d.ts", "tests/implementation/*"]
+exclude = ["*.env*", "pnpm-lock.yaml", "vercel.json", ".vercel/*", ".claims/*"]
+protected = ["prototypes/*", "src/lib/database.ts", "tests/acceptance/*"]
+test_files = ["*test*", "*spec*", "*__tests__*"]
+
+[worktree]
+link = ["node_modules"]
+
+[[checks]]
+name = "Admitted business bidder, one manual durable bid, receipt recovery and second-bidder outbid journey"
+kind = "acceptance"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-manual-bid/run.mjs acceptance"
+evidence = ["tests/acceptance/staging-manual-bid/*"]
+timeout = 360
+
+[[checks]]
+name = "Membership/admission revocation, concurrent/retried/stale/late bids and transaction rollback"
+kind = "adversarial"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-manual-bid/run.mjs adversarial"
+evidence = ["tests/acceptance/staging-manual-bid/*"]
+timeout = 360
+
+[[checks]]
+name = "Staff draft and catalog regressions"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-catalog/run.mjs regression"
+timeout = 360
+
+[[checks]]
+name = "TypeScript"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node node_modules/typescript/bin/tsc --noEmit --incremental false"
+timeout = 180
+
+[notes]
+context = "Proposed synthetic staging slice only. Person, business membership, organization staff and event admission remain distinct server-held records. Typed Member ID/business/invitation text grants no authority. Bidder signs in with clearly labeled test identity; no SMS/phone verification claim. Freeze versioned TEST currency/scale/increment rules, transaction ordering, request idempotency and close semantics with independent storage/browser evidence before implementation; prototype monetary rules are not production authority. Serialize competing bids with the lot transaction; check DB time and current authority before writes/replay; atomic receipt and standing; acceptance UI only after durable confirmation. Pending/offline/lost response stays unconfirmed; identical retry recovers its receipt, changed payload conflicts. Display business leading identity with acting person attribution. Two people per business must remain representable."
+out_of_scope = "No real member/financial operation, live SMS, auto-bid/private maxima/tie rules, donations, payments, settlement, production data or production deployment. These task proposals are not verifier-ready. Physical devices, real QR, provider protection and exact deployed revision remain separately verified release evidence."

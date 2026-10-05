@@ -1,6 +1,6 @@
 # BidZizi
 
-BidZizi is being rebuilt for company-hosted auction events. The current product priority is a mobile bidder experience that feels native, reputable, and remarkable. PWA/SPA behavior is an intended direction; it is not implemented by this scaffold.
+BidZizi is being rebuilt for company-hosted auction events. The current product priority is a mobile bidder experience that works well on phones. PWA/SPA behavior is an intended direction; it is not implemented by this scaffold.
 
 ## What exists now
 
@@ -8,8 +8,9 @@ This repository, [`jryear/bidzizi-auction`](https://github.com/jryear/bidzizi-au
 
 - `/` displays a server-side database connectivity check.
 - `/api/health/database` performs `SELECT 1` at request time with caching disabled. Success returns HTTP 200 with `ok: true`, `connected: 1`, and `checkedAt`; failure returns a generic HTTP 503 without provider errors or credentials.
-- Auction records, migrations, authentication, bidder sessions, bidding, Clerk, and Ably are not implemented. There is no test suite or CI configuration. Playwright is installed but has no configured checks.
-- The Next.js app has no PWA manifest, icon set, service worker, installation flow, or bidder navigation yet; the bidder experience exists only as the simulated prototype in `prototypes/lanyard` ([below](#bidder-design-foundation-prototype-a-lanyard)). No legacy application code or database contents were imported.
+- `/admin` is a gated synthetic staff-draft workspace: pre-enrolled test sessions and organization grants, PostgreSQL event/lot saves, independent reload, conflict/retry recovery, and an actual A saved-draft preview. See [the staff handoff](docs/STAGING_STAFF_HANDOFF.md).
+- Real phone/member admission, catalog publication, bidding, payments, Clerk, and Ably are not implemented. Frozen local staff checks exist; there is no CI configuration or production release claim.
+- The Next.js app has no PWA manifest, icon set, service worker, installation flow, or bidder navigation yet; the complete bidder journey remains the simulated prototype in `prototypes/lanyard`, with its renderers reused by the authenticated staff preview ([below](#bidder-design-foundation-prototype-a-lanyard)). No legacy application code or database contents were imported.
 
 | Location | Responsibility |
 | --- | --- |
@@ -20,7 +21,9 @@ This repository, [`jryear/bidzizi-auction`](https://github.com/jryear/bidzizi-au
 | `prototypes/lanyard/` | Prototype A: the selected bidder design foundation. Static, simulated, not part of the Next.js app |
 | `docs/BIDDER_FOUNDATION_HANDOFF.md` | Observed state, requested next pass, open decisions, and verification for the bidder foundation |
 | `docs/STAGING_CONNECTIVITY.md` | Provider identities, connection procedure, and deployment evidence boundaries |
-| `tasks/` | Generic contract and review templates; no frozen product contract yet |
+| `tasks/` | Frozen synthetic staff-drafts contract and generic templates |
+| `src/server/`, `src/app/api/admin/` | Gated synthetic sessions, server organization authority, durable draft APIs |
+| `public/staging-admin/`, `public/staging-bidder-preview/` | A-based staff workspace and actual A saved-draft renderers |
 
 A read-only browser inspection on 2026-10-02 observed “Database connected” at `staging.bidzizi.com`. The deployed Git revision, current Neon branch/schema, and Git deployment wiring were not independently verified during that inspection. Service metadata and retained operational evidence belong in [staging connectivity](docs/STAGING_CONNECTIVITY.md); homepage health alone is not deployment provenance or auction acceptance.
 
@@ -66,7 +69,7 @@ pnpm dev:admin          # http://127.0.0.1:4331/#/event
 pnpm check:admin        # nine prototype model checks
 ```
 
-Organization staff edit event details and lots, bulk-assign one shared bidding window, inspect the interactive bidder preview, fix missing content, and approve a scheduled catalog copy. The catalog appears when bidding opens. Drafts, scheduling, organization switching, and bids remain browser-local simulations; the Next.js app is unchanged. See [the admin handoff](docs/ADMIN_JOURNEY_HANDOFF.md) for the exact base, scope, and checks.
+Organization staff edit event details and lots, bulk-assign one shared bidding window, inspect the interactive bidder preview, fix missing content, and approve a scheduled catalog copy. The catalog appears when bidding opens. This standalone prototype remains browser-local. The separate `/admin` staging slice saves drafts to PostgreSQL; publication and bidding remain disabled there. See [the admin handoff](docs/ADMIN_JOURNEY_HANDOFF.md) for the exact base, scope, and checks.
 
 ## Local development
 
@@ -90,7 +93,7 @@ The actual scripts are:
 | `pnpm build` | Create a production Next.js build |
 | `pnpm start` | Serve an existing production build |
 
-There is no `test` script yet. Build and type checks do not establish bidder behavior, provider identity, or release acceptance.
+There is no `test` script. The frozen staff contract invokes its independent evidence directly through the external kernel. Build and type checks do not establish bidder behavior, provider identity, or release acceptance.
 
 ## Contracted implementation
 

@@ -1,0 +1,48 @@
+BidZizi staff-drafts actual gate receipts — 2026-10-05 UTC
+
+Kernel3.0.0 SHA25694b7a341cbb75d986a475cb2bf5b24d808441693cd73f563efee577629e675ee
+Revised frozen base3983c89aaff31b7a4452d0657111bdada0455343
+Contract SHA256ad6b10eecb8f09d7de79ad5ef3c5c9267e7969c8664fadc0a569b77f2b31ae94
+Independent author and separate red team reviewed all seven revised files.
+The revised race passes fixed candidate and fails only-guard-removed mutant.
+
+
+revised-baseline-receipt.txt
+Command: python3 /Users/jryear/code/_kernel/verify.py tasks/staging-staff-drafts-001.toml --repo . --base 3983c89aaff31b7a4452d0657111bdada0455343 --baseline
+Exit: 0
+Elapsed seconds: 24.614
+BASELINE_READY  staging-staff-drafts-001  base=3983c89aaff3
+  [accep] base:fail  Durable staff drafts, independent browser reload, actual A saved preview, retry and conflict recovery
+  [adver] base:fail  Session deployment gate, tenant revocation, CSRF, atomic validation, retry and concurrency boundaries
+  [adver] base:fail  Previously authorized delayed tenant response, stored text and full-data process restart
+  [regre] base:pass  Existing admin prototype model
+  [regre] base:pass  TypeScript
+
+revised-candidate-failed-receipt.txt
+Command argv: ['python3', '/Users/jryear/code/_kernel/verify.py', 'tasks/staging-staff-drafts-001.toml', '--repo', '.', '--base', '3983c89aaff31b7a4452d0657111bdada0455343', '--claim', 'Synthetic authorized staff can create, durably save, reload and preview organization-owned event and lot drafts with tested tenant isolation and recovery.', '--implementer-model', 'GPT-6 Codex runtime', '--verifier-access', 'yes', '--verifier-inspection-reported', 'yes']
+Exit: 1
+Elapsed seconds: 76.354
+CONTRADICTED  staging-staff-drafts-001  (36 files changed)
+  [accep] base:fail -> candidate:FAIL  Durable staff drafts, independent browser reload, actual A saved preview, retry and conflict recovery
+  [adver] base:fail -> candidate:pass  Session deployment gate, tenant revocation, CSRF, atomic validation, retry and concurrency boundaries
+  [adver] base:fail -> candidate:pass  Previously authorized delayed tenant response, stored text and full-data process restart
+  [regre] base:pass -> candidate:pass  Existing admin prototype model
+  [regre] base:pass -> candidate:pass  TypeScript
+  - failed on candidate: Durable staff drafts, independent browser reload, actual A saved preview, retry and conflict recovery
+  ! agent-owned test files changed; these may support development but are not independent completion evidence: src/app/api/test-auth/login/route.ts
+  logged -> /Users/jryear/code/bidzizi-staging-e2e/.claims/claims.jsonl
+
+revised-candidate-receipt.txt
+Command argv: ['python3', '/Users/jryear/code/_kernel/verify.py', 'tasks/staging-staff-drafts-001.toml', '--repo', '.', '--base', '3983c89aaff31b7a4452d0657111bdada0455343', '--claim', 'Synthetic authorized staff can create, durably save, reload and preview organization-owned event and lot drafts with tested tenant isolation and recovery.', '--implementer-model', 'GPT-6 Codex runtime', '--verifier-access', 'yes', '--verifier-inspection-reported', 'yes']
+Exit: 0
+Elapsed seconds: 71.328
+SUPPORTED  staging-staff-drafts-001  (36 files changed)
+  [accep] base:fail -> candidate:pass  Durable staff drafts, independent browser reload, actual A saved preview, retry and conflict recovery
+  [adver] base:fail -> candidate:pass  Session deployment gate, tenant revocation, CSRF, atomic validation, retry and concurrency boundaries
+  [adver] base:fail -> candidate:pass  Previously authorized delayed tenant response, stored text and full-data process restart
+  [regre] base:pass -> candidate:pass  Existing admin prototype model
+  [regre] base:pass -> candidate:pass  TypeScript
+  ! agent-owned test files changed; these may support development but are not independent completion evidence: src/app/api/test-auth/login/route.ts
+  logged -> /Users/jryear/code/bidzizi-staging-e2e/.claims/claims.jsonl
+
+The first candidate result remains CONTRADICTED and is not relabeled. Stable initialized textarea names fixed the fresh-browser field lookup; no frozen evidence changed. The later SUPPORTED result covers the local synthetic staff-draft contract, not parent/Claude acceptance or release. Claude's bounded review attempt timed out at180seconds with no completed review; no retry, credential refresh or fallback was used. Parent/Claude contract acceptance, protected deployment/HTTPS cookies/Neon-browser E2E remain pending. No real phone/SMS, catalog publication, auction bid or payment is included.
