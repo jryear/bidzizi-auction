@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { chromium,expect } from '@playwright/test';
-import { withFixture,HarnessError } from './harness.mjs';
-import { configuration,ids,uuid,noStore,error,login,mutate,create,compact,lot,update,read } from './protocol.mjs';
+import { withFixture,HarnessError,ApplicationFailure,evidenceExit,browserFailure } from './harness.mjs';
+import { configuration,ids,uuid,noStore,error,login,mutate,create,compact,lot,update,read,storedEvent,assertStoredDraft } from './protocol.mjs';
 
 const mode=process.argv[2];
 if (!['acceptance','adversarial'].includes(mode)) { console.error('Evidence mode must be acceptance or adversarial.'); process.exit(99); }
@@ -47,6 +47,7 @@ async function acceptance(f) {
   assert.equal(dbLots.rows.length,2);
   assert.deepEqual(dbLots.rows.map(r=>r.id),incomplete.lots.map(l=>l.id));
   assert.ok(dbLots.rows.every(r=>r.org_id===ids.saturn));
+  await assertStoredDraft(f,saved.draft.event.id,incomplete);
   const freshSession=await login(f);
   assert.deepEqual(await read(f,freshSession,saved.draft.event.id),saved.draft);
   passed('Incomplete event and lot drafts persist atomically; an independent session reads the same DB-confirmed revision.');
@@ -54,6 +55,7 @@ async function acceptance(f) {
   const reordered=compact(saved.draft); reordered.lots.reverse();
   const next=await update(f,staff,saved.draft,reordered);
   assert.deepEqual(next.draft.lots.map(l=>l.id),reordered.lots.map(l=>l.id));
+  await assertStoredDraft(f,next.draft.event.id,reordered);
   const retry=await mutate(f,staff,`/api/admin/events/${saved.draft.event.id}`,'PUT',saved.body);
   assert.equal(retry.status,200); assert.deepEqual(retry.data,saved.response.data);
   assert.deepEqual(await read(f,staff,saved.draft.event.id),next.draft,'Old retry must not revert later saved work.');
@@ -75,7 +77,7 @@ async function browserJourney(f,packet) {
       const context=await browser.newContext({viewport:{width:1440,height:1000}}); contexts.push(context);
       const page=await context.newPage();
       try { await page.goto(`${f.origin}/admin`,{waitUntil:'domcontentloaded',timeout:20_000}); }
-      catch { throw new HarnessError('Browser could not reach the local application.'); }
+      catch (failure) { throw browserFailure(failure,'admin navigation'); }
       const admin=page.frameLocator('iframe[title="BidZizi admin workspace"]');
       await expect(admin.getByText(/Test accounts|Test sign-in|Staging test|Test mode/i).first()).toBeVisible();
       await admin.getByLabel('Test account',{exact:true}).selectOption('staff-saturn');
@@ -155,11 +157,15 @@ async function browserJourney(f,packet) {
 
     await page.unroute('**/api/admin/events/*');
     const beforeOutage=await read(f,check,packet.event.id);
+    const expectedRecovery=compact(beforeOutage);
+    expectedRecovery.event.name='Database recovery event';
+    expectedRecovery.lots[0].description='Database rollback description.';
     const beforeRows=await f.db.query('SELECT revision,draft FROM bz_events WHERE id=$1',[packet.event.id]);
     const beforeLotRows=await f.db.query('SELECT id,position,data FROM bz_lots WHERE event_id=$1 ORDER BY position',[packet.event.id]);
     await admin.locator('[data-event="name"]').fill('Database recovery event');
     await admin.getByRole('link',{name:/^Lots/}).click();
     const savedHeading=await preview.locator('h1').innerText();
+    assert.equal(await admin.locator('[data-lot="title"]').inputValue(),expectedRecovery.lots[0].title);
     await admin.getByLabel('Description',{exact:true}).fill('Database rollback description.');
     await f.rejectLotWrites(true);
     try {
@@ -175,20 +181,40 @@ async function browserJourney(f,packet) {
     } finally { await f.rejectLotWrites(false); }
     await admin.getByRole('button',{name:'Retry save',exact:true}).click();
     await expect(admin.locator('#saved')).toHaveText('Saved');
-    assert.equal((await read(f,check,packet.event.id)).event.name,'Database recovery event');
-    passed('Real database transaction rejection cannot appear Saved or leave partial rows; restored database plus retry persists the retained draft.');
-  } finally { for (const context of contexts) await context.close(); await browser.close(); }
+    const recovered=await read(f,check,packet.event.id);
+    assert.deepEqual(compact(recovered),expectedRecovery);
+    await assertStoredDraft(f,packet.event.id,expectedRecovery);
+    packet.event.name=expectedRecovery.event.name;
+    const independent=await signedPage();
+    await independent.admin.getByRole('link',{name:/^Lots/}).click();
+    await expect(independent.admin.locator('[data-lot="title"]')).toHaveValue(expectedRecovery.lots[0].title);
+    await expect(independent.admin.getByLabel('Description',{exact:true})).toHaveValue(expectedRecovery.lots[0].description);
+    passed('Transaction rejection leaves no partial rows; retry recovers complete lot data/order in SQL, independent API and fresh browser.');
+  } catch (failure) { throw browserFailure(failure,'staff browser journey'); }
+  finally { for (const context of contexts) await context.close(); await browser.close(); }
 }
 
 async function adversarial(f) {
   await f.initialize();
   const staff=await login(f), outsider=await login(f,'staff-pine'), bidder=await login(f,'bidder-juniper');
-  const created=await create(f,staff,'Private staff draft');
+  const minted=await create(f,staff,'Private staff draft');
+  const initialFields=compact(minted.draft);
+  initialFields.lots=[lot('Tenant A first lot'),lot('Tenant A second lot')];
+  const prepared=await update(f,staff,minted.draft,initialFields);
+  const created={...minted,draft:prepared.draft};
   const eventId=created.draft.event.id, path=`/api/admin/events/${eventId}`;
   error(await f.request('/api/admin/events'),401,'UNAUTHENTICATED');
   error(await f.request(path,{cookie:'bz_session=forged',headers:{'x-person-id':ids.staff,'x-role':'staff'}}),401,'UNAUTHENTICATED');
   error(await f.request(path,{cookie:outsider.cookie}),403,'FORBIDDEN');
   error(await f.request(path,{cookie:bidder.cookie}),403,'FORBIDDEN');
+  const deniedSnapshot=await storedEvent(f,eventId);
+  const unauthorizedFields=compact(created.draft);
+  unauthorizedFields.event.name='Unauthorized overwrite';
+  unauthorizedFields.lots[0].description='Unauthorized lot edit';
+  for (const attacker of [outsider,bidder]) {
+    error(await mutate(f,attacker,path,'PUT',{expectedRevision:created.draft.revision,requestId:uuid(),draft:unauthorizedFields}),403,'FORBIDDEN');
+    assert.deepEqual(await storedEvent(f,eventId),deniedSnapshot,'Denied direct PUT must preserve complete event, lot and idempotency rows.');
+  }
   error(await mutate(f,bidder,'/api/admin/events','POST',{ organizationId:ids.saturn,name:'Forged',requestId:uuid(),role:'staff',memberId:'SATURN' }),403,'FORBIDDEN');
   const outsiderList=await f.request('/api/admin/events',{cookie:outsider.cookie});
   assert.equal(outsiderList.status,200); assert.ok(!outsiderList.data.events.some(e=>e.id===eventId));
@@ -198,6 +224,7 @@ async function adversarial(f) {
   passed('Anonymous/forged/member-only identity and another tenant cannot read, list, or write staff drafts.');
 
   const body={expectedRevision:created.draft.revision,requestId:uuid(),draft:compact(created.draft)};
+  const beforeInvalid=await storedEvent(f,eventId);
   error(await f.request(path,{method:'PUT',json:body,cookie:staff.cookie,headers:{origin:'https://hostile.example'}}),403,'FORBIDDEN');
   error(await f.request(path,{method:'PUT',json:body,cookie:staff.cookie}),403,'FORBIDDEN');
   error(await f.request(path,{method:'PUT',json:body,cookie:staff.cookie,headers:{origin:f.origin,'content-type':'text/plain'}}),400,'VALIDATION');
@@ -221,7 +248,7 @@ async function adversarial(f) {
   error(await mutate(f,staff,path,'PUT',oversized),400,'VALIDATION');
   const beforeBad=await f.db.query('SELECT revision FROM bz_events WHERE id=$1',[eventId]);
   assert.equal(beforeBad.rows[0].revision,created.draft.revision);
-  assert.equal((await f.db.query('SELECT count(*)::int n FROM bz_lots WHERE event_id=$1',[eventId])).rows[0].n,0);
+  assert.deepEqual(await storedEvent(f,eventId),beforeInvalid,'Rejected payloads must preserve complete stored data and request receipts.');
   passed('Unknown ownership/history fields, invalid minor units, and duplicate lot identities reject atomically.');
 
   const a=compact(created.draft), b=compact(created.draft);
@@ -296,6 +323,6 @@ try {
   await withFixture(mode==='acceptance' ? acceptance : adversarial,configuration);
   console.log(`${count} independent ${mode} groups passed.`);
 } catch (failure) {
-  console.error(`${failure instanceof HarnessError ? 'HARNESS' : 'FAIL'}: ${failure.message}`);
-  process.exitCode=failure instanceof HarnessError ? 99 : 1;
+  console.error(`${failure instanceof HarnessError ? 'HARNESS' : failure instanceof ApplicationFailure ? 'APPLICATION' : 'FAIL'}: ${failure.message}`);
+  process.exitCode=evidenceExit(failure);
 }

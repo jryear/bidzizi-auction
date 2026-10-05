@@ -7,6 +7,20 @@ import { randomBytes } from 'node:crypto';
 import pg from 'pg';
 
 export class HarnessError extends Error {}
+export class ApplicationFailure extends Error {}
+// A reachable application error/timeout is a candidate failure. It cannot prove
+// feature absence on a baseline; mark that baseline unverifiable, never valid RED.
+export function evidenceExit(error) {
+  if (error instanceof HarnessError) return 99;
+  if (error instanceof ApplicationFailure && process.env.VERIFY_TREE === 'base') return 99;
+  return 1;
+}
+function timedOut(error) { return error?.name === 'TimeoutError' || error?.name === 'AbortError'; }
+export function browserFailure(error, operation) {
+  if (timedOut(error)) return new ApplicationFailure(`Reached application did not complete ${operation} before its deadline.`);
+  if (/browser.*closed|target.*closed|page.*closed|crash|disconnected|net::ERR_(?:CONNECTION_REFUSED|CONNECTION_RESET|CONNECTION_CLOSED|NAME_NOT_RESOLVED)/i.test(error?.message || '')) return new HarnessError(`Browser/network infrastructure unavailable during ${operation}.`);
+  return error;
+}
 export const node24 = '/Users/jryear/.nvm/versions/node/v24.4.1/bin/node';
 export const pgBin = '/opt/homebrew/opt/postgresql@18/bin';
 const repo = resolve(process.env.VERIFY_ROOT || process.cwd());
@@ -53,8 +67,10 @@ export async function request(origin, path, { method='GET', json, headers={}, co
     });
     text=await response.text();
   } catch (error) {
+    if (timedOut(error)) throw new ApplicationFailure('Reached test application did not complete an HTTP response within 20 seconds.');
     throw new HarnessError(`Test HTTP request unavailable (${error.name}).`);
   }
+  if (response.status === 500) throw new ApplicationFailure('Reached test application returned HTTP 500.');
   let data;
   try { data = JSON.parse(text); } catch { data = null; }
   return { status:response.status, headers:response.headers, data, text };
@@ -94,11 +110,13 @@ export async function withFixture(run, configuration) {
     started=true;
     admin = new pg.Client(adminConnection);
     try { await admin.connect(); await admin.query('SELECT 1'); } catch { throw new HarnessError('Disposable PostgreSQL connection failed.'); }
-    await admin.query(`CREATE ROLE ${appUser} LOGIN PASSWORD '${appPassword}' NOSUPERUSER NOCREATEDB NOCREATEROLE`);
-    await admin.query(`CREATE DATABASE ${dbName} OWNER ${appUser}`);
-    await admin.end();
-    admin = new pg.Client({ ...adminConnection, database:dbName });
-    await admin.connect();
+    try {
+      await admin.query(`CREATE ROLE ${appUser} LOGIN PASSWORD '${appPassword}' NOSUPERUSER NOCREATEDB NOCREATEROLE`);
+      await admin.query(`CREATE DATABASE ${dbName} OWNER ${appUser}`);
+      await admin.end();
+      admin = new pg.Client({ ...adminConnection, database:dbName });
+      await admin.connect();
+    } catch { throw new HarnessError('Disposable database allocation/connection failed.'); }
 
     async function startApp(overrides={}) {
       const listener = overrides.port || appPort, baseOrigin = `http://127.0.0.1:${listener}`;
@@ -106,22 +124,30 @@ export async function withFixture(run, configuration) {
       const child = spawn(node24,[join(repo,'node_modules/next/dist/bin/next'),'dev','--webpack','--hostname','127.0.0.1','--port',String(listener)],{
         cwd:repo,env,detached:true,stdio:['ignore','pipe','pipe'],
       });
-      let output='';
+      let output='',responseTimedOut=false;
       child.stdout.on('data',data=>{ output=(output+data).slice(-20_000); });
       child.stderr.on('data',data=>{ output=(output+data).slice(-20_000); });
       child.on('error',()=>{});
       const deadline=Date.now()+60_000;
       while (Date.now()<deadline) {
         if (child.exitCode!==null) throw new HarnessError(`Next test service exited before readiness (${child.exitCode}).`);
+        let response;
         try {
-          const response=await fetch(`${baseOrigin}/`,{ signal:AbortSignal.timeout(3_000) });
-          if (response.status<500) return { child,origin:baseOrigin,env };
-        } catch {}
+          response=await fetch(`${baseOrigin}/`,{ signal:AbortSignal.timeout(3_000) });
+        } catch (error) { if (timedOut(error)) responseTimedOut=true; }
+        if (response) {
+          if (response.status >= 500) {
+            await killTree(child);
+            throw new ApplicationFailure(`Reached test application returned HTTP ${response.status} during startup.`);
+          }
+          return { child,origin:baseOrigin,env };
+        }
         await new Promise(done=>setTimeout(done,300));
       }
       await writeFile(join(scratch,`next-${listener}.log`),output);
       await killTree(child);
-      throw new HarnessError('Next test service did not become ready within 60 seconds.');
+      if (responseTimedOut) throw new ApplicationFailure('Next process accepted requests but failed to respond within its startup deadline.');
+      throw new HarnessError('Next test service remained unreachable within 60 seconds.');
     }
 
     // Exercise infrastructure even on frozen base. Missing application routes

@@ -55,7 +55,7 @@ export async function login(f,account='staff-saturn') {
   assert.match(raw,/SameSite=Lax/i);
   const cookie=raw.split(';')[0];
   const token=cookie.slice(cookie.indexOf('=')+1);
-  assert.ok(token.length>=43,'Session must carry at least 256 bits of random material.');
+  assert.match(token,/^[A-Za-z0-9_-]{43}$/,'Cookie must encode a 32-byte opaque token; generator security is a separate implementation review.');
   return { cookie,token,account };
 }
 export function mutate(f,session,path,method,json,extra={}) {
@@ -89,4 +89,19 @@ export async function read(f,session,eventId) {
   const response=await f.request(`/api/admin/events/${eventId}`,{cookie:session.cookie});
   assert.equal(response.status,200); noStore(response);
   return response.data.draft;
+}
+export async function storedEvent(f,eventId) {
+  return {
+    events:(await f.db.query('SELECT * FROM bz_events WHERE id=$1 ORDER BY id',[eventId])).rows,
+    lots:(await f.db.query('SELECT * FROM bz_lots WHERE event_id=$1 ORDER BY position,id',[eventId])).rows,
+    requests:(await f.db.query('SELECT * FROM bz_requests ORDER BY actor_id,operation,request_id')).rows,
+  };
+}
+export async function assertStoredDraft(f,eventId,expected) {
+  const events=await f.db.query('SELECT draft FROM bz_events WHERE id=$1',[eventId]);
+  const lots=await f.db.query('SELECT position,data FROM bz_lots WHERE event_id=$1 ORDER BY position',[eventId]);
+  assert.equal(events.rows.length,1);
+  assert.deepEqual(events.rows[0].draft,expected.event,'Complete event JSON must match durable SQL storage.');
+  assert.deepEqual(lots.rows.map(row=>row.position),expected.lots.map((_,index)=>index),'Lot positions must remain contiguous in submitted order.');
+  assert.deepEqual(lots.rows.map(row=>row.data),expected.lots,'Complete compact lot data must match durable SQL storage in submitted order.');
 }
