@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1A1814">
+  <title>Event Studio · BidZizi prototype</title>
+  <link rel="preload" href="assets/fonts/fraunces-vf.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/instrument-sans-vf.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="studio.css">
+</head>
+<body data-pv="closed" data-notes="closed">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="app" id="app">
+    <aside class="side" id="side" aria-label="Event Studio navigation"></aside>
+    <div class="col">
+      <header class="top" id="top" aria-label="Setup progress" hidden></header>
+      <main id="main" tabindex="-1"></main>
+    </div>
+    <aside class="pv" id="pv" aria-label="Bidder preview" hidden></aside>
+  </div>
+  <aside id="notes" class="notes" aria-label="Review notes" hidden></aside>
+  <dialog id="sheet" aria-labelledby="sheet-title"></dialog>
+  <div id="toasts"></div>
+  <div id="live" class="sr" role="status" aria-live="polite"></div>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
