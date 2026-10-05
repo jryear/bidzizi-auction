@@ -1,0 +1,94 @@
+# PROPOSED packet; no freeze/implementation/deployment authority follows from it.
+spec_version = 1
+id = "staging-catalog-002"
+project = "bidzizi"
+goal = "Synthetic staff explicitly approve one immutable selected SAVED catalog with a shared server-converted schedule; separately granted viewers receive approved A welcome before opening, selected catalog at inclusive DB-time opening, and a retained read-only catalog after exclusive closing."
+bypass_policy = "fail"
+
+[scope]
+include = ["src/*", "public/*", "migrations/002_staging_catalog.sql", "scripts/*", "docs/*", "README.md", "AGENTS.md", "package.json", "next-env.d.ts", "tests/implementation/*"]
+exclude = ["*.env*", "pnpm-lock.yaml", "vercel.json", ".vercel/*", ".claims/*"]
+protected = ["prototypes/*", "src/lib/database.ts", "src/server/config.ts", "src/server/db.ts", "migrations/001_staging_staff.sql", "tasks/staging-staff-drafts-001.toml", "tasks/staging-preview-database-boundary-001a.toml", "tests/acceptance/*", "CUMULATIVE_BINDING.json"]
+test_files = ["*test*", "*spec*", "*__tests__*"]
+
+[worktree]
+link = ["node_modules"]
+
+[[checks]]
+name = "Immutable saved approval, explicit staff recovery, A viewer and real DB-clock transition"
+kind = "acceptance"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-catalog/run.mjs acceptance"
+evidence = ["tests/acceptance/staging-catalog/*", "CUMULATIVE_BINDING.json"]
+timeout = 300
+
+[[checks]]
+name = "Scoped viewer and operator authority, selected readiness, UTC boundaries, split transaction and app-clock challenges"
+kind = "adversarial"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-catalog/run.mjs adversarial"
+evidence = ["tests/acceptance/staging-catalog/*", "CUMULATIVE_BINDING.json"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative original v1 acceptance"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts-v1/run.mjs acceptance"
+evidence = ["tests/acceptance/staff-drafts-v1/*", "tests/acceptance/staff-drafts/seed.sql"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative original v1 empty-event adversarial cases"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts-v1/run.mjs adversarial"
+evidence = ["tests/acceptance/staff-drafts-v1/*", "tests/acceptance/staff-drafts/seed.sql"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative unchanged v2 staff acceptance"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts/run.mjs acceptance"
+evidence = ["tests/acceptance/staff-drafts/*"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative unchanged v2 populated-lot adversarial cases"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts/run.mjs adversarial"
+evidence = ["tests/acceptance/staff-drafts/*"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative v2 controlled response race, stored text and restart"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts/context-race.mjs"
+evidence = ["tests/acceptance/staff-drafts/*"]
+timeout = 180
+
+[[checks]]
+name = "Cumulative001a dedicated Preview selector"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-preview-database-boundary/run.mjs selector"
+evidence = ["tests/acceptance/staging-preview-database-boundary/*"]
+timeout = 180
+
+[[checks]]
+name = "Cumulative001a real adapter target and verified TLS"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-preview-database-boundary/run.mjs adapter"
+evidence = ["tests/acceptance/staging-preview-database-boundary/*"]
+timeout = 240
+
+[[checks]]
+name = "Existing admin prototype model"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node prototypes/admin-studio/evidence/model-check.mjs"
+timeout = 120
+
+[[checks]]
+name = "TypeScript"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node node_modules/typescript/bin/tsc --noEmit --incremental false"
+timeout = 180
+
+[notes]
+context = "PROPOSED synthetic staging defaults, reversible before real operations: permitted event viewers can read the approved welcome/sponsors before opening, catalog rows appear only at DB-time opening inclusive, catalog remains read-only after closing exclusive. One immutable approval per event; no replacement/cancel/reschedule. POST accepts only expectedRevision,requestId,lotIds(set); snapshots, saved order/numbers, provider org and local schedule come only from saved SQL. Readiness rules and exact DTO/storage protocol are declared in protected README/protocol fixtures. Invalid/ambiguous local times reject; server converts shared local date/start/end/timezone to UTC. First approval may occur before/during the valid window; new approval after close409 WINDOW_CLOSED, but old identical successful receipt replays after close only current staff authority. Approval receipt excludes dynamic phase. Viewer grants are explicit pre-enrolled event VIEW, separate from staff/business/BID. Database clock_timestamp and the genuinely wired bz_catalog_phase function control phase, not browser/app Date or a cron. New migration adds harmless lock_marker on locked authority tables; nonowner runtime UPDATE only lock_marker cannot change authority. Every fixed group must finish; model review is a probe/comment, never a pass vote. Existing original v1/v2/001a evidence is byte-preserved and cumulative, including empty and populated cases. Infrastructure/dependency99; reached app500/deadlines candidate1/base99; first absent catalog API404 is finite ordinary baseline RED. The real minute-precision transition has30s minimum lead and finishes within300s; no public clock-changing route/env. Protected app-only Node preload is test process instrumentation, verified at HTTP worker, not an application clock feature. Kernel whole-check timeout never establishes baseline readiness."
+out_of_scope = "No real identity/onboarding/admission, business authorization, actual bids, auto-bid, donations/payments/settlement, uploads, production data, public production operation, external migrations/provider config/deployment, multi-window/cancel/replacement/reschedule. Existing integer price/increment fields are synthetic display metadata, not operational money authority. Model comments, syntax checks and ordinary baseline RED do not claim candidate completion. Exact protected Preview/Neon/TLS/HTTPS E2E and physical/visual review are separate release evidence."

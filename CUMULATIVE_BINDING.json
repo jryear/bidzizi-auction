@@ -1,0 +1,120 @@
+{
+  "source": "91d3de0dbd9ac3176f4235ae616df6989620fb37",
+  "versions": {
+    "staff-drafts-v1": "9748ee57da6d3bbc0826df5c9e2271edce28ac24",
+    "staff-drafts": "3983c89aaff31b7a4452d0657111bdada0455343"
+  },
+  "files": {
+    "tests/acceptance/staff-drafts-v1/README.md": {
+      "base": "e1abd3af7698052b57d864ce4f657e3597889fe1",
+      "original_path": "tests/acceptance/staff-drafts-v1/README.md",
+      "sha256": "22c6fca20cc447ee2b7b7065e7af216c0752dde3909da9e727cd1cc79dbb759c"
+    },
+    "tests/acceptance/staff-drafts-v1/harness.mjs": {
+      "base": "e1abd3af7698052b57d864ce4f657e3597889fe1",
+      "original_path": "tests/acceptance/staff-drafts-v1/harness.mjs",
+      "sha256": "b856d7a26f74630b35122314f2caa74e4e80cc49f560434053e74b725da686d7"
+    },
+    "tests/acceptance/staff-drafts-v1/protocol.mjs": {
+      "base": "e1abd3af7698052b57d864ce4f657e3597889fe1",
+      "original_path": "tests/acceptance/staff-drafts-v1/protocol.mjs",
+      "sha256": "ab543ee6193726d20d6f38051d6229ff96830c60bf25eba1617d2e25e463ecf0"
+    },
+    "tests/acceptance/staff-drafts-v1/run.mjs": {
+      "base": "e1abd3af7698052b57d864ce4f657e3597889fe1",
+      "original_path": "tests/acceptance/staff-drafts-v1/run.mjs",
+      "sha256": "b31c62fe13a3fcafdcf8f9d66a135b8fd394f6432c0a3c0d0298319aad3e20e0"
+    },
+    "tests/acceptance/staff-drafts-v1/seed.sql": {
+      "base": "e1abd3af7698052b57d864ce4f657e3597889fe1",
+      "original_path": "tests/acceptance/staff-drafts-v1/seed.sql",
+      "sha256": "e476babf9ecc5e498b461b2396926a4773ba50b5dbe41722a89b1ce4270c909f"
+    },
+    "tests/acceptance/staff-drafts/AUTHOR_REVIEW.md": {
+      "base": "3983c89aaff31b7a4452d0657111bdada0455343",
+      "original_path": "tests/acceptance/staff-drafts/AUTHOR_REVIEW.md",
+      "sha256": "75db77d7f7a71b92a666b2cefcb9c4e92c4ca28de35aec0dc91078f39d2ba5c3"
+    },
+    "tests/acceptance/staff-drafts/README.md": {
+      "base": "3983c89aaff31b7a4452d0657111bdada0455343",
+      "original_path": "tests/acceptance/staff-drafts/README.md",
+      "sha256": "e38678bf1d994baa483cd887b4b98d514552b5037ec932b44245b229ee575999"
+    },
+    "tests/acceptance/staff-drafts/context-race.mjs": {
+      "base": "3983c89aaff31b7a4452d0657111bdada0455343",
+      "original_path": "tests/acceptance/staff-drafts/context-race.mjs",
+      "sha256": "39784ffa2264af1a1ef8c6f22433595da2dadad9f8e00047b73eece9b5260592"
+    },
+    "tests/acceptance/staff-drafts/harness.mjs": {
+      "base": "3983c89aaff31b7a4452d0657111bdada0455343",
+      "original_path": "tests/acceptance/staff-drafts/harness.mjs",
+      "sha256": "15a4a30eb54e0c71607a88cdcaaf6fce6f574689c2f67cb0b9fa6e6d1e08aed0"
+    },
+    "tests/acceptance/staff-drafts/protocol.mjs": {
+      "base": "3983c89aaff31b7a4452d0657111bdada0455343",
+      "original_path": "tests/acceptance/staff-drafts/protocol.mjs",
+      "sha256": "82a5995daf969b5c2d1e4f0cba0d355cf026d4166635645d014979466976b636"
+    },
+    "tests/acceptance/staff-drafts/run.mjs": {
+      "base": "3983c89aaff31b7a4452d0657111bdada0455343",
+      "original_path": "tests/acceptance/staff-drafts/run.mjs",
+      "sha256": "01c1a4a581235a970fcbd1ffa7473ab4fc0290eb1e76db741881f2af1c2638ee"
+    },
+    "tests/acceptance/staff-drafts/seed.sql": {
+      "base": "3983c89aaff31b7a4452d0657111bdada0455343",
+      "original_path": "tests/acceptance/staff-drafts/seed.sql",
+      "sha256": "e476babf9ecc5e498b461b2396926a4773ba50b5dbe41722a89b1ce4270c909f"
+    },
+    "tests/acceptance/staff-drafts-v1/SOURCE.json": {
+      "base": "e1abd3af7698052b57d864ce4f657e3597889fe1",
+      "original_path": "tests/acceptance/staff-drafts-v1/SOURCE.json",
+      "sha256": "ae448fbdd5452c464d0830f52196edc0b2d6de7d7175f1af196f274487d32313"
+    },
+    "tests/acceptance/staff-drafts-v1/staging-staff-drafts-001.original.toml": {
+      "base": "e1abd3af7698052b57d864ce4f657e3597889fe1",
+      "original_path": "tests/acceptance/staff-drafts-v1/staging-staff-drafts-001.original.toml",
+      "sha256": "af1955259beccb1257a37b5b9feaf68e7c76a43db5eab94c18dfec3d2632bed9"
+    },
+    "tests/acceptance/staging-preview-database-boundary/README.md": {
+      "base": "e1abd3af7698052b57d864ce4f657e3597889fe1",
+      "original_path": "tests/acceptance/staging-preview-database-boundary/README.md",
+      "sha256": "b2f7d64e312e7bf2e81a53bf3506bb0081d1dda359c3f57bef1b7bf27011dbd6"
+    },
+    "tests/acceptance/staging-preview-database-boundary/fixtures.mjs": {
+      "base": "e1abd3af7698052b57d864ce4f657e3597889fe1",
+      "original_path": "tests/acceptance/staging-preview-database-boundary/fixtures.mjs",
+      "sha256": "8a00208ecfddecfe05e4328380d37c39815d40743bfadd67f9ca1df70a387f0c"
+    },
+    "tests/acceptance/staging-preview-database-boundary/loader.mjs": {
+      "base": "e1abd3af7698052b57d864ce4f657e3597889fe1",
+      "original_path": "tests/acceptance/staging-preview-database-boundary/loader.mjs",
+      "sha256": "a1ab017ab3208431309a3962ce727ea569461d54e50beab2364124df3fcc193c"
+    },
+    "tests/acceptance/staging-preview-database-boundary/run.mjs": {
+      "base": "e1abd3af7698052b57d864ce4f657e3597889fe1",
+      "original_path": "tests/acceptance/staging-preview-database-boundary/run.mjs",
+      "sha256": "4ed9f4870d9f190c83a18c409b3efc9aeca6238d077dd1db95099530ad4ac226"
+    },
+    "tests/acceptance/staging-preview-database-boundary/worker.mjs": {
+      "base": "e1abd3af7698052b57d864ce4f657e3597889fe1",
+      "original_path": "tests/acceptance/staging-preview-database-boundary/worker.mjs",
+      "sha256": "27a49fd890d24e2e0649f72000fab1ef3ac74022f38408833b7c115e2a622112"
+    },
+    "tasks/staging-staff-drafts-001.toml": {
+      "base": "91d3de0dbd9ac3176f4235ae616df6989620fb37",
+      "original_path": "tasks/staging-staff-drafts-001.toml",
+      "sha256": "ad6b10eecb8f09d7de79ad5ef3c5c9267e7969c8664fadc0a569b77f2b31ae94"
+    },
+    "tasks/staging-preview-database-boundary-001a.toml": {
+      "base": "91d3de0dbd9ac3176f4235ae616df6989620fb37",
+      "original_path": "tasks/staging-preview-database-boundary-001a.toml",
+      "sha256": "922586725642478dd07e76bbd5c2cf71b9eac2c28420260d88d5f4cbc43c92db"
+    }
+  },
+  "note": "Versioned v1 protocol hardcodes the original seed path; v1/v2 seed bytes are identical and both protected. Run evidence from integration repo root.",
+  "source_history": {
+    "staff_implementation": "5285648085fad3fbb84aa8f6f9105cb64ebe0df1",
+    "001a_frozen_evidence": "e1abd3af7698052b57d864ce4f657e3597889fe1",
+    "001a_implementation": "91d3de0dbd9ac3176f4235ae616df6989620fb37"
+  }
+}
