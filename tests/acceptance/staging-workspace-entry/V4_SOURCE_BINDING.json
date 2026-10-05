@@ -1,0 +1,26 @@
+{
+  "version": 4,
+  "historicalApplicationSourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+  "actualRunParentCommit": "08530e822a05ddce13e35e9982183c92b1dd2371",
+  "allHistoricalSourceBindingsMatchActual": true,
+  "sourceBindingsChecked": 32,
+  "appAndProtectedFilesChanged": false,
+  "actualApplicationSourceSHA256": "438270354e6c0bd47132d810c44893cf7e52956020eea8b2bc371d7ac516ba82",
+  "actualNodeVersion": "v24.4.1",
+  "finalEvidenceHashes": {
+    "CASE_PLAN.json": "12203090524eb6d839684baef8353f2a95b5c640568561ef8899d957d343e803",
+    "SOURCE_BINDING.json": "dc2c963de09a0a39cb9827747fb8b160861685bbaa02b615a345e418cf8b3168",
+    "run.mjs": "be8b7a4e47d8da2a760fc7fbc72bd06c0c86830704d33ceef2687ebea4753a44",
+    "checks.mjs": "af70922df30db691a010acce8cb6fe45887cff0711bb1fa3c713cdf80b4656a6",
+    "browser.mjs": "7a7a266afa621f4e8d885dbf89e1616c4f6303c5694a4c9dfefe429a3083839a",
+    "fixtures.mjs": "9c33b55486c048364746363a65baa465e775ad25cec2a9198d8a8cd8de1387d2",
+    "protocol.mjs": "2284e048df0c14fa2de87333b5fbd2c272f806f3074e10981cf3df62bc878ea9",
+    "harness.mjs": "f56f3f11ffefabfd6bd7bf5a0e77f505b76978ea780267769a2f0f660cc3c59f",
+    "syntax.mjs": "5cc57a784a3845da68a7ef2cbcc98b76085290a14a85b6d27774bf30cbc43a44",
+    "seed-people.sql": "f6bb72cd50476bb35025bdae787605d345a5d71bccfc1c6b926359a67a76d8c2"
+  },
+  "finalUIReceiptEvidenceHashesMatchCurrentBytes": true,
+  "finalCasePlanHashIdenticalAcrossModesAndDirect": true,
+  "predecessorCommit": "08530e822a05ddce13e35e9982183c92b1dd2371",
+  "containingCommitBinding": "Final containing Git commit binds current evidence and manifest; actual run parent commit above is truthful pre-commit provenance"
+}

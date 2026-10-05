@@ -71,3 +71,25 @@ export async function consumedRead(ui,path,{status,after=0}={}){
  await bounded(ui.frame.evaluate(async()=>{await Promise.resolve();await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));}),'Application JSON continuation/task flush',3000);
  return match;
 }
+
+// v4 completion barriers observe native application events; focus itself is never polled.
+export async function taskFrameFlush(ui,label){
+ await bounded(ui.frame.evaluate(async()=>{await new Promise(resolve=>setTimeout(resolve,0));await Promise.resolve();await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));}),label+' task/frame flush',3000);
+}
+export async function settledRoute(ui,target,trigger){
+ const previous=await ui.frame.evaluate(target=>{const previous=location.hash;window.__workspaceRouteObserved=false;window.__workspaceRouteListener=()=>{if(location.hash===target)window.__workspaceRouteObserved=true;};addEventListener('hashchange',window.__workspaceRouteListener);return previous;},target);
+ try{
+  await trigger();const until=Date.now()+8000;let ready=false;
+  while(Date.now()<until){ready=await ui.frame.evaluate(({target,previous})=>location.hash===target&&(previous===target||window.__workspaceRouteObserved),{target,previous});if(ready)break;await sleep(20);}
+  if(!ready)throw new HarnessError('Actual route/hashchange completion missing before deadline: '+target);
+  await taskFrameFlush(ui,'Route '+target);
+ }finally{await ui.frame.evaluate(()=>removeEventListener('hashchange',window.__workspaceRouteListener));}
+}
+export async function settledEscape(ui){
+ await ui.frame.evaluate(()=>{const modal=document.querySelector('#modal');if(!modal?.open)throw Error('Native Escape control requires actual open modal');window.__workspaceNativeClose={cancel:false,close:false};modal.addEventListener('cancel',()=>window.__workspaceNativeClose.cancel=true,{once:true});modal.addEventListener('close',()=>window.__workspaceNativeClose.close=true,{once:true});});
+ await ui.page.keyboard.press('Escape');let ready=false;const until=Date.now()+8000;
+ while(Date.now()<until){ready=await ui.frame.evaluate(()=>window.__workspaceNativeClose.cancel&&window.__workspaceNativeClose.close&&!document.querySelector('#modal').open);if(ready)break;await sleep(20);}
+ if(!ready)throw new HarnessError('Native Escape cancel/close completion missing before deadline');
+ await taskFrameFlush(ui,'Native Escape close');
+ return ui.frame.evaluate(()=>({modalOpen:document.querySelector('#modal').open,cancelObserved:window.__workspaceNativeClose.cancel,closeObserved:window.__workspaceNativeClose.close,focus:{tag:document.activeElement.tagName,connected:document.activeElement.isConnected,action:document.activeElement.dataset.action,id:document.activeElement.id}}));
+}

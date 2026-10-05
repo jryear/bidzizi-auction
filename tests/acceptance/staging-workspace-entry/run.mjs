@@ -34,6 +34,6 @@ try{
  }
  },{mutant});
  clearTimeout(timer);
- const receipt={version:3,mode,plannedSourceCommit:plan.sourceCommit,actualSourceCommit:revision.stdout.trim(),actualSourceHashes,currentEvidenceHashes,sourceCommit:revision.stdout.trim(),verifyTree:process.env.VERIFY_TREE||'direct-characterization',frozenContract:false,kernelInvoked:false,mutant:mutant||null,actualExit:aggregate,durationMs:Date.now()-started,results,casePlanSHA256:createHash('sha256').update(await readFile(new URL('./CASE_PLAN.json',import.meta.url))).digest('hex')};
+ const receipt={version:4,mode,plannedSourceCommit:plan.sourceCommit,actualSourceCommit:revision.stdout.trim(),actualSourceHashes,currentEvidenceHashes,sourceCommit:revision.stdout.trim(),verifyTree:process.env.VERIFY_TREE||'direct-characterization',contractFreezeStatus:'not independently determined by runner',kernelInvokedByRunner:false,parentVerificationTree:process.env.VERIFY_TREE||null,mutant:mutant||null,actualExit:aggregate,durationMs:Date.now()-started,results,casePlanSHA256:createHash('sha256').update(await readFile(new URL('./CASE_PLAN.json',import.meta.url))).digest('hex')};
  await writeFile(join(output,'RUN_RECEIPT.json'),JSON.stringify(receipt,null,2)+'\n');console.log('RUN_RECEIPT '+join(output,'RUN_RECEIPT.json'));process.exitCode=aggregate;
 }catch(e){clearTimeout(timer);console.error('HARNESS99: '+sanitize(e.message));process.exitCode=99;}
