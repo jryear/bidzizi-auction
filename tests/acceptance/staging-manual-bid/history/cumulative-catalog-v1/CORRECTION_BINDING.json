@@ -1,0 +1,23 @@
+{
+  "previous_trusted_base": "13ec0901052b9ec693dd6c427ce822158c0d62b1",
+  "reason": "Original002 feature-absent base preflight is not valid when002 runs as already-implemented003 cumulative regression.",
+  "old_predecessor_bytes_modified": false,
+  "only_existing_TOML_checks_changed": [
+    2,
+    3
+  ],
+  "new_helper_scope": "Original002 full run with explicit cumulative tree plus exact original exception classification for truecaller tree; no group/assertion skip.",
+  "files_sha256": {
+    "cumulative-catalog.mjs": "cbfa8d65d391f0ab9d488f0f279418667c879116933dd11e75976bbbc76bd198",
+    "controls.mjs": "feedfd9792a5f2c9d8b00dab188dc90130626ea577d633277bcc5564609c150f",
+    "staging-manual-bid-003.toml": "94c52b35597376d3988614ce0d2df9379098d9faf6b9b7912d599d16d46e6b6e",
+    "correction.diff": "249d641e309292a33b49fbb6320d885a11b3117515fe63700d6ffa896fa274f3",
+    "ALL_GRADER_CHANGES.diff": "128eb7a26cb1912e07dffbf8773b90b52943b1227ca002e16a444439bb60f854",
+    "README.md": "9ef6700fe989dddaf0d73a113568f21c269125884c3773517b350feaea10f751",
+    "proof.py": "5eddf2f3c192f4461f4062f9c623785bdc6b5a2ac676d865174e473bf9a2923c"
+  },
+  "original_baseline_raw_exit": 2,
+  "original_baseline_elapsed_seconds": 121.358,
+  "original_baseline_receipt_sha256": "5008739951ed872ba46e24944b1666b99f4c3bf1b61a6350418731bfe84b7c0a",
+  "original_baseline_log_sha256": "2439b44cc0975c64d9cd4bf49191d3a7a5a275c5f1f50481371347093602a341"
+}

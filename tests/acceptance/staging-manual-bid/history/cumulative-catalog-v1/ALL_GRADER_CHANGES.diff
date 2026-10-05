@@ -1,0 +1,82 @@
+--- 13ec/tasks/staging-manual-bid-003.toml
++++ corrected/tasks/staging-manual-bid-003.toml
+@@ -31,15 +31,15 @@
+ [[checks]]
+ name = "Cumulative002 / Immutable saved approval, explicit staff recovery, A viewer and real DB-clock transition"
+ kind = "regression"
+-cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-catalog/run.mjs acceptance"
+-evidence = ["tests/acceptance/staging-catalog/*", "CUMULATIVE_BINDING.json"]
++cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-manual-bid/cumulative-catalog.mjs acceptance"
++evidence = ["tests/acceptance/staging-catalog/*", "CUMULATIVE_BINDING.json", "tests/acceptance/staging-manual-bid/cumulative-catalog.mjs"]
+ timeout = 300
+ 
+ [[checks]]
+ name = "Cumulative002 / Scoped viewer and operator authority, selected readiness, UTC boundaries, split transaction and app-clock challenges"
+ kind = "regression"
+-cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-catalog/run.mjs adversarial"
+-evidence = ["tests/acceptance/staging-catalog/*", "CUMULATIVE_BINDING.json"]
++cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-manual-bid/cumulative-catalog.mjs adversarial"
++evidence = ["tests/acceptance/staging-catalog/*", "CUMULATIVE_BINDING.json", "tests/acceptance/staging-manual-bid/cumulative-catalog.mjs"]
+ timeout = 300
+ 
+ [[checks]]
+--- /dev/null
++++ corrected/tests/acceptance/staging-manual-bid/cumulative-catalog.mjs
+@@ -0,0 +1,26 @@
++// Additive003 cumulative entry. Original002 assertions/harness remain byte-exact.
++const valid=['acceptance','adversarial'];
++export function cumulativeExit(error,{originalTree,HarnessError,ApplicationFailure}){
++ if(['ERR_MODULE_NOT_FOUND','MODULE_NOT_FOUND'].includes(error?.code))return 99;
++ if(HarnessError&&error instanceof HarnessError)return 99;
++ if(ApplicationFailure&&error instanceof ApplicationFailure&&originalTree==='base')return 99;
++ return 1;
++}
++export async function runCumulative(mode,{originalTree=process.env.VERIFY_TREE,
++ importHarness=()=>import('../staging-catalog/harness.mjs'),
++ importChecks=()=>import('../staging-catalog/checks.mjs')}={}){
++ let harness;
++ const prior=process.env.VERIFY_TREE;
++ if(!valid.includes(mode)){console.error('HARNESS: Cumulative catalog mode must be acceptance or adversarial.');return 99;}
++ // Explicit cumulative context bypasses only002's one-time absent-feature base preflight.
++ // Its unmodified run() still enforces implemented anonymous401 and every fixed4/7 group.
++ process.env.VERIFY_TREE='cumulative-catalog';
++ try{harness=await importHarness();const {run}=await importChecks();await run(mode);return 0;}
++ catch(error){console.error((['ERR_MODULE_NOT_FOUND','MODULE_NOT_FOUND'].includes(error?.code)?'HARNESS dependency':error?.constructor?.name||'FAIL')+': '+error.message);
++  return cumulativeExit(error,{originalTree,HarnessError:harness?.HarnessError,ApplicationFailure:harness?.ApplicationFailure});}
++ finally{if(prior===undefined)delete process.env.VERIFY_TREE;else process.env.VERIFY_TREE=prior;}
++}
++// Pure controls may import this wrapper without starting application fixtures.
++import {pathToFileURL} from 'node:url';
++if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)
++ process.exitCode=await runCumulative(process.argv[2]);
+--- /dev/null
++++ corrected/tests/acceptance/staging-manual-bid/controls.mjs
+@@ -0,0 +1,28 @@
++import assert from 'node:assert/strict';
++import {runCumulative,cumulativeExit} from './cumulative-catalog.mjs';
++class HarnessError extends Error{};class ApplicationFailure extends Error{};
++const missing=()=>Object.assign(new Error('fixed missing dependency'),{code:'ERR_MODULE_NOT_FOUND'});
++const harness={HarnessError,ApplicationFailure};let checks=0;
++for(const tree of ['base','candidate']){
++ for(const [error,expected]of[[new HarnessError('setup'),99],[missing(),99],[new ApplicationFailure('reached app'),tree==='base'?99:1],[new Error('fixed ordinary assertion'),1]]){
++  assert.equal(cumulativeExit(error,{originalTree:tree,...harness}),expected);checks++;
++ }
++ for(const mode of ['acceptance','adversarial']){
++  let calls=0;const expected=mode==='acceptance'?4:7;
++  process.env.VERIFY_TREE=tree;
++  const exit=await runCumulative(mode,{originalTree:tree,importHarness:async()=>harness,importChecks:async()=>({async run(actual){assert.equal(actual,mode);assert.equal(process.env.VERIFY_TREE,'cumulative-catalog');for(let i=0;i<expected;i++)calls++;assert.equal(calls,expected);}})});
++  assert.equal(exit,0);assert.equal(calls,expected);assert.equal(process.env.VERIFY_TREE,tree);checks++;
++ }
++ process.env.VERIFY_TREE=tree;
++ for(const [error,expected]of[[new HarnessError('fixed infra99'),99],[new ApplicationFailure('fixed reached app'),tree==='base'?99:1],[new Error('fixed nonzero assertion'),1]]){
++  const code=await runCumulative('acceptance',{originalTree:tree,importHarness:async()=>harness,importChecks:async()=>({run:async()=>{throw error;}})});
++  assert.equal(code,expected);assert.equal(process.env.VERIFY_TREE,tree);checks++;
++ }
++ let imported=false;
++ const invalid=await runCumulative('unknown',{originalTree:tree,importHarness:async()=>{imported=true;return harness;}});
++ assert.equal(invalid,99);assert.equal(imported,false);assert.equal(process.env.VERIFY_TREE,tree);checks++;
++}
++delete process.env.VERIFY_TREE;
++assert.equal(await runCumulative('adversarial',{originalTree:undefined,importHarness:async()=>harness,importChecks:async()=>({run:async()=>{}})}),0);
++assert.equal(Object.hasOwn(process.env,'VERIFY_TREE'),false);checks++;
++console.log(JSON.stringify({pure_checks:checks,scope:'Classification/context controls only; mock fixed4/7 invocation counts do not prove product groups.'}));

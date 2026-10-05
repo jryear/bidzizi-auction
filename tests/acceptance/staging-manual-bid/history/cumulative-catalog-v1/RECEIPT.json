@@ -1,0 +1,106 @@
+{
+  "scope": "Additive003 cumulative entry correction. Complete original0024/7 groups execute unchanged against clean archived13ec with owned disposablePG/Next/Chromium. No provider/sharedDB/application repository modifications.",
+  "status": "CUMULATIVE_ENTRY_PROOF_ONLY_NOT003_CANDIDATE_VERDICT",
+  "source_commit": "13ec0901052b9ec693dd6c427ce822158c0d62b1",
+  "checks": [
+    {
+      "name": "wrapper-node-syntax",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "--check",
+        "/private/tmp/task-root/manual003-cumulative-correction/cumulative-catalog.mjs"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "elapsed_seconds": 0.024,
+      "log": "proof-logs/wrapper-node-syntax.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "pure-classification-and-context-controls",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "/private/tmp/task-root/manual003-cumulative-correction/controls.mjs"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "elapsed_seconds": 0.026,
+      "log": "proof-logs/pure-classification-and-context-controls.log",
+      "log_sha256": "40f64f46a38efa9294afc94fe91302860157c351e7317bc33bae2955185ff13f"
+    },
+    {
+      "name": "original002-base-acceptance",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-catalog/run.mjs",
+        "acceptance"
+      ],
+      "exit": 99,
+      "expected_exit": 99,
+      "elapsed_seconds": 8.61,
+      "log": "proof-logs/original002-base-acceptance.log",
+      "log_sha256": "63de6a6e00ce22e39738244c6fd188b73d2ddb95939b113bc58eb1c4967e9e66"
+    },
+    {
+      "name": "original002-base-adversarial",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-catalog/run.mjs",
+        "adversarial"
+      ],
+      "exit": 99,
+      "expected_exit": 99,
+      "elapsed_seconds": 8.513,
+      "log": "proof-logs/original002-base-adversarial.log",
+      "log_sha256": "63de6a6e00ce22e39738244c6fd188b73d2ddb95939b113bc58eb1c4967e9e66"
+    },
+    {
+      "name": "wrapped002-base-acceptance",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-manual-bid/cumulative-catalog.mjs",
+        "acceptance"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "elapsed_seconds": 124.063,
+      "log": "proof-logs/wrapped002-base-acceptance.log",
+      "log_sha256": "26a27dd98158c0b938e8687b7716033a148d925855a40fa0f9a8e28941453643"
+    },
+    {
+      "name": "wrapped002-base-adversarial",
+      "argv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-manual-bid/cumulative-catalog.mjs",
+        "adversarial"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "elapsed_seconds": 28.745,
+      "log": "proof-logs/wrapped002-base-adversarial.log",
+      "log_sha256": "85155c7ecab56dc2d1dad49c0181a04b299a6c099e7065f28061e33218d50361"
+    }
+  ],
+  "pure_controls": 21,
+  "original_base_catalog_exit": 99,
+  "wrapped_base_catalog_groups": {
+    "acceptance": 4,
+    "adversarial": 7
+  },
+  "original_predecessor_files_verified": 62,
+  "manual003TOML_changed_check_indices": [
+    2,
+    3
+  ],
+  "manual003_mode_tests_not_changed": true,
+  "files_sha256": {
+    "ALL_GRADER_CHANGES.diff": "128eb7a26cb1912e07dffbf8773b90b52943b1227ca002e16a444439bb60f854",
+    "CORRECTION_BINDING.json": "d86f48bbf2480e5a3b7c90ffbcf29c77fe8228fc549a818656d4bb91dc41c0b7",
+    "README.md": "9ef6700fe989dddaf0d73a113568f21c269125884c3773517b350feaea10f751",
+    "controls.mjs": "feedfd9792a5f2c9d8b00dab188dc90130626ea577d633277bcc5564609c150f",
+    "correction.diff": "249d641e309292a33b49fbb6320d885a11b3117515fe63700d6ffa896fa274f3",
+    "cumulative-catalog.mjs": "cbfa8d65d391f0ab9d488f0f279418667c879116933dd11e75976bbbc76bd198",
+    "proof.py": "5eddf2f3c192f4461f4062f9c623785bdc6b5a2ac676d865174e473bf9a2923c",
+    "staging-manual-bid-003.toml": "94c52b35597376d3988614ce0d2df9379098d9faf6b9b7912d599d16d46e6b6e"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "raw_outer_exit": 1,
+  "raw_child_exit": 99,
+  "reason": "Sandbox loopback port allocation unavailable before app/DB evidence. Not the intended original002 absence preflight; no ordinary RED claim.",
+  "full_product_groups_executed": 0,
+  "outer_elapsed_seconds": null,
+  "captured_progress_sha256": "ecdb6c357d398bf34028fd9f2920d5aee7253f1b36681f97ac85a12ae524ea96"
+}

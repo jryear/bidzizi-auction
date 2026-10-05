@@ -1,0 +1,8 @@
+PASS 1: Staff grant, saved selection, window assignment, exact Origin/JSON and compact whitelist reject forged/incomplete approvals without writes.
+PASS 2: Stale saved revision cannot approve; two different approval requests yield exactly one immutable catalog and one conflict.
+PASS 3: Independent PST/PDT/half-hour UTC oracles agree; gaps, folds and reversed windows reject atomically; exact boundary predicate is inclusive/open and exclusive/close.
+PASS 4: Independent mid-transaction database failure leaves no approval/rows/receipt; retry recovers once, and runtime cannot mutate approved records or viewer authority.
+PASS 5: Viewer authority is event-specific and current; staff/member/header identity never grants it, revoked/expired/inactive people lose audience access, and client clock hints expose no rows.
+PASS 6: API and direct-lot route consume the exact-boundary DB phase predicate; skewed app Date and forged browser time cannot replace DB time or expose future/unselected rows.
+PASS 7: A clears a previously authorized audience response after logout/account switch rather than adopting old event content.
+7 independent catalog adversarial groups completed.

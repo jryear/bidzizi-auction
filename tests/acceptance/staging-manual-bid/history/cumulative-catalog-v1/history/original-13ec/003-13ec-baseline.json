@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "python3",
+    "/Users/jryear/code/_kernel/verify.py",
+    "tasks/staging-manual-bid-003.toml",
+    "--repo",
+    ".",
+    "--base",
+    "13ec0901052b9ec693dd6c427ce822158c0d62b1",
+    "--baseline"
+  ],
+  "rawExit": 2,
+  "elapsedSeconds": 121.358,
+  "log": "003-13ec-baseline.txt"
+}

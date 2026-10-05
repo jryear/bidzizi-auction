@@ -1,0 +1,9 @@
+{"pure_checks":21,"scope":"Classification/context controls only; mock fixed4/7 invocation counts do not prove product groups."}
+HarnessError: fixed infra99
+ApplicationFailure: fixed reached app
+Error: fixed nonzero assertion
+HARNESS: Cumulative catalog mode must be acceptance or adversarial.
+HarnessError: fixed infra99
+ApplicationFailure: fixed reached app
+Error: fixed nonzero assertion
+HARNESS: Cumulative catalog mode must be acceptance or adversarial.

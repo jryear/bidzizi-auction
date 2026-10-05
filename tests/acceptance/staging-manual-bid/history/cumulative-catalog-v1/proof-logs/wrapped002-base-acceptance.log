@@ -1,0 +1,5 @@
+PASS 1: Saved selected fields/order/provider/sponsors match complete SQL snapshots; allowed welcome omits all unopened catalog rows.
+PASS 2: Later draft edits, reordered selections and process restart cannot change the one immutable approval; exact retries recover its receipt.
+PASS 3: Staff cannot review unsaved edits; unconfirmed/lost-response approval retains one key and one durable release; phone A welcome omits unopened rows.
+PASS 4: Real database clock changes scheduled to open to closed without a cron/client clock; inclusive/exclusive predicate and post-close read-only receipt are retained.
+4 independent catalog acceptance groups completed.

@@ -1,0 +1,22 @@
+--- 13ec/tasks/staging-manual-bid-003.toml
++++ corrected/tasks/staging-manual-bid-003.toml
+@@ -31,15 +31,15 @@
+ [[checks]]
+ name = "Cumulative002 / Immutable saved approval, explicit staff recovery, A viewer and real DB-clock transition"
+ kind = "regression"
+-cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-catalog/run.mjs acceptance"
+-evidence = ["tests/acceptance/staging-catalog/*", "CUMULATIVE_BINDING.json"]
++cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-manual-bid/cumulative-catalog.mjs acceptance"
++evidence = ["tests/acceptance/staging-catalog/*", "CUMULATIVE_BINDING.json", "tests/acceptance/staging-manual-bid/cumulative-catalog.mjs"]
+ timeout = 300
+ 
+ [[checks]]
+ name = "Cumulative002 / Scoped viewer and operator authority, selected readiness, UTC boundaries, split transaction and app-clock challenges"
+ kind = "regression"
+-cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-catalog/run.mjs adversarial"
+-evidence = ["tests/acceptance/staging-catalog/*", "CUMULATIVE_BINDING.json"]
++cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-manual-bid/cumulative-catalog.mjs adversarial"
++evidence = ["tests/acceptance/staging-catalog/*", "CUMULATIVE_BINDING.json", "tests/acceptance/staging-manual-bid/cumulative-catalog.mjs"]
+ timeout = 300
+ 
+ [[checks]]
