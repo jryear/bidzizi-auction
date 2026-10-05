@@ -36,7 +36,7 @@
       "Preserve legacy no-hash Event entry and outer/admin reload-to-Event behavior. Inner Event/Lots navigation and Back retain current memory; full reload restores confirmed server content after existing dirty/uncertain warnings.",
       "Only a confirmed durable response displays Saved and advances saved-preview revision. Failed or lost acknowledgement keeps the last confirmed preview and original request ID for recovery.",
       "Selection/session changes invalidate pending responses before they may update context, fields, preview, status or notices.",
-      "Switching remains blocked during unresolved create/save/approval writes. Permitted dirty-draft replacement requires explicit confirmation; ambiguous saved outcomes require the existing same-request recovery flow, never silent abandonment.",
+      "Switching remains blocked during unresolved create/save/approval writes and while dirty. Explicit conflict reload or sign-out replacement requires confirmation; ambiguous saved outcomes require existing same-request recovery, never silent abandonment.",
       "Approved snapshot and fixed schedule stay distinct from working edits immediately after asynchronous approval reads; save/recovery errors retain priority over generic draft hints.",
       "Approval applies only to the explicit selected saved subset; unselected incomplete drafts do not acquire new approval blockers.",
       "Keyboard navigation, dialog close/Back and return focus work; at tested viewports controls remain reachable without page horizontal overflow."
@@ -51,7 +51,7 @@
       "Create/select/save/reload/saved-preview SQL equality; sequential fresh session and application-restart readback.",
       "Hold draft/approval reads across actually permitted event/session transitions; stale responses and notices must not affect the new visible context. Preserve original Saturn/Pine session-change race unchanged.",
       "Duplicate create/save clicks and stable same-request recovery after abort-before-send and lost-after-commit acknowledgement.",
-      "Assert switching is blocked while create/save/approval outcome is unresolved; preserve safe same-request recovery. Separately test permitted dirty switching with keep/discard, explicit read replacement, Back/reload and keyboard focus without clearing the confirmed preview.",
+      "Assert switching is blocked while create/save/approval outcome is unresolved and while a draft is dirty. Preserve same-request recovery. Separately test Keep editing versus explicit replacement on conflict reload and sign-out, Back/reload and keyboard focus without clearing confirmed preview; no new dirty event-switch discard chooser.",
       "Approved notice after first asynchronous read without tab change, after repeated reads, and with a higher-priority save error.",
       "Selected complete lot may be reviewed while unrelated draft remains unassigned/incomplete; approved snapshot cannot change after later draft edit.",
       "Desktop/laptop rendered screenshots are separate review probes; no broad accessibility or any-age reliability claim from these checks.",
@@ -60,7 +60,7 @@
       "Current org/event text, navigation, save status, Save and preview control stay reachable at1440x900/1280x800 with preview open/closed and content scrolled; keyboard chooser replacement restores focus to a live control or main heading.",
       "Keep source-inferred Claude cases separate from reproduced defects. Confirm epoch-reset/save usability, modal Back/focus and notice priority in executable fixtures before accepting failures as product defects."
     ],
-    "fixtureOwnership": "Independent acceptance packet owner before implementer; commit executable fixtures, helpers, protected spec and source bindings together only after contract/test review. No executable004 fixture or frozen base exists yet.",
+    "fixtureOwnership": "Independent evidence author gpt-6.1-sol/high is preparing15 UI cases plus syntax regression in an isolated worktree. Preparation is not frozen completion evidence. Final packet requires independent review and fresh committed-base checks before implementation.",
     "fieldsInJourney": [
       "name",
       "eyebrow",
@@ -83,7 +83,8 @@
       "Each case prints stable ID, expected base outcome and measured duration. Acceptance missing-navigation finite1; approved-notice known raw1 is separately named. Characterize and declare remaining outcomes before freeze.",
       "Test missing tools/dependencies, invalid mode, setup failure and internal deadline as99. Internal deadline precedes TOML timeout by at least30seconds. Outer verifier timeout must be UNVERIFIABLE after versioned correction.",
       "Run all004baseline/evidence proofs using installed3.0.1 verifier SHA130e2fc8e1ff1152a7667951c44e0894a122536428fe85259224afb50543b0be. No original3.0.0baseline-ready claim is inherited.",
-      "Validate targeted assertions using negative controls/mutants before freezing, including a renamed-only nav label, duplicate Event/Lots links, dropped epoch guard, omitted approval-notice refresh and malformed success response."
+      "Validate targeted assertions using negative controls/mutants before freezing, including a renamed-only nav label, duplicate Event/Lots links, dropped epoch guard, omitted approval-notice refresh and malformed success response.",
+      "Separate syntax regression runs Node24 --check against actual source studio.js. Healthy source0, finite invalid syntax1, unavailable tools/internal deadline99. Internal syntax deadline<=30seconds under60second TOML limit; preserve inherited13 checks verbatim."
     ],
     "previewAssertion": "Compare saved-preview mode, confirmed revision label and complete contracted event/lot content to durable receipt and SQL. Bind the origin/frame and explicit organization/event; exclude dynamic now/phase fields from structural equality.",
     "screenshots": "Implementer screenshots in docs/evidence are non-gating visual probes; deterministic assertions, source binding and grader results remain independently owned. Add a200%-zoom review probe without claiming broad accessibility or age coverage.",
@@ -114,7 +115,7 @@
     "providerChanges": false,
     "newCredentials": false
   },
-  "draftVersion": 4,
+  "draftVersion": 5,
   "reviewCorrections": [
     {
       "source": "Independent red-team draftV1 review",
@@ -140,6 +141,11 @@
       "source": "Claude source-only critique",
       "finding": "Nav can cheaply pass by renamed landmark or duplicate links; future test controls insufficiently specified",
       "correction": "Require actual working controls, identity, layout reachability, exact selector manifest, negative controls and per-case base outcomes."
+    },
+    {
+      "source": "Independent executable-packet review R4 and root audit",
+      "finding": "V4 required static JS syntax validation but TOML omitted its observable check; dirty switching proposal overstated a discard chooser.",
+      "correction": "Add separate Node24 syntax regression after unchanged13 inherited checks; preserve actual dirty switch blocking and explicit reload/sign-out replacement."
     }
   ],
   "reviews": {
@@ -154,9 +160,9 @@
       ],
       "scope": "Fixed packetV1source-only critique; tools disabled; no deterministic pass"
     },
-    "correctedProposal": "V3 incorporates corrections; syntax/binding inspection only, not frozen/green"
+    "correctedProposal": "V5 adds explicit syntax regression required by V4 and accurately preserves dirty event-switch blocking. Final executable packet and baseline proofs pending."
   },
-  "updatedAt": "2026-10-05T23:15:32.478177+00:00",
+  "updatedAt": "2026-10-05T23:35:23.165018+00:00",
   "kernelBinding": {
     "version": "3.0.1",
     "verifierSHA256": "130e2fc8e1ff1152a7667951c44e0894a122536428fe85259224afb50543b0be",
@@ -165,6 +171,6 @@
     "releaseManifestSHA256": "bb91c088b1485ceca3f8667834e959265c637e2225e9e05b613e052feeb4dbfa",
     "installationReceipt": "docs/evidence/kernel-3.0.1-installation.json",
     "installedChecks": "Existing6 and frozen20 all pass on installed source; original10timeout failures retained. Sequential execution only.",
-    "applicationGates": "004 evidence absent and not frozen; no new application or hosted check result"
+    "applicationGates": "004 independently owned evidence is being prepared; no frozen base, candidate, new hosted result or baseline-ready claim."
   }
 }
