@@ -1,0 +1,7 @@
+CONTROL healthy authenticated Event/API/full SQL; protected001+002+003; unique local scoped runtime role
+FAIL MALFORMED_SAVE_RECOVERY: The expression evaluated to a falsy value:
+
+  assert.ok(body.includes(packet.event.venue))
+
+CASE_RESULT {"id":"MALFORMED_SAVE_RECOVERY","expectedBaseExit":0,"actualExit":1,"durationMs":934,"message":"The expression evaluated to a falsy value:\n\n  assert.ok(body.includes(packet.event.venue))\n","classification":"ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"}
+RUN_RECEIPT /Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v1/MALFORMED_SAVE_RECOVERY/RUN_RECEIPT.json

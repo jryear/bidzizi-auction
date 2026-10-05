@@ -1,0 +1,9 @@
+{
+  "scope": "Parent-requested separate syntax regression and complete measured source binding;15 UI predicates unchanged",
+  "changes": [
+    "Separate syntax mode: finite parse defect1, runtime/internal/deadline99,25second mode deadline for60second TOML",
+    "Remove static parse bootstrap dependency; preserve prior actual Node24 parse controls as historical evidence",
+    "Extend measured source binding to actual three admin candidate files and complete protected source/evidence manifests",
+    "No app/source/old13 edits"
+  ]
+}

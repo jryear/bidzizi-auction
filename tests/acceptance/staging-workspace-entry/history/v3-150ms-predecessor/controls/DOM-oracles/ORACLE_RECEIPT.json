@@ -1,0 +1,27 @@
+{
+  "classification": "Independent oracle probes; no candidate gate or kernel proof",
+  "rows": [
+    {
+      "id": "NAV_RENAMED_ONLY",
+      "oracleRejected": true,
+      "probe": true,
+      "message": "Renamed-only horizontal nav is not selected workspace sidebar"
+    },
+    {
+      "id": "NAV_DOM_POSITIVE_REFERENCE",
+      "oraclePassed": true,
+      "probe": true
+    },
+    {
+      "id": "NAV_DUPLICATE_LINKS",
+      "oracleRejected": true,
+      "probe": true,
+      "message": "Duplicate Event compatibility controls forbidden\n\n2 !== 1\n"
+    },
+    {
+      "id": "HTTP500_CLASSIFICATION",
+      "exit": 99,
+      "localControl": true
+    }
+  ]
+}

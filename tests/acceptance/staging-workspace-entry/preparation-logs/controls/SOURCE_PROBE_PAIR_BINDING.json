@@ -1,0 +1,19 @@
+{
+  "reference": {
+    "mutant": "NOTICE_REFRESH_REFERENCE",
+    "originalSHA256": "438270354e6c0bd47132d810c44893cf7e52956020eea8b2bc371d7ac516ba82",
+    "resultSHA256": "2618d024c746f1589dae6204d4f6b38df055434d4c6564418c83dfb18c05385e",
+    "referenceSHA256": null,
+    "gateProof": false
+  },
+  "omission": {
+    "mutant": "OMIT_NOTICE_REFRESH",
+    "originalSHA256": "438270354e6c0bd47132d810c44893cf7e52956020eea8b2bc371d7ac516ba82",
+    "resultSHA256": "438270354e6c0bd47132d810c44893cf7e52956020eea8b2bc371d7ac516ba82",
+    "referenceSHA256": "2618d024c746f1589dae6204d4f6b38df055434d4c6564418c83dfb18c05385e",
+    "gateProof": false
+  },
+  "assertedSameReferenceSHA": true,
+  "assertedRemovalChangesReferenceSHA": true,
+  "classification": "SOURCE_SANDBOX_ORACLE_PROBES_ONLY"
+}

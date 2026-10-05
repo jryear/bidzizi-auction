@@ -1,0 +1,16 @@
+{
+  "version": 3,
+  "mode": "syntax",
+  "actualExit": 1,
+  "durationMs": 41,
+  "actualNodeVersion": "v24.4.1",
+  "actualNodeRuntime": "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+  "sourcePath": "/tmp/bz-workspace004-syntax-x3_ih5s7/public/staging-admin/studio.js",
+  "sourceSHA256": "12c8d33df3d7806bfde8edc2cfef6e717ddec4f799d244c03b17d451e8c8b526",
+  "sourceCommit": null,
+  "syntaxEvidenceSHA256": "5b471e2180b1a69e4dc716a583b5109a23d20a417081d98cc7ac8a6a36e82120",
+  "expectedBaseExit": 0,
+  "stderr": "/private/tmp/bz-workspace004-syntax-x3_ih5s7/public/staging-admin/studio.js:1\nconst explicitlyInvalid = ;\n                          ^\n\nSyntaxError: Unexpected token ';'\n    at wrapSafe (node:internal/modules/cjs/loader:1624:18)\n    at checkSyntax (node:internal/main/check_syntax:76:3)\n\nNode.js v24.4.1\n",
+  "classification": "ISOLATED_INVALID_JS_ORACLE_CONTROL",
+  "kernelInvoked": false
+}

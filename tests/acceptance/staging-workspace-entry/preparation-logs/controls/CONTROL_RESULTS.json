@@ -1,0 +1,154 @@
+[
+  {
+    "id": "missing-mode",
+    "rawExit": 99,
+    "expectedExit": 99,
+    "durationSeconds": 0.04,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs"
+    ]
+  },
+  {
+    "id": "unknown-mode",
+    "rawExit": 99,
+    "expectedExit": 99,
+    "durationSeconds": 0.04,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "not-a-mode"
+    ]
+  },
+  {
+    "id": "missing-option-value",
+    "rawExit": 99,
+    "expectedExit": 99,
+    "durationSeconds": 0.04,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "acceptance",
+      "--output"
+    ]
+  },
+  {
+    "id": "list",
+    "rawExit": 0,
+    "expectedExit": 0,
+    "durationSeconds": 0.04,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "list"
+    ]
+  },
+  {
+    "id": "missing-node-dependencies",
+    "rawExit": 99,
+    "expectedExit": 99,
+    "durationSeconds": 0.035,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/tmp/bz-workspace004-missing-dependency-3gbtn1k_/packet/run.mjs",
+      "NAV_WORKSPACE_ABSENT"
+    ]
+  },
+  {
+    "id": "missing-postgres",
+    "rawExit": 99,
+    "expectedExit": 99,
+    "durationSeconds": 0.186,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/tmp/bz-workspace004-control-_4nhqoc4/packet/run.mjs",
+      "NAV_WORKSPACE_ABSENT",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/controls/missing-postgres"
+    ]
+  },
+  {
+    "id": "setup-invalid-seed",
+    "rawExit": 99,
+    "expectedExit": 99,
+    "durationSeconds": 0.988,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/tmp/bz-workspace004-control-mextzmwc/packet/run.mjs",
+      "NAV_WORKSPACE_ABSENT",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/controls/setup-invalid-seed"
+    ]
+  },
+  {
+    "id": "internal-mode-deadline",
+    "rawExit": 99,
+    "expectedExit": 99,
+    "durationSeconds": 0.183,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "NAV_WORKSPACE_ABSENT",
+      "--deadline-ms",
+      "1",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/controls/deadline"
+    ]
+  },
+  {
+    "id": "DOM-and-HTTP500-oracles",
+    "rawExit": 0,
+    "expectedExit": 0,
+    "durationSeconds": 12.858,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/oracle-controls.mjs",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/controls/DOM-oracles"
+    ]
+  },
+  {
+    "id": "dropped-context-epoch-probe",
+    "rawExit": 1,
+    "expectedExit": 1,
+    "durationSeconds": 10.021,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "STALE_DRAFT_SESSION",
+      "--probe",
+      "DROP_CONTEXT_EPOCH",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/controls/epoch-mutant"
+    ]
+  },
+  {
+    "id": "notice-refresh-reference-probe",
+    "rawExit": 0,
+    "expectedExit": 0,
+    "durationSeconds": 9.67,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "APPROVED_NOTICE_ASYNC",
+      "--probe",
+      "NOTICE_REFRESH_REFERENCE",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/controls/notice-reference"
+    ]
+  },
+  {
+    "id": "notice-refresh-omission-probe",
+    "rawExit": 1,
+    "expectedExit": 1,
+    "durationSeconds": 9.461,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "APPROVED_NOTICE_ASYNC",
+      "--probe",
+      "OMIT_NOTICE_REFRESH",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/controls/notice-omission"
+    ]
+  }
+]

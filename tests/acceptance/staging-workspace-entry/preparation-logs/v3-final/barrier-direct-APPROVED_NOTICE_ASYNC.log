@@ -1,0 +1,9 @@
+CONTROL healthy authenticated Event/API/full SQL; protected001+002+003; unique local scoped runtime role
+FAIL APPROVED_NOTICE_ASYNC: APPROVED_NOTICE_ASYNC: first approved read refreshes hint without input/tab change
++ actual - expected
+
++ 'Working draft. Save changes before approving a catalog.'
+- 'Working draft. Changes do not alter the approved catalog.'
+
+CASE_RESULT {"id":"APPROVED_NOTICE_ASYNC","expectedBaseExit":1,"actualExit":1,"durationMs":820,"message":"APPROVED_NOTICE_ASYNC: first approved read refreshes hint without input/tab change\n+ actual - expected\n\n+ 'Working draft. Save changes before approving a catalog.'\n- 'Working draft. Changes do not alter the approved catalog.'\n","classification":"ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"}
+RUN_RECEIPT /Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVED_NOTICE_ASYNC/RUN_RECEIPT.json

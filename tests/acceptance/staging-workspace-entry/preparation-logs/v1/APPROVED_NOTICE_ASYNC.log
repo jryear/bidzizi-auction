@@ -1,0 +1,16 @@
+CONTROL healthy authenticated Event/API/full SQL; protected001+002+003; unique local scoped runtime role
+HARNESS APPROVED_NOTICE_ASYNC: expect(locator).toHaveText(expected) failed
+
+Locator:  locator('iframe[title="BidZizi admin workspace"]').contentFrame().locator('#saved')
+Expected: "Saved"
+Received: "Loading draft…"
+Timeout:  5000ms
+
+Call log:
+  - Expect "toHaveText" locator('iframe[title="BidZizi admin workspace"]').contentFrame().locator('#saved') with timeout 5000ms
+  - waiting for locator('iframe[title="BidZizi admin workspace"]').contentFrame().locator('#saved')
+    14 × locator resolved to <div id="saved" class="saved" role="status" aria-live="polite">Loading draft…</div>
+       - unexpected value "Loading draft…"
+
+CASE_RESULT {"id":"APPROVED_NOTICE_ASYNC","expectedBaseExit":1,"actualExit":99,"durationMs":5809,"message":"expect(locator).toHaveText(expected) failed\n\nLocator:  locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('#saved')\nExpected: \"Saved\"\nReceived: \"Loading draft…\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveText\" locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('#saved') with timeout 5000ms\n  - waiting for locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('#saved')\n    14 × locator resolved to <div id=\"saved\" class=\"saved\" role=\"status\" aria-live=\"polite\">Loading draft…</div>\n       - unexpected value \"Loading draft…\"\n","classification":"ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"}
+RUN_RECEIPT /Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v1/APPROVED_NOTICE_ASYNC/RUN_RECEIPT.json

@@ -1,0 +1,13 @@
+{
+  "status": "New unfrozen harness v3 correction; raw v2 retained, unhandled route crash raw1 is invalid application evidence",
+  "changes": [
+    "Await actual entry renderer rather than stale substring h1 on prior lot page",
+    "Wait retry creation button enabled after each acknowledgement settles before SQL count",
+    "Await route teardown, no unhandled callback assertions",
+    "Real Tab traversal and modal Back, beforeunload event assertion",
+    "Nonnull malformed approval object",
+    "Mandatory Node24 candidate static JS parsing",
+    "Actual measured source/evidence hashes and generic tree labels",
+    "Keyboard replacement focus expected base1 based on v2finiteBODY result"
+  ]
+}

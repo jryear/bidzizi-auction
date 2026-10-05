@@ -1,0 +1,10 @@
+SOURCE_SANDBOX_PROBE {"mutant":"OMIT_NOTICE_REFRESH","originalSHA256":"438270354e6c0bd47132d810c44893cf7e52956020eea8b2bc371d7ac516ba82","resultSHA256":"438270354e6c0bd47132d810c44893cf7e52956020eea8b2bc371d7ac516ba82","referenceSHA256":"2618d024c746f1589dae6204d4f6b38df055434d4c6564418c83dfb18c05385e","gateProof":false}
+CONTROL healthy authenticated Event/API/full SQL; protected001+002+003; unique local scoped runtime role
+FAIL APPROVED_NOTICE_ASYNC: APPROVED_NOTICE_ASYNC: first approved read refreshes hint without input/tab change
++ actual - expected
+
++ 'Working draft. Save changes before approving a catalog.'
+- 'Working draft. Changes do not alter the approved catalog.'
+
+CASE_RESULT {"id":"APPROVED_NOTICE_ASYNC","expectedBaseExit":1,"actualExit":1,"durationMs":787,"message":"APPROVED_NOTICE_ASYNC: first approved read refreshes hint without input/tab change\n+ actual - expected\n\n+ 'Working draft. Save changes before approving a catalog.'\n- 'Working draft. Changes do not alter the approved catalog.'\n","classification":"SOURCE_SANDBOX_ORACLE_PROBE"}
+RUN_RECEIPT /Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/controls/notice-omission/RUN_RECEIPT.json

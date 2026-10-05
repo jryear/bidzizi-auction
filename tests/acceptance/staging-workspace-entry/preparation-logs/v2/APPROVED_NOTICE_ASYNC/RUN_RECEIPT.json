@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "mode": "APPROVED_NOTICE_ASYNC",
+  "sourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+  "verifyTree": "direct-characterization",
+  "frozenContract": false,
+  "kernelInvoked": false,
+  "mutant": null,
+  "actualExit": 1,
+  "durationMs": 5037,
+  "results": [
+    {
+      "id": "APPROVED_NOTICE_ASYNC",
+      "expectedBaseExit": 1,
+      "actualExit": 1,
+      "durationMs": 997,
+      "message": "APPROVED_NOTICE_ASYNC: first approved read refreshes hint without input/tab change\n+ actual - expected\n\n+ 'Working draft. Save changes before approving a catalog.'\n- 'Working draft. Changes do not alter the approved catalog.'\n",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    }
+  ],
+  "casePlanSHA256": "fc9a2aec7ef365d528fdb1817db87fe42092bd5cac5cf2a94b50f425fb2b47c9"
+}

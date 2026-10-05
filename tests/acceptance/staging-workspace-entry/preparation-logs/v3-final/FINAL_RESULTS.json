@@ -1,0 +1,231 @@
+[
+  {
+    "id": "syntax-actual",
+    "rawExit": 0,
+    "expectedExit": 0,
+    "durationSeconds": 0.071,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "syntax",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/syntax-actual"
+    ]
+  },
+  {
+    "id": "syntax-invalid-JS-probe",
+    "rawExit": 1,
+    "expectedExit": 1,
+    "durationSeconds": 0.077,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "syntax",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/syntax-invalid"
+    ]
+  },
+  {
+    "id": "syntax-unavailable-runtime-probe",
+    "rawExit": 99,
+    "expectedExit": 99,
+    "durationSeconds": 0.04,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/tmp/bz-workspace004-syntax-x3_ih5s7/packet/run.mjs",
+      "syntax",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/syntax-missing-runtime"
+    ]
+  },
+  {
+    "id": "inherited-runtime-refused",
+    "rawExit": 99,
+    "expectedExit": 99,
+    "durationSeconds": 0.04,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "acceptance"
+    ]
+  },
+  {
+    "id": "acceptance",
+    "rawExit": 1,
+    "expectedExit": 1,
+    "durationSeconds": 19.147,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "acceptance",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance"
+    ]
+  },
+  {
+    "id": "adversarial",
+    "rawExit": 1,
+    "expectedExit": 1,
+    "durationSeconds": 24.497,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "adversarial",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/adversarial"
+    ]
+  },
+  {
+    "id": "evidence-parse-browser.mjs",
+    "rawExit": 0,
+    "expectedExit": 0,
+    "durationSeconds": 0.04,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "--check",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/browser.mjs"
+    ]
+  },
+  {
+    "id": "evidence-parse-checks.mjs",
+    "rawExit": 0,
+    "expectedExit": 0,
+    "durationSeconds": 0.04,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "--check",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/checks.mjs"
+    ]
+  },
+  {
+    "id": "evidence-parse-fixtures.mjs",
+    "rawExit": 0,
+    "expectedExit": 0,
+    "durationSeconds": 0.037,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "--check",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/fixtures.mjs"
+    ]
+  },
+  {
+    "id": "evidence-parse-harness.mjs",
+    "rawExit": 0,
+    "expectedExit": 0,
+    "durationSeconds": 0.035,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "--check",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/harness.mjs"
+    ]
+  },
+  {
+    "id": "evidence-parse-oracle-controls.mjs",
+    "rawExit": 0,
+    "expectedExit": 0,
+    "durationSeconds": 0.037,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "--check",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/oracle-controls.mjs"
+    ]
+  },
+  {
+    "id": "evidence-parse-protocol.mjs",
+    "rawExit": 0,
+    "expectedExit": 0,
+    "durationSeconds": 0.037,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "--check",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/protocol.mjs"
+    ]
+  },
+  {
+    "id": "evidence-parse-run.mjs",
+    "rawExit": 0,
+    "expectedExit": 0,
+    "durationSeconds": 0.041,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "--check",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs"
+    ]
+  },
+  {
+    "id": "evidence-parse-syntax.mjs",
+    "rawExit": 0,
+    "expectedExit": 0,
+    "durationSeconds": 0.038,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "--check",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/syntax.mjs"
+    ]
+  },
+  {
+    "id": "barrier-direct-STALE_DRAFT_SESSION",
+    "rawExit": 0,
+    "expectedExit": 0,
+    "durationSeconds": 10.395,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "STALE_DRAFT_SESSION",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-STALE_DRAFT_SESSION"
+    ]
+  },
+  {
+    "id": "barrier-direct-STALE_APPROVAL_SESSION",
+    "rawExit": 0,
+    "expectedExit": 0,
+    "durationSeconds": 11.093,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "STALE_APPROVAL_SESSION",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-STALE_APPROVAL_SESSION"
+    ]
+  },
+  {
+    "id": "barrier-direct-APPROVED_NOTICE_ASYNC",
+    "rawExit": 1,
+    "expectedExit": 1,
+    "durationSeconds": 9.537,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "APPROVED_NOTICE_ASYNC",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVED_NOTICE_ASYNC"
+    ]
+  },
+  {
+    "id": "barrier-direct-APPROVED_NOTICE_PRIORITY",
+    "rawExit": 0,
+    "expectedExit": 0,
+    "durationSeconds": 10.515,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "APPROVED_NOTICE_PRIORITY",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVED_NOTICE_PRIORITY"
+    ]
+  },
+  {
+    "id": "barrier-direct-APPROVAL_RESPONSE_VARIANTS",
+    "rawExit": 0,
+    "expectedExit": 0,
+    "durationSeconds": 13.002,
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "APPROVAL_RESPONSE_VARIANTS",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVAL_RESPONSE_VARIANTS"
+    ]
+  }
+]

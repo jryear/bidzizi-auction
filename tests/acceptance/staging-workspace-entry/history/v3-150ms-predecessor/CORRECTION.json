@@ -1,0 +1,11 @@
+{
+  "source": "Root independent source audit",
+  "scope": "Declared held-read races,15 UI cases unchanged",
+  "limitation": "150ms after route.fulfill did not prove actual app Response.json body consumption; predecessor race0 is bounded exercise, not final consumption-barrier proof",
+  "replacement": "Instrument actual frame fetch Response.json before trigger; match consumed GET path/status/sequence; flush microtasks and two animation frames; missing consumption/deadline99",
+  "sha256": {
+    "CASE_PLAN.json": "1b36311888bfac3e0367b477e7f775ae7aa67be7a3975a767c394e5757b5bba4",
+    "checks.mjs": "ad69f4af542e59f81da09be12253fb685d516abede0d921d2dfa72f7e88e166f",
+    "browser.mjs": "c1bd21f2128589266ccc173e580e789684ba5df4226289514050d04681f1204f"
+  }
+}

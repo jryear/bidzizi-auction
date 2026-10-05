@@ -1,0 +1,6 @@
+CONTROL healthy authenticated Event/API/full SQL; protected001+002+003; unique local scoped runtime role
+ORACLE NAV_RENAMED_ONLY rejected Renamed-only horizontal nav is not selected workspace sidebar
+ORACLE NAV_DUPLICATE_LINKS rejected Duplicate Event compatibility controls forbidden
+
+2 !== 1
+

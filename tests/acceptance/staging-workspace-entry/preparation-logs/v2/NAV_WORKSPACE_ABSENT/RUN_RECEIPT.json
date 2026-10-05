@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "mode": "NAV_WORKSPACE_ABSENT",
+  "sourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+  "verifyTree": "direct-characterization",
+  "frozenContract": false,
+  "kernelInvoked": false,
+  "mutant": null,
+  "actualExit": 1,
+  "durationMs": 5034,
+  "results": [
+    {
+      "id": "NAV_WORKSPACE_ABSENT",
+      "expectedBaseExit": 1,
+      "actualExit": 1,
+      "durationMs": 952,
+      "message": "NAV_WORKSPACE_ABSENT: exactly one new Event Studio navigation\n\n0 !== 1\n",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    }
+  ],
+  "casePlanSHA256": "fc9a2aec7ef365d528fdb1817db87fe42092bd5cac5cf2a94b50f425fb2b47c9"
+}

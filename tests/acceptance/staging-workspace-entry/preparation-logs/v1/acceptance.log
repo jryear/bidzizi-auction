@@ -1,0 +1,25 @@
+CONTROL healthy authenticated Event/API/full SQL; protected001+002+003; unique local scoped runtime role
+FAIL NAV_WORKSPACE_ABSENT: NAV_WORKSPACE_ABSENT: exactly one new Event Studio navigation
+
+0 !== 1
+
+CASE_RESULT {"id":"NAV_WORKSPACE_ABSENT","expectedBaseExit":1,"actualExit":1,"durationMs":899,"message":"NAV_WORKSPACE_ABSENT: exactly one new Event Studio navigation\n\n0 !== 1\n","classification":"ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"}
+FAIL DURABLE_SAVED_PREVIEW: The expression evaluated to a falsy value:
+
+  assert.ok(body.includes(packet.event.venue))
+
+CASE_RESULT {"id":"DURABLE_SAVED_PREVIEW","expectedBaseExit":0,"actualExit":1,"durationMs":403,"message":"The expression evaluated to a falsy value:\n\n  assert.ok(body.includes(packet.event.venue))\n","classification":"ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"}
+HARNESS CREATE_RECOVERY: expect(locator).toBeDisabled() failed
+
+Locator: locator('iframe[title="BidZizi admin workspace"]').contentFrame().locator('[data-action="close-modal"]')
+Expected: disabled
+Error: strict mode violation: locator('[data-action="close-modal"]') resolved to 2 elements:
+    1) <button disabled class="modal-close" data-action="close-modal" aria-label="Close dialog">×</button> aka getByRole('button', { name: 'Close dialog' })
+    2) <button disabled class="btn" data-action="close-modal">Cancel</button> aka getByRole('button', { name: 'Cancel' })
+
+Call log:
+  - Expect "toBeDisabled" locator('iframe[title="BidZizi admin workspace"]').contentFrame().locator('[data-action="close-modal"]') with timeout 5000ms
+  - waiting for locator('iframe[title="BidZizi admin workspace"]').contentFrame().locator('[data-action="close-modal"]')
+
+CASE_RESULT {"id":"CREATE_RECOVERY","expectedBaseExit":0,"actualExit":99,"durationMs":513,"message":"expect(locator).toBeDisabled() failed\n\nLocator: locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('[data-action=\"close-modal\"]')\nExpected: disabled\nError: strict mode violation: locator('[data-action=\"close-modal\"]') resolved to 2 elements:\n    1) <button disabled class=\"modal-close\" data-action=\"close-modal\" aria-label=\"Close dialog\">×</button> aka getByRole('button', { name: 'Close dialog' })\n    2) <button disabled class=\"btn\" data-action=\"close-modal\">Cancel</button> aka getByRole('button', { name: 'Cancel' })\n\nCall log:\n  - Expect \"toBeDisabled\" locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('[data-action=\"close-modal\"]') with timeout 5000ms\n  - waiting for locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('[data-action=\"close-modal\"]')\n","classification":"ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"}
+RUN_RECEIPT /Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v1/acceptance/RUN_RECEIPT.json

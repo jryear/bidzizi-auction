@@ -1,0 +1,57 @@
+{
+  "version": 3,
+  "mode": "CREATE_RECOVERY",
+  "plannedSourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+  "actualSourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+  "actualSourceHashes": {
+    "docs/decisions/event-studio-workspace-2026-10-05.json": "39f77e308060cc5a419e90e914ed3cf96d315f5daee6592e7126daa983ffa9d1",
+    "docs/proposed/staging-workspace-entry-004.toml": "4d7024615654494ffdb22c79a41f26d9e33d1d3317cf44d62d9ce868e2415c11",
+    "docs/proposed/workspace-entry-selector-manifest.v1.json": "fd5db6b7eb85e9a9f6f820d4095c104ee8ebe52a619ac9d9e20e2659b18f9473",
+    "src/app/admin/page.tsx": "a4cf8236ed14402116aaeab9aa89eb0e2d15d9c9141408948ef191e47a167aac",
+    "src/server/staff.ts": "7b3a6ac608c3fb88af41946bb82cac294373770b98d3de65fc89606f375cd849",
+    "src/server/catalog.ts": "21cb5aa6d1454057792a97eddd668004a90bdb5b9e03569d8b3d806dd57059fe",
+    "src/server/config.ts": "ace65fff9519b55182616914ecb5a0cc9e644d76bde2037808ab2adc687085fe",
+    "src/server/db.ts": "c79b7447abedfb3d7e5c4a46f6dac2554eedc16ed64639f7d94be5ad0d83994e",
+    "public/staging-admin/model.js": "b081ca833bf6fe314ec64cac2ad9616cef2928fbffc08f68f7139d88c8f9e719",
+    "public/staging-bidder-preview/src/app.js": "f2ce992e4dd68aa8a230cad4ea5b1608773f9e0b195ce1f8154e363b8c9c855e",
+    "public/staging-bidder-preview/src/data.js": "77421d2d75f3a491e98fd3684e7668ab7a2e3032fb40becad7ed96da4f9b3a9d",
+    "migrations/002_staging_catalog.sql": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3",
+    "migrations/001_staging_staff.sql": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a",
+    "migrations/003_staging_manual_bid.sql": "e8e985e67aa5f47df7cd9f9baf56c19fb30915fa99662b3a4e469a9a98e36cf8",
+    "tests/acceptance/staging-manual-bid/harness.mjs": "2d1ccba3f005f2113c93f3aa086fdf37f93ab5c5640482705acb641a4bf8c97a",
+    "tests/acceptance/staging-manual-bid/seed-people.sql": "f6bb72cd50476bb35025bdae787605d345a5d71bccfc1c6b926359a67a76d8c2",
+    "tests/acceptance/staging-catalog/protocol.mjs": "2284e048df0c14fa2de87333b5fbd2c272f806f3074e10981cf3df62bc878ea9",
+    "tests/acceptance/staff-drafts/context-race.mjs": "39784ffa2264af1a1ef8c6f22433595da2dadad9f8e00047b73eece9b5260592",
+    "docs/reviews/workspace-entry-004.redteam.json": "a2d9d107474e103d3e4db53e3a73bab349c88234acf3012cca0a8b713458d0bf",
+    "docs/reviews/workspace-entry-004.claude.json": "99e9ebe5910e14a0d133fd0ee0f47353229171264eb450361c0d8341b2fa879d"
+  },
+  "currentEvidenceHashes": {
+    "CASE_PLAN.json": "e1b0ed690777eeea51e1be68efd81abaaf91d282f46172495e20f7e2655c8bde",
+    "SOURCE_BINDING.json": "d38e5b2137d0c8facd71765971daf32b0c5e9b91b0bba5ffe79d07bd26860afa",
+    "run.mjs": "ad35104ad951f21fbc0232f7eee2f95087100f67c1b6c50369e6fa0b5d6e6bac",
+    "checks.mjs": "ad69f4af542e59f81da09be12253fb685d516abede0d921d2dfa72f7e88e166f",
+    "browser.mjs": "c1bd21f2128589266ccc173e580e789684ba5df4226289514050d04681f1204f",
+    "fixtures.mjs": "9c33b55486c048364746363a65baa465e775ad25cec2a9198d8a8cd8de1387d2",
+    "protocol.mjs": "2284e048df0c14fa2de87333b5fbd2c272f806f3074e10981cf3df62bc878ea9",
+    "harness.mjs": "b7ff0bf1774db4daa072e83289cd4a239c2d0a234f6f78bb425ff21a0d682a04",
+    "seed-people.sql": "f6bb72cd50476bb35025bdae787605d345a5d71bccfc1c6b926359a67a76d8c2"
+  },
+  "sourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+  "verifyTree": "direct-characterization",
+  "frozenContract": false,
+  "kernelInvoked": false,
+  "mutant": null,
+  "actualExit": 0,
+  "durationMs": 4975,
+  "results": [
+    {
+      "id": "CREATE_RECOVERY",
+      "expectedBaseExit": 0,
+      "actualExit": 0,
+      "durationMs": 1006,
+      "message": "All contracted observations completed",
+      "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
+    }
+  ],
+  "casePlanSHA256": "e1b0ed690777eeea51e1be68efd81abaaf91d282f46172495e20f7e2655c8bde"
+}

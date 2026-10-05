@@ -1,0 +1,16 @@
+CONTROL healthy authenticated Event/API/full SQL; protected001+002+003; unique local scoped runtime role
+HARNESS KEYBOARD_DIALOG_FOCUS: expect(locator).toHaveValue(expected) failed
+
+Locator:  locator('iframe[title="BidZizi admin workspace"]').contentFrame().locator('[data-event="name"]')
+Expected: "004 keyboard replacement"
+Received: "004 keyboard first"
+Timeout:  5000ms
+
+Call log:
+  - Expect "toHaveValue" locator('iframe[title="BidZizi admin workspace"]').contentFrame().locator('[data-event="name"]') with timeout 5000ms
+  - waiting for locator('iframe[title="BidZizi admin workspace"]').contentFrame().locator('[data-event="name"]')
+    14 × locator resolved to <input maxlength="120" data-event="name" class="name-input" value="004 keyboard first"/>
+       - unexpected value "004 keyboard first"
+
+CASE_RESULT {"id":"KEYBOARD_DIALOG_FOCUS","expectedBaseExit":0,"actualExit":99,"durationMs":5874,"message":"expect(locator).toHaveValue(expected) failed\n\nLocator:  locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('[data-event=\"name\"]')\nExpected: \"004 keyboard replacement\"\nReceived: \"004 keyboard first\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveValue\" locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('[data-event=\"name\"]') with timeout 5000ms\n  - waiting for locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('[data-event=\"name\"]')\n    14 × locator resolved to <input maxlength=\"120\" data-event=\"name\" class=\"name-input\" value=\"004 keyboard first\"/>\n       - unexpected value \"004 keyboard first\"\n","classification":"ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"}
+RUN_RECEIPT /Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v1/KEYBOARD_DIALOG_FOCUS/RUN_RECEIPT.json

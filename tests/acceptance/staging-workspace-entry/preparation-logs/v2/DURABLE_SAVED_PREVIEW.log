@@ -1,0 +1,7 @@
+CONTROL healthy authenticated Event/API/full SQL; protected001+002+003; unique local scoped runtime role
+FAIL DURABLE_SAVED_PREVIEW: The expression evaluated to a falsy value:
+
+  assert.ok(body.includes(packet.event.welcome))
+
+CASE_RESULT {"id":"DURABLE_SAVED_PREVIEW","expectedBaseExit":0,"actualExit":1,"durationMs":1319,"message":"The expression evaluated to a falsy value:\n\n  assert.ok(body.includes(packet.event.welcome))\n","classification":"ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"}
+RUN_RECEIPT /Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v2/DURABLE_SAVED_PREVIEW/RUN_RECEIPT.json

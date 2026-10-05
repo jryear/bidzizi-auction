@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "mode": "adversarial",
+  "sourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+  "verifyTree": "direct-characterization",
+  "frozenContract": false,
+  "kernelInvoked": false,
+  "mutant": null,
+  "actualExit": 99,
+  "durationMs": 10810,
+  "results": [
+    {
+      "id": "STALE_DRAFT_SESSION",
+      "expectedBaseExit": 0,
+      "actualExit": 0,
+      "durationMs": 1481,
+      "message": "All contracted observations completed",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    },
+    {
+      "id": "STALE_APPROVAL_SESSION",
+      "expectedBaseExit": 0,
+      "actualExit": 99,
+      "durationMs": 5384,
+      "message": "expect(locator).toHaveText(expected) failed\n\nLocator:  locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('#saved')\nExpected: \"Saved\"\nReceived: \"Loading draft…\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveText\" locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('#saved') with timeout 5000ms\n  - waiting for locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('#saved')\n    14 × locator resolved to <div id=\"saved\" class=\"saved\" role=\"status\" aria-live=\"polite\">Loading draft…</div>\n       - unexpected value \"Loading draft…\"\n",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    }
+  ],
+  "casePlanSHA256": "df50e4590b449829d9851d335784d936d2b83d2e89fe162d5a2f564490effd27"
+}

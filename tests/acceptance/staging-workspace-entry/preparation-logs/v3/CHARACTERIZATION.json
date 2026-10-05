@@ -1,0 +1,206 @@
+[
+  {
+    "id": "acceptance",
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "acceptance",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance"
+    ],
+    "rawExit": 1,
+    "durationSeconds": 19.713
+  },
+  {
+    "id": "adversarial",
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "adversarial",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/adversarial"
+    ],
+    "rawExit": 1,
+    "durationSeconds": 25.608
+  },
+  {
+    "id": "NAV_WORKSPACE_ABSENT",
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "NAV_WORKSPACE_ABSENT",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/NAV_WORKSPACE_ABSENT"
+    ],
+    "rawExit": 1,
+    "durationSeconds": 10.289
+  },
+  {
+    "id": "DURABLE_SAVED_PREVIEW",
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "DURABLE_SAVED_PREVIEW",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/DURABLE_SAVED_PREVIEW"
+    ],
+    "rawExit": 0,
+    "durationSeconds": 15.679
+  },
+  {
+    "id": "CREATE_RECOVERY",
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "CREATE_RECOVERY",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/CREATE_RECOVERY"
+    ],
+    "rawExit": 0,
+    "durationSeconds": 9.859
+  },
+  {
+    "id": "ROUTES_BACK_RELOAD",
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "ROUTES_BACK_RELOAD",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/ROUTES_BACK_RELOAD"
+    ],
+    "rawExit": 0,
+    "durationSeconds": 10.038
+  },
+  {
+    "id": "KEYBOARD_DIALOG_FOCUS",
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "KEYBOARD_DIALOG_FOCUS",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/KEYBOARD_DIALOG_FOCUS"
+    ],
+    "rawExit": 1,
+    "durationSeconds": 10.115
+  },
+  {
+    "id": "REACHABILITY",
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "REACHABILITY",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY"
+    ],
+    "rawExit": 1,
+    "durationSeconds": 11.03
+  },
+  {
+    "id": "STALE_DRAFT_SESSION",
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "STALE_DRAFT_SESSION",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/STALE_DRAFT_SESSION"
+    ],
+    "rawExit": 0,
+    "durationSeconds": 10.601
+  },
+  {
+    "id": "STALE_APPROVAL_SESSION",
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "STALE_APPROVAL_SESSION",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/STALE_APPROVAL_SESSION"
+    ],
+    "rawExit": 0,
+    "durationSeconds": 11.363
+  },
+  {
+    "id": "UNRESOLVED_WRITES_BLOCK",
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "UNRESOLVED_WRITES_BLOCK",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/UNRESOLVED_WRITES_BLOCK"
+    ],
+    "rawExit": 0,
+    "durationSeconds": 11.642
+  },
+  {
+    "id": "MALFORMED_SAVE_RECOVERY",
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "MALFORMED_SAVE_RECOVERY",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/MALFORMED_SAVE_RECOVERY"
+    ],
+    "rawExit": 0,
+    "durationSeconds": 11.876
+  },
+  {
+    "id": "DIRTY_REPLACEMENT",
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "DIRTY_REPLACEMENT",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/DIRTY_REPLACEMENT"
+    ],
+    "rawExit": 0,
+    "durationSeconds": 10.372
+  },
+  {
+    "id": "APPROVED_NOTICE_ASYNC",
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "APPROVED_NOTICE_ASYNC",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/APPROVED_NOTICE_ASYNC"
+    ],
+    "rawExit": 1,
+    "durationSeconds": 9.862
+  },
+  {
+    "id": "APPROVED_NOTICE_PRIORITY",
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "APPROVED_NOTICE_PRIORITY",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/APPROVED_NOTICE_PRIORITY"
+    ],
+    "rawExit": 0,
+    "durationSeconds": 10.981
+  },
+  {
+    "id": "APPROVAL_RESPONSE_VARIANTS",
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "APPROVAL_RESPONSE_VARIANTS",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/APPROVAL_RESPONSE_VARIANTS"
+    ],
+    "rawExit": 0,
+    "durationSeconds": 13.529
+  },
+  {
+    "id": "SELECTED_SUBSET_IMMUTABLE",
+    "command": [
+      "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "SELECTED_SUBSET_IMMUTABLE",
+      "--output",
+      "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3/SELECTED_SUBSET_IMMUTABLE"
+    ],
+    "rawExit": 0,
+    "durationSeconds": 9.978
+  }
+]

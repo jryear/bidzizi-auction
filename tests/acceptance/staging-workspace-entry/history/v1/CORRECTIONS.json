@@ -1,0 +1,51 @@
+{
+  "status": "Unfrozen new preparation harness correction; originals and all raw failures retained",
+  "corrections": [
+    {
+      "id": "H1",
+      "reason": "A venue belongs to rendered Event page, not welcome; require on correct screen while full complete payload equality remains."
+    },
+    {
+      "id": "H2",
+      "reason": "Create dialog has close icon and Cancel; assert every close control disabled, no strict multi-locator assertion."
+    },
+    {
+      "id": "H3",
+      "reason": "Intentionally held initial approval keeps loadingDraft until release; do not require Saved in held-read bootstrap."
+    },
+    {
+      "id": "H4",
+      "reason": "Refresh actual iframe binding after outer reload; old Frame reference is detached."
+    },
+    {
+      "id": "H5",
+      "reason": "Await newly reopened event chooser visible before keyboard focus; retained closed-dialog children otherwise caused wrong activation."
+    },
+    {
+      "id": "O1",
+      "reason": "Independent critic found durable oracle lacked intended five-field values; bind expected edited compact draft before dispatch and compare body, receipt and SQL."
+    },
+    {
+      "id": "O2",
+      "reason": "Independent critic found priority tail gated by first-readRED and no real later held completion; split separately executable APPROVED_NOTICE_PRIORITY."
+    },
+    {
+      "id": "O3",
+      "reason": "Independent critic found no-op omission mutant; reference sandbox adds notice refresh then omission variant truly removes it; probes labeled and hashes recorded."
+    }
+  ],
+  "sourceHashes": {
+    "CASE_PLAN.json": "df50e4590b449829d9851d335784d936d2b83d2e89fe162d5a2f564490effd27",
+    "checks.mjs": "c8c0adcbd0eaa42f1818f69974ceab28af695d8ce78b81441cabd168aa4af494",
+    "run.mjs": "398885f152ea188beda42fd29a0823a4814091b0bf1c0751fd30357126f7a6fb",
+    "browser.mjs": "c2b96c67c51256241dbb15f1968f7c664a836c7d29a1fe20bd0c5cac41a7ca6a",
+    "protocol.mjs": "2284e048df0c14fa2de87333b5fbd2c272f806f3074e10981cf3df62bc878ea9",
+    "seed-people.sql": "f6bb72cd50476bb35025bdae787605d345a5d71bccfc1c6b926359a67a76d8c2",
+    "harness.mjs": "2492ed4f89d3d65236d4fff83745352326007452c15c0f67510c99b91c49bd80",
+    "fixtures.mjs": "c3f13597e602d38d7bea4703dec9ccf85a1e5870530903b8bcd0dd898639f6d4",
+    "oracle-controls.mjs": "79739747edf46f25717a680f0d13beb47e1089f33e0f02bbfdeb6d7225188323",
+    "SOURCE_BINDING.json": "d38e5b2137d0c8facd71765971daf32b0c5e9b91b0bba5ffe79d07bd26860afa",
+    "preparation-controls.py": "9bf6d91948c49f21e4b88a62d86d2ef1fb1fe72ddad05657c47e42af0f3f9949",
+    "prepare.py": "b26cdd7e171f8309ea960d120358d39f10f533d5679debb2322514f431530a9b"
+  }
+}

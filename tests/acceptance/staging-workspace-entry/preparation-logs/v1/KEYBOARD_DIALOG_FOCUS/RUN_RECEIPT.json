@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "mode": "KEYBOARD_DIALOG_FOCUS",
+  "sourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+  "verifyTree": "direct-characterization",
+  "frozenContract": false,
+  "kernelInvoked": false,
+  "mutant": null,
+  "actualExit": 99,
+  "durationMs": 9760,
+  "results": [
+    {
+      "id": "KEYBOARD_DIALOG_FOCUS",
+      "expectedBaseExit": 0,
+      "actualExit": 99,
+      "durationMs": 5874,
+      "message": "expect(locator).toHaveValue(expected) failed\n\nLocator:  locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('[data-event=\"name\"]')\nExpected: \"004 keyboard replacement\"\nReceived: \"004 keyboard first\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveValue\" locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('[data-event=\"name\"]') with timeout 5000ms\n  - waiting for locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('[data-event=\"name\"]')\n    14 × locator resolved to <input maxlength=\"120\" data-event=\"name\" class=\"name-input\" value=\"004 keyboard first\"/>\n       - unexpected value \"004 keyboard first\"\n",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    }
+  ],
+  "casePlanSHA256": "df50e4590b449829d9851d335784d936d2b83d2e89fe162d5a2f564490effd27"
+}

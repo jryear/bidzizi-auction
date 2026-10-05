@@ -1,0 +1,514 @@
+{
+  "status": "Bounded independently authored runnable preparation complete; root audit/review/freeze pending; no application implementation",
+  "version": 3,
+  "actualModel": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "tools": [
+    "functions.exec",
+    "exec_command",
+    "rg",
+    "Python stdlib",
+    "Node stdlib",
+    "installed pg",
+    "installed Playwright/Chromium",
+    "view_image"
+  ],
+  "runtime": {
+    "node": "24.4.1",
+    "pnpm": "12.4.2",
+    "postgres": "18.6 Homebrew",
+    "next": "16.3.8",
+    "playwright": "1.63.0",
+    "chromium": "153.0.8010.12 installed headless"
+  },
+  "sourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+  "plannedProposalVersion": 4,
+  "rootLaterV5Integration": "Root supplied V5 commit88cedd53cf12692ed0538a2db523afce3c5e5423 in separate planning tree; not incorporated or tested here. Historical5e9binding retained; root refreshes final trusted integration binding.",
+  "evidenceCommitBinding": "Containing Git commit; exact SHA returned separately after commit, avoiding recursive self-hash",
+  "allowedTrackedPaths": [
+    "tests/acceptance/staging-workspace-entry/**",
+    "docs/reviews/workspace-entry-004.preparation.json"
+  ],
+  "changedTrackedPaths": [
+    "tests/acceptance/staging-workspace-entry/**",
+    "docs/reviews/workspace-entry-004.preparation.json"
+  ],
+  "localOnlyEffects": [
+    "Ignored node_modules symlink to existing trusted dependency tree",
+    "Local Git exclude for dependency symlink (trailing-directory .gitignore pattern did not ignore symlink)",
+    "Unique disposable PG clusters/databases/scoped roles/credentials and temporary source/.next copies",
+    "Synthetic headless browser contexts",
+    "Two v2callback-crash owned fixtures explicitly cleaned; exact raw ephemeral-session logs retained privately0700/0600"
+  ],
+  "kernel": {
+    "version": "3.0.1",
+    "installedVerifierSHA256": "130e2fc8e1ff1152a7667951c44e0894a122536428fe85259224afb50543b0be",
+    "invoked": false,
+    "baselineClaim": false
+  },
+  "finalActualResults": {
+    "caseCount": 15,
+    "pass0": 11,
+    "finite1": 4,
+    "harness99": 0,
+    "expectedBaseSetMatchesActual": true,
+    "cases": [
+      {
+        "id": "NAV_WORKSPACE_ABSENT",
+        "expectedBaseExit": 1,
+        "actualExit": 1,
+        "durationMs": 933,
+        "message": "NAV_WORKSPACE_ABSENT: exactly one new Event Studio navigation\n\n0 !== 1\n",
+        "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
+      },
+      {
+        "id": "DURABLE_SAVED_PREVIEW",
+        "expectedBaseExit": 0,
+        "actualExit": 0,
+        "durationMs": 5875,
+        "message": "All contracted observations completed",
+        "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
+      },
+      {
+        "id": "CREATE_RECOVERY",
+        "expectedBaseExit": 0,
+        "actualExit": 0,
+        "durationMs": 860,
+        "message": "All contracted observations completed",
+        "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
+      },
+      {
+        "id": "ROUTES_BACK_RELOAD",
+        "expectedBaseExit": 0,
+        "actualExit": 0,
+        "durationMs": 716,
+        "message": "All contracted observations completed",
+        "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
+      },
+      {
+        "id": "KEYBOARD_DIALOG_FOCUS",
+        "expectedBaseExit": 1,
+        "actualExit": 1,
+        "durationMs": 512,
+        "message": "Escape restores picker focus",
+        "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
+      },
+      {
+        "id": "REACHABILITY",
+        "expectedBaseExit": 1,
+        "actualExit": 1,
+        "durationMs": 1404,
+        "message": "Bounded reachability: nav[aria-label=\"Event Studio\"] unreachable 1440/true/false; nav[aria-label=\"Event Studio\"] unreachable 1440/true/true; nav[aria-label=\"Event Studio\"] unreachable 1440/false/false; nav[aria-label=\"Event Studio\"] unreachable 1440/false/true; nav[aria-label=\"Event Studio\"] unreachable 1280/true/false; nav[aria-label=\"Event Studio\"] unreachable 1280/true/true; nav[aria-label=\"Event Studio\"] unreachable 1280/false/false; nav[aria-label=\"Event Studio\"] unreachable 1280/false/true\n+ actual - expected\n\n+ [\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/true/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/true/true',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/false/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/false/true',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/true/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/true/true',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/false/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/false/true'\n+ ]\n- []\n",
+        "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
+      },
+      {
+        "id": "STALE_DRAFT_SESSION",
+        "expectedBaseExit": 0,
+        "actualExit": 0,
+        "durationMs": 1436,
+        "message": "All contracted observations completed",
+        "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
+      },
+      {
+        "id": "STALE_APPROVAL_SESSION",
+        "expectedBaseExit": 0,
+        "actualExit": 0,
+        "durationMs": 1759,
+        "message": "All contracted observations completed",
+        "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
+      },
+      {
+        "id": "UNRESOLVED_WRITES_BLOCK",
+        "expectedBaseExit": 0,
+        "actualExit": 0,
+        "durationMs": 2228,
+        "message": "All contracted observations completed",
+        "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
+      },
+      {
+        "id": "MALFORMED_SAVE_RECOVERY",
+        "expectedBaseExit": 0,
+        "actualExit": 0,
+        "durationMs": 2799,
+        "message": "All contracted observations completed",
+        "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
+      },
+      {
+        "id": "DIRTY_REPLACEMENT",
+        "expectedBaseExit": 0,
+        "actualExit": 0,
+        "durationMs": 1039,
+        "message": "All contracted observations completed",
+        "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
+      },
+      {
+        "id": "APPROVED_NOTICE_ASYNC",
+        "expectedBaseExit": 1,
+        "actualExit": 1,
+        "durationMs": 336,
+        "message": "APPROVED_NOTICE_ASYNC: first approved read refreshes hint without input/tab change\n+ actual - expected\n\n+ 'Working draft. Save changes before approving a catalog.'\n- 'Working draft. Changes do not alter the approved catalog.'\n",
+        "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
+      },
+      {
+        "id": "APPROVED_NOTICE_PRIORITY",
+        "expectedBaseExit": 0,
+        "actualExit": 0,
+        "durationMs": 1290,
+        "message": "All contracted observations completed",
+        "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
+      },
+      {
+        "id": "APPROVAL_RESPONSE_VARIANTS",
+        "expectedBaseExit": 0,
+        "actualExit": 0,
+        "durationMs": 3868,
+        "message": "All contracted observations completed",
+        "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
+      },
+      {
+        "id": "SELECTED_SUBSET_IMMUTABLE",
+        "expectedBaseExit": 0,
+        "actualExit": 0,
+        "durationMs": 810,
+        "message": "All contracted observations completed",
+        "classification": "ACTUAL_APPLICATION_CURRENT_TREE_CHARACTERIZATION"
+      }
+    ],
+    "acceptanceInnerDurationMs": 14256,
+    "adversarialInnerDurationMs": 19619,
+    "actualRawCommandDurationsSeconds": {
+      "acceptance": 19.147,
+      "adversarial": 24.497
+    },
+    "actualModeHashes": {
+      "acceptance": "39b6aa1a162445a3c74861dac0a5f63e3a74f13b48453e7751e868e671b1ebd9",
+      "adversarial": "a9c2bb6f3b29cdf9e712b18099e13dfcb7159dacf744a8e539b4b094f061bf18"
+    },
+    "syntax": {
+      "version": 3,
+      "mode": "syntax",
+      "actualExit": 0,
+      "durationMs": 38,
+      "actualNodeVersion": "v24.4.1",
+      "actualNodeRuntime": "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+      "sourcePath": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/public/staging-admin/studio.js",
+      "sourceSHA256": "438270354e6c0bd47132d810c44893cf7e52956020eea8b2bc371d7ac516ba82",
+      "sourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+      "syntaxEvidenceSHA256": "5b471e2180b1a69e4dc716a583b5109a23d20a417081d98cc7ac8a6a36e82120",
+      "expectedBaseExit": 0,
+      "stderr": "",
+      "classification": "ACTUAL_APPLICATION_CURRENT_TREE_SYNTAX",
+      "kernelInvoked": false
+    }
+  },
+  "controls": {
+    "commandCount": 12,
+    "allExpectedExitsMatched": true,
+    "commands": [
+      {
+        "id": "missing-mode",
+        "rawExit": 99,
+        "expectedExit": 99,
+        "durationSeconds": 0.04,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs"
+        ]
+      },
+      {
+        "id": "unknown-mode",
+        "rawExit": 99,
+        "expectedExit": 99,
+        "durationSeconds": 0.04,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+          "not-a-mode"
+        ]
+      },
+      {
+        "id": "missing-option-value",
+        "rawExit": 99,
+        "expectedExit": 99,
+        "durationSeconds": 0.04,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+          "acceptance",
+          "--output"
+        ]
+      },
+      {
+        "id": "list",
+        "rawExit": 0,
+        "expectedExit": 0,
+        "durationSeconds": 0.04,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+          "list"
+        ]
+      },
+      {
+        "id": "missing-node-dependencies",
+        "rawExit": 99,
+        "expectedExit": 99,
+        "durationSeconds": 0.035,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/tmp/bz-workspace004-missing-dependency-3gbtn1k_/packet/run.mjs",
+          "NAV_WORKSPACE_ABSENT"
+        ]
+      },
+      {
+        "id": "missing-postgres",
+        "rawExit": 99,
+        "expectedExit": 99,
+        "durationSeconds": 0.186,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/tmp/bz-workspace004-control-_4nhqoc4/packet/run.mjs",
+          "NAV_WORKSPACE_ABSENT",
+          "--output",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/controls/missing-postgres"
+        ]
+      },
+      {
+        "id": "setup-invalid-seed",
+        "rawExit": 99,
+        "expectedExit": 99,
+        "durationSeconds": 0.988,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/tmp/bz-workspace004-control-mextzmwc/packet/run.mjs",
+          "NAV_WORKSPACE_ABSENT",
+          "--output",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/controls/setup-invalid-seed"
+        ]
+      },
+      {
+        "id": "internal-mode-deadline",
+        "rawExit": 99,
+        "expectedExit": 99,
+        "durationSeconds": 0.183,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+          "NAV_WORKSPACE_ABSENT",
+          "--deadline-ms",
+          "1",
+          "--output",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/controls/deadline"
+        ]
+      },
+      {
+        "id": "DOM-and-HTTP500-oracles",
+        "rawExit": 0,
+        "expectedExit": 0,
+        "durationSeconds": 12.858,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/oracle-controls.mjs",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/controls/DOM-oracles"
+        ]
+      },
+      {
+        "id": "dropped-context-epoch-probe",
+        "rawExit": 1,
+        "expectedExit": 1,
+        "durationSeconds": 10.021,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+          "STALE_DRAFT_SESSION",
+          "--probe",
+          "DROP_CONTEXT_EPOCH",
+          "--output",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/controls/epoch-mutant"
+        ]
+      },
+      {
+        "id": "notice-refresh-reference-probe",
+        "rawExit": 0,
+        "expectedExit": 0,
+        "durationSeconds": 9.67,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+          "APPROVED_NOTICE_ASYNC",
+          "--probe",
+          "NOTICE_REFRESH_REFERENCE",
+          "--output",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/controls/notice-reference"
+        ]
+      },
+      {
+        "id": "notice-refresh-omission-probe",
+        "rawExit": 1,
+        "expectedExit": 1,
+        "durationSeconds": 9.461,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+          "APPROVED_NOTICE_ASYNC",
+          "--probe",
+          "OMIT_NOTICE_REFRESH",
+          "--output",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/controls/notice-omission"
+        ]
+      }
+    ],
+    "oracleRows": [
+      {
+        "id": "NAV_RENAMED_ONLY",
+        "oracleRejected": true,
+        "probe": true,
+        "message": "Renamed-only horizontal nav is not selected workspace sidebar"
+      },
+      {
+        "id": "NAV_DOM_POSITIVE_REFERENCE",
+        "oraclePassed": true,
+        "probe": true
+      },
+      {
+        "id": "NAV_DUPLICATE_LINKS",
+        "oracleRejected": true,
+        "probe": true,
+        "message": "Duplicate Event compatibility controls forbidden\n\n2 !== 1\n"
+      },
+      {
+        "id": "HTTP500_CLASSIFICATION",
+        "exit": 99,
+        "localControl": true
+      },
+      {
+        "id": "MISSING_ACTUAL_JSON_CONSUMPTION",
+        "exit": 99,
+        "observerControl": true
+      }
+    ],
+    "syntaxAndInheritedRuntimeControls": [
+      {
+        "id": "syntax-actual",
+        "rawExit": 0,
+        "expectedExit": 0,
+        "durationSeconds": 0.071,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+          "syntax",
+          "--output",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/syntax-actual"
+        ]
+      },
+      {
+        "id": "syntax-invalid-JS-probe",
+        "rawExit": 1,
+        "expectedExit": 1,
+        "durationSeconds": 0.077,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+          "syntax",
+          "--output",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/syntax-invalid"
+        ]
+      },
+      {
+        "id": "syntax-unavailable-runtime-probe",
+        "rawExit": 99,
+        "expectedExit": 99,
+        "durationSeconds": 0.04,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/tmp/bz-workspace004-syntax-x3_ih5s7/packet/run.mjs",
+          "syntax",
+          "--output",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/syntax-missing-runtime"
+        ]
+      },
+      {
+        "id": "inherited-runtime-refused",
+        "rawExit": 99,
+        "expectedExit": 99,
+        "durationSeconds": 0.04,
+        "command": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+          "acceptance"
+        ]
+      }
+    ],
+    "sourcePairHashValidation": "preparation-logs/controls/SOURCE_PROBE_PAIR_BINDING.json",
+    "malformedSuccess": "Actual MALFORMED_SAVE_RECOVERY cases use nonJSON200, missing draft200 and commit/lostACK responses, retain prior saved preview/original UUID, recover complete durable receipt/SQL. Adverse routes are labeled fixtures; no app source mutation."
+  },
+  "testedVsProbesVsInferredVsBlocked": {
+    "tested": [
+      "Actual clean baseline authenticated shell, Event/list APIs, complete direct SQL, all3 migrations and bounded runtime roles before finite new-nav absence",
+      "Final6acceptance+9adversarial cases on same final source/helper bindings;15named results11pass4finiteRED",
+      "Final affected5direct race cases with matched actual frame Response.json consumption then microtask/two animation-frame flush; missing observer signal99 control",
+      "Actual Tab/Enter/Escape/dialog Back and real beforeunload event; observed replacement BODY focus defect retained",
+      "Independent authored full fixture/five-field edit+untouched event/lot expectation binds submitted wire, durable receipt, complete SQL and full savedA packet/rendered content; restart/fresh-session/reload recovery",
+      "Assigned and unassigned incomplete unselected drafts do not block explicit selected saved subset; immutable complete approval/window SQL after later draft edit",
+      "Separate Node24syntax actual0, isolated invalidJS1, unavailable runtime99; all new mjs parse checks0"
+    ],
+    "probes": [
+      "Renamed-only nav fails geometry; duplicate Event controls fail uniqueness; synthetic nav DOM positive reference passes. Actual baseline screenshot precedes mutations. These are oracle sensitivity, not chosen workspace implementation.",
+      "DROP_CONTEXT_EPOCH modifies only disposable copied studio.js and is rejected finite1 after actual consumed-body barrier; actual baseline counterpart0",
+      "NOTICE_REFRESH_REFERENCE temporary copy0 versus meaningful refresh removal from same reference finite1; SHA pair validated; actual base notice1. Both are source-sandbox probes, not application gate proof.",
+      "Local synthetic HTTP500 and fake missing-consumption observer classify99; invalid seed/missing tools/dependencies/unknown modes/internal deadline classify99",
+      "Actual baseline CSS zoom200% and720x450CSS screenshot review probes; no OS browser zoom or broad accessibility/age claim"
+    ],
+    "inferred": [
+      "Source-only original red-team/Claude critiques informed cases; final claims rest on declared actual runs and labeled controls. Additional visibility/focus coverage outside declared checks is unclaimed."
+    ],
+    "blockedOrPending": [
+      "Root final independent audit and authenticated Claude critique of immutable final packet",
+      "Integrate rootV5decision/proposal and refresh predecessor/final trusted binding",
+      "Frozen004spec/evidence commit and kernel baseline/candidate claim",
+      "All inherited13cumulative checks (deliberately not run here)",
+      "Application implementation, chosen-design visual acceptance, hosted provider/release verification and publication"
+    ]
+  },
+  "failureHistory": [
+    "history/v1/CORRECTIONS.json and full rawv1results retained; harness assumptions were not application defects",
+    "history/v2/CORRECTIONS.json retains v2raw1unhandled callback crashes as invalid application evidence; sequencing/teardown corrected. Two orphan fixtures cleaned.",
+    "history/v3-ui-characterization/FINAL_DELTA.json retains separate-syntax/source-binding change;15UIpredicates unchanged",
+    "history/v3-150ms-predecessor/CORRECTION.json marks150msrace0as historical exercise, superseded by actual consumption barrier. Prior controls retained."
+  ],
+  "redactionProvenance": "tests/acceptance/staging-workspace-entry/REDACTION_PROVENANCE.json",
+  "bindings": {
+    "evidenceManifestSHA256": "2a00e6b1be288d9fe97d3ec6c60ee55d544d559da901ff6533a973173d8ec2ec",
+    "protectedSourceManifestSHA256": "40908c6431e20738a6dba4c74cf5812b8a04da9224b11f42f2b60ff346d40dab",
+    "casePlanSHA256": "9ddfa6e30585d4969406e1d46feefe00799aa351dab37557f2183488b65cd1fa",
+    "sourceBindingSHA256": "dc2c963de09a0a39cb9827747fb8b160861685bbaa02b615a345e418cf8b3168",
+    "fixtureSeedSHA256": "f6bb72cd50476bb35025bdae787605d345a5d71bccfc1c6b926359a67a76d8c2",
+    "delayedSaturnPineOriginalSHA256": "39784ffa2264af1a1ef8c6f22433595da2dadad9f8e00047b73eece9b5260592"
+  },
+  "effects": {
+    "trackedAppChanges": false,
+    "old13EvidenceChanges": false,
+    "proposalTaskAGENTSREADMEChanges": false,
+    "providerSharedStagingReadsWrites": false,
+    "kernelChanges": false,
+    "installs": false,
+    "externalServiceOrCredentialUse": false,
+    "modelFallback": false,
+    "push": false,
+    "merge": false,
+    "deploy": false,
+    "newAgents": false
+  },
+  "remainingBoundary": "Complete new independently owned preparation packet only. Root sequentially reviews it before any application implementation; no freeze/green/application/release claim.",
+  "runnerParentProvenanceCaveat": {
+    "status": "Final execution bytes retained; metadata-only integration correction pending root beforefreeze",
+    "fields": "Current runner receipt frozenContract:false and kernelInvoked:false describe this direct preparation but must not determine future parent kernel/freeze provenance. Syntax has the same kernelInvoked wording.",
+    "recommendedRootVersionedMetadata": {
+      "contractFreezeStatus": "not independently determined by runner",
+      "kernelInvokedByRunner": false,
+      "parentVerificationTree": "VERIFY_TREE or null"
+    },
+    "UIAssertionsChanged": false,
+    "reasonNotRerun": "Parent explicitly authorized retaining finaltestedbytes and flagging metadata caveat after final bounded runs."
+  }
+}

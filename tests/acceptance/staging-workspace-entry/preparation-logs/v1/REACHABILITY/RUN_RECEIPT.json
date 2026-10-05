@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "mode": "REACHABILITY",
+  "sourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+  "verifyTree": "direct-characterization",
+  "frozenContract": false,
+  "kernelInvoked": false,
+  "mutant": null,
+  "actualExit": 1,
+  "durationMs": 5792,
+  "results": [
+    {
+      "id": "REACHABILITY",
+      "expectedBaseExit": 1,
+      "actualExit": 1,
+      "durationMs": 1836,
+      "message": "Bounded reachability: nav[aria-label=\"Event Studio\"] unreachable 1440/true/false; nav[aria-label=\"Event Studio\"] unreachable 1440/true/true; nav[aria-label=\"Event Studio\"] unreachable 1440/false/false; nav[aria-label=\"Event Studio\"] unreachable 1440/false/true; nav[aria-label=\"Event Studio\"] unreachable 1280/true/false; nav[aria-label=\"Event Studio\"] unreachable 1280/true/true; nav[aria-label=\"Event Studio\"] unreachable 1280/false/false; nav[aria-label=\"Event Studio\"] unreachable 1280/false/true\n+ actual - expected\n\n+ [\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/true/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/true/true',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/false/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/false/true',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/true/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/true/true',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/false/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/false/true'\n+ ]\n- []\n",
+      "classification": "ACTUAL_APPLICATION_BASELINE_CHARACTERIZATION"
+    }
+  ],
+  "casePlanSHA256": "df50e4590b449829d9851d335784d936d2b83d2e89fe162d5a2f564490effd27"
+}
