@@ -1,12 +1,12 @@
 import "server-only";
 import { Pool, type PoolClient } from "pg";
 import { attachDatabasePool } from "@vercel/functions";
-import { disposableDatabase } from "./config";
+import { databaseConnectionURL, disposableDatabase } from "./config";
 
 let pool: Pool | undefined;
 function getPool(): Pool {
   if (pool) return pool;
-  const connection = new URL(process.env.DATABASE_URL ?? "");
+  const connection = new URL(databaseConnectionURL());
   const local = disposableDatabase(connection);
   if (!local && (
     !["postgres:", "postgresql:"].includes(connection.protocol) ||

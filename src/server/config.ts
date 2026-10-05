@@ -14,6 +14,22 @@ export function disposableDatabase(connection: URL): boolean {
     Boolean(connection.username && connection.password);
 }
 
+/** The staff adapter uses a branch-owned secret; integration variables are read-only connectivity inputs. */
+export function databaseConnectionURL(): string {
+  if (process.env.VERCEL || process.env.VERCEL_ENV) {
+    if (process.env.VERCEL !== "1" || process.env.VERCEL_ENV !== "preview" ||
+        process.env.BIDZIZI_APP_MODE !== "staging" || !process.env.BIDZIZI_STAGING_DATABASE_URL) {
+      throw new Error("Invalid database configuration.");
+    }
+    return process.env.BIDZIZI_STAGING_DATABASE_URL;
+  }
+  const configured = process.env.DATABASE_URL ?? "";
+  try {
+    if (disposableDatabase(new URL(configured))) return configured;
+  } catch { /* Keep malformed configuration private. */ }
+  throw new Error("Invalid database configuration.");
+}
+
 /** Never derive the allowed test boundary from a client Host/forwarded header. */
 export function testMode(request: Request): TestMode | null {
   if (process.env.BIDZIZI_STAGING_TEST_AUTH !== "true") return null;
