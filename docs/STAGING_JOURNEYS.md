@@ -1,6 +1,6 @@
 # BidZizi staging journey map
 
-Version 1.0 · planning record · source checkpoint `5285648` · no release acceptance claim.
+Version 1.4 · delivery record · verified deployed staff source `91d3de0` · catalog/manual work in progress.
 
 The staging goal is two connected journeys using synthetic accounts and data. A remains the design foundation. Use plain labels. BidZizi contains organizations; an organization owns events and provides lots. Optional event sponsors are separate. This map describes test behavior, not real member verification, financial commitments or settlement.
 
@@ -8,9 +8,10 @@ The staging goal is two connected journeys using synthetic accounts and data. A 
 
 | Slice | State | Evidence boundary |
 | --- | --- | --- |
-| [staging-staff-drafts-001](../tasks/staging-staff-drafts-001.toml) | Committed at `5285648`; local kernel SUPPORTED against frozen base `3983c89` | Real PostgreSQL drafts, server sessions/grants, independent browser recovery and A staff preview. Protected hosted E2E remains pending. |
-| staging-catalog-002 | Proposed; independent contract/evidence being authored in `/tmp` | One immutable approved copy of selected saved lots, shared UTC window, event-view admission and DB-time visibility. Not frozen or implemented. |
-| [staging-manual-bid-003 proposal](proposed/staging-manual-bid-003.toml) | Proposed | Separate person/business authority, one manual durable bid, two-bidder standing and recovery. Test monetary/order/close rules must be frozen first. |
+| [staging-staff-drafts-001](../tasks/staging-staff-drafts-001.toml) | Local kernel SUPPORTED at `5285648`; deployed with boundary fix at `91d3de0` | [All11 hosted browser/SQL groups passed](evidence/hosted-staff-91d3de0/receipt.json): HTTPS session, creation, complete saves/order, pending/lost response, independent reload, stale conflict, tenant denial and actual A saved preview. |
+| [staging-preview-database-boundary-001a](../tasks/staging-preview-database-boundary-001a.toml) | Clean `91d3de0` SUPPORTED against `e1abd3a`; deployed target verified | Dedicated branch Preview connection matches the isolated restricted runtime. [Exact source/deployment binding](evidence/hosted-staff-91d3de0/SOURCE_BINDING.json); no managed fallback. |
+| [staging-catalog-002](../tasks/staging-catalog-002.toml) | Frozen at `20a3930`; clock instrumentation revisions documented; implementation being checked | Corrected baseline `7eef3e7` READY with all9 regressions passing; all7 catalog adversarial groups passed during development. No clean candidate or hosted catalog pass claimed yet. Immutable saved selection, shared UTC window, explicit VIEW grant and DB-time phase. |
+| [staging-manual-bid-003 proposal](proposed/staging-manual-bid-003.toml) | Proposed; independent fixed cases under review | Separate person/business/network/VIEW/BID authority, manual durable receipt, competing standing and recovery. No implementation or completion claim. Test money/order/close rules must be frozen first. |
 | Other journey work | Deferred or prototype-only | No real SMS, uploads, auto-bidding, donations, payments or settlement. |
 
 ## Staff journey
@@ -32,7 +33,7 @@ The staging goal is two connected journeys using synthetic accounts and data. A 
 | Test identity | Choose an explicitly synthetic account. No SMS is sent and no phone verification is claimed. | Test-session gate from 001; actual bidder entry in 002/003 | Production/custom-domain/flag-off contexts must deny test sessions. Real phone verification remains deferred. |
 | Person / business / event access | Server-held person, business membership and event permission remain distinct. Event VIEW access permits browsing; it never grants BID authority. | 002 viewer-grant adversarial checks; 003 membership/admission checks | Typed Member ID/business name/phone cannot grant access. Revocation is checked on fresh reads, writes and receipt recovery. Multiple people per business remain representable. |
 | Welcome | A welcome shows only permitted event information and optional sponsors before opening. | 002 acceptance pre-open browser/API checks | No selected lot rows, titles, descriptions or order are sent before the opening boundary. |
-| Catalog / detail | At inclusive DB-clock opening, browse the approved selected lots and inspect actual A details. | 002 API/SQL/A equality; before/open/after boundary checks | Server time overrides browser clock hints. Reload/new browser sees the same immutable release. Unknown or denied events cannot fall back to another event. |
+| Catalog / detail | At inclusive DB-clock opening, browse the approved selected lots and inspect actual A details. Visible pages refresh from server authority every5seconds and on return from the background. | 002 API/SQL/A equality; before/open/after boundary checks | Server time overrides browser clock hints. Reload/new browser sees the same immutable release. Unknown or denied events cannot fall back to another event. |
 | Watch | Save lots separately from My Bids and return with browsing/search position preserved. | Approved prototype direction; later durable watching slice, not promised by 002/003 | Ownership and persistence must be defined and independently tested. Watching never places a bid. |
 | Manual bid | Review the business/person attribution and amount; submit to the admitted open lot. | 003 acceptance, frozen test monetary/order rules | Sending is not accepted. Only a durable receipt may show confirmation and leading standing. |
 | Retry | Check an uncertain result and retry the same request. | 003 acceptance/adversarial receipt and rollback checks | Lost response may already be committed. Preserve request ID and payload; reject changed payload; prevent duplicate bids. |
@@ -41,11 +42,11 @@ The staging goal is two connected journeys using synthetic accounts and data. A 
 
 ## Next release checkpoints
 
-1. Finish protected hosted 001 E2E with the exact deployed revision, HTTPS cookies, isolated database persistence and independent browsers.
-2. Review/freeze catalog002 contract and executable evidence on a feature-absent trusted base; require RED baseline before implementation and GREEN candidate afterward.
+1. Completed: protected hosted001/001a at exact source91d3de0,11groups. Screenshots and separately bound receipts published in evidence checkpoint2ea7f80.
+2. Finish the explicitly versioned clock-probe correction and complete catalog002 on a clean committed candidate; rerun all fixed and cumulative checks, then exact deployed catalog E2E.
 3. Freeze the narrow synthetic manual-bid003 rules and independent evidence; preserve staff and catalog regressions.
 4. Run the connected journeys on the deployed protected staging target. Local kernel verdicts and a rendered shell alone do not establish that release.
 
-Local001 was rerun on clean committed5285648 (head5285648, dirty_before_log=false). Vercel built that revision, but its managed database binding changed; remote E2E is blocked until dedicated Preview connection correction001a is verified. No remote sign-in or application write was performed on the mismatched deployment.
+Local001 was rerun on clean committed5285648 and001a on clean91d3de0 (dirty_before_log=false). The protected91d3de0 Preview then passed all11 hosted groups against the approved isolated runtime. Application writes were made only after its dedicated database binding and restricted runtime were verified. The earlier mismatched528 deployment received no application login or write. Current verified staff URL: https://bidzizi-clean-staging-gnfu6vvk7-saturn-ea53.vercel.app/admin. Evidence checkpoint2ea7f80 carries the actual91 captures; it does not claim later catalog/bid completion.
 
 Current independent evidence: [001 acceptance/adversarial](../tests/acceptance/staff-drafts/run.mjs), [001 context-race/restart](../tests/acceptance/staff-drafts/context-race.mjs), and [actual gate receipts](STAGING_GATE_RECEIPTS.txt). Catalog/manual check handles above are intended modes and assertions; they become claims only when their reviewed executable packets are frozen.

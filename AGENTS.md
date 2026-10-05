@@ -2,7 +2,7 @@
 
 ## Product and context
 
-BidZizi is a rebuild for company-hosted auctions. The current priority is a native-feeling mobile bidder experience. The staging application includes the original read-only Neon connectivity check and a gated synthetic staff-drafts slice: test sessions, server-held organization grants, durable event/lot draft saves, recovery, and an A bidder preview. Real phone/member admission, catalog publication, bidding, payments, and PWA behavior are not implemented. The complete bidder journey remains the isolated simulated prototype (`prototypes/lanyard`). See [the staff handoff](docs/STAGING_STAFF_HANDOFF.md) and [gate receipts](docs/STAGING_GATE_RECEIPTS.txt); deterministic frozen checks decide local completion; model reviews propose cases, and deployed release checks are separate.
+BidZizi is a rebuild for company-hosted auctions. The current priority is a native-feeling mobile bidder experience. The staging application includes the original read-only Neon connectivity check and a gated synthetic staff-drafts slice: test sessions, server-held organization grants, durable event/lot draft saves, recovery, and an A bidder preview. A separate synthetic catalog slice adds immutable saved approval, explicit event VIEW grants and database-clock scheduled/open/closed catalog reads. Real phone/member admission, operational bidding, payments, and PWA behavior are not implemented. The complete bidder journey remains the isolated simulated prototype (`prototypes/lanyard`). See [the staff handoff](docs/STAGING_STAFF_HANDOFF.md) and [gate receipts](docs/STAGING_GATE_RECEIPTS.txt); deterministic frozen checks decide local completion; model reviews propose cases, and deployed release checks are separate.
 
 - [README.md](README.md): current scaffold, run commands, bidder-first discovery, and contract workflow.
 - [Staging connectivity](docs/STAGING_CONNECTIVITY.md): mutable provider identities, connection procedure, and operational evidence.
@@ -33,7 +33,7 @@ The user selected `prototypes/lanyard` (prototype A) on 2026-10-02 as the canoni
 
 The user approved the first admin Event/Lots prototype and its simplified copy, then requested it on a separate worktree. It lives in `prototypes/admin-studio`; read [the handoff](docs/ADMIN_JOURNEY_HANDOFF.md) before changing it. It is isolated from `src/` and production services, like the A foundation.
 
-BidZizi contains organizations; Saturn is the first example organization and Holiday Trade Show is its event. Staff enter items internally. The organization supplies items; optional event sponsors are separate. Staff select lots together and assign a shared opening/closing window. The audience catalog appears when bidding opens. Organization onboarding, staff authorization, multiple windows, and real scheduler/bidding behavior remain future work. Prototype rules are not a frozen contract.
+BidZizi contains organizations; Saturn is the first example organization and Holiday Trade Show is its event. Staff enter items internally. The organization supplies items; optional event sponsors are separate. Staff select lots together and assign a shared opening/closing window. The audience catalog appears when bidding opens. Organization onboarding, staff authorization, multiple windows, replacement/rescheduling and operational bidding remain future work. The synthetic catalog opens from database time and visible audience pages refresh from server authority; no cron or browser clock grants access. Prototype rules are not a frozen contract.
 
 ## Work style and inspection
 
