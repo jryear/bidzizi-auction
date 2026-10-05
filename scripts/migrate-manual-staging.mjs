@@ -72,6 +72,10 @@ try {
  requireFact(g.length===grants.length&&g.every(row=>row.active&&grants.some(([p,o])=>row.person_id===p&&row.org_id===o)));
  const runtime=(await client.query("SELECT rolsuper,rolcreatedb,rolcreaterole,rolreplication,rolbypassrls,rolinherit FROM pg_roles WHERE rolname='staging_e2e_app'")).rows[0];
  requireFact(runtime&&Object.values(runtime).every(value=>value===false));
+ // Explicit grants do not remove grants inherited from the owner's default ACL.
+ // Narrow only this database's new003 tables and future owner-created tables.
+ await client.query('ALTER DEFAULT PRIVILEGES FOR ROLE staging_e2e_owner REVOKE ALL ON TABLES FROM staging_e2e_app, PUBLIC');
+ await client.query('REVOKE ALL ON bz_businesses,bz_business_person_memberships,bz_org_business_memberships,bz_event_bidder_admissions,bz_lot_standing,bz_manual_bids,bz_bid_receipts FROM staging_e2e_app, PUBLIC');
  await client.query('GRANT SELECT ON bz_businesses,bz_business_person_memberships,bz_org_business_memberships,bz_event_bidder_admissions TO staging_e2e_app');
  for(const table of ['bz_businesses','bz_business_person_memberships','bz_org_business_memberships','bz_event_bidder_admissions'])await client.query('GRANT UPDATE(lock_marker) ON '+table+' TO staging_e2e_app');
  await client.query('GRANT SELECT,INSERT,UPDATE ON bz_lot_standing TO staging_e2e_app');
