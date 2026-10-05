@@ -1,0 +1,45 @@
+# PROPOSED ONLY: no trusted base or executable evidence yet. Do not claim a gate pass.
+spec_version = 1
+id = "staging-catalog-002"
+project = "bidzizi"
+goal = "Authorized staff approve an immutable catalog of selected draft lots with a shared UTC bidding window; the audience receives the same catalog through A only when bidding opens, while later draft edits cannot change the approved release."
+bypass_policy = "fail"
+
+[scope]
+include = ["src/*", "public/*", "migrations/*", "scripts/*", "docs/*", "README.md", "AGENTS.md", "package.json", "next-env.d.ts", "tests/implementation/*"]
+exclude = ["*.env*", "pnpm-lock.yaml", "vercel.json", ".vercel/*", ".claims/*"]
+protected = ["prototypes/*", "src/lib/database.ts", "tests/acceptance/*"]
+test_files = ["*test*", "*spec*", "*__tests__*"]
+
+[worktree]
+link = ["node_modules"]
+
+[[checks]]
+name = "Saved draft, immutable release, server-time visibility and A catalog agree"
+kind = "acceptance"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-catalog/run.mjs acceptance"
+evidence = ["tests/acceptance/staging-catalog/*"]
+timeout = 300
+
+[[checks]]
+name = "Tenant/revocation, incomplete publication, DST/time validation, boundary and stale-release challenges"
+kind = "adversarial"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-catalog/run.mjs adversarial"
+evidence = ["tests/acceptance/staging-catalog/*"]
+timeout = 300
+
+[[checks]]
+name = "Durable staff draft regression"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts/run.mjs acceptance"
+timeout = 300
+
+[[checks]]
+name = "TypeScript"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node node_modules/typescript/bin/tsc --noEmit --incremental false"
+timeout = 180
+
+[notes]
+context = "Proposed synthetic staging slice, to be reviewed and frozen with independent fixtures before implementation. Audience responses must omit every draft and unopened lot, rather than shipping hidden rows. Database/server time controls opening inclusively and closing exclusively; a cron or browser clock does not authorize bids. Staff preview remains separately authorized. Organization supplies lots, optional sponsors stay separate. UTC conversion must reject invalid or ambiguous wall times. One shared event window is the bounded first implementation. Catalog becomes visible at bidding opening, per the user decision."
+out_of_scope = "No bids, monetary authority, identity onboarding, live SMS, auto-bid, donation, payment, settlement, uploads or production data. Closing-view behavior and approved-content replacement/cancellation semantics must be explicit in the frozen evidence before this proposal becomes tasks/. Provider deployment evidence remains a separate release gate."

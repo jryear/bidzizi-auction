@@ -1,0 +1,181 @@
+{
+  "schema": 1,
+  "at": "2026-10-05T02:59:54.998389+00:00",
+  "verifier_version": "3.0.0",
+  "verifier_sha256": "94b7a341cbb75d986a475cb2bf5b24d808441693cd73f563efee577629e675ee",
+  "task_id": "staging-staff-drafts-001",
+  "project": "bidzizi",
+  "goal": "Pre-enrolled synthetic test staff can create and edit organization-owned incomplete event and lot drafts, receive PostgreSQL-confirmed Saved, reload them in an independent browser, and see the same saved revision through A's bidder preview, with tenant authorization and safe recovery.",
+  "spec_path": "/Users/jryear/code/bidzizi-staging-e2e/tasks/staging-staff-drafts-001.toml",
+  "spec_source": "base",
+  "spec_sha256": "ad6b10eecb8f09d7de79ad5ef3c5c9267e7969c8664fadc0a569b77f2b31ae94",
+  "base_ref": "3983c89aaff31b7a4452d0657111bdada0455343",
+  "merge_base": "3983c89aaff31b7a4452d0657111bdada0455343",
+  "head": "3983c89aaff31b7a4452d0657111bdada0455343",
+  "dirty_before_log": true,
+  "claim": "Synthetic authorized staff can create, durably save, reload and preview organization-owned event and lot drafts with tested tenant isolation and recovery.",
+  "raw_claim": null,
+  "raw_claim_captured_at": null,
+  "implementer_model": "GPT-6 Codex runtime",
+  "verifier_access": "yes",
+  "verifier_inspection_reported": "yes",
+  "contract_review": {
+    "ran": null,
+    "reviewer_model": null,
+    "findings": [],
+    "accepted_findings": []
+  },
+  "changed_files": [
+    "docs/STAGING_GATE_RECEIPTS.txt",
+    "docs/proposed/staging-catalog-002.toml",
+    "docs/proposed/staging-manual-bid-003.toml",
+    "migrations/001_staging_staff.sql",
+    "public/staging-admin/index.html",
+    "public/staging-admin/model.js",
+    "public/staging-admin/studio.css",
+    "public/staging-admin/studio.js",
+    "public/staging-bidder-preview/assets/fonts/fraunces-vf.woff2",
+    "public/staging-bidder-preview/assets/fonts/instrument-sans-vf.woff2",
+    "public/staging-bidder-preview/assets/lots/bicycle.jpg",
+    "public/staging-bidder-preview/assets/lots/cabin.jpg",
+    "public/staging-bidder-preview/assets/lots/ceramics.jpg",
+    "public/staging-bidder-preview/assets/lots/coffee.jpg",
+    "public/staging-bidder-preview/assets/lots/dinner.jpg",
+    "public/staging-bidder-preview/assets/lots/flowers.jpg",
+    "public/staging-bidder-preview/index.html",
+    "public/staging-bidder-preview/src/app.js",
+    "public/staging-bidder-preview/src/data.js",
+    "public/staging-bidder-preview/src/store.js",
+    "public/staging-bidder-preview/src/ui.js",
+    "public/staging-bidder-preview/src/views.js",
+    "public/staging-bidder-preview/styles.css",
+    "scripts/migrate-staging.mjs",
+    "src/app/admin/page.tsx",
+    "src/app/api/admin/events/[id]/route.ts",
+    "src/app/api/admin/events/route.ts",
+    "src/app/api/session/logout/route.ts",
+    "src/app/api/session/route.ts",
+    "src/app/api/test-auth/login/route.ts",
+    "src/server/auth.ts",
+    "src/server/config.ts",
+    "src/server/db.ts",
+    "src/server/draft.ts",
+    "src/server/http.ts",
+    "src/server/staff.ts"
+  ],
+  "protected_changes": [],
+  "out_of_scope": [],
+  "mutable_test_changes": [
+    "src/app/api/test-auth/login/route.ts"
+  ],
+  "bypasses": [],
+  "base_checks": [
+    {
+      "name": "Durable staff drafts, independent browser reload, actual A saved preview, retry and conflict recovery",
+      "kind": "acceptance",
+      "exit": 1,
+      "expected_exit": 0,
+      "passed": false,
+      "harness_error": false,
+      "seconds": 8.15,
+      "output_tail": "FAIL: Session API exists.\n\n404 !== 200\n\n"
+    },
+    {
+      "name": "Session deployment gate, tenant revocation, CSRF, atomic validation, retry and concurrency boundaries",
+      "kind": "adversarial",
+      "exit": 1,
+      "expected_exit": 0,
+      "passed": false,
+      "harness_error": false,
+      "seconds": 7.99,
+      "output_tail": "FAIL: Staff schema migration is absent on this tree.\n"
+    },
+    {
+      "name": "Previously authorized delayed tenant response, stored text and full-data process restart",
+      "kind": "adversarial",
+      "exit": 1,
+      "expected_exit": 0,
+      "passed": false,
+      "harness_error": false,
+      "seconds": 7.97,
+      "output_tail": "FAIL: Staff schema migration is absent on this tree.\n"
+    },
+    {
+      "name": "Existing admin prototype model",
+      "kind": "regression",
+      "exit": 0,
+      "expected_exit": 0,
+      "passed": true,
+      "harness_error": false,
+      "seconds": 0.06,
+      "output_tail": "PASS exact minor-unit parsing and invalid amounts\nPASS event timezone, including DST gaps and ambiguity\nPASS a catalog without assigned lots cannot be scheduled\nPASS an incomplete selected lot blocks release\nPASS opening inclusive; closing exclusive; automatic boundary states\nPASS audience catalog hidden before opening and visible afterward\nPASS working edits preserve the scheduled content and window\nPASS unassigned lots are excluded from a released snapshot\nPASS an invalid shared window cannot be released\n9 model boundary checks passed. Prototype evidence only; not a frozen-contract verdict.\n"
+    },
+    {
+      "name": "TypeScript",
+      "kind": "regression",
+      "exit": 0,
+      "expected_exit": 0,
+      "passed": true,
+      "harness_error": false,
+      "seconds": 0.08,
+      "output_tail": ""
+    }
+  ],
+  "candidate_checks": [
+    {
+      "name": "Durable staff drafts, independent browser reload, actual A saved preview, retry and conflict recovery",
+      "kind": "acceptance",
+      "exit": 0,
+      "expected_exit": 0,
+      "passed": true,
+      "harness_error": false,
+      "seconds": 9.95,
+      "output_tail": "PASS 1: Clearly test-mode session derives person and organization grants from PostgreSQL; opaque cookie is stored only hashed.\nPASS 2: Create retry returns one durable event and identical receipt.\nPASS 3: Incomplete event and lot drafts persist atomically; an independent session reads the same DB-confirmed revision.\nPASS 4: Ordered lots, idempotent recovery, changed-key rejection, and stale revision conflict preserve later edits.\nPASS 5: Actual A saved-draft preview and a new browser context show server-persisted event edits.\nPASS 6: Failed save stays unconfirmed, preserves edits and saved preview, then retries to one durable save.\nPASS 7: Stale browser save shows a conflict; explicit reload recovers the authoritative revision without overwrite.\nPASS 8: Lost response after commit stays unconfirmed, and retry recovers its existing receipt without another revision.\nPASS 9: Transaction rejection leaves no partial rows; retry recovers complete lot data/order in SQL, independent API and fresh browser.\n9 independent acceptance groups passed.\n"
+    },
+    {
+      "name": "Session deployment gate, tenant revocation, CSRF, atomic validation, retry and concurrency boundaries",
+      "kind": "adversarial",
+      "exit": 0,
+      "expected_exit": 0,
+      "passed": true,
+      "harness_error": false,
+      "seconds": 18.05,
+      "output_tail": "PASS 1: Anonymous/forged/member-only identity and another tenant cannot read, list, or write staff drafts.\nPASS 2: Login and authenticated writes enforce same-origin JSON; rejected CSRF does not change data.\nPASS 3: Unknown ownership/history fields, invalid minor units, and duplicate lot identities reject atomically.\nPASS 4: Concurrent stale writers yield one durable revision and one conflict.\nPASS 5: Composite tenant ownership prevents lot reparenting across organizations.\nPASS 6: Revoked staff grant is checked on reads, writes, and idempotent replay.\nPASS 7: Person revocation, logout, and expiry invalidate existing server sessions.\nPASS 8: Flag-off, production, and custom-domain Preview contexts deny test login and existing staff sessions; forwarded host cannot enable them.\nPASS 9: Local auth requires both a loopback origin and explicitly disposable bz_test_* database; valid prior staff cookies cannot bypass either.\n9 independent adversarial groups passed.\n"
+    },
+    {
+      "name": "Previously authorized delayed tenant response, stored text and full-data process restart",
+      "kind": "adversarial",
+      "exit": 0,
+      "expected_exit": 0,
+      "passed": true,
+      "harness_error": false,
+      "seconds": 18.72,
+      "output_tail": "PASS 1: Previously authorized Saturn response cannot overwrite Pine editor, organization or actual A preview after logout/sign-in.\nPASS 2: Hostile stored title/welcome remain literal text in editor and A preview, and complete JSON equals direct SQL storage.\nPASS 3: Complete submitted event/lot data survive a Next process restart using the prior server-held session.\n3 independent context-race groups passed.\n"
+    },
+    {
+      "name": "Existing admin prototype model",
+      "kind": "regression",
+      "exit": 0,
+      "expected_exit": 0,
+      "passed": true,
+      "harness_error": false,
+      "seconds": 0.06,
+      "output_tail": "PASS exact minor-unit parsing and invalid amounts\nPASS event timezone, including DST gaps and ambiguity\nPASS a catalog without assigned lots cannot be scheduled\nPASS an incomplete selected lot blocks release\nPASS opening inclusive; closing exclusive; automatic boundary states\nPASS audience catalog hidden before opening and visible afterward\nPASS working edits preserve the scheduled content and window\nPASS unassigned lots are excluded from a released snapshot\nPASS an invalid shared window cannot be released\n9 model boundary checks passed. Prototype evidence only; not a frozen-contract verdict.\n"
+    },
+    {
+      "name": "TypeScript",
+      "kind": "regression",
+      "exit": 0,
+      "expected_exit": 0,
+      "passed": true,
+      "harness_error": false,
+      "seconds": 0.08,
+      "output_tail": ""
+    }
+  ],
+  "verdict": "supported",
+  "reasons": [],
+  "warnings": [
+    "agent-owned test files changed; these may support development but are not independent completion evidence: src/app/api/test-auth/login/route.ts"
+  ]
+}

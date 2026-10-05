@@ -14,3 +14,7 @@ Authorized by Zack: isolated Neon test branch, branch-scoped Vercel Preview data
 - Session tokens are opaque, random and stored only as hashes in PostgreSQL. No separate signing secret is needed.
 
 No migration, seed, app deployment, provider release acceptance or live bid has been performed at this setup checkpoint. The local frozen contract and its disposable database checks remain separate from connected-provider evidence.
+
+## Later checkpoint — 2026-10-05 UTC
+
+Migration001 and protected synthetic identities plus one six-lot example event were applied only to `bz_staging_e2e` on the approved isolated branch. Existing branch-scoped Vercel Preview database bindings now use the restricted runtime role, and `BIDZIZI_APP_MODE=staging` plus `BIDZIZI_STAGING_TEST_AUTH=true` are configured only for `staging-e2e`. No owner credential is deployed. Existing generated Preview protection remains enabled; an existing automation-bypass credential is present, and no new one was created. The local staff kernel is SUPPORTED against revised frozen base3983c89; candidate deployment and remote HTTPS/provider E2E remain separate and pending at this checkpoint. No publication or bid was created.

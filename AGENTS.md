@@ -2,7 +2,7 @@
 
 ## Product and context
 
-BidZizi is a rebuild for company-hosted auctions. The current priority is a native-feeling mobile bidder experience; the repository currently implements only a Next.js staging page and a live, read-only Neon connectivity check, plus a simulated bidder prototype (`prototypes/lanyard`) that is not wired to either. Authentication, auction data, bidding, and PWA behavior do not exist yet in the application.
+BidZizi is a rebuild for company-hosted auctions. The current priority is a native-feeling mobile bidder experience. The staging application includes the original read-only Neon connectivity check and a gated synthetic staff-drafts slice: test sessions, server-held organization grants, durable event/lot draft saves, recovery, and an A bidder preview. Real phone/member admission, catalog publication, bidding, payments, and PWA behavior are not implemented. The complete bidder journey remains the isolated simulated prototype (`prototypes/lanyard`). See [the staff handoff](docs/STAGING_STAFF_HANDOFF.md) and [gate receipts](docs/STAGING_GATE_RECEIPTS.txt); local kernel evidence is separate from parent/Claude acceptance and deployed release checks.
 
 - [README.md](README.md): current scaffold, run commands, bidder-first discovery, and contract workflow.
 - [Staging connectivity](docs/STAGING_CONNECTIVITY.md): mutable provider identities, connection procedure, and operational evidence.

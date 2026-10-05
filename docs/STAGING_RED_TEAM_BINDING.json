@@ -1,0 +1,33 @@
+{
+  "reviewed_original_base": "9748ee57da6d3bbc0826df5c9e2271edce28ac24",
+  "candidate_stash": "0b9aa2fc3614c8aab566496aaee51dd00c563f15",
+  "fixed": "/tmp/bz-revised-fixed-69vom4g1",
+  "mutant": "/tmp/bz-revised-mutant-pv8ky6uf",
+  "packet_sha256": {
+    "tasks/staging-staff-drafts-001.toml": "ad6b10eecb8f09d7de79ad5ef3c5c9267e7969c8664fadc0a569b77f2b31ae94",
+    "tests/acceptance/staff-drafts/AUTHOR_REVIEW.md": "75db77d7f7a71b92a666b2cefcb9c4e92c4ca28de35aec0dc91078f39d2ba5c3",
+    "tests/acceptance/staff-drafts/README.md": "e38678bf1d994baa483cd887b4b98d514552b5037ec932b44245b229ee575999",
+    "tests/acceptance/staff-drafts/context-race.mjs": "39784ffa2264af1a1ef8c6f22433595da2dadad9f8e00047b73eece9b5260592",
+    "tests/acceptance/staff-drafts/harness.mjs": "15a4a30eb54e0c71607a88cdcaaf6fce6f574689c2f67cb0b9fa6e6d1e08aed0",
+    "tests/acceptance/staff-drafts/protocol.mjs": "82a5995daf969b5c2d1e4f0cba0d355cf026d4166635645d014979466976b636",
+    "tests/acceptance/staff-drafts/run.mjs": "01c1a4a581235a970fcbd1ffa7473ab4fc0290eb1e76db741881f2af1c2638ee",
+    "tests/acceptance/staff-drafts/seed.sql": "e476babf9ecc5e498b461b2396926a4773ba50b5dbe41722a89b1ce4270c909f"
+  },
+  "fixed_ui_sha256": "c55db448810688cfd4e0ef9fc0c5b4c922fa04629da048477b6d77edfb438a4e",
+  "mutant_ui_sha256": "7c5c62707dc1fcf26dbf93a1cf825d0612017cc01ddc056180731afa85d9ba61",
+  "disposition": "READY_FOR_REFREEZE; not candidate kernel or deployed acceptance",
+  "results": {
+    "fixed": {
+      "exit_code": 0,
+      "groups": 3,
+      "log": "/tmp/bz-revised-fixed-69vom4g1/context-race.log",
+      "log_sha256": "6da3407989eb87d4c1951247889a02d2964510f0d3c34442caf7428c96611d08"
+    },
+    "mutant": {
+      "exit_code": 1,
+      "failure": "Expected Pine authorized review event, received Saturn delayed private review event",
+      "log": "/tmp/bz-revised-mutant-pv8ky6uf/context-race.log",
+      "log_sha256": "ba1a01e0e0248e296cae600b1fa335c4704c9b02b0e5b3530ac192d939578923"
+    }
+  }
+}
