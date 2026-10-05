@@ -1,0 +1,159 @@
+{
+  "status": "Owner selected direction; proposed tranche, not frozen and not implemented",
+  "at": "2026-10-05T21:53:34.832600+00:00",
+  "decision": "Workspace-led Event Studio",
+  "designSourceCommit": "4cb2e1018169e11c96bba8495d3ad182e90c8b3b",
+  "connectedBase": "916eaa2efa9220434d8b0bef6f53f637ca157d22",
+  "ownerReason": "Looks and feels cleaner and more usable across ages and technical aptitude.",
+  "usabilityPriorities": [
+    "Plain labels and visible primary actions",
+    "Legible type, clear current organization/event and save status",
+    "Keyboard-operable navigation, visible focus and recoverable mistakes",
+    "Efficient catalog work without a dominant mandatory setup checklist"
+  ],
+  "doesNotSettle": [
+    "Operational multiple-window semantics",
+    "Later-window catalog visibility",
+    "Relisting or approved-release rescheduling",
+    "New admission, bid, increment, payment, SMS or display authority"
+  ],
+  "tranche": {
+    "id": "staging-workspace-entry-004",
+    "outcome": "Staff enter the chosen workspace navigation, choose or create an organization event, edit existing welcome/heading content, explicitly save, recover/reload, and inspect the confirmed saved Design A preview.",
+    "defaultEntry": "Preserve legacy no-hash Event entry, explicit Event/Lots routes, and new creation Event editor. Workspace sidebar/composition is the004change. Default-Lots migration is deferred.",
+    "candidateFiles": [
+      "public/staging-admin/studio.js",
+      "public/staging-admin/studio.css",
+      "public/staging-admin/index.html"
+    ],
+    "retainedVisibleCompatibility": [
+      "Event and Lots links remain real, visible destinations; preserve the existing agreed accessible labels and hooks used by frozen checks.",
+      "Saved draft and working preview modes remain explicit; browser editor state grants no server authority."
+    ],
+    "scope": "Workspace shell/navigation/current event context and existing welcome editing only. Existing lot/catalog/bid workflows remain available through the earned engine.",
+    "invariants": [
+      "A new Event Studio navigation landmark and clear selected organization/event identify the chosen workspace; current actions and save status remain visible at 1440x900 and 1280x800.",
+      "Preserve legacy no-hash Event entry and outer/admin reload-to-Event behavior. Inner Event/Lots navigation and Back retain current memory; full reload restores confirmed server content after existing dirty/uncertain warnings.",
+      "Only a confirmed durable response displays Saved and advances saved-preview revision. Failed or lost acknowledgement keeps the last confirmed preview and original request ID for recovery.",
+      "Selection/session changes invalidate pending responses before they may update context, fields, preview, status or notices.",
+      "Switching remains blocked during unresolved create/save/approval writes. Permitted dirty-draft replacement requires explicit confirmation; ambiguous saved outcomes require the existing same-request recovery flow, never silent abandonment.",
+      "Approved snapshot and fixed schedule stay distinct from working edits immediately after asynchronous approval reads; save/recovery errors retain priority over generic draft hints.",
+      "Approval applies only to the explicit selected saved subset; unselected incomplete drafts do not acquire new approval blockers.",
+      "Keyboard navigation, dialog close/Back and return focus work; at tested viewports controls remain reachable without page horizontal overflow."
+    ],
+    "regressions": [
+      "Preserve all13 manual003 cumulative check commands and evidence; run all as regressions on both trees.",
+      "Retain delayed Saturn/Pine response fixture, full SQL equality and app restart cases unchanged.",
+      "Retain approval/receipt duplicate and lost-ack recovery, competing bid and authorization boundaries unchanged."
+    ],
+    "newFixturePlan": [
+      "Acceptance base RED must be named NAV_WORKSPACE_ABSENT after healthy shell/auth/event API and SQL binding controls. Require real controls/current identity plus sidebar geometry/reachability, not only renamed aria-label. Selector timeout/API500/setup errors are99.",
+      "Create/select/save/reload/saved-preview SQL equality; sequential fresh session and application-restart readback.",
+      "Hold draft/approval reads across actually permitted event/session transitions; stale responses and notices must not affect the new visible context. Preserve original Saturn/Pine session-change race unchanged.",
+      "Duplicate create/save clicks and stable same-request recovery after abort-before-send and lost-after-commit acknowledgement.",
+      "Assert switching is blocked while create/save/approval outcome is unresolved; preserve safe same-request recovery. Separately test permitted dirty switching with keep/discard, explicit read replacement, Back/reload and keyboard focus without clearing the confirmed preview.",
+      "Approved notice after first asynchronous read without tab change, after repeated reads, and with a higher-priority save error.",
+      "Selected complete lot may be reviewed while unrelated draft remains unassigned/incomplete; approved snapshot cannot change after later draft edit.",
+      "Desktop/laptop rendered screenshots are separate review probes; no broad accessibility or any-age reliability claim from these checks.",
+      "Returned200with non-JSON/missing draft remains unconfirmed; original request ID and last confirmed preview are retained.",
+      "Selected complete lot may be approved alongside unselected incomplete lots both assigned and unassigned; full approved snapshot/window SQL remains immutable after later draft edits.",
+      "Current org/event text, navigation, save status, Save and preview control stay reachable at1440x900/1280x800 with preview open/closed and content scrolled; keyboard chooser replacement restores focus to a live control or main heading.",
+      "Keep source-inferred Claude cases separate from reproduced defects. Confirm epoch-reset/save usability, modal Back/focus and notice priority in executable fixtures before accepting failures as product defects."
+    ],
+    "fixtureOwnership": "Independent acceptance packet owner before implementer; commit executable fixtures, helpers, protected spec and source bindings together only after contract/test review. No executable004 fixture or frozen base exists yet.",
+    "fieldsInJourney": [
+      "name",
+      "eyebrow",
+      "welcome",
+      "venue",
+      "cover"
+    ],
+    "otherFields": "Existing date/start/end/timezone/increment/sponsor editing remains available with current staging semantics; no physical-time separation or rule change in004.",
+    "navigation": "One new visible Event Studio navigation landmark contains exactly one real Event link and one real Lots link. No duplicate hidden compatibility links. Preserve the existing accessible names and hooks.",
+    "routeContract": {
+      "outer": "/admin?event=<id> embeds the studio; outer reload preserves current server selected-event resolution and legacy Event entry. No new outer tab parameter or tab persistence.",
+      "inner": "Existing #/event and #/lots navigation remains; changing tabs/Back retains current in-memory edits. Unknown hashes keep the current Event fallback. Creation sets #/event.",
+      "reload": "Full reload restores server-confirmed draft content; unsaved memory is not claimed durable. Preserve beforeunload warnings and explicit replacement confirmation.",
+      "eventSwitch": "Preserve existing current inner-tab behavior on event selection. Do not introduce cross-event Back navigation."
+    },
+    "harnessRequirements": [
+      "New independently owned004harness applies protected migrations001,002,003 to a unique disposable PG18 cluster/database and scoped roles, with source-bound fixtures. Existing staff harness initializes only001 and is insufficient by itself.",
+      "Keep old helpers, fixtures and graders unchanged; declare every relied-on helper/bootstrap/seed as new frozen evidence. No inherited runtime env or shared staging storage.",
+      "Perform healthy auth/eventAPI/SQL controls first. Detect base absence of new navigation synchronously after the authorized Event shell; do not wait for a missing-selector timeout.",
+      "Each case prints stable ID, expected base outcome and measured duration. Acceptance missing-navigation finite1; approved-notice known raw1 is separately named. Characterize and declare remaining outcomes before freeze.",
+      "Test missing tools/dependencies, invalid mode, setup failure and internal deadline as99. Internal deadline precedes TOML timeout by at least30seconds. Outer verifier timeout must be UNVERIFIABLE after versioned correction.",
+      "Run baseline/evidence proof again after external verifier correction; no baseline-ready claim from current3.0.0classification.",
+      "Validate targeted assertions using negative controls/mutants before freezing, including a renamed-only nav label, duplicate Event/Lots links, dropped epoch guard, omitted approval-notice refresh and malformed success response."
+    ],
+    "previewAssertion": "Compare saved-preview mode, confirmed revision label and complete contracted event/lot content to durable receipt and SQL. Bind the origin/frame and explicit organization/event; exclude dynamic now/phase fields from structural equality.",
+    "screenshots": "Implementer screenshots in docs/evidence are non-gating visual probes; deterministic assertions, source binding and grader results remain independently owned. Add a200%-zoom review probe without claiming broad accessibility or age coverage.",
+    "staticValidation": "TypeScript regression covers its configured sources, not necessarily static adminJS. Require Node24--check for changed JavaScript plus rendered browser evidence; do not claim tsc validates all candidate files."
+  },
+  "deliverySequence": [
+    "Independent red-team contract/test-plan review plus Claude critique",
+    "Author executable independently owned evidence and negative/harness controls; characterize direct case-ID outcomes without a supported baseline claim.",
+    "Resolve known external verifier timeout classification through an explicitly versioned correction and full rerun; prepare reviewable patch before asking for installation authority, then rerun all baseline/evidence proofs.",
+    "Commit frozen contract/evidence on trusted integration base",
+    "Sol Medium implements only candidate files in an isolated worktree, commits bounded slice, then clean exact-commit verification and rendered review",
+    "Publishing remains a separate authorized step; deploy same tested commit and hostedE2E only with applicable authority"
+  ],
+  "kernelBoundary": "External _kernel/verify.py is unchanged at version3.0.0. Its timeout-to-baseline-ready defect is recorded. No kernel installation authority is inferred from this design choice.",
+  "manager": "Sol Medium owns implementation after contract and evidence are frozen; this Astra planning/audit tranche stops before implementation.",
+  "workerOwnership": {
+    "contractReviewer": "gpt-6.1-sol/high, own restored audit worktree, no source edits; review receipts only",
+    "additionalCritic": "Authenticated local Claude CLI, tools disabled, fixed supplied packet, no paid fallback, model recorded from response",
+    "implementer": "Not dispatched"
+  },
+  "effects": {
+    "appChanges": false,
+    "kernelChanges": false,
+    "sharedDataWrites": false,
+    "push": false,
+    "merge": false,
+    "deploy": false,
+    "providerChanges": false,
+    "newCredentials": false
+  },
+  "draftVersion": 3,
+  "reviewCorrections": [
+    {
+      "source": "Independent red-team draftV1 review",
+      "finding": "Default-Lots entry conflicts with frozen v1/v2/context-race/catalog field assertions",
+      "correction": "Preserve Event entry in004. No grader/fixture changes or supersession."
+    },
+    {
+      "source": "Independent red-team draftV1 review",
+      "finding": "New response tests could wrongly demand switching during unresolved writes",
+      "correction": "Keep pending-write switching guards and test actual permitted read/session transitions; use existing recovery for ambiguous write outcomes."
+    },
+    {
+      "source": "Both reviewers",
+      "finding": "Outer iframe reload differs from inner route history; unsaved memory reload promise overbroad",
+      "correction": "Define exact outer/inner and confirmed/unsaved behavior; preserve old tests and beforeunload semantics."
+    },
+    {
+      "source": "Red-team",
+      "finding": "Staff harness lacks catalog/manual schema",
+      "correction": "Independent004bootstrap must apply all3protected migrations; old harnesses remain unchanged."
+    },
+    {
+      "source": "Claude source-only critique",
+      "finding": "Nav can cheaply pass by renamed landmark or duplicate links; future test controls insufficiently specified",
+      "correction": "Require actual working controls, identity, layout reachability, exact selector manifest, negative controls and per-case base outcomes."
+    }
+  ],
+  "reviews": {
+    "redteam": {
+      "model": "gpt-6.1-sol",
+      "effort": "high",
+      "scope": "Source-only V1contract critique; no gate, browser or app changes"
+    },
+    "claude": {
+      "modelNames": [
+        "claude-opus-5-5"
+      ],
+      "scope": "Fixed packetV1source-only critique; tools disabled; no deterministic pass"
+    },
+    "correctedProposal": "V3 incorporates corrections; syntax/binding inspection only, not frozen/green"
+  }
+}

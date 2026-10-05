@@ -1,0 +1,421 @@
+{
+  "reviewer": {
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "tools": [
+      "functions.exec",
+      "exec_command",
+      "rg",
+      "numbered source reads",
+      "Python tomllib/json/hashlib"
+    ],
+    "otherCriticRead": false
+  },
+  "reviewedVersion": "original draft V1 as supplied; parent will preserve and amend V2",
+  "assessment": "Direction accepted by owner. V1 is not freeze-ready because entry/reload promises conflict with frozen evidence and executable004 controls do not exist. No implementation recommendation expands beyond the selected workspace tranche.",
+  "sourceWrites": false,
+  "reportOnlyOutput": "/Users/jryear/.local/state/bidzizi/workspace-plan-20261005T215413Z/redteam.json",
+  "noEffects": [
+    "No browser/database/provider/network requests",
+    "No credentials",
+    "No app/kernel edits",
+    "No commits/push/publication",
+    "No operational gate"
+  ],
+  "probes": [
+    {
+      "classification": "pure read-only TOML comparison",
+      "oldCheckCount": 13,
+      "retainedRegressionCount": 13,
+      "cmdEvidenceTimeoutDifferences": [],
+      "new004RunnerExists": false
+    },
+    {
+      "classification": "source inference only",
+      "description": "Frozen selectors require rendered Event controls at initial sign-in/reload; current shell renders Event versus Lots conditionally. No candidate implementation or browser reproduction exists."
+    }
+  ],
+  "findings": [
+    {
+      "id": "P1",
+      "class": "confirmed source contract conflict; no rendered test",
+      "priority": "blocker in draft V1",
+      "summary": "Default Lots entry conflicts with unchanged frozen Event-entry assertions.",
+      "citations": [
+        {
+          "path": "/Users/jryear/.codex/worktrees/workspace-studio-contract/bidzizi/docs/decisions/event-studio-workspace-2026-10-05.json",
+          "lines": [
+            23,
+            30
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/tests/acceptance/staff-drafts/run.mjs",
+          "lines": [
+            76,
+            105
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/tests/acceptance/staff-drafts-v1/run.mjs",
+          "lines": [
+            77,
+            103
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/tests/acceptance/staff-drafts/context-race.mjs",
+          "lines": [
+            26,
+            30
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/tests/acceptance/staging-catalog/checks.mjs",
+          "lines": [
+            95,
+            109
+          ]
+        }
+      ],
+      "correction": "Preserve legacy no-hash Event entry for004. Carry workspace direction through sidebar/composition. Defer default-Lots migration; do not change old fixtures or add hidden/mirrored Event controls just to satisfy selectors. Parent accepted this correction."
+    },
+    {
+      "id": "P2",
+      "class": "confirmed source behavior and fixture ambiguity; no rendered test",
+      "priority": "resolve before fixture freeze",
+      "summary": "Reload preservation must distinguish outer /admin URL from inner iframe tab history.",
+      "citations": [
+        {
+          "path": "/Users/jryear/.codex/worktrees/workspace-studio-contract/bidzizi/docs/decisions/event-studio-workspace-2026-10-05.json",
+          "lines": [
+            36,
+            36
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/src/app/admin/page.tsx",
+          "lines": [
+            11,
+            14
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/tests/acceptance/staging-catalog/checks.mjs",
+          "lines": [
+            103,
+            109
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/public/staging-admin/studio.js",
+          "lines": [
+            375,
+            375
+          ]
+        }
+      ],
+      "correction": "Define exact supported explicit entry URL/hash forms and their reload/Back behavior. Preserve legacy outer-nohash reload to Event even after an inner Lots tab click, which the old catalog fixture expects. Do not silently persist all tab clicks into the outer URL. Back between inner tabs must keep edits. Test explicit entry separately from inferred/current UI tab state. Parent subsequently accepted preserving outer reload behavior and narrowing inner Back versus full reload guarantees."
+    },
+    {
+      "id": "P3",
+      "class": "source-based missing operation/state controls",
+      "priority": "resolve before fixture freeze",
+      "summary": "Held-write switching scenarios must respect unresolved-operation guards.",
+      "citations": [
+        {
+          "path": "/Users/jryear/.codex/worktrees/workspace-studio-contract/bidzizi/docs/decisions/event-studio-workspace-2026-10-05.json",
+          "lines": [
+            38,
+            39
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/workspace-studio-contract/bidzizi/docs/decisions/event-studio-workspace-2026-10-05.json",
+          "lines": [
+            52,
+            54
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/public/staging-admin/studio.js",
+          "lines": [
+            157,
+            161
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/public/staging-admin/studio.js",
+          "lines": [
+            194,
+            202
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/public/staging-admin/studio.js",
+          "lines": [
+            305,
+            323
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/public/staging-admin/studio.js",
+          "lines": [
+            290,
+            291
+          ]
+        }
+      ],
+      "correction": "Freeze a transition table for dirty, saving, uncertain, conflict, create-pending and approval-pending. While pending, prove event/org/new-event/logout actions cannot replace context or issue another target write. Use actually permitted held-read/logout/new-session transitions for stale-response rejection. Specify dirty Keep editing/discard separately from uncertain recovery. Discarding an uncertain local intent cannot claim server rollback; warn it may already be saved, and explicit reload must read durable authority before replacement. Parent accepted guard-preserving stale fixtures; exact dirty/uncertain UI choices still need executable specification. Clarify selection means event/organization/session, not ordinary lot checkbox selection."
+    },
+    {
+      "id": "P4",
+      "class": "missing independent test controls; not gate failure",
+      "priority": "blocker before frozen acceptance claim",
+      "summary": "Finite base RED and full harness closure have not been authored.",
+      "citations": [
+        {
+          "path": "/Users/jryear/.codex/worktrees/workspace-studio-contract/bidzizi/docs/decisions/event-studio-workspace-2026-10-05.json",
+          "lines": [
+            49,
+            59
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/workspace-studio-contract/bidzizi/docs/proposed/staging-workspace-entry-004.toml",
+          "lines": [
+            18,
+            30
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/tests/acceptance/staff-drafts/harness.mjs",
+          "lines": [
+            9,
+            22
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/tests/acceptance/staff-drafts/protocol.mjs",
+          "lines": [
+            26,
+            35
+          ]
+        }
+      ],
+      "correction": "After healthy auth, correct event/list/draft API reads and DB binding, count a uniquely named new navigation landmark synchronously and record specific absence as exit1. Avoid a selector wait timeout to establish RED. Include setup/API500/deadline/browser-unavailable negative controls returning99 on baseline; expected held-operation outcomes must remain product cases rather than harness failures. Ensure internal deadlines+cleanup finish below outer TOML timeouts. New approved/subset fixtures need disposable catalog schema as well as staff schema: staff configuration initializes only001. Declare every relied-on new helper/fixture and any catalog harness/protocol/seed dependencies, preserve old trusted sources, allocate per-tree DB/roles/app/browser, and bind source bytes."
+    },
+    {
+      "id": "P5",
+      "class": "confirmed source omission plus missing adversarial controls",
+      "priority": "include in new evidence",
+      "summary": "Known approved-hint fix needs exact first-read and priority/race assertions.",
+      "citations": [
+        {
+          "path": "/Users/jryear/.codex/worktrees/workspace-studio-contract/bidzizi/docs/decisions/event-studio-workspace-2026-10-05.json",
+          "lines": [
+            40,
+            40
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/workspace-studio-contract/bidzizi/docs/decisions/event-studio-workspace-2026-10-05.json",
+          "lines": [
+            55,
+            55
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/public/staging-admin/studio.js",
+          "lines": [
+            103,
+            104
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/public/staging-admin/studio.js",
+          "lines": [
+            235,
+            241
+          ]
+        }
+      ],
+      "correction": "Hold initial approval GET on a clean already-approved event; release valid response without tab/input changes and assert approved-draft hint immediately. Also test null/error/malformed/401/403, reversed two same-event GET completions, old event/tenant response success and error, and save conflict/uncertain notice during read completion. Preserve current context/read/event guards and notice priority; do not reset recovery state or directly overwrite text with an approved sentence."
+    },
+    {
+      "id": "P6",
+      "class": "missing exact preview and selected-subset assertions",
+      "priority": "include in new evidence",
+      "summary": "Title-only preview or all-lots readiness would weaken earned semantics.",
+      "citations": [
+        {
+          "path": "/Users/jryear/.codex/worktrees/workspace-studio-contract/bidzizi/docs/decisions/event-studio-workspace-2026-10-05.json",
+          "lines": [
+            37,
+            41
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/workspace-studio-contract/bidzizi/docs/decisions/event-studio-workspace-2026-10-05.json",
+          "lines": [
+            51,
+            56
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/public/staging-admin/studio.js",
+          "lines": [
+            35,
+            66
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/public/staging-admin/studio.js",
+          "lines": [
+            78,
+            90
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/src/server/catalog.ts",
+          "lines": [
+            81,
+            108
+          ]
+        }
+      ],
+      "correction": "Bind entire confirmed saved preview packet, mode/revision, selected image/welcome, and lots to durable response/direct SQL; show working-only edits do not advance saved revision. Exercise abort-before, commit-with-lost-ack, sameUUID retry and concurrent revision conflict with complete row equality and no duplicate receipt. Include selected complete saved lot alongside two unrelated incomplete saved drafts, one unassigned and one assigned but unselected; neither may block subset review/approval. Use valid nullable incomplete drafts rather than malformed money inputs. Later draft edit must leave approved snapshot/window exact; local readiness/review must not become approval."
+    },
+    {
+      "id": "P7",
+      "class": "scope/review boundary; no concrete source defect",
+      "priority": "retain explicit bounds",
+      "summary": "Chosen workspace appearance does not authorize prototype feature transplantation or broad usability claims.",
+      "citations": [
+        {
+          "path": "/Users/jryear/.codex/worktrees/workspace-studio-contract/bidzizi/docs/decisions/event-studio-workspace-2026-10-05.json",
+          "lines": [
+            8,
+            18
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/workspace-studio-contract/bidzizi/docs/decisions/event-studio-workspace-2026-10-05.json",
+          "lines": [
+            24,
+            33
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/workspace-studio-contract/bidzizi/docs/decisions/event-studio-workspace-2026-10-05.json",
+          "lines": [
+            42,
+            57
+          ]
+        },
+        {
+          "path": "/Users/jryear/.codex/worktrees/workspace-studio-contract/bidzizi/docs/proposed/staging-workspace-entry-004.toml",
+          "lines": [
+            9,
+            16
+          ]
+        }
+      ],
+      "correction": "Three existing static admin files are sufficient for this tranche. Keep existing lot editor/catalog controls and A saved/working preview available; no new multi-window/per-lot increment/category taxonomy, localStorage autosave, physical-time schema, SMS/display/donation/QR integration or prototype imports. Before freeze set concrete keyboard/focus actions and viewport/control-reachability measurements. Separate screenshot judgment from deterministic checks and avoid all-age/accessibility acceptance claims without corresponding evidence."
+    }
+  ],
+  "parentAcceptedCorrections": [
+    "Preserve legacy no-hash Event entry in004; defer default Lots",
+    "Keep pending save/create/approval switching blocked; use permitted transitions for stale reads/recovery",
+    "Preserve outer /admin reload to Event; do not persist inner tab selection into outer URL. Inner Event/Lots Back retains in-memory edits. Full reload reads confirmed server content; unsaved memory survival is not promised. Keep beforeunload/discard and uncertain recovery explicit."
+  ],
+  "remainingFreezeGates": [
+    "V2 precise entry/reload and dirty/uncertain transition contract",
+    "Independent executable004/helpers/controls and reviewed protected evidence closure",
+    "Meaningful finite healthy-base RED and baseline regression execution under authorized disposable harness",
+    "Versioned external verifier timeout correction/selftests and required installation authority; current kernel unchanged",
+    "Trusted committed contract/evidence base before implementer dispatch"
+  ],
+  "filesInspected": [
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-studio-contract/bidzizi/docs/decisions/event-studio-workspace-2026-10-05.json",
+      "sha256": "9a66d419ac832bf19e527259b6b06a70eb96582b9c5dd83826898dd52e7d03ac",
+      "inspection": "relevant source ranges or complete plan/TOML"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-studio-contract/bidzizi/docs/proposed/staging-workspace-entry-004.toml",
+      "sha256": "8378e4252bd5ac20a659930d5701dda423068517e3fc3ab746a5ecc24641bd51",
+      "inspection": "relevant source ranges or complete plan/TOML"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/AGENTS.md",
+      "sha256": "22aeb173ad2c7e6b183055e81237704169f8fe44d3ffedbe2bba3b102a983237",
+      "inspection": "relevant source ranges or complete plan/TOML"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/tasks/staging-manual-bid-003.toml",
+      "sha256": "94c52b35597376d3988614ce0d2df9379098d9faf6b9b7912d599d16d46e6b6e",
+      "inspection": "relevant source ranges or complete plan/TOML"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/public/staging-admin/studio.js",
+      "sha256": "438270354e6c0bd47132d810c44893cf7e52956020eea8b2bc371d7ac516ba82",
+      "inspection": "relevant source ranges or complete plan/TOML"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/public/staging-admin/model.js",
+      "sha256": "b081ca833bf6fe314ec64cac2ad9616cef2928fbffc08f68f7139d88c8f9e719",
+      "inspection": "relevant source ranges or complete plan/TOML"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/public/staging-admin/index.html",
+      "sha256": "336bcabb3d410796efcbf734ff5509558c54b4055ff3d1d457b54d128c56bee8",
+      "inspection": "relevant source ranges or complete plan/TOML"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/src/app/admin/page.tsx",
+      "sha256": "a4cf8236ed14402116aaeab9aa89eb0e2d15d9c9141408948ef191e47a167aac",
+      "inspection": "relevant source ranges or complete plan/TOML"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/src/server/catalog.ts",
+      "sha256": "21cb5aa6d1454057792a97eddd668004a90bdb5b9e03569d8b3d806dd57059fe",
+      "inspection": "relevant source ranges or complete plan/TOML"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/tests/acceptance/staff-drafts/run.mjs",
+      "sha256": "01c1a4a581235a970fcbd1ffa7473ab4fc0290eb1e76db741881f2af1c2638ee",
+      "inspection": "relevant source ranges or complete plan/TOML"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/tests/acceptance/staff-drafts-v1/run.mjs",
+      "sha256": "b31c62fe13a3fcafdcf8f9d66a135b8fd394f6432c0a3c0d0298319aad3e20e0",
+      "inspection": "relevant source ranges or complete plan/TOML"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/tests/acceptance/staff-drafts/context-race.mjs",
+      "sha256": "39784ffa2264af1a1ef8c6f22433595da2dadad9f8e00047b73eece9b5260592",
+      "inspection": "relevant source ranges or complete plan/TOML"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/tests/acceptance/staff-drafts/harness.mjs",
+      "sha256": "15a4a30eb54e0c71607a88cdcaaf6fce6f574689c2f67cb0b9fa6e6d1e08aed0",
+      "inspection": "relevant source ranges or complete plan/TOML"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/tests/acceptance/staff-drafts/protocol.mjs",
+      "sha256": "82a5995daf969b5c2d1e4f0cba0d355cf026d4166635645d014979466976b636",
+      "inspection": "relevant source ranges or complete plan/TOML"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/tests/acceptance/staging-catalog/checks.mjs",
+      "sha256": "de63eaf65ebaf423188088e2afda9b6022b5f4983eeef8a500fc63b31b5c0817",
+      "inspection": "relevant source ranges or complete plan/TOML"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/tests/acceptance/staging-catalog/harness.mjs",
+      "sha256": "bde6a547ac3ec2afe1d4ae614d465d18ced3347183787d5fee3b1f27d0299b0f",
+      "inspection": "relevant source ranges or complete plan/TOML"
+    }
+  ]
+}

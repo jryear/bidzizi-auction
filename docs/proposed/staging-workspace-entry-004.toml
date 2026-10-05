@@ -1,0 +1,123 @@
+# PROPOSED004. Evidence paths below are planned and not authored or frozen.
+# This file is a review draft, not an executable completion gate.
+spec_version = 1
+id = "staging-workspace-entry-004"
+project = "bidzizi"
+goal = "Authorized synthetic staff can use the selected workspace-led Event Studio entry, choose/create an organization event, edit existing welcome/heading content, save and recover its durable revision, and inspect the confirmed saved A preview while preserving selected immutable catalog approval and server-authoritative bidding."
+bypass_policy = "fail"
+
+[scope]
+include = ["public/staging-admin/studio.js", "public/staging-admin/studio.css", "public/staging-admin/index.html", "docs/evidence/workspace-entry-004/*"]
+exclude = ["*.env*", ".vercel/*", "vercel.json", ".claims/*"]
+protected = ["src/*", "migrations/*", "scripts/*", "public/staging-admin/model.js", "public/staging-bidder-preview/*", "prototypes/*", "tasks/*", "tests/acceptance/*", "package.json", "pnpm-lock.yaml", "AGENTS.md", "README.md", "CUMULATIVE_BINDING.json", "docs/decisions/event-studio-workspace-2026-10-05.json", "docs/proposed/workspace-entry-selector-manifest.v1.json"]
+test_files = ["*test*", "*spec*", "*__tests__*"]
+
+[worktree]
+link = ["node_modules"]
+
+[[checks]]
+name = "Observable workspace navigation, legacy Event entry, create/edit/save/reload and SQL-bound saved A preview"
+kind = "acceptance"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-workspace-entry/run.mjs acceptance"
+evidence = ["tests/acceptance/staging-workspace-entry/*", "docs/proposed/workspace-entry-selector-manifest.v1.json"]
+timeout = 300
+
+[[checks]]
+name = "Held permitted context responses, blocked unresolved writes, duplicate recovery, approved-draft notice and selected subset"
+kind = "adversarial"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-workspace-entry/run.mjs adversarial"
+evidence = ["tests/acceptance/staging-workspace-entry/*", "docs/proposed/workspace-entry-selector-manifest.v1.json"]
+timeout = 600
+
+[[checks]]
+name = "Manual durable business bid, complete SQL receipts/retry and real A two-browser outbid"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-manual-bid/run.mjs acceptance"
+evidence = ["tests/acceptance/staging-manual-bid/*"]
+timeout = 600
+
+[[checks]]
+name = "Current VIEW/BID authority, queued post-lock DB close, atomic storage and interrupted browser recovery"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-manual-bid/run.mjs adversarial"
+evidence = ["tests/acceptance/staging-manual-bid/*"]
+timeout = 900
+
+[[checks]]
+name = "Cumulative002 / Immutable saved approval, explicit staff recovery, A viewer and real DB-clock transition"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-manual-bid/cumulative-catalog.mjs acceptance"
+evidence = ["tests/acceptance/staging-catalog/*", "CUMULATIVE_BINDING.json", "tests/acceptance/staging-manual-bid/cumulative-catalog.mjs"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative002 / Scoped viewer and operator authority, selected readiness, UTC boundaries, split transaction and app-clock challenges"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-manual-bid/cumulative-catalog.mjs adversarial"
+evidence = ["tests/acceptance/staging-catalog/*", "CUMULATIVE_BINDING.json", "tests/acceptance/staging-manual-bid/cumulative-catalog.mjs"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative002 / Cumulative original v1 acceptance"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts-v1/run.mjs acceptance"
+evidence = ["tests/acceptance/staff-drafts-v1/*", "tests/acceptance/staff-drafts/seed.sql"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative002 / Cumulative original v1 empty-event adversarial cases"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts-v1/run.mjs adversarial"
+evidence = ["tests/acceptance/staff-drafts-v1/*", "tests/acceptance/staff-drafts/seed.sql"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative002 / Cumulative unchanged v2 staff acceptance"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts/run.mjs acceptance"
+evidence = ["tests/acceptance/staff-drafts/*"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative002 / Cumulative unchanged v2 populated-lot adversarial cases"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts/run.mjs adversarial"
+evidence = ["tests/acceptance/staff-drafts/*"]
+timeout = 300
+
+[[checks]]
+name = "Cumulative002 / Cumulative v2 controlled response race, stored text and restart"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts/context-race.mjs"
+evidence = ["tests/acceptance/staff-drafts/*"]
+timeout = 180
+
+[[checks]]
+name = "Cumulative002 / Cumulative001a dedicated Preview selector"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-preview-database-boundary/run.mjs selector"
+evidence = ["tests/acceptance/staging-preview-database-boundary/*"]
+timeout = 180
+
+[[checks]]
+name = "Cumulative002 / Cumulative001a real adapter target and verified TLS"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-preview-database-boundary/run.mjs adapter"
+evidence = ["tests/acceptance/staging-preview-database-boundary/*"]
+timeout = 240
+
+[[checks]]
+name = "Cumulative002 / Existing admin prototype model"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node prototypes/admin-studio/evidence/model-check.mjs"
+timeout = 120
+
+[[checks]]
+name = "Cumulative002 / TypeScript"
+kind = "regression"
+cmd = "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node node_modules/typescript/bin/tsc --noEmit --incremental false"
+timeout = 180
+
+[notes]
+context = "DRAFT only. Owner selected workspace-led Design A language. Scope is3existing static admin files; server identity, persistence, selected approval, DB-clock window and manual bid boundaries are protected. Preserve visible Event/Lots semantic labels required by frozen evidence. New004check files are not authored; no frozen base or baseline readiness is claimed. Complete fixture procedures and scope are in docs/decisions/event-studio-workspace-2026-10-05.json. All13manual003checks are retained unchanged as cumulative regressions on both trees. New independently owned harness must apply all3protected migrations in unique disposable per-tree PG18/roles/source/browser, refuse inherited runtime env and return99 for setup/timeout errors. Finite base RED must be specifically new new navigation absence after a healthy authorized legacy Event shell, not auth/API/harness failure. External verifier timeout defect remains outstanding."
+out_of_scope = "Backend/schema/API/auction changes; durable physical-event timing separation; multiple windows/categories taxonomy/lot-editor redesign; SMS/display/donation/QR integration; relisting/rescheduling; real auth/membership; new credentials, paid fallback, publishing, push, merge, deployments and shared staging writes."
