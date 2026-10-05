@@ -82,7 +82,7 @@
       "Perform healthy auth/eventAPI/SQL controls first. Detect base absence of new navigation synchronously after the authorized Event shell; do not wait for a missing-selector timeout.",
       "Each case prints stable ID, expected base outcome and measured duration. Acceptance missing-navigation finite1; approved-notice known raw1 is separately named. Characterize and declare remaining outcomes before freeze.",
       "Test missing tools/dependencies, invalid mode, setup failure and internal deadline as99. Internal deadline precedes TOML timeout by at least30seconds. Outer verifier timeout must be UNVERIFIABLE after versioned correction.",
-      "Run baseline/evidence proof again after external verifier correction; no baseline-ready claim from current3.0.0classification.",
+      "Run all004baseline/evidence proofs using installed3.0.1 verifier SHA130e2fc8e1ff1152a7667951c44e0894a122536428fe85259224afb50543b0be. No original3.0.0baseline-ready claim is inherited.",
       "Validate targeted assertions using negative controls/mutants before freezing, including a renamed-only nav label, duplicate Event/Lots links, dropped epoch guard, omitted approval-notice refresh and malformed success response."
     ],
     "previewAssertion": "Compare saved-preview mode, confirmed revision label and complete contracted event/lot content to durable receipt and SQL. Bind the origin/frame and explicit organization/event; exclude dynamic now/phase fields from structural equality.",
@@ -92,12 +92,12 @@
   "deliverySequence": [
     "Independent red-team contract/test-plan review plus Claude critique",
     "Author executable independently owned evidence and negative/harness controls; characterize direct case-ID outcomes without a supported baseline claim.",
-    "Resolve known external verifier timeout classification through an explicitly versioned correction and full rerun; prepare reviewable patch before asking for installation authority, then rerun all baseline/evidence proofs.",
+    "Completed: owner-authorized reviewed3.0.1kernel installation and read-only release freeze; sequential original/installed6+20 checks. Pending: fresh004and cumulative13baseline/evidence proofs.",
     "Commit frozen contract/evidence on trusted integration base",
     "Sol Medium implements only candidate files in an isolated worktree, commits bounded slice, then clean exact-commit verification and rendered review",
     "Publishing remains a separate authorized step; deploy same tested commit and hostedE2E only with applicable authority"
   ],
-  "kernelBoundary": "External _kernel/verify.py is unchanged at version3.0.0. Its timeout-to-baseline-ready defect is recorded. No kernel installation authority is inferred from this design choice.",
+  "kernelBoundary": "Owner explicitly authorized installing and freezing the reviewed3.0.1timeout correction. Installed verifier/source/version/manifest and sequential original+installed test receipts are verified. All004baseline/evidence proofs still require fresh execution before freeze.",
   "manager": "Sol Medium owns implementation after contract and evidence are frozen; this Astra planning/audit tranche stops before implementation.",
   "workerOwnership": {
     "contractReviewer": "gpt-6.1-sol/high, own restored audit worktree, no source edits; review receipts only",
@@ -106,7 +106,7 @@
   },
   "effects": {
     "appChanges": false,
-    "kernelChanges": false,
+    "kernelChanges": true,
     "sharedDataWrites": false,
     "push": false,
     "merge": false,
@@ -114,7 +114,7 @@
     "providerChanges": false,
     "newCredentials": false
   },
-  "draftVersion": 3,
+  "draftVersion": 4,
   "reviewCorrections": [
     {
       "source": "Independent red-team draftV1 review",
@@ -155,5 +155,16 @@
       "scope": "Fixed packetV1source-only critique; tools disabled; no deterministic pass"
     },
     "correctedProposal": "V3 incorporates corrections; syntax/binding inspection only, not frozen/green"
+  },
+  "updatedAt": "2026-10-05T23:15:32.478177+00:00",
+  "kernelBinding": {
+    "version": "3.0.1",
+    "verifierSHA256": "130e2fc8e1ff1152a7667951c44e0894a122536428fe85259224afb50543b0be",
+    "installedEntryPoint": "/Users/jryear/code/_kernel/verify.py",
+    "releaseSnapshot": "/Users/jryear/code/_kernel/releases/3.0.1",
+    "releaseManifestSHA256": "bb91c088b1485ceca3f8667834e959265c637e2225e9e05b613e052feeb4dbfa",
+    "installationReceipt": "docs/evidence/kernel-3.0.1-installation.json",
+    "installedChecks": "Existing6 and frozen20 all pass on installed source; original10timeout failures retained. Sequential execution only.",
+    "applicationGates": "004 evidence absent and not frozen; no new application or hosted check result"
   }
 }

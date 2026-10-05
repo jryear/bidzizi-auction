@@ -102,7 +102,7 @@ There is no `test` script. The frozen staff contract invokes its independent evi
 
 Discovery precedes a frozen contract. Commit the task TOML and all declared executable evidence to a trusted base before implementation; generic template examples are not BidZizi acceptance criteria. See [AGENTS.md](AGENTS.md) for repository guardrails.
 
-The external trust anchor is `~/code/_kernel/verify.py`, currently version 3.0.0. Use `python3` (Python 3.11 or later). Supply the trusted base through the CLI or trusted execution environment, never through candidate-controlled TOML. Set `FROZEN_BASE_SHA` to the committed contract-and-evidence revision and replace `<task>` with the actual frozen task name:
+The external trust anchor is `~/code/_kernel/verify.py`, currently version 3.0.1. Use `python3` (Python 3.11 or later). Supply the trusted base through the CLI or trusted execution environment, never through candidate-controlled TOML. Set `FROZEN_BASE_SHA` to the committed contract-and-evidence revision and replace `<task>` with the actual frozen task name:
 
 ```bash
 python3 ~/code/_kernel/verify.py --version

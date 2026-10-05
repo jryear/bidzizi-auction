@@ -47,7 +47,7 @@ Use Node 24 and pnpm 12.4.2. Existing commands are `pnpm dev`, `pnpm typecheck`,
 
 Frozen contracts live in `tasks/`. Commit the contract and its executable acceptance/adversarial evidence, including relied-on helpers and fixtures, to the trusted base before implementation. Preserve the task spec, declared evidence, and protected paths on the candidate. Implementer-owned tests may help development but are not independent completion evidence.
 
-Use the external `~/code/_kernel/verify.py` trust anchor, version 3.0.0, with `python3`. Supply the base through trusted CLI/environment selection, not TOML. With `FROZEN_BASE_SHA` set to the committed contract-and-evidence revision:
+Use the external `~/code/_kernel/verify.py` trust anchor, version 3.0.1, with `python3`. Supply the base through trusted CLI/environment selection, not TOML. With `FROZEN_BASE_SHA` set to the committed contract-and-evidence revision:
 
 ```bash
 python3 ~/code/_kernel/verify.py tasks/<task>.toml --repo . --base "$FROZEN_BASE_SHA" --baseline
