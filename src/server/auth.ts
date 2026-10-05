@@ -26,7 +26,7 @@ export async function identity(client: PoolClient, request: Request): Promise<Id
   if (!hash) throw unauthenticated();
   const result = await client.query<{ id: string; name: string }>(
     `SELECT p.id,p.name FROM bz_sessions s JOIN bz_people p ON p.id=s.person_id
-     WHERE s.token_hash=$1 AND s.revoked_at IS NULL AND s.expires_at>now() AND p.active AND p.is_test
+     WHERE s.token_hash=$1 AND s.revoked_at IS NULL AND s.expires_at>clock_timestamp() AND p.active AND p.is_test
      FOR SHARE OF s,p`, [hash]);
   const person = result.rows[0];
   if (!person) throw unauthenticated();
@@ -58,7 +58,7 @@ export async function login(request: Request): Promise<Response> {
   const mode = mutationMode(request);
   const input = object(await body(request), ["account"]);
   const account = text(input.account, 40);
-  if (!["staff-saturn", "staff-pine", "bidder-juniper", "bidder-harbor"].includes(account)) throw validation();
+  if (!["staff-saturn", "staff-pine", "bidder-juniper", "bidder-harbor", "bidder-juniper-coworker", "bidder-member", "bidder-viewer", "bidder-unlisted", "bidder-pine", "bidder-bid-only"].includes(account)) throw validation();
   const token = randomBytes(32).toString("base64url");
   const hash = createHash("sha256").update(token).digest("hex");
   const result = await transaction(async client => {

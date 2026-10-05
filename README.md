@@ -10,8 +10,8 @@ This repository, [`jryear/bidzizi-auction`](https://github.com/jryear/bidzizi-au
 - `/api/health/database` performs `SELECT 1` at request time with caching disabled. Success returns HTTP 200 with `ok: true`, `connected: 1`, and `checkedAt`; failure returns a generic HTTP 503 without provider errors or credentials.
 - `/admin` is a gated synthetic staff-draft workspace: pre-enrolled test sessions and organization grants, PostgreSQL event/lot saves, independent reload, conflict/retry recovery, and an actual A saved-draft preview. See [the staff handoff](docs/STAGING_STAFF_HANDOFF.md).
 - `/events/[id]` is a gated synthetic A viewer. Staff approve one immutable selection of saved lots; separate VIEW grants permit welcome access before opening, catalog rows at the database-clock opening, and a retained read-only catalog after closing. See [the catalog handoff](docs/STAGING_CATALOG_HANDOFF.md).
-- Real phone/member admission, operational bidding, payments, Clerk, and Ably are not implemented. Frozen local staff and catalog checks exist; hosted release evidence is tracked separately in [the journey map](docs/STAGING_JOURNEYS.md).
-- The Next.js app has no PWA manifest, icon set, service worker, installation flow, or bidder navigation yet; the complete bidder journey remains the simulated prototype in `prototypes/lanyard`, with its renderers reused by the authenticated staff preview ([below](#bidder-design-foundation-prototype-a-lanyard)). No legacy application code or database contents were imported.
+- The synthetic manual-bid slice adds separate person/business/VIEW/BID authority, an A review, durable actor-owned receipts, current competing standing and interrupted recovery. Its clean gate and hosted release are recorded separately in [the manual handoff](docs/STAGING_MANUAL_BID_HANDOFF.md) and [journey map](docs/STAGING_JOURNEYS.md). Real phone/member admission, live auction policy, payments, Clerk and Ably remain deferred.
+- The Next.js app has no PWA manifest, icon set, service worker or installation flow. Its gated A audience includes browsing/detail navigation and the bounded synthetic manual journey. The full discovery prototype remains simulated in `prototypes/lanyard`, with its renderers reused by the authenticated staff preview ([below](#bidder-design-foundation-prototype-a-lanyard)). No legacy application code or database contents were imported.
 
 | Location | Responsibility |
 | --- | --- |
@@ -26,6 +26,7 @@ This repository, [`jryear/bidzizi-auction`](https://github.com/jryear/bidzizi-au
 | `src/server/`, `src/app/api/admin/` | Gated synthetic sessions, server organization authority, durable draft APIs |
 | `public/staging-admin/`, `public/staging-bidder-preview/` | A-based staff workspace and actual A saved-draft renderers |
 | `public/staging-catalog/`, `src/server/catalog.ts` | A audience rendering and immutable database-authorized catalog |
+| `src/server/manual-bids.ts`, `src/app/api/bidder/` | Synthetic admitted manual bids, immutable owned receipts and current business standing |
 
 A read-only browser inspection on 2026-10-02 observed “Database connected” at `staging.bidzizi.com`. The deployed Git revision, current Neon branch/schema, and Git deployment wiring were not independently verified during that inspection. Service metadata and retained operational evidence belong in [staging connectivity](docs/STAGING_CONNECTIVITY.md); homepage health alone is not deployment provenance or auction acceptance.
 
@@ -39,7 +40,7 @@ Public browsing and asking for identity at the first bid are proposals, not esta
 
 Use labeled fixtures to discover the experience. Inspect it on phone and desktop, including browser back, reload, keyboard/focus behavior, pending submission, outbid/stale standing, interruption, connection loss, and closed lots. Agree on the visual and interaction direction before binding the interface to durable state. A cached or offline view must never imply that a new bid was accepted.
 
-The proposed first operational slice is two identified, admitted test bidders on one seeded open lot: a valid bid persists in PostgreSQL, reload restores correct standing, and competing, stale, retried, and closed-lot requests have agreed, truthful outcomes. This is a candidate scope, not an existing feature or frozen contract. Prepare runtime and isolated test-storage preflight, then freeze independent evidence before implementation. Keep release acceptance separate from local completion.
+The proposed first operational slice is two identified, admitted test bidders on one seeded open lot: a valid bid persists in PostgreSQL, reload restores correct standing, and competing, stale, retried, and closed-lot requests have agreed, truthful outcomes. The bounded synthetic version is now implemented under `staging-manual-bid-003`, using explicitly versioned fixture rules. Its independent trusted base is `d1913e61b793c83cb9dbdad93fbad2d3295d464f`. Real auction rules remain undecided. Keep exact hosted release acceptance separate from local completion.
 
 [The existing discovery draft](docs/PRODUCT_SLICE_001_DISCOVERY.md) proposes a different, staff-first draft-event outcome. It remains a provisional draft, not an accepted decision or authority for the current bidder-first direction. Reconcile it before freezing a product contract.
 
@@ -71,7 +72,7 @@ pnpm dev:admin          # http://127.0.0.1:4331/#/event
 pnpm check:admin        # nine prototype model checks
 ```
 
-Organization staff edit event details and lots, bulk-assign one shared bidding window, inspect the interactive bidder preview, fix missing content, and approve a scheduled catalog copy. The catalog appears when bidding opens. This standalone prototype remains browser-local. The separate `/admin` staging slice saves drafts to PostgreSQL and can approve a scheduled immutable catalog. The audience viewer uses explicit test VIEW grants. Bidding remains disabled. See [the admin handoff](docs/ADMIN_JOURNEY_HANDOFF.md) for the exact base, scope, and checks.
+Organization staff edit event details and lots, bulk-assign one shared bidding window, inspect the interactive bidder preview, fix missing content, and approve a scheduled catalog copy. The catalog appears when bidding opens. This standalone prototype remains browser-local. The separate `/admin` staging slice saves drafts to PostgreSQL and can approve a scheduled immutable catalog. The audience viewer uses explicit test VIEW grants. Separate manual-bid authority enables only the synthetic version on compatible approved lots; catalog VIEW never grants BID. See [the admin handoff](docs/ADMIN_JOURNEY_HANDOFF.md) for the exact base, scope, and checks.
 
 ## Local development
 

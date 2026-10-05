@@ -1,6 +1,6 @@
 # BidZizi staging journey map
 
-Version 1.5 · delivery record · verified deployed staff source `91d3de0` · catalog/manual work in progress.
+Version 1.6 · delivery record · verified deployed catalog source `28b1782` · manual release verification pending.
 
 The staging goal is two connected journeys using synthetic accounts and data. A remains the design foundation. Use plain labels. BidZizi contains organizations; an organization owns events and provides lots. Optional event sponsors are separate. This map describes test behavior, not real member verification, financial commitments or settlement.
 
@@ -10,8 +10,8 @@ The staging goal is two connected journeys using synthetic accounts and data. A 
 | --- | --- | --- |
 | [staging-staff-drafts-001](../tasks/staging-staff-drafts-001.toml) | Local kernel SUPPORTED at `5285648`; deployed with boundary fix at `91d3de0` | [All11 hosted browser/SQL groups passed](evidence/hosted-staff-91d3de0/receipt.json): HTTPS session, creation, complete saves/order, pending/lost response, independent reload, stale conflict, tenant denial and actual A saved preview. |
 | [staging-preview-database-boundary-001a](../tasks/staging-preview-database-boundary-001a.toml) | Clean `91d3de0` SUPPORTED against `e1abd3a`; deployed target verified | Dedicated branch Preview connection matches the isolated restricted runtime. [Exact source/deployment binding](evidence/hosted-staff-91d3de0/SOURCE_BINDING.json); no managed fallback. |
-| [staging-catalog-002](../tasks/staging-catalog-002.toml) | Frozen at `20a3930`; clock instrumentation revisions documented; implementation being checked | Corrected baseline `7eef3e7` READY with all9 regressions passing; all7 catalog adversarial groups passed during development. Clean28b1782 SUPPORTED with all11 checks; hosted run on its exact protected deployment is in progress. No hosted catalog pass claimed yet. Immutable saved selection, shared UTC window, explicit VIEW grant and DB-time phase. |
-| [staging-manual-bid-003](../tasks/staging-manual-bid-003.toml) | Frozen synthetic fixture packet; implementation pending | Separate person/business/network/VIEW/BID authority, manual durable receipt, competing standing and recovery. No implementation or completion claim. Test-version rules and all28 concrete groups are frozen; baseline/candidate execution remain pending. |
+| [staging-catalog-002](../tasks/staging-catalog-002.toml) | Clean `28b1782` SUPPORTED and exact hosted journey passed | Corrected base `7eef3e7`; all11 local fixed/cumulative checks and [all12 hosted groups](evidence/hosted-catalog-28b1782/receipt.json) passed. Immutable saved selection, audience VIEW and retained-phone automatic DB opening/closing. [Actual desktop/phone evidence](evidence/hosted-catalog-28b1782/README.md). |
+| [staging-manual-bid-003](../tasks/staging-manual-bid-003.toml) | Implemented; clean final gate and hosted journey pending | Corrected base `d1913e6` READY, all11 cumulative regressions pass; all28 manual development groups passed. Final source includes independently checked read-only and browser recovery edges. Separate person/business/network/VIEW/BID, durable owned receipt and current standing. [Manual handoff](STAGING_MANUAL_BID_HANDOFF.md). No hosted manual pass claimed. |
 | Other journey work | Deferred or prototype-only | No real SMS, uploads, auto-bidding, donations, payments or settlement. |
 
 ## Staff journey
@@ -43,8 +43,8 @@ The staging goal is two connected journeys using synthetic accounts and data. A 
 ## Next release checkpoints
 
 1. Completed: protected hosted001/001a at exact source91d3de0,11groups. Screenshots and separately bound receipts published in evidence checkpoint2ea7f80.
-2. Finish the explicitly versioned clock-probe correction and complete catalog002 on a clean committed candidate; rerun all fixed and cumulative checks, then exact deployed catalog E2E.
-3. Freeze the narrow synthetic manual-bid003 rules and independent evidence; preserve staff and catalog regressions.
+2. Completed: catalog002 clean `28b1782` SUPPORTED and exact protected hosted12groups passed. Evidence checkpoint `93d0b45` carries actual captures, source/deployment and SQL clock observations.
+3. Frozen/implemented: manual003; complete clean final kernel and exact hosted14group two-browser journey while preserving every staff/catalog regression.
 4. Run the connected journeys on the deployed protected staging target. Local kernel verdicts and a rendered shell alone do not establish that release.
 
 Local001 was rerun on clean committed5285648 and001a on clean91d3de0 (dirty_before_log=false). The protected91d3de0 Preview then passed all11 hosted groups against the approved isolated runtime. Application writes were made only after its dedicated database binding and restricted runtime were verified. The earlier mismatched528 deployment received no application login or write. Current verified staff URL: https://bidzizi-clean-staging-gnfu6vvk7-saturn-ea53.vercel.app/admin. Evidence checkpoint2ea7f80 carries the actual91 captures; it does not claim later catalog/bid completion.

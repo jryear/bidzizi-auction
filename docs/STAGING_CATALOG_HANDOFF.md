@@ -4,7 +4,7 @@ The staff Event/Lots workspace can approve one immutable catalog from selected *
 
 The A audience viewer at `/events/[id]` requires a current synthetic person session and a separate event VIEW grant. Staff access, business membership and typed identifiers never grant VIEW access. Before opening it receives only the approved welcome and sponsors. At the inclusive database-clock opening it receives selected lots. At the exclusive closing boundary the catalog remains read-only. Bidding is disabled throughout this slice.
 
-Visible audience pages refresh from the server every5seconds during scheduled/open phases, every30seconds after close, and when returning from the background. They never infer authority from the browser clock. Logout clears private content before its request; account epochs reject late responses. A failed read removes the current packet and reports that access could not be confirmed.
+Visible audience pages refresh from the server every5seconds during scheduled/open phases, every30seconds after close, and when returning from the background. They never infer authority from the browser clock. Logout clears private content before its request; account epochs reject late responses. In the catalog-only source a failed read removes the current packet. The manual source retains a clearly stale confirmed snapshot on transient failure, disables sending, and clears private data on identity or access denial.
 
 ## Routes and storage
 
@@ -17,7 +17,7 @@ One approval per event is deliberate synthetic scope. Replacement, cancellation,
 
 ## Verification boundary
 
-The frozen catalog contract is `tasks/staging-catalog-002.toml`. Its latest feature-absent trusted base is `7eef3e74688604fdf1a9ffaf0fc7899d0a45290d`. The full baseline was READY with finite absent-API failures and all9 cumulative regressions passing. All4 acceptance and all7 adversarial groups passed during development; the clean committed candidate still requires the full external kernel claim and exact hosted E2E. These development results are not a release claim.
+The frozen catalog contract is `tasks/staging-catalog-002.toml`. Its latest feature-absent trusted base is `7eef3e74688604fdf1a9ffaf0fc7899d0a45290d`. The full baseline was READY with finite absent-API failures and all9 cumulative regressions passing. Clean committed source `28b1782009f51d5e37cb463f928440dbd5bcb929` passed the full external kernel with all11 fixed/cumulative checks. Its exact protected Preview passed all12 hosted browser/HTTP/SQL groups, including real automatic opening and closing. [Source-bound receipts and actual screenshots](evidence/hosted-catalog-28b1782/README.md) are separately published; they establish only this synthetic catalog release.
 
 The app-clock probe corrections and original failures are preserved in protected history, with explicit bindings and diffs. Neither correction changes the behavioral contract. The probe preserves native Date semantics while skewing app time; PostgreSQL remains the phase authority.
 

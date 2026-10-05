@@ -2,6 +2,7 @@ import {event,catalog,applyAudience} from './data.js';
 import {state} from './store.js';
 import {views,lotView,tabbar,lotsList,lotsCount} from './views.js';
 import {esc} from './ui.js';
+import {setContext,activateLot,bidAction} from './bidding.js';
 const $=s=>document.querySelector(s);
 let ready=false,scope='',path='/';
 const memories=new Map();
@@ -10,6 +11,7 @@ function render(){
  const raw=(location.hash.slice(1)||'/').split('?')[0];
  path=catalog.phase==='scheduled'?(raw==='/event'?'/event':'/'):(/^\/lot\/[\w-]+$/.test(raw)||['/','/lots','/event'].includes(raw)?raw:'/');
  const match=path.match(/^\/lot\/([\w-]+)$/);
+ activateLot(match?.[1]||null);
  const view=match?lotView(match[1]):views[path==='/'?'entry':path.slice(1)]();
  const y=scrollY,key=document.activeElement?.dataset?.key;
  $('#view').innerHTML=view.html;$('#tabbar').innerHTML=tabbar(view.tab);$('#shell').dataset.chrome=view.chrome;document.body.dataset.chrome=view.chrome;
@@ -24,7 +26,9 @@ function valid(p){
  return p&&p.event&&p.organization&&typeof p.event.id==='string'&&typeof p.organization.id==='string'&&['scheduled','open','closed'].includes(p.phase)&&p.biddingEnabled===false&&Number.isFinite(Date.parse(p.serverNow))&&p.schedule&&Number.isFinite(Date.parse(p.schedule.opensAt))&&Number.isFinite(Date.parse(p.schedule.closesAt))&&Array.isArray(p.event.sponsors)&&(p.phase==='scheduled'?p.catalog===null:p.catalog&&Array.isArray(p.catalog.lots));
 }
 window.addEventListener('message',ev=>{
- if(parent===window||ev.origin!==location.origin||ev.source!==parent||ev.data?.type!=='audience-catalog'||!valid(ev.data.payload))return;
+ if(parent===window||ev.origin!==location.origin||ev.source!==parent)return;
+ if(ev.data?.type==='bidder-context'){setContext(ev.data);return;}
+ if(ev.data?.type!=='audience-catalog'||!valid(ev.data.payload))return;
  const p=ev.data.payload,next=p.organization.id+'/'+p.event.id;
  if(scope!==next){scope=next;memories.clear();state.ui={view:'cards',cat:'All',sort:'number',q:''};path='/';history.replaceState({},'','#/');}
  applyAudience(p);if(!state.ui.cat||!p.catalog?.lots.some(l=>l.category===state.ui.cat))state.ui.cat='All';ready=true;render();
@@ -32,6 +36,7 @@ window.addEventListener('message',ev=>{
 document.addEventListener('click',ev=>{
  const nav=ev.target.closest('a[data-nav]');if(nav){const href=nav.getAttribute('href');if(href?.startsWith('#/')){ev.preventDefault();navigate(href.slice(1));}return;}
  const button=ev.target.closest('[data-action]');if(!button||button.disabled)return;
+ if(bidAction(button))return;
  const a=button.dataset.action;
  if(a==='back')return navigate('/lots');
  if(a==='cat'){state.ui.cat=button.dataset.v;render();}
@@ -43,5 +48,6 @@ document.addEventListener('input',ev=>{if(!ev.target.matches('[data-search]')||c
 document.addEventListener('change',ev=>{if(ev.target.dataset.action==='sort'){state.ui.sort=ev.target.value;render();}});
 window.addEventListener('popstate',()=>{render();scrollTo(0,memories.get(path)||0);});
 window.addEventListener('hashchange',()=>render());
+window.addEventListener('bidder-change',()=>render());
 if(parent!==window)parent.postMessage({type:'audience-ready'},location.origin);
 
