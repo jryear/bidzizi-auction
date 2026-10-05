@@ -1,0 +1,40 @@
+BidZizi staging gate receipt — checkpoint 2026-10-05 UTC
+
+Worktree: /Users/jryear/code/bidzizi-staging-e2e
+Branch: staging-e2e
+Contract: tasks/staging-staff-drafts-001.toml
+Kernel: /Users/jryear/code/_kernel/verify.py
+Kernel --version: 3.0.0
+Trusted frozen base: 9748ee57da6d3bbc0826df5c9e2271edce28ac24
+Independent evidence: tests/acceptance/staff-drafts/*
+
+Gate 1 — actual kernel baseline
+Command:
+python3 /Users/jryear/code/_kernel/verify.py tasks/staging-staff-drafts-001.toml --repo . --base 9748ee57da6d3bbc0826df5c9e2271edce28ac24 --baseline
+Exit code: 0
+Exact terminal verdict:
+BASELINE_READY  staging-staff-drafts-001  base=9748ee57da6d
+  [accep] base:fail  Durable staff drafts, independent browser reload, actual A saved preview, retry and conflict recovery
+  [adver] base:fail  Session deployment gate, tenant revocation, CSRF, atomic validation, retry and concurrency boundaries
+  [regre] base:pass  Existing admin prototype model
+  [regre] base:pass  TypeScript
+
+This means the frozen base is ready for implementation. It does not mean the feature is implemented. Acceptance RED is required here.
+
+Direct candidate checks — not kernel completion
+- TypeScript: exit 0.
+- Frozen adversarial suite direct invocation: exit 0, nine independent groups pass.
+  Command: /Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staff-drafts/run.mjs adversarial
+- First direct acceptance invocation: exit 1 after four API/storage groups pass; browser exact Test account label timed out. Accessible-label fix is applied. Independent review also requested session/context epoch guards against late responses; that correction is in progress before another acceptance run.
+
+Gate 2 — candidate kernel completion
+NOT RUN YET. No candidate SUPPORTED result is claimed at this checkpoint.
+Planned command after integrated checks and review:
+python3 /Users/jryear/code/_kernel/verify.py tasks/staging-staff-drafts-001.toml --repo . --base 9748ee57da6d3bbc0826df5c9e2271edce28ac24 --claim "Synthetic authorized staff can create, durably save, reload and preview organization-owned event and lot drafts with tested recovery." --implementer-model "GPT-6 Codex runtime"
+
+Kernel meanings: 0 supported/ready, 1 contradicted, 2 unverifiable/not-ready, 3 spec error. Check infrastructure failures are 99 and must never be reported as ordinary RED.
+
+Release gate — separate connected-provider evidence
+Approved schema-only Neon test branch and separate restricted runtime role are created. Vercel Preview variables are configured only for staging-e2e to use that isolated database. Migrations/seeds, candidate deployment, generated-host protection, HTTPS cookie behavior and deployed browser E2E are still outstanding at this checkpoint. No release pass or real bidder journey is claimed.
+
+Next contracts are proposals only, outside tasks/. They have not been frozen, and their independent fixtures are not yet written. No verifier verdict exists for them. They will use this same external kernel, rather than a second framework.
