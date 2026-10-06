@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "scenes": [
+    {
+      "id": "1440x900-preview-true-top",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "previewOpen": true,
+      "scroll": "top"
+    },
+    {
+      "id": "1440x900-preview-true-scrolled",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "previewOpen": true,
+      "scroll": "scrolled"
+    },
+    {
+      "id": "1440x900-preview-false-top",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "previewOpen": false,
+      "scroll": "top"
+    },
+    {
+      "id": "1440x900-preview-false-scrolled",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "previewOpen": false,
+      "scroll": "scrolled"
+    },
+    {
+      "id": "1280x800-preview-true-top",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "previewOpen": true,
+      "scroll": "top"
+    },
+    {
+      "id": "1280x800-preview-true-scrolled",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "previewOpen": true,
+      "scroll": "scrolled"
+    },
+    {
+      "id": "1280x800-preview-false-top",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "previewOpen": false,
+      "scroll": "top"
+    },
+    {
+      "id": "1280x800-preview-false-scrolled",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "previewOpen": false,
+      "scroll": "scrolled"
+    }
+  ]
+}
