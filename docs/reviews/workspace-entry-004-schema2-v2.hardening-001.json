@@ -1,0 +1,193 @@
+{
+  "version": 1,
+  "classification": "V2_MEASUREMENT_METADATA_VALIDITY_HARDENING",
+  "predecessorAuthorSHA": "28d4f5488dcc439427956fa06a28370d415acd4d",
+  "reviewedIntegratedSHA": "fe590cc29110285eb7fa2d59ee0d43139442e979",
+  "preservedIndependentReviewPath": "/Users/jryear/.local/state/bidzizi/workspace-entry-schema2-audit-20261006/INDEPENDENT_V2_RECEIPT_PROBES.fe590cc.json",
+  "preservedIndependentReviewSHA256": "449c80db1d99c2962ac3ccb2d619c3682487913f47b2e062aa1f42cd970d1bd0",
+  "preservedIndependentReview": {
+    "kind": "Independent pure receipt mutation probes; no application acceptance claim",
+    "revision": "fe590cc29110285eb7fa2d59ee0d43139442e979",
+    "validatorSHA256": "9595194a4f1ff82a3d8d01e815c03b38aabd020b4a226bd24d08509c20b39a9e",
+    "counts": {
+      "pass": 19,
+      "fail": 16
+    },
+    "rows": [
+      {
+        "id": "COMPLETE_MEASURED_SCENE_FIXTURE",
+        "status": "pass"
+      },
+      {
+        "id": "CONTEXT_TRUTHY_STRING",
+        "status": "fail",
+        "reason": "Missing expected exception (InvalidEvidence)."
+      },
+      {
+        "id": "INFINITE_SCROLL_EXTENT",
+        "status": "fail",
+        "reason": "Missing expected exception (InvalidEvidence)."
+      },
+      {
+        "id": "NEGATIVE_TOP_OFFSET",
+        "status": "fail",
+        "reason": "Missing expected exception (InvalidEvidence)."
+      },
+      {
+        "id": "OFFSET_BEYOND_MAX",
+        "status": "fail",
+        "reason": "Missing expected exception (InvalidEvidence)."
+      },
+      {
+        "id": "NONFINITE_RESET_OFFSET",
+        "status": "fail",
+        "reason": "Missing expected exception (InvalidEvidence)."
+      },
+      {
+        "id": "MISSING_PARENT_X",
+        "status": "fail",
+        "reason": "Missing expected exception (InvalidEvidence)."
+      },
+      {
+        "id": "NONFINITE_PARENT_Y",
+        "status": "fail",
+        "reason": "Missing expected exception (InvalidEvidence)."
+      },
+      {
+        "id": "CLAIM_REACHABLE_WITH_NULL_RECT",
+        "status": "fail",
+        "reason": "Missing expected exception (InvalidEvidence)."
+      },
+      {
+        "id": "CLAIM_REACHABLE_WITH_OFFSCREEN_RECT",
+        "status": "fail",
+        "reason": "Missing expected exception (InvalidEvidence)."
+      },
+      {
+        "id": "CLAIM_REACHABLE_OUTSIDE_PARENT",
+        "status": "fail",
+        "reason": "Missing expected exception (InvalidEvidence)."
+      },
+      {
+        "id": "MISSING_RECT_DIMENSION",
+        "status": "fail",
+        "reason": "Missing expected exception (InvalidEvidence)."
+      },
+      {
+        "id": "NONFINITE_RECT",
+        "status": "fail",
+        "reason": "Missing expected exception (InvalidEvidence)."
+      },
+      {
+        "id": "MISSING_CSS_SCREENSHOT_SCALE",
+        "status": "fail",
+        "reason": "Missing expected exception (InvalidEvidence)."
+      },
+      {
+        "id": "WRONG_SCREENSHOT_SCALE",
+        "status": "fail",
+        "reason": "Missing expected exception (InvalidEvidence)."
+      },
+      {
+        "id": "INVALID_DPR",
+        "status": "fail",
+        "reason": "Missing expected exception (InvalidEvidence)."
+      },
+      {
+        "id": "MISLABELLED_1280",
+        "status": "pass"
+      },
+      {
+        "id": "MISSING_NATIVE_SCROLL",
+        "status": "pass"
+      },
+      {
+        "id": "MISSING_NATIVE_EVENT",
+        "status": "pass"
+      },
+      {
+        "id": "NO_TOP_RESET",
+        "status": "pass"
+      },
+      {
+        "id": "STALE_RUN",
+        "status": "pass"
+      },
+      {
+        "id": "STALE_HASH",
+        "status": "pass"
+      },
+      {
+        "id": "INCOMPLETE_SCENE_MATRIX",
+        "status": "pass"
+      },
+      {
+        "id": "DUPLICATE_SCENE",
+        "status": "pass"
+      },
+      {
+        "id": "INCONSISTENT_FINITE_AGGREGATE",
+        "status": "pass"
+      },
+      {
+        "id": "NATIVE99",
+        "status": "pass"
+      },
+      {
+        "id": "WRONG_PNG_DIMENSIONS",
+        "status": "pass"
+      },
+      {
+        "id": "FINITE_MISSING_NAV_RETAINED",
+        "status": "pass"
+      },
+      {
+        "id": "NONSTRING_FAILURE_REJECTED",
+        "status": "fail",
+        "reason": "Missing expected exception (InvalidEvidence)."
+      },
+      {
+        "id": "ORIGINAL_FAILURE_NEVER_ERASED",
+        "status": "pass"
+      },
+      {
+        "id": "SUPPLEMENT_FINITE_FAILURE_COMPOSED",
+        "status": "pass"
+      },
+      {
+        "id": "PRIVATE_INCOMPLETE_ASSERTIONS",
+        "status": "pass"
+      },
+      {
+        "id": "PRIVATE_BOOLEAN_EXIT_REJECTED",
+        "status": "pass"
+      },
+      {
+        "id": "PRIVATE_STALE_RUN_REJECTED",
+        "status": "pass"
+      },
+      {
+        "id": "INVALID_PNG_SIGNATURE",
+        "status": "pass"
+      }
+    ]
+  },
+  "independentProbePath": "/Users/jryear/.local/state/bidzizi/workspace-entry-schema2-audit-20261006/independent-v2-receipt-probes.mjs",
+  "independentProbeSHA256": "e5f19c10554d5b80572d96515e0d056ea69fcaaa92167e2cda937332c1434a4e",
+  "correction": [
+    "Require boolean contextMatches, boolean overflow and string-array failures.",
+    "Require finite positive iframe viewport/box sizes and finite box x/y.",
+    "Require complete finite nonnegative rectangle extents with consistent right/bottom; recompute reachability against iframe and parent/outer viewport using original probe rules.",
+    "Require finite nonnegative scroll offsets/max; offsets and resets cannot exceed max.",
+    "Require CSS screenshot scale and finite positive device pixel ratio.",
+    "Null rect plus false reachable remains a finite missing-control observation."
+  ],
+  "semanticProductChange": false,
+  "originalV1ApplicationModified": false,
+  "rootIndependentRerunPending": true,
+  "additionalIndependentClosureCorrection": {
+    "finding": "V2 adapter reads SOURCE_BINDING.json unconditionally for all checks; inherited non-UI v1 chains omitted it.",
+    "addedEveryV2CheckChainAndEvidence": "tests/acceptance/staging-workspace-entry/SOURCE_BINDING.json",
+    "v1OriginalFrozen": true
+  }
+}

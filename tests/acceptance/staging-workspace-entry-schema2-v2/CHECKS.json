@@ -169,6 +169,7 @@
         "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/supplement.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/validate.mjs",
+        "tests/acceptance/staging-workspace-entry/SOURCE_BINDING.json",
         "tsconfig.json"
       ]
     },
@@ -219,6 +220,7 @@
         "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/supplement.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/validate.mjs",
+        "tests/acceptance/staging-workspace-entry/SOURCE_BINDING.json",
         "tsconfig.json"
       ]
     },
@@ -265,6 +267,7 @@
         "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/supplement.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/validate.mjs",
+        "tests/acceptance/staging-workspace-entry/SOURCE_BINDING.json",
         "tsconfig.json"
       ]
     },
@@ -311,6 +314,7 @@
         "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/supplement.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/validate.mjs",
+        "tests/acceptance/staging-workspace-entry/SOURCE_BINDING.json",
         "tsconfig.json"
       ]
     },
@@ -355,6 +359,7 @@
         "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/supplement.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/validate.mjs",
+        "tests/acceptance/staging-workspace-entry/SOURCE_BINDING.json",
         "tsconfig.json"
       ]
     },
@@ -399,6 +404,7 @@
         "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/supplement.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/validate.mjs",
+        "tests/acceptance/staging-workspace-entry/SOURCE_BINDING.json",
         "tsconfig.json"
       ]
     },
@@ -444,6 +450,7 @@
         "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/supplement.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/validate.mjs",
+        "tests/acceptance/staging-workspace-entry/SOURCE_BINDING.json",
         "tsconfig.json"
       ]
     },
@@ -489,6 +496,7 @@
         "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/supplement.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/validate.mjs",
+        "tests/acceptance/staging-workspace-entry/SOURCE_BINDING.json",
         "tsconfig.json"
       ]
     },
@@ -533,6 +541,7 @@
         "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/supplement.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/validate.mjs",
+        "tests/acceptance/staging-workspace-entry/SOURCE_BINDING.json",
         "tsconfig.json"
       ]
     },
@@ -577,6 +586,7 @@
         "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/supplement.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/validate.mjs",
+        "tests/acceptance/staging-workspace-entry/SOURCE_BINDING.json",
         "tsconfig.json"
       ]
     },
@@ -621,6 +631,7 @@
         "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/supplement.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/validate.mjs",
+        "tests/acceptance/staging-workspace-entry/SOURCE_BINDING.json",
         "tsconfig.json"
       ]
     },
@@ -663,6 +674,7 @@
         "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/supplement.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/validate.mjs",
+        "tests/acceptance/staging-workspace-entry/SOURCE_BINDING.json",
         "tsconfig.json"
       ]
     },
@@ -705,6 +717,7 @@
         "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/supplement.mjs",
         "tests/acceptance/staging-workspace-entry-schema2-v2/validate.mjs",
+        "tests/acceptance/staging-workspace-entry/SOURCE_BINDING.json",
         "tsconfig.json"
       ]
     },
