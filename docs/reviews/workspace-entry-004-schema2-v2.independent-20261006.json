@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "atUtc": "2026-10-06T20:35:30.446944+00:00",
+  "reviewerRole": "Independent engineering auditor; did not author v2 implementation",
+  "reviewedIntegratedRevision": "a38e3c30c6ea33e943353446992481216dda64a7",
+  "authorRevisions": [
+    "28d4f5488dcc439427956fa06a28370d415acd4d",
+    "1cf970069d5fc8c259c73ccf3b9ef53dd9766044"
+  ],
+  "verdict": "Approved to freeze corrected evidence and attempt full baseline; application implementation/acceptance not established",
+  "originalFreeze": "dcab8274ccb253f3e6bb918a983cc9964e8024f1",
+  "preservedV1Freeze": "9286b6e275e8ce01c6c961be3bdee1fc59e54c14",
+  "semanticReview": {
+    "unchanged": [
+      "goal",
+      "scope",
+      "sixteen check names/kinds/timeouts",
+      "four intended baseline assertion failures",
+      "original/v1 contract and grader bytes",
+      "all inherited deterministic commands",
+      "application/engine/model source"
+    ],
+    "correction": "Enforce existing owner-approved reachable-current-context/actions at actual1440x900/1280x800, previewopen/closed and content scrolled, using measured native geometry/scroll and native PNG dimensions. Existing decision event-studio-workspace-2026-10-05.json observableOutcomes and perCaseCoverage authorize this coverage.",
+    "composition": "Original REACHABILITY fail OR supplemental finite fail; never erase original failure. Missing/malformed/setup/deadline evidence99 emits no kernel final result.",
+    "newProductMeaning": false
+  },
+  "independentControlResults": {
+    "v2BeforeHardening": {
+      "pass": 19,
+      "fail": 16,
+      "retained": true
+    },
+    "v2Corrected": {
+      "pass": 35,
+      "fail": 0
+    },
+    "authorControlsRootRerun": {
+      "pass": 59,
+      "fail": 0
+    },
+    "sixteenCheckClosure": true,
+    "preservedNativePreflightValidUnderCorrectedValidator": true
+  },
+  "receiptReview": "Strict complete invocation/assertion/exit binding; fresh private v1 receipt; final v2 result only after supplement validates; exact source/helper bytes before/after; regular fresh allocated PNG bytes rehashed; finite native rectangle geometry recomputes reachability; native scroll/event/RAF/topreset complete. Node and dependencies remain external attestation limits.",
+  "remainingBeforeReadiness": [
+    "Fresh full installed3.1.0 schema2v2 baseline on clean exact freeze SHA",
+    "Independently inspect all assertion receipts and actual PNGs from that fullrun",
+    "Recheck original dirty work preservation"
+  ],
+  "remainingBeforeAppAcceptance": [
+    "Sol Medium application implementation manager dispatch",
+    "Bounded three-file workspace UI implementation",
+    "Independent candidate probes/frozen cumulative checks on each clean exactSHA",
+    "Rendered continuous journey and owner visual/product acceptance"
+  ],
+  "effectScope": "Local contract/evidence work only. No app edits, provider changes, public push, merge or deployment.",
+  "evidenceReferences": [
+    {
+      "path": "/Users/jryear/.local/state/bidzizi/workspace-entry-schema2-audit-20261006/INDEPENDENT_V2_RECEIPT_PROBES.fe590cc.json",
+      "sha256": "449c80db1d99c2962ac3ccb2d619c3682487913f47b2e062aa1f42cd970d1bd0"
+    },
+    {
+      "path": "/Users/jryear/.local/state/bidzizi/workspace-entry-schema2-audit-20261006/INDEPENDENT_V2_RECEIPT_PROBES.corrected.json",
+      "sha256": "7718d089e678097d9e86b4fe9aee4aea88d5c454799e71307db188664eda2848"
+    },
+    {
+      "path": "/Users/jryear/.local/state/bidzizi/workspace-entry-schema2-audit-20261006/AUTHOR_V2_CONTROLS.root-a38e3c3.json",
+      "sha256": "bbaf0ec66bc8440279568d7ab6c9e2fdc7aaa7320cc5373508874dbd34fb7392"
+    },
+    {
+      "path": "/Users/jryear/.local/state/bidzizi/workspace-entry-schema2-audit-20261006/INDEPENDENT_V2_CHAIN_REVIEW.fe590cc.json",
+      "sha256": "5f68861a4c422451523159f1b4870e7c3286ba05aca4b5d9bde63772ae3d0392"
+    },
+    {
+      "path": "/Users/jryear/.local/state/bidzizi/workspace-entry-schema2-audit-20261006/INDEPENDENT_V2_CHAIN_REVIEW.corrected.json",
+      "sha256": "01d88943878538c1b7672b78ed3c6eb4ca657b166aa04124bf5b5e3ba7cd8a1a"
+    },
+    {
+      "path": "/Users/jryear/.local/state/bidzizi/workspace-entry-schema2-audit-20261006/SCHEMA2_V2_PREFLIGHT_RUN.json",
+      "sha256": "340c487fa666f6f78c7d8935366b255cc78f56cf890819a95d6d82608e0d48e8"
+    },
+    {
+      "path": "/Users/jryear/.local/state/bidzizi/workspace-entry-schema2-audit-20261006/SCHEMA2_V2_PREFLIGHT_RENDERED_REVIEW.json",
+      "sha256": "8abad169f800fd9dd49d4e32ef9ad458fcd1ade2817d20f2746dd73c8dc483dd"
+    },
+    {
+      "path": "/Users/jryear/.local/state/bidzizi/workspace-entry-schema2-audit-20261006/CORRECTED_VALIDATOR_NATIVE_PREFLIGHT_COMPATIBILITY.json",
+      "sha256": "724b202d58fd53ae0800b4057b9b2a39e8435b0516a729b0f035a3db63308aab"
+    },
+    {
+      "path": "/Users/jryear/.local/state/bidzizi/workspace-entry-schema2-audit-20261006/REACHABILITY_VIEWPORT_DEFECT.json",
+      "sha256": "80461ef9e6aabc47e2061f0a16e94809bea0f9d893b34b634991b47a62f7ea79"
+    },
+    {
+      "path": "/Users/jryear/.local/state/bidzizi/workspace-entry-schema2-audit-20261006/POST_FREEZE_FINDING.json",
+      "sha256": "036634c591fd67b3d2a3189fc064ef9f7ca56752d26932e09c596c9588247dfe"
+    }
+  ]
+}
