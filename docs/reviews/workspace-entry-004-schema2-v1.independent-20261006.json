@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "atUtc": "2026-10-06T20:17:34.271532+00:00",
+  "verdict": "APPROVE_EVIDENCE_FREEZE_AND_BASELINE_ATTEMPT; not app implementation or acceptance",
+  "reviewer": {
+    "role": "current independent tranche coordinator, distinct from bounded Sol evidence author",
+    "tools": [
+      "source review",
+      "Git objects/status/diff",
+      "Python standard library",
+      "Node24 deterministic negative probes",
+      "sealed3.0.1 baseline execution"
+    ],
+    "actualModel": "not independently exposed by tool runtime"
+  },
+  "reviewedCodeCommit": "64b7607ea39fad6a14ca684032f9c865eeb9b79b",
+  "authorCommits": [
+    "61e557088d261d5600aba96ff10e83e2b17dd1e2",
+    "05b33c70dbdc4548ddf225f84ec20f730dd87fae"
+  ],
+  "integrationCommits": [
+    "2b7305217a0ea1059f602ead620253a754fae35d",
+    "64b7607ea39fad6a14ca684032f9c865eeb9b79b"
+  ],
+  "originalFrozenBase": "dcab8274ccb253f3e6bb918a983cc9964e8024f1",
+  "kernel": {
+    "installedVersion": "3.1.0",
+    "sourceCommit": "b6217c81ff5c4762c9f7632a4d0252c584b93eaf",
+    "managedFilesRehashed": 12,
+    "sealedReleaseFilesRehashed": 107,
+    "sealedPredecessorFilesRehashed": 45,
+    "mismatches": 0,
+    "receiptCorpusReview": "candidate84, independent84 plus7, installed84 receipt hash/source binding checked; no fresh84suite claimed"
+  },
+  "legacyBaseline": {
+    "sealedVerifierSha256": "130e2fc8e1ff1152a7667951c44e0894a122536428fe85259224afb50543b0be",
+    "seconds": 476.2752212090418,
+    "exit": 0,
+    "regressionCommandsPassed": 14,
+    "expectedUiFailureIds": [
+      "NAV_WORKSPACE_ABSENT",
+      "KEYBOARD_DIALOG_FOCUS",
+      "REACHABILITY",
+      "APPROVED_NOTICE_ASYNC"
+    ],
+    "nativeReceiptHashes": {
+      "adversarial": "1fb16ae16d4a47d4e1824ed5f8a4c8e8e2634f89bd31a89e811f16b995991123",
+      "acceptance": "61fc786f4d515d6c780cc8d99b5bf6d81e684cb0b07c0b43840e6aa5931521cd",
+      "syntax": "e23e88b2fab6f99d569780e53f5515c41b0215ddee6a371d318c129441d5a01d"
+    },
+    "harnessErrors": 0,
+    "historicalSevenHarness99Cause": "unresolved; invalid historical run preserved; fresh result does not prove cause resolved"
+  },
+  "independentReview": {
+    "probesPassed": 37,
+    "probesFailed": 0,
+    "staticClosureMissingInputs": [],
+    "reviewedExecutableHashes": {
+      "adapter.mjs": "f86c9df482f38d244f92d674e25f612a609e115debdecaa8759b1485ee4a5ba0",
+      "validate.mjs": "6dbc103679e9a5e8f910042f02f1c40f3d0a8bbe11e53eceddf8d81fd666b5c9",
+      "CHECKS.json": "767790748c433e5a0cfe14d9a6ff8a3a76010fad66fb016cb75e01c2b3199c67"
+    },
+    "receipts": {
+      "INDEPENDENT_CHAIN_REVIEW.json": "d11c9fe0ca9f7f50e5b930a9aff3cdc63a3abf9dd4b11dafcb8653f5189eb430",
+      "INDEPENDENT_CHAIN_REVIEW.002.json": "83ada287fed92c8d84efda467af5b99e594f63ffde2a74aab093b754256bec9e",
+      "INDEPENDENT_ADAPTER_PROBES.64b7607.json": "0b434e878697173c8d55c669a652f00f670c8e8cc9502035c42c1bab86c2f5b6",
+      "INDEPENDENT_PROBE_CORRECTION.json": "b161e49adaf1b260f668e091cb9591cb81f25b885333e63a264dbd6fb7668346"
+    },
+    "failedEvidencePreserved": [
+      "overbroad bracketed-route evidence-chain grammar failure",
+      "omitted transitive prototype model fixture",
+      "independent probe wrong baselineFailures field; corrected to frozen baseline_failures with old source/receipts retained"
+    ]
+  },
+  "acceptanceSemanticReview": {
+    "productMeaningChanged": false,
+    "scopeExact": true,
+    "checkNamesKindsTimeoutsExact": true,
+    "strengthened": "Fresh complete exact-ID native UI receipts, run/check/phase binding, declared frozen helper chain, committed source snapshots.",
+    "classificationChange": "Receiptless legacy generic failures and setup/runtime failures become unavailable99; they cannot establish baseline RED or support. Explicit finite AssertionError may contradict candidate. Old assertions remain unchanged.",
+    "coarseRegressionAssertions": "13 receiptless inherited commands get one honest command completion assertion each; syntax uses a native receipt; no semantic execution attestation added.",
+    "subjectBoundary": "Assertion helpers declared in chain; tested app source bound by complete source manifest and unchanged protected patterns. Ten literal bracket routes source-bound/protected verified.",
+    "newTrustedBaseRequired": "This review freeze commit becomes schema2 base; original dcab827 remains retained source-equal predecessor."
+  },
+  "remainingGates": [
+    "Full schema2 baseline on clean exact freeze;14regressionpass and exact4UIRED/no99.",
+    "Sol Medium app implementation in isolated branches, only three original admin files.",
+    "Independent app probes, cumulative deterministic checks on exact clean candidate commits.",
+    "Rendered screenshots and journey results for owner product/build acceptance."
+  ],
+  "boundaries": [
+    "No application code changes",
+    "No provider/shared-staging writes/public push/merge/deployment",
+    "Owner retains product decisions and build acceptance in overview",
+    "Session operating instruction reserves application implementation for resident Sol Medium; current tranche audit stops before app implementation."
+  ],
+  "evidenceRoot": "/Users/jryear/.local/state/bidzizi/workspace-entry-schema2-audit-20261006"
+}
