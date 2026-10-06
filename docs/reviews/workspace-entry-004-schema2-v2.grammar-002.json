@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "classification": "PURE_V2_HARDENING_GRAMMAR_AND_DECLARATION_CONTROL",
+  "schema2Grammar": "accepted",
+  "checks": 16,
+  "allV1ChainsPreserved": true,
+  "v1ScopeNamesKindsTimeoutsAssertionsBaselineFailuresPreserved": true,
+  "unconditionalSourceBindingDeclaredEveryCheck": true,
+  "configSpecAgreement": true
+}

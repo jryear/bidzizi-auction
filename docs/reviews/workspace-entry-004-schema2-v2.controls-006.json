@@ -1,0 +1,256 @@
+{
+  "version": 1,
+  "classification": "PURE_V2_VALIDITY_AND_COMPOSITION_CONTROLS_ONLY",
+  "passed": 59,
+  "count": 59,
+  "executedEvidenceHashes": {
+    "adapter.mjs": "2bed3db40863c87bdb692a93639f5b60125070f1b31ecb01ec450f4e7e1a0fcb",
+    "validate.mjs": "350ef58a3e01b49005365bf9222c58749940da04802cbaf2747321cb07d7deb6",
+    "supplement.mjs": "23608e7fdbfc46f34ed5e62226b8f3146fadb45896dae0e90292cced5a87cb98",
+    "controls.mjs": "a959563ca9bf91a00b4d06722b1f9e5398e535c753213eea62f042ee2b7c0a98",
+    "CHECKS.json": "3ba363f936cd2fde11f12ac0dd2b9bcbc9199838f87c39727cf37ecb3b42bbc7",
+    "SCENES.json": "3386cbda350478a66d66028e9ea962fdf37870408a516ec31cf92d6ea0520df8"
+  },
+  "controls": [
+    {
+      "id": "COMPLETE_EIGHT_SCENE_NATIVE_MEASUREMENTS",
+      "observed": "accepted",
+      "fixtureOnly": true
+    },
+    {
+      "id": "OMITTED_VIEWPORT",
+      "observed": "rejected"
+    },
+    {
+      "id": "DEFAULT1440_MISLABELLED1280",
+      "observed": "rejected"
+    },
+    {
+      "id": "DUPLICATE_SCENE",
+      "observed": "rejected"
+    },
+    {
+      "id": "MISSING_SCENE",
+      "observed": "rejected"
+    },
+    {
+      "id": "UNKNOWN_SCENE",
+      "observed": "rejected"
+    },
+    {
+      "id": "WRONG_PNG_DIMENSIONS",
+      "observed": "rejected"
+    },
+    {
+      "id": "NO_ACTUAL_SCROLL",
+      "observed": "rejected"
+    },
+    {
+      "id": "NO_NATIVE_SCROLL_EVENT",
+      "observed": "rejected"
+    },
+    {
+      "id": "NO_FRAME_COMPLETION",
+      "observed": "rejected"
+    },
+    {
+      "id": "NO_TOP_RESET",
+      "observed": "rejected"
+    },
+    {
+      "id": "NO_SCROLLABLE_CONTAINER",
+      "observed": "rejected"
+    },
+    {
+      "id": "WRONG_PREVIEW_STATE",
+      "observed": "rejected"
+    },
+    {
+      "id": "MISSING_IFRAME_VIEWPORT",
+      "observed": "rejected"
+    },
+    {
+      "id": "IFRAME_HEIGHT_FABRICATED",
+      "observed": "rejected"
+    },
+    {
+      "id": "WRONG_SCREENSHOT_LABEL",
+      "observed": "rejected"
+    },
+    {
+      "id": "NATIVE99",
+      "observed": "rejected"
+    },
+    {
+      "id": "STALE_RUN_BINDING",
+      "observed": "rejected"
+    },
+    {
+      "id": "SOURCE_MISMATCH",
+      "observed": "rejected"
+    },
+    {
+      "id": "HELPER_MISMATCH",
+      "observed": "rejected"
+    },
+    {
+      "id": "STALE_TIME",
+      "observed": "rejected"
+    },
+    {
+      "id": "MISSING_GEOMETRY_ROW",
+      "observed": "rejected"
+    },
+    {
+      "id": "CONTEXT_TRUTHY_NONBOOLEAN",
+      "observed": "rejected"
+    },
+    {
+      "id": "CONTEXT_MISSING",
+      "observed": "rejected"
+    },
+    {
+      "id": "FAILURE_NONSTRING",
+      "observed": "rejected"
+    },
+    {
+      "id": "SCROLL_MAX_INFINITY",
+      "observed": "rejected"
+    },
+    {
+      "id": "SCROLL_OFFSET_NEGATIVE",
+      "observed": "rejected"
+    },
+    {
+      "id": "SCROLL_OFFSET_BEYOND_MAX",
+      "observed": "rejected"
+    },
+    {
+      "id": "SCROLL_OFFSET_ONE_PIXEL_BEYOND_MAX",
+      "observed": "rejected"
+    },
+    {
+      "id": "SCROLL_OFFSET_NAN",
+      "observed": "rejected"
+    },
+    {
+      "id": "SCROLL_TOP_EVENT_NONBOOLEAN",
+      "observed": "rejected"
+    },
+    {
+      "id": "TOP_RESET_INFINITY",
+      "observed": "rejected"
+    },
+    {
+      "id": "TOP_RESET_NEGATIVE",
+      "observed": "rejected"
+    },
+    {
+      "id": "TOP_RESET_BEYOND_MAX",
+      "observed": "rejected"
+    },
+    {
+      "id": "IFRAME_BOX_COORDINATE_MISSING",
+      "observed": "rejected"
+    },
+    {
+      "id": "IFRAME_BOX_COORDINATE_INFINITY",
+      "observed": "rejected"
+    },
+    {
+      "id": "IFRAME_BOX_NONFINITE_WIDTH",
+      "observed": "rejected"
+    },
+    {
+      "id": "NATIVE_RECT_COORDINATE_MISSING",
+      "observed": "rejected"
+    },
+    {
+      "id": "NATIVE_RECT_NONFINITE_EDGE",
+      "observed": "rejected"
+    },
+    {
+      "id": "NATIVE_RECT_INCONSISTENT_EXTENT",
+      "observed": "rejected"
+    },
+    {
+      "id": "REACHABLE_TRUE_WITH_NULL_RECT",
+      "observed": "rejected"
+    },
+    {
+      "id": "REACHABLE_FALSE_WITH_INBOUNDS_RECT",
+      "observed": "rejected"
+    },
+    {
+      "id": "REACHABLE_TRUE_WITH_IFRAME_CLIPPING",
+      "observed": "rejected"
+    },
+    {
+      "id": "REACHABLE_TRUE_WITH_PARENT_CLIPPING",
+      "observed": "rejected"
+    },
+    {
+      "id": "SCREENSHOT_SCALE_WRONG",
+      "observed": "rejected"
+    },
+    {
+      "id": "SCREENSHOT_SCALE_MISSING",
+      "observed": "rejected"
+    },
+    {
+      "id": "DPR_NONFINITE",
+      "observed": "rejected"
+    },
+    {
+      "id": "DPR_NONPOSITIVE",
+      "observed": "rejected"
+    },
+    {
+      "id": "DPR_MISSING",
+      "observed": "rejected"
+    },
+    {
+      "id": "MISSING_NAV_FINITE_REACHABILITY_FAILURE",
+      "observed": "finite fail retained"
+    },
+    {
+      "id": "ORIGINAL_FAIL_SUPPLEMENT_PASS_CANNOT_ERASE",
+      "observed": "original fail retained"
+    },
+    {
+      "id": "ORIGINAL_PASS_SUPPLEMENT_FINITE_FAIL_COMPOSES",
+      "observed": "REACHABILITY fail"
+    },
+    {
+      "id": "BOTH_COMPLETE_PASS",
+      "observed": "pass",
+      "fixtureOnly": true
+    },
+    {
+      "id": "PRIVATE_RESULT_STALE_RUN",
+      "observed": "rejected"
+    },
+    {
+      "id": "PRIVATE_RESULT_EXIT_DISAGREEMENT",
+      "observed": "rejected"
+    },
+    {
+      "id": "PRIVATE_RESULT_PARTIAL",
+      "observed": "rejected"
+    },
+    {
+      "id": "V1_NOMINAL_PASS_SUPPLEMENT99_EMITS_NO_FINAL",
+      "observed": "no final file",
+      "error": "supplement harness99/reserved outcome"
+    },
+    {
+      "id": "V1_NOMINAL_PASS_SUPPLEMENTMISSING_EMITS_NO_FINAL",
+      "observed": "no final file",
+      "error": "supplement invocation/source mismatch"
+    },
+    {
+      "id": "PNG_NATIVE_IHDR_DIMENSION_PARSE",
+      "observed": "accepted valid/rejected malformed"
+    }
+  ]
+}

@@ -27,14 +27,28 @@ export function supplemental(receipt,plan,ctx){
   const p=expected.get(scene.id);need(p,'supplement unknown scene');
   need(same(scene.requestedViewport,p.viewport)&&same(scene.configuredPageViewport,p.viewport)&&same(scene.actualPageViewport,p.viewport)&&same(scene.png.dimensions,p.viewport),'omitted/mislabelled viewport or PNG dimensions');
   need(scene.previewOpen===p.previewOpen&&scene.previewButtonPressed===String(p.previewOpen)&&scene.previewPanelVisible===p.previewOpen&&scene.scrollLabel===p.scroll,'preview/scroll label mismatch');
-  need(scene.adminIframeViewport.width>0&&scene.adminIframeViewport.height>0&&scene.adminIframeViewport.width<=p.viewport.width+1&&scene.adminIframeViewport.height<=p.viewport.height+1,'admin iframe viewport missing or impossible');
-  need(Math.abs(scene.adminIframeBox.width-scene.adminIframeViewport.width)<=2&&Math.abs(scene.adminIframeBox.height-scene.adminIframeViewport.height)<=2,'admin iframe viewport/boundingbox mismatch');
-  need(['main','document.scrollingElement'].includes(scene.scroll.container)&&Number.isFinite(scene.scroll.before)&&Number.isFinite(scene.scroll.after)&&scene.scroll.max>1&&scene.scroll.rafCompleted===2,'actual scroll observation missing');
-  if(p.scroll==='top')need(scene.scroll.after<=1,'top scene not at actual top');
-  else {need(scene.scroll.before<=1&&scene.scroll.after-scene.scroll.before>1&&scene.scroll.eventObserved===true,'no measurable native scroll transition');need(scene.topReset?.before>1&&scene.topReset.after<=1&&scene.topReset.eventObserved===true&&scene.topReset.rafCompleted===2,'actual top reset incomplete');}
+  need(scene.screenshotScale==='css'&&Number.isFinite(scene.devicePixelRatio)&&scene.devicePixelRatio>0,'invalid screenshot scale/device pixel ratio');
+  const viewport=scene.adminIframeViewport,box=scene.adminIframeBox;
+  need(viewport&&['width','height'].every(k=>Number.isFinite(viewport[k])&&viewport[k]>0)&&viewport.width<=p.viewport.width+1&&viewport.height<=p.viewport.height+1,'admin iframe viewport missing or impossible');
+  need(box&&['x','y','width','height'].every(k=>Number.isFinite(box[k]))&&box.width>0&&box.height>0,'admin iframe box missing/nonfinite');
+  need(Math.abs(box.width-viewport.width)<=2&&Math.abs(box.height-viewport.height)<=2,'admin iframe viewport/boundingbox mismatch');
+  const scroll=scene.scroll;
+  need(scroll&&['main','document.scrollingElement'].includes(scroll.container)&&['before','after','max'].every(k=>Number.isFinite(scroll[k])&&scroll[k]>=0)&&scroll.max>1&&scroll.before<=scroll.max&&scroll.after<=scroll.max&&typeof scroll.eventObserved==='boolean'&&scroll.rafCompleted===2,'actual bounded scroll observation missing');
+  if(p.scroll==='top')need(scroll.after<=1,'top scene not at actual top');
+  else {
+   need(scroll.before<=1&&scroll.after-scroll.before>1&&scroll.eventObserved===true,'no measurable native scroll transition');const reset=scene.topReset;
+   need(reset&&['before','after'].every(k=>Number.isFinite(reset[k])&&reset[k]>=0&&reset[k]<=scroll.max)&&reset.before>1&&reset.after<=1&&reset.eventObserved===true&&reset.rafCompleted===2,'actual bounded top reset incomplete');
+  }
   need(scene.png.path.endsWith('/'+scene.id+'.png')&&/^[a-f0-9]{64}$/.test(scene.png.sha256),'screenshot filename/hash binding');
   need(Array.isArray(scene.rows)&&same(scene.rows.map(r=>r.selector).toSorted(),['#org-name','#event-title','#saved','#save-draft','#preview-toggle','nav[aria-label="Event Studio"]'].toSorted()),'geometry observation matrix incomplete');
-  need(scene.rows.every(r=>typeof r.reachable==='boolean')&&typeof scene.overflow==='boolean'&&Array.isArray(scene.failures),'geometry observation types');
+  need(typeof scene.contextMatches==='boolean'&&typeof scene.overflow==='boolean'&&Array.isArray(scene.failures)&&scene.failures.every(f=>typeof f==='string'),'geometry/context/failure observation types');
+  for(const row of scene.rows){
+   need(typeof row.reachable==='boolean'&&(row.rect===null||row.rect&&['x','y','width','height','right','bottom'].every(k=>Number.isFinite(row.rect[k]))),'missing/nonfinite native row geometry');
+   const r=row.rect;
+   if(r)need(r.width>=0&&r.height>=0&&Math.abs(r.right-r.x-r.width)<=0.01&&Math.abs(r.bottom-r.y-r.height)<=0.01,'inconsistent native rectangle extent');
+   const reachable=!!r&&r.width>0&&r.height>0&&r.x>=-1&&r.y>=-1&&r.right<=viewport.width+1&&r.bottom<=viewport.height+1&&box.x+r.x>=-1&&box.y+r.y>=-1&&box.x+r.right<=p.viewport.width+1&&box.y+r.bottom<=p.viewport.height+1;
+   need(row.reachable===reachable,'recorded reachability disagrees with native rect/iframe/parent bounds');
+  }
   const counted=scene.rows.filter(r=>!r.reachable).length+(scene.overflow?1:0)+(scene.contextMatches?0:1);need(scene.failures.length===counted,'geometry failure aggregate mismatch');
  }
  const failures=receipt.scenes.flatMap(s=>s.failures);need(receipt.actualExit===(failures.length?1:0),'supplement finite failure aggregate mismatch');
