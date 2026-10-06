@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "classification": "EVIDENCE_ONLY_TRANSITIVE_FIXTURE_CHAIN_CORRECTION",
+  "predecessorAuthorSHA": "61e557088d261d5600aba96ff10e83e2b17dd1e2",
+  "independentlyReviewedIntegratedSHA": "2b7305217a0ea1059f602ead620253a754fae35d",
+  "preservedIndependentFailedReviewPath": "/Users/jryear/.local/state/bidzizi/workspace-entry-schema2-audit-20261006/INDEPENDENT_CHAIN_REVIEW.json",
+  "preservedIndependentFailedReviewSHA256": "d11c9fe0ca9f7f50e5b930a9aff3cdc63a3abf9dd4b11dafcb8653f5189eb430",
+  "preservedIndependentFailedReview": {
+    "kind": "Literal relative-import/data closure cross-check plus source review; not exhaustive dynamic discovery",
+    "head": "2b7305217a0ea1059f602ead620253a754fae35d",
+    "checks": [
+      {
+        "index": 0,
+        "staticRelativeClosureFiles": 7,
+        "missingDeclaredInputs": []
+      },
+      {
+        "index": 1,
+        "staticRelativeClosureFiles": 7,
+        "missingDeclaredInputs": []
+      },
+      {
+        "index": 2,
+        "staticRelativeClosureFiles": 9,
+        "missingDeclaredInputs": []
+      },
+      {
+        "index": 3,
+        "staticRelativeClosureFiles": 9,
+        "missingDeclaredInputs": []
+      },
+      {
+        "index": 4,
+        "staticRelativeClosureFiles": 4,
+        "missingDeclaredInputs": []
+      },
+      {
+        "index": 5,
+        "staticRelativeClosureFiles": 4,
+        "missingDeclaredInputs": []
+      },
+      {
+        "index": 6,
+        "staticRelativeClosureFiles": 3,
+        "missingDeclaredInputs": []
+      },
+      {
+        "index": 7,
+        "staticRelativeClosureFiles": 3,
+        "missingDeclaredInputs": []
+      },
+      {
+        "index": 8,
+        "staticRelativeClosureFiles": 3,
+        "missingDeclaredInputs": []
+      },
+      {
+        "index": 9,
+        "staticRelativeClosureFiles": 3,
+        "missingDeclaredInputs": []
+      },
+      {
+        "index": 10,
+        "staticRelativeClosureFiles": 3,
+        "missingDeclaredInputs": []
+      },
+      {
+        "index": 11,
+        "staticRelativeClosureFiles": 2,
+        "missingDeclaredInputs": []
+      },
+      {
+        "index": 12,
+        "staticRelativeClosureFiles": 2,
+        "missingDeclaredInputs": []
+      },
+      {
+        "index": 13,
+        "staticRelativeClosureFiles": 3,
+        "missingDeclaredInputs": [
+          {
+            "importer": "prototypes/admin-studio/model.js",
+            "literalInput": "prototypes/admin-studio/bidder/src/fixtures.shared.js"
+          }
+        ]
+      },
+      {
+        "index": 14,
+        "staticRelativeClosureFiles": 1,
+        "missingDeclaredInputs": []
+      },
+      {
+        "index": 15,
+        "staticRelativeClosureFiles": 7,
+        "missingDeclaredInputs": []
+      }
+    ]
+  },
+  "checkIndex": 13,
+  "importer": "prototypes/admin-studio/model.js",
+  "observedImport": "import { lots as kit } from './bidder/src/fixtures.shared.js';",
+  "addedProtectedChainInput": "prototypes/admin-studio/bidder/src/fixtures.shared.js",
+  "fixtureSHA256": "9447568b0afc5970533d0f0766a11a23f0871c65f423f58afd517c6d5794a97f",
+  "changedContractFields": [
+    "checks[13].chain",
+    "checks[13].evidence"
+  ],
+  "changedConfigFields": [
+    "checks[13].chain"
+  ],
+  "productAcceptanceSemanticChange": false,
+  "originalContractGradersApplicationModified": false,
+  "remainingReview": "Root reruns independent closure before freeze; control checks do not establish application acceptance."
+}
