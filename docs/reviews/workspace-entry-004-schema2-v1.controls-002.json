@@ -1,0 +1,200 @@
+{
+  "version": 1,
+  "classification": "PURE_ADAPTER_CONTROL_EVIDENCE_ONLY",
+  "count": 29,
+  "passed": 29,
+  "controls": [
+    {
+      "id": "COMPLETE_NATIVE_RECEIPT",
+      "expected": "accepted",
+      "observed": "accepted",
+      "fixtureOnly": true
+    },
+    {
+      "id": "PARTIAL_RECEIPT",
+      "expected": "rejected",
+      "observed": "rejected",
+      "reason": "partial/extra result array"
+    },
+    {
+      "id": "DUPLICATE_CASE_ID",
+      "expected": "rejected",
+      "observed": "rejected",
+      "reason": "duplicate result IDs"
+    },
+    {
+      "id": "UNKNOWN_CASE_ID",
+      "expected": "rejected",
+      "observed": "rejected",
+      "reason": "unknown/missing result IDs"
+    },
+    {
+      "id": "HARNESS99_CASE",
+      "expected": "rejected",
+      "observed": "rejected",
+      "reason": "harness/nonfinite/malformed case"
+    },
+    {
+      "id": "HARNESS99_AGGREGATE",
+      "expected": "rejected",
+      "observed": "rejected",
+      "reason": "native aggregate/exit mismatch"
+    },
+    {
+      "id": "SOURCE_COMMIT_MISMATCH",
+      "expected": "rejected",
+      "observed": "rejected",
+      "reason": "actual source commit mismatch"
+    },
+    {
+      "id": "SOURCE_HASH_MISMATCH",
+      "expected": "rejected",
+      "observed": "rejected",
+      "reason": "current source bytes mismatch"
+    },
+    {
+      "id": "EVIDENCE_HASH_MISMATCH",
+      "expected": "rejected",
+      "observed": "rejected",
+      "reason": "current evidence bytes mismatch"
+    },
+    {
+      "id": "STALE_PHASE",
+      "expected": "rejected",
+      "observed": "rejected",
+      "reason": "phase mismatch"
+    },
+    {
+      "id": "MUTANT_RECEIPT",
+      "expected": "rejected",
+      "observed": "rejected",
+      "reason": "mutant receipt is not gate evidence"
+    },
+    {
+      "id": "UNKNOWN_LOGGED_CASE",
+      "expected": "rejected",
+      "observed": "rejected",
+      "reason": "native case log/receipt mismatch"
+    },
+    {
+      "id": "OUTPUT_PATH_REUSE_MISMATCH",
+      "expected": "rejected",
+      "observed": "rejected",
+      "reason": "receipt output allocation mismatch"
+    },
+    {
+      "id": "AGGREGATE_EXIT_DISAGREEMENT",
+      "expected": "rejected",
+      "observed": "rejected",
+      "reason": "native aggregate/exit mismatch"
+    },
+    {
+      "id": "STALE_RUN_ID",
+      "expected": "rejected",
+      "observed": "rejected",
+      "reason": "invalid schema2 invocation"
+    },
+    {
+      "id": "STALE_NATIVE_DURATION",
+      "expected": "rejected",
+      "observed": "rejected",
+      "reason": "invalid native duration"
+    },
+    {
+      "id": "UNEXPECTED_BASE_FAILURE_DECLARATION",
+      "expected": "rejected",
+      "observed": "rejected",
+      "reason": "native expectation mismatch"
+    },
+    {
+      "id": "UNEXPECTED_FAILURE_PRESERVED_FOR_EXACT_KERNEL_BASELINE",
+      "expected": "finite fail retained",
+      "observed": "finite fail retained",
+      "failedIds": [
+        "NAV_WORKSPACE_ABSENT",
+        "DURABLE_SAVED_PREVIEW",
+        "KEYBOARD_DIALOG_FOCUS",
+        "REACHABILITY"
+      ]
+    },
+    {
+      "id": "COARSE_COMMAND_COMPLETE",
+      "expected": "accepted",
+      "observed": "accepted",
+      "fixtureOnly": true
+    },
+    {
+      "id": "MARKER_WITH_NONZERO",
+      "expected": "rejected",
+      "observed": "rejected",
+      "fixture": {
+        "exit": 1
+      }
+    },
+    {
+      "id": "MISSING_TERMINAL_MARKER",
+      "expected": "rejected",
+      "observed": "rejected",
+      "fixture": {
+        "stdout": "PASS 1: fixture\n"
+      }
+    },
+    {
+      "id": "MODULE_ERROR",
+      "expected": "rejected",
+      "observed": "rejected",
+      "fixture": {
+        "stderr": "ERR_MODULE_NOT_FOUND"
+      }
+    },
+    {
+      "id": "SYNTAX_ERROR",
+      "expected": "rejected",
+      "observed": "rejected",
+      "fixture": {
+        "stderr": "SyntaxError"
+      }
+    },
+    {
+      "id": "DEADLINE_ERROR",
+      "expected": "rejected",
+      "observed": "rejected",
+      "fixture": {
+        "stderr": "TimeoutError: timed out"
+      }
+    },
+    {
+      "id": "REGRESSION_BASE_FAILURE",
+      "expected": "rejected",
+      "observed": "rejected",
+      "fixture": {
+        "exit": 1,
+        "phase": "base",
+        "stderr": "FAIL: finite"
+      }
+    },
+    {
+      "id": "PARTIAL_COMMAND_COUNT",
+      "expected": "rejected",
+      "observed": "rejected",
+      "fixture": {
+        "stdout": "PASS 1: fixture\n7 independent acceptance cases passed.\n"
+      }
+    },
+    {
+      "id": "FINITE_REGRESSION_CANDIDATE_FAILURE",
+      "expected": "fail assertion retained",
+      "observed": "fail assertion retained"
+    },
+    {
+      "id": "DUPLICATE_NATIVE_JSON_KEY",
+      "expected": "rejected",
+      "observed": "rejected"
+    },
+    {
+      "id": "MALFORMED_NATIVE_JSON",
+      "expected": "rejected",
+      "observed": "rejected"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "classification": "PURE_SCHEMA2_GRAMMAR_AND_SUBJECT_BINDING_CONTROL",
+  "status": "accepted",
+  "checkCount": 16,
+  "originalScopePreserved": true,
+  "originalTimeoutsPreserved": true,
+  "sourceManifestBinding": {
+    "commit": "dcab8274ccb253f3e6bb918a983cc9964e8024f1",
+    "tree": "6f1660ad6ea985d350224518713461c638819f83",
+    "manifest_sha256": "52709bf8bb4ecfc6a4dda17a5b4d2db2add6d4db55d9abcd1dd938142f41af9d"
+  },
+  "bracketPathsPreservedInFullSourceManifestAndProtectedScope": [
+    {
+      "path": "src/app/api/admin/events/[id]/catalog-approval/route.ts",
+      "mode": "100644",
+      "sha256": "9a1821daa8db2089d10b3068093642476d7cc548f43a4292c5e54cc95d819556"
+    },
+    {
+      "path": "src/app/api/admin/events/[id]/route.ts",
+      "mode": "100644",
+      "sha256": "0ff716401ab95aa84d53ce9afd4fb97c24f9930643bfe96d34ff3055261a5641"
+    },
+    {
+      "path": "src/app/api/bidder/events/[eventId]/context/route.ts",
+      "mode": "100644",
+      "sha256": "39d7cacf9065dbc2e783c0b7fdbc91d35a0800c3a8f560bce7cc96dde1abbd44"
+    },
+    {
+      "path": "src/app/api/bidder/events/[eventId]/lots/[lotId]/bid-receipts/[requestId]/route.ts",
+      "mode": "100644",
+      "sha256": "c549573051ab78ab7ece0193fee2821a271220e889f11aad445c4e3a749f20df"
+    },
+    {
+      "path": "src/app/api/bidder/events/[eventId]/lots/[lotId]/bids/route.ts",
+      "mode": "100644",
+      "sha256": "b666d43dbd97801f99734e5708865d41091e1a010eb9b5b0ee5564dbe91a39c7"
+    },
+    {
+      "path": "src/app/api/bidder/events/[eventId]/lots/[lotId]/standing/route.ts",
+      "mode": "100644",
+      "sha256": "f688759f11445f734610905d90be6dc2ae0b569ea1534863d03e924b66a045a4"
+    },
+    {
+      "path": "src/app/api/catalog/events/[id]/lots/[lotId]/route.ts",
+      "mode": "100644",
+      "sha256": "658b9298c618ee57fd56ec2ac7bdf9f24fbc9314ae76e32f017cc6212ba02429"
+    },
+    {
+      "path": "src/app/api/catalog/events/[id]/route.ts",
+      "mode": "100644",
+      "sha256": "38166788f891add56f517d0fdef79cd1ab6d01c6a2cc6feeccadf769e24510b3"
+    },
+    {
+      "path": "src/app/events/[id]/event-access.tsx",
+      "mode": "100644",
+      "sha256": "5ade4cc7b70677ebcd20831f03b9bda6b0a34caaaece35b1357790076391a5e6"
+    },
+    {
+      "path": "src/app/events/[id]/page.tsx",
+      "mode": "100644",
+      "sha256": "978b8a3de9546d4bf9be8a8d0334783b509717e3aa1d753dbb01873002b90c5f"
+    }
+  ],
+  "chainBoundary": "Executable grader/helper/data inputs. Subject source under full source manifest and unchanged protected scope."
+}
