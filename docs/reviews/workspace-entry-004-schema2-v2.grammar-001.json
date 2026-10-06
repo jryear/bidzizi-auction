@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "classification": "PURE_V2_GRAMMAR_AND_PRESERVATION_CONTROL",
+  "schema2Grammar": "accepted",
+  "checks": 16,
+  "scopeNamesKindsTimeoutsOriginalCommandsAssertionsBaselineFailures": "preserved",
+  "completeV1ChainsProtectedByV2": true,
+  "baselineFailureIDs": {
+    "acceptance": [
+      "NAV_WORKSPACE_ABSENT",
+      "KEYBOARD_DIALOG_FOCUS",
+      "REACHABILITY"
+    ],
+    "adversarial": [
+      "APPROVED_NOTICE_ASYNC"
+    ]
+  },
+  "frozenPredecessor": "9286b6e275e8ce01c6c961be3bdee1fc59e54c14"
+}

@@ -1,0 +1,47 @@
+// Pure fabricated receipt controls; no browser/application suite is started.
+import assert from 'node:assert/strict';
+import {readFile,writeFile,mkdtemp,lstat} from 'node:fs/promises';
+import {join} from 'node:path';
+import {createHash} from 'node:crypto';
+import {privateResult,supplemental,compose,pngSize,InvalidEvidence} from './validate.mjs';
+const cfg=JSON.parse(await readFile(new URL('./CHECKS.json',import.meta.url))),c=cfg.checks[0],plan=JSON.parse(await readFile(new URL('./SCENES.json',import.meta.url))),controls=[];
+const ctx={check:c.name,phase:'base',runId:'a'.repeat(32),commit:'fixture-source',sourceHashes:{source:'hash'},helperHashes:{helper:'hash'},startedMs:10,endedMs:100};
+const selectors=['#org-name','#event-title','#saved','#save-draft','#preview-toggle','nav[aria-label="Event Studio"]'];
+const make=()=>({version:1,check:c.name,phase:ctx.phase,run_id:ctx.runId,sourceCommit:ctx.commit,sourceHashes:ctx.sourceHashes,helperHashes:ctx.helperHashes,startedMs:20,endedMs:90,actualExit:0,scenes:plan.scenes.map(p=>({id:p.id,requestedViewport:p.viewport,configuredPageViewport:p.viewport,actualPageViewport:p.viewport,previewOpen:p.previewOpen,previewButtonPressed:String(p.previewOpen),previewPanelVisible:p.previewOpen,scrollLabel:p.scroll,adminIframeViewport:{width:p.viewport.width,height:p.viewport.height-30},adminIframeBox:{width:p.viewport.width,height:p.viewport.height-30},scroll:{container:'document.scrollingElement',before:0,after:p.scroll==='top'?0:100,max:100,eventObserved:p.scroll==='scrolled',rafCompleted:2},topReset:p.scroll==='scrolled'?{before:100,after:0,eventObserved:true,rafCompleted:2}:undefined,png:{path:'/fixture/'+p.id+'.png',dimensions:p.viewport,sha256:'a'.repeat(64)},rows:selectors.map(selector=>({selector,reachable:true})),overflow:false,contextMatches:true,failures:[]}))});
+const original=status=>({protocol:1,check:c.name,phase:ctx.phase,run_id:ctx.runId,assertions:c.assertions.map(id=>({id,status:id==='REACHABILITY'?status:'pass',detail:'pure original fixture'}))});
+const reject=(id,change)=>{const r=make();change(r);assert.throws(()=>supplemental(r,plan,ctx),InvalidEvidence,id);controls.push({id,observed:'rejected'});};
+const valid=supplemental(make(),plan,ctx);assert.equal(valid.failed,false);controls.push({id:'COMPLETE_EIGHT_SCENE_NATIVE_MEASUREMENTS',observed:'accepted',fixtureOnly:true});
+reject('OMITTED_VIEWPORT',r=>delete r.scenes[0].actualPageViewport);
+reject('DEFAULT1440_MISLABELLED1280',r=>r.scenes[4].actualPageViewport={width:1440,height:900});
+reject('DUPLICATE_SCENE',r=>r.scenes[1].id=r.scenes[0].id);
+reject('MISSING_SCENE',r=>r.scenes.pop());
+reject('UNKNOWN_SCENE',r=>r.scenes[0].id='unknown');
+reject('WRONG_PNG_DIMENSIONS',r=>r.scenes[4].png.dimensions={width:1440,height:900});
+reject('NO_ACTUAL_SCROLL',r=>r.scenes[1].scroll.after=0);
+reject('NO_NATIVE_SCROLL_EVENT',r=>r.scenes[1].scroll.eventObserved=false);
+reject('NO_FRAME_COMPLETION',r=>r.scenes[1].scroll.rafCompleted=0);
+reject('NO_TOP_RESET',r=>delete r.scenes[1].topReset);
+reject('NO_SCROLLABLE_CONTAINER',r=>r.scenes[1].scroll.max=0);
+reject('WRONG_PREVIEW_STATE',r=>r.scenes[0].previewButtonPressed='false');
+reject('MISSING_IFRAME_VIEWPORT',r=>r.scenes[0].adminIframeViewport.height=0);
+reject('IFRAME_HEIGHT_FABRICATED',r=>r.scenes[0].adminIframeBox.height=900);
+reject('WRONG_SCREENSHOT_LABEL',r=>r.scenes[0].png.path='/fixture/other.png');
+reject('NATIVE99',r=>r.actualExit=99);
+reject('STALE_RUN_BINDING',r=>r.run_id='b'.repeat(32));
+reject('SOURCE_MISMATCH',r=>r.sourceHashes={source:'other'});
+reject('HELPER_MISMATCH',r=>r.helperHashes={helper:'other'});
+reject('STALE_TIME',r=>r.startedMs=0);
+reject('MISSING_GEOMETRY_ROW',r=>r.scenes[0].rows.pop());
+const finite=make();finite.scenes[0].rows[5].reachable=false;finite.scenes[0].failures=['Event Studio nav unreachable'];finite.actualExit=1;const finiteResult=supplemental(finite,plan,ctx);assert.equal(finiteResult.failed,true);controls.push({id:'MISSING_NAV_FINITE_REACHABILITY_FAILURE',observed:'finite fail retained'});
+const failRows=privateResult(original('fail'),c,ctx,1),passRows=privateResult(original('pass'),c,ctx,0);
+assert.equal(compose(failRows,valid).find(x=>x.id==='REACHABILITY').status,'fail');controls.push({id:'ORIGINAL_FAIL_SUPPLEMENT_PASS_CANNOT_ERASE',observed:'original fail retained'});
+assert.equal(compose(passRows,finiteResult).find(x=>x.id==='REACHABILITY').status,'fail');controls.push({id:'ORIGINAL_PASS_SUPPLEMENT_FINITE_FAIL_COMPOSES',observed:'REACHABILITY fail'});
+assert.equal(compose(passRows,valid).find(x=>x.id==='REACHABILITY').status,'pass');controls.push({id:'BOTH_COMPLETE_PASS',observed:'pass',fixtureOnly:true});
+assert.throws(()=>privateResult({...original('pass'),run_id:'stale'},c,ctx,0),InvalidEvidence);controls.push({id:'PRIVATE_RESULT_STALE_RUN',observed:'rejected'});
+assert.throws(()=>privateResult(original('pass'),c,ctx,1),InvalidEvidence);controls.push({id:'PRIVATE_RESULT_EXIT_DISAGREEMENT',observed:'rejected'});
+const partial=original('pass');partial.assertions.pop();assert.throws(()=>privateResult(partial,c,ctx,0),InvalidEvidence);controls.push({id:'PRIVATE_RESULT_PARTIAL',observed:'rejected'});
+// Match the production ordering: final file write is reached only after validated supplement+composition.
+const scratch=await mkdtemp('/tmp/bidzizi-v2-pure-final-control-');for(const variant of ['supplement99','supplementMissing']){const finalPath=join(scratch,variant+'.json');let error;try{const rows=privateResult(original('pass'),c,ctx,0),r=variant==='supplement99'?{...make(),actualExit:99}:null;const measured=supplemental(r,plan,ctx),composed=compose(rows,measured);await writeFile(finalPath,JSON.stringify(composed),{flag:'wx'});}catch(e){error=e;}assert.ok(error instanceof InvalidEvidence);await assert.rejects(lstat(finalPath),{code:'ENOENT'});controls.push({id:'V1_NOMINAL_PASS_'+variant.toUpperCase()+'_EMITS_NO_FINAL',observed:'no final file',error:error.message});}
+const png=Buffer.alloc(24);Buffer.from([137,80,78,71,13,10,26,10]).copy(png);png.write('IHDR',12);png.writeUInt32BE(1280,16);png.writeUInt32BE(800,20);assert.deepEqual(pngSize(png),{width:1280,height:800});assert.throws(()=>pngSize(Buffer.alloc(24)),InvalidEvidence);controls.push({id:'PNG_NATIVE_IHDR_DIMENSION_PARSE',observed:'accepted valid/rejected malformed'});
+const hashes={};for(const n of ['adapter.mjs','validate.mjs','supplement.mjs','controls.mjs','CHECKS.json','SCENES.json'])hashes[n]=createHash('sha256').update(await readFile(new URL('./'+n,import.meta.url))).digest('hex');
+const result={version:1,classification:'PURE_V2_VALIDITY_AND_COMPOSITION_CONTROLS_ONLY',passed:controls.length,count:controls.length,executedEvidenceHashes:hashes,controls};if(process.argv[2])await writeFile(process.argv[2],JSON.stringify(result,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify(result,null,2));

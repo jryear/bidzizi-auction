@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "classification": "ADDITIVE_ASSURANCE_CORRECTION_NO_PRODUCT_CHANGE",
+  "preservedDefectPath": "/Users/jryear/.local/state/bidzizi/workspace-entry-schema2-audit-20261006/REACHABILITY_VIEWPORT_DEFECT.json",
+  "preservedDefectSHA256": "80461ef9e6aabc47e2061f0a16e94809bea0f9d893b34b634991b47a62f7ea79",
+  "preservedDefectReceipt": {
+    "finding": "Actual REACHABILITY browserFixture call never receives {viewport}; both labelled contexts run at default1440x900.",
+    "sourceCommit": "dcab8274ccb253f3e6bb918a983cc9964e8024f1",
+    "source": "tests/acceptance/staging-workspace-entry/checks.mjs:57-64",
+    "nativeArtifactRows": [
+      {
+        "file": "actual-baseline-1280x800-preview-false-scroll-false.png",
+        "actualWidth": 1440,
+        "actualHeight": 900,
+        "sha256": "eaa3bb60580c6c14d2dda2932ab32e66651a66a7900a35355e1e47d9be38287c"
+      },
+      {
+        "file": "actual-baseline-1280x800-preview-false-scroll-true.png",
+        "actualWidth": 1440,
+        "actualHeight": 900,
+        "sha256": "eaa3bb60580c6c14d2dda2932ab32e66651a66a7900a35355e1e47d9be38287c"
+      },
+      {
+        "file": "actual-baseline-1280x800-preview-true-scroll-false.png",
+        "actualWidth": 1440,
+        "actualHeight": 900,
+        "sha256": "4834cc10f5f17d76dfbe312ae4832f835f10c6f194facdc08f5798104a13dd61"
+      },
+      {
+        "file": "actual-baseline-1280x800-preview-true-scroll-true.png",
+        "actualWidth": 1440,
+        "actualHeight": 900,
+        "sha256": "1ddd0d19da6d26e1a69bef32b55a0581f357e1dd1b0be3e30c26292a1fa55237"
+      },
+      {
+        "file": "actual-baseline-1440x900-preview-false-scroll-false.png",
+        "actualWidth": 1440,
+        "actualHeight": 900,
+        "sha256": "eaa3bb60580c6c14d2dda2932ab32e66651a66a7900a35355e1e47d9be38287c"
+      },
+      {
+        "file": "actual-baseline-1440x900-preview-false-scroll-true.png",
+        "actualWidth": 1440,
+        "actualHeight": 900,
+        "sha256": "eaa3bb60580c6c14d2dda2932ab32e66651a66a7900a35355e1e47d9be38287c"
+      },
+      {
+        "file": "actual-baseline-1440x900-preview-true-scroll-false.png",
+        "actualWidth": 1440,
+        "actualHeight": 900,
+        "sha256": "98364abf27238b65bd95d3d1be723a036341a4ebfb89b624735fe313711c447c"
+      },
+      {
+        "file": "actual-baseline-1440x900-preview-true-scroll-true.png",
+        "actualWidth": 1440,
+        "actualHeight": 900,
+        "sha256": "87f0996d8c77aba3400a3b0f291ab54c9d9eaaa854bb7b1cb74477a5e894aa3d"
+      }
+    ],
+    "materiality": "Frozen product expectation requires1440x900 and1280x800; original1280 evidence does not execute that viewport. Original four finite failures remain real at1440; current baseline cannot establish full viewportcoverage.",
+    "correction": "Preserve original contract/graders/schema2v1 freeze; create separate additive schema2v2 correction before app implementation.",
+    "productMeaningChanged": false,
+    "gateAccepted": false
+  },
+  "findingAdditionalScroll": "Original case assigns #main.scrollTop without proving actual movement; v2 measures actual main or document scroller native event, RAF and offsets.",
+  "originalAndV1Frozen": true,
+  "productMeaningChanged": false,
+  "gateAccepted": false,
+  "correction": "Separate v2 supplemental acceptance probe. Original REACHABILITY fail OR supplemental finite reachability fail =>same REACHABILITY fail. Invalid viewport/PNG/scroll/completeness=>99 with no final result."
+}
