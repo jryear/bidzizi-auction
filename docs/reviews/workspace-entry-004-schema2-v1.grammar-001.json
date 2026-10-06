@@ -1,0 +1,17 @@
+{
+  "classification": "SCHEMA2_GRAMMAR_PROBE",
+  "status": "rejected",
+  "error": "unsupported repository path: src/app/api/admin/events/[id]/catalog-approval/route.ts",
+  "bracket_paths": [
+    "src/app/api/admin/events/[id]/catalog-approval/route.ts",
+    "src/app/api/admin/events/[id]/route.ts",
+    "src/app/api/bidder/events/[eventId]/context/route.ts",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/bid-receipts/[requestId]/route.ts",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/bids/route.ts",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/standing/route.ts",
+    "src/app/api/catalog/events/[id]/lots/[lotId]/route.ts",
+    "src/app/api/catalog/events/[id]/route.ts",
+    "src/app/events/[id]/event-access.tsx",
+    "src/app/events/[id]/page.tsx"
+  ]
+}
