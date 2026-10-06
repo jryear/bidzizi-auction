@@ -1,0 +1,1366 @@
+{
+  "schema": 1,
+  "reviewedAtUtc": "2026-10-05T23:30:43.163947+00:00",
+  "reviewer": {
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "tools": [
+      "functions.exec",
+      "exec_command",
+      "rg",
+      "read-only git",
+      "Python stdlib source/hash/TOML inspection",
+      "collaboration.send_message"
+    ],
+    "agentsSpawned": 0
+  },
+  "classification": "Source/contract review of mutable preparation v1 and limited v2 corrections; no reruns, storage/network/browser/provider access, application-gate or freeze claim.",
+  "sourceWorktree": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi",
+  "sourceCommit": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+  "reviewWorktree": "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi",
+  "reviewCommit": "916eaa2efa9220434d8b0bef6f53f637ca157d22",
+  "recommendation": "Correct remaining declared coverage and characterize final immutable packet before freezing or implementation dispatch. Author accepted remaining gaps for explicit v3 after v2 sequential characterization; this acknowledgment is not completion evidence.",
+  "verifiedSourceFacts": {
+    "old13CommandsEqual": true,
+    "oldCheckCount": 13,
+    "sourceBindingMismatches": [],
+    "selectorManifestMismatches": [],
+    "selectorHistoryFiles": 7,
+    "trackedAuthorDiff": ""
+  },
+  "remainingMaterialCorrections": [
+    {
+      "id": "R3",
+      "priority": "before freeze",
+      "classification": "Source-inferred missing oracle, not reproduced defect",
+      "sources": [
+        "tests/acceptance/staging-workspace-entry/checks.mjs:36",
+        "tests/acceptance/staging-workspace-entry/checks.mjs:39",
+        "tests/acceptance/staging-workspace-entry/checks.mjs:42",
+        "tests/acceptance/staging-workspace-entry/checks.mjs:46"
+      ],
+      "finding": "Keyboard fixture uses programmatic focus and Enter, bypassing actual Tab reachability; Escape covered but modal Back missing. Reload listener accepts dialogs but never requires beforeunload to occur, so deleting warning can pass.",
+      "correction": "Add bounded actual Tab traversal, open-modal Back and meaningful return-focus assertions. Require dirty beforeunload warning before explicit discard; assert server-confirmed content after reload. Include removal of warning/unreachable Tab control negative cases. Preserve inner memory versus outer reload semantics.",
+      "authorStatus": "Accepted for v3; not yet reviewed."
+    },
+    {
+      "id": "R4",
+      "priority": "before freeze",
+      "classification": "Contract/source gap",
+      "sources": [
+        "docs/decisions/event-studio-workspace-2026-10-05.json:90",
+        "docs/proposed/staging-workspace-entry-004.toml:116",
+        "tests/acceptance/staging-workspace-entry/run.mjs:15"
+      ],
+      "finding": "V4 requires Node24 --check of static adminJS; existing proposal and new runner inspected omit it. TypeScript does not validate studio.js.",
+      "correction": "Add explicit independent Node24 syntax validation of actual copied studio.js; preserve all old13 checks, finite invalid syntax and setup99 distinction.",
+      "authorStatus": "Accepted for v3 mandatory preflight; not reviewed."
+    },
+    {
+      "id": "C1",
+      "priority": "before claiming malformed approval coverage",
+      "classification": "Source-inferred gap",
+      "sources": [
+        "tests/acceptance/staging-workspace-entry/checks.mjs:116",
+        "public/staging-admin/studio.js:215"
+      ],
+      "finding": "Approval response variants cover null/nonJSON/missing top-level field/errors but no nonnull malformed or wrong-context approval.",
+      "correction": "Add nonnull malformed approval object and wrong event/org/revision/snapshot controls with unchanged confirmed preview/content and continued save usability. Keep route simulations distinguished from server API authority.",
+      "authorStatus": "Accepted for v3; not reviewed."
+    }
+  ],
+  "v1CounterexamplesAndLimitedV2SourceResolution": [
+    {
+      "id": "R1",
+      "classification": "Source-inferred false GREEN, not executed",
+      "v1Sources": [
+        "tests/acceptance/staging-workspace-entry/history/v1/checks.mjs:17",
+        "tests/acceptance/staging-workspace-entry/history/v1/checks.mjs:22"
+      ],
+      "finding": "Durable preview expected packet came from server read; dropping edited field while incrementing revision could pass SQL/receipt/preview equality.",
+      "resolutionObserved": "Current v2 checks.mjs:21-23 independently constructs complete expected compact draft with name/eyebrow/welcome/venue/cover before dispatch, asserts actual sent draft and confirmed content equal expected. This closes the core source-oracle gap; no execution result certified."
+    },
+    {
+      "id": "R2",
+      "classification": "Source-inferred missing timing, not executed",
+      "v1Sources": [
+        "tests/acceptance/staging-workspace-entry/history/v1/checks.mjs:96",
+        "tests/acceptance/staging-workspace-entry/history/v1/checks.mjs:99"
+      ],
+      "finding": "Save priority tail ran only after known initial hint assertion and no later approval completion occurred during uncertain/conflict save.",
+      "resolutionObserved": "Current v2 adds separately executable APPROVED_NOTICE_PRIORITY:103-112 holding an actual later permitted retry read while uncertain/conflict save state is established, then releasing valid approval and asserting notice/confirmed preview priority. Source construction addresses timing gap; no execution certified."
+    },
+    {
+      "id": "R2-mutant",
+      "classification": "Source-inferred no-op control",
+      "v1Sources": [
+        "tests/acceptance/staging-workspace-entry/history/v1/harness.mjs:112"
+      ],
+      "finding": "Original OMIT_NOTICE_REFRESH replaced an anchor by identical text.",
+      "resolutionObserved": "Current v2 constructs a notice-refresh reference sandbox then removes refresh, logs original/result/reference hashes and labels gateProof=false. Result returns baseline bytes by design; probe inference is comparison against the explicit repaired reference, not an independent candidate gate."
+    }
+  ],
+  "additionalBoundedCorrections": [
+    {
+      "id": "C2",
+      "sources": [
+        "tests/acceptance/staging-workspace-entry/checks.mjs:52",
+        "tests/acceptance/staging-workspace-entry/browser.mjs:55"
+      ],
+      "finding": "Rectangles alone do not detect opacity0/covered Save or preview controls.",
+      "correction": "Add computed visibility and unobscured hit testing/clickability with hidden/overlay control. Keep screenshot/usability acceptance separate."
+    },
+    {
+      "id": "C3",
+      "sources": [
+        "tests/acceptance/staging-workspace-entry/checks.mjs:11",
+        "tests/acceptance/staging-workspace-entry/checks.mjs:60",
+        "tests/acceptance/staging-workspace-entry/checks.mjs:64"
+      ],
+      "finding": "sleep150 approximates stale callback completion; Pine assertions can theoretically precede a delayed application callback.",
+      "correction": "Tie a bounded completion/stable-observation barrier to response consumption and preserve dropped-epoch sensitivity. Do not require switching during unresolved writes."
+    }
+  ],
+  "positiveSourceCoverage": [
+    "Healthy(f) wraps failed auth/API/completeSQL controls as99, validates scoped runtime role and protected001+002+003 tables before synchronous nav absence finite assertion.",
+    "run.mjs executes subsequent cases after finite1 and upgrades aggregate to99 for setup/deadline/internal errors. Source distinguishes all14 initial case IDs and expected base outcomes; v2 adds priority case.",
+    "Full saved preview payload compares mode/revision/org/event/lot content and origin/frame; SQL verifies full event and ordered lot draft. It is stronger than title-only inspection.",
+    "Malformed save nonJSON/missingDraft/lostACK retains last preview and original body across recovery; one revision and durable receipt compared.",
+    "Selected saved subset includes both assigned and unassigned incomplete unselected lots; full immutable approval/window and lot SQL remain unchanged after draft edit.",
+    "Pending/uncertain save/create/approval context guards retained; stale response tests use actual permitted session transitions and Pine save usability.",
+    "Nav DOM controls are implemented in oracle-controls.mjs: renamed-only rejection, explicit geometry positive reference, duplicate-link rejection. Initial absent-dispatch concern withdrawn.",
+    "No tracked app or old grader changes observed; all13 commands and seven hashed selector-history files preserved."
+  ],
+  "preparationFailures": {
+    "classification": "Parent/author reported, source-consistent harness assumptions; not reproduced product defects",
+    "items": [
+      "Intentionally held approval leaves Loading draft until release; initial bootstrap must not require Saved.",
+      "Create dialog has two close controls; assertions must handle both.",
+      "A venue renders on Event screen, not Welcome.",
+      "Outer reload detaches old iframe reference; rebind before later assertions."
+    ],
+    "retention": "v1 sources and raw failures retained, history/v1/CORRECTIONS.json records source hashes. V2/v3 preparations remain mutable/unfrozen.",
+    "expectedBasePolicy": "Characterize all direct IDs after final corrections; aggregate acceptance finiteRED is insufficient to prove every nominal base0 control passed. No baseline-ready claim here."
+  },
+  "evidenceClosure": "New local helper/seed/plan/control imports are within declared wildcard evidence plus selector manifest. Freeze final relied-on sources and bindings together; retain preparation sources/logs as provenance rather than candidate completion proof.",
+  "filesInspected": [
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/AGENTS.md",
+      "sha256AtReport": "c09bed335ae30962dc28483105925b6688a1d5e94a3adf30509fefc853087351"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/docs/decisions/event-studio-workspace-2026-10-05.json",
+      "sha256AtReport": "39f77e308060cc5a419e90e914ed3cf96d315f5daee6592e7126daa983ffa9d1"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/docs/proposed/staging-workspace-entry-004.toml",
+      "sha256AtReport": "4d7024615654494ffdb22c79a41f26d9e33d1d3317cf44d62d9ce868e2415c11"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/docs/proposed/workspace-entry-selector-manifest.v1.json",
+      "sha256AtReport": "fd5db6b7eb85e9a9f6f820d4095c104ee8ebe52a619ac9d9e20e2659b18f9473"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tasks/staging-manual-bid-003.toml",
+      "sha256AtReport": "94c52b35597376d3988614ce0d2df9379098d9faf6b9b7912d599d16d46e6b6e"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/public/staging-admin/studio.js",
+      "sha256AtReport": "438270354e6c0bd47132d810c44893cf7e52956020eea8b2bc371d7ac516ba82"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staff-drafts/context-race.mjs",
+      "sha256AtReport": "39784ffa2264af1a1ef8c6f22433595da2dadad9f8e00047b73eece9b5260592"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staff-drafts/run.mjs",
+      "sha256AtReport": "01c1a4a581235a970fcbd1ffa7473ab4fc0290eb1e76db741881f2af1c2638ee"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staff-drafts-v1/run.mjs",
+      "sha256AtReport": "b31c62fe13a3fcafdcf8f9d66a135b8fd394f6432c0a3c0d0298319aad3e20e0"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/CASE_PLAN.json",
+      "sha256AtReport": "fc9a2aec7ef365d528fdb1817db87fe42092bd5cac5cf2a94b50f425fb2b47c9"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/SOURCE_BINDING.json",
+      "sha256AtReport": "d38e5b2137d0c8facd71765971daf32b0c5e9b91b0bba5ffe79d07bd26860afa"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/run.mjs",
+      "sha256AtReport": "398885f152ea188beda42fd29a0823a4814091b0bf1c0751fd30357126f7a6fb"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/harness.mjs",
+      "sha256AtReport": "f56f3f11ffefabfd6bd7bf5a0e77f505b76978ea780267769a2f0f660cc3c59f"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/checks.mjs",
+      "sha256AtReport": "458eaedbb82cd54d137c2d23e61800ca7e1a2be84a9b5947ce6711da229aa433"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/browser.mjs",
+      "sha256AtReport": "b7d2081424db88d6b5ee896e9ec1a99769184a4d664fb32b0dd9c9b963931ce7"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/fixtures.mjs",
+      "sha256AtReport": "c3f13597e602d38d7bea4703dec9ccf85a1e5870530903b8bcd0dd898639f6d4"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/protocol.mjs",
+      "sha256AtReport": "2284e048df0c14fa2de87333b5fbd2c272f806f3074e10981cf3df62bc878ea9"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/prepare.py",
+      "sha256AtReport": "b26cdd7e171f8309ea960d120358d39f10f533d5679debb2322514f431530a9b"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/oracle-controls.mjs",
+      "sha256AtReport": "79739747edf46f25717a680f0d13beb47e1089f33e0f02bbfdeb6d7225188323"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/preparation-controls.py",
+      "sha256AtReport": "9bf6d91948c49f21e4b88a62d86d2ef1fb1fe72ddad05657c47e42af0f3f9949"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/history/v1/checks.mjs",
+      "sha256AtReport": "c8c0adcbd0eaa42f1818f69974ceab28af695d8ce78b81441cabd168aa4af494"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/history/v1/harness.mjs",
+      "sha256AtReport": "2492ed4f89d3d65236d4fff83745352326007452c15c0f67510c99b91c49bd80"
+    },
+    {
+      "path": "/Users/jryear/.codex/worktrees/workspace-entry-evidence/bidzizi/tests/acceptance/staging-workspace-entry/history/v1/CORRECTIONS.json",
+      "sha256AtReport": "8966668611d84ddeedb7520af186e6df3b5a6f2fdee454be116b987824eff481"
+    }
+  ],
+  "persistentWrites": [
+    "/Users/jryear/.codex/worktrees/bidzizi-delivery-audit/bidzizi/docs/reviews/workspace-entry-004.executable-review.json"
+  ],
+  "supplements": [
+    {
+      "reviewedAtUtc": "2026-10-05T23:51:50.282256+00:00",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "classification": "Exact Git-object source/hash and retained-receipt audit; no independent execution",
+      "reviewedEvidenceCommit": "08530e822a05ddce13e35e9982183c92b1dd2371",
+      "reviewedProposalCommit": "88cedd53cf12692ed0538a2db523afce3c5e5423",
+      "recommendation": "Await versioned native Escape/route completion fixture correction and accurate failure-stage reporting before final freeze recommendation. Original08530 packet has no binding provenance blocker.",
+      "bindingCount": 287,
+      "bindingMismatches": [],
+      "hashes": {
+        "CASE_PLAN.json": "9ddfa6e30585d4969406e1d46feefe00799aa351dab37557f2183488b65cd1fa",
+        "run.mjs": "fab477a945674323f2f1f7274c78556d93b85eed21f8656150d94c1bf54371aa",
+        "browser.mjs": "0dfa385323450fd18e57e45908674cc2920efcffdd164e0f17ec59740fad99d9",
+        "checks.mjs": "757d836d28f0ac2ca8d8cf9f2eaf82689511a8eba8962be567ca8f201e398590",
+        "harness.mjs": "f56f3f11ffefabfd6bd7bf5a0e77f505b76978ea780267769a2f0f660cc3c59f",
+        "syntax.mjs": "5b471e2180b1a69e4dc716a583b5109a23d20a417081d98cc7ac8a6a36e82120",
+        "SOURCE_BINDING.json": "dc2c963de09a0a39cb9827747fb8b160861685bbaa02b615a345e418cf8b3168",
+        "EVIDENCE_BINDING.json": "2a00e6b1be288d9fe97d3ec6c60ee55d544d559da901ff6533a973173d8ec2ec"
+      },
+      "resolutionSourceLocations": {
+        "independentFields": "checks.mjs:20-22",
+        "savedPreviewFullPacketAndCover": "browser.mjs:39-53",
+        "beforeunload": "checks.mjs:38",
+        "actualTabAndModalBack": "checks.mjs:42-43",
+        "nonnullMalformedApproval": "checks.mjs:113-115",
+        "heldLaterReadErrorPriority": "checks.mjs:103-112",
+        "actualJSONConsumptionBarrier": "browser.mjs:14-20,67-72",
+        "syntaxMode": "run.mjs:18;syntax.mjs:10-18;V5 TOML:122-126"
+      },
+      "retainedFinalModeResults": [
+        {
+          "id": "NAV_WORKSPACE_ABSENT",
+          "actualExit": 1,
+          "message": "NAV_WORKSPACE_ABSENT: exactly one new Event Studio navigation\n\n0 !== 1\n"
+        },
+        {
+          "id": "DURABLE_SAVED_PREVIEW",
+          "actualExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "CREATE_RECOVERY",
+          "actualExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "ROUTES_BACK_RELOAD",
+          "actualExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "KEYBOARD_DIALOG_FOCUS",
+          "actualExit": 1,
+          "message": "Escape restores picker focus"
+        },
+        {
+          "id": "REACHABILITY",
+          "actualExit": 1,
+          "message": "Bounded reachability: nav[aria-label=\"Event Studio\"] unreachable 1440/true/false; nav[aria-label=\"Event Studio\"] unreachable 1440/true/true; nav[aria-label=\"Event Studio\"] unreachable 1440/false/false; nav[aria-label=\"Event Studio\"] unreachable 1440/false/true; nav[aria-label=\"Event Studio\"] unreachable 1280/true/false; nav[aria-label=\"Event Studio\"] unreachable 1280/true/true; nav[aria-label=\"Event Studio\"] unreachable 1280/false/false; nav[aria-label=\"Event Studio\"] unreachable 1280/false/true\n+ actual - expected\n\n+ [\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/true/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/true/true',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/false/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/false/true',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/true/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/true/true',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/false/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/false/true'\n+ ]\n- []\n"
+        },
+        {
+          "id": "STALE_DRAFT_SESSION",
+          "actualExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "STALE_APPROVAL_SESSION",
+          "actualExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "UNRESOLVED_WRITES_BLOCK",
+          "actualExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "MALFORMED_SAVE_RECOVERY",
+          "actualExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "DIRTY_REPLACEMENT",
+          "actualExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "APPROVED_NOTICE_ASYNC",
+          "actualExit": 1,
+          "message": "APPROVED_NOTICE_ASYNC: first approved read refreshes hint without input/tab change\n+ actual - expected\n\n+ 'Working draft. Save changes before approving a catalog.'\n- 'Working draft. Changes do not alter the approved catalog.'\n"
+        },
+        {
+          "id": "APPROVED_NOTICE_PRIORITY",
+          "actualExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "APPROVAL_RESPONSE_VARIANTS",
+          "actualExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "SELECTED_SUBSET_IMMUTABLE",
+          "actualExit": 0,
+          "message": "All contracted observations completed"
+        }
+      ],
+      "remainingFinding": {
+        "id": "NATIVE_FOCUS_COMPLETION",
+        "classification": "Source-inferred fixture timing ambiguity; retained final finite1 trace, not confirmed product defect",
+        "sources": [
+          "tests/acceptance/staging-workspace-entry/checks.mjs:42",
+          "public/staging-admin/studio.js:98",
+          "public/staging-admin/studio.js:101",
+          "public/staging-admin/studio.js:375",
+          "public/staging-admin/studio.js:378"
+        ],
+        "facts": "Final acceptance stops at first Escape restores picker focus. It does not reach replacement BODY. Fixture does not await dialog close/native cancel completion, and prior Event link can leave hashchange workspace-focus task pending before asynchronous event chooser captures returnFocus.",
+        "correction": "Settle permitted route before picker trigger, then await actual modal closure/cancel completion and bounded task/RAF flush before finite focus assertion. Do not poll desired focus into a pass or silently change expected outcome. Keep stage-specific raw trace separate from old BODY trace."
+      },
+      "retraction": {
+        "earlierMessage": "Apparent CASE_PLAN12203090 binding mismatch",
+        "correction": "That hash came from mutable v4 worktree changes during audit. Exact08530 Git object CASE_PLAN is9ddfa6 and all287 EVIDENCE_BINDING entries match. No provenance blocker on original packet."
+      },
+      "knownMetadataBoundary": "Original runner frozenContract:false/kernelInvoked:false are hardcoded preparation booleans. Parent has explicitly planned versioned correction to unknown frozen status/kernelInvokedByRunner:false before baseline. Do not infer parent execution or contract status from runner metadata.",
+      "limits": [
+        "REACHABILITY still checks rectangles rather than transparency/overlay; visible-control/hit-testing negative controls remain useful before claiming deterministic visibility, while rendered judgment is separate.",
+        "Exact source bindings record original V4 planning inputs; integrating V5 requires explicit updated integration provenance, preserving historical receipts.",
+        "No own execution, storage/provider requests, old13 gate, baseline-ready, supported candidate, visual acceptance or publication claim.",
+        "Historical raw/source whitespace warnings retained; no diff-check pass asserted."
+      ],
+      "tools": [
+        "functions.exec",
+        "exec_command",
+        "rg",
+        "Python stdlib read/hash/JSON/TOML",
+        "git show exact objects and read-only status"
+      ],
+      "filesInspectedAtExactRevision": [
+        "tests/acceptance/staging-workspace-entry/CASE_PLAN.json",
+        "tests/acceptance/staging-workspace-entry/checks.mjs",
+        "tests/acceptance/staging-workspace-entry/run.mjs",
+        "tests/acceptance/staging-workspace-entry/final-checks.py",
+        "tests/acceptance/staging-workspace-entry/browser.mjs",
+        "tests/acceptance/staging-workspace-entry/REDACTION_PROVENANCE.json",
+        "tests/acceptance/staging-workspace-entry/protocol.mjs",
+        "tests/acceptance/staging-workspace-entry/README.md",
+        "tests/acceptance/staging-workspace-entry/seed-people.sql",
+        "tests/acceptance/staging-workspace-entry/harness.mjs",
+        "tests/acceptance/staging-workspace-entry/fixtures.mjs",
+        "tests/acceptance/staging-workspace-entry/ORPHAN_CLEANUP_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/syntax.mjs",
+        "tests/acceptance/staging-workspace-entry/PROTECTED_SOURCE_MANIFEST.json",
+        "tests/acceptance/staging-workspace-entry/oracle-controls.mjs",
+        "tests/acceptance/staging-workspace-entry/SOURCE_BINDING.json",
+        "tests/acceptance/staging-workspace-entry/preparation-controls.py",
+        "tests/acceptance/staging-workspace-entry/prepare.py",
+        "tests/acceptance/staging-workspace-entry/history/v1/CASE_PLAN.json",
+        "tests/acceptance/staging-workspace-entry/history/v1/checks.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v1/run.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v1/browser.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v1/protocol.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v1/seed-people.sql",
+        "tests/acceptance/staging-workspace-entry/history/v1/harness.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v1/fixtures.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v1/CORRECTIONS.json",
+        "tests/acceptance/staging-workspace-entry/history/v1/oracle-controls.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v1/SOURCE_BINDING.json",
+        "tests/acceptance/staging-workspace-entry/history/v1/preparation-controls.py",
+        "tests/acceptance/staging-workspace-entry/history/v1/prepare.py",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/CASE_PLAN.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/checks.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/browser.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/CORRECTION.json",
+        "tests/acceptance/staging-workspace-entry/history/v2/CASE_PLAN.json",
+        "tests/acceptance/staging-workspace-entry/history/v2/checks.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v2/run.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v2/browser.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v2/protocol.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v2/seed-people.sql",
+        "tests/acceptance/staging-workspace-entry/history/v2/harness.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v2/fixtures.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v2/CORRECTIONS.json",
+        "tests/acceptance/staging-workspace-entry/history/v2/oracle-controls.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v2/SOURCE_BINDING.json",
+        "tests/acceptance/staging-workspace-entry/history/v2/preparation-controls.py",
+        "tests/acceptance/staging-workspace-entry/history/v2/prepare.py",
+        "tests/acceptance/staging-workspace-entry/history/v3-ui-characterization/CASE_PLAN.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-ui-characterization/run.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v3-ui-characterization/harness.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v3-ui-characterization/FINAL_DELTA.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-ui-characterization/SOURCE_BINDING.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/unknown-mode.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/notice-refresh-omission-probe.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/missing-node-dependencies.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/notice-refresh-reference-probe.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/missing-option-value.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/CONTROL_RESULTS.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/missing-mode.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/dropped-context-epoch-probe.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/setup-invalid-seed.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/internal-mode-deadline.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/DOM-and-HTTP500-oracles.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/list.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/missing-postgres.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/notice-reference/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/notice-omission/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/epoch-mutant/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/DOM-oracles/actual-baseline-before-nav-DOM-probes.png",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/DOM-oracles/ORACLE_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/SELECTED_SUBSET_IMMUTABLE.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/APPROVED_NOTICE_ASYNC.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/ROUTES_BACK_RELOAD.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/STALE_DRAFT_SESSION.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/acceptance.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/DURABLE_SAVED_PREVIEW.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/STALE_APPROVAL_SESSION.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/CHARACTERIZATION.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/UNRESOLVED_WRITES_BLOCK.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/DIRTY_REPLACEMENT.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/NAV_WORKSPACE_ABSENT.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/MALFORMED_SAVE_RECOVERY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/CREATE_RECOVERY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/APPROVAL_RESPONSE_VARIANTS.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/KEYBOARD_DIALOG_FOCUS.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/adversarial.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/evidence-parse-browser.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVAL_RESPONSE_VARIANTS.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/evidence-parse-checks.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/evidence-parse-syntax.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-STALE_DRAFT_SESSION.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-STALE_APPROVAL_SESSION.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/evidence-parse-oracle-controls.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/syntax-actual.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVED_NOTICE_ASYNC.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/inherited-runtime-refused.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/evidence-parse-run.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/syntax-invalid-JS-probe.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/evidence-parse-protocol.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/evidence-parse-fixtures.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/evidence-parse-harness.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVED_NOTICE_PRIORITY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/syntax-unavailable-runtime-probe.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/adversarial.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/FINAL_RESULTS.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/SELECTED_SUBSET_IMMUTABLE.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/APPROVED_NOTICE_ASYNC.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/ROUTES_BACK_RELOAD.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/STALE_DRAFT_SESSION.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/acceptance.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/DURABLE_SAVED_PREVIEW.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/STALE_APPROVAL_SESSION.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/CHARACTERIZATION.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/UNRESOLVED_WRITES_BLOCK.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/DIRTY_REPLACEMENT.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/NAV_WORKSPACE_ABSENT.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/MALFORMED_SAVE_RECOVERY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/CREATE_RECOVERY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/APPROVED_NOTICE_PRIORITY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/APPROVAL_RESPONSE_VARIANTS.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/KEYBOARD_DIALOG_FOCUS.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/adversarial.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/unknown-mode.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/notice-refresh-omission-probe.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/missing-node-dependencies.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/notice-refresh-reference-probe.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/missing-option-value.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/CONTROL_RESULTS.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/missing-mode.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/dropped-context-epoch-probe.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/SOURCE_PROBE_PAIR_BINDING.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/setup-invalid-seed.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/internal-mode-deadline.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/DOM-and-HTTP500-oracles.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/list.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/missing-postgres.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1-nav/baseline-before-any-DOM-probe-1440x900.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1-nav/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/SELECTED_SUBSET_IMMUTABLE.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/APPROVED_NOTICE_ASYNC.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/ROUTES_BACK_RELOAD.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/STALE_DRAFT_SESSION.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/DURABLE_SAVED_PREVIEW.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/STALE_APPROVAL_SESSION.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/CHARACTERIZATION.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/UNRESOLVED_WRITES_BLOCK.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/DIRTY_REPLACEMENT.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/NAV_WORKSPACE_ABSENT.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/MALFORMED_SAVE_RECOVERY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/CREATE_RECOVERY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/APPROVED_NOTICE_PRIORITY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/APPROVAL_RESPONSE_VARIANTS.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/KEYBOARD_DIALOG_FOCUS.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/adversarial.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/STALE_DRAFT_SESSION/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/APPROVED_NOTICE_PRIORITY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/DURABLE_SAVED_PREVIEW/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/SELECTED_SUBSET_IMMUTABLE/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/MALFORMED_SAVE_RECOVERY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/CREATE_RECOVERY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/adversarial/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/STALE_APPROVAL_SESSION/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/DIRTY_REPLACEMENT/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/APPROVED_NOTICE_ASYNC/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/NAV_WORKSPACE_ABSENT/baseline-before-any-DOM-probe-1440x900.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/NAV_WORKSPACE_ABSENT/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/APPROVAL_RESPONSE_VARIANTS/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-1280x800-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/baseline-200percent-equivalent-CSS-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/baseline-200percent-equivalent-CSS-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/baseline-before-any-DOM-probe-1440x900.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-1280x800-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-CSS-zoom200percent-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-CSS-zoom200percent-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-1440x900-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-1280x800-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-1440x900-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-1280x800-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-1440x900-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-1440x900-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/UNRESOLVED_WRITES_BLOCK/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-1280x800-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/baseline-200percent-equivalent-CSS-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/baseline-200percent-equivalent-CSS-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-1280x800-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-CSS-zoom200percent-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-CSS-zoom200percent-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-1440x900-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-1280x800-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-1440x900-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-1280x800-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-1440x900-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-1440x900-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/ROUTES_BACK_RELOAD/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/KEYBOARD_DIALOG_FOCUS/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/notice-reference/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/notice-omission/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/epoch-mutant/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/DOM-oracles/actual-baseline-before-nav-DOM-probes.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/DOM-oracles/ORACLE_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/STALE_DRAFT_SESSION/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/APPROVED_NOTICE_PRIORITY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/DURABLE_SAVED_PREVIEW/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/SELECTED_SUBSET_IMMUTABLE/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/MALFORMED_SAVE_RECOVERY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/adversarial/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/STALE_APPROVAL_SESSION/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/DIRTY_REPLACEMENT/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/APPROVED_NOTICE_ASYNC/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/NAV_WORKSPACE_ABSENT/baseline-before-any-DOM-probe-1440x900.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/NAV_WORKSPACE_ABSENT/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/APPROVAL_RESPONSE_VARIANTS/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/acceptance/baseline-before-any-DOM-probe-1440x900.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/UNRESOLVED_WRITES_BLOCK/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-1280x800-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/baseline-200percent-equivalent-CSS-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/baseline-200percent-equivalent-CSS-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-1280x800-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-CSS-zoom200percent-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-CSS-zoom200percent-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-1440x900-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-1280x800-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-1440x900-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-1280x800-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-1440x900-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-1440x900-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/ROUTES_BACK_RELOAD/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/KEYBOARD_DIALOG_FOCUS/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/syntax-actual/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVED_NOTICE_PRIORITY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/adversarial/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-STALE_APPROVAL_SESSION/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/syntax-invalid/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVAL_RESPONSE_VARIANTS/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVED_NOTICE_ASYNC/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-1280x800-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/baseline-200percent-equivalent-CSS-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/baseline-200percent-equivalent-CSS-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/baseline-before-any-DOM-probe-1440x900.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-1280x800-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-CSS-zoom200percent-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-CSS-zoom200percent-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-1440x900-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-1280x800-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-1440x900-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-1280x800-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-1440x900-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-1440x900-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-STALE_DRAFT_SESSION/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/STALE_DRAFT_SESSION/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/DURABLE_SAVED_PREVIEW/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/SELECTED_SUBSET_IMMUTABLE/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/MALFORMED_SAVE_RECOVERY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/CREATE_RECOVERY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/adversarial/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/STALE_APPROVAL_SESSION/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/DIRTY_REPLACEMENT/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/APPROVED_NOTICE_ASYNC/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/NAV_WORKSPACE_ABSENT/baseline-before-any-DOM-probe-1440x900.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/NAV_WORKSPACE_ABSENT/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/APPROVAL_RESPONSE_VARIANTS/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/acceptance/baseline-before-any-DOM-probe-1440x900.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/acceptance/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/UNRESOLVED_WRITES_BLOCK/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/actual-baseline-1280x800-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/baseline-200percent-equivalent-CSS-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/baseline-200percent-equivalent-CSS-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/actual-baseline-1280x800-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/actual-baseline-1440x900-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/actual-baseline-1280x800-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/actual-baseline-1440x900-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/actual-baseline-1280x800-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/actual-baseline-1440x900-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/actual-baseline-1440x900-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/ROUTES_BACK_RELOAD/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/KEYBOARD_DIALOG_FOCUS/RUN_RECEIPT.json"
+      ]
+    },
+    {
+      "reviewedAtUtc": "2026-10-05T23:56:11.296687+00:00",
+      "reviewedEvidenceCommit": "1517429c446b39612b82902aa6fa9697ff4175a9",
+      "predecessorCommit": "08530e822a05ddce13e35e9982183c92b1dd2371",
+      "reviewedProposalCommit": "88cedd53cf12692ed0538a2db523afce3c5e5423",
+      "reviewer": {
+        "modelAsDispatched": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "tools": [
+          "functions.exec",
+          "exec_command",
+          "Python stdlib JSON/hash/TOML inspection",
+          "git show/ls-tree/diff exact commits"
+        ],
+        "agentsSpawned": 0
+      },
+      "classification": "Bounded independent exact Git-object source/hash and retained-receipt review. No independent test execution, storage/browser/network/provider activity, gate proof, frozen-base readiness, candidate implementation or visual/release acceptance.",
+      "recommendation": "No remaining material blocker found in the bounded final source/contract packet. Proceed with trusted integration of V5 and evidence, explicit integration bindings and fresh committed-base/old13 verification before implementation. This review does not replace those checks or authorize implementation/publication.",
+      "materialBlockers": [],
+      "verification": {
+        "manifestBindings": 335,
+        "manifestMismatches": [],
+        "allFinalModeHelperHashBindingsMatchExactCommit": true,
+        "all15DeclaredOutcomesMatch": true,
+        "outcomeCounts": {
+          "1": 4,
+          "0": 11
+        },
+        "old13ChecksPreservedExactlyExceptRequiredRegressionKind": true,
+        "syntaxAddedAfterOld13": {
+          "name": "Actual static admin JavaScript parses under Node24",
+          "kind": "regression",
+          "cmd": "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node tests/acceptance/staging-workspace-entry/run.mjs syntax",
+          "evidence": [
+            "tests/acceptance/staging-workspace-entry/*"
+          ],
+          "timeout": 60
+        },
+        "authorCommitChangedOnlyOwnedTestsAndOwnPreparationReceipt": true,
+        "workingTreeReadDependence": false
+      },
+      "resolutions": [
+        {
+          "id": "NATIVE_FOCUS_COMPLETION",
+          "classification": "Source correction and retained actual settled traces, no own reproduction",
+          "sources": [
+            "tests/acceptance/staging-workspace-entry/browser.mjs:76",
+            "tests/acceptance/staging-workspace-entry/browser.mjs:87",
+            "tests/acceptance/staging-workspace-entry/checks.mjs:47",
+            "tests/acceptance/staging-workspace-entry/checks.mjs:51",
+            "tests/acceptance/staging-workspace-entry/checks.mjs:54"
+          ],
+          "finding": "v4 arms actual route/hashchange and native cancel/close observers, waits open=false and task/microtask/two-rAF completion. It does not poll expected focus. Both final acceptance and direct keyboard traces pass first Escape and modal-Back Escape picker-focus controls, reach replacement by actual Tab/Enter, then observe connected BODY after replacement closure/flush. Replacement remains finite1. Earlier v3 first-Escape trace is not retroactively replacement evidence.",
+          "trace": {
+            "acceptance": [
+              {
+                "name": "first-Escape-close-completed",
+                "modalOpen": false,
+                "cancelObserved": true,
+                "closeObserved": true,
+                "focus": {
+                  "tag": "BUTTON",
+                  "connected": true,
+                  "action": "events",
+                  "id": ""
+                }
+              },
+              {
+                "name": "first-Escape-focus-passed"
+              },
+              {
+                "name": "modal-Back-Escape-close-completed",
+                "modalOpen": false,
+                "cancelObserved": true,
+                "closeObserved": true,
+                "focus": {
+                  "tag": "BUTTON",
+                  "connected": true,
+                  "action": "events",
+                  "id": ""
+                }
+              },
+              {
+                "name": "modal-Back-Escape-focus-passed"
+              },
+              {
+                "name": "replacement-Tab-reached"
+              },
+              {
+                "name": "replacement-modal-closed-focus-observed",
+                "tag": "BODY",
+                "connected": true,
+                "id": ""
+              }
+            ],
+            "KEYBOARD_DIALOG_FOCUS": [
+              {
+                "name": "first-Escape-close-completed",
+                "modalOpen": false,
+                "cancelObserved": true,
+                "closeObserved": true,
+                "focus": {
+                  "tag": "BUTTON",
+                  "connected": true,
+                  "action": "events",
+                  "id": ""
+                }
+              },
+              {
+                "name": "first-Escape-focus-passed"
+              },
+              {
+                "name": "modal-Back-Escape-close-completed",
+                "modalOpen": false,
+                "cancelObserved": true,
+                "closeObserved": true,
+                "focus": {
+                  "tag": "BUTTON",
+                  "connected": true,
+                  "action": "events",
+                  "id": ""
+                }
+              },
+              {
+                "name": "modal-Back-Escape-focus-passed"
+              },
+              {
+                "name": "replacement-Tab-reached"
+              },
+              {
+                "name": "replacement-modal-closed-focus-observed",
+                "tag": "BODY",
+                "connected": true,
+                "id": ""
+              }
+            ]
+          }
+        },
+        {
+          "id": "FIELDS_PREVIEW_RECOVERY",
+          "classification": "Source reviewed, corroborated by retained actual modes",
+          "sources": [
+            "tests/acceptance/staging-workspace-entry/checks.mjs:20",
+            "tests/acceptance/staging-workspace-entry/checks.mjs:22",
+            "tests/acceptance/staging-workspace-entry/browser.mjs:40",
+            "tests/acceptance/staging-workspace-entry/browser.mjs:43",
+            "tests/acceptance/staging-workspace-entry/browser.mjs:47"
+          ],
+          "finding": "Full independently authored intended five-field edit and untouched event/lot draft bind submitted payload, receipt, SQL and exact confirmed saved A mode/revision/org/event/lot packet. Cover/rendered welcome/Event/lot content, duplicate save, reload, fresh session and process restart are exercised."
+        },
+        {
+          "id": "NOTICE_AND_AUTHORITY",
+          "classification": "Source reviewed and retained final outcomes",
+          "sources": [
+            "tests/acceptance/staging-workspace-entry/checks.mjs:114",
+            "tests/acceptance/staging-workspace-entry/checks.mjs:123",
+            "tests/acceptance/staging-workspace-entry/browser.mjs:67"
+          ],
+          "finding": "First asynchronous approved-hint remains separately finite1. Later permitted held reads finish during uncertain/conflict save without replacing higher-priority notice/last confirmed preview. Actual Response.json settlement marker plus continuation/frame flush replaces sleep-only proof. Missing marker is99. Held tenant/session and reversed same-event reads remain context-bound; unresolved create/save/approval switching stays blocked."
+        },
+        {
+          "id": "METADATA_SYNTAX",
+          "classification": "Source and receipt schema reviewed",
+          "sources": [
+            "tests/acceptance/staging-workspace-entry/run.mjs:37",
+            "tests/acceptance/staging-workspace-entry/syntax.mjs:17"
+          ],
+          "finding": "version4 receipts no longer assert parent freeze/kernel status. They record unknown contractFreezeStatus, kernelInvokedByRunner:false and parentVerificationTree. Syntax mode remains healthy0/finiteSyntaxError1/unavailable99; actual v4 syntax0 retained under25s internal/60s proposed outer bound."
+        },
+        {
+          "id": "SELECTED_SUBSET",
+          "classification": "Source and retained final mode",
+          "finding": "Assigned and unassigned incomplete unselected lots do not block review/approval of complete selected saved lot. Full approval snapshot/window and ordered SQL remain immutable after later draft save."
+        }
+      ],
+      "retainedFinalModes": {
+        "acceptance": {
+          "receipt": "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/acceptance/RUN_RECEIPT.json",
+          "receiptSHA256": "5180f04568f820f981d22e372ed6ea24342f07e668e0ef2fe9c125ede1e2f88a",
+          "actualExit": 1,
+          "durationMs": 14098,
+          "sourceCommitRecordedAtExecution": "08530e822a05ddce13e35e9982183c92b1dd2371",
+          "version": 4
+        },
+        "adversarial": {
+          "receipt": "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/adversarial/RUN_RECEIPT.json",
+          "receiptSHA256": "004279ae6f490fdd70bc1b514224be209cc875fed260dd81c95afd2323127672",
+          "actualExit": 1,
+          "durationMs": 18294,
+          "sourceCommitRecordedAtExecution": "08530e822a05ddce13e35e9982183c92b1dd2371",
+          "version": 4
+        },
+        "KEYBOARD_DIALOG_FOCUS": {
+          "receipt": "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/KEYBOARD_DIALOG_FOCUS/RUN_RECEIPT.json",
+          "receiptSHA256": "e3e6e285cdf78e0d20a6ca3874f9491f783c462eb11df7d67cdc137cc8f1cce0",
+          "actualExit": 1,
+          "durationMs": 5272,
+          "sourceCommitRecordedAtExecution": "08530e822a05ddce13e35e9982183c92b1dd2371",
+          "version": 4
+        },
+        "syntax": {
+          "receipt": "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/syntax/RUN_RECEIPT.json",
+          "receiptSHA256": "f434d665e59d44a1291318667b580ae0185431e7821beb1d628c06402784520f",
+          "actualExit": 0,
+          "durationMs": 38,
+          "sourceCommitRecordedAtExecution": "08530e822a05ddce13e35e9982183c92b1dd2371",
+          "version": 4
+        }
+      },
+      "retainedCaseOutcomes": [
+        {
+          "id": "NAV_WORKSPACE_ABSENT",
+          "actualExit": 1,
+          "expectedBaseExit": 1,
+          "message": "NAV_WORKSPACE_ABSENT: exactly one new Event Studio navigation\n\n0 !== 1\n"
+        },
+        {
+          "id": "DURABLE_SAVED_PREVIEW",
+          "actualExit": 0,
+          "expectedBaseExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "CREATE_RECOVERY",
+          "actualExit": 0,
+          "expectedBaseExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "ROUTES_BACK_RELOAD",
+          "actualExit": 0,
+          "expectedBaseExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "KEYBOARD_DIALOG_FOCUS",
+          "actualExit": 1,
+          "expectedBaseExit": 1,
+          "message": "Replacement restores a live control or heading focus after close/task/frame completion: {\"tag\":\"BODY\",\"connected\":true,\"id\":\"\"}"
+        },
+        {
+          "id": "REACHABILITY",
+          "actualExit": 1,
+          "expectedBaseExit": 1,
+          "message": "Bounded reachability: nav[aria-label=\"Event Studio\"] unreachable 1440/true/false; nav[aria-label=\"Event Studio\"] unreachable 1440/true/true; nav[aria-label=\"Event Studio\"] unreachable 1440/false/false; nav[aria-label=\"Event Studio\"] unreachable 1440/false/true; nav[aria-label=\"Event Studio\"] unreachable 1280/true/false; nav[aria-label=\"Event Studio\"] unreachable 1280/true/true; nav[aria-label=\"Event Studio\"] unreachable 1280/false/false; nav[aria-label=\"Event Studio\"] unreachable 1280/false/true\n+ actual - expected\n\n+ [\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/true/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/true/true',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/false/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1440/false/true',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/true/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/true/true',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/false/false',\n+   'nav[aria-label=\"Event Studio\"] unreachable 1280/false/true'\n+ ]\n- []\n"
+        },
+        {
+          "id": "STALE_DRAFT_SESSION",
+          "actualExit": 0,
+          "expectedBaseExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "STALE_APPROVAL_SESSION",
+          "actualExit": 0,
+          "expectedBaseExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "UNRESOLVED_WRITES_BLOCK",
+          "actualExit": 0,
+          "expectedBaseExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "MALFORMED_SAVE_RECOVERY",
+          "actualExit": 0,
+          "expectedBaseExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "DIRTY_REPLACEMENT",
+          "actualExit": 0,
+          "expectedBaseExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "APPROVED_NOTICE_ASYNC",
+          "actualExit": 1,
+          "expectedBaseExit": 1,
+          "message": "APPROVED_NOTICE_ASYNC: first approved read refreshes hint without input/tab change\n+ actual - expected\n\n+ 'Working draft. Save changes before approving a catalog.'\n- 'Working draft. Changes do not alter the approved catalog.'\n"
+        },
+        {
+          "id": "APPROVED_NOTICE_PRIORITY",
+          "actualExit": 0,
+          "expectedBaseExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "APPROVAL_RESPONSE_VARIANTS",
+          "actualExit": 0,
+          "expectedBaseExit": 0,
+          "message": "All contracted observations completed"
+        },
+        {
+          "id": "SELECTED_SUBSET_IMMUTABLE",
+          "actualExit": 0,
+          "expectedBaseExit": 0,
+          "message": "All contracted observations completed"
+        }
+      ],
+      "controlsAndLimits": [
+        {
+          "classification": "v4 simulated observer control",
+          "finding": "missing-consumption helper yields evidenceExit99; the control script itself exits0 because it asserts that expected classification. This is simulated missing-observer evidence, not an actual application timeout."
+        },
+        {
+          "classification": "Historical v3 sensitivity; not certified as rerun under v4",
+          "finding": "Renamed-only/duplicate nav, dropped epoch, notice repaired-reference/removal pair, HTTP500, invalid seed/missing tools/dependencies/unknown mode/internal deadline, and invalidJS1/missing runtime99 controls retain explicit v3 source hashes. v4 new native-focus helper and receipt metadata changed; do not call old controls v4 executions."
+        },
+        {
+          "classification": "Bounded coverage caveat",
+          "finding": "Reachability asserts geometry and overflow; it does not fully establish opacity, occlusion/hit testing or painted focus quality. The visible-focus-style assertion remains unreached behind the named baseline replacement-focus failure. Rendered chosen-design judgment, zoom review, broad accessibility/age usability remain separate."
+        },
+        {
+          "classification": "Integration boundary",
+          "finding": "Original source bindings truthfully identify pre-integration V4 planning inputs. V5 decision/TOML integration requires explicit final trusted binding while preserving old preparation inputs and receipts; root reports this boundary pending."
+        },
+        {
+          "classification": "Historical warning boundary",
+          "finding": "No diff-check success is claimed. Historical raw/source whitespace warnings are retained; this audit performed no diff-check or cleanup."
+        }
+      ],
+      "retractionPreserved": "The earlier apparent08530 CASE_PLAN mismatch came from moving v4 worktree data. Exact08530 objects had287/287 matching bindings; final1517429 objects have335/335. There is no predecessor provenance blocker.",
+      "reviewedHashes": {
+        "CASE_PLAN.json": "12203090524eb6d839684baef8353f2a95b5c640568561ef8899d957d343e803",
+        "run.mjs": "be8b7a4e47d8da2a760fc7fbc72bd06c0c86830704d33ceef2687ebea4753a44",
+        "browser.mjs": "7a7a266afa621f4e8d885dbf89e1616c4f6303c5694a4c9dfefe429a3083839a",
+        "checks.mjs": "af70922df30db691a010acce8cb6fe45887cff0711bb1fa3c713cdf80b4656a6",
+        "harness.mjs": "f56f3f11ffefabfd6bd7bf5a0e77f505b76978ea780267769a2f0f660cc3c59f",
+        "syntax.mjs": "5cc57a784a3845da68a7ef2cbcc98b76085290a14a85b6d27774bf30cbc43a44",
+        "SOURCE_BINDING.json": "dc2c963de09a0a39cb9827747fb8b160861685bbaa02b615a345e418cf8b3168",
+        "EVIDENCE_BINDING.json": "c2d51d0fc1d755e6b72957f57d604295ee83f94f1143569aec90982cbf68fd00",
+        "fixtures.mjs": "9c33b55486c048364746363a65baa465e775ad25cec2a9198d8a8cd8de1387d2",
+        "protocol.mjs": "2284e048df0c14fa2de87333b5fbd2c272f806f3074e10981cf3df62bc878ea9",
+        "V4_DELTA_PLAN.json": "6bde39e098cb8650929ac6626ab2d66092f9b76655b9f7bd5eec406161fd8ec1",
+        "V4_PREDECESSOR_PROVENANCE_AUDIT.json": "03eca18bf276b82ac5b749066ed48ec7e7c91ae5a6f6e11281958d805b4bfcdb",
+        "v4-missing-consumption-control.mjs": "4a35448a307a50fb82c0b83bc96ed29acc3cebf73ff4dc99bb98edc44336ff1d",
+        "README.md": "1d91bbc086953f3d2b29778147c511255ee813dbd4599091fe25deb3e771f69c"
+      },
+      "reviewedProposalHashes": {
+        "docs/decisions/event-studio-workspace-2026-10-05.json": "fa5fde3dbda8a587dda3ae350630d54b5352abd0e3a66875e809da802e90b1fd",
+        "docs/proposed/staging-workspace-entry-004.toml": "da31e8944ca79103c3f8503fa11b86edd490d04fb11cf9b92537cc8f0a4ec34d"
+      },
+      "ownPreparationReceiptReviewed": {
+        "path": "docs/reviews/workspace-entry-004.preparation.json",
+        "sha256": "a32c75d70902d2b8881780aaa3d9217c36b3fa017a3a256532c231a6e11df0db"
+      },
+      "hashInputsAtExactRevision": [
+        "docs/reviews/workspace-entry-004.preparation.json",
+        "tests/acceptance/staging-workspace-entry/CASE_PLAN.json",
+        "tests/acceptance/staging-workspace-entry/ORPHAN_CLEANUP_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/PROTECTED_SOURCE_MANIFEST.json",
+        "tests/acceptance/staging-workspace-entry/README.md",
+        "tests/acceptance/staging-workspace-entry/REDACTION_PROVENANCE.json",
+        "tests/acceptance/staging-workspace-entry/SOURCE_BINDING.json",
+        "tests/acceptance/staging-workspace-entry/V4_DELTA_PLAN.json",
+        "tests/acceptance/staging-workspace-entry/V4_PREDECESSOR_PROVENANCE_AUDIT.json",
+        "tests/acceptance/staging-workspace-entry/V4_SOURCE_BINDING.json",
+        "tests/acceptance/staging-workspace-entry/browser.mjs",
+        "tests/acceptance/staging-workspace-entry/checks.mjs",
+        "tests/acceptance/staging-workspace-entry/final-checks.py",
+        "tests/acceptance/staging-workspace-entry/fixtures.mjs",
+        "tests/acceptance/staging-workspace-entry/harness.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v1/CASE_PLAN.json",
+        "tests/acceptance/staging-workspace-entry/history/v1/CORRECTIONS.json",
+        "tests/acceptance/staging-workspace-entry/history/v1/SOURCE_BINDING.json",
+        "tests/acceptance/staging-workspace-entry/history/v1/browser.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v1/checks.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v1/fixtures.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v1/harness.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v1/oracle-controls.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v1/preparation-controls.py",
+        "tests/acceptance/staging-workspace-entry/history/v1/prepare.py",
+        "tests/acceptance/staging-workspace-entry/history/v1/protocol.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v1/run.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v1/seed-people.sql",
+        "tests/acceptance/staging-workspace-entry/history/v2/CASE_PLAN.json",
+        "tests/acceptance/staging-workspace-entry/history/v2/CORRECTIONS.json",
+        "tests/acceptance/staging-workspace-entry/history/v2/SOURCE_BINDING.json",
+        "tests/acceptance/staging-workspace-entry/history/v2/browser.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v2/checks.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v2/fixtures.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v2/harness.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v2/oracle-controls.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v2/preparation-controls.py",
+        "tests/acceptance/staging-workspace-entry/history/v2/prepare.py",
+        "tests/acceptance/staging-workspace-entry/history/v2/protocol.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v2/run.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v2/seed-people.sql",
+        "tests/acceptance/staging-workspace-entry/history/v3-08530-predecessor/CASE_PLAN.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-08530-predecessor/EVIDENCE_BINDING.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-08530-predecessor/README.md",
+        "tests/acceptance/staging-workspace-entry/history/v3-08530-predecessor/SOURCE_BINDING.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-08530-predecessor/browser.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v3-08530-predecessor/checks.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v3-08530-predecessor/preparation-receipt.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-08530-predecessor/run.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v3-08530-predecessor/syntax.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/CASE_PLAN.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/CORRECTION.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/browser.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/checks.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/CONTROL_RESULTS.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/DOM-and-HTTP500-oracles.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/DOM-oracles/ORACLE_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/DOM-oracles/actual-baseline-before-nav-DOM-probes.png",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/dropped-context-epoch-probe.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/epoch-mutant/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/internal-mode-deadline.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/list.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/missing-mode.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/missing-node-dependencies.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/missing-option-value.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/missing-postgres.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/notice-omission/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/notice-reference/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/notice-refresh-omission-probe.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/notice-refresh-reference-probe.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/setup-invalid-seed.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/controls/unknown-mode.log",
+        "tests/acceptance/staging-workspace-entry/history/v3-ui-characterization/CASE_PLAN.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-ui-characterization/FINAL_DELTA.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-ui-characterization/SOURCE_BINDING.json",
+        "tests/acceptance/staging-workspace-entry/history/v3-ui-characterization/harness.mjs",
+        "tests/acceptance/staging-workspace-entry/history/v3-ui-characterization/run.mjs",
+        "tests/acceptance/staging-workspace-entry/oracle-controls.mjs",
+        "tests/acceptance/staging-workspace-entry/preparation-controls.py",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/CONTROL_RESULTS.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/DOM-and-HTTP500-oracles.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/DOM-oracles/ORACLE_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/DOM-oracles/actual-baseline-before-nav-DOM-probes.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/SOURCE_PROBE_PAIR_BINDING.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/dropped-context-epoch-probe.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/epoch-mutant/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/internal-mode-deadline.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/list.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/missing-mode.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/missing-node-dependencies.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/missing-option-value.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/missing-postgres.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/notice-omission/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/notice-reference/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/notice-refresh-omission-probe.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/notice-refresh-reference-probe.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/setup-invalid-seed.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/controls/unknown-mode.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1-nav/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1-nav/baseline-before-any-DOM-probe-1440x900.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/APPROVAL_RESPONSE_VARIANTS.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/APPROVAL_RESPONSE_VARIANTS/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/APPROVED_NOTICE_ASYNC.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/APPROVED_NOTICE_ASYNC/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/CHARACTERIZATION.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/CREATE_RECOVERY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/CREATE_RECOVERY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/DIRTY_REPLACEMENT.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/DIRTY_REPLACEMENT/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/DURABLE_SAVED_PREVIEW.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/DURABLE_SAVED_PREVIEW/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/KEYBOARD_DIALOG_FOCUS.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/KEYBOARD_DIALOG_FOCUS/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/MALFORMED_SAVE_RECOVERY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/MALFORMED_SAVE_RECOVERY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/NAV_WORKSPACE_ABSENT.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/NAV_WORKSPACE_ABSENT/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/NAV_WORKSPACE_ABSENT/baseline-before-any-DOM-probe-1440x900.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/actual-baseline-1280x800-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/actual-baseline-1280x800-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/actual-baseline-1280x800-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/actual-baseline-1280x800-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/actual-baseline-1440x900-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/actual-baseline-1440x900-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/actual-baseline-1440x900-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/actual-baseline-1440x900-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/baseline-200percent-equivalent-CSS-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/REACHABILITY/baseline-200percent-equivalent-CSS-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/ROUTES_BACK_RELOAD.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/ROUTES_BACK_RELOAD/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/SELECTED_SUBSET_IMMUTABLE.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/SELECTED_SUBSET_IMMUTABLE/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/STALE_APPROVAL_SESSION.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/STALE_APPROVAL_SESSION/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/STALE_DRAFT_SESSION.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/STALE_DRAFT_SESSION/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/UNRESOLVED_WRITES_BLOCK.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/UNRESOLVED_WRITES_BLOCK/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/acceptance.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/acceptance/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/acceptance/baseline-before-any-DOM-probe-1440x900.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/adversarial.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v1/adversarial/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/APPROVAL_RESPONSE_VARIANTS.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/APPROVAL_RESPONSE_VARIANTS/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/APPROVED_NOTICE_ASYNC.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/APPROVED_NOTICE_ASYNC/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/APPROVED_NOTICE_PRIORITY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/APPROVED_NOTICE_PRIORITY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/CHARACTERIZATION.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/CREATE_RECOVERY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/DIRTY_REPLACEMENT.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/DIRTY_REPLACEMENT/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/DURABLE_SAVED_PREVIEW.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/DURABLE_SAVED_PREVIEW/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/KEYBOARD_DIALOG_FOCUS.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/KEYBOARD_DIALOG_FOCUS/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/MALFORMED_SAVE_RECOVERY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/MALFORMED_SAVE_RECOVERY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/NAV_WORKSPACE_ABSENT.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/NAV_WORKSPACE_ABSENT/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/NAV_WORKSPACE_ABSENT/baseline-before-any-DOM-probe-1440x900.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-1280x800-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-1280x800-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-1280x800-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-1280x800-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-1440x900-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-1440x900-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-1440x900-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-1440x900-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-CSS-zoom200percent-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/actual-baseline-CSS-zoom200percent-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/baseline-200percent-equivalent-CSS-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/REACHABILITY/baseline-200percent-equivalent-CSS-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/ROUTES_BACK_RELOAD.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/ROUTES_BACK_RELOAD/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/SELECTED_SUBSET_IMMUTABLE.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/SELECTED_SUBSET_IMMUTABLE/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/STALE_APPROVAL_SESSION.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/STALE_APPROVAL_SESSION/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/STALE_DRAFT_SESSION.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/STALE_DRAFT_SESSION/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/UNRESOLVED_WRITES_BLOCK.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/UNRESOLVED_WRITES_BLOCK/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/acceptance.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/acceptance/baseline-before-any-DOM-probe-1440x900.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/adversarial.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v2/adversarial/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/FINAL_RESULTS.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-1280x800-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-1280x800-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-1280x800-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-1280x800-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-1440x900-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-1440x900-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-1440x900-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-1440x900-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-CSS-zoom200percent-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/actual-baseline-CSS-zoom200percent-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/baseline-200percent-equivalent-CSS-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/baseline-200percent-equivalent-CSS-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/acceptance/baseline-before-any-DOM-probe-1440x900.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/adversarial.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/adversarial/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVAL_RESPONSE_VARIANTS.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVAL_RESPONSE_VARIANTS/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVED_NOTICE_ASYNC.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVED_NOTICE_ASYNC/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVED_NOTICE_PRIORITY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-APPROVED_NOTICE_PRIORITY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-STALE_APPROVAL_SESSION.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-STALE_APPROVAL_SESSION/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-STALE_DRAFT_SESSION.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/barrier-direct-STALE_DRAFT_SESSION/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/evidence-parse-browser.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/evidence-parse-checks.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/evidence-parse-fixtures.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/evidence-parse-harness.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/evidence-parse-oracle-controls.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/evidence-parse-protocol.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/evidence-parse-run.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/evidence-parse-syntax.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/inherited-runtime-refused.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/syntax-actual.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/syntax-actual/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/syntax-invalid-JS-probe.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/syntax-invalid/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3-final/syntax-unavailable-runtime-probe.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/APPROVAL_RESPONSE_VARIANTS.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/APPROVAL_RESPONSE_VARIANTS/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/APPROVED_NOTICE_ASYNC.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/APPROVED_NOTICE_ASYNC/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/APPROVED_NOTICE_PRIORITY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/APPROVED_NOTICE_PRIORITY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/CHARACTERIZATION.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/CREATE_RECOVERY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/CREATE_RECOVERY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/DIRTY_REPLACEMENT.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/DIRTY_REPLACEMENT/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/DURABLE_SAVED_PREVIEW.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/DURABLE_SAVED_PREVIEW/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/KEYBOARD_DIALOG_FOCUS.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/KEYBOARD_DIALOG_FOCUS/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/MALFORMED_SAVE_RECOVERY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/MALFORMED_SAVE_RECOVERY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/NAV_WORKSPACE_ABSENT.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/NAV_WORKSPACE_ABSENT/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/NAV_WORKSPACE_ABSENT/baseline-before-any-DOM-probe-1440x900.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-1280x800-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-1280x800-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-1280x800-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-1280x800-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-1440x900-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-1440x900-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-1440x900-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-1440x900-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-CSS-zoom200percent-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/actual-baseline-CSS-zoom200percent-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/baseline-200percent-equivalent-CSS-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/REACHABILITY/baseline-200percent-equivalent-CSS-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/ROUTES_BACK_RELOAD.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/ROUTES_BACK_RELOAD/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/SELECTED_SUBSET_IMMUTABLE.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/SELECTED_SUBSET_IMMUTABLE/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/STALE_APPROVAL_SESSION.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/STALE_APPROVAL_SESSION/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/STALE_DRAFT_SESSION.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/STALE_DRAFT_SESSION/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/UNRESOLVED_WRITES_BLOCK.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/UNRESOLVED_WRITES_BLOCK/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-1280x800-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-1280x800-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-1280x800-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-1280x800-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-1440x900-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-1440x900-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-1440x900-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-1440x900-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-CSS-zoom200percent-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/actual-baseline-CSS-zoom200percent-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/baseline-200percent-equivalent-CSS-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/baseline-200percent-equivalent-CSS-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/acceptance/baseline-before-any-DOM-probe-1440x900.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/adversarial.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v3/adversarial/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/FINAL_RESULTS.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/KEYBOARD_DIALOG_FOCUS.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/KEYBOARD_DIALOG_FOCUS/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/acceptance.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/acceptance/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/acceptance/actual-baseline-1280x800-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/acceptance/actual-baseline-1280x800-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/acceptance/actual-baseline-1280x800-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/acceptance/actual-baseline-1280x800-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/acceptance/actual-baseline-1440x900-preview-false-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/acceptance/actual-baseline-1440x900-preview-false-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/acceptance/actual-baseline-1440x900-preview-true-scroll-false.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/acceptance/actual-baseline-1440x900-preview-true-scroll-true.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/acceptance/actual-baseline-CSS-zoom200percent-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/acceptance/actual-baseline-CSS-zoom200percent-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/acceptance/baseline-200percent-equivalent-CSS-review-probe-1280.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/acceptance/baseline-200percent-equivalent-CSS-review-probe-1440.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/acceptance/baseline-before-any-DOM-probe-1440x900.png",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/adversarial.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/adversarial/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/evidence-parse-browser.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/evidence-parse-checks.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/evidence-parse-fixtures.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/evidence-parse-harness.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/evidence-parse-oracle-controls.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/evidence-parse-protocol.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/evidence-parse-run.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/evidence-parse-syntax.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/evidence-parse-v4-missing-consumption-control.mjs.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/missing-consumption-guard.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/missing-consumption-guard/CONTROL_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/syntax.log",
+        "tests/acceptance/staging-workspace-entry/preparation-logs/v4-final/syntax/RUN_RECEIPT.json",
+        "tests/acceptance/staging-workspace-entry/prepare.py",
+        "tests/acceptance/staging-workspace-entry/protocol.mjs",
+        "tests/acceptance/staging-workspace-entry/run.mjs",
+        "tests/acceptance/staging-workspace-entry/seed-people.sql",
+        "tests/acceptance/staging-workspace-entry/syntax.mjs",
+        "tests/acceptance/staging-workspace-entry/v4-checks.py",
+        "tests/acceptance/staging-workspace-entry/v4-missing-consumption-control.mjs"
+      ],
+      "missingConsumptionControl": {
+        "version": 4,
+        "classification": "SIMULATED_MISSING_CONSUMPTION_GUARD",
+        "actualEvidenceExit": 99,
+        "controlScriptExit": 0,
+        "durationMs": 8008
+      }
+    }
+  ]
+}

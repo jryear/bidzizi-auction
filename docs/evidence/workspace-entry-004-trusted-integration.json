@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "lifecycle": "Frozen spec/evidence in containing trusted commit; fresh baseline pending, candidate implementation not dispatched",
+  "authorEvidenceCommit": "1517429c446b39612b82902aa6fa9697ff4175a9",
+  "authorOriginBase": "5e910345378e283b05bf0630cb2d05c2ca85e5ff",
+  "reviewedProposalCommit": "88cedd53cf12692ed0538a2db523afce3c5e5423",
+  "applicationSourceUnchangedFrom": "916eaa2efa9220434d8b0bef6f53f637ca157d22",
+  "lastApplicationCommit": "ba4e3257681081c127c9c70191d6ec379de64ab4",
+  "chosenDesignCommit": "4cb2e1018169e11c96bba8495d3ad182e90c8b3b",
+  "candidateFiles": [
+    "public/staging-admin/studio.js",
+    "public/staging-admin/studio.css",
+    "public/staging-admin/index.html"
+  ],
+  "baselineSubjectSHA256": {
+    "public/staging-admin/studio.js": "438270354e6c0bd47132d810c44893cf7e52956020eea8b2bc371d7ac516ba82",
+    "public/staging-admin/studio.css": "87e3f81eb270ea5b0f1a615cc2998ca97a91e0338739569f70c31bda0284495a",
+    "public/staging-admin/index.html": "336bcabb3d410796efcbf734ff5509558c54b4055ff3d1d457b54d128c56bee8"
+  },
+  "historicalPreparationBinding": "tests/acceptance/staging-workspace-entry/SOURCE_BINDING.json describes original5e9 source. It is retained, not relabeled as current integration. Actual runner receipts measure current revision/file hashes; kernel protects declared evidence and trusted spec.",
+  "authorEvidenceManifestSHA256": "c2d51d0fc1d755e6b72957f57d604295ee83f94f1143569aec90982cbf68fd00",
+  "authorEvidenceCount": 335,
+  "independentReviewPath": "docs/reviews/workspace-entry-004.executable-review.json",
+  "independentReviewSHA256": "c11684548ad0a94c67092594846352433bcb1f5a3131f3d03dcc1cd61ea55d69",
+  "frozenSpecPath": "tasks/staging-workspace-entry-004.toml",
+  "frozenSpecSHA256": "e01d1f03ebef2871dba13eb97ac902008c3cf534bd18c210662af7e5440c4b11",
+  "trustedBaseSelection": "Caller supplies containing commit through --base/FROZEN_BASE_SHA; never select from TOML or candidate content",
+  "kernel": {
+    "version": "3.0.1",
+    "verifierSHA256": "130e2fc8e1ff1152a7667951c44e0894a122536428fe85259224afb50543b0be"
+  },
+  "knownBaseFiniteFailures": [
+    "NAV_WORKSPACE_ABSENT",
+    "REACHABILITY (absent new nav)",
+    "KEYBOARD_DIALOG_FOCUS (settled replacement BODY)",
+    "APPROVED_NOTICE_ASYNC (old hint after first approved read)"
+  ],
+  "currentV4SensitivityProbes": {
+    "actualSourceCommit": "424da1efdefc2f6a57aa7061617788531416062d",
+    "classification": "Current v4 grader source-sandbox sensitivity probes, not application gate",
+    "rows": [
+      {
+        "id": "epoch-negative",
+        "argv": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "tests/acceptance/staging-workspace-entry/run.mjs",
+          "STALE_DRAFT_SESSION",
+          "--probe",
+          "DROP_CONTEXT_EPOCH",
+          "--output",
+          "/Users/jryear/.local/state/bidzizi/kernel-timeout-correction-20261005T222324Z/next-workspace-slice/integration-controls-v2/epoch-negative"
+        ],
+        "expectedExit": 1,
+        "actualExit": 1,
+        "seconds": 9.949
+      },
+      {
+        "id": "notice-positive-reference",
+        "argv": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "tests/acceptance/staging-workspace-entry/run.mjs",
+          "APPROVED_NOTICE_ASYNC",
+          "--probe",
+          "NOTICE_REFRESH_REFERENCE",
+          "--output",
+          "/Users/jryear/.local/state/bidzizi/kernel-timeout-correction-20261005T222324Z/next-workspace-slice/integration-controls-v2/notice-positive-reference"
+        ],
+        "expectedExit": 0,
+        "actualExit": 0,
+        "seconds": 9.613
+      },
+      {
+        "id": "notice-negative",
+        "argv": [
+          "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+          "tests/acceptance/staging-workspace-entry/run.mjs",
+          "APPROVED_NOTICE_ASYNC",
+          "--probe",
+          "OMIT_NOTICE_REFRESH",
+          "--output",
+          "/Users/jryear/.local/state/bidzizi/kernel-timeout-correction-20261005T222324Z/next-workspace-slice/integration-controls-v2/notice-negative"
+        ],
+        "expectedExit": 1,
+        "actualExit": 1,
+        "seconds": 9.447
+      }
+    ]
+  },
+  "initialRootSetupFailure": "Missing ignored dependency link produced99; exact failed log preserved privately. Existing trusted node_modules linked, then fresh controls rerun. No install or grader change.",
+  "coverageLimits": [
+    "Chosen-workspace candidate not implemented or visually accepted",
+    "Geometry does not establish opacity/occlusion, broad accessibility or any-age usability",
+    "Base replacement failure prevents later focus-style assertion; candidate must reach it",
+    "No real membership authentication/SMS/settlement/private-max/live-auction-readiness proof",
+    "Multiple windows, physical-event timing and rescheduling remain decisions"
+  ],
+  "reviewedCheckCount": 16,
+  "inheritedRegressionDefinitionsUnchanged": 13,
+  "newUISuiteCases": 15,
+  "separateSyntaxRegression": true,
+  "additionalClaudeFinalReview": "No final critique: both180s and140s same-route requests timed out; CLIauth confirms claude.ai/firstParty login. No model response, fallback or credential/provider change. See docs/reviews/workspace-entry-004.claude-final-attempts.json.",
+  "effects": {
+    "appChanges": false,
+    "sharedStagingWrites": false,
+    "push": false,
+    "merge": false,
+    "deploy": false,
+    "providerChanges": false
+  },
+  "currentIntegrationSHA256": {
+    "docs/proposed/staging-workspace-entry-004.toml": "da31e8944ca79103c3f8503fa11b86edd490d04fb11cf9b92537cc8f0a4ec34d",
+    "docs/proposed/workspace-entry-selector-manifest.v1.json": "fd5db6b7eb85e9a9f6f820d4095c104ee8ebe52a619ac9d9e20e2659b18f9473",
+    "docs/reviews/workspace-entry-004.executable-review.json": "c11684548ad0a94c67092594846352433bcb1f5a3131f3d03dcc1cd61ea55d69",
+    "docs/reviews/workspace-entry-004.claude-final-attempts.json": "e5a61a1e26e1bd5dc3f0ea6f87b3a33ec1674daa9bf803c1acead1f012511897",
+    "tasks/staging-workspace-entry-004.toml": "e01d1f03ebef2871dba13eb97ac902008c3cf534bd18c210662af7e5440c4b11",
+    "docs/decisions/event-studio-workspace-2026-10-05.json": "45f46c76bace0b281a1865a06523c6ce2f0053f7db1718d61b0f8c39d94bdd96"
+  }
+}

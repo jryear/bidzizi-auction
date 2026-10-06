@@ -1,5 +1,5 @@
 {
-  "status": "Owner selected direction; proposed tranche, not frozen and not implemented",
+  "status": "Frozen bounded contract/evidence; fresh baseline pending; application not implemented",
   "at": "2026-10-05T21:53:34.832600+00:00",
   "decision": "Workspace-led Event Studio",
   "designSourceCommit": "4cb2e1018169e11c96bba8495d3ad182e90c8b3b",
@@ -60,7 +60,7 @@
       "Current org/event text, navigation, save status, Save and preview control stay reachable at1440x900/1280x800 with preview open/closed and content scrolled; keyboard chooser replacement restores focus to a live control or main heading.",
       "Keep source-inferred Claude cases separate from reproduced defects. Confirm epoch-reset/save usability, modal Back/focus and notice priority in executable fixtures before accepting failures as product defects."
     ],
-    "fixtureOwnership": "Independent evidence author gpt-6.1-sol/high is preparing15 UI cases plus syntax regression in an isolated worktree. Preparation is not frozen completion evidence. Final packet requires independent review and fresh committed-base checks before implementation.",
+    "fixtureOwnership": "Independent gpt-6.1-sol/high authored committed v4packet1517429. Exact335bindings reviewed. Native keyboard timing correction versioned and full15rerun; older raw sources/failures retained. Root froze identical16reviewed check definitions; trusted baseline selection is CLI/environment.",
     "fieldsInJourney": [
       "name",
       "eyebrow",
@@ -92,9 +92,9 @@
   },
   "deliverySequence": [
     "Independent red-team contract/test-plan review plus Claude critique",
-    "Author executable independently owned evidence and negative/harness controls; characterize direct case-ID outcomes without a supported baseline claim.",
-    "Completed: owner-authorized reviewed3.0.1kernel installation and read-only release freeze; sequential original/installed6+20 checks. Pending: fresh004and cumulative13baseline/evidence proofs.",
-    "Commit frozen contract/evidence on trusted integration base",
+    "Completed independent executable15UI+syntax preparation and corrected full15rerun. Current v4 epoch/notice sensitivity probes rerun sequentially in root integration.",
+    "Completed owner-authorized installed/frozen3.0.1kernel6+20. Fresh004and inherited13committed-base run is next.",
+    "Frozen contract/evidence committed on trusted integration base; base SHA supplied through CLI/environment.",
     "Sol Medium implements only candidate files in an isolated worktree, commits bounded slice, then clean exact-commit verification and rendered review",
     "Publishing remains a separate authorized step; deploy same tested commit and hostedE2E only with applicable authority"
   ],
@@ -115,7 +115,7 @@
     "providerChanges": false,
     "newCredentials": false
   },
-  "draftVersion": 5,
+  "draftVersion": 6,
   "reviewCorrections": [
     {
       "source": "Independent red-team draftV1 review",
@@ -160,9 +160,11 @@
       ],
       "scope": "Fixed packetV1source-only critique; tools disabled; no deterministic pass"
     },
-    "correctedProposal": "V5 adds explicit syntax regression required by V4 and accurately preserves dirty event-switch blocking. Final executable packet and baseline proofs pending."
+    "correctedProposal": "V6 lifecycle/evidence metadata only; all16checkdefinitions identical to independentlyreviewedV5. Candidate implementation stillnotdispatched.",
+    "finalExecutable": "gpt-6.1-sol/high source-only exact1517429+V5review; no material source blocker, bounded coverage caveats retained. Runtime/evidence author separate. Root exact335hash audit matches.",
+    "finalClaude": "Two same-route finalrequests timed out180/140seconds, no model response; authstatusvalidfirstPartyclaude.ai. Earliercompletedclaude-opus-5-5 V1critique remains separate; no completed final critique."
   },
-  "updatedAt": "2026-10-05T23:35:23.165018+00:00",
+  "updatedAt": "2026-10-06T00:03:10.976343+00:00",
   "kernelBinding": {
     "version": "3.0.1",
     "verifierSHA256": "130e2fc8e1ff1152a7667951c44e0894a122536428fe85259224afb50543b0be",
@@ -171,6 +173,8 @@
     "releaseManifestSHA256": "bb91c088b1485ceca3f8667834e959265c637e2225e9e05b613e052feeb4dbfa",
     "installationReceipt": "docs/evidence/kernel-3.0.1-installation.json",
     "installedChecks": "Existing6 and frozen20 all pass on installed source; original10timeout failures retained. Sequential execution only.",
-    "applicationGates": "004 independently owned evidence is being prepared; no frozen base, candidate, new hosted result or baseline-ready claim."
-  }
+    "applicationGates": "Frozen004spec/evidence; fresh baseline/cumulative13proof pending. No candidate or new hosted result."
+  },
+  "contractPath": "tasks/staging-workspace-entry-004.toml",
+  "trustedIntegrationBinding": "docs/evidence/workspace-entry-004-trusted-integration.json"
 }
