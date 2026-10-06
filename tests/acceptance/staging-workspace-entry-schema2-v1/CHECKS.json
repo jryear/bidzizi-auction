@@ -586,6 +586,7 @@
         "next.config.ts",
         "package.json",
         "pnpm-lock.yaml",
+        "prototypes/admin-studio/bidder/src/fixtures.shared.js",
         "prototypes/admin-studio/evidence/model-check.mjs",
         "prototypes/admin-studio/model.js",
         "tasks/staging-workspace-entry-004.toml",

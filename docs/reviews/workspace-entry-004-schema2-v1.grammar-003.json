@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "classification": "PURE_CORRECTED_SCHEMA2_GRAMMAR_AND_CHAIN_CONTROL",
+  "status": "accepted",
+  "checkCount": 16,
+  "originalScopeNamesKindsTimeoutsPreserved": true,
+  "configAndSpecChainAgreement": true,
+  "allChainInputsTrackedRegular": true,
+  "index13ImportedFixtureDeclared": "prototypes/admin-studio/bidder/src/fixtures.shared.js"
+}
