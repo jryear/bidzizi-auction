@@ -1,9 +1,25 @@
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import { checkDatabase } from "../lib/database";
+import { testMode } from "../server/config";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ health?: string }>;
+}) {
+  const incomingHeaders = await headers();
+  const mode = testMode(new Request("https://staging.bidzizi.com/", {
+    headers: incomingHeaders,
+  }));
+  const query = await searchParams;
+  if (process.env.BIDZIZI_APP_MODE === "public-staging" &&
+      mode?.origin === "https://staging.bidzizi.com" && query.health !== "1") {
+    redirect("/events/72216e01-08c8-40ce-83c7-13a4c16a996f");
+  }
   const database = await checkDatabase();
   return (
     <main>
@@ -17,7 +33,7 @@ export default async function Home() {
           <span>{database.ok ? "SELECT 1 returned 1" : "Connection not verified"}</span>
         </div>
         <p className="checked">Checked <time dateTime={database.checkedAt}>{new Date(database.checkedAt).toUTCString()}</time></p>
-        <a className="refresh" href="/">Check again <span aria-hidden="true">↗</span></a>
+        <a className="refresh" href="/?health=1">Check again <span aria-hidden="true">↗</span></a>
       </section>
       <footer>New code. Fresh database.</footer>
     </main>
