@@ -5,13 +5,17 @@ import {esc} from './ui.js';
 const $=s=>document.querySelector(s);
 let ready=false,scope='',route='/',mode='saved';
 let path='/';
+let renderedHash=null;
 const memories=new Map();
 function remember(){memories.set(path,scrollY);}
+function focusRouteHeading(){$('#view main h1')?.focus({preventScroll:true});}
 function navigate(next,replace=false){
  remember();history[replace?'replaceState':'pushState']({from:path},'','#'+next);path=next;render();scrollTo(0,memories.get(next)||0);
+ focusRouteHeading();
 }
 function render(){
  if(!ready)return;
+ renderedHash=location.hash;
  const raw=(location.hash.slice(1)||'/').split('?')[0];
  path=/^\/lot\/[\w-]+$/.test(raw)||['/','/lots','/event'].includes(raw)?raw:'/lots';
  const match=path.match(/^\/lot\/([\w-]+)$/);const view=match?lotView(match[1]):views[path==='/'?'entry':path.slice(1)]();
@@ -42,6 +46,6 @@ document.addEventListener('click',ev=>{
 });
 document.addEventListener('input',ev=>{if(!ev.target.matches('[data-search]'))return;state.ui.q=ev.target.value;$('#lotlist').innerHTML=lotsList();$('#lot-count').textContent=lotsCount();});
 document.addEventListener('change',ev=>{if(ev.target.dataset.action==='sort'){state.ui.sort=ev.target.value;render();}});
-window.addEventListener('popstate',()=>{render();scrollTo(0,memories.get(path)||0);});
-window.addEventListener('hashchange',()=>render());
+window.addEventListener('popstate',()=>{render();scrollTo(0,memories.get(path)||0);focusRouteHeading();});
+window.addEventListener('hashchange',()=>{if(location.hash!==renderedHash){render();focusRouteHeading();}});
 if(parent!==window)parent.postMessage({type:'staff-preview-ready'},location.origin);

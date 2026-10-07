@@ -367,3 +367,67 @@ html[data-motion="reduce"] *, html[data-motion="reduce"] *::before, html[data-mo
 
 /* Embedded staff preview; A's screen anatomy and type remain intact. */
 .stage{display:block}.stage-left,.proto,#proto-handle{display:none!important}.shell{max-width:none;box-shadow:none}.studio-welcome{margin:18px 0;color:var(--ink-2);font-size:16px;line-height:1.5}.studio-wait{padding:25px 25px;text-align:center;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--paper)}.studio-brand{position:absolute;top:24px;font:600 26px var(--serif)}.studio-orbit{font-size:55px;line-height:1;margin-bottom:32px;color:var(--ink-2)}.studio-wait h1{font:500 39px/1.05 var(--serif);margin:14px 0 22px;letter-spacing:-.03em}.studio-open{font:650 24px var(--sans);margin-bottom:12px;font-variant-numeric:tabular-nums}.studio-foot{font-size:12px;margin-top:50px;color:var(--ink-2)}
+
+/* Approved welcome composition, using only the current saved event fields. */
+.entry.welcome-connected { padding:0; gap:0; background:var(--paper); }
+.welcome-connected .event-hero { position:relative; isolation:isolate; min-height:410px; display:flex; flex-direction:column; justify-content:space-between; color:var(--paper); background:var(--ink); }
+.welcome-connected .event-cover { position:absolute; inset:0; z-index:-2; width:100%; height:100%; max-width:none; object-fit:cover; object-position:50% 50%; }
+.welcome-connected .event-hero::after { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg,rgba(9,10,8,.58),rgba(9,10,8,.5) 38%,rgba(9,10,8,.83)),linear-gradient(90deg,rgba(9,10,8,.22),transparent); }
+.welcome-connected .hero-masthead { display:flex; align-items:center; justify-content:space-between; gap:20px; width:100%; max-width:1168px; margin:0 auto; padding:24px 24px 0; }
+.welcome-connected .hero-brand { flex:none; font:600 29px/1 var(--serif); letter-spacing:-.03em; text-decoration:none; }
+.welcome-connected .hero-brand:focus-visible { outline-color:var(--paper); }
+.welcome-connected .hero-masthead > span { font-size:14px; overflow-wrap:anywhere; }
+.welcome-connected .hero-title { width:100%; max-width:1168px; margin:92px auto 0; padding:0 24px 38px; }
+.welcome-connected .hero-title .host { color:var(--paper); margin-bottom:14px; font-size:12px; }
+.welcome-connected .hero-title h1 { max-width:920px; font:600 clamp(48px,5.1vw,74px)/.98 var(--serif); letter-spacing:-.035em; text-wrap:balance; overflow-wrap:anywhere; }
+.welcome-connected .welcome-content { max-width:1168px; width:100%; margin-inline:auto; padding:36px 24px 22px; }
+.welcome-connected .welcome-intro { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:64px; align-items:start; }
+.welcome-connected .welcome-message h2 { font:550 29px/1.1 var(--serif); letter-spacing:-.015em; text-wrap:balance; margin-bottom:12px; overflow-wrap:anywhere; }
+.welcome-connected .welcome-message > p { max-width:610px; margin:0; font-size:17px; line-height:1.5; color:var(--ink-2); overflow-wrap:anywhere; }
+.welcome-connected .welcome-actions { display:flex; flex-wrap:wrap; align-items:center; gap:16px 24px; margin-top:23px; }
+.welcome-connected .welcome-actions .btn { min-height:54px; border-radius:13px; padding-inline:22px; }
+.welcome-connected .event-link { display:inline-flex; align-items:center; gap:8px; min-height:44px; text-underline-offset:5px; font-size:14px; }
+.welcome-connected .welcome-facts { padding-top:4px; min-width:0; }
+.welcome-connected .venue { font-size:15px; font-weight:600; margin-bottom:13px; overflow-wrap:anywhere; }
+.welcome-connected .welcome-facts .facts { grid-template-columns:repeat(3,minmax(0,1fr)); padding:14px 0; border-block:1px solid var(--line); gap:12px; }
+.welcome-connected .welcome-facts .facts dd { font-size:16px; overflow-wrap:anywhere; }
+.welcome-connected .welcome-facts .fine { font-size:12px; margin-top:10px; }
+.welcome-connected .welcome-sponsors { margin-top:30px; padding-top:23px; border-top:1px solid var(--line); }
+.welcome-connected .welcome-sponsors > p { margin-bottom:16px; }
+.welcome-connected .welcome-sponsors ul { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px 32px; }
+.welcome-connected .welcome-sponsors li { display:flex; align-items:center; gap:12px; min-width:0; font-size:16px; font-weight:550; }
+.welcome-connected .welcome-sponsors li span:last-child { overflow-wrap:anywhere; }
+.welcome-connected .welcome-footer { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; border-top:1px solid var(--line); margin-top:29px; padding-top:20px; color:var(--ink-2); }
+.welcome-connected .welcome-footer > span { font:550 20px/1 var(--serif); color:var(--ink); }
+.welcome-connected .welcome-footer .btn-link { font-size:12px; line-height:1.35; }
+@media (max-width:900px) {
+  .welcome-connected .welcome-intro { gap:32px; grid-template-columns:1fr 1fr; }
+  .welcome-connected .welcome-message h2 { font-size:26px; }
+  .welcome-connected .welcome-actions { gap:8px 18px; }
+}
+@media (max-width:650px) {
+  .welcome-connected .event-hero { min-height:320px; }
+  .welcome-connected .hero-masthead { padding:22px 20px 0; }
+  .welcome-connected .hero-brand { font-size:26px; }
+  .welcome-connected .hero-masthead > span { font-size:12px; }
+  .welcome-connected .hero-title { margin-top:80px; padding:0 20px 28px; }
+  .welcome-connected .hero-title .host { font-size:10px; margin-bottom:12px; }
+  .welcome-connected .hero-title h1 { font-size:43px; line-height:.99; text-wrap:pretty; max-width:470px; }
+  .welcome-connected .welcome-content { display:flex; flex-direction:column; padding:26px 20px 22px; }
+  .welcome-connected .welcome-intro { display:contents; }
+  .welcome-connected .welcome-message { order:0; }
+  .welcome-connected .welcome-message h2 { font-size:25px; margin-bottom:12px; }
+  .welcome-connected .welcome-message > p { font-size:16px; line-height:1.47; }
+  .welcome-connected .welcome-actions { flex-direction:column; align-items:stretch; margin-top:22px; gap:8px; }
+  .welcome-connected .welcome-actions .btn { width:100%; }
+  .welcome-connected .event-link { justify-content:center; }
+  .welcome-connected .welcome-facts { order:2; margin-top:28px; width:100%; padding-top:0; }
+  .welcome-connected .venue { font-size:14px; }
+  .welcome-connected .welcome-facts .facts dd { font-size:15px; }
+  .welcome-connected .welcome-facts .facts dt { font-size:10px; }
+  .welcome-connected .welcome-sponsors { order:1; margin-top:24px; padding-top:22px; }
+  .welcome-connected .welcome-sponsors ul { grid-template-columns:1fr 1fr; gap:18px 12px; }
+  .welcome-connected .welcome-sponsors li { gap:9px; font-size:13px; line-height:1.25; }
+  .welcome-connected .welcome-sponsors .mark { --s:34px!important; }
+  .welcome-connected .welcome-footer { order:3; gap:14px; }
+}

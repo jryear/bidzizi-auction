@@ -6,7 +6,7 @@ import {esc,money,icon,monogram} from './ui.js';
 const RULESET='staging-usd-manual-v1';
 const $=s=>document.querySelector(s);
 export const bidder={context:null,eventId:null,epoch:null,refresh:null,stale:false,activeLot:null,entries:new Map()};
-let generation=0,signature='',sheet=null;
+let generation=0,signature='',sheet=null,sheetReturn=null;
 const changed=()=>window.dispatchEvent(new Event('bidder-change'));
 const currentBusiness=()=>bidder.context?.businesses.find(b=>b.id===state.identity?.businessId)||bidder.context?.businesses.find(b=>b.canBid)||bidder.context?.businesses[0]||null;
 const guard=()=>({generation,person:bidder.context?.person.id,event:bidder.eventId});
@@ -45,12 +45,12 @@ export function setContext(message){
  if(nextSignature!==signature){
   ++generation;signature=nextSignature;
   if(!actorChanged){for(const entry of bidder.entries.values()){if(entry.mode==='pending')entry.mode='unconfirmed';}}
-  if(actorChanged){bidder.entries.clear();if($('#sheet')?.open)$('#sheet').close();sheet=null;}
+  if(actorChanged){bidder.entries.clear();sheetReturn=null;if($('#sheet')?.open)$('#sheet').close();sheet=null;}
  }
  const refreshChanged=bidder.refresh!==message.refresh;
  bidder.context=c?structuredClone(c):null;bidder.eventId=message.eventId;bidder.epoch=message.epoch;bidder.refresh=message.refresh;bidder.stale=!!message.stale||!navigator.onLine;
  const b=currentBusiness();state.identity=c&&b?{business:b.name,businessId:b.id,person:c.person.name,personId:c.person.id}:null;
- if(!c){bidder.entries.clear();if($('#sheet')?.open)$('#sheet').close();sheet=null;}
+ if(!c){bidder.entries.clear();sheetReturn=null;if($('#sheet')?.open)$('#sheet').close();sheet=null;}
  changed();
  if(c&&bidder.activeLot&&(actorChanged||refreshChanged))void refreshLot(bidder.activeLot,{fresh:actorChanged});
  if(sheet)renderSheet();
@@ -128,36 +128,54 @@ function updateAmount(){
  const d=$('#sheet'),v=reviewValidity(),c=amountMinor(sheet.amount),button=d.querySelector('[data-action="place"]');
  if(!button)return;button.disabled=!v.ok;button.textContent=`Place ${c===null?'$—':money(c)} bid`;
  d.querySelector('#amt-err').textContent=v.text;
+ d.querySelector('#amt').setAttribute('aria-invalid',String(!v.ok));
  d.querySelector('#review-amount').textContent=c===null?'—':money(c);
  const lower=d.querySelector('[data-action="step"][data-d="-1"]');if(lower)lower.disabled=c===null||c-sheet.increment<sheet.minimum;
 }
 export function openBid(id,recovery=false){
  if(!bidder.context)return;
  const e=entryFor(id);if(!recovery&&!allowed(id))return;
+ sheetReturn={lot:id,action:recovery?'recover-open':'bid'};
  sheet={lot:id,mode:recovery?'unconfirmed':'review',amount:String((e.standing?.minimumAmountMinor??lotById(id).opening)/100),minimum:e.standing?.minimumAmountMinor??lotById(id).opening,increment:e.standing?.incrementMinor??2500};
  if(recovery&&e.intent)sheet.mode=e.mode||'unconfirmed';
  renderSheet();const d=$('#sheet');if(!d.open)d.showModal();d.querySelector('#sheet-title')?.focus({preventScroll:true});
 }
+// Polling and durable outcomes replace the sheet DOM. Keep keyboard context
+// inside the native dialog, even when the submitting control no longer exists.
+function captureSheetFocus(d){
+ const active=document.activeElement;if(!d.open||!d.contains(active))return null;
+ const selector=active.id?`#${CSS.escape(active.id)}`:active.dataset.action?`[data-action="${CSS.escape(active.dataset.action)}"]${active.dataset.d!==undefined?`[data-d="${CSS.escape(active.dataset.d)}"]`:''}${active.dataset.v!==undefined?`[data-v="${CSS.escape(active.dataset.v)}"]`:''}`:null;
+ return {selector,index:selector?[...d.querySelectorAll(selector)].indexOf(active):0,selection:active.id==='amt'?[active.selectionStart,active.selectionEnd]:null,mode:d.dataset.bidState};
+}
+function restoreSheetFocus(d,focus){
+ if(!focus||!d.open)return;
+ const sameMode=focus.mode===d.dataset.bidState;
+ const target=sameMode&&focus.selector?d.querySelectorAll(focus.selector)[focus.index]:null;
+ const next=target&&!target.disabled?target:d.querySelector('#sheet-title');
+ next?.focus({preventScroll:true});
+ if(next?.id==='amt'&&focus.selection)try{next.setSelectionRange(...focus.selection);}catch{}
+}
 function renderSheet(){
  if(!sheet||!bidder.context)return;
  const d=$('#sheet'),l=lotById(sheet.lot),e=entryFor(sheet.lot);if(!l)return;
+ const focus=captureSheetFocus(d);
  if(sheet.mode==='review'){
-  const previous=d.querySelector('#amt'),focused=previous===document.activeElement,selection=focused?[previous.selectionStart,previous.selectionEnd]:null;
   const b=currentBusiness();d.dataset.bidState='review';d.dataset.lot=l.id;
   d.innerHTML=`<div class="sheet-in">${head('Place a bid')}<div class="sheet-scroll">${lotMini(l)}${businessBlock({businessId:b?.id})}<div class="amount"><label class="lbl" for="amt">Your bid <span class="lbl-min">· minimum ${money(sheet.minimum)}</span></label><div class="stepper"><button class="step" data-action="step" data-d="-1" aria-label="Decrease by ${money(sheet.increment)}">${icon('minus')}</button><div class="amt-field"><span class="cur" aria-hidden="true">$</span><input id="amt" inputmode="decimal" autocomplete="off" maxlength="12" value="${esc(sheet.amount)}" aria-describedby="amt-err"></div><button class="step" data-action="step" data-d="1" aria-label="Increase by ${money(sheet.increment)}">${icon('plus')}</button></div><p id="amt-err" class="err" role="alert"></p><div class="quick">${[0,1,2].map(i=>sheet.minimum+i*sheet.increment).filter(c=>c<=1_000_000_000).map(c=>`<button class="chip" data-action="quick" data-v="${c}">${money(c)}</button>`).join('')}</div></div><section class="commit-box"><h3>Review your bid</h3><ul><li>Bid <b id="review-amount"></b> on <b>Lot ${esc(l.number)}</b> for <b>${esc(b?.name)}</b>.</li><li>Placed by <b>${esc(bidder.context.person.name)}</b>.</li><li>Acceptance appears after the server records this bid.</li><li class="note">Synthetic test bidding. No payment is taken.</li></ul></section></div><div class="sheet-foot"><button class="btn primary block lg" data-action="place">Place bid</button><button class="btn-link center" data-action="close-sheet">Not now</button></div></div>`;
-  updateAmount();if(focused){const input=d.querySelector('#amt');input.focus({preventScroll:true});try{input.setSelectionRange(...selection);}catch{}}return;
+  updateAmount();restoreSheetFocus(d,focus);return;
  }
  const mode=e.mode||sheet.mode,receipt=e.receipt,body=e.intent;
  sheet.mode=mode;d.dataset.bidState=mode==='not-recorded'?'rejected':mode;d.dataset.lot=l.id;
  let title='Bid not confirmed',tone='hatch',symbol='question',text="We couldn't confirm this bid. It may or may not have been recorded.",footer='<button class="btn primary block lg" data-action="check">Check status</button>',extra='';
- if(mode==='pending'){title='Sending your bid';tone='amber';symbol='spinner';text='Not placed yet. Waiting for the server to confirm it.';footer='<button class="btn quiet block lg" data-action="close-sheet">Keep browsing</button>';}
+ if(mode==='pending'){title='Sending your bid';tone='amber';symbol='spinner';text='Not placed yet. Waiting for the server to confirm it.';footer='<button class="btn quiet block lg" data-action="close-sheet">Browse while bid is pending</button>';}
  else if(mode==='accepted'&&receipt){title='Bid placed';tone='green';symbol='check';text=`Your ${money(receipt.amountMinor)} bid was recorded for ${esc(bidder.context.businesses.find(b=>b.id===receipt.businessId)?.name||'your business')}.`;extra=`<p data-owned-request="${esc(receipt.requestId)}">Confirmed ${esc(new Date(receipt.decidedAt).toLocaleString('en-US',{timeZone:'UTC'}))} UTC</p>`;footer='<button class="btn primary block lg" data-action="close-sheet">Keep browsing</button>';}
  else if(mode==='rejected'){title='Bid not placed';tone='dashed';symbol='x';text=({BELOW_MINIMUM:'Another bid changed the minimum. Your bid was not placed.',CLOSED:'Bidding closed before this bid could be placed.',NOT_OPEN:'Bidding has not opened. Your bid was not placed.',UNSUPPORTED_SELF_RAISE:'Your business is already leading. Raising its own bid is unavailable in this test.',AMOUNT_LIMIT:'No further bid fits within this test limit.'})[receipt?.reason]||'This bid was not placed.';footer='<button class="btn quiet block lg" data-action="close-sheet">Keep browsing</button>';}
- else if(mode==='not-recorded'){title='Bid not recorded';tone='dashed';symbol='x';text='We checked: this request is not recorded. Try again sends the same amount and request.';footer='<button class="btn primary block lg" data-action="retry">Try again</button><button class="btn-link center" data-action="close-sheet">Close</button>';}
+ else if(mode==='not-recorded'){title='Bid not recorded';tone='dashed';symbol='x';text=`We checked: this request is not recorded. Try again sends your original ${money(body.amountMinor)} bid using the same request.`;footer='<button class="btn primary block lg" data-action="retry">Try again</button><button class="btn-link center" data-action="close-sheet">Close</button>';}
  if(e.checking)extra+='<p class="r-note" role="status">Checking the original request…</p>';
  d.innerHTML=`<div class="sheet-in">${head(title)}<div class="sheet-scroll">${lotMini(l)}${businessBlock(body)}<div class="result t-${tone}" role="status"><span class="r-ic">${icon(symbol)}</span><h3>${title}</h3><p>${text}</p>${extra}</div></div><div class="sheet-foot">${footer}</div></div>`;
  d.querySelector('[data-action="check"]')?.toggleAttribute('disabled',e.checking||!navigator.onLine);
  d.querySelector('[data-action="retry"]')?.toggleAttribute('disabled',!navigator.onLine||bidder.stale);
+ restoreSheetFocus(d,focus);
 }
 async function submit(id,retry=false){
  const e=entryFor(id),g=guard();
@@ -205,6 +223,14 @@ export function bidAction(button){
  return false;
 }
 document.addEventListener('input',ev=>{if(ev.target.id==='amt'&&sheet?.mode==='review'){sheet.amount=ev.target.value;updateAmount();}});
-$('#sheet')?.addEventListener('close',()=>{sheet=null;});
+$('#sheet')?.addEventListener('close',()=>{
+ const target=sheetReturn;sheet=null;sheetReturn=null;
+ if(!target||target.lot!==bidder.activeLot)return;
+ queueMicrotask(()=>{
+  const button=$(`.catalog-footer [data-action="${target.action}"]`);
+  const next=button&&!button.disabled?button:$('main[data-lot] h1');
+  next?.focus({preventScroll:true});
+ });
+});
 window.addEventListener('offline',()=>{bidder.stale=true;for(const e of bidder.entries.values())e.stale=true;changed();if(sheet)renderSheet();});
 window.addEventListener('online',()=>{changed();});

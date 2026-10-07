@@ -58,35 +58,46 @@ export function ctaFor(lot) {
 
 // ---- entry (QR landing) ------------------------------------------------------------------
 export function entryView() {
-  const photos=[...new Set([event.cover,...lots.map(l=>l.image),'assets/lots/cabin.jpg','assets/lots/dinner.jpg'].filter(Boolean))].slice(0,3);
-  const id = state.identity;
-  const kinds = lots.map((l) => lotStatus(l).kind);
-  const c = (k) => kinds.filter((x) => x === k).length;
-  const last = state.lastViewed && lotById(state.lastViewed);
-  const bits = [c('leading') + c('final-leading') ? `${c('leading') + c('final-leading')} ${state.snap.closed ? 'top bid' : 'leading'}` : '', c('outbid') ? `${c('outbid')} outbid` : '', c('notplaced') + c('unconfirmed') ? `${c('notplaced') + c('unconfirmed')} to check` : ''].filter(Boolean);
-  const welcome = id ? `<section class="welcome" aria-label="Welcome back">
-      <p class="lbl">Welcome back ${assume('A12')}</p>
-      <div class="w-id">${monogram(id.business, 40, true)}<div><b>${esc(id.business)}</b><span>${esc(id.person)}${bits.length ? ' · ' + bits.join(', ') : ''}</span></div></div>
-      ${last ? `<a class="btn quiet block" href="#/lot/${last.id}" data-nav>Pick up where you left off: Lot ${esc(last.number)}</a>` : ''}
-    </section>` : '';
   return { name: 'entry', title: event.name, chrome: 'entry', html: `
-  <main class="entry" id="main">
+  <main class="entry welcome-connected" id="main" tabindex="-1">
     ${banners()}
-    <div class="fan" aria-hidden="true"><img src="${esc(photos[0])}" alt="" width="1000" height="667"><img src="${esc(photos[1])}" alt="" width="1000" height="667"><img src="${esc(photos[2])}" alt="" width="1000" height="667"></div>
-    <p class="host">${esc(event.host)} presents</p>
-    <h1 tabindex="-1" data-key="h1">${esc(event.name)} <span>Auction</span></h1>
-    <dl class="facts">
-      <div><dt>When</dt><dd>${esc(event.date)}</dd></div>
-      <div><dt>${state.snap.closed ? 'Closed' : 'Bidding closes'}</dt><dd>${esc(event.closes)} ${esc(event.timezone)} ${assume('A6')}</dd></div>
-      <div><dt>Lots</dt><dd>${event.lotCount}</dd></div>
-    </dl>
-    <p class="studio-welcome"><strong>${esc(event.eyebrow||'')}</strong><br>${esc(event.welcome || '')}</p>
-    ${welcome}
-    <a class="btn primary block lg" href="#/lots" data-nav data-key="browse">Browse the lots</a>
-    <p class="fine">No sign-in to look around. We only ask who's bidding when you place your first bid. ${assume('A1')}</p>
-    ${sponsors.length ? `<section class="sponsor-row" aria-label="Event sponsors"><p class="lbl">Event sponsors</p><ul>${sponsors.map((s) => `<li>${sponsorMark(s.logo, 34)}<span>${esc(s.name)}</span></li>`).join('')}</ul></section>` : ''}
-    <button class="btn-link center" data-action="welcome" data-key="welcome">A welcome from ${esc(event.host)}</button>
-    <a class="btn-link center" href="#/event" data-nav>Event information</a>
+    <section class="event-hero" aria-labelledby="event-title">
+      ${event.cover ? `<img class="event-cover" src="${esc(event.cover)}" alt="" width="1000" height="667" fetchpriority="high">` : ''}
+      <header class="hero-masthead">
+        <a class="hero-brand" href="#/" data-nav aria-label="BidZizi, event welcome">BidZizi</a>
+        <span>${esc(event.host)}</span>
+      </header>
+      <div class="hero-title">
+        <p class="host">${esc(event.host)} presents</p>
+        <h1 id="event-title" tabindex="-1" data-key="h1">${esc(event.name)}</h1>
+      </div>
+    </section>
+    <div class="welcome-content">
+      <div class="welcome-intro">
+        <section class="welcome-message" aria-label="Event welcome">
+          ${event.eyebrow ? `<h2>${esc(event.eyebrow)}</h2>` : ''}
+          <p class="studio-welcome">${esc(event.welcome || '')}</p>
+          <div class="welcome-actions">
+            <a class="btn primary lg" href="#/lots" data-nav data-key="browse">Browse the lots ${icon('right')}</a>
+            <a class="event-link" href="#/event" data-nav>Event information ${icon('right','sm')}</a>
+          </div>
+        </section>
+        <aside class="welcome-facts" aria-label="Event details">
+          <p class="venue">${esc(event.venue)}</p>
+          <dl class="facts">
+            <div><dt>When</dt><dd>${esc(event.date)}</dd></div>
+            <div><dt>Draft close</dt><dd>${esc(event.closes)} ${esc(event.timezone)}</dd></div>
+            <div><dt>Lots</dt><dd>${event.lotCount}</dd></div>
+          </dl>
+          <p class="fine">Staff draft preview. Bidding is disabled.</p>
+        </aside>
+      </div>
+      ${sponsors.length ? `<section class="welcome-sponsors" aria-labelledby="sponsor-title">
+        <p class="lbl" id="sponsor-title">With our event sponsors</p>
+        <ul>${sponsors.map(s=>`<li>${sponsorMark(s.logo,44)}<span>${esc(s.name)}</span></li>`).join('')}</ul>
+      </section>` : ''}
+      <footer class="welcome-footer"><span>BidZizi</span><button class="btn-link" data-action="welcome" data-key="welcome">A welcome from ${esc(event.host)}</button></footer>
+    </div>
   </main>` };
 }
 

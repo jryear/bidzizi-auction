@@ -5,9 +5,12 @@ import {esc} from './ui.js';
 import {setContext,activateLot,bidAction} from './bidding.js';
 const $=s=>document.querySelector(s);
 let ready=false,scope='',path='/';
+let renderedHash=null;
 const memories=new Map();
+function focusRouteHeading(){$('#view main h1')?.focus({preventScroll:true});}
 function render(){
  if(!ready)return;
+ renderedHash=location.hash;
  const raw=(location.hash.slice(1)||'/').split('?')[0];
  path=catalog.phase==='scheduled'?(raw==='/event'?'/event':'/'):(/^\/lot\/[\w-]+$/.test(raw)||['/','/lots','/event'].includes(raw)?raw:'/');
  const match=path.match(/^\/lot\/([\w-]+)$/);
@@ -21,6 +24,7 @@ function render(){
 function navigate(next,replace=false){
  if(catalog.phase==='scheduled'&&next!=='/event')next='/';
  memories.set(path,scrollY);history[replace?'replaceState':'pushState']({from:path},'','#'+next);render();scrollTo(0,memories.get(path)||0);
+ focusRouteHeading();
 }
 function valid(p){
  return p&&p.event&&p.organization&&typeof p.event.id==='string'&&typeof p.organization.id==='string'&&['scheduled','open','closed'].includes(p.phase)&&p.biddingEnabled===false&&Number.isFinite(Date.parse(p.serverNow))&&p.schedule&&Number.isFinite(Date.parse(p.schedule.opensAt))&&Number.isFinite(Date.parse(p.schedule.closesAt))&&Array.isArray(p.event.sponsors)&&(p.phase==='scheduled'?p.catalog===null:p.catalog&&Array.isArray(p.catalog.lots));
@@ -46,8 +50,7 @@ document.addEventListener('click',ev=>{
 });
 document.addEventListener('input',ev=>{if(!ev.target.matches('[data-search]')||catalog.phase==='scheduled')return;state.ui.q=ev.target.value;$('#lotlist').innerHTML=lotsList();$('#lot-count').textContent=lotsCount();});
 document.addEventListener('change',ev=>{if(ev.target.dataset.action==='sort'){state.ui.sort=ev.target.value;render();}});
-window.addEventListener('popstate',()=>{render();scrollTo(0,memories.get(path)||0);});
-window.addEventListener('hashchange',()=>render());
+window.addEventListener('popstate',()=>{render();scrollTo(0,memories.get(path)||0);focusRouteHeading();});
+window.addEventListener('hashchange',()=>{if(location.hash!==renderedHash){render();focusRouteHeading();}});
 window.addEventListener('bidder-change',()=>render());
 if(parent!==window)parent.postMessage({type:'audience-ready'},location.origin);
-
