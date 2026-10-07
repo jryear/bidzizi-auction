@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import DemoEntryForm, {pendingDemoEntry,entryStorageKey} from "./demo-entry-form";
 
 type CatalogPacket = { phase: string; event: { id: string }; [key: string]: unknown };
 type Person = { id: string; name: string };
@@ -22,6 +23,7 @@ export default function EventAccess({ eventId }: { eventId: string }) {
   const [bidder, setBidder] = useState<BidderContext | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [demoEntry,setDemoEntry]=useState(false),[entryRecovery,setEntryRecovery]=useState(false);
   const epoch = useRef(0), sequence = useRef(0), frame = useRef<HTMLIFrameElement>(null);
   const latest = useRef<CatalogPacket | null>(null), currentBidder = useRef<BidderContext | null>(null), stale = useRef(false);
   const send = useCallback(() => {
@@ -68,12 +70,20 @@ export default function EventAccess({ eventId }: { eventId: string }) {
   useEffect(() => {
     const ticket = ++epoch.current; ++sequence.current;
     clear(); setError("");
-    api("/api/session").then(s => {
+    Promise.allSettled([api("/api/session"),api(`/api/demo/events/${encodeURIComponent(eventId)}/entry`)]).then(results => {
       if (epoch.current !== ticket) return;
-      setSession(s); if (s.authenticated) void load(ticket);
+      const sessionResult=results[0],entryResult=results[1];
+      if(sessionResult.status!=="fulfilled"){setError("Sign-in could not be checked. Reload to try again.");return;}
+      const s=sessionResult.value,eligible=entryResult.status==="fulfilled"&&entryResult.value.demoEntry===true&&entryResult.value.eventId===eventId;
+      const recovering=Boolean(s.authenticated&&pendingDemoEntry(eventId));
+      setDemoEntry(eligible);setEntryRecovery(recovering);setSession(s); if (s.authenticated&&!recovering) void load(ticket);
     }).catch(() => { if (epoch.current === ticket) setError("Sign-in could not be checked. Reload to try again."); });
     return () => { ++epoch.current; ++sequence.current; latest.current = null; currentBidder.current = null; };
   }, [load, clear]);
+  const entryReady=useCallback((s:Session,entryEpoch:number)=>{
+    if(epoch.current!==entryEpoch)return;
+    const ticket=++epoch.current;++sequence.current;clear();setError("");setSession(s);setEntryRecovery(false);void load(ticket);
+  },[clear,load]);
   useEffect(() => {
     const ready = (event: MessageEvent) => {
       if (event.origin === location.origin && event.source === frame.current?.contentWindow && event.data?.type === "audience-ready") send();
@@ -82,7 +92,7 @@ export default function EventAccess({ eventId }: { eventId: string }) {
   }, [send]);
   useEffect(() => { send(); }, [packet, bidder, send]);
   useEffect(() => {
-    if (!session?.authenticated) return;
+    if (!session?.authenticated||entryRecovery) return;
     let stopped = false, checking = false;
     let timer: ReturnType<typeof setTimeout>;
     const refresh = async () => {
@@ -100,7 +110,7 @@ export default function EventAccess({ eventId }: { eventId: string }) {
     timer = setTimeout(tick, 5_000);
     document.addEventListener("visibilitychange", visible); window.addEventListener("offline", offline); window.addEventListener("online", online);
     return () => { stopped = true; clearTimeout(timer); document.removeEventListener("visibilitychange", visible); window.removeEventListener("offline", offline); window.removeEventListener("online", online); };
-  }, [session?.authenticated, load, send]);
+  }, [session?.authenticated, entryRecovery, load, send]);
   async function signIn() {
     const ticket = ++epoch.current; ++sequence.current; clear(); setError(""); setBusy(true);
     try {
@@ -115,17 +125,19 @@ export default function EventAccess({ eventId }: { eventId: string }) {
     clear(); setError(""); setBusy(true);
     // Unmount private content before logout. Captured responses belong to the old epoch.
     setSession({ authenticated: false, testMode: true });
+    setEntryRecovery(false);try{sessionStorage.removeItem(entryStorageKey(eventId));}catch{}
     try { await api("/api/session/logout", {}); }
     catch { if (epoch.current === ticket) { setSession(null); setError("Sign-out not confirmed. Reload to retry."); } }
     finally { if (epoch.current === ticket) setBusy(false); }
   }
+  const entryEpoch=epoch.current;
   const controlStyle = { padding: "8px 12px", border: "1px solid #d8cebd", borderRadius: 12, background: "#fffaf0", color: "#1a1814", cursor: "pointer" };
   return <div style={{ minHeight: "100dvh", background: "#f5f0e6", color: "#1a1814", fontFamily: "Arial, sans-serif" }}>
     <div style={{ padding: "10px 14px", display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap", borderBottom: "1px solid #d8cebd", fontSize: 12 }}>
       <span style={{ border: "1px dashed #8a8171", borderRadius: 20, padding: "6px 10px" }}>Staging test</span>
-      {session?.authenticated && <><span>{session.person?.name}</span><button type="button" style={controlStyle} onClick={() => void load(epoch.current)}>Refresh event</button><button type="button" style={controlStyle} disabled={busy} onClick={() => void signOut()}>Sign out</button></>}
+      {session?.authenticated && <><span>{session.person?.name}</span><button type="button" style={controlStyle} disabled={entryRecovery} onClick={() => void load(epoch.current)}>Refresh event</button><button type="button" style={controlStyle} disabled={busy} onClick={() => void signOut()}>Sign out</button></>}
     </div>
-    {!session?.authenticated ? <main style={{ maxWidth: 420, margin: "50px auto", padding: "0 20px" }}>
+    {(entryRecovery||(demoEntry&&!session?.authenticated))?<DemoEntryForm key={`${eventId}:${entryEpoch}`} eventId={eventId} initialSession={session} onReady={s=>entryReady(s,entryEpoch)}/>:!session?.authenticated ? <main style={{ maxWidth: 420, margin: "50px auto", padding: "0 20px" }}>
       <h1>Choose a test account</h1><p>These accounts use synthetic data. No phone verification or live auction is running.</p>
       <label htmlFor="event-test-account">Test account</label>
       <select id="event-test-account" value={account} onChange={e => setAccount(e.target.value)} disabled={busy || !session || session.testMode === false} style={{ ...controlStyle, display: "block", margin: "8px 0 18px", width: "100%" }}>

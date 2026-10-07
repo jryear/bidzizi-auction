@@ -2,6 +2,16 @@ import "server-only";
 
 export type TestMode = { origin: string; secure: boolean };
 
+const PUBLIC_STAGING_ORIGIN = "https://staging.bidzizi.com";
+
+function publicStaging(): boolean {
+  return process.env.VERCEL === "1" && process.env.VERCEL_ENV === "production" &&
+    process.env.BIDZIZI_APP_MODE === "public-staging" &&
+    process.env.BIDZIZI_STAGING_TEST_AUTH === "true" &&
+    Boolean(process.env.BIDZIZI_STAGING_DATABASE_URL) &&
+    process.env.APP_ORIGIN === PUBLIC_STAGING_ORIGIN;
+}
+
 /** The sole plaintext adapter is bounded to an explicitly disposable loopback DB. */
 export function disposableDatabase(connection: URL): boolean {
   return !process.env.VERCEL && !process.env.VERCEL_ENV &&
@@ -16,6 +26,7 @@ export function disposableDatabase(connection: URL): boolean {
 
 /** The staff adapter uses a branch-owned secret; integration variables are read-only connectivity inputs. */
 export function databaseConnectionURL(): string {
+  if (publicStaging()) return process.env.BIDZIZI_STAGING_DATABASE_URL!;
   if (process.env.VERCEL || process.env.VERCEL_ENV) {
     if (process.env.VERCEL !== "1" || process.env.VERCEL_ENV !== "preview" ||
         process.env.BIDZIZI_APP_MODE !== "staging" || !process.env.BIDZIZI_STAGING_DATABASE_URL) {
@@ -34,6 +45,12 @@ export function databaseConnectionURL(): string {
 export function testMode(request: Request): TestMode | null {
   if (process.env.BIDZIZI_STAGING_TEST_AUTH !== "true") return null;
   try {
+    if (publicStaging()) {
+      if (request.headers.get("host") !== "staging.bidzizi.com") return null;
+      const suppliedOrigin = request.headers.get("origin");
+      if (suppliedOrigin !== null && suppliedOrigin !== PUBLIC_STAGING_ORIGIN) return null;
+      return { origin: PUBLIC_STAGING_ORIGIN, secure: true };
+    }
     let origin: string;
     if (process.env.VERCEL || process.env.VERCEL_ENV) {
       if (process.env.VERCEL !== "1" || process.env.VERCEL_ENV !== "preview" ||
