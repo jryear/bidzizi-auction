@@ -337,8 +337,9 @@ async function publicationBoundary(f){
   expect(invisible===0,'Uncommitted approval was visible to a separate connection.');
   await h.waitDb(f,early.opensAt,300000);await blocker.query('SELECT pg_advisory_unlock($1)',[advisory]);released=true;
   const completed=await pending;expect(completed.status===201,'Pre-opening authorized publication did not commit after opening.',completed);
-  const rows=await f.db.query('SELECT (SELECT count(*)::int FROM bz_catalog_approvals WHERE event_id=$1) AS approvals,(SELECT count(*)::int FROM bz_catalog_lots WHERE event_id=$1) AS lots,(SELECT count(*)::int FROM bz_requests WHERE request_id=$2) AS receipts',[early.id,body.requestId]);
-  same(rows.rows[0],{approvals:1,lots:1,receipts:1},'Approval, immutable selected lot and receipt did not commit atomically.');
+  const rows=await f.db.query('SELECT (SELECT count(*)::int FROM bz_catalog_approvals WHERE event_id=$1) AS approvals,(SELECT count(*)::int FROM bz_catalog_lots WHERE event_id=$1) AS lots,(SELECT count(*)::int FROM bz_requests WHERE request_id=$2) AS receipts,(SELECT approved_at FROM bz_catalog_approvals WHERE event_id=$1) AS decision_at',[early.id,body.requestId]);
+  const committed=rows.rows[0];expect(committed.decision_at instanceof Date&&committed.decision_at.getTime()<Date.parse(early.opensAt),'Final recorded DB decision was not strictly before opening.',committed);
+  same({approvals:committed.approvals,lots:committed.lots,receipts:committed.receipts},{approvals:1,lots:1,receipts:1},'Approval, immutable selected lot and receipt did not commit atomically.');
   const replay=await h.api(f,staff,'/api/v2/admin/events/'+early.id+'/catalog-approval','POST',body);
   expect(replay.status===201,'Exact committed publication was not recoverable after opening.',replay);
   same(replay.data,completed.data,'Post-cutoff recovery changed the original publication receipt.');

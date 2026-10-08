@@ -66,7 +66,10 @@ follows event locking. Publication validates all selected saved rows and
 snapshot content before writes; current authority and database time are
 checked again after all waits. The final publication authorization predicate uses `clock_timestamp()` after
 all relevant waits and current-authority checks and requires time strictly
-before `opensAt`. A fresh decision at/after opening rejects. The approval,
+before `opensAt`. The existing `bz_catalog_approvals.approved_at` stores that
+same final database clock sample, explicitly supplied rather than a later
+default; it is evidence of the decision, not of physical COMMIT time. A fresh
+decision at/after opening rejects. The approval,
 selected immutable snapshots and receipt commit atomically; a pre-opening
 authorized transaction may commit or respond later. An exact committed receipt
 is recoverable after opening under current authority. No margin is implied.

@@ -37,7 +37,9 @@ GET/POST `/api/v2/admin/events/:id/catalog-approval` uses the existing
 `{expectedRevision,requestId,lotIds}` selection and returns one immutable
 approval receipt. After all relevant lock waits and current staff-authority checks, the final
 publication authorization decision uses database time strictly before opening.
-A fresh decision at/after opening rejects. An authorized earlier decision may
+A fresh decision at/after opening rejects. `approved_at` records this final
+database-time decision, and is not described as the physical commit time.
+An authorized earlier decision may
 commit/respond later, but approval, immutable snapshot and receipt commit
 atomically. Exact committed recovery under current authority remains allowed.
 The snapshot binds exact selected order/lot identity, opening and fixed raise,
