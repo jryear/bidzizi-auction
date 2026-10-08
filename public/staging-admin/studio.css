@@ -26,6 +26,13 @@ dialog{border:1px solid var(--line);border-radius:20px;padding:0;background:var(
 .catalog-summary{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:16px 18px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:13px}.catalog-summary p{margin-top:5px;color:var(--muted)}.catalog-summary.error{border-color:var(--red)}.catalog-summary details{max-width:50%}.catalog-summary summary{color:var(--blue);cursor:pointer;font-weight:600}.catalog-summary ol{padding-left:18px;line-height:1.7}.catalog-review-lots{padding:0;list-style:none;margin:20px 0}.catalog-review-lots li{display:flex;align-items:start;gap:15px;padding:12px 0;border-bottom:1px solid var(--line)}.catalog-review-lots span{font-size:12px;color:var(--muted);white-space:nowrap}.catalog-review-lots strong{font-weight:600}.status.error{color:var(--red)}@media(max-width:700px){.catalog-summary{align-items:start;flex-direction:column}.catalog-summary details{max-width:100%}}
 
 /* Connected Studio: accepted quiet catalog workspace, with native A preview. */
+.event-entry .entry-status{font-weight:600;font-size:14px}
+.entry-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px}
+.entry-share{display:flex;align-items:start;gap:24px;margin-top:21px}
+.entry-share>div{flex:1;min-width:0}
+.entry-share input{font-size:12px;min-width:0;text-overflow:ellipsis}
+.entry-qr{flex:none;max-width:42%;height:auto;border:1px solid var(--line);border-radius:6px;image-rendering:pixelated}
+@media(max-width:760px){.entry-share{flex-direction:column;gap:14px}.entry-share>div{width:100%}.entry-qr{max-width:100%}.event-entry .entry-actions .btn{font-size:12px;padding-inline:11px}}
 button,a,input,select,textarea{touch-action:manipulation}
 .skip{position:fixed;left:12px}
 #new-event-name[aria-invalid="true"],input[aria-invalid="true"]{border-color:var(--red)}
