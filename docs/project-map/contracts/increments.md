@@ -1,6 +1,16 @@
 # INCREMENTS · Configurable current-highest-bid increment tiers
 
-**Status: DRAFT_UNFROZEN. Execution paused for owner review.**
+**Status: DRAFT_UNFROZEN. D1 continuation authorized; exact policy freeze pending.**
+
+October8 continuation delta: owner selected configurable progressive event-default
+current-highest tiers with an optional fixed per-item override, separate starting
+bids and any higher entered amount rather than exact multiples. Owner examples
+use25/50/100/250raises around500/1000/2500thresholds. Parent resolves inclusive
+boundaries and lock behavior narrowly. The prototype5/10/25illustration is not
+policy. This updates only previously unresolved model/override/allowed-amount
+interpretation; no executable rule, schema, gate or product implementation is
+accepted here. Historical7ecd draft and original source records remain preserved.
+
 
 Readiness: `BLOCKED_OWNER_DECISION`. Deliverable: `D1`. Frozen base: **none for this draft**. Referenced014 first packet remains separate where stated.
 
@@ -21,7 +31,7 @@ Staff configure the agreed event tier rules; bidders see the actual next minimum
 
 ## Decisions and freeze blockers
 
-- Exact tier thresholds/inclusive boundaries, amount constraints, any fixed lot override and publication/rule lock.
+- Exact tier thresholds/inclusive boundaries, agreed amount range/units and publication/rule lock. The optional fixed lot override and higher-amount model are selected; their concrete DTO and limits still require contract binding.
 - All new executable acceptance/adversarial evidence, exact baseline bindings and independent contract review remain future work. No product owner/implementer is started by this document.
 
 ## Implementation expectations after authorization

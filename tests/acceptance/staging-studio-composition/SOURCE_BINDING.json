@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "status": "DRAFT_UNFROZEN_NO_RUNTIME_RESULT",
+  "releasedProduct": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+  "finalTrustedBase": null,
+  "baselineStaffSHA256": {
+    "public/staging-admin/studio.js": "6ed21b5cb39291d635d5b73136c4f7ca13b4d2a88fdcb013fca15ff53f128817",
+    "public/staging-admin/studio.css": "c3d4ddae4fbefe434fe634e0293a0b842e35765f250129453b592bf48c61f072",
+    "public/staging-admin/model.js": "b081ca833bf6fe314ec64cac2ad9616cef2928fbffc08f68f7139d88c8f9e719",
+    "public/staging-admin/index.html": "1bdcebb5f739e38504ade40ee0eaeee264840cc9c1dabde2f7f01d73802da224"
+  },
+  "externalKernel": {
+    "path": "/Users/jryear/code/_kernel/verify.py",
+    "observedVersion": "3.1.0",
+    "sha256": {
+      "verify.py": "0f638fc9b7a7682ab814c7923557ecbb0871f35140f1aa6838efde17855d4ca5",
+      "kernel_runtime.py": "d185f76b12c30a0758fee453c8806508919fa0df2a457c8fb55fd124b7d1ac93",
+      "kernel_report.py": "6c8c21d2f8bbcd81a5a6b0f2abb69166dc7603d7bf5df76e84d803fc5997bd0d",
+      "VERSION": "b2f44d3b6e29f8b1b73ea4735f006affc4d198e1fd9c7d50e736159b1ef636c6"
+    }
+  },
+  "contextSHA256": {
+    "/Users/jryear/Documents/Codex/2026-10-07/task-17/prototype/index.html": "a871bb3b6f775896a5895e6bb0056feb5e8885fc32917eb01aa28378a98291e4",
+    "/Users/jryear/Documents/Codex/2026-10-07/task-17/prototype/README.md": "3028e2346380e52b8aa50e50e55c5ed06da681948f84c172eafda33978734d2e",
+    "/Users/jryear/Documents/Codex/2026-10-07/task-17/verification.md": "825f2c2ae799c4e6935eb6ab39ae08579179deb77f38e8e9d89b2596e134419c",
+    "/Users/jryear/Documents/Codex/2026-10-07/task-14/docs-checkpoint/docs/project-map/contracts/studio.md": "671419b9051952aaa6a2ae2fc257431028cb7cb869a023b456b40280cd182641",
+    "/Users/jryear/Documents/Codex/2026-10-07/task-14/docs-checkpoint/docs/project-map/contracts/DELIVERY.md": "959943ca41b478ac390543049f163f4abccf65fcee937072bead2946b1cab4eb",
+    "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-connected-review/tasks/staging-ui-refinement-006c.toml": "72856acf3bea00fb8e3a5788f0e515c3e18fb9aa8d30b3aa670d8db0b7c1247c",
+    "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-connected-review/tests/acceptance/staging-ui-refinement/ASSERTION_REQUIREMENT_MAP.json": "457622c598bb5fef4cddbb04220ee38e7de40e23e90eb7e567f6dad28e1b069f"
+  },
+  "prerequisite": "Parent explicitly authorizes independent released375 source/gate work. No mobile prerequisite or denied mobile changes may be included. Root task18 reviews and binds final committed trusted base; later integration source is rebound only when parent supplies an authorized released revision."
+}

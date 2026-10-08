@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "sourcePaths": [
+    "public/staging-admin/studio.js",
+    "public/staging-admin/studio.css",
+    "public/staging-admin/model.js",
+    "public/staging-admin/index.html",
+    "public/staging-bidder-preview/src/app.js",
+    "public/staging-bidder-preview/src/data.js",
+    "public/staging-bidder-preview/src/views.js",
+    "public/staging-bidder-preview/src/store.js",
+    "public/staging-bidder-preview/src/ui.js",
+    "public/staging-bidder-preview/styles.css",
+    "src/server/staff.ts",
+    "src/server/draft.ts",
+    "src/server/catalog.ts",
+    "src/server/auth.ts",
+    "src/server/db.ts",
+    "src/server/config.ts",
+    "src/server/http.ts",
+    "src/server/manual-bids.ts",
+    "src/server/demo-entry.ts"
+  ],
+  "helperPaths": [
+    "tests/acceptance/staging-studio-composition/run.mjs",
+    "tests/acceptance/staging-studio-composition/cases.mjs",
+    "tests/acceptance/staging-studio-composition/controls.mjs",
+    "tests/acceptance/staging-studio-composition/fixture.mjs",
+    "tests/acceptance/staging-studio-composition/observe.mjs",
+    "tests/acceptance/staging-studio-composition/oracles.mjs",
+    "tests/acceptance/staging-studio-composition/CHECKS.json",
+    "tests/acceptance/staging-studio-composition/SOURCE_BINDING.json",
+    "tests/acceptance/staging-studio-composition/ASSERTION_REQUIREMENT_MAP.json",
+    "tests/acceptance/staging-studio-composition/README.md",
+    "tests/acceptance/staging-studio-composition/REQUIREMENT_DELTA.md",
+    "tests/acceptance/staff-drafts/harness.mjs",
+    "tests/acceptance/staff-drafts/protocol.mjs",
+    "tests/acceptance/staff-drafts/seed.sql",
+    "migrations/001_staging_staff.sql",
+    "migrations/002_staging_catalog.sql",
+    "migrations/003_staging_manual_bid.sql",
+    "migrations/009_demo_attendee_entry.sql",
+    "package.json",
+    "pnpm-lock.yaml",
+    "next.config.ts",
+    "tsconfig.json",
+    "next-env.d.ts",
+    "AGENTS.md",
+    "tests/acceptance/staging-studio-composition/cleanup.mjs",
+    ".gitignore"
+  ],
+  "checks": [
+    {
+      "name": "Reviewed Studio catalog composition, native A phone and truthful saved setup",
+      "kind": "acceptance",
+      "timeout": 300,
+      "assertions": [
+        "STUDIO_CATALOG_COMPOSITION",
+        "STUDIO_NATIVE_A_PHONE",
+        "STUDIO_SAVED_SETUP_TRUTH",
+        "STUDIO_AMOUNT_FIELD_ASSOCIATION"
+      ],
+      "baseline_failures": [
+        "STUDIO_CATALOG_COMPOSITION",
+        "STUDIO_NATIVE_A_PHONE",
+        "STUDIO_SAVED_SETUP_TRUTH",
+        "STUDIO_AMOUNT_FIELD_ASSOCIATION"
+      ]
+    },
+    {
+      "name": "Fresh staff creation, durable edits, selected row, preview separation and navigation",
+      "kind": "regression",
+      "timeout": 300,
+      "assertions": [
+        "STUDIO_SELECTED_ROW",
+        "STUDIO_CREATE_SAVE_RELOAD",
+        "STUDIO_SAVED_WORKING_SEPARATION",
+        "STUDIO_EMPTY_NAVIGATION_NARROW"
+      ],
+      "baseline_failures": []
+    },
+    {
+      "name": "Held and lost Save, exact durable retry and authority isolation",
+      "kind": "adversarial",
+      "timeout": 300,
+      "assertions": [
+        "STUDIO_HELD_SAVE_LOCKS",
+        "STUDIO_LOST_SAVE_EXACT_RETRY",
+        "STUDIO_AUTH_PREVIEW_ISOLATION"
+      ],
+      "baseline_failures": []
+    },
+    {
+      "name": "Native and durable-observation broken controls",
+      "kind": "regression",
+      "timeout": 60,
+      "assertions": [
+        "STUDIO_EVIDENCE_CONTROLS"
+      ],
+      "baseline_failures": []
+    }
+  ]
+}

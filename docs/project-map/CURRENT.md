@@ -1,102 +1,74 @@
-# BidZizi current documentation checkpoint · October 8, 2026 UTC
+# BidZizi current staff-delivery checkpoint · October8,2026 UTC
 
-**All product work is paused for owner review.** This reconciles the October7
-vision, shipped source and unfinished preparation. No implementers or future
-deliverable owners were started. No application gates/builds, migrations,
-pushes/merges/deployments or services were run. Static documentation checks and
-an independent focused document review are the checkpoint evidence.
+**D1 implementation is authorized and in static contract preparation. It is not
+accepted, integrated or deployed.** Task18 owns staff creates/prepares a fresh
+auction → actual saved bidder preview → explicit publication/sharing → synthetic
+attendee admission. Parent owns the broader roadmap and other prototypes.
 
-## Actual source and documentation destination
+The [Product Map](index.html) and [delivery state](DELIVERY_STATE.json) carry the
+same current D1 status. The [13-contract inventory](contracts/README.md) remains
+an unfrozen historical review packet from7ecd; its pause statements and original
+validator record that documentation checkpoint. Current user continuation lifts
+that pause for this bounded D1 outcome only. No old frozen application evidence
+or `_kernel` bytes have been changed.
 
-- Released product: `/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release`,
-  clean inspected HEAD **`375d301c345bc47298dd2945a29bf9583c96fbc9`** on
-  `codex/release-connected-009-010-public`. The [final release handoff](</Users/jryear/Documents/Codex/2026-10-07/task-11/evidence/FINAL_RELEASE_HANDOFF.json>)
-  records public `main`, ready deployment `dpl_D2HLsiidFERFRnRFPAzwDWLyBeVU`, alias
-  `staging.bidzizi.com` and hosted connected journeys. These are recorded release
-  observations, not a fresh hosted test in this checkpoint.
-- Accepted private evidence/source: task-3/saturn-connected-review at
-  `800a10bde289fc8d77e860efaff98fff0b417346`; its earlier contracts/evidence remain
-  frozen historical records. The public release intentionally omits private
-  evidence/history; use the private records when preparing successors.
-- Canonical `~/code/bidzizi` is the **old prototype** `94fa63935af6aaf5f83f8d904612c6d4d4c4db0f`
-  on `admin-event-studio-2`, with existing uncommitted work. It does not contain
-  the released product. No switch/reset or write there occurred.
-- Documentation lineage: task-3/saturn-next, `codex/saturn-event-preparation`,
-  base `fa09638d513f46a4075146863aa9fd2865755d69`. The private map/current successor
-  is isolated in **`/Users/jryear/Documents/Codex/2026-10-07/task-14/docs-checkpoint`**, branch
-  **`codex/docs-contracts-checkpoint-2026-10-07`**. This clone contains an older
-  app; use the released source above for future product work. Parent can
-  integrate the docs-only successor on this map lineage after review; no shared
-  checkout was changed to align branches, and no public status was written.
+## Actual source, acceptance and destination
 
-The [Product Map](index.html) and this file project the same [finite inventory](contracts/INVENTORY.json).
-[Exact paths, hashes and authority limits](contracts/SOURCES.json) bind the source
-reads. Latest [vision](</Users/jryear/Documents/Codex/2026-10-07/task-2/product-vision/BIDZIZI_PRODUCT_VISION.md>)
-supplies product direction; its older progress table is superseded by the recorded
-release, not by an imagined new build. Existing Library/map provenance is preserved;
-Library and any externally hosted map remain older unsynchronized snapshots.
+- Isolated integration: task18/integration, `codex/saturn-staff-delivery`.
+- Product base: released375d301c345bc47298dd2945a29bf9583c96fbc9. Fresh remote
+  main matched; staging root still redirects to the preserved owner demo and
+  exposes deploymentdpl_D2HLsiidFERFRnRFPAzwDWLyBeVU. These are fresh routing/
+  deployment observations, not a new hosted journey of changed product behavior.
+- Private reviewed docs7ecd were carried in docs-onlyf46d876. The docs checkout's
+  older application and old `~/code/bidzizi` prototype are not implementation bases.
+- Accepted visual direction: task17 standalone prototype, soft cream/dark ink/
+  cobalt/marigold; actual phone-shaped saved preview. Its fixture policies are
+  not authority. Direct mobile16px correction did not change desktop typography.
+- Shipped009 distinct private signup and010 private read-only boards remain
+  reused foundations. No donations/results/watch implementation belongs here.
+- Required finish: independent reviewed/frozen contracts, finite RED and controls,
+  exact candidate GREEN, independent source/render review, accepted public-safe
+  integration, staging.bidzizi.com deployment, exact hosted fresh-event screenshots.
+  Local GREEN is an intermediate result. Private map/history remain private.
 
-## Shipped foundation: reuse rather than recommission
+## Active D1 work and boundaries
 
-Staff event creation/selection, durable draft editing/categories/duplication,
-saved versus working A previews, connected welcome and interaction/accessibility
-repairs are in release 375. Initial immutable approval, one shared same-date server
-window, manual bid/standing/owned receipt/recovery are real shipped synthetic
-foundations. The bidder reference remains Design A; prototype fixture rules are
-not future operational choices.
+STUDIO contract/evidence prepares title/photography-first composition, confirmed
+saved versus working A phone preview, truthful actionable setup and accessible
+amount errors over real event/item persistence. ADMISSION prepares same-org
+entry control/revision/exact recovery and actual shared event link/decoded QR.
+ASSETS prepares reviewed durable raster ownership/read/retention and exact
+permission targets within the existing staging database boundary. TIMING007 prepares
+the explicit default/custom schedule interface and reviewed successor delta; open
+window/publication bounds are not silently settled.
 
-Distinct private attendee signup **009 `ab28f66`** and private read-only boards
-**010 `0ec84f4`** are shipped in that release. They are not pending integration.
-Matching name/Member ID does not merge accounts or grant another business authority.
-Boards show authorized provisional standing, not public TV access or finalized
-awards; staff-only numeric reads remain denied under the existing bidder authority.
+No product source, runtime, browser, database, staging data, migrations, grants,
+credentials, provider setting, push or deployment has changed in this continuation.
+Parent released app-runtime/test ownership to task18 after MOBILE014 private4782fdc
+passed38assertions, independentGO and build/typecheck with owned resources cleaned.
+One bounded runtime at a time is permitted after contract review/freeze. Upstream
+merge/push/deployment remains held pending explicit owner reply and parent release.
+The mobile push retry was rejected; no mobile landing or indirect inclusion is
+authorized. Independent375 source/gates may proceed. Rebind only an incoming
+public revision parent supplies before promotion.
 
-The fresh-event transition remains incomplete: staff event creation does not enable
-demo entry; approved catalogs cannot accept additions; preopening lots are hidden.
-Default/named timing, configurable increments and real image/sponsor upload are
-unfinished. Watching/My Bids stay disabled. Donation record/list/export, staff
-results/export/finalization and authorized TV access remain unimplemented.
+Increment policy selected by owner history: configurable progressive current-highest
+bid event defaults, optional fixed item override, separate opening bids, and any
+higher amount without an exact-multiple requirement. Parent resolves exact
+boundaries/lock using owner25/50/100/250examples; prototype5/10/25is withdrawn.
+Custom-window outside bounds and initial/additive publication cutoff remain open.
+Demo enrollment immediately auto-admits each distinct synthetic profile; staff
+opening/closing event entry is a separate control, not an approval queue.
 
-## Prepared or stopped work: no unchecked acceptance
+Concrete entry gap: disabling after committed enrollment but before ACK can strand
+pending wrapper recovery although the private session remains valid. Parent
+deferred the proposed current-profile continuation from this initial D1 outcome.
+Existing pending identity/disabled ACK behavior stays intact; re-enable can finish
+ACK. This known limit is explicit, and009 SQL is preserved.
+Exact new scoped DB function privileges and real upload limits require reviewed
+owner approval before staging installation. No new provider/credential assumed.
 
-- Compact Studio composition **`9282ba3`** is an isolated old-baseline overlay awaiting
-  owner review/selective port. [Porting instructions](</Users/jryear/Documents/Codex/2026-10-07/task/saturn-design/design-proposal/README.md>)
-  forbid replacing the delivery Studio wholesale. Accepted staff/bid interaction
-  fixes already shipped are distinct from this unshipped composition.
-- **007/008:** paused, unfrozen and unimplemented. Useful preparation is retained;
-  [latest timing correction](</Users/jryear/Documents/Codex/2026-10-06/task-3/windows-007-v3-preparation/IMPACTED_CONTRACT_DELTA.md>)
-  supersedes selected-derived event span/mandatory custom assignment/cutoff assumptions.
-- **011:** independently reviewed unfrozen donation preparation and simulated study;
-  no product routes/migration. Presets and manual processing are accepted; null
-  domain policy and connected candidate evidence remain unresolved.
-- **012:** accepted bounded personal Watching/actor-owned My Bids proposal, no
-  implementation. No additional personal-ownership/ended-standing product decision
-  is needed; reviewed feature-absence successors and evidence are still required.
-- **014:** existing owner stopped at clean **`deba554033d716c57f65f542b75eb0af807f03e7`**,
-  task-12/mobile-fix, `codex/mobile-poll-render`. Sole commit freezes six contract/
-  evidence files. Already-in-flight baseline completed with 8 expected acceptance
-  failures,11 regression passes,10 adversarial passes,zero harness errors. Those
-  are inherited observations, not rerun here. Independent reviewer requires stronger
-  structural lot-change and open-sheet authority/receipt-transition evidence.
-  Additions and product implementation have not started. Preserve frozen014;
-  independently reviewed successor/improvements are required before implementation.
-  No owned runtimes/external operations remain per parent stop receipt. Parent's
-  last Vercel readback still bound release 375 and the ready deployment above.
-- Harness hardening remains opt-in/unadopted; no kernel/harness adoption is part of
-  this documentation checkpoint. Historical `HOME_DETAILS_HISTORY` and
-  `HOME_STALE_APPROVAL` are **closed/archived operationally**, causal uncertainty
-  retained per [owner disposition](</Users/jryear/Documents/Codex/2026-10-06/task-3/coordination/CASE_DISPOSITION_2026_10_07.json>).
-  Reopen only on fresh current invocation/incident evidence; they are not standing
-  release blockers. Original failure records are untouched.
-
-## Complete active slice inventory
-
-All 13 Markdown contracts below are **DRAFT_UNFROZEN**, including the014 successor
-review wrapper around its separate frozen first packet. None is ready to implement
-under the present pause. Readiness labels identify the next prerequisite, not a
-claim that other gates passed. Each contract bounds outcome, exclusions, dependencies,
-implementation/verification, evidence/acceptance/promotion and exact delegator reading.
-New descriptive names reserve no task/migration numbers.
+## Finite inventory retained for scoped reading
 
 | Slice | Deliverable | Readiness / freeze status | Accepted dependency |
 | --- | --- | --- | --- |
@@ -114,71 +86,24 @@ New descriptive names reserve no task/migration numbers.
 | [MOBILE014 · Stable mobile polling and open bid task (014 successor review)](contracts/mobile014.md) | CROSS | blocked successor review; draft/unfrozen | Released foundation |
 | [CONNECTED_RELEASE · Demonstrable connected Saturn checkpoint and hosted delivery](contracts/connected_release.md) | RELEASE | blocked dependencies; draft/unfrozen | STUDIO, ASSETS, TIMING007, INCREMENTS, PUBLICATION008, ADMISSION, WATCH012, DONATIONS011, STAFF_RESULTS, DISPLAY_ACCESS, FINALIZATION, MOBILE014 |
 
-## Dependency and delivery sequence
 
-1. Owner reviews this documentation checkpoint and explicitly authorizes continuation.
-   No coding resumes merely because static validation or document review passes.
-2. Resolve014 successor evidence/ownership before overlapping A/wrapper repairs.
-   This is a shared-file coordination requirement, not a new auction semantic dependency.
-3. D2 / WATCH012 can use release 375 now, without waiting for007/008. D1's Studio/assets/
-   admission contracts can prepare from released foundations; timing review resolves
-   owner bounds before 007 freezes. AcceptedTIMING007 then supplies the immutable
-   interface for INCREMENTS and PUBLICATION008, which can have separate bounded owners.
-4. D3 / DONATIONS011 uses accepted private entry; availability is independent of lot
-   bidding hours. It need not wait for007/008. D4 / STAFF_RESULTS can establish scoped
-   provisional read/export from release 375; DISPLAY_ACCESS andFINALIZATION consume
-   that accepted interface after their owner decisions. Rebind consumers if timing,
-   additions or policy rules land first; never assume preparation already landed.
-5. One fresh delegator owns each demonstrable D1–D4 outcome through scoped implementers,
-   coherent fixes and a fresh independent reviewer. Parent sequences cross-deliverable
-   seams. Each accepted outcome continues **acceptance→integration→synthetic staging→
-   exact hosted check**; full CONNECTED_RELEASE joins all included scopes. Local GREEN
-   is ready to integrate, not delivered. [Delivery/reading boundaries](contracts/DELIVERY.md)
-   reuse existing records and introduce no orchestration framework.
+All listed Markdown contracts remain DRAFT_UNFROZEN. D1 preparation is active;
+other deliverables remain with parent. MOBILE014 has parent-recorded private acceptance and cleaned resources; its
+public publication remains unconfirmed here. Frozen014 and all other historic receipts remain intact.
+Historical anomalies are closed/archived operationally; reopen only on fresh
+current incident evidence. Current status does not make old gate observations new.
 
-Future slice delegators read their own contract and listed sources only, then pass
-narrower role-specific context to implementers. The global map is an index, not
-mandatory giant context. Do not spawn any of those owners during this checkpoint.
+## Current evidence and next step
 
-## Accepted direction and remaining review agenda
+[Task18 delivery status](</Users/jryear/Documents/Codex/2026-10-07/task-18/DELIVERY_STATUS.md>)
+records authority, owner/source, selected facts, remaining policy and publication hold.
+The original map validator failed on public-release lineage because its expected
+private docs base is absent; that result is preserved in
+[historical validation](</Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/historical-map-validation.json>).
+It has not been weakened or represented as application RED. A reviewed static
+current-delivery binding will verify map/CURRENT parity on this release lineage.
 
-Already settled: explicit independent event timeline; default item timing; cross-date
-custom windows in event timezone; publication separate from bidding; current-highest
-bid tiers; distinct private synthetic signup without SMS; personal watches and
-actor-owned history; ended truthful highest/current standing; donation presets/
-ordinary copy/manual staff processing; donation on/off independent of auction hours.
-Do not reopen those choices through stale preparation wording.
-
-Remaining substantive decisions:
-
-- Outside-event custom-window bounds and exact initial/additive publication eligibility.
-- Exact increment thresholds/boundaries, optional override, allowed amounts and rule lock.
-- Donation eligibility/cap and any custom-hour choice; technical unit/minimum/recovery
-  policies must then align without widening authority.
-- Display audience/privacy/access/revocation and ended/finalization vocabulary/operation.
-
-Owner render review should cover the compact composition/title density, actual
-saved phone preview, truthful checklist and concrete default/group interaction.
-Studio section names remain provisional. Live/Overview need distinct purposes only
-if adopted; do not make those sections a prerequisite for bounded core delivery.
-Storage/upload authority and limits, staff entry control and CSV projection require
-concrete technical contract review before freeze rather than assumed fixture defaults.
-
-Deferred outside this finite Saturn inventory: universal organization onboarding,
-production member admission/SMS, billing/payment processing/ledger posting,
-auto-bidding, raffles/tickets, fixed/percentage increment modes, modular brand editor,
-whole-event duplication/archive and display-device fleets. No new service/provider,
-paid tool, real-user operation or broad authentication redesign was authorized here.
-
-## Checkpoint evidence and safe stopping point
-
-[Checkpoint receipt](evidence/checkpoint-2026-10-08/README.md) records static schema,
-reading-link/dependency/map parity checks, focused independent document review and
-the docs-only diff/preservation evidence. Source-bound application receipts remain
-historical; they are not renewed by this checkpoint. `_kernel`, frozen tasks/tests/
-receipts, original uncommitted work and mobile source are untouched.
-
-The review agenda is finite: confirm this shipped/unshipped inventory; review D1's
-existing composition and timing interaction direction; answer the listed policy
-choices; select first deliverable/014 coordination; explicitly authorize continuation.
-Until that review, **product implementation remains paused**.
+Next: complete independent contract review and precise permission packets; commit
+and observe finite RED/controls against verified375 using the released single
+runtime slot, then retain focused implementers through full
+verification, review, accepted integration and hosted delivery.

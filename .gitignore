@@ -2,6 +2,8 @@
 .env*
 !.env.example
 node_modules/
+# Schema2 disposable worktrees link this external dependency directory.
+/node_modules
 .next/
 out/
 *.tsbuildinfo
