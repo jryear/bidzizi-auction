@@ -17,9 +17,17 @@ an already authorized transaction may commit or respond later. Astra accepted
 that focused semantic amendment, without granting full contract GO. The
 [unified schema-2 packet](../../tasks/staff-auction-rehearsal.toml) declares
 40 exact-candidate checks, including a deferred COMMIT crossing opening and a
-fresh event-lock wait crossing opening. It remains unfrozen and unexecuted
-pending independent full-packet review and meaningful BASELINE_READY. No new
+fresh event-lock wait crossing opening. Its initial reviewed freeze and full
+baseline are described below. Meaningful BASELINE_READY remains pending. No new
 product capability or staging release is claimed.
+
+Astra subsequently approved exact packet `006453530c121d44f544c1c43c052764cf48a3e8`
+for freeze. The one-flag freeze commit is `07b09cf4cab37480546ed15112735e47f5353a1d`.
+Its complete Kernel 3.1.0 baseline is **BASELINE_NOT_READY**: 25 PASS, 13
+finite feature RED and two infrastructure 99. The latter are a native-browser
+cleanup requirement before browser allocation and a retained `Lots` selector
+against the accepted Studio `Items` label. A narrow [successor](../proposed/staff-auction-rehearsal/BASELINE_07B09CF_SUCCESSOR.md)
+is prepared for independent review. No product implementation has started.
 
 **Studio, Entry and the bounded local 101-ID composition are independently accepted.
 Full D1 remains partial and the changes have not been deployed.**
