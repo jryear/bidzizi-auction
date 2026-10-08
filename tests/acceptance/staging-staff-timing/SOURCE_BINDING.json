@@ -1,7 +1,7 @@
 {
   "version": 1,
   "status": "REHEARSAL_REBIND_DRAFT_UNFROZEN_UNEXECUTED",
-  "freezeReady": false,
+  "freezeReady": true,
   "selectedProductBase": "591686a4ecb38f64e29fcdf81f99d170d25872f5",
   "initialHistoricalProductInspection": "retained task18 source preparation; superseded by 591686a",
   "baselineProductSHA256": {
