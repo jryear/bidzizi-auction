@@ -241,8 +241,13 @@ async function loadEvent(id,ticket=contextEpoch,route){
  try{
   const packet=await api('/api/admin/events/'+encodeURIComponent(id));
   if(!current(ticket))return false;
-  adopt(packet.draft);if(route)replaceEditorRoute(route.tab,route.lot);shell();renderMain();refresh();
-  await loadApproval(id,ticket);
+  adopt(packet.draft);if(route)replaceEditorRoute(route.tab,route.lot);
+  // Record a staff event choice before exposing its editor. Approval is a
+  // separate read and must not leave visible, confirmed drafts in a route race.
+  if(route?.push)eventUrl(id,{tab:route.tab,lot:route.lot||null});
+  shell();renderMain();refresh();
+  const approvalRead=loadApproval(id,ticket);loadingDraft=false;refreshChrome();
+  await approvalRead;
   return true;
  }finally{if(current(ticket)){loadingDraft=false;refreshChrome();}}
 }
@@ -404,7 +409,7 @@ const actions={
  'events':events,'events-home':()=>showEventsHome(),'retry-events':()=>showEventsHome(),'new-event':()=>{if(!canLeaveDraft())return;if(dialog.open)closeModal();newEvent();},
  'switch-event':async el=>{
   if(d?.event.id===el.dataset.id)return closeModal();if(!canLeaveDraft())return;const id=el.dataset.id;if(!eventList.some(e=>e.id===id&&e.organizationId===loadedOrgId))return;const ticket=++contextEpoch;
-  try{await loadEvent(id,ticket,{tab:'event'});if(current(ticket)){eventUrl(id,{tab:'event'});if(dialog.open)closeModal();else $('#event-title')?.focus({preventScroll:true});}}catch{if(current(ticket)){if(d)toast('Could not load the event. Try again.');else{homeNotice='The event could not be loaded. Try again.';renderEventsHome();}}}
+  try{await loadEvent(id,ticket,{tab:'event',push:true});if(current(ticket)){if(dialog.open)closeModal();else $('#event-title')?.focus({preventScroll:true});}}catch{if(current(ticket)){if(d)toast('Could not load the event. Try again.');else{homeNotice='The event could not be loaded. Try again.';renderEventsHome();}}}
  },
  'create-event':createEvent,
  'signout':async()=>{

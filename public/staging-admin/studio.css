@@ -63,7 +63,7 @@ button,a,input,select,textarea{touch-action:manipulation}
 .studio-body .bar-actions .btn{min-height:40px;font-size:12px;padding:0 13px;border-radius:8px;white-space:nowrap}
 .studio-body .saved{margin:0;font-size:11px;line-height:1.4;gap:6px;min-height:20px}
 .studio-body .bar-actions .saved{width:100%;justify-content:flex-end;order:2}
-.studio-body .workspace{margin:0;width:100%;max-width:none;padding:10px 36px 24px;min-height:0;flex:1;overflow:hidden;grid-template-columns:minmax(0,1fr) 308px;grid-template-rows:minmax(0,1fr);gap:34px;align-items:stretch}
+.studio-body .workspace{margin:0;width:100%;max-width:none;padding:10px 36px 24px;min-height:0;flex:1;overflow:hidden;grid-template-columns:minmax(0,1fr) 352px;grid-template-rows:minmax(0,1fr);gap:34px;align-items:stretch}
 .studio-body .workspace.no-preview{grid-template-columns:minmax(0,1fr)}
 .studio-body .workspace.no-preview .main{max-width:1120px;margin:0;width:100%}
 .studio-body .main{min-width:0;min-height:0;overflow:auto;overscroll-behavior:contain;scroll-padding:16px;padding:0 3px 24px 0}
@@ -118,9 +118,9 @@ button,a,input,select,textarea{touch-action:manipulation}
 .studio-body .preview-close{font-size:20px;min-height:25px;min-width:25px;color:var(--muted);border:0;background:transparent}
 .studio-body .preview-controls{margin-bottom:16px;padding:3px;flex:none;border-radius:7px}
 .studio-body .preview-controls button{min-height:30px;font-size:11px;border-radius:5px}
-.studio-body .device{width:308px;min-width:308px;max-width:308px;flex:none;align-self:center;border:6px solid var(--ink);border-radius:32px;padding:10px 0 0;box-shadow:0 16px 28px -20px #1a181466;display:block;min-height:0;overflow:hidden}
+.studio-body .device{width:352px;min-width:352px;max-width:352px;flex:none;align-self:center;border:6px solid var(--ink);border-radius:32px;padding:10px 0 0;box-shadow:0 16px 28px -20px #1a181466;display:block;min-height:0;overflow:hidden}
 .studio-body .device::before{top:5px;height:3px}
-.studio-body .device iframe{display:block;width:296px;height:622px;min-height:622px;flex:none;border:0;border-radius:0 0 24px 24px;transform:none;zoom:1}
+.studio-body .device iframe{display:block;width:340px;height:714px;min-height:714px;flex:none;border:0;border-radius:0 0 24px 24px;transform:none;zoom:1}
 .studio-body .preview-route{margin-top:9px;gap:4px;flex-wrap:wrap;flex:none}
 .studio-body .preview-route button{min-height:30px;font-size:11px;padding:4px 7px}
 .studio-body .preview-caption{margin-top:6px;font-size:10px;min-height:16px;flex:none;line-height:1.5}
@@ -170,7 +170,7 @@ button,a,input,select,textarea{touch-action:manipulation}
  .studio-body .bar-line{gap:16px}
  .studio-body .bar-actions{gap:6px}
  .studio-body .bar-actions .btn{font-size:11px;padding-inline:10px}
- .studio-body .workspace{padding:8px 26px 22px;gap:24px;grid-template-columns:minmax(0,1fr) 308px}
+ .studio-body .workspace{padding:8px 26px 22px;gap:24px;grid-template-columns:minmax(0,1fr) 352px}
  .studio-body .lot-row .title{font-size:12px}
  .studio-body .lot-row{gap:14px;padding-inline:5px}
  .studio-body .lot-row>button{gap:12px}
@@ -182,7 +182,7 @@ button,a,input,select,textarea{touch-action:manipulation}
 }
 @media(max-width:1120px){
  .studio-body .workspace{grid-template-columns:minmax(0,1fr)}
- .studio-body .preview{position:fixed;right:16px;top:12px;bottom:12px;height:auto;width:340px;padding:12px 15px;background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:auto;box-shadow:0 20px 100px #0004;z-index:35}
+ .studio-body .preview{position:fixed;right:16px;top:12px;bottom:12px;height:auto;width:378px;padding:12px;background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:auto;box-shadow:0 20px 100px #0004;z-index:35}
  .studio-body .bar-actions{max-width:260px}
  .studio-body .bar h1{font-size:30px}
 }
@@ -230,7 +230,7 @@ button,a,input,select,textarea{touch-action:manipulation}
  .studio-body .lot-row .meta{font-size:10px}
  .studio-body .selection{flex-wrap:wrap}
  .studio-body .selection .flex{gap:10px;flex-wrap:wrap}
- .studio-body .preview{width:340px;max-width:calc(100vw - 24px);right:12px;padding:12px 15px}
+ .studio-body .preview{width:366px;max-width:calc(100vw - 24px);right:12px;padding:12px 6px}
  .studio-body .simulation{padding:6px 16px;min-height:25px;font-size:9px}
  .studio-body .simulation>span:first-child{display:block}
  .setup-head{gap:7px}
