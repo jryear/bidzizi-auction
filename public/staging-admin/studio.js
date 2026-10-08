@@ -1,4 +1,5 @@
 import { clone, esc, money, cents, eventIssues, lotIssues, releaseIssues, windowFor, dateText, timeText, shortZone } from './model.js';
+import { qrcodegen } from './vendor/qr-code.js';
 
 // All drafts and staff grants come from authenticated APIs. Browser memory holds
 // only the current editor and confirmed packet; it cannot grant authority.
@@ -13,6 +14,8 @@ let catalogApproval=null, approvalAttempt=null, reviewedCatalog=null, approving=
 let approvalState='none', approvalNotice='', approvalReadEpoch=0;
 let homeLoading=false, homeNotice='';
 let nextFieldFocus=null;
+let entryConfirmed=null,entryAttempt=null,entryState='loading',entryNotice='',entrySaving=false,entryReadEpoch=0;
+const qrImages=new Map();
 const amountErrors=new Map();
 const current=ticket=>ticket===contextEpoch;
 const chosen=()=>d?.lots.find(l=>l.id===picked);
@@ -36,7 +39,7 @@ function compact(packet){
  return {event,lots};
 }
 function adopt(packet,preserveUi=false){
- if(confirmed?.event.id!==packet.event.id)resetCatalog();
+ if(confirmed?.event.id!==packet.event.id){resetCatalog();resetEntry();restoreEntryAttempt(packet.event.id);}
  confirmed=clone(packet);d=clone(packet);dirty=false;saveState='saved';attempt=null;notice='';amountErrors.clear();nextFieldFocus=null;
  picked=d.lots.some(l=>l.id===picked)?picked:d.lots[0]?.id;selected=preserveUi?new Set([...selected].filter(id=>d.lots.some(l=>l.id===id))):new Set();if(!preserveUi)search='';loadedOrgId=d.org.id;
  const current=eventList.find(x=>x.id===d.event.id);
@@ -173,7 +176,7 @@ function eventView(){
  return `${draftNotice()}${catalogSummary()}
  <section class="sheet"><div class="sheet-head"><h3>Welcome page</h3><span class="section-label">Welcome</span></div><div class="cover-grid"><div><div class="cover">${e.cover?`<img src="${esc(img(e.cover))}" alt="Event cover">`:'<div class="no-cover">Add an event photo</div>'}<button data-action="image" data-target="event">Change photo</button></div><p class="cover-note">Example photos.</p></div><div class="field-stack"><label>Event name<input class="name-input" data-event="name" value="${esc(e.name)}" maxlength="120"></label><label>Welcome line<input data-event="eyebrow" value="${esc(e.eyebrow)}" maxlength="120"></label><label>Location or event note<input data-event="venue" value="${esc(e.venue)}" maxlength="180"></label></div></div><label class="event-story">Welcome message<textarea aria-label="Welcome message" data-event="welcome" rows="3" maxlength="1800">${esc(e.welcome)}</textarea></label><div class="help">Items are provided by your organization. Add event sponsors below.</div></section>
  <section class="sheet"><div class="sheet-head"><h3>Bidding schedule</h3><span class="section-label">Timing</span></div><div class="schedule-band"><div><strong>${timeText(e.start)} <span class="muted">→</span> ${timeText(e.end)} ${shortZone(e)}</strong><p>${w} ${w===1?'lot uses':'lots use'} this window. ${w?'Changing it updates all of them in this draft.':'Assign lots together from Items.'}</p></div><span class="tick" aria-hidden="true">◷</span></div><div class="field-grid three"><label>Event date<input type="date" data-event="date" value="${esc(e.date)}"></label><label>Bidding opens<input type="time" data-event="start" value="${esc(e.start)}"></label><label>Bidding closes<input type="time" data-event="end" value="${esc(e.end)}"></label></div><div class="field-grid" style="margin-top:16px"><label>Event time zone<select aria-label="Event time zone" data-event="timezone">${zones(e.timezone)}</select></label><label>Bid increment · example USD<input inputmode="decimal" data-event="increment" aria-describedby="increment-error" value="${esc(rawAmount(e.increment,e.incrementText))}"><span id="increment-error" class="field-error" role="alert"></span></label></div><p class="note">The approved catalog appears at its opening time. Saving draft changes does not change an approved window. Test bidding requires separate bidder access.</p><div id="event-errors"></div></section>
- <section class="sheet"><div class="sheet-head"><h3>Event sponsors</h3><span class="section-label">Optional</span></div><label class="switch-label"><input type="checkbox" data-event="sponsorsEnabled" ${e.sponsorsEnabled?'checked':''}>Show event sponsors</label><p class="help">Separate from the organization providing auction items.</p><div id="sponsor-fields">${sponsorFields()}</div></section><div id="studio-setup">${setupView()}</div>`;
+ <section class="sheet"><div class="sheet-head"><h3>Event sponsors</h3><span class="section-label">Optional</span></div><label class="switch-label"><input type="checkbox" data-event="sponsorsEnabled" ${e.sponsorsEnabled?'checked':''}>Show event sponsors</label><p class="help">Separate from the organization providing auction items.</p><div id="sponsor-fields">${sponsorFields()}</div></section>${entryView()}<div id="studio-setup">${setupView()}</div>`;
 }
 function zones(current){const choices=[['UTC','UTC'],['America/Los_Angeles','Pacific · Los Angeles'],['America/Denver','Mountain · Denver'],['America/Chicago','Central · Chicago'],['America/New_York','Eastern · New York']];if(current&&!choices.some(([v])=>v===current))choices.unshift([current,current]);return choices.map(([v,t])=>`<option value="${esc(v)}" ${v===current?'selected':''}>${esc(t)}</option>`).join('');}
 function sponsorFields(){return d.event.sponsorsEnabled?`${d.event.sponsors.map((s,i)=>`<label class="sponsor-row">Sponsor ${i+1}<input data-sponsor="${i}" maxlength="200" value="${esc(s.name)}" placeholder="Organization or business name"><button class="btn small" data-action="remove-sponsor" data-index="${i}" aria-label="Remove sponsor ${i+1}">×</button></label>`).join('')}<button class="link-btn" data-action="add-sponsor">+ Add event sponsor</button>`:'';}
@@ -225,11 +228,86 @@ function setupView(){
  <li data-setup-step="welcome" data-state="${welcomeOk?'complete':'needs-attention'}"><span class="setup-mark" aria-hidden="true">${welcomeOk?'✓':'○'}</span><div><strong>Welcome & event details</strong><p>${welcomeOk?'Saved welcome and event details are complete.':esc(problems[0])}</p></div>${!welcomeOk?action('Edit event','event',eventField):''}</li>
  <li data-setup-step="items" data-state="${itemsOk?'complete':'needs-attention'}"><span class="setup-mark" aria-hidden="true">${itemsOk?'✓':'○'}</span><div><strong>Saved items</strong><p>${itemsOk?`${saved.lots.length} saved ${saved.lots.length===1?'item has':'items have'} the required catalog details.`:incomplete?`Item ${esc(incomplete.number)} needs ${esc(lotIssues(incomplete,saved.event)[0])}.`:'Add and save your first item.'}</p></div>${!itemsOk?(incomplete?action('Finish item','lots',itemField,incomplete.id):action('Add item','lots','add')):''}</li>
  <li data-setup-step="approval" data-state="${approved?'complete':pending?'pending':'needs-attention'}"><span class="setup-mark" aria-hidden="true">${approved?'✓':pending?'…':'○'}</span><div><strong>Catalog approval</strong><p>${approved?`Independently approved saved revision ${catalogApproval.sourceRevision}. Draft changes remain separate.`:pending?'Checking independent catalog approval. It is not confirmed yet.':approvalUnknown?'Independent catalog approval is unavailable or not confirmed. Check its status before proceeding.':'Catalog approval is separate from saving the draft. Select saved items, then review the catalog.'}</p></div>${!approved&&!pending&&!approvalUnknown&&saved.lots.length?action('Choose items','lots','selection'):''}</li>
- <li data-setup-step="access" data-state="unavailable"><span class="setup-mark" aria-hidden="true">—</span><div><strong>New bidder entry</strong><p>Entry controls are not available in this workspace yet.</p></div></li></ul></section>`;
+ ${entrySetupStep()}</ul></section>`;
 }
 function renderSetup(){const el=$('#studio-setup');if(el)el.innerHTML=setupView();}
 
+function entryStorageKey(id=d?.event.id){return `bz:staff-event-entry:v1:${session?.person.id}:${id}`;}
+function retainEntryAttempt(){try{sessionStorage.setItem(entryStorageKey(),JSON.stringify(entryAttempt));}catch{}}
+function clearEntryAttempt(){try{sessionStorage.removeItem(entryStorageKey());}catch{}entryAttempt=null;}
+function restoreEntryAttempt(id){
+ try{const value=JSON.parse(sessionStorage.getItem(entryStorageKey(id))||'null');
+  if(value&&Object.keys(value).sort().join(',')==='enabled,expectedEntryRevision,requestId'&&typeof value.enabled==='boolean'&&Number.isSafeInteger(value.expectedEntryRevision)&&value.expectedEntryRevision>=0&&value.expectedEntryRevision<2147483647&&/^[0-9a-f-]{36}$/i.test(value.requestId)){
+   entryAttempt=value;entryState='uncertain';entryNotice='Entry update not confirmed. Check the original update before sharing.';
+  }
+ }catch{}
+}
+function resetEntry(){entryReadEpoch++;entryConfirmed=null;entryAttempt=null;entryState='loading';entryNotice='';entrySaving=false;}
+function entrySetupStep(){
+ const revision=entryConfirmed?.entryRevision??0;
+ const complete=entryState==='enabled',pending=['loading','saving'].includes(entryState);
+ const state=complete?'complete':entryState==='disabled'?'needs-attention':pending?'pending':'unavailable';
+ const text=entryState==='enabled'?`Entry enabled · revision ${revision}. New synthetic attendees can create their own private demo profile.`:
+  entryState==='disabled'?`Entry disabled · revision ${revision}. Enable entry from Event & entry when you are ready to share.`:
+  entryState==='saving'?`Saving entry update · last confirmed revision ${revision}. Enablement is not confirmed yet.`:
+  entryState==='loading'?`Checking current entry · last confirmed revision ${revision}. It is not confirmed yet.`:
+  `${entryNotice||'Entry update not confirmed. Check its current state.'} Last confirmed revision ${revision}.`;
+ return `<li data-setup-step="access" data-state="${state}"><span class="setup-mark" aria-hidden="true">${complete?'✓':pending?'…':'○'}</span><div><strong>New bidder entry</strong><p>${esc(text)}</p></div></li>`;
+}
+function entryQR(url){
+ if(qrImages.has(url))return qrImages.get(url);
+ const qr=qrcodegen.QrCode.encodeText(url,qrcodegen.QrCode.Ecc.MEDIUM),size=qr.size+8;let path='';
+ for(let y=0;y<qr.size;y++)for(let x=0;x<qr.size;x++)if(qr.getModule(x,y))path+=`M${x+4},${y+4}h1v1h-1z`;
+ const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${size*4}" height="${size*4}" viewBox="0 0 ${size} ${size}"><rect width="${size}" height="${size}" fill="white"/><path d="${path}" fill="black"/></svg>`;
+ const source='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);qrImages.set(url,source);return source;
+}
+function entryView(){
+ const ready=entryState==='enabled'&&!entryAttempt&&!entrySaving,disabled=entryState==='disabled'&&!entryAttempt&&!entrySaving;
+ const revision=entryConfirmed?.entryRevision??0,state=['enabled','disabled','saving'].includes(entryState)?entryState:'uncertain';
+ const text=entryState==='enabled'?`Entry enabled · revision ${revision}`:entryState==='disabled'?`Entry disabled · revision ${revision}`:
+  entryState==='saving'?'Saving entry update…':entryState==='loading'?'Checking current entry…':entryNotice||'Entry update not confirmed.';
+ const url=ready?entryConfirmed.shareUrl:'';
+ return `<section class="sheet event-entry" data-event-entry data-entry-state="${state}" aria-labelledby="event-entry-title"><div class="sheet-head"><h3 id="event-entry-title">Event entry</h3><span class="section-label">Share</span></div><p class="entry-status ${['blocked','uncertain','unavailable','conflict'].includes(entryState)?'error':''}" role="status" aria-live="polite">${esc(text)}</p><p class="help">Each attendee creates a separate synthetic demo profile. Entry is independent of draft saving and catalog approval.</p><div class="entry-actions"><button class="btn primary" data-action="enable-entry" ${disabled?'':'disabled'}>Enable event entry</button><button class="btn" data-action="disable-entry" ${ready?'':'disabled'}>Disable event entry</button>${!['enabled','disabled','saving','loading','blocked'].includes(entryState)?`<button class="btn" data-action="check-entry" ${entrySaving?'disabled':''}>Check entry update</button>`:''}</div><div class="entry-share"><div><label>Event link<input aria-label="Event link" readonly value="${esc(url)}" placeholder="Enable entry to share this event"></label><button class="link-btn" data-action="copy-entry" ${ready?'':'disabled'}>Copy event link</button>${ready?'<p class="help">Use this link or QR code to open the attendee profile form.</p>':''}</div>${ready?`<img class="entry-qr" src="${esc(entryQR(url))}" alt="Event entry QR code">`:''}</div>${entryState==='blocked'?'<p class="note error">Current staff access is unavailable. Sign in again before updating or sharing entry.</p>':''}</section>`;
+}
+function renderEntry(){const panel=$('[data-event-entry]');if(panel)panel.outerHTML=entryView();renderSetup();}
+function confirmedEntry(response,id,intent){
+ const e=response?.entry;
+ if(!e||e.eventId!==id||typeof e.enabled!=='boolean'||!Number.isSafeInteger(e.entryRevision)||e.entryRevision<0||e.entryRevision>2147483647||
+  (e.entryRevision===0?e.updatedAt!==null:!Number.isFinite(Date.parse(e.updatedAt)))||e.shareUrl!==`${location.origin}/events/${id}`||!Number.isFinite(Date.parse(response.serverNow)))throw {status:503,message:'Entry response not confirmed.'};
+ if(intent){const op=response.operation;if(typeof response.replayed!=='boolean'||!op||op.requestId!==intent.requestId||op.enabled!==intent.enabled||op.appliedRevision!==intent.expectedEntryRevision+1||!Number.isFinite(Date.parse(op.appliedAt)))throw {status:503,message:'Entry operation not confirmed.'};}
+ return clone(e);
+}
+async function loadEntry(id,ticket=contextEpoch){
+ const read=++entryReadEpoch;
+ if(!entryAttempt){entryState='loading';entryNotice='';renderEntry();}
+ try{const response=await api('/api/admin/events/'+encodeURIComponent(id)+'/entry');if(!current(ticket)||read!==entryReadEpoch||d?.event.id!==id)return;
+  entryConfirmed=confirmedEntry(response,id);if(!entryAttempt)entryState=entryConfirmed.enabled?'enabled':'disabled';
+ }catch(e){if(!current(ticket)||read!==entryReadEpoch||d?.event.id!==id)return;
+  entryState=[401,403,404].includes(e.status)?'blocked':entryAttempt?'uncertain':'unavailable';entryNotice=[401,403,404].includes(e.status)?'Entry access is unavailable or denied. Sign in again.':'Current entry could not be confirmed. Check again before sharing.';
+ }finally{if(current(ticket)&&read===entryReadEpoch&&d?.event.id===id)renderEntry();}
+}
+async function updateEntry(enabled){
+ if(!d||entrySaving||loadingDraft||entryState==='blocked')return;
+ if(!entryAttempt){if(!entryConfirmed||!['enabled','disabled'].includes(entryState))return;entryAttempt={expectedEntryRevision:entryConfirmed.entryRevision,enabled,requestId:crypto.randomUUID()};retainEntryAttempt();}
+ const id=d.event.id,ticket=contextEpoch,intent=clone(entryAttempt);entryReadEpoch++;entrySaving=true;entryState='saving';entryNotice='';renderEntry();
+ try{const response=await api('/api/admin/events/'+encodeURIComponent(id)+'/entry','POST',intent);if(!current(ticket)||d?.event.id!==id)return;
+  entryConfirmed=confirmedEntry(response,id,intent);clearEntryAttempt();entryState=entryConfirmed.enabled?'enabled':'disabled';
+ }catch(e){if(!current(ticket)||d?.event.id!==id)return;
+  if([401,403,404].includes(e.status)){entryState='blocked';entryNotice='Entry update denied. Current staff access is unavailable.';}
+  else if(e.status===409||e.status===400){clearEntryAttempt();entryState='conflict';entryNotice='Entry changed or the update was refused. Check the current entry before trying again.';}
+  else{entryState='uncertain';entryNotice='Entry update not confirmed. Check entry update to retry the original request.';}
+ }finally{if(current(ticket)&&d?.event.id===id){entrySaving=false;renderEntry();}}
+}
+async function copyEntry(){
+ if(entryState!=='enabled'||entryAttempt||entrySaving||!d)return;
+ const id=d.event.id,ticket=contextEpoch;await loadEntry(id,ticket);
+ if(!current(ticket)||d?.event.id!==id||entryState!=='enabled'||entryAttempt)return;
+ try{await navigator.clipboard.writeText(entryConfirmed.shareUrl);if(current(ticket))toast('Event link copied.');}
+ catch{if(current(ticket))toast('Copy was unavailable. Select the event link to copy it.');}
+}
+
 function canLeaveDraft(){
+ if(entrySaving){toast('Wait for the current entry update before switching events.');return false;}
  if(creating||createAttempt){toast('Wait for or retry the pending request before switching events.');return false;}
  if(approving||approvalAttempt){toast('Retry or finish the approval before switching events.');return false;}
  if(loadingDraft){toast('Wait for the draft to load.');return false;}
@@ -246,8 +324,8 @@ async function loadEvent(id,ticket=contextEpoch,route){
   // separate read and must not leave visible, confirmed drafts in a route race.
   if(route?.push)eventUrl(id,{tab:route.tab,lot:route.lot||null});
   shell();renderMain();refresh();
-  const approvalRead=loadApproval(id,ticket);loadingDraft=false;refreshChrome();
-  await approvalRead;
+  const approvalRead=loadApproval(id,ticket),entryRead=loadEntry(id,ticket);loadingDraft=false;refreshChrome();
+  await Promise.all([approvalRead,entryRead]);
   return true;
  }finally{if(current(ticket)){loadingDraft=false;refreshChrome();}}
 }
@@ -271,7 +349,7 @@ function renderEventsHome(){
 }
 async function showEventsHome({reload=true,route=true,replace=false,check=true}={}){
  if(check&&(creating||createAttempt||!canLeaveDraft()))return;
- const ticket=++contextEpoch;resetCatalog();d=null;confirmed=null;dirty=false;attempt=null;saveState='saved';loadingDraft=false;selected.clear();picked=null;search='';notice='';homeNotice='';homeLoading=reload;if(reload)eventList=[];
+ const ticket=++contextEpoch;resetCatalog();resetEntry();d=null;confirmed=null;dirty=false;attempt=null;saveState='saved';loadingDraft=false;selected.clear();picked=null;search='';notice='';homeNotice='';homeLoading=reload;if(reload)eventList=[];
  if(route)eventUrl(null,{replace});history.replaceState(history.state,'','#/events');renderEventsHome();
  if(!reload)return;
  try{const packet=await api('/api/admin/events');if(!current(ticket))return;eventList=packet.events;}
@@ -293,7 +371,7 @@ async function createEvent(){
  if(!createAttempt)createAttempt={organizationId:loadedOrgId,name,requestId:crypto.randomUUID()};
  creating=true;field.disabled=true;const button=dialog.querySelector('[data-action="create-event"]');button.disabled=true;dialog.querySelectorAll('[data-action="close-modal"]').forEach(el=>el.disabled=true);
  try{
-  const response=await api('/api/admin/events','POST',createAttempt);if(!current(ticket))return;createAttempt=null;adopt(response.draft);replaceEditorRoute();eventUrl(d.event.id,{tab:'event'});shell();renderMain();refresh();closeModal(true);await loadApproval(d.event.id,ticket);
+  const response=await api('/api/admin/events','POST',createAttempt);if(!current(ticket))return;createAttempt=null;adopt(response.draft);replaceEditorRoute();eventUrl(d.event.id,{tab:'event'});shell();renderMain();refresh();closeModal(true);await Promise.all([loadApproval(d.event.id,ticket),loadEntry(d.event.id,ticket)]);
  }catch(e){
   if(!current(ticket))return;
   const uncertain=!e.status||e.status>=500;
@@ -382,6 +460,7 @@ function duplicateLot(){
  toast('Lot duplicated as an unsaved draft. Save the draft to keep it.');
 }
 const actions={
+ 'enable-entry':()=>updateEntry(true),'disable-entry':()=>updateEntry(false),'check-entry':()=>entryAttempt?updateEntry(entryAttempt.enabled):loadEntry(d.event.id),'copy-entry':copyEntry,
  'close-modal':()=>closeModal(),
  'save-draft':saveDraft,
  'toggle-preview':()=>{const focusInPreview=$('.preview')?.contains(document.activeElement);previewOpen=!previewOpen;refreshChrome();postPreview();if(!previewOpen&&focusInPreview)$('#preview-toggle')?.focus({preventScroll:true});},
@@ -413,7 +492,7 @@ const actions={
  },
  'create-event':createEvent,
  'signout':async()=>{
-  if(saving||creating||approving)return toast('Wait for the current request to finish.');
+  if(saving||creating||approving||entrySaving)return toast('Wait for the current request to finish.');
   if((dirty||approvalAttempt)&&saveState!=='blocked'){openModal('Sign out?',approvalAttempt?'<p>The approval has not been confirmed. The server may have approved it. Signing out discards local recovery information.</p>':saveState==='uncertain'?'<p>The save has not been confirmed. The server may have saved it. Signing out discards your local edits.</p>':'<p>Your unsaved edits will be discarded.</p>','<button class="btn" data-action="close-modal">Keep editing</button><button class="btn primary" data-action="confirm-signout">Sign out</button>');return;}
   await signOut();
  },
@@ -422,10 +501,10 @@ const actions={
  'test-signin':signIn,
 };
 async function signOut(){
- if(saving||creating||approving)return toast('Wait for the current request to finish.');
+ if(saving||creating||approving||entrySaving)return toast('Wait for the current request to finish.');
  const ticket=++contextEpoch;
  // Invalidate old operations and remove private content before the network wait.
- resetCatalog();d=null;confirmed=null;session=null;eventList=[];attempt=null;createAttempt=null;dirty=false;notice='';saving=false;creating=false;loadingDraft=false;homeLoading=false;homeNotice='';selected.clear();picked=null;search='';loadedOrgId=null;previewMode='saved';amountErrors.clear();nextFieldFocus=null;
+ resetCatalog();resetEntry();d=null;confirmed=null;session=null;eventList=[];attempt=null;createAttempt=null;dirty=false;notice='';saving=false;creating=false;loadingDraft=false;homeLoading=false;homeNotice='';selected.clear();picked=null;search='';loadedOrgId=null;previewMode='saved';amountErrors.clear();nextFieldFocus=null;
  if(dialog.open)dialog.close();dialog.replaceChildren();returnFocus=null;clearTimeout(toastTimer);$('#toast').textContent='';$('#toast').classList.remove('on');
  eventUrl(null,{replace:true});history.replaceState(history.state,'','#/events');
  $('#app').classList.remove('preview-open');$('#app').innerHTML='<main class="loading"><span class="brand">BidZizi</span><p>Signing out…</p></main>';
@@ -491,7 +570,7 @@ try{routeHost().addEventListener('popstate',async()=>{
  catch{if(current(ticket)){if(d)toast('Could not load the event. Try again.');else{homeNotice='Events could not be loaded. Try again.';homeLoading=false;renderEventsHome();}}}
  });}catch{}
 window.addEventListener('message',ev=>{if(ev.origin===location.origin&&ev.source===$('#bidder-frame')?.contentWindow&&ev.data?.type==='staff-preview-ready')postPreview();});
-window.addEventListener('beforeunload',ev=>{if(dirty||attempt||approvalAttempt){ev.preventDefault();ev.returnValue='';}});
+window.addEventListener('beforeunload',ev=>{if(dirty||attempt||approvalAttempt||entryAttempt){ev.preventDefault();ev.returnValue='';}});
 dialog.addEventListener('cancel',ev=>{if(creating||createAttempt||approving){ev.preventDefault();toast('Retry the pending creation before closing.');}});
 dialog.addEventListener('close',restoreModalFocus);
 boot();
