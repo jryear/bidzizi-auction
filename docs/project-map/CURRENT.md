@@ -1,8 +1,8 @@
 # BidZizi current staff-delivery checkpoint · October8,2026 UTC
 
-**D1 implementation is authorized; Studio baseline repair and other contract
-preparation are active. It is not
-accepted, integrated or deployed.** Task18 owns staff creates/prepares a fresh
+**Studio is accepted and integrated locally; the full D1 journey is partial
+and has not been deployed.** Entry, assets and timing contract preparation
+continue under the existing policy and permission holds. Task18 owns staff creates/prepares a fresh
 auction → actual saved bidder preview → explicit publication/sharing → synthetic
 attendee admission. Parent owns the broader roadmap and other prototypes.
 
@@ -43,13 +43,23 @@ permission targets within the existing staging database boundary. TIMING007 prep
 the explicit default/custom schedule interface and reviewed successor delta; open
 window/publication bounds are not silently settled.
 
-No product source, connected staging data, migrations, grants, credentials,
-provider setting, push or deployment has changed in this continuation. Studio
-committed draft5741e0b ran against disposable local app/database/browser fixtures.
-It is BASELINE_NOT_READY: amount-field observer adapter failed and native narrow
-preview closure timed out. Reached persistence/preview and recovery checks passed;
-those observations do not replace the missing complete baseline. All owned runs
-ended; same-author repairs are in fresh independent review.
+No connected staging data, migrations, grants, credentials, provider settings,
+push or deployment has changed. The first Studio checkpoint is accepted and
+integrated locally at `d631d70c6a721b528907e43af060e5e2dc7ce054`, over frozen
+focus-successor base `950bbca245c9772989ce62b10a4638debe610f75`. The external
+kernel reports SUPPORTED: all12 candidate assertions pass, with the expected
+four finite baseline REDs and eight baseline passes. Independent source/render
+review is GO. Actual native340×714 preview has no horizontal overflow; native
+Back/Forward, saved/working distinction, durable reload, recovery and narrow
+controls passed. All owned app/database/browser processes and ports were
+verified stopped. Earlier5741 NOT_READY,9c READY and later failed focus recheck
+are preserved as separate history; no interrupted result became GREEN.
+
+Two actual repaired screenshots are in Library, labeled local connected
+candidate, not deployed: catalog `libfile_46e66db4270c819197d931f6a6fc7a3b` and
+native phone `libfile_beac438d090081919c851e7db6e2e83a`. Entry control is still
+truthfully unavailable in this Studio checkpoint. Remaining D1 preparation and
+local disposable implementation continue; this checkpoint is not full delivery.
 Parent released app-runtime/test ownership to task18 after MOBILE014 private4782fdc
 passed38assertions, independentGO and build/typecheck with owned resources cleaned.
 One bounded runtime at a time is permitted after contract review/freeze. Upstream
@@ -78,7 +88,7 @@ owner approval before staging installation. No new provider/credential assumed.
 
 | Slice | Deliverable | Readiness / freeze status | Accepted dependency |
 | --- | --- | --- | --- |
-| [STUDIO · Coherent Studio composition and saved phone preview](contracts/studio.md) | D1 | blocked review; draft/unfrozen | Released foundation |
+| [STUDIO · Coherent Studio composition and saved phone preview](contracts/studio.md) | D1 | Local successor accepted; staging held | Released foundation |
 | [ASSETS · Real item images and integral sponsor assets](contracts/assets.md) | D1 | blocked evidence; draft/unfrozen | Released foundation |
 | [TIMING007 · Default event timing and named custom groups (007 successor)](contracts/timing007.md) | D1 | blocked owner decision; draft/unfrozen | Released foundation |
 | [INCREMENTS · Configurable current-highest-bid increment tiers](contracts/increments.md) | D1 | blocked owner decision; draft/unfrozen | TIMING007 |
@@ -93,7 +103,9 @@ owner approval before staging installation. No new provider/credential assumed.
 | [CONNECTED_RELEASE · Demonstrable connected Saturn checkpoint and hosted delivery](contracts/connected_release.md) | RELEASE | blocked dependencies; draft/unfrozen | STUDIO, ASSETS, TIMING007, INCREMENTS, PUBLICATION008, ADMISSION, WATCH012, DONATIONS011, STAFF_RESULTS, DISPLAY_ACCESS, FINALIZATION, MOBILE014 |
 
 
-All listed Markdown contracts remain DRAFT_UNFROZEN. D1 preparation is active;
+All listed historical Markdown contracts remain DRAFT_UNFROZEN. The Studio
+implementation task has a separately bound committed freeze and local acceptance.
+Remaining D1 preparation is active;
 other deliverables remain with parent. MOBILE014 has parent-recorded private acceptance and cleaned resources; its
 public publication remains unconfirmed here. Frozen014 and all other historic receipts remain intact.
 Historical anomalies are closed/archived operationally; reopen only on fresh
@@ -109,7 +121,9 @@ private docs base is absent; that result is preserved in
 It has not been weakened or represented as application RED. A reviewed static
 current-delivery binding will verify map/CURRENT parity on this release lineage.
 
-Next: review and commit the narrow baseline evidence repairs, then observe exact
-finite RED/controls against verified375 using the released single runtime slot.
-Retain focused implementers through full
-verification, review, accepted integration and hosted delivery.
+Next: rebind the reviewed entry-control contract to this accepted Studio source,
+commit its reviewed local freeze, observe finite baseline RED and implement its
+bounded controls under disposable verification. Preserve the original Studio
+entry-absence assertion through an explicit successor. Assets/timing preparation
+continues independently; upstream publication and expanded connected grants
+remain held.

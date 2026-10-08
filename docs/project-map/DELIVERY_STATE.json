@@ -1,14 +1,13 @@
 {
   "version": 1,
   "owner": "task18 D1 delivery delegator",
-  "status": "STUDIO_BASELINE_REPAIR_UPSTREAM_HELD",
+  "status": "STUDIO_ACCEPTED_LOCAL_UPSTREAM_HELD",
   "productBase": "375d301c345bc47298dd2945a29bf9583c96fbc9",
   "docsCheckpoint": "7ecdcb5f6d4d52b052f40eadc369b98b9cffb333",
   "privateDocsCarryCommit": "f46d876",
   "outcomeDelivered": false,
   "firstSlice": "STUDIO",
   "activePreparation": [
-    "STUDIO",
     "ADMISSION",
     "ASSETS",
     "TIMING007"
@@ -26,10 +25,34 @@
     "New Continue with current profile action; preserve existing disabled entry/ACK recovery"
   ],
   "studioBaseline": {
-    "committedDraftBase": "5741e0b81f124ba5073019d82fbe837d59a8ea46",
+    "trustedBase": "950bbca245c9772989ce62b10a4638debe610f75",
     "observed": true,
-    "ready": false,
-    "candidateImplementationStarted": false,
-    "receipt": "task18/evidence/studio-baseline-claims.jsonl"
+    "ready": true,
+    "assertionCount": 12,
+    "expectedFiniteFailures": 4,
+    "candidateImplementationStarted": true,
+    "receipt": "task18/evidence/studio-baseline-focus-successor/ARCHIVE_BINDING.json",
+    "predecessorTrustedBase": "9c6bf84ce485aa0dd0309cf692032ccd4a3b7381"
+  },
+  "implementationOwner": "/root/studio_implementation",
+  "candidateWorktree": "task18/studio-candidate",
+  "studioCheckpoint": {
+    "candidate": "d631d70c6a721b528907e43af060e5e2dc7ce054",
+    "acceptedLocal": true,
+    "integratedLocal": true,
+    "deployed": false,
+    "candidateAssertionsPassed": 12,
+    "sourceRenderReview": "GO_SOURCE_AND_RENDER_EXACT_D631D70",
+    "gateArchive": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/studio-candidate-supported-d631d70",
+    "reviewFile": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/studio-source-review.json",
+    "allOwnedCleanupVerified": true,
+    "productSHA256": {
+      "public/staging-admin/studio.js": "163424ddba02bf59fe7c5cc0801ed878fa1a7fa6fb7a7f1d8ca61b3ffa05d55a",
+      "public/staging-admin/studio.css": "78fee4931a48faca710408f5ef3e98b50f33ca06a95bdf081946178777ff6cf1"
+    },
+    "libraryFileIds": [
+      "libfile_46e66db4270c819197d931f6a6fc7a3b",
+      "libfile_beac438d090081919c851e7db6e2e83a"
+    ]
   }
 }
