@@ -1,0 +1,273 @@
+{
+  "status": "PROPOSED_RUNNABLE_SUCCESSOR_REQUIRES_FRESH_REVIEW_COMMIT_AND_EXECUTION",
+  "acceptedStudioPrerequisite": "d631d70c6a721b528907e43af060e5e2dc7ce054",
+  "owner": "Studio author owns new runnable successor bytes; admission author binds four groups in ADMISSION task; root commits/reviews and owns sequential disposable execution.",
+  "frozenTask": "tasks/staging-studio-composition.toml",
+  "frozenTaskSha256": "608f2cad42e14ac6fa233f41f387635bc9fa6d7fdb78bb75c369d98c7f0f0f1a",
+  "frozenEvidenceSha256": {
+    "tests/acceptance/staging-studio-composition/run.mjs": "c33fb739e83b9893c9828613123c0736137eb1de33271d1b383212a93742556b",
+    "tests/acceptance/staging-studio-composition/cases.mjs": "48402028ec70a3b5db1de0eee740ee5f40d1959a518152c2f8c43edf6f982736",
+    "tests/acceptance/staging-studio-composition/controls.mjs": "722dac739f4c1bdabacebb715d21ad0b13f0fcf71cd4863d3584c63d95a94210",
+    "tests/acceptance/staging-studio-composition/fixture.mjs": "be3067d7d72a77604cc3b638d15f37ee8d91b5cbce4bedfdceacd883d58af860",
+    "tests/acceptance/staging-studio-composition/observe.mjs": "1be34bf9937327f9ce825f39517c6cf0a9c8a4f66b54b00554ba68c79ca4cbb6",
+    "tests/acceptance/staging-studio-composition/oracles.mjs": "079f736319b6e9073041feccf0c6c6a69ce117b80148e7d7fd25dda2e723ebeb",
+    "tests/acceptance/staging-studio-composition/CHECKS.json": "37777ff722e98d0abaaf70dfe41c736f8dd2a3818cd8ab12493ff9298180d1b1",
+    "tests/acceptance/staging-studio-composition/SOURCE_BINDING.json": "b33ff7ad84da8eeb8f1bd2ccecde9d236696e2f7c5b42648d1f6d757a42f5c24",
+    "tests/acceptance/staging-studio-composition/ASSERTION_REQUIREMENT_MAP.json": "eb2a04ea7d67779c055fd6935d18bd60b4cb3dd4b4bb12d8e2e0eca8252b264f",
+    "tests/acceptance/staging-studio-composition/README.md": "7d7f7665a9871a83e30b879dfd0e5152911c7feaeedfb5c7b120517fd82584c5",
+    "tests/acceptance/staging-studio-composition/REQUIREMENT_DELTA.md": "7abf867c7bf605b7127a79d8fa6327d21288e1bab3f0151b71f4bee244e09838",
+    "tests/acceptance/staff-drafts/harness.mjs": "15a4a30eb54e0c71607a88cdcaaf6fce6f574689c2f67cb0b9fa6e6d1e08aed0",
+    "tests/acceptance/staff-drafts/protocol.mjs": "82a5995daf969b5c2d1e4f0cba0d355cf026d4166635645d014979466976b636",
+    "tests/acceptance/staff-drafts/seed.sql": "e476babf9ecc5e498b461b2396926a4773ba50b5dbe41722a89b1ce4270c909f",
+    "migrations/001_staging_staff.sql": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a",
+    "migrations/002_staging_catalog.sql": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3",
+    "migrations/003_staging_manual_bid.sql": "e8e985e67aa5f47df7cd9f9baf56c19fb30915fa99662b3a4e469a9a98e36cf8",
+    "migrations/009_demo_attendee_entry.sql": "c4e87a9bb9b591228a62d4557865de76f7b391354b468c7876ba06bd305e4b4e",
+    "package.json": "33e14f23b472c46939ded502b0eb7aa7e1f00ab1d2d8d93de36863e2206ce722",
+    "pnpm-lock.yaml": "4d034c5147ca042fcfb57c8429d0766705d25ad4e7c39269a2cfcf34213d9c2a",
+    "next.config.ts": "dbb2046b5e03ff053711679f392c7caaa08fc79e2e0a4ae7efd0152254a7be72",
+    "tsconfig.json": "6e3e1fba1547e5d6ffe754598bdda409e008dd043476ac82513eb778c12ccdd0",
+    "next-env.d.ts": "0f70629890b72a0a82e91972cc032c04b658b26c265373cb711cf576bfbf8fcc",
+    "AGENTS.md": "22aeb173ad2c7e6b183055e81237704169f8fe44d3ffedbe2bba3b102a983237",
+    "tests/acceptance/staging-studio-composition/cleanup.mjs": "aaa641515606c792e85140dc323ce62fc01972aae2f56127009058fcdbd014c8",
+    ".gitignore": "b40b44b310bdb19d8baa2e267161c1e02553cd457d7b6e83cfdebc8826561641"
+  },
+  "observedSourceInputs": [
+    "public/staging-admin/studio.js",
+    "public/staging-admin/studio.css",
+    "public/staging-admin/model.js",
+    "public/staging-admin/index.html",
+    "public/staging-bidder-preview/src/app.js",
+    "public/staging-bidder-preview/src/data.js",
+    "public/staging-bidder-preview/src/views.js",
+    "public/staging-bidder-preview/src/store.js",
+    "public/staging-bidder-preview/src/ui.js",
+    "public/staging-bidder-preview/styles.css",
+    "src/server/staff.ts",
+    "src/server/draft.ts",
+    "src/server/catalog.ts",
+    "src/server/auth.ts",
+    "src/server/db.ts",
+    "src/server/config.ts",
+    "src/server/http.ts",
+    "src/server/manual-bids.ts",
+    "src/server/demo-entry.ts"
+  ],
+  "groups": [
+    {
+      "name": "Reviewed Studio catalog composition, native A phone and truthful saved setup",
+      "kind": "acceptance",
+      "timeout": 300,
+      "assertions": [
+        "STUDIO_CATALOG_COMPOSITION",
+        "STUDIO_NATIVE_A_PHONE",
+        "STUDIO_SAVED_SETUP_TRUTH",
+        "STUDIO_AMOUNT_FIELD_ASSOCIATION"
+      ],
+      "successorBaselineFailures": [
+        "STUDIO_SAVED_SETUP_TRUTH"
+      ],
+      "oldBaselineFailuresHistoricalOnly": [
+        "STUDIO_CATALOG_COMPOSITION",
+        "STUDIO_NATIVE_A_PHONE",
+        "STUDIO_SAVED_SETUP_TRUTH",
+        "STUDIO_AMOUNT_FIELD_ASSOCIATION"
+      ]
+    },
+    {
+      "name": "Fresh staff creation, durable edits, selected row, preview separation and navigation",
+      "kind": "regression",
+      "timeout": 300,
+      "assertions": [
+        "STUDIO_SELECTED_ROW",
+        "STUDIO_CREATE_SAVE_RELOAD",
+        "STUDIO_SAVED_WORKING_SEPARATION",
+        "STUDIO_EMPTY_NAVIGATION_NARROW"
+      ],
+      "successorBaselineFailures": [],
+      "oldBaselineFailuresHistoricalOnly": []
+    },
+    {
+      "name": "Held and lost Save, exact durable retry and authority isolation",
+      "kind": "adversarial",
+      "timeout": 300,
+      "assertions": [
+        "STUDIO_HELD_SAVE_LOCKS",
+        "STUDIO_LOST_SAVE_EXACT_RETRY",
+        "STUDIO_AUTH_PREVIEW_ISOLATION"
+      ],
+      "successorBaselineFailures": [],
+      "oldBaselineFailuresHistoricalOnly": []
+    },
+    {
+      "name": "Native and durable-observation broken controls",
+      "kind": "regression",
+      "timeout": 60,
+      "assertions": [
+        "STUDIO_EVIDENCE_CONTROLS"
+      ],
+      "successorBaselineFailures": [],
+      "oldBaselineFailuresHistoricalOnly": []
+    }
+  ],
+  "requirementBindings": {
+    "STUDIO_CATALOG_COMPOSITION": {
+      "mode": "exact_inherited_guarantee",
+      "validatorFunction": "composition",
+      "validatorFunctionSha256": "da94f69704da6d574b3b58addf85b4d922313e0ef90481fe3ec396bdcb0f52f7"
+    },
+    "STUDIO_NATIVE_A_PHONE": {
+      "mode": "exact_inherited_guarantee",
+      "validatorFunction": "phone",
+      "validatorFunctionSha256": "37bd1bffaa1d8a0a3fe64f3b8a867db9b6033a46a052fa9d9e21846a3c1fae30"
+    },
+    "STUDIO_SAVED_SETUP_TRUTH": {
+      "mode": "narrow_access_absence_successor",
+      "validatorFunction": "checklist",
+      "validatorFunctionSha256": "5329db7147e64db541f1b5781908e5106fb670347c45f3867de519f24e932654"
+    },
+    "STUDIO_AMOUNT_FIELD_ASSOCIATION": {
+      "mode": "exact_inherited_guarantee",
+      "validatorFunction": "invalid",
+      "validatorFunctionSha256": "c1359c300fd62fc7ec0fd0ab9e77c729094ec2924e68ec4e9f5816ad1ea41181"
+    },
+    "STUDIO_SELECTED_ROW": {
+      "mode": "exact_inherited_guarantee",
+      "validatorFunction": "selected",
+      "validatorFunctionSha256": "74bf6acfb4a5faf352048714c70b55d42bd15bdd2192139667b556931c2b57cb"
+    },
+    "STUDIO_CREATE_SAVE_RELOAD": {
+      "mode": "exact_inherited_guarantee",
+      "validatorFunction": "persistence",
+      "validatorFunctionSha256": "d3cd0fadc5f094e9e1fedc4a5347dde2188cc451d71562e62e53676715255cb1"
+    },
+    "STUDIO_SAVED_WORKING_SEPARATION": {
+      "mode": "exact_inherited_guarantee",
+      "validatorFunction": "savedWorking",
+      "validatorFunctionSha256": "352572e4670e2361af75e45b46e00984e1155bcf54d4389ba225346c5ce652cc"
+    },
+    "STUDIO_EMPTY_NAVIGATION_NARROW": {
+      "mode": "exact_inherited_guarantee",
+      "validatorFunction": "navigation",
+      "validatorFunctionSha256": "eeaaf2c53d83b34c7a56101f89a9f4ec831a90122b5461fa21d438cdd7d014ac"
+    },
+    "STUDIO_HELD_SAVE_LOCKS": {
+      "mode": "exact_inherited_guarantee",
+      "validatorFunction": "held",
+      "validatorFunctionSha256": "a8920f06364768e25261b10184e6283c6191e4d407c950d4c4983b674d8cdee1"
+    },
+    "STUDIO_LOST_SAVE_EXACT_RETRY": {
+      "mode": "exact_inherited_guarantee",
+      "validatorFunction": "lost",
+      "validatorFunctionSha256": "04a938e35244577e9290dcb70978e359fcb55496edc13574c3e8068b2301402d"
+    },
+    "STUDIO_AUTH_PREVIEW_ISOLATION": {
+      "mode": "exact_inherited_guarantee",
+      "validatorFunction": "isolation",
+      "validatorFunctionSha256": "4eca8bdac8069917f4227dfe4bbdf0219ee860a1d08fe9cc5dcec7a73c1ae5de"
+    },
+    "STUDIO_EVIDENCE_CONTROLS": {
+      "mode": "exact_inherited_guarantee",
+      "validatorFunction": "controls",
+      "validatorFunctionSha256": "722dac739f4c1bdabacebb715d21ad0b13f0fcf71cd4863d3584c63d95a94210"
+    }
+  },
+  "onlyReplacedPredicates": {
+    "id": "STUDIO_SAVED_SETUP_TRUTH",
+    "frozenFunction": "checklist",
+    "obsolete": "by(v,'access')?.state === 'unavailable' && /unavailable|not available|not enabled/i.test(by(v,'access').text) && !by(v,'access').action",
+    "replacement": "Observe actual current event-entry revision/state, pending/uncertain/denied truth and real controls against independent SQL/API/server authority. Saving or pending/lost response cannot claim newly enabled; exact original UUID/body retry settles one durable revision. Disabled/new-entry refusal and recovery retain unchanged009 semantics. Access follows entry authority separately from draft saved revision/catalog approval.",
+    "positiveEvidence": [
+      "NATIVE_STAFF_ENABLE_SHARE_QR",
+      "NATIVE_HELD_LOST_CONTROL",
+      "FRESH_DISABLED_DEFAULT",
+      "STAFF_ENABLE_DURABLE",
+      "EXACT_RETRY_CURRENT_STATE"
+    ],
+    "authorityAndDenialEvidence": [
+      "FOREIGN_OR_ANON_DENIED",
+      "POST_EVENT_WAIT_CURRENT_AUTH",
+      "POST_ENTRY_WAIT_CURRENT_AUTH",
+      "POST_REQUEST_WAIT_CURRENT_AUTH",
+      "REPLAY_RECHECKS_AUTH",
+      "RUNTIME_PERMISSION_BOUNDARY"
+    ],
+    "retainVerbatim": {
+      "allOtherChecklistClauses": true,
+      "sevenChecklistStates": [
+        "empty",
+        "saved_complete",
+        "working_unsaved",
+        "saved_incomplete_with_real_correction",
+        "approval_pending",
+        "approval_unconfirmed",
+        "approval_complete"
+      ],
+      "validatorRemainderSha256": "e5ba036571dbe4a1ef81db323770ba5de59560570f34370bb7a03550aebd604a",
+      "executableSuccessor": "tests/acceptance/staging-studio-admission-successor/oracles.mjs"
+    },
+    "forbidden": [
+      "Changing or normalizing access observation to unavailable before calling frozen checklist",
+      "Calling a frozen validator with fabricated access row/action/text",
+      "Skipping failed assertions or reclassifying a reached mismatch as pass",
+      "Weakening saved/working/approval truth, catalog composition, A native phone/preview, exact amounts, selection, Save/retry, authority, navigation or cleanup"
+    ]
+  },
+  "executionObligation": "Execute all twelve guarantees on base and final ADMISSION candidate via these reviewed runnable groups. Only STUDIO_SAVED_SETUP_TRUTH replaces the obsolete unavailable/noaction access predicate. Preserve raw original observations, fixed IDs/order/deadlines and hashes. This is executable preparation, not a runtime or integration GREEN claim.",
+  "effects": "No frozen STUDIO task/helpers edited; no app, DB, browser or old gate executed by admission author.",
+  "runnable": {
+    "directory": "tests/acceptance/staging-studio-admission-successor",
+    "entry": "tests/acceptance/staging-studio-admission-successor/run.mjs",
+    "checkDeclaration": "tests/acceptance/staging-studio-admission-successor/CHECKS.json",
+    "immutableBinding": "tests/acceptance/staging-studio-admission-successor/SOURCE_BINDING.json",
+    "commands": [
+      [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-studio-admission-successor/run.mjs",
+        "0"
+      ],
+      [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-studio-admission-successor/run.mjs",
+        "1"
+      ],
+      [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-studio-admission-successor/run.mjs",
+        "2"
+      ],
+      [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-studio-admission-successor/run.mjs",
+        "3"
+      ]
+    ],
+    "moduleFiles": [
+      "tests/acceptance/staging-studio-admission-successor/entry.mjs",
+      "tests/acceptance/staging-studio-admission-successor/groups.mjs",
+      "tests/acceptance/staging-studio-admission-successor/oracles.mjs",
+      "tests/acceptance/staging-studio-admission-successor/controls.mjs",
+      "tests/acceptance/staging-studio-admission-successor/run.mjs",
+      "tests/acceptance/staging-studio-admission-successor/CHECKS.json",
+      "tests/acceptance/staging-studio-admission-successor/SOURCE_BINDING.json",
+      "tests/acceptance/staging-studio-admission-successor/ASSERTION_REQUIREMENT_MAP.json",
+      "tests/acceptance/staging-studio-admission-successor/README.md"
+    ],
+    "allTwelveIdsInOriginalOrder": [
+      "STUDIO_CATALOG_COMPOSITION",
+      "STUDIO_NATIVE_A_PHONE",
+      "STUDIO_SAVED_SETUP_TRUTH",
+      "STUDIO_AMOUNT_FIELD_ASSOCIATION",
+      "STUDIO_SELECTED_ROW",
+      "STUDIO_CREATE_SAVE_RELOAD",
+      "STUDIO_SAVED_WORKING_SEPARATION",
+      "STUDIO_EMPTY_NAVIGATION_NARROW",
+      "STUDIO_HELD_SAVE_LOCKS",
+      "STUDIO_LOST_SAVE_EXACT_RETRY",
+      "STUDIO_AUTH_PREVIEW_ISOLATION",
+      "STUDIO_EVIDENCE_CONTROLS"
+    ],
+    "onlyExpectedBaselineFailure": "STUDIO_SAVED_SETUP_TRUTH",
+    "allOtherEleven": "Original functions/cases/controls execute unchanged; extended typed access controls append under original control ID."
+  }
+}

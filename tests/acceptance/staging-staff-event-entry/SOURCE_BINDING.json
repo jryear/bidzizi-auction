@@ -1,0 +1,76 @@
+{
+  "status": "DRAFT_UNFROZEN",
+  "preparedProductBase": "d631d70c6a721b528907e43af060e5e2dc7ce054",
+  "rebindRequiredBeforeFreeze": "Parent supplied accepted integrated Studio prerequisite d631. Parent chooses and commits the trusted ADMISSION evidence base; rebind again only on explicit supplied accepted revision. Protected historic hashes are unchanged; no arbitrary alternatives.",
+  "immutableSources": {
+    "migrations/001_staging_staff.sql": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a",
+    "migrations/002_staging_catalog.sql": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3",
+    "migrations/003_staging_manual_bid.sql": "e8e985e67aa5f47df7cd9f9baf56c19fb30915fa99662b3a4e469a9a98e36cf8",
+    "migrations/009_demo_attendee_entry.sql": "c4e87a9bb9b591228a62d4557865de76f7b391354b468c7876ba06bd305e4b4e",
+    "src/server/auth.ts": "7f6151c248366902cc0a000af59301135a1c0eeb118983b00ead9cef7b44dd9e",
+    "src/server/demo-entry.ts": "b4e4489ea221a4a7379bf46e74f156373b3cfb8f06e8a7fd06eb8a492813e139",
+    "src/server/config.ts": "fcc39662d4d42893651fac761ae3067a2ddd7e8340854717af6405561fd9bdaf",
+    "src/server/http.ts": "134c97f03b4be7dd7bbbbe10a7bc6c40cd38a16f802305c0126df603a4c81359",
+    "src/server/manual-bids.ts": "e9f1087098a344226200fa63cabdff9dcf09b1acd678c8f839db6023babe3b98",
+    "src/app/events/[id]/event-access.tsx": "22cfc7a5772fb9b7528954d65c384fc92731c74f71a64c16eee8a7a667fde806",
+    "src/app/events/[id]/demo-entry-form.tsx": "278a5cc94d2b6eb6f943b666eebb5c6a881c257aa70b42cb8285e5113da8235c"
+  },
+  "shipped009ReadOnlyReference": {
+    "root": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-connected-review",
+    "hashes": {
+      "tasks/staging-demo-attendee-entry-009-v2.toml": "2f7f1bad8b94aedc161f7c1dea002a13622aa4cded8431a719c1bdab6c3774ea",
+      "tests/acceptance/staging-demo-entry-v2/CONTRACT.md": "c56b4133bd4afdd182c42aa906be43fb54f4b998c982c0e6c9b66a084fbf5ed6",
+      "tests/acceptance/staging-demo-entry-v2/CHECKS.json": "c464ccf3119ae0796a9a3df549a4c5c518919808a98ee8723bc043b97f93f2e0",
+      "tests/acceptance/staging-demo-entry-v2/run.mjs": "f2d8c6ce8ced2994cecbf0654d7077efdc2cec0e789eea35a43364eed139d6f8",
+      "tests/acceptance/staging-demo-entry-v2/cases.mjs": "a799fe94984b5a7ea90e63e9d2ef569bd9c4a6e7211d3e451567ba0d5b4aad66",
+      "tests/acceptance/staging-demo-entry-v2/controls.mjs": "acaa2362e1ee7723ec78e7bc8851463e4adf7540cd81a190646a7c2caf942949",
+      "tests/acceptance/staging-demo-entry-v2/sanitize.mjs": "c328ecfbd37022e0e1ea368f1d614318caec918797b88402908a78c152532e87",
+      "tests/acceptance/staging-connected-review-v2/CONTRACT.md": "9217ee60b317c862f555073f8a8efcf6954aa7af83aad6f1b48a0fce76726870"
+    },
+    "requiredLater": "Full immutable009v2 and accepted combined009+010 closure in explicit reviewed parent successor, not replaced by this focused packet"
+  },
+  "releasedProductAncestor": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+  "acceptedStudioPrerequisite": {
+    "revision": "d631d70c6a721b528907e43af060e5e2dc7ce054",
+    "status": "Parent-reported SUPPORTED12 assertions and fresh independent source/render GO; root fast-forward integration. This binding does not claim staging deployment or ADMISSION runtime success.",
+    "productDiffFromReleasedAncestor": [
+      "public/staging-admin/studio.css",
+      "public/staging-admin/studio.js"
+    ],
+    "sourceSha256": {
+      "public/staging-admin/studio.js": "163424ddba02bf59fe7c5cc0801ed878fa1a7fa6fb7a7f1d8ca61b3ffa05d55a",
+      "public/staging-admin/studio.css": "78fee4931a48faca710408f5ef3e98b50f33ca06a95bdf081946178777ff6cf1",
+      "public/staging-admin/index.html": "1bdcebb5f739e38504ade40ee0eaeee264840cc9c1dabde2f7f01d73802da224"
+    },
+    "nativeHooks": {
+      "staffPath": "/admin",
+      "iframeTitle": "BidZizi admin workspace",
+      "testAccountControl": "#test-account",
+      "staffOption": "staff-saturn",
+      "eventsHeading": "Events",
+      "persistedEventCard": ".event-card[data-action=\"switch-event\"]",
+      "eventTab": "[data-tab=\"event\"]",
+      "eventTabLabel": "Event & entry",
+      "eventHash": "#/event",
+      "savedSetup": "#studio-setup [data-studio-checklist][data-basis=\"saved\"]",
+      "proposedEntryPanel": "[data-event-entry]"
+    },
+    "inheritedStudioEvidenceSha256": {
+      "tasks/staging-studio-composition.toml": "608f2cad42e14ac6fa233f41f387635bc9fa6d7fdb78bb75c369d98c7f0f0f1a",
+      "tests/acceptance/staging-studio-composition/CHECKS.json": "37777ff722e98d0abaaf70dfe41c736f8dd2a3818cd8ab12493ff9298180d1b1",
+      "tests/acceptance/staging-studio-composition/SOURCE_BINDING.json": "b33ff7ad84da8eeb8f1bd2ccecde9d236696e2f7c5b42648d1f6d757a42f5c24",
+      "tests/acceptance/staging-studio-composition/oracles.mjs": "079f736319b6e9073041feccf0c6c6a69ce117b80148e7d7fd25dda2e723ebeb",
+      "tests/acceptance/staging-studio-composition/REQUIREMENT_DELTA.md": "7abf867c7bf605b7127a79d8fa6327d21288e1bab3f0151b71f4bee244e09838"
+    },
+    "integratedSuccessorRequired": "Runnable4-group/12-ID successor is appended to this ADMISSION draft task. It replaces only saved-setup access unavailable/noaction with independently observed current entry truth and preserves all11 other guarantees. Parent must freshly review, freeze and execute it before integratedGREEN; no frozen STUDIO bytes are edited.",
+    "integratedClosureBinding": {
+      "path": "tests/acceptance/staging-staff-event-entry/STUDIO_SUCCESSOR_CLOSURE.json",
+      "sha256": "443446d2ebfc9cd42a8d18fac4c1f18ac40e8a0af69445a416a594912643e295",
+      "status": "RUNNABLE_DRAFT_UNFROZEN_STATIC_ONLY_NO_RUNTIME_RESULT",
+      "checkDeclaration": "tests/acceptance/staging-studio-admission-successor/CHECKS.json",
+      "checkDeclarationSha256": "6b04b3ed4b20929c5d50a66184cf4bf0944b9733dbfdef8497e9ed00c8e6d9b2",
+      "sourceBinding": "tests/acceptance/staging-studio-admission-successor/SOURCE_BINDING.json",
+      "sourceBindingSha256": "2a486344c0cde6ea93c72a2f1106e487b2afdc4d995104e4b34122696a48ca5a"
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "inherited": {
+    "version": 1,
+    "status": "DRAFT_UNFROZEN",
+    "assertions": [
+      {
+        "id": "STUDIO_CATALOG_COMPOSITION",
+        "requirement": "Actual desktop/laptop full item titles (13px1440/12px1280), exact01 numbering, prominent loaded photos; no horizontal overflow.",
+        "kind": "acceptance",
+        "baselineExpectedExit": 1,
+        "observation": "Native UI/API and disposable SQL"
+      },
+      {
+        "id": "STUDIO_NATIVE_A_PHONE",
+        "requirement": "Actual unscaled A phone viewport/independent scroll/real Welcome Catalog selected item routes at1440/1280/390.",
+        "kind": "acceptance",
+        "baselineExpectedExit": 1,
+        "observation": "Native UI/API and disposable SQL"
+      },
+      {
+        "id": "STUDIO_SAVED_SETUP_TRUTH",
+        "requirement": "Accessible saved Event setup: independently incomplete states, real correction from another view to missing field/focus, working edits labeled, approval independently pending/read-failed/approved, entry unavailable.",
+        "kind": "acceptance",
+        "baselineExpectedExit": 1,
+        "observation": "Native UI/API and disposable SQL"
+      },
+      {
+        "id": "STUDIO_AMOUNT_FIELD_ASSOCIATION",
+        "requirement": "Invalid opening/increment field association, announcement/focus/no save/raw retention and error clearance.",
+        "kind": "acceptance",
+        "baselineExpectedExit": 1,
+        "observation": "Native UI/API and disposable SQL"
+      },
+      {
+        "id": "STUDIO_SELECTED_ROW",
+        "requirement": "Actual second editor row current independently of bulk checkbox selection.",
+        "kind": "regression",
+        "baselineExpectedExit": 0,
+        "observation": "Native UI/API and disposable SQL"
+      },
+      {
+        "id": "STUDIO_CREATE_SAVE_RELOAD",
+        "requirement": "Fresh UI event and complete independently typed event/item tuple including all text/image/alt/amount/includes/fine IDs/order matches savedAPI/SQL, reload and normalized consumed A.",
+        "kind": "regression",
+        "baselineExpectedExit": 0,
+        "observation": "Native UI/API and disposable SQL"
+      },
+      {
+        "id": "STUDIO_SAVED_WORKING_SEPARATION",
+        "requirement": "Confirmed saved A tuple separate from working edits and unsaved new item; SQL unchanged.",
+        "kind": "regression",
+        "baselineExpectedExit": 0,
+        "observation": "Native UI/API and disposable SQL"
+      },
+      {
+        "id": "STUDIO_EMPTY_NAVIGATION_NARROW",
+        "requirement": "Empty/create error/correction/Escape focus/native Back Forward/narrow hit-tested inputs.",
+        "kind": "regression",
+        "baselineExpectedExit": 0,
+        "observation": "Native UI/API and disposable SQL"
+      },
+      {
+        "id": "STUDIO_HELD_SAVE_LOCKS",
+        "requirement": "Held Save locks/no premature commit, departure retained, full committedSQL equals exact PUT and independent known changed title.",
+        "kind": "adversarial",
+        "baselineExpectedExit": 0,
+        "observation": "Native UI/API and disposable SQL"
+      },
+      {
+        "id": "STUDIO_LOST_SAVE_EXACT_RETRY",
+        "requirement": "Committed Save response loss: full SQL equals exact PUT and independent known changed title; uncertainty, locks, identical UUID/payload recovery and one SQL request/revision.",
+        "kind": "adversarial",
+        "baselineExpectedExit": 0,
+        "observation": "Native UI/API and disposable SQL"
+      },
+      {
+        "id": "STUDIO_AUTH_PREVIEW_ISOLATION",
+        "requirement": "Current revoked authority denies write, foreign account isolation, spoof preview rejected and private content cleared.",
+        "kind": "adversarial",
+        "baselineExpectedExit": 0,
+        "observation": "Native UI/API and disposable SQL"
+      },
+      {
+        "id": "STUDIO_EVIDENCE_CONTROLS",
+        "requirement": "Native DOM and typed tuple negative controls reject realistic broken observations; do not establish app GREEN.",
+        "kind": "regression",
+        "baselineExpectedExit": 0,
+        "observation": "Native static DOM plus typed durable tuple subpredicate controls"
+      }
+    ],
+    "historicalDelta": "REQUIREMENT_DELTA.md",
+    "inheritedPrivateEvidence": "Parent retains accepted006c/mobile/009/010 contracts; released public source omits that private evidence, so no old body is changed or claimed rerun here.",
+    "cleanup": "New bounded owned PID ancestry and app/PG port disappearance verification; no discovered process is signaled. Missing/failed cleanup witness is99 without terminal protocol."
+  },
+  "successorOnly": {
+    "STUDIO_SAVED_SETUP_TRUTH": "Replace only unavailable/noaction entry absence with independently observed current revision, pending/lost/exact retry and denial truth."
+  },
+  "inheritedMetadataStatus": "HISTORICAL_FROZEN_STUDIO_MAP: inherited baselineExpectedExit fields describe the original released375 baseline only; no current baseline result is claimed.",
+  "currentBaselineDeclaration": {
+    "acceptedProduct": "d631d70c6a721b528907e43af060e5e2dc7ce054",
+    "expectedFiniteFailure": [
+      "STUDIO_SAVED_SETUP_TRUTH"
+    ],
+    "allOtherEleven": "Expected PASS; exact executable CHECKS.json is authoritative for this successor."
+  }
+}

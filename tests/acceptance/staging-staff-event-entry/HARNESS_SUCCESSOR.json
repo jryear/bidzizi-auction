@@ -1,0 +1,64 @@
+{
+  "status": "DRAFT_UNFROZEN",
+  "frozenSource": "tests/acceptance/staging-manual-bid/harness.mjs",
+  "frozenSourceSha256": "2d1ccba3f005f2113c93f3aa086fdf37f93ab5c5640482705acb641a4bf8c97a",
+  "successor": "tests/acceptance/staging-staff-event-entry/harness.mjs",
+  "successorSha256": "6f698af19e9b5e7f5388766db5ffa98ba5d19fb8916b1fb160f9b9ed1e6f65c5",
+  "prepend": "// DRAFT lifecycle successor of frozen staging-manual-bid/harness.mjs SHA256 2d1ccba3f005f2113c93f3aa086fdf37f93ab5c5640482705acb641a4bf8c97a.\n// Delta: owned-resource callbacks before readiness; preserved fixture/guard/clock/timeout behavior,\n// original seed/skew paths; cleanup.mjs verifies teardown and handles cancellation.\n",
+  "exactReplacements": [
+    {
+      "before": "export async function withFixture(run){",
+      "after": "export async function withFixture(run,{onOwned=async()=>{throw new HarnessError('Owned lifecycle supervisor required');}}={}){"
+    },
+    {
+      "before": "  const cluster=join(scratch,'pg'),socket=join(scratch,'s');",
+      "after": "  await onOwned({kind:'scratch',scratch});\n  const cluster=join(scratch,'pg'),socket=join(scratch,'s');"
+    },
+    {
+      "before": "    admin=new pg.Client(connection);",
+      "after": "    await onOwned({kind:'postgres',pid:Number((await readFile(join(cluster,'postmaster.pid'),'utf8')).split('\\n')[0]),cluster});\n    admin=new pg.Client(connection);"
+    },
+    {
+      "before": "new URL('./seed-people.sql',import.meta.url)",
+      "after": "new URL('../staging-manual-bid/seed-people.sql',import.meta.url)"
+    },
+    {
+      "before": "new URL('./app-clock-skew.cjs',import.meta.url)",
+      "after": "new URL('../staging-manual-bid/app-clock-skew.cjs',import.meta.url)"
+    },
+    {
+      "before": "      children.push(child);let output='',timedOut=false;",
+      "after": "      children.push(child);\n      let output='',timedOut=false;"
+    },
+    {
+      "before": "      const deadline=Date.now()+60_000;",
+      "after": "      await onOwned({kind:'next',group:child.pid,listener:child.pid,port:p});\n      const deadline=Date.now()+60_000;"
+    },
+    {
+      "before": "    try{await rm(scratch,{recursive:true,force:true});}",
+      "after": "    await onOwned({kind:'before-remove',scratch});\n    try{await rm(scratch,{recursive:true,force:true});}"
+    },
+    {
+      "before": "async function stop(child){\n  if(!child||child.exitCode!==null)return;\n  try{process.kill(-child.pid,'SIGTERM');}catch{}\n  await Promise.race([new Promise(done=>child.once('exit',done)),new Promise(done=>setTimeout(done,5000))]);\n  if(child.exitCode===null){try{process.kill(-child.pid,'SIGKILL');}catch{}}\n}",
+      "after": "async function stop(child,onOwned){\n  if(child)await onOwned({kind:'stop-next',group:child.pid});\n}"
+    },
+    {
+      "before": "async restart(overrides={}){await stop(app.child);app=await start(overrides);}",
+      "after": "async restart(overrides={}){await stop(app.child,onOwned);app=await start(overrides);}"
+    },
+    {
+      "before": "    for(const child of children.reverse())await stop(child);",
+      "after": "    let stopError;\n    for(const child of children.reverse()){try{await stop(child,onOwned);}catch(error){stopError??=error;}}"
+    },
+    {
+      "before": "    await onOwned({kind:'before-remove',scratch});\n    try{await rm(scratch,{recursive:true,force:true});}",
+      "after": "    await onOwned({kind:'before-remove',scratch});\n    if(stopError)throw stopError;\n    try{await rm(scratch,{recursive:true,force:true});}"
+    },
+    {
+      "before": "    if(started){try{command(pgBin+'/pg_ctl',['-D',cluster,'-m','immediate','-w','stop']);}catch{}}\n",
+      "after": ""
+    }
+  ],
+  "preserved": "Fixture identities/permissions/seeds/guards/clock/application deadlines unchanged. Path rebinding and explicit lifecycle registration/guarded stop/teardown acknowledgement only. Normal/restart/finally and interruption group signals require non-null registered birth proof; old group must be gone before restart. Never edits frozen helper. Raw finally pg_ctl removed; supervisor proves registered PostgreSQL birth plus pidfile startup epoch/data directory and actual postgres -D cluster before any stop or partial-start discovery.",
+  "limits": "SIGKILL/host failure cannot execute JS cleanup. Scratch-first registry permits parent exact-owned recovery; no missing/null/reused identity authorizes a signal. Process identities use macOS ps lstart plus detached group/listener inventory, not caller PIDs."
+}

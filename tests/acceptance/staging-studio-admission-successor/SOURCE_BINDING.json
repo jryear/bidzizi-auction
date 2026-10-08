@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "status": "DRAFT_UNFROZEN_STATIC_ONLY_NO_RUNTIME_RESULT",
+  "acceptedStudioProduct": "d631d70c6a721b528907e43af060e5e2dc7ce054",
+  "finalTrustedBase": null,
+  "baselineStaffSHA256": {
+    "public/staging-admin/studio.js": "163424ddba02bf59fe7c5cc0801ed878fa1a7fa6fb7a7f1d8ca61b3ffa05d55a",
+    "public/staging-admin/studio.css": "78fee4931a48faca710408f5ef3e98b50f33ca06a95bdf081946178777ff6cf1",
+    "public/staging-admin/model.js": "b081ca833bf6fe314ec64cac2ad9616cef2928fbffc08f68f7139d88c8f9e719",
+    "public/staging-admin/index.html": "1bdcebb5f739e38504ade40ee0eaeee264840cc9c1dabde2f7f01d73802da224"
+  },
+  "inheritedEvidenceSHA256": {
+    "tests/acceptance/staging-studio-composition/run.mjs": "c33fb739e83b9893c9828613123c0736137eb1de33271d1b383212a93742556b",
+    "tests/acceptance/staging-studio-composition/cases.mjs": "48402028ec70a3b5db1de0eee740ee5f40d1959a518152c2f8c43edf6f982736",
+    "tests/acceptance/staging-studio-composition/controls.mjs": "722dac739f4c1bdabacebb715d21ad0b13f0fcf71cd4863d3584c63d95a94210",
+    "tests/acceptance/staging-studio-composition/fixture.mjs": "be3067d7d72a77604cc3b638d15f37ee8d91b5cbce4bedfdceacd883d58af860",
+    "tests/acceptance/staging-studio-composition/observe.mjs": "1be34bf9937327f9ce825f39517c6cf0a9c8a4f66b54b00554ba68c79ca4cbb6",
+    "tests/acceptance/staging-studio-composition/oracles.mjs": "079f736319b6e9073041feccf0c6c6a69ce117b80148e7d7fd25dda2e723ebeb",
+    "tests/acceptance/staging-studio-composition/CHECKS.json": "37777ff722e98d0abaaf70dfe41c736f8dd2a3818cd8ab12493ff9298180d1b1",
+    "tests/acceptance/staging-studio-composition/SOURCE_BINDING.json": "b33ff7ad84da8eeb8f1bd2ccecde9d236696e2f7c5b42648d1f6d757a42f5c24",
+    "tests/acceptance/staging-studio-composition/ASSERTION_REQUIREMENT_MAP.json": "eb2a04ea7d67779c055fd6935d18bd60b4cb3dd4b4bb12d8e2e0eca8252b264f",
+    "tests/acceptance/staging-studio-composition/README.md": "7d7f7665a9871a83e30b879dfd0e5152911c7feaeedfb5c7b120517fd82584c5",
+    "tests/acceptance/staging-studio-composition/REQUIREMENT_DELTA.md": "7abf867c7bf605b7127a79d8fa6327d21288e1bab3f0151b71f4bee244e09838",
+    "tests/acceptance/staff-drafts/harness.mjs": "15a4a30eb54e0c71607a88cdcaaf6fce6f574689c2f67cb0b9fa6e6d1e08aed0",
+    "tests/acceptance/staff-drafts/protocol.mjs": "82a5995daf969b5c2d1e4f0cba0d355cf026d4166635645d014979466976b636",
+    "tests/acceptance/staff-drafts/seed.sql": "e476babf9ecc5e498b461b2396926a4773ba50b5dbe41722a89b1ce4270c909f",
+    "migrations/001_staging_staff.sql": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a",
+    "migrations/002_staging_catalog.sql": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3",
+    "migrations/003_staging_manual_bid.sql": "e8e985e67aa5f47df7cd9f9baf56c19fb30915fa99662b3a4e469a9a98e36cf8",
+    "migrations/009_demo_attendee_entry.sql": "c4e87a9bb9b591228a62d4557865de76f7b391354b468c7876ba06bd305e4b4e",
+    "package.json": "33e14f23b472c46939ded502b0eb7aa7e1f00ab1d2d8d93de36863e2206ce722",
+    "pnpm-lock.yaml": "4d034c5147ca042fcfb57c8429d0766705d25ad4e7c39269a2cfcf34213d9c2a",
+    "next.config.ts": "dbb2046b5e03ff053711679f392c7caaa08fc79e2e0a4ae7efd0152254a7be72",
+    "tsconfig.json": "6e3e1fba1547e5d6ffe754598bdda409e008dd043476ac82513eb778c12ccdd0",
+    "next-env.d.ts": "0f70629890b72a0a82e91972cc032c04b658b26c265373cb711cf576bfbf8fcc",
+    "AGENTS.md": "22aeb173ad2c7e6b183055e81237704169f8fe44d3ffedbe2bba3b102a983237",
+    "tests/acceptance/staging-studio-composition/cleanup.mjs": "aaa641515606c792e85140dc323ce62fc01972aae2f56127009058fcdbd014c8",
+    ".gitignore": "b40b44b310bdb19d8baa2e267161c1e02553cd457d7b6e83cfdebc8826561641",
+    "tasks/staging-studio-composition.toml": "608f2cad42e14ac6fa233f41f387635bc9fa6d7fdb78bb75c369d98c7f0f0f1a"
+  },
+  "sourceOptionalOnlyOnMissingAcceptedBase": [
+    "src/server/staff-event-entry.ts",
+    "src/app/api/admin/events/[id]/entry/route.ts",
+    "migrations/015_staff_event_entry.sql",
+    "public/staging-admin/vendor/qr-code.js",
+    "public/staging-admin/vendor/qr-code.LICENSE.txt",
+    "public/staging-admin/vendor/QR_PROVENANCE.md"
+  ],
+  "supersession": {
+    "onlyId": "STUDIO_SAVED_SETUP_TRUTH",
+    "obsolete": "Access must be unavailable with no action until ADMISSION",
+    "replacement": "Real current entry API/SQL and raw native disabled, pending, uncertain, enabled and denied access truth; complete only confirmed enabled.",
+    "preserved": "All twelve original IDs, group names, order/deadlines, seven raw checklist states and every other validator/case/helper byte. No access normalization, fabricated old row, refill, absent-case substitution or Back guard."
+  },
+  "prerequisite": "Parent accepted d631 Studio. Parent commits/reviews this runnable ADMISSION closure before a fresh complete baseline. Historical Studio receipts and helpers remain immutable; no fresh result is claimed."
+}
