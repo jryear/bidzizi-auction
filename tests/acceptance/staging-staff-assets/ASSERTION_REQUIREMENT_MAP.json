@@ -1,0 +1,111 @@
+{
+  "status": "DRAFT_UNFROZEN_UNEXECUTED",
+  "assertions": [
+    {
+      "id": "ASSETS_NATIVE_DURABLE_SNAPSHOT",
+      "suite": "journey",
+      "kind": "acceptance",
+      "requirements": [
+        "Native fresh creation, real JPEG/PNG/WebP file inputs and alt",
+        "Saved/reloaded A phone frame and desktop actual pixels",
+        "Stored/hash/download/decode equality across four contexts",
+        "Normalized snapshot replacement immutability and nonempty accepted synthetic bid/receipt history",
+        "Existing optional-photo publication",
+        "Exact event/org/raw MIME and SQL timestamp binding; independent two-region cover, opaque/transparent sponsor and marigold item landmarks"
+      ],
+      "baselineObservation": "Existing375 health + actual authorized raster POST404 and absent successor SQL objects; proposed, not executed",
+      "onFirstMismatch": "One reached aggregate fail; later dependent stages unexecuted"
+    },
+    {
+      "id": "ASSETS_RASTER_CONTENT_LIMITS",
+      "suite": "content",
+      "kind": "adversarial",
+      "requirements": [
+        "Full decode/metadata stripping/orientation/alpha/no enlargement",
+        "Raw side/pixel/output/deadline/container/animation/MIME boundaries",
+        "No insert on content rejection, no remote URL field"
+      ],
+      "baselineObservation": "Existing375 health + actual authorized raster POST404 and absent successor SQL objects; proposed, not executed",
+      "onFirstMismatch": "One reached aggregate fail; later dependent stages unexecuted"
+    },
+    {
+      "id": "ASSETS_OWNED_RECOVERY",
+      "suite": "recovery",
+      "kind": "adversarial",
+      "requirements": [
+        "Same actor/new session exact replay200 and conflict409",
+        "Loss after actual commit, reload-owned descriptor, unattached saved truth",
+        "Failed Save preserves saved A",
+        "Late item/event/actor responses cannot mutate new context"
+      ],
+      "baselineObservation": "Existing375 health + actual authorized raster POST404 and absent successor SQL objects; proposed, not executed",
+      "onFirstMismatch": "One reached aggregate fail; later dependent stages unexecuted"
+    },
+    {
+      "id": "ASSETS_CONTEXT_AUTHORIZATION",
+      "suite": "authorization",
+      "kind": "adversarial",
+      "requirements": [
+        "Own receipt vs same-org staff saved reference, anonymous/bidder/foreign grants",
+        "Current VIEW and exact approval/event/reference membership",
+        "Opaque/alt syntax and foreign Save atomicity",
+        "Actual010 supplied-URL/mismatched-context rejection",
+        "Owners/security/search path/PUBLIC ACL/direct runtime table denial/immutable trigger",
+        "Direct restricted SQL current revoked/expired/inactive/non-test and absent/inactive staff/VIEW matrix, including replay; no HTTP preflight substitution",
+        "Effective all table/column privileges and trigger EXECUTE denial under injected disposable default grants; exact inherited SQL definitions/owners/ACLs"
+      ],
+      "baselineObservation": "Existing375 health + actual authorized raster POST404 and absent successor SQL objects; proposed, not executed",
+      "onFirstMismatch": "One reached aggregate fail; later dependent stages unexecuted"
+    },
+    {
+      "id": "ASSETS_SQL_TRANSPORT_QUOTA",
+      "suite": "sqlAndQuota",
+      "kind": "adversarial",
+      "requirements": [
+        "Exact typed null/range/array/SQLSTATE guards",
+        "No read bytes before deferred COMMIT; unknown error503",
+        "Put rollback; event concurrent cap/organization row+byte caps/replay at full quota"
+      ],
+      "baselineObservation": "Existing375 health + actual authorized raster POST404 and absent successor SQL objects; proposed, not executed",
+      "onFirstMismatch": "One reached aggregate fail; later dependent stages unexecuted"
+    },
+    {
+      "id": "ASSETS_LOCK_EXPIRY_SERIALIZATION",
+      "suite": "concurrency",
+      "kind": "adversarial",
+      "requirements": [
+        "Authority\u2192event\u2192request\u2192quota\u2192reference\u2192asset ordering",
+        "Witnessed event/request/quota/asset/owned-recovery/actual-Save expiry",
+        "Actual Save plus queued logout/staff revocation",
+        "Standalone/nested lock-free validation/no reservation",
+        "Published read plus queued VIEW revocation and URL denial"
+      ],
+      "baselineObservation": "Existing375 health + actual authorized raster POST404 and absent successor SQL objects; proposed, not executed",
+      "onFirstMismatch": "One reached aggregate fail; later dependent stages unexecuted"
+    },
+    {
+      "id": "ASSETS_RELEASE375_009_010_FIXED",
+      "suite": "regression",
+      "kind": "regression",
+      "requirements": [
+        "Existing operator009 opt-in only; distinct duplicate-claim private profiles and ACK",
+        "Fixed-only010/native raster rendering; old approval receipt exact",
+        "Existing anonymous/current VIEW denials"
+      ],
+      "baselineObservation": "Must complete unchanged375 regression/control, no baseline failed IDs",
+      "onFirstMismatch": "One reached aggregate fail; later dependent stages unexecuted"
+    },
+    {
+      "id": "ASSETS_EVIDENCE_NEGATIVE_CONTROLS",
+      "suite": "controls",
+      "kind": "regression",
+      "requirements": [
+        "Positive observed-output oracle witnesses",
+        "Broken missing row/foreign event/encoded bytes/private headers/remote ref/receipt rejected",
+        "Explicitly not semantic implementation-mutant evidence"
+      ],
+      "baselineObservation": "Must complete unchanged375 regression/control, no baseline failed IDs",
+      "onFirstMismatch": "One reached aggregate fail; later dependent stages unexecuted"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "status": "PROPOSED_UNEXECUTED_INDEPENDENT_EXECUTOR_GATE",
+  "boundary": "Retained candidate mutations in disposable isolated snapshots only; never shared schema/source or weakened evidence. Each must produce a finite intended mismatch after health, not99. Observation-suite7 alone cannot discharge these semantic controls.",
+  "controls": [
+    {
+      "id": "NO_DURABLE_UPLOAD",
+      "fault": "Return successful upload metadata without inserting the row",
+      "mustFail": "ASSETS_NATIVE_DURABLE_SNAPSHOT",
+      "oracle": "Persisted row + byte equality"
+    },
+    {
+      "id": "FOREIGN_REFERENCE_SAVE",
+      "fault": "Skip same-event opaque ownership validation in actual Save",
+      "mustFail": "ASSETS_CONTEXT_AUTHORIZATION",
+      "oracle": "Foreign-ref atomic rejection and unchanged revision"
+    },
+    {
+      "id": "REPLACE_PUBLISHED_BYTES",
+      "fault": "Replace an existing asset or approval reference during draft replacement",
+      "mustFail": "ASSETS_NATIVE_DURABLE_SNAPSHOT",
+      "oracle": "Old normalized hash, approval, accepted bid and receipt hashes remain exact"
+    },
+    {
+      "id": "NO_SNAPSHOT_MEMBERSHIP",
+      "fault": "Drop exact saved/approved reference membership from actual content read",
+      "mustFail": "ASSETS_CONTEXT_AUTHORIZATION",
+      "oracle": "Unreferenced/wrong approval/event URL must deny"
+    },
+    {
+      "id": "UNSAFE_010_REFERENCE",
+      "fault": "Accept arbitrary image URL or mismatch assetContext in actual010 parser",
+      "mustFail": "ASSETS_CONTEXT_AUTHORIZATION",
+      "oracle": "Native injected invalid projection clears images and enters error"
+    },
+    {
+      "id": "PREWAIT_EXPIRY",
+      "fault": "Use pre-wait expiry for actual put/read/recover/Save",
+      "mustFail": "ASSETS_LOCK_EXPIRY_SERIALIZATION",
+      "oracle": "Witnessed final-wait expiry denies, Save revision unchanged"
+    },
+    {
+      "id": "LOCKING_NESTED_VALIDATE",
+      "fault": "Acquire locking authority inside validate after caller event",
+      "mustFail": "ASSETS_LOCK_EXPIRY_SERIALIZATION",
+      "oracle": "Queued revocation / actual Save plus nonlocking standalone predicate"
+    },
+    {
+      "id": "NO_QUOTA_SERIALIZATION",
+      "fault": "Remove org quota advisory serialization",
+      "mustFail": "ASSETS_SQL_TRANSPORT_QUOTA",
+      "oracle": "Concurrent actual function puts at255 event rows admit exactlyone"
+    },
+    {
+      "id": "DUPLICATE_REQUEST_INSERT",
+      "fault": "Insert a new row on identical request replay",
+      "mustFail": "ASSETS_OWNED_RECOVERY",
+      "oracle": "Exact metadata,200 replay and single actor/event/request row"
+    },
+    {
+      "id": "METADATA_ONLY_DECODER",
+      "fault": "Accept headers/metadata without full raster/container validation",
+      "mustFail": "ASSETS_RASTER_CONTENT_LIMITS",
+      "oracle": "Truncated/animated/spoofed/polyglot inputs cannot insert"
+    },
+    {
+      "id": "RESPOND_BEFORE_COMMIT",
+      "fault": "Send read bytes before transaction COMMIT completes",
+      "mustFail": "ASSETS_SQL_TRANSPORT_QUOTA",
+      "oracle": "Actual read + deferred failure returns503, zero image bytes"
+    },
+    {
+      "id": "SKIP_DEFINER_CURRENT_AUTHORITY",
+      "fault": "Omit current session/person/staff or VIEW predicates in a real definer or its replay path",
+      "mustFail": "ASSETS_CONTEXT_AUTHORIZATION",
+      "oracle": "Direct restricted SQL revoked/expired/inactive/non-test/absent/inactive grant matrix"
+    },
+    {
+      "id": "BROAD_ASSET_OR_INHERITED_PERMISSION",
+      "fault": "Leave effective column/trigger rights or broaden inherited defaults/table grants/role membership",
+      "mustFail": "ASSETS_CONTEXT_AUTHORIZATION",
+      "oracle": "All effective asset ACLs and exact inherited permission inventory"
+    },
+    {
+      "id": "BLANK_NORMALIZED_RASTER",
+      "fault": "Return a dimension-correct blank/transparent WebP instead of the decoded source content",
+      "mustFail": "ASSETS_RASTER_CONTENT_LIMITS",
+      "oracle": "Independent two-region cover RGB, sponsor opaque/transparent and item marigold landmarks"
+    },
+    {
+      "id": "INCORRECT_ASSET_METADATA",
+      "fault": "Persist wrong event/org/raw MIME or return rounded/incorrect creation timestamp",
+      "mustFail": "ASSETS_NATIVE_DURABLE_SNAPSHOT",
+      "oracle": "Exact raw/SQL/metadata correspondence and PostgreSQL timestamp equality"
+    }
+  ]
+}

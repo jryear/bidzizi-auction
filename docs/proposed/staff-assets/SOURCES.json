@@ -1,0 +1,332 @@
+{
+  "status": "PROPOSED_UNFROZEN_EXECUTABLE_PREPARATION",
+  "capturedAtUTC": "2026-10-08T07:19:38.059843+00:00",
+  "inspectedHead": "0176459bfa37b4960ffaa6e538110e7791c860ce",
+  "requiredRebind": "Exact parent-selected375-derived source/evidence and accepted PUBLICATION008 visibility before ASSETS freeze; owner/interface question still unanswered. No MOBILE014. Fresh independent executable review and observed finite baseline are required.",
+  "localFiles": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "22aeb173ad2c7e6b183055e81237704169f8fe44d3ffedbe2bba3b102a983237"
+    },
+    {
+      "path": "docs/project-map/contracts/assets.md",
+      "sha256": "a930be745fcd7b9f28e1255a6d768f776dfe301c5dc4914e03cd566a157f3d4c"
+    },
+    {
+      "path": "docs/project-map/contracts/publication008.md",
+      "sha256": "bcf191642fcd47eee8518c7e8d0d949e56b243c6a80d0b8458af63caa2a45a07"
+    },
+    {
+      "path": "migrations/001_staging_staff.sql",
+      "sha256": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a"
+    },
+    {
+      "path": "migrations/002_staging_catalog.sql",
+      "sha256": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3"
+    },
+    {
+      "path": "migrations/003_staging_manual_bid.sql",
+      "sha256": "e8e985e67aa5f47df7cd9f9baf56c19fb30915fa99662b3a4e469a9a98e36cf8"
+    },
+    {
+      "path": "migrations/009_demo_attendee_entry.sql",
+      "sha256": "c4e87a9bb9b591228a62d4557865de76f7b391354b468c7876ba06bd305e4b4e"
+    },
+    {
+      "path": "next-env.d.ts",
+      "sha256": "0f70629890b72a0a82e91972cc032c04b658b26c265373cb711cf576bfbf8fcc"
+    },
+    {
+      "path": "next.config.ts",
+      "sha256": "dbb2046b5e03ff053711679f392c7caaa08fc79e2e0a4ae7efd0152254a7be72"
+    },
+    {
+      "path": "package.json",
+      "sha256": "33e14f23b472c46939ded502b0eb7aa7e1f00ab1d2d8d93de36863e2206ce722"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "4d034c5147ca042fcfb57c8429d0766705d25ad4e7c39269a2cfcf34213d9c2a"
+    },
+    {
+      "path": "public/staging-admin/index.html",
+      "sha256": "1bdcebb5f739e38504ade40ee0eaeee264840cc9c1dabde2f7f01d73802da224"
+    },
+    {
+      "path": "public/staging-admin/model.js",
+      "sha256": "b081ca833bf6fe314ec64cac2ad9616cef2928fbffc08f68f7139d88c8f9e719"
+    },
+    {
+      "path": "public/staging-admin/studio.css",
+      "sha256": "78fee4931a48faca710408f5ef3e98b50f33ca06a95bdf081946178777ff6cf1"
+    },
+    {
+      "path": "public/staging-admin/studio.js",
+      "sha256": "163424ddba02bf59fe7c5cc0801ed878fa1a7fa6fb7a7f1d8ca61b3ffa05d55a"
+    },
+    {
+      "path": "public/staging-bidder-preview/src/data.js",
+      "sha256": "77421d2d75f3a491e98fd3684e7668ab7a2e3032fb40becad7ed96da4f9b3a9d"
+    },
+    {
+      "path": "public/staging-bidder-preview/src/ui.js",
+      "sha256": "ba798dd174ecd6f521513b74c954046854c7923d10233ce2a81bd32ade8910c4"
+    },
+    {
+      "path": "public/staging-bidder-preview/src/views.js",
+      "sha256": "f62b698c6d14de33ffc22ed52f4c24dd08476f3cbbe90a334c30971bb607d41d"
+    },
+    {
+      "path": "public/staging-catalog/data.js",
+      "sha256": "9277415a391117036d4794e4b7956fd1e364d956f7f10c4b9d942ff031697a63"
+    },
+    {
+      "path": "public/staging-catalog/ui.js",
+      "sha256": "ba798dd174ecd6f521513b74c954046854c7923d10233ce2a81bd32ade8910c4"
+    },
+    {
+      "path": "public/staging-catalog/views.js",
+      "sha256": "8a22203cc1340c43fa6375ee98c201fa80868991825eb7ba2d2bf511ee8664f4"
+    },
+    {
+      "path": "scripts/migrate-catalog-staging.mjs",
+      "sha256": "2d26c50532b033cda17b0330a2c0656af437f3981bb903ff11ee0dda7fbf340d"
+    },
+    {
+      "path": "scripts/migrate-manual-staging.mjs",
+      "sha256": "a44abc02d5ad8f46d0c1b981f469e63fe034a34cb4d737b733e082933a9577b6"
+    },
+    {
+      "path": "src/features/staging-display-results/authorized-read-view.tsx",
+      "sha256": "5cb2a2ce06d1e0ed6d96524888e5c54790b85c15bc3c2ec009fffb989e01775d"
+    },
+    {
+      "path": "src/features/staging-display-results/read-model.ts",
+      "sha256": "773844845d3d7b4422a75ea71a3235d53634e6d80048e415baa40b4c85e7c304"
+    },
+    {
+      "path": "src/server/auth.ts",
+      "sha256": "7f6151c248366902cc0a000af59301135a1c0eeb118983b00ead9cef7b44dd9e"
+    },
+    {
+      "path": "src/server/catalog.ts",
+      "sha256": "21cb5aa6d1454057792a97eddd668004a90bdb5b9e03569d8b3d806dd57059fe"
+    },
+    {
+      "path": "src/server/config.ts",
+      "sha256": "fcc39662d4d42893651fac761ae3067a2ddd7e8340854717af6405561fd9bdaf"
+    },
+    {
+      "path": "src/server/db.ts",
+      "sha256": "c79b7447abedfb3d7e5c4a46f6dac2554eedc16ed64639f7d94be5ad0d83994e"
+    },
+    {
+      "path": "src/server/demo-entry.ts",
+      "sha256": "b4e4489ea221a4a7379bf46e74f156373b3cfb8f06e8a7fd06eb8a492813e139"
+    },
+    {
+      "path": "src/server/draft.ts",
+      "sha256": "981feead0cff19acd9fe9697c71852ecc7205ee5558beeebaa09aceaf3c1fcbb"
+    },
+    {
+      "path": "src/server/http.ts",
+      "sha256": "134c97f03b4be7dd7bbbbe10a7bc6c40cd38a16f802305c0126df603a4c81359"
+    },
+    {
+      "path": "src/server/manual-bids.ts",
+      "sha256": "e9f1087098a344226200fa63cabdff9dcf09b1acd678c8f839db6023babe3b98"
+    },
+    {
+      "path": "src/server/staff.ts",
+      "sha256": "7b3a6ac608c3fb88af41946bb82cac294373770b98d3de65fc89606f375cd849"
+    },
+    {
+      "path": "tests/acceptance/staging-catalog/app-clock-skew.cjs",
+      "sha256": "08aaf2090133693cf3683edc3fd560e74fc3be4d49cfed67e073860b32117704"
+    },
+    {
+      "path": "tests/acceptance/staging-catalog/harness.mjs",
+      "sha256": "bde6a547ac3ec2afe1d4ae614d465d18ced3347183787d5fee3b1f27d0299b0f"
+    },
+    {
+      "path": "tests/acceptance/staging-catalog/protocol.mjs",
+      "sha256": "2284e048df0c14fa2de87333b5fbd2c272f806f3074e10981cf3df62bc878ea9"
+    },
+    {
+      "path": "tests/acceptance/staging-catalog/seed.sql",
+      "sha256": "e476babf9ecc5e498b461b2396926a4773ba50b5dbe41722a89b1ce4270c909f"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "6e3e1fba1547e5d6ffe754598bdda409e008dd043476ac82513eb778c12ccdd0"
+    },
+    {
+      "path": "public/staging-bidder-preview/styles.css",
+      "sha256": "fa0748c15dcd692c19df4e016cc407f6f812532c03d2874c51de76f1afd50631"
+    }
+  ],
+  "referenceFiles": [
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-17/prototype/index.html",
+      "sha256": "a871bb3b6f775896a5895e6bb0056feb5e8885fc32917eb01aa28378a98291e4"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-17/prototype/README.md",
+      "sha256": "3028e2346380e52b8aa50e50e55c5ed06da681948f84c172eafda33978734d2e"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-17/verification.md",
+      "sha256": "825f2c2ae799c4e6935eb6ab39ae08579179deb77f38e8e9d89b2596e134419c"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-11/evidence/FINAL_RELEASE_HANDOFF.json",
+      "sha256": "0dd07f5e837c2fb06c1b058c68645ceab5730896671d51effa25a82788cd3c4f"
+    }
+  ],
+  "ownedDeliverables": [
+    "docs/proposed/staff-assets/CONTRACT.md",
+    "docs/proposed/staff-assets/PERMISSION_AND_EVIDENCE.md",
+    "docs/proposed/staff-assets/SOURCES.json",
+    "docs/proposed/staff-assets/STATIC_CHECK.json",
+    "tasks/staging-staff-assets.toml",
+    "tests/acceptance/staging-staff-assets/ASSERTION_REQUIREMENT_MAP.json",
+    "tests/acceptance/staging-staff-assets/CHECKS.json",
+    "tests/acceptance/staging-staff-assets/HARNESS_SUCCESSOR.json",
+    "tests/acceptance/staging-staff-assets/MUTATION_PLAN.json",
+    "tests/acceptance/staging-staff-assets/README.md",
+    "tests/acceptance/staging-staff-assets/REQUIREMENT_DELTA.md",
+    "tests/acceptance/staging-staff-assets/SOURCE_BINDING.json",
+    "tests/acceptance/staging-staff-assets/cases.mjs",
+    "tests/acceptance/staging-staff-assets/cleanup.mjs",
+    "tests/acceptance/staging-staff-assets/concurrency.mjs",
+    "tests/acceptance/staging-staff-assets/controls.mjs",
+    "tests/acceptance/staging-staff-assets/dependency-binding.mjs",
+    "tests/acceptance/staging-staff-assets/fixture.mjs",
+    "tests/acceptance/staging-staff-assets/fixtures/animated.webp",
+    "tests/acceptance/staging-staff-assets/fixtures/apng.png",
+    "tests/acceptance/staging-staff-assets/fixtures/cover-exif.jpg",
+    "tests/acceptance/staging-staff-assets/fixtures/dimension.png",
+    "tests/acceptance/staging-staff-assets/fixtures/item.webp",
+    "tests/acceptance/staging-staff-assets/fixtures/manifest.json",
+    "tests/acceptance/staging-staff-assets/fixtures/output-limit.jpg",
+    "tests/acceptance/staging-staff-assets/fixtures/pixel-boundary.png",
+    "tests/acceptance/staging-staff-assets/fixtures/pixel-limit.png",
+    "tests/acceptance/staging-staff-assets/fixtures/side-boundary.png",
+    "tests/acceptance/staging-staff-assets/fixtures/sponsor-alpha.png",
+    "tests/acceptance/staging-staff-assets/fixtures/svg.png",
+    "tests/acceptance/staging-staff-assets/fixtures/trailing.png",
+    "tests/acceptance/staging-staff-assets/fixtures/truncated.png",
+    "tests/acceptance/staging-staff-assets/harness.mjs",
+    "tests/acceptance/staging-staff-assets/make-fixtures.mjs",
+    "tests/acceptance/staging-staff-assets/native.mjs",
+    "tests/acceptance/staging-staff-assets/oracles.mjs",
+    "tests/acceptance/staging-staff-assets/protocol.mjs",
+    "tests/acceptance/staging-staff-assets/run.mjs",
+    "tests/acceptance/staging-staff-assets/sql-controls.mjs"
+  ],
+  "servicesStarted": false,
+  "databaseReadsOrWrites": false,
+  "providerChanges": false,
+  "packetRevision": "ASSETS_EXECUTABLE_R5_FRESH_REVIEW_REPAIRS_STATIC_ONLY",
+  "repairScope": "Fresh R4 independent review repairs: scoped lifecycle/registry, candidate+decoder identities, direct SQL authority, effective ACL and inherited permission preservation, real native event race, exact SQL metadata and independent raster landmarks. Static only; no runtime/DB/browser/install/migration/grant/freeze/gate/deployment.",
+  "packetContentSHA256": {
+    "CONTRACT.md": "c402651382a08fc42d3dd3d335541c668a5e9d8a2c6459b4aa2b4b00d5f5fd14",
+    "PERMISSION_AND_EVIDENCE.md": "b70d875fe9b2b9a6e2b330b40b0e154ae7bb4bad989d73461fe6b731255e9bb2"
+  },
+  "previousPacketSHA256": {
+    "SOURCES.json": "c17bea54b0ad8f2e755d3e36635a98ae7af9d889739133b0e18fc5139f72b316",
+    "STATIC_CHECK.json": "426434f04ebc6b2afa89fe03f83aacba2702fee14e3f1f868399fb9f5830e2e5"
+  },
+  "executionCoordination": {
+    "task18OwnedAppRuntimeLimit": 1,
+    "released375SourceAndGatesAuthorizedByParent": true,
+    "mobile014UnlandedAndExcluded": true,
+    "upstreamPublicationHeld": true,
+    "thisPacketAuthorStaticOnly": true,
+    "locallyAuthoringAndGatedDisposablePreparationAuthorizedByParent": true,
+    "sharedStagingFourExecuteGrantsNotApproved": true,
+    "publication008OwnerInterfaceQuestionUnanswered": true
+  },
+  "refreshedAtUTC": "2026-10-08T10:03:07.497793+00:00",
+  "executableEvidenceSHA256": {
+    "tasks/staging-staff-assets.toml": "ae3199a41c61431288cfc4ccc13a27fd00ec9e204a3e907ceb8f8529b5f5beb5",
+    "tests/acceptance/staging-staff-assets/ASSERTION_REQUIREMENT_MAP.json": "6d3d2f33659a885a6dffe8243439ae58e1de0e47d6f1f5565b55ec51b9525ecd",
+    "tests/acceptance/staging-staff-assets/CHECKS.json": "d454d5d06319eea9dd13faebc2ce9350a688ad836eea7fede3a1998a756783cf",
+    "tests/acceptance/staging-staff-assets/HARNESS_SUCCESSOR.json": "76870ad9be268ec703af668753642adfb1c3e1f397b1fdb00db9f574d039d80e",
+    "tests/acceptance/staging-staff-assets/MUTATION_PLAN.json": "de8d923642fa3c4ca1f9573ebbb545895dc799076ae342eb5ea3add6b940dc95",
+    "tests/acceptance/staging-staff-assets/README.md": "6792d181662367147e276e384f364588749622cec8b6d68a5de20c78709fd162",
+    "tests/acceptance/staging-staff-assets/REQUIREMENT_DELTA.md": "8bc1bf76b8e4a6a36c0437cbf92601f16d76e18bd041c5126c72cd554d3398b7",
+    "tests/acceptance/staging-staff-assets/SOURCE_BINDING.json": "1e05880968824ad71e2f4db2eda0c7df131e3fdd008656f6f0760dac3f82857c",
+    "tests/acceptance/staging-staff-assets/cases.mjs": "8b8d84046a1d796cddb4e7987da4e0b16ca8d5d3e0f7f9c1fb3b917c535d8556",
+    "tests/acceptance/staging-staff-assets/cleanup.mjs": "e4a0debe92b2b41f1b3c736d622dad964180c02b5c79b9d5debabe7ef46741e9",
+    "tests/acceptance/staging-staff-assets/concurrency.mjs": "70e8dea65a16450dba855ac4687c4719b657947662b19f5d2ae2d11c8250a3e3",
+    "tests/acceptance/staging-staff-assets/controls.mjs": "0e71a2da3a122dbea89b9376b78fb15bb9bd2d0c2a55bc9f546907ed22f5606a",
+    "tests/acceptance/staging-staff-assets/dependency-binding.mjs": "1a056268cb3b42eab051e048b1c5d5609080a93e507556d5d8c06e916983a0b3",
+    "tests/acceptance/staging-staff-assets/fixture.mjs": "4adab254602d928c17ddf459d2350b7075dd56ba99abb88bdcf82a3d2e59bf02",
+    "tests/acceptance/staging-staff-assets/fixtures/animated.webp": "880567f5076138b1c23618a0bcd18d1c5fd4c2cf8ebdff5add16740baae4bf61",
+    "tests/acceptance/staging-staff-assets/fixtures/apng.png": "637ecc46d6ab09a5744f2aab2bc2571467af321e4a9e6e9992f1b5909df16032",
+    "tests/acceptance/staging-staff-assets/fixtures/cover-exif.jpg": "bb49846f3cc06a2a16f5b9f49a04eb500bb1a5b6b709a25085d7834dcd64b2ef",
+    "tests/acceptance/staging-staff-assets/fixtures/dimension.png": "43f7f641e74201968c869731ceba44201a72af705831f2412abd59f70bd2c5ba",
+    "tests/acceptance/staging-staff-assets/fixtures/item.webp": "9b24077c7581c6d9c36ba19ef5228e5f77c3554c1f6475ccf3a0a5780612fdca",
+    "tests/acceptance/staging-staff-assets/fixtures/manifest.json": "036d7f01a3906a2b604b24ca5fd0639d3b593be463accf4c3481a1497c9e0645",
+    "tests/acceptance/staging-staff-assets/fixtures/output-limit.jpg": "ccdbb299c789becbd3d6b9a7246527f1258cb246b9424a0b73ff5c29ebbd674a",
+    "tests/acceptance/staging-staff-assets/fixtures/pixel-boundary.png": "0a90397fdbf92c2af53c1f5c44cfcd9516c52950a44eb965f9e8508af3f32560",
+    "tests/acceptance/staging-staff-assets/fixtures/pixel-limit.png": "a860027f3605cf37f409f132815be6b81fce35443aae1c7b1bebe2593f88cc60",
+    "tests/acceptance/staging-staff-assets/fixtures/side-boundary.png": "49c9b2f3fbc07d16bfaa4c76ed1de26c75d3d9e2c6c7b4c76e2bde03c39d6813",
+    "tests/acceptance/staging-staff-assets/fixtures/sponsor-alpha.png": "1f93ce70ab831583a5e82e6995dd560fc5bf0a8d6c187da7dd1633b9817fff28",
+    "tests/acceptance/staging-staff-assets/fixtures/svg.png": "3f67c8be987aa1db0ef99ce330286efe1929e729f5f9d1695b5fd0b987246244",
+    "tests/acceptance/staging-staff-assets/fixtures/trailing.png": "7add2b3c8c9bd2d454710977cc85dbf09acb3136f2830c04bf8f3213d84e236d",
+    "tests/acceptance/staging-staff-assets/fixtures/truncated.png": "3fba747173c42e506eece617988ccaa1c86373dfada9efeea21a0e9e9b59c344",
+    "tests/acceptance/staging-staff-assets/harness.mjs": "2ec9f3028762bd8aafd4ad54654a2540386409a95f9867fd9d45f3c9fd050a58",
+    "tests/acceptance/staging-staff-assets/make-fixtures.mjs": "963aba614a89ba6fcdfabb38e7489301b24987274c6defb99af2f267f259c97f",
+    "tests/acceptance/staging-staff-assets/native.mjs": "8b13d3481596b342dd22bb95f05c0b7b0063b14fb17593cdd52f4ce70bcd39d1",
+    "tests/acceptance/staging-staff-assets/oracles.mjs": "d4247a46fc3d9a8bb97ff3b2e163deed04075a62fdca79d1e302effd10cfd2b9",
+    "tests/acceptance/staging-staff-assets/protocol.mjs": "ab2545ae774730f13cd7d487f4e64e2344245e6d93130c97d2a5962d8a8ddcca",
+    "tests/acceptance/staging-staff-assets/run.mjs": "d92a2b635865768af55e4b767cb1853d60f42cc2b596add00e16b4bd2f421c0a",
+    "tests/acceptance/staging-staff-assets/sql-controls.mjs": "e1fb12914f06aad40ea92bd8c711839e1d62567986d08f981e773e29473b7813"
+  },
+  "visibilityFreezeHold": true,
+  "baselineExecuted": false,
+  "candidateExecuted": false,
+  "semanticMutantsExecuted": false,
+  "sharedPermissionApproved": false,
+  "externalKernel": {
+    "README.md": "c5a9cbeb64ec6024d4be501945946b81dc26e21bad2c18452cca3b31748f6e75",
+    "verify.py": "0f638fc9b7a7682ab814c7923557ecbb0871f35140f1aa6838efde17855d4ca5",
+    "kernel_runtime.py": "d185f76b12c30a0758fee453c8806508919fa0df2a457c8fb55fd124b7d1ac93"
+  },
+  "inspectedDescendant": {
+    "head": "0176459bfa37b4960ffaa6e538110e7791c860ce",
+    "meaning": "Observed parent-selected integration descendant only; not released375 bytes, accepted ASSETS source or freeze.",
+    "sourceSHA256": {
+      "src/server/draft.ts": "981feead0cff19acd9fe9697c71852ecc7205ee5558beeebaa09aceaf3c1fcbb",
+      "src/server/staff.ts": "7b3a6ac608c3fb88af41946bb82cac294373770b98d3de65fc89606f375cd849",
+      "src/server/catalog.ts": "21cb5aa6d1454057792a97eddd668004a90bdb5b9e03569d8b3d806dd57059fe",
+      "src/server/auth.ts": "7f6151c248366902cc0a000af59301135a1c0eeb118983b00ead9cef7b44dd9e",
+      "src/server/http.ts": "134c97f03b4be7dd7bbbbe10a7bc6c40cd38a16f802305c0126df603a4c81359",
+      "src/server/config.ts": "fcc39662d4d42893651fac761ae3067a2ddd7e8340854717af6405561fd9bdaf",
+      "src/server/db.ts": "c79b7447abedfb3d7e5c4a46f6dac2554eedc16ed64639f7d94be5ad0d83994e",
+      "src/server/demo-entry.ts": "b4e4489ea221a4a7379bf46e74f156373b3cfb8f06e8a7fd06eb8a492813e139",
+      "src/server/manual-bids.ts": "e9f1087098a344226200fa63cabdff9dcf09b1acd678c8f839db6023babe3b98",
+      "public/staging-admin/index.html": "1bdcebb5f739e38504ade40ee0eaeee264840cc9c1dabde2f7f01d73802da224",
+      "public/staging-admin/model.js": "b081ca833bf6fe314ec64cac2ad9616cef2928fbffc08f68f7139d88c8f9e719",
+      "public/staging-admin/studio.js": "163424ddba02bf59fe7c5cc0801ed878fa1a7fa6fb7a7f1d8ca61b3ffa05d55a",
+      "public/staging-admin/studio.css": "78fee4931a48faca710408f5ef3e98b50f33ca06a95bdf081946178777ff6cf1",
+      "public/staging-bidder-preview/src/data.js": "77421d2d75f3a491e98fd3684e7668ab7a2e3032fb40becad7ed96da4f9b3a9d",
+      "public/staging-bidder-preview/src/ui.js": "ba798dd174ecd6f521513b74c954046854c7923d10233ce2a81bd32ade8910c4",
+      "public/staging-bidder-preview/src/views.js": "f62b698c6d14de33ffc22ed52f4c24dd08476f3cbbe90a334c30971bb607d41d",
+      "public/staging-catalog/data.js": "9277415a391117036d4794e4b7956fd1e364d956f7f10c4b9d942ff031697a63",
+      "public/staging-catalog/ui.js": "ba798dd174ecd6f521513b74c954046854c7923d10233ce2a81bd32ade8910c4",
+      "public/staging-catalog/views.js": "8a22203cc1340c43fa6375ee98c201fa80868991825eb7ba2d2bf511ee8664f4",
+      "src/features/staging-display-results/read-model.ts": "773844845d3d7b4422a75ea71a3235d53634e6d80048e415baa40b4c85e7c304",
+      "src/features/staging-display-results/authorized-read-view.tsx": "5cb2a2ce06d1e0ed6d96524888e5c54790b85c15bc3c2ec009fffb989e01775d",
+      "package.json": "33e14f23b472c46939ded502b0eb7aa7e1f00ab1d2d8d93de36863e2206ce722",
+      "pnpm-lock.yaml": "4d034c5147ca042fcfb57c8429d0766705d25ad4e7c39269a2cfcf34213d9c2a",
+      "public/staging-bidder-preview/styles.css": "fa0748c15dcd692c19df4e016cc407f6f812532c03d2874c51de76f1afd50631"
+    },
+    "release375Drift": [
+      "public/staging-admin/studio.js",
+      "public/staging-admin/studio.css"
+    ]
+  }
+}

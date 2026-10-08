@@ -1,0 +1,182 @@
+{
+  "version": 1,
+  "synthetic": true,
+  "generatedWith": "linked sharp0.35.5 + Node zlib",
+  "fixtures": [
+    {
+      "name": "cover-exif.jpg",
+      "mime": "image/jpeg",
+      "expectedWidth": 64,
+      "expectedHeight": 128,
+      "purpose": "EXIF6 rotates portrait; all EXIF/ICC stripped",
+      "byteLength": 1030,
+      "sha256": "bb49846f3cc06a2a16f5b9f49a04eb500bb1a5b6b709a25085d7834dcd64b2ef",
+      "landmarks": [
+        {
+          "x": 10,
+          "y": 10,
+          "rgba": [
+            225,
+            45,
+            40,
+            255
+          ]
+        },
+        {
+          "x": 10,
+          "y": 100,
+          "rgba": [
+            30,
+            80,
+            220,
+            255
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sponsor-alpha.png",
+      "mime": "image/png",
+      "expectedWidth": 64,
+      "expectedHeight": 64,
+      "alpha": true,
+      "purpose": "Transparent sponsor, no enlargement",
+      "byteLength": 286,
+      "sha256": "1f93ce70ab831583a5e82e6995dd560fc5bf0a8d6c187da7dd1633b9817fff28",
+      "landmarks": [
+        {
+          "x": 32,
+          "y": 32,
+          "rgba": [
+            15,
+            80,
+            180,
+            255
+          ]
+        },
+        {
+          "x": 2,
+          "y": 2,
+          "rgba": [
+            null,
+            null,
+            null,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "item.webp",
+      "mime": "image/webp",
+      "expectedWidth": 96,
+      "expectedHeight": 48,
+      "purpose": "WebP accepted and re-encoded",
+      "byteLength": 92,
+      "sha256": "9b24077c7581c6d9c36ba19ef5228e5f77c3554c1f6475ccf3a0a5780612fdca",
+      "landmarks": [
+        {
+          "x": 48,
+          "y": 24,
+          "rgba": [
+            232,
+            184,
+            59,
+            255
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pixel-boundary.png",
+      "mime": "image/png",
+      "expectedWidth": 1600,
+      "expectedHeight": 800,
+      "purpose": "Exactly8MP valid input; normalized1600 side cap",
+      "byteLength": 34987,
+      "sha256": "0a90397fdbf92c2af53c1f5c44cfcd9516c52950a44eb965f9e8508af3f32560"
+    },
+    {
+      "name": "side-boundary.png",
+      "mime": "image/png",
+      "expectedWidth": 1600,
+      "expectedHeight": 1,
+      "purpose": "Exactly4096px valid input side",
+      "byteLength": 102,
+      "sha256": "49c9b2f3fbc07d16bfaa4c76ed1de26c75d3d9e2c6c7b4c76e2bde03c39d6813"
+    },
+    {
+      "name": "output-limit.jpg",
+      "mime": "image/jpeg",
+      "status": 413,
+      "code": "ASSET_TOO_LARGE",
+      "expectedEncodedBytes": 1781420,
+      "purpose": "Allowed raw body/pixels exceed normalized1MiB output cap",
+      "byteLength": 1054347,
+      "sha256": "ccdbb299c789becbd3d6b9a7246527f1258cb246b9424a0b73ff5c29ebbd674a"
+    },
+    {
+      "name": "apng.png",
+      "mime": "image/png",
+      "status": 415,
+      "code": "ASSET_INVALID",
+      "purpose": "APNG declaration must reject, never take frame1",
+      "byteLength": 95,
+      "sha256": "637ecc46d6ab09a5744f2aab2bc2571467af321e4a9e6e9992f1b5909df16032"
+    },
+    {
+      "name": "animated.webp",
+      "mime": "image/webp",
+      "status": 415,
+      "code": "ASSET_INVALID",
+      "purpose": "Animated WebP rejects",
+      "byteLength": 228,
+      "sha256": "880567f5076138b1c23618a0bcd18d1c5fd4c2cf8ebdff5add16740baae4bf61"
+    },
+    {
+      "name": "dimension.png",
+      "mime": "image/png",
+      "status": 413,
+      "code": "ASSET_TOO_LARGE",
+      "purpose": "Decoded side cap exceeded with tiny encoded body",
+      "byteLength": 102,
+      "sha256": "43f7f641e74201968c869731ceba44201a72af705831f2412abd59f70bd2c5ba"
+    },
+    {
+      "name": "pixel-limit.png",
+      "mime": "image/png",
+      "status": 413,
+      "code": "ASSET_TOO_LARGE",
+      "purpose": "9MP exceeds8MP while sides are allowed",
+      "byteLength": 42261,
+      "sha256": "a860027f3605cf37f409f132815be6b81fce35443aae1c7b1bebe2593f88cc60"
+    },
+    {
+      "name": "truncated.png",
+      "mime": "image/png",
+      "status": 415,
+      "code": "ASSET_INVALID",
+      "purpose": "Metadata-only acceptance would be unsafe",
+      "byteLength": 269,
+      "sha256": "3fba747173c42e506eece617988ccaa1c86373dfada9efeea21a0e9e9b59c344"
+    },
+    {
+      "name": "svg.png",
+      "mime": "image/png",
+      "status": 415,
+      "code": "ASSET_INVALID",
+      "purpose": "Spoofed raster MIME SVG execution rejected",
+      "byteLength": 71,
+      "sha256": "3f67c8be987aa1db0ef99ce330286efe1929e729f5f9d1695b5fd0b987246244"
+    },
+    {
+      "name": "trailing.png",
+      "mime": "image/png",
+      "status": 415,
+      "code": "ASSET_INVALID",
+      "purpose": "Trailing container polyglot rejects",
+      "byteLength": 312,
+      "sha256": "7add2b3c8c9bd2d454710977cc85dbf09acb3136f2830c04bf8f3213d84e236d"
+    }
+  ]
+}
