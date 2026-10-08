@@ -220,7 +220,7 @@ function setupView(){
  const pending=approvalLoading||approving||['loading','sending'].includes(approvalState);
  const approved=!pending&&approvalState==='approved'&&!!catalogApproval;
  const approvalUnknown=['uncertain','unavailable','blocked','conflict'].includes(approvalState);
- const action=(label,tab,field,id)=>`<button class="link-btn" data-action="fix-setup" data-tab="${tab}" data-field="${field}" ${id?`data-id="${esc(id)}"`:''} ${!editable()?'disabled':''}>${label} →</button>`;
+ const action=(label,tab,field,id)=>`<button class="link-btn" data-action="fix-setup" data-setup-tab="${tab}" data-field="${field}" ${id?`data-id="${esc(id)}"`:''} ${!editable()?'disabled':''}>${label} →</button>`;
  return `<section class="studio-setup" data-studio-checklist data-basis="saved" aria-label="Event setup"><div class="setup-head"><h3>Event setup</h3><p>Saved revision ${saved.revision}${dirty?' · unsaved working changes are excluded':''}</p></div><ul class="setup-steps">
  <li data-setup-step="welcome" data-state="${welcomeOk?'complete':'needs-attention'}"><span class="setup-mark" aria-hidden="true">${welcomeOk?'✓':'○'}</span><div><strong>Welcome & event details</strong><p>${welcomeOk?'Saved welcome and event details are complete.':esc(problems[0])}</p></div>${!welcomeOk?action('Edit event','event',eventField):''}</li>
  <li data-setup-step="items" data-state="${itemsOk?'complete':'needs-attention'}"><span class="setup-mark" aria-hidden="true">${itemsOk?'✓':'○'}</span><div><strong>Saved items</strong><p>${itemsOk?`${saved.lots.length} saved ${saved.lots.length===1?'item has':'items have'} the required catalog details.`:incomplete?`Item ${esc(incomplete.number)} needs ${esc(lotIssues(incomplete,saved.event)[0])}.`:'Add and save your first item.'}</p></div>${!itemsOk?(incomplete?action('Finish item','lots',itemField,incomplete.id):action('Add item','lots','add')):''}</li>
@@ -384,7 +384,7 @@ const actions={
  'preview-lot':()=>{if(!canPreviewLot())return;previewOpen=true;refreshChrome();postPreview('/lot/'+picked);},
  'edit-event':()=>navigate('event'),
  'edit-lot':el=>{navigate('lots',el.dataset.id,'[data-lot="title"]');postPreview('/lot/'+el.dataset.id);},
- 'fix-setup':el=>{if(!editable())return;if(el.dataset.field==='add'){actions['add-lot']();return;}const selector=el.dataset.field==='selection'?'#select-all':`[data-${el.dataset.tab==='event'?'event':'lot'}="${el.dataset.field}"]`;navigate(el.dataset.tab,el.dataset.id,selector);},
+ 'fix-setup':el=>{if(!editable())return;if(el.dataset.field==='add'){actions['add-lot']();return;}const selector=el.dataset.field==='selection'?'#select-all':`[data-${el.dataset.setupTab==='event'?'event':'lot'}="${el.dataset.field}"]`;navigate(el.dataset.setupTab,el.dataset.id,selector);},
  'clear-selection':()=>{selected.clear();renderInventory();},
  'assign-window':()=>{if(editable())assignWindow();},
  'apply-window':()=>{if(!editable())return;const w=windowFor(windowDraft);if(w.start===null||w.end===null||w.end<=w.start){$('#window-error').innerHTML='<p class="note error">Choose valid times, with closing after opening.</p>';return;}Object.assign(d.event,windowDraft);d.lots.forEach(l=>{if(selected.has(l.id))l.windowId='main';});markDirty();closeModal();selected.clear();renderMain();refresh();toast('Draft window assigned. Save the draft to keep it.');},
