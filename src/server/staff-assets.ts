@@ -1,7 +1,7 @@
 import "server-only";
 import type { PoolClient } from "pg";
 import { transaction } from "./db";
-import { grant, identity, sessionHash, staff } from "./auth";
+import { grant, sessionIsCurrent, sessionHash, staff } from "./auth";
 import { testMode } from "./config";
 import { ApiError, forbidden, json, unauthenticated, uuid, validation } from "./http";
 import { normalizeAsset } from "./staff-asset-codec";
@@ -45,7 +45,7 @@ export async function recoverStaffAsset(request:Request,eventId:string,requestId
   const result=await transaction(async client=>{
     const row=await client.query<{value:SQLResult}>("SELECT public.bz_staff_asset_recover($1,$2,$3) AS value",
       [sessionHash(request),uuid(eventId),uuid(requestId)]);
-    if(row.rows[0].value.error==="DENIED"){await identity(client,request);throw unavailable();}
+    if(row.rows[0].value.error==="DENIED"){if(!await sessionIsCurrent(client,request))throw unauthenticated();throw unavailable();}
     return mapped(row.rows[0].value);
   });
   return json({asset:result.asset});
@@ -53,7 +53,7 @@ export async function recoverStaffAsset(request:Request,eventId:string,requestId
 export async function recoverAssetMeta(client:PoolClient,request:Request,eventId:string,requestId:string):Promise<AssetMeta>{
   const row=await client.query<{value:SQLResult}>("SELECT public.bz_staff_asset_recover($1,$2,$3) AS value",
     [sessionHash(request),eventId,requestId]);
-  if(row.rows[0].value.error==="DENIED"){await identity(client,request);throw unavailable();}
+  if(row.rows[0].value.error==="DENIED"){if(!await sessionIsCurrent(client,request))throw unauthenticated();throw unavailable();}
   return mapped(row.rows[0].value,"ASSET_UNAVAILABLE").asset!;
 }
 export function referencedAssets(draft:{event:{cover?:string|null;sponsors?:{logo:string}[]};lots:{image?:string|null}[]}):string[]{
@@ -66,7 +66,7 @@ export async function validateAssetRefs(client:PoolClient,request:Request,eventI
   if(!refs.length)return;
   const row=await client.query<{value:SQLResult}>("SELECT public.bz_staff_asset_validate($1,$2,$3::uuid[]) AS value",
     [sessionHash(request),eventId,refs]);
-  if(row.rows[0].value.error==="DENIED"){await identity(client,request);throw forbidden();}
+  if(row.rows[0].value.error==="DENIED"){if(!await sessionIsCurrent(client,request))throw unauthenticated();throw forbidden();}
   if(row.rows[0].value.valid!==true)throw validation();
 }
 export async function readStaffAsset(request:Request,eventId:string,assetId:string,context:"saved"|"staff-approved"|"published"|"upload",binding:string|null):Promise<Response>{

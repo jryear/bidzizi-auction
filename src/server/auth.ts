@@ -17,7 +17,7 @@ export function sessionHash(request: Request): string | null {
 async function organizations(client: PoolClient, personId: string): Promise<Organization[]> {
   const rows = await client.query<Organization>(
     `SELECT o.id,o.name,o.initials FROM bz_staff_grants g JOIN bz_orgs o ON o.id=g.org_id
-     WHERE g.person_id=$1 AND g.active ORDER BY o.name FOR SHARE OF g,o`, [personId]);
+     WHERE g.person_id=$1 AND g.active ORDER BY o.name,o.id FOR SHARE OF g,o`, [personId]);
   return rows.rows;
 }
 export async function identity(client: PoolClient, request: Request): Promise<Identity> {
@@ -33,9 +33,28 @@ export async function identity(client: PoolClient, request: Request): Promise<Id
   return { person, organizations: await organizations(client, person.id) };
 }
 export async function staff(client: PoolClient, request: Request): Promise<Identity> {
+  if (!testMode(request)) throw unauthenticated();
+  const hash = sessionHash(request);
+  if (!hash) throw unauthenticated();
+  // Share the database-enforced revocation gate before event/request locks,
+  // then read current authority in a fresh statement. Shared readers remain
+  // concurrent across actors and events; raw mutations enter before any tuple.
+  await client.query("SELECT pg_advisory_xact_lock_shared(hashtextextended($1,0))", ["bz-asset-authority:v1"]);
+  // The statement trigger queues writers before tuple acquisition. Retain the
+  // ordinary SHARE locks: they also reject stale repeatable-read snapshots of
+  // changed authority. No stronger session/person or organization lock is used.
   const actor = await identity(client, request);
   if (!actor.organizations.length) throw forbidden();
   return actor;
+}
+/** Nonlocking denial classification; never enters another authority lock tier. */
+export async function sessionIsCurrent(client: PoolClient, request: Request): Promise<boolean> {
+  const hash = sessionHash(request);
+  if (!testMode(request) || !hash) return false;
+  const result = await client.query(
+    `SELECT 1 FROM bz_sessions s JOIN bz_people p ON p.id=s.person_id
+     WHERE s.token_hash=$1 AND s.revoked_at IS NULL AND s.expires_at>clock_timestamp() AND p.active AND p.is_test`, [hash]);
+  return result.rows.length === 1;
 }
 export function grant(actor: Identity, orgId: string): Organization {
   const organization = actor.organizations.find(o => o.id === orgId);

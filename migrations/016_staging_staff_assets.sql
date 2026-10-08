@@ -1,4 +1,32 @@
 BEGIN;
+-- Shared readers enter before event/request/image locks. Authority UPDATEs
+-- enter exclusively through this trigger, including privileged raw SQL: no
+-- cooperative pre-lock is required from logout or a staff-grant revoker.
+-- BEFORE STATEMENT is essential: BEFORE ROW can run only after a legacy tuple
+-- holder releases, leaving a queued raw UPDATE invisible to the advisory queue.
+-- One shared gate keeps readers concurrent and also covers multi-row mutations,
+-- old/new identity keys and transactions touching multiple authority relations.
+-- An authority mutation blocks new gated readers until its transaction ends.
+-- Retain ordinary SHARE authority locks after the gate. These remain mutually
+-- compatible and reject stale repeatable snapshots of concurrently changed rows.
+CREATE FUNCTION public.bz_asset_authority_mutation_gate() RETURNS trigger
+LANGUAGE plpgsql SECURITY DEFINER SET search_path=pg_catalog,pg_temp AS $$
+BEGIN
+ PERFORM pg_advisory_xact_lock(hashtextextended('bz-asset-authority:v1',0));
+ RETURN NULL;
+END $$;
+REVOKE ALL ON FUNCTION public.bz_asset_authority_mutation_gate() FROM PUBLIC;
+CREATE TRIGGER bz_asset_session_gate BEFORE UPDATE OF token_hash,person_id,revoked_at,expires_at OR DELETE
+ ON public.bz_sessions FOR EACH STATEMENT EXECUTE FUNCTION public.bz_asset_authority_mutation_gate();
+CREATE TRIGGER bz_asset_person_gate BEFORE UPDATE OF id,active,is_test OR DELETE
+ ON public.bz_people FOR EACH STATEMENT EXECUTE FUNCTION public.bz_asset_authority_mutation_gate();
+CREATE TRIGGER bz_asset_staff_grant_gate BEFORE UPDATE OF person_id,org_id,active OR DELETE
+ ON public.bz_staff_grants FOR EACH STATEMENT EXECUTE FUNCTION public.bz_asset_authority_mutation_gate();
+CREATE TRIGGER bz_asset_view_grant_gate BEFORE UPDATE OF person_id,event_id,active OR DELETE
+ ON public.bz_event_view_grants FOR EACH STATEMENT EXECUTE FUNCTION public.bz_asset_authority_mutation_gate();
+CREATE TRIGGER bz_asset_org_gate BEFORE UPDATE OF id,name,initials OR DELETE
+ ON public.bz_orgs FOR EACH STATEMENT EXECUTE FUNCTION public.bz_asset_authority_mutation_gate();
+
 CREATE TABLE public.bz_staff_assets (
  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
  event_id uuid NOT NULL,
@@ -64,6 +92,7 @@ BEGIN
   OR get_byte(p_bytes,4)::bigint+get_byte(p_bytes,5)::bigint*256+
      get_byte(p_bytes,6)::bigint*65536+get_byte(p_bytes,7)::bigint*16777216<>octet_length(p_bytes)-8
  THEN RETURN jsonb_build_object('error','INVALID'); END IF;
+ PERFORM pg_advisory_xact_lock_shared(hashtextextended('bz-asset-authority:v1',0));
  SELECT p.id INTO actor FROM public.bz_sessions s JOIN public.bz_people p ON p.id=s.person_id
  WHERE s.token_hash=p_hash AND s.revoked_at IS NULL AND s.expires_at>clock_timestamp() AND p.active AND p.is_test
  FOR SHARE OF s,p;
@@ -84,6 +113,7 @@ BEGIN
  SELECT * INTO existing FROM public.bz_staff_assets
   WHERE uploaded_by=actor AND event_id=p_event AND request_id=p_request FOR SHARE;
  was_replay:=FOUND;
+ BEGIN
  IF was_replay THEN
   IF existing.source_mime<>p_source_mime OR existing.source_size<>p_source_size OR existing.source_sha256<>p_source_hash
   THEN RETURN jsonb_build_object('error','CONFLICT'); END IF;
@@ -102,7 +132,12 @@ BEGIN
   JOIN public.bz_staff_grants g ON g.person_id=p.id JOIN public.bz_events e ON e.org_id=g.org_id
   WHERE s.token_hash=p_hash AND p.id=actor AND e.id=p_event AND e.org_id=org AND g.active
    AND s.revoked_at IS NULL AND s.expires_at>at AND p.active AND p.is_test)
- THEN RETURN jsonb_build_object('error','DENIED'); END IF;
+ THEN RAISE EXCEPTION 'Late image authority denial' USING ERRCODE='PBA05'; END IF;
+ EXCEPTION WHEN SQLSTATE 'PBA05' THEN
+  -- The subtransaction rolls back INSERT even when a direct SQL caller commits
+  -- the surrounding transaction. Keep the existing JSON denial transport.
+  RETURN jsonb_build_object('error','DENIED');
+ END;
  result:=jsonb_build_object('ref','asset:'||existing.id,'eventId',existing.event_id,'requestId',existing.request_id,
   'mime',existing.mime,'width',existing.width,'height',existing.height,'byteLength',existing.byte_length,
   'sha256',existing.sha256,'createdAt',to_char(existing.created_at AT TIME ZONE 'UTC','YYYY-MM-DD"T"HH24:MI:SS.US"Z"'));
@@ -115,6 +150,7 @@ DECLARE actor uuid; org uuid; asset public.bz_staff_assets%ROWTYPE; at timestamp
 BEGIN
  IF p_hash IS NULL OR p_hash !~ '^[a-f0-9]{64}$' OR p_event IS NULL OR p_request IS NULL
  THEN RETURN jsonb_build_object('error','INVALID'); END IF;
+ PERFORM pg_advisory_xact_lock_shared(hashtextextended('bz-asset-authority:v1',0));
  SELECT p.id INTO actor FROM public.bz_sessions s JOIN public.bz_people p ON p.id=s.person_id
  WHERE s.token_hash=p_hash AND s.revoked_at IS NULL AND s.expires_at>clock_timestamp() AND p.active AND p.is_test
  FOR SHARE OF s,p;
@@ -172,9 +208,10 @@ BEGIN
   OR p_context IS NULL OR (p_context='saved' AND p_binding IS NOT NULL)
   OR (p_context<>'saved' AND p_binding IS NULL)
  THEN RAISE EXCEPTION 'Invalid image request' USING ERRCODE='PBA01'; END IF;
+ PERFORM pg_advisory_xact_lock_shared(hashtextextended('bz-asset-authority:v1',0));
  SELECT p.id INTO actor FROM public.bz_sessions s JOIN public.bz_people p ON p.id=s.person_id
- WHERE s.token_hash=p_hash AND s.revoked_at IS NULL AND s.expires_at>clock_timestamp()
-  AND p.active AND p.is_test FOR SHARE OF s,p;
+ WHERE s.token_hash=p_hash AND s.revoked_at IS NULL
+  AND s.expires_at>clock_timestamp() AND p.active AND p.is_test FOR SHARE OF s,p;
  IF actor IS NULL THEN RAISE EXCEPTION 'Image session unavailable' USING ERRCODE='PBA02'; END IF;
  IF p_context='published' THEN
   PERFORM 1 FROM public.bz_event_view_grants g WHERE g.person_id=actor AND g.event_id=p_event
