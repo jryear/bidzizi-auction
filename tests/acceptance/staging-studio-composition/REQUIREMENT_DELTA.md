@@ -4,6 +4,19 @@ Status: **DRAFT_UNFROZEN**. Contract author has prepared source and executable
 evidence only. Parent owns independent review, exact accepted prerequisite,
 baseline execution, commit and freeze. No app or browser runtime has been run.
 
+The proposed focus-fixture successor preserves trusted base
+`9c6bf84ce485aa0dd0309cf692032ccd4a3b7381`, its legitimate READY and its later
+failed recheck. In `/tmp/bz-studio-evidence/base-dNrSAG`, SQL before held Save
+already contains `Food & drink` appended to the second title and an empty
+category; exact requests, SQL and consumed A retain that content. Released Add
+item queues animation-frame title focus while the fixture immediately fills
+fields. The evidence supports a deferred-focus input race. The narrow repair
+uses the existing two-frame flush after native Add item, then verifies the new
+route/current-editor identity and empty editable initial fields before unchanged
+one-pass fills. Independently known content, every requirement predicate and
+native Back/Forward observations remain unchanged. No entry retry or refill is
+introduced. This proposed repair claims no fresh baseline or candidate result.
+
 This successor is limited to `public/staging-admin/studio.js` and `studio.css`
 over released375. The owner's continuation after reviewing task17 authorizes
 the composition work. Task17 is a visual reference; its financial, timing,

@@ -3,6 +3,14 @@
   "status": "DRAFT_UNFROZEN_NO_RUNTIME_RESULT",
   "releasedProduct": "375d301c345bc47298dd2945a29bf9583c96fbc9",
   "finalTrustedBase": null,
+  "focusFixtureSuccessor": {
+    "status": "PROPOSED_STATIC_ONLY_REQUIRES_REVIEW_AND_FRESH_BASELINE",
+    "predecessorTrustedBase": "9c6bf84ce485aa0dd0309cf692032ccd4a3b7381",
+    "failedRecheckReceipt": "/tmp/bz-studio-evidence/base-dNrSAG/RUN_RECEIPT.json",
+    "diagnosis": "Before held Save, SQL already has Food & drink appended to the second title and an empty category. Released add-lot queues animation-frame title focus while the fixture immediately fills fields; deferred focus is the supported input-race inference. Requests, SQL and consumed A preserve the resulting content.",
+    "repair": "After each native Add item, await the existing two-frame flush and verify the new route/current-editor identity and empty editable initial fields before unchanged one-pass fills. No refill, expected-tuple substitution, predicate weakening or native Back guard.",
+    "history": "Preserve the predecessor legitimate READY and later failed recheck as separate historical receipts. Root records a new committed trusted base only after independent review and fresh execution."
+  },
   "baselineStaffSHA256": {
     "public/staging-admin/studio.js": "6ed21b5cb39291d635d5b73136c4f7ca13b4d2a88fdcb013fca15ff53f128817",
     "public/staging-admin/studio.css": "c3d4ddae4fbefe434fe634e0293a0b842e35765f250129453b592bf48c61f072",
