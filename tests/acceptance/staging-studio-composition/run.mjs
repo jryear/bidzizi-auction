@@ -58,6 +58,7 @@ try {
   // Preserve only observations actually reached. No synthetic assertion row or
   // terminal protocol is emitted: the kernel must not accept an interrupted run.
   if(output)await writeFile(join(output,'FAILED.json'),JSON.stringify({classification,exit,reason:error.message,stack:error.stack,
-    observation:error.observation,results,unreached,finalResultEmitted:false},null,2)+'\n').catch(()=>{});
+    original:error.original,observation:error.observation,verifiedServiceCleanup:error.verifiedServiceCleanup,
+    verifiedBrowserCleanup:error.verifiedBrowserCleanup,results,unreached,finalResultEmitted:false},null,2)+'\n').catch(()=>{});
   console.error(classification+' '+String(error.stack||error)+(output?' output='+output:''));process.exitCode=exit;
 }

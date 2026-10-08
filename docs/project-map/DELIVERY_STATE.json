@@ -1,7 +1,7 @@
 {
   "version": 1,
   "owner": "task18 D1 delivery delegator",
-  "status": "APP_RUNTIME_RELEASED_UPSTREAM_SLOT_HELD",
+  "status": "STUDIO_BASELINE_REPAIR_UPSTREAM_HELD",
   "productBase": "375d301c345bc47298dd2945a29bf9583c96fbc9",
   "docsCheckpoint": "7ecdcb5f6d4d52b052f40eadc369b98b9cffb333",
   "privateDocsCarryCommit": "f46d876",
@@ -24,5 +24,12 @@
   "acceptedMobilePrivate": "4782fdc70e92fe5fa12d7d3dff2279d5c23d6659",
   "deferredScope": [
     "New Continue with current profile action; preserve existing disabled entry/ACK recovery"
-  ]
+  ],
+  "studioBaseline": {
+    "committedDraftBase": "5741e0b81f124ba5073019d82fbe837d59a8ea46",
+    "observed": true,
+    "ready": false,
+    "candidateImplementationStarted": false,
+    "receipt": "task18/evidence/studio-baseline-claims.jsonl"
+  }
 }

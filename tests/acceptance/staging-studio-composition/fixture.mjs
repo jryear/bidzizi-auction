@@ -30,7 +30,7 @@ export async function apiDraft(ui,id) {
   const body=await response.json();product(body.draft?.event.id===id,'Malformed confirmed draft packet.',{body});return body.draft;
 }
 export async function withUI(f,fn) {
-  let browser,context,ui,browserOwned;
+  let browser,context,ui,browserOwned,failure;
   try {
     browser=await chromium.launch({headless:true});context=await browser.newContext({viewport:{width:1440,height:1120}});
     await context.addInitScript(()=>{window.__studioPackets=[];addEventListener('message',e=>{
@@ -47,22 +47,25 @@ export async function withUI(f,fn) {
     const currentFrame=()=>page.frames().find(fr=>fr.url().includes('/staging-admin/index.html'));
     must(currentFrame(),'Admin frame is absent.');
     // Full-page reloads replace the child Frame; resolve each observation afresh.
-    const frame={evaluate:(...args)=>{const value=currentFrame();must(value,'Admin frame became unavailable.');return value.evaluate(...args);}};
+    const resolveFrame=()=>{const value=currentFrame();must(value,'Admin frame became unavailable.');return value;};
+    const frame={evaluate:(...args)=>resolveFrame().evaluate(...args),locator:(...args)=>resolveFrame().locator(...args)};
     ui={f,page,context,admin,frame,errors,release:null,capture:label=>f.capture?.(ui,label)};
     await fn(ui);product(errors.length===0,'Browser runtime errors: '+errors.join(';'),{errors});
   } catch(error) {
     const classified=browserFailure(error,'required Studio fixture operation');
+    classified.original={name:error.name,message:error.message,stack:error.stack};
     if(ui&&classified instanceof ApplicationFailure){
       classified.observation={...classified.observation,reason:classified.message,errors:ui.errors,
+        original:classified.original,
         source:'Reached required inherited UI/API operation; not an absent-feature RED.'};
       await ui.capture('REACHED_PRODUCT_FAILURE').catch(()=>{});
     }
-    throw classified;
+    failure=classified;throw classified;
   } finally {
     ui?.release?.();
     try{if(ui)await ui.page.unrouteAll({behavior:'wait'});if(browserOwned)browserOwned=refreshOwned(browserOwned);}
     finally{try{if(context)await context.close();}finally{if(browser)await browser.close();}}
-    if(browserOwned){const cleanup=await verifyGone(browserOwned);f.browserCleanup=cleanup;}
+    if(browserOwned){const cleanup=await verifyGone(browserOwned);f.browserCleanup=cleanup;if(failure)failure.verifiedBrowserCleanup=cleanup;}
   }
 }
 export async function createUI(ui,name='Studio independent synthetic event') {
@@ -120,6 +123,9 @@ export async function previewUI(ui) {
   if(!await ui.admin.locator('#bidder-frame').isVisible())await ui.admin.locator('#preview-toggle').click();
   const preview=ui.page.frames().find(fr=>fr.url().includes('/staging-bidder-preview/index.html'));must(preview,'Actual A preview frame is absent.');
   await preview.waitForFunction(()=>window.__studioPackets?.length>0);return preview;
+}
+export async function closePreviewUI(ui) {
+  if(await ui.admin.locator('#bidder-frame').isVisible())await ui.admin.locator('.preview-close').click();
 }
 export const expected = packet => compact(packet);
 export function expectedPreview(entered,id) {

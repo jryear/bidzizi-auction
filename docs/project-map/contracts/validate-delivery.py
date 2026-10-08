@@ -35,13 +35,14 @@ for row in slices:
     require(f"](contracts/{row['file']})" in current, 'CURRENT missing ' + row['id'])
     card = next((x for x in items if x.get('slice') == row['id']), {})
     require(card.get('contract') == 'contracts/' + row['file'], 'map contract link differs ' + row['id'])
-require(state['status'] == 'APP_RUNTIME_RELEASED_UPSTREAM_SLOT_HELD', 'unreviewed delivery-state transition')
+require(state['status'] == 'STUDIO_BASELINE_REPAIR_UPSTREAM_HELD', 'unreviewed delivery-state transition')
 require(state['outcomeDelivered'] is False, 'preparation cannot claim delivery')
+require(state['studioBaseline']['observed'] is True and state['studioBaseline']['ready'] is False, 'baseline readiness overstated')
 require(state['firstSlice'] == 'STUDIO', 'first slice differs')
 require(set(state['activePreparation']) == {'STUDIO', 'ADMISSION', 'ASSETS', 'TIMING007'}, 'bounded preparation scope differs')
-require('static contract preparation' in current and 'not\naccepted, integrated or deployed' in current,
+require('Studio baseline repair' in current and 'not\naccepted, integrated or deployed' in current,
         'CURRENT completion caveat missing')
-require('D1 staff delivery · contract preparation' in html and 'Staff test slot released; upstream publication held' in html,
+require('D1 staff delivery · Studio baseline repair' in html and 'Staff test slot released; upstream publication held' in html,
         'map continuation/runtime hold differs')
 require('MOBILE014' in current and 'MOBILE014' in state['runtimeSlot'], 'runtime owner differs')
 require('optional fixed item override' in current and 'prototype5/10/25is withdrawn' in current,

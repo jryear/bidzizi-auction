@@ -1,6 +1,7 @@
 # BidZizi current staff-delivery checkpoint · October8,2026 UTC
 
-**D1 implementation is authorized and in static contract preparation. It is not
+**D1 implementation is authorized; Studio baseline repair and other contract
+preparation are active. It is not
 accepted, integrated or deployed.** Task18 owns staff creates/prepares a fresh
 auction → actual saved bidder preview → explicit publication/sharing → synthetic
 attendee admission. Parent owns the broader roadmap and other prototypes.
@@ -42,8 +43,13 @@ permission targets within the existing staging database boundary. TIMING007 prep
 the explicit default/custom schedule interface and reviewed successor delta; open
 window/publication bounds are not silently settled.
 
-No product source, runtime, browser, database, staging data, migrations, grants,
-credentials, provider setting, push or deployment has changed in this continuation.
+No product source, connected staging data, migrations, grants, credentials,
+provider setting, push or deployment has changed in this continuation. Studio
+committed draft5741e0b ran against disposable local app/database/browser fixtures.
+It is BASELINE_NOT_READY: amount-field observer adapter failed and native narrow
+preview closure timed out. Reached persistence/preview and recovery checks passed;
+those observations do not replace the missing complete baseline. All owned runs
+ended; same-author repairs are in fresh independent review.
 Parent released app-runtime/test ownership to task18 after MOBILE014 private4782fdc
 passed38assertions, independentGO and build/typecheck with owned resources cleaned.
 One bounded runtime at a time is permitted after contract review/freeze. Upstream
@@ -103,7 +109,7 @@ private docs base is absent; that result is preserved in
 It has not been weakened or represented as application RED. A reviewed static
 current-delivery binding will verify map/CURRENT parity on this release lineage.
 
-Next: complete independent contract review and precise permission packets; commit
-and observe finite RED/controls against verified375 using the released single
-runtime slot, then retain focused implementers through full
+Next: review and commit the narrow baseline evidence repairs, then observe exact
+finite RED/controls against verified375 using the released single runtime slot.
+Retain focused implementers through full
 verification, review, accepted integration and hosted delivery.

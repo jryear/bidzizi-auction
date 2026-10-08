@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { ids, login } from '../staff-drafts/protocol.mjs';
-import { withUI,createUI,composeUI,saveUI,sql,previewUI,must,product,expected,expectedPreview } from './fixture.mjs';
+import { withUI,createUI,composeUI,saveUI,sql,previewUI,closePreviewUI,must,product,expected,expectedPreview } from './fixture.mjs';
 import * as observe from './observe.mjs';
 import * as oracle from './oracles.mjs';
 
@@ -29,7 +29,7 @@ export async function presentation(f,record) {
     }
     await record('STUDIO_NATIVE_A_PHONE',phones,oracle.phone,ui);
     await page.setViewportSize({width:1440,height:1120});
-    if(await admin.locator('#bidder-frame').isVisible())await admin.locator('#preview-toggle').click();
+    await closePreviewUI(ui);
     await admin.locator('[data-lot="description"]').fill('');await observe.flush(frame);
     const working=await observe.checklist(frame);await saveUI(ui);
     await admin.locator('[data-tab="event"]').click();await observe.flush(frame);const incomplete=await observe.checklist(frame);
@@ -108,7 +108,7 @@ export async function preservation(f,record) {
     await page.goBack();await admin.locator('#events-title').waitFor();const backHome=true;
     await page.goForward();await admin.locator('#event-title').waitFor();const forwardEvent=await admin.locator('#event-title').innerText()===saved.event.name;
     await admin.locator('[data-tab="lots"]').click();await page.setViewportSize({width:390,height:844});
-    if(await admin.locator('#bidder-frame').isVisible())await admin.locator('#preview-toggle').click();
+    await closePreviewUI(ui);
     const narrow=[];for(const key of ['title','short','description','category','opening'])narrow.push(await observe.reachable(admin.locator('[data-lot="'+key+'"]')));
     await admin.locator('[data-tab="event"]').click();narrow.push(await observe.reachable(admin.locator('[data-event="increment"]')));
     await record('STUDIO_EMPTY_NAVIGATION_NARROW',{empty:emptyHome,createInvalid:create.invalid,createLinked:create.linked,createFocused:create.focused,
@@ -119,7 +119,7 @@ export async function preservation(f,record) {
 export async function recovery(f,record) {
   await withUI(f,async ui=>{
     const {admin,frame,page}=ui;await createUI(ui);const entered=await composeUI(ui),saved=await saveUI(ui),id=saved.event.id;
-    if(await admin.locator('#bidder-frame').isVisible())await admin.locator('#preview-toggle').click();
+    await closePreviewUI(ui);
     const path='**/api/admin/events/'+id,before=await sql(f,id);let heldRequest,posts=0,release;
     const barrier=new Promise(done=>release=done);ui.release=release;
     await page.route(path,async route=>{if(route.request().method()!=='PUT')return route.continue();posts++;heldRequest=route.request().postDataJSON();await barrier;await route.continue();});
