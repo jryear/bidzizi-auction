@@ -1,0 +1,140 @@
+{
+  "status": "UNFROZEN_STATIC_REPAIR_ONLY",
+  "predecessorContractCommit": "b985147e370c201c656b0d3f1e9c3db510dd42a6",
+  "predecessorTask": "tasks/staging-staff-event-entry-015-evidence-successor.toml",
+  "successorTask": "tasks/staging-staff-event-entry-015-evidence-successor-v2.toml",
+  "candidateUnderReview": "cd95746daa81765044220fcd57f1e8f12f918922",
+  "provenEvidenceDefects": [
+    "api new URL SOURCE_BINDING omission causes ENOENT before first009 regression on both trees",
+    "ACK page alert is ambiguous between visible form recovery paragraph and Next hidden route announcer; exact passive probe shows truthful recovery UI/ACK404"
+  ],
+  "rootPassiveProbe": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/entry-ack-passive-probe-cd95746-2",
+  "fixedAssertions": 36,
+  "checkGroups": 9,
+  "expectedBaselineFailures": 20,
+  "expectedBaselinePasses": 16,
+  "frozenControls": 51,
+  "predecessorEvidenceSHA256": {
+    ".gitignore": "b40b44b310bdb19d8baa2e267161c1e02553cd457d7b6e83cfdebc8826561641",
+    "AGENTS.md": "22aeb173ad2c7e6b183055e81237704169f8fe44d3ffedbe2bba3b102a983237",
+    "docs/proposed/staff-event-entry/PERMISSION_AND_DECISIONS.md": "1f1ccb5f4b765d29da9adb1a8aa83631c042b77f7d23b3720aab7a28ccff21fb",
+    "docs/proposed/staff-event-entry/SCHEMA_PROPOSAL.sql": "3068f4690a3802ffaef568f387d9e16c6996548db6ede238f57d5da44bb009d9",
+    "migrations/001_staging_staff.sql": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a",
+    "migrations/002_staging_catalog.sql": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3",
+    "migrations/003_staging_manual_bid.sql": "e8e985e67aa5f47df7cd9f9baf56c19fb30915fa99662b3a4e469a9a98e36cf8",
+    "migrations/009_demo_attendee_entry.sql": "c4e87a9bb9b591228a62d4557865de76f7b391354b468c7876ba06bd305e4b4e",
+    "next-env.d.ts": "0f70629890b72a0a82e91972cc032c04b658b26c265373cb711cf576bfbf8fcc",
+    "next.config.ts": "dbb2046b5e03ff053711679f392c7caaa08fc79e2e0a4ae7efd0152254a7be72",
+    "package.json": "33e14f23b472c46939ded502b0eb7aa7e1f00ab1d2d8d93de36863e2206ce722",
+    "pnpm-lock.yaml": "4d034c5147ca042fcfb57c8429d0766705d25ad4e7c39269a2cfcf34213d9c2a",
+    "tasks/staging-staff-event-entry-015-draft.toml": "039293cedbd376464adc0347d6b26a676a2c37279c8c3f898a5354254eca9d5f",
+    "tasks/staging-staff-event-entry-015-evidence-successor.toml": "3be471c80d2b26bbaa7939a8d9c514774533ba6d17f610758b2493a7ddcf91bc",
+    "tasks/staging-studio-composition.toml": "608f2cad42e14ac6fa233f41f387635bc9fa6d7fdb78bb75c369d98c7f0f0f1a",
+    "tests/acceptance/staff-drafts/harness.mjs": "15a4a30eb54e0c71607a88cdcaaf6fce6f574689c2f67cb0b9fa6e6d1e08aed0",
+    "tests/acceptance/staff-drafts/protocol.mjs": "82a5995daf969b5c2d1e4f0cba0d355cf026d4166635645d014979466976b636",
+    "tests/acceptance/staff-drafts/seed.sql": "e476babf9ecc5e498b461b2396926a4773ba50b5dbe41722a89b1ce4270c909f",
+    "tests/acceptance/staging-manual-bid/app-clock-skew.cjs": "08aaf2090133693cf3683edc3fd560e74fc3be4d49cfed67e073860b32117704",
+    "tests/acceptance/staging-manual-bid/fixtures.mjs": "8bb0b7351a5f617611965a95a4315dc5abb2c5cccb39d48575aa16c837c188c5",
+    "tests/acceptance/staging-manual-bid/harness.mjs": "2d1ccba3f005f2113c93f3aa086fdf37f93ab5c5640482705acb641a4bf8c97a",
+    "tests/acceptance/staging-manual-bid/protocol.mjs": "8ec41e55a65ccbea2a60c64bc3e6f97ee164cdadd7cc7901e9cbe34456d07a3b",
+    "tests/acceptance/staging-manual-bid/seed-people.sql": "f6bb72cd50476bb35025bdae787605d345a5d71bccfc1c6b926359a67a76d8c2",
+    "tests/acceptance/staging-staff-event-entry-evidence-successor/CHECKS.json": "86ecc0db4e4dc9aaac6da6feff57cd6c9a7964281069246edaa3c88fda90b126",
+    "tests/acceptance/staging-staff-event-entry-evidence-successor/README.md": "fdf646d0076b6b1feed3e5bc8dadc873a8415f575900fe8b1f68b2dcab260fb8",
+    "tests/acceptance/staging-staff-event-entry-evidence-successor/SUCCESSOR.json": "c46b0c8f7fa4cc9bc542d1f18715911d5ac429200793bfd3b0bdfa3b813bd1f4",
+    "tests/acceptance/staging-staff-event-entry-evidence-successor/api.mjs": "5081269c9c8c55f92be1c06dfbc3acc4687fb29153676fbccf426d41473ad632",
+    "tests/acceptance/staging-staff-event-entry-evidence-successor/controls.mjs": "1afcf2e7bf5de70ebbed6f49f10e57334e141d63c58b68413ad996d0ce3bbde3",
+    "tests/acceptance/staging-staff-event-entry-evidence-successor/native.mjs": "cafb9031241a6cb4f4cfc388ac5dba4dc360348c091d281a22706a0cacc59ebc",
+    "tests/acceptance/staging-staff-event-entry-evidence-successor/oracles.mjs": "ca8f9e0b5a618c9bc9457c7b5affae1c30e9f16c19ffafabd91b3df2011c69ca",
+    "tests/acceptance/staging-staff-event-entry-evidence-successor/run.mjs": "086e3c021770ab2020a98bc07c46286c13543bfcdeb0c9346898b27e2f24d9a7",
+    "tests/acceptance/staging-staff-event-entry/ASSERTION_REQUIREMENT_MAP.json": "ba0567e87b79cf2b6d70f8a3bc2e64f4a938a9628571e76d0c5eb2d67df74eab",
+    "tests/acceptance/staging-staff-event-entry/CHECKS.json": "bacd79f1b05e31548f70af6bb0b14713db4d98d7ea7134a66bde723e9ee1ef2b",
+    "tests/acceptance/staging-staff-event-entry/CONTRACT.md": "fa4f0636f3b410a5d91e1cda2e064c0c0cb912790e7185deca9f21500a1e8e14",
+    "tests/acceptance/staging-staff-event-entry/HARNESS_SUCCESSOR.json": "17ace55886020fc102a97235d2758347419b8f212ca09c9d1f08c088bbd3ca3b",
+    "tests/acceptance/staging-staff-event-entry/README.md": "1eee75595f4fe5404a42d8940ee94eb13a5811c864c00ea4892f7a1facd3182f",
+    "tests/acceptance/staging-staff-event-entry/SOURCE_BINDING.json": "3d4affeac6ddf94c1fabaa07516e85cd6d1393d7fc7b03a76dcff60699ca7cdc",
+    "tests/acceptance/staging-staff-event-entry/STUDIO_SUCCESSOR_CLOSURE.json": "443446d2ebfc9cd42a8d18fac4c1f18ac40e8a0af69445a416a594912643e295",
+    "tests/acceptance/staging-staff-event-entry/api.mjs": "a3f3a0755aab5f276ea1f875fd0a5ea8e0450deb729ea0e5f54e8a20949c4935",
+    "tests/acceptance/staging-staff-event-entry/cleanup.mjs": "e95ee84b66e4a473cd6060fefa8f6732dd7a2eb5ceb179ef4893d626dead46a5",
+    "tests/acceptance/staging-staff-event-entry/controls.mjs": "ed31706de1da4a342fd8aacaa57c6c5597e8fe014d583d454ba915eb0aa146bd",
+    "tests/acceptance/staging-staff-event-entry/decode-qr.swift": "dca6bdfb4dd538489a9ce205e8c9787df6e1ff64b425fddc7ef91b2ee18a22d8",
+    "tests/acceptance/staging-staff-event-entry/harness.mjs": "6f698af19e9b5e7f5388766db5ffa98ba5d19fb8916b1fb160f9b9ed1e6f65c5",
+    "tests/acceptance/staging-staff-event-entry/native.mjs": "958baa5adb42bc151b94a0ed87c5c794dfcb5f62bce44ef25533670cc7117605",
+    "tests/acceptance/staging-staff-event-entry/oracles.mjs": "85fac350fb0c2084efcefc937531720588da14adc9c33e6369a92435cac699ec",
+    "tests/acceptance/staging-staff-event-entry/run.mjs": "01e47c25b145d7dffe12ef81572bcfd5348b1095e2cbdef22f20ec7f0cf1507b",
+    "tests/acceptance/staging-staff-event-entry/setup.mjs": "f8124cb92477794a59914d3c6cf1155bfc99df105930c90a9da9010084ddc7b9",
+    "tests/acceptance/staging-studio-admission-successor/ASSERTION_REQUIREMENT_MAP.json": "1b4a2e25f1db048ee2af353b0ed5bef455cfcb03d6df8ddc4a08a393a6ba323c",
+    "tests/acceptance/staging-studio-admission-successor/CHECKS.json": "6b04b3ed4b20929c5d50a66184cf4bf0944b9733dbfdef8497e9ed00c8e6d9b2",
+    "tests/acceptance/staging-studio-admission-successor/README.md": "623eaf1683838afee53459d785ad38cec739418f1a92b45dc11564744bb14bd7",
+    "tests/acceptance/staging-studio-admission-successor/SOURCE_BINDING.json": "2a486344c0cde6ea93c72a2f1106e487b2afdc4d995104e4b34122696a48ca5a",
+    "tests/acceptance/staging-studio-admission-successor/controls.mjs": "eeb7f6c2dfe2caa52bf17582fa3890f103ae981bb07b5807c3cda6e74d593f87",
+    "tests/acceptance/staging-studio-admission-successor/entry.mjs": "f98c64b7ef4f972d82b47a9af7b2d48a5721960ca40b611938a7a31660dc2edb",
+    "tests/acceptance/staging-studio-admission-successor/groups.mjs": "72c56205867900324c023d7e513971f4f033fe4f7eba26a3ce3d5668028d6d40",
+    "tests/acceptance/staging-studio-admission-successor/oracles.mjs": "19328f363e6cb0f968ac85009e7e91a58a5e3090fa144a79d9c20480f59df086",
+    "tests/acceptance/staging-studio-admission-successor/run.mjs": "9a2dc0e59e286bd1ed5f6ffe59809f8fa73e8c656c78320622453b4ebced6f9e",
+    "tests/acceptance/staging-studio-composition/ASSERTION_REQUIREMENT_MAP.json": "eb2a04ea7d67779c055fd6935d18bd60b4cb3dd4b4bb12d8e2e0eca8252b264f",
+    "tests/acceptance/staging-studio-composition/CHECKS.json": "37777ff722e98d0abaaf70dfe41c736f8dd2a3818cd8ab12493ff9298180d1b1",
+    "tests/acceptance/staging-studio-composition/README.md": "7d7f7665a9871a83e30b879dfd0e5152911c7feaeedfb5c7b120517fd82584c5",
+    "tests/acceptance/staging-studio-composition/REQUIREMENT_DELTA.md": "7abf867c7bf605b7127a79d8fa6327d21288e1bab3f0151b71f4bee244e09838",
+    "tests/acceptance/staging-studio-composition/SOURCE_BINDING.json": "b33ff7ad84da8eeb8f1bd2ccecde9d236696e2f7c5b42648d1f6d757a42f5c24",
+    "tests/acceptance/staging-studio-composition/cases.mjs": "48402028ec70a3b5db1de0eee740ee5f40d1959a518152c2f8c43edf6f982736",
+    "tests/acceptance/staging-studio-composition/cleanup.mjs": "aaa641515606c792e85140dc323ce62fc01972aae2f56127009058fcdbd014c8",
+    "tests/acceptance/staging-studio-composition/controls.mjs": "722dac739f4c1bdabacebb715d21ad0b13f0fcf71cd4863d3584c63d95a94210",
+    "tests/acceptance/staging-studio-composition/fixture.mjs": "be3067d7d72a77604cc3b638d15f37ee8d91b5cbce4bedfdceacd883d58af860",
+    "tests/acceptance/staging-studio-composition/observe.mjs": "1be34bf9937327f9ce825f39517c6cf0a9c8a4f66b54b00554ba68c79ca4cbb6",
+    "tests/acceptance/staging-studio-composition/oracles.mjs": "079f736319b6e9073041feccf0c6c6a69ce117b80148e7d7fd25dda2e723ebeb",
+    "tests/acceptance/staging-studio-composition/run.mjs": "c33fb739e83b9893c9828613123c0736137eb1de33271d1b383212a93742556b",
+    "tsconfig.json": "6e3e1fba1547e5d6ffe754598bdda409e008dd043476ac82513eb778c12ccdd0"
+  },
+  "modules": {
+    "run.mjs": {
+      "predecessor": "tests/acceptance/staging-staff-event-entry-evidence-successor/run.mjs",
+      "predecessorSHA256": "086e3c021770ab2020a98bc07c46286c13543bfcdeb0c9346898b27e2f24d9a7",
+      "successor": "tests/acceptance/staging-staff-event-entry-evidence-successor/run-v2.mjs",
+      "successorSHA256": "4a3843ef99ac82dc010405263541d48afc6a09124d6fe74912ef7965d0ea4e48",
+      "exactReplacements": [
+        {
+          "before": "new URL('./CHECKS.json',import.meta.url)",
+          "after": "new URL('./CHECKS-v2.json',import.meta.url)"
+        },
+        {
+          "before": "new URL('./SUCCESSOR.json',import.meta.url)",
+          "after": "new URL('./SUCCESSOR-v2.json',import.meta.url)"
+        },
+        {
+          "before": "await import('./native.mjs')",
+          "after": "await import('./native-v2.mjs')"
+        },
+        {
+          "before": "await import('./api.mjs')",
+          "after": "await import('./api-v2.mjs')"
+        }
+      ]
+    },
+    "api.mjs": {
+      "predecessor": "tests/acceptance/staging-staff-event-entry-evidence-successor/api.mjs",
+      "predecessorSHA256": "5081269c9c8c55f92be1c06dfbc3acc4687fb29153676fbccf426d41473ad632",
+      "successor": "tests/acceptance/staging-staff-event-entry-evidence-successor/api-v2.mjs",
+      "successorSHA256": "3d3326b4e3c43f99d319b3dd38916d246921f1a4666f7d521cbcd83cc4aefca7",
+      "exactReplacements": [
+        {
+          "before": "new URL('./SOURCE_BINDING.json',import.meta.url)",
+          "after": "new URL('../staging-staff-event-entry/SOURCE_BINDING.json',import.meta.url)"
+        }
+      ]
+    },
+    "native.mjs": {
+      "predecessor": "tests/acceptance/staging-staff-event-entry-evidence-successor/native.mjs",
+      "predecessorSHA256": "cafb9031241a6cb4f4cfc388ac5dba4dc360348c091d281a22706a0cacc59ebc",
+      "successor": "tests/acceptance/staging-staff-event-entry-evidence-successor/native-v2.mjs",
+      "successorSHA256": "3fefa322e150dd00df3946fe3bf3090609003acfcd067788b705f9d2a3da5754",
+      "exactReplacements": [
+        {
+          "before": "ui.page.getByRole('alert')).toContainText(/unavailable|could not|retry|recover/i)",
+          "after": "ui.page.locator('form').getByRole('alert')).toContainText(/unavailable|could not|retry|recover/i)"
+        }
+      ]
+    }
+  },
+  "unchanged": "d96/b985 evidence files, source, full SQL timestamp equality, private phone paint witnesses, one-action async clipboard, unknown99/no terminal, ACK regex/timeouts/storage/cookies/context/re-enable original identity; fourStudio declarations exact",
+  "effects": "Static preparation only. No app/DB/browser/build/kernel/services/provider/grants/commits or product edits."
+}
