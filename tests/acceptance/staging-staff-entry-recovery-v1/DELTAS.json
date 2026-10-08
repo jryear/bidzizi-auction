@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "records": [
+    {
+      "path": "tests/acceptance/staging-staff-entry-inherited/group.mjs",
+      "diskSHA256": "644a600ad7a351089ea2ce1f024bbacdbc4f212eee84223903764d34744ff43f",
+      "executedSHA256": "372e90fb876f57c4e8b69072628a41e3045fc07e3a4b4f026ef60770740b1cbe",
+      "steps": [
+        {
+          "before": "join(root,'tests/acceptance/staging-staff-entry-inherited/loader.mjs')",
+          "after": "process.env.BZ_RECOVERY_LOADER",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "path": "tests/acceptance/staging-workspace-entry/harness.mjs",
+      "diskSHA256": "f56f3f11ffefabfd6bd7bf5a0e77f505b76978ea780267769a2f0f660cc3c59f",
+      "executedSHA256": "fc3c8cdb603f986ed223ea69f728d2926f3578085846ac938315bc016f59ceea",
+      "steps": [
+        {
+          "before": "export async function withFixture(run, configuration={}){",
+          "after": "const fixtureFrames=[];\nexport async function withFixture(run, configuration={}){\n const {fixtureScope}=await import(process.env.BZ_RECOVERY_OWNED);\n const parent=fixtureFrames.at(-1);if(parent)await parent.pause();\n try{return await fixtureScope(()=>withFixtureBody(run,configuration));}\n finally{if(parent)await parent.resume();}\n}\nasync function withFixtureBody(run, configuration={}){",
+          "count": 1
+        },
+        {
+          "before": "async function start(overrides={}){\n      const p=await port(),origin=",
+          "after": "async function start(overrides={},fixedPort){\n      const p=fixedPort??await port(),origin=",
+          "count": 1
+        },
+        {
+          "before": "return {origin,child};",
+          "after": "return {origin,child,overrides};",
+          "count": 1
+        },
+        {
+          "before": "    return await run(fixture);",
+          "after": "    const frame={pause:async()=>{await stop(app.child);(await import(process.env.BZ_RECOVERY_OWNED)).assertApplicationSlot();},resume:async()=>{app=await start(app.overrides,Number(new URL(app.origin).port));}};\n    fixtureFrames.push(frame);\n    try{return await run(fixture);}finally{assert.equal(fixtureFrames.pop(),frame,'Exact fixture stack');}",
+          "count": 1
+        }
+      ],
+      "priorExecutedSHA256": "533672dba5dcb1bf493ee9876a17318a27ac0e9d8be55586f46daf11fe9edeae",
+      "executedAfterPriorSHA256": "550aa9f03ed5e6b88c402bad08f3a1d717ddcf75d9ab01841f7122f549e1e33c"
+    }
+  ],
+  "preservedClassifiers": true,
+  "assertionEdits": 0,
+  "deadlineEdits": 0
+}
