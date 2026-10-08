@@ -1,10 +1,9 @@
 # BidZizi current staff-delivery checkpoint · October8,2026 UTC
 
-**Studio and Entry are accepted as bounded local source checkpoints. Full D1 is
-partial; inherited integration is blocked and the changes have not been deployed.**
-Task18 owns staff creates/prepares a fresh auction → actual saved bidder preview
-→ explicit publication/sharing → synthetic attendee admission. Parent owns the
-broader roadmap and other prototypes.
+**Studio, Entry and the bounded local 101-ID composition are independently accepted.
+Full D1 remains partial and the changes have not been deployed.**
+Task3 completed the authorized local verification recovery. Parent retains the
+fresh-event journey, remaining product decisions and upstream/staging promotion.
 
 The [Product Map](index.html) and [delivery state](DELIVERY_STATE.json) carry the
 same status. The [13-contract inventory](contracts/README.md) remains the unfrozen
@@ -14,9 +13,11 @@ contracts, evidence and `_kernel` bytes remain unchanged.
 
 ## Source, local acceptance and destination
 
-- Isolated integration: task18/integration, `codex/saturn-staff-delivery`.
-- Product base: released375d301c345bc47298dd2945a29bf9583c96fbc9. Last fresh
-  readback matched remote main and staging deploymentdpl_D2HLsiidFERFRnRFPAzwDWLyBeVU.
+- Local recovery integration: task3/integration, `codex/bidzizi-local-recovery`.
+  Reviewed successor packet checkpoint `390bec0130bd8e4dc7246ac1c634860922d298d2`.
+  The stopped predecessor remains task18/integration at0075353.
+- Product base: released375d301c345bc47298dd2945a29bf9583c96fbc9. The predecessor's
+  last recorded readback matched remote main and staging deploymentdpl_D2HLsiidFERFRnRFPAzwDWLyBeVU.
   Staging preserves the owner's existing demo; this is not changed hosted behavior.
 - Private reviewed docs7ecd were carried in docs-onlyf46d876. The docs checkout's
   older application and old `~/code/bidzizi` prototype are not implementation bases.
@@ -48,9 +49,10 @@ staff re-enable completes it with the same original private profile and cookies.
 Existing009 SQL and immutable bids/receipts remain intact.
 
 Exact product bytes were merged as an integration candidate at26b9444. Accepted external source
-snapshot is `e0cef66f650bbfbf55d60862b3abe90127e5382f`; full inherited
-integration acceptance is **not** established. Typecheck and the explicit webpack
-build passed on unchanged Entry source; default Turbopack build failed because the
+snapshot is `e0cef66f650bbfbf55d60862b3abe90127e5382f`; bounded inherited
+composition is accepted as described below; the whole fresh-event journey is incomplete.
+Prior typecheck and the explicit webpack build passed on unchanged Entry source;
+default Turbopack build failed because the
 local dependency symlink is outside its filesystem root. This is no provider build.
 
 Actual private Library captures, all labeled accepted local candidate, not deployed:
@@ -61,7 +63,7 @@ Studio catalog `libfile_46e66db4270c819197d931f6a6fc7a3b`, Studio phone
 were verified stopped. Neither failed/interrupted evidence nor prior receipts
 have been represented as fresh GREEN.
 
-## Inherited closure: actual runtime is UNVERIFIABLE
+## Preserved inherited attempt: UNVERIFIABLE history
 
 Parent authorized a narrow NEW phase/source selector after the preserved parser
 and incompatible-base blockers. Independent hash-bound review approved11 NEW
@@ -77,7 +79,7 @@ before/after checks, not claimed as kernel source-root assurance. Actual candida
 application80 equals that selected source. The genuine base keeps six Entry files
 absent and two earlier Studio files; no fabricated RED or installed baseline Entry.
 
-The actual sole composed run executed **33 groups on each phase /101 declared IDs
+The historical composed run executed **33 groups on each phase /101 declared IDs
 per phase**, then exited2 **UNVERIFIABLE**. Base:81 PASS, five genuine finite Entry
 FAIL,15 unverifiable IDs. Candidate:86 PASS, zero finite FAIL,15 unverifiable IDs.
 Entry's five candidate assertions pass;22 inherited groups/81 assertions pass on
@@ -104,20 +106,55 @@ unregistered staff cluster paths; no owned process/group remains, all recorded
 ports are closed and no PostgreSQL process exists. No signals were sent and failed
 snapshots remain preserved. This proves later cleanup, not validity of failed guards.
 
-Next authorization must cover a NEW reviewed setup/lifecycle/provenance successor:
-serialize nested app fixtures with at most one simultaneously active app while
-preserving later outer continuation, bind
-fixture-specific ownership and exact cluster layouts with failure-safe registration,
-and isolate pure provenance diagnostics in an owned channel. Keep all original
-classifiers, assertions, IDs, kinds, deadlines and final whole-group cleanup.
-These repairs exceed the current phase/source-only authorization. No application,
-old helper, contract or kernel repair has been made; no further runtime was started.
+The original failed attempt and its NO_GO review remain preserved. Later direct
+authorization covered a NEW reviewed producer/ownership successor and the concrete
+legacy runtime-output isolation discovered during narrow validation.
+
+## Current bounded recovery: independently reviewed SUPPORTED
+
+Trusted successor freeze: `8e929742459f933f0f7141d477b349ca28504761`. Exact accepted application
+candidate: `e3164bf8606f97a518a49472e41952155b2b3b59`. The successor retains all original33 groups,
+101 IDs, assertion bodies, kinds, classifiers, deadlines and final cleanup checks.
+The external kernel and every historical frozen contract/evidence file remain exact.
+All80 accepted application files remain unchanged.
+
+Narrow validation passed nested fixture serialization and truthful private provenance
+with the unchanged classifier, plus real `/pg` and `/cluster` failure-safe registration
+probes. The first v1 output-boundary failure correctly withheld99 and remains preserved
+at `/tmp/task-root/staff-entry-selected-v1-ATFVdD/SOURCE`; its1023 original files
+remain exact alongside89 generated files. The authorized v2 successor moves only
+the observed legacy Next outputs to disposable registered app copies. Exact groups
+8/9/10 then passed, with86 pinned inputs unchanged before/after execution.
+
+One unchanged full run completed33 groups on each phase: **baseline96 PASS / five
+genuine finite Entry FAIL / zero unverifiable; candidate101 PASS / zero finite FAIL /
+zero unverifiable**. Kernel verdict is SUPPORTED, independently reviewed from every
+raw terminal result and source/lifecycle witness. Two preserved launch preflight
+failures ran zero checks and created zero application/database/browser runtimes.
+
+Entry group0 runs on the actual kernel base/candidate. The32 inherited groups in
+both phases explicitly execute the fixed accepted external `e0cef66` source, with
+all1023-file physical before/after guards exact. The seven repaired legacy fixtures
+in each phase have complete86-file disposable copy witnesses:80 accepted application
+files plus six pinned configs. This remains separately
+witnessed external-source execution, without kernel source-root assurance for that
+selected snapshot. It does not establish a complete fresh-event or hosted journey.
+
+Fresh owned cleanup and independent readback confirm all owned app/database/browser/
+launcher processes and groups absent and all recorded ports closed. No recovery
+signals or deletions were sent by final readback; fixture teardown removed only its
+owned disposable roots. Failed evidence is retained. No active owned runtime remains.
+
+Exact current evidence: [202-ID classification](</Users/jryear/Documents/Codex/2026-10-08/task-3/evidence/FULL_CLASSIFICATION.json>),
+[raw archive binding](</Users/jryear/Documents/Codex/2026-10-08/task-3/evidence/full-archive/ARCHIVE_BINDING.json>),
+[independent full result review](</Users/jryear/Documents/Codex/2026-10-08/task-3/evidence/staff-entry-recovery-full-result-review-v2.json>),
+[owned cleanup](</Users/jryear/Documents/Codex/2026-10-08/task-3/evidence/OWNED_FULL_RECOVERY_CLEANUP.json>) and [frozen source binding](</Users/jryear/Documents/Codex/2026-10-08/task-3/evidence/FREEZE_V2.json>).
 
 ## Decisions, permissions and publication holds
 
 Parent released one app-runtime/test slot after parent-owned MOBILE014 private4782fdc
 acceptance and cleanup. Its push retry was rejected; MOBILE014 remains unlanded
-and excluded from this integration. Task18 has no active runtime. Upstream
+and excluded from this integration. Task18 and task3 have no active owned runtime. Upstream
 merge/push/deployment remains held pending the three unanswered owner approvals
 and parent release. No connected migration, grant, data, credential or provider
 setting has changed; no new staging deployment or customer launch occurred.
@@ -149,7 +186,7 @@ There is no next dependent product implementation that can safely ignore these h
 | [TIMING007 · Default event timing and named custom groups (007 successor)](contracts/timing007.md) | D1 | blocked owner decision; draft/unfrozen | Released foundation |
 | [INCREMENTS · Configurable current-highest-bid increment tiers](contracts/increments.md) | D1 | blocked owner decision; draft/unfrozen | TIMING007 |
 | [PUBLICATION008 · Explicit immutable additive catalog publication (008)](contracts/publication008.md) | D1 | blocked owner decision; draft/unfrozen | TIMING007 |
-| [ADMISSION · Staff-controlled fresh-event entry and sharing](contracts/admission.md) | D1 | Bounded source accepted locally; inherited closure blocked; staging held | Released foundation |
+| [ADMISSION · Staff-controlled fresh-event entry and sharing](contracts/admission.md) | D1 | Bounded source and local composition accepted; whole D1/staging held | Released foundation |
 | [WATCH012 · Personal Watching and durable actor-owned My Bids (012)](contracts/watch012.md) | D2 | blocked successor evidence; draft/unfrozen | Released foundation |
 | [DONATIONS011 · Record donations and provide staff list/export (011)](contracts/donations011.md) | D3 | blocked owner decision; draft/unfrozen | Released foundation |
 | [STAFF_RESULTS · Scoped staff standings and CSV export](contracts/staff_results.md) | D4 | blocked evidence; draft/unfrozen | Released foundation |
@@ -168,16 +205,16 @@ Current status does not renew old gate observations.
 [Task18 delivery status](</Users/jryear/Documents/Codex/2026-10-07/task-18/DELIVERY_STATUS.md>)
 records the bounded result. Original36-ID Entry acceptance remains
 [admission-supported-c107835](</Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/admission-supported-c107835/ARCHIVE_BINDING.json>).
-The actual [composed result](</Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/entry-inherited-composed-attempt-1-22b619d/ARCHIVE_BINDING.json>)
+The preserved historical [composed result](</Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/entry-inherited-composed-attempt-1-22b619d/ARCHIVE_BINDING.json>)
 is UNVERIFIABLE; [supporting native captures and diagnoses](</Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/entry-inherited-composed-supporting-22b619d/ARCHIVE_BINDING.json>)
 and [inner raw CLI evidence](</Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/entry-inherited-composed-inner-captures-22b619d/ARCHIVE_BINDING.json>)
 are separately pinned. Earlier specification errors, blocked composition diagnosis
-and all three historical status validators remain byte-identical. The NEW
-[runtime status validator](contracts/validate-delivery-entry-runtime.py) verifies
-source/receipt/map/CURRENT parity only; it starts no application or hosted gate.
+and all three historical status validators remain byte-identical. The historical
+[runtime status validator](contracts/validate-delivery-entry-runtime.py) retains its
+0075353 checkpoint bytes. Current paired status is bound by the new local recovery
+classification and independent review; no status check starts an application.
 
-Next: parent authorizes the narrowly proposed setup/lifecycle/provenance successor,
-then renewed reviewed composition must close the inherited96 requirements. Resolve
+The bounded local recovery and all inherited96 requirements are complete. Next: resolve
 owner policy and connected permissions before remaining dependent D1 slices;
 after accepted integration and promotion, prove a fresh-event journey on
 staging.bidzizi.com. Full D1 remains partial and the new source is not deployed.

@@ -1,7 +1,7 @@
 {
-  "version": 3,
-  "owner": "task18 D1 delivery delegator",
-  "status": "STUDIO_ENTRY_ACCEPTED_LOCAL_INHERITED_RUNTIME_UNVERIFIABLE",
+  "version": 4,
+  "owner": "task3 bounded local verification recovery; parent retains product decisions and promotion",
+  "status": "STUDIO_ENTRY_ACCEPTED_LOCAL_BOUNDED_COMPOSITION_SUPPORTED",
   "productBase": "375d301c345bc47298dd2945a29bf9583c96fbc9",
   "docsCheckpoint": "7ecdcb5f6d4d52b052f40eadc369b98b9cffb333",
   "privateDocsCarryCommit": "f46d876",
@@ -11,7 +11,7 @@
     "ASSETS",
     "TIMING007"
   ],
-  "runtimeSlot": "Sole root composed gate completed; final owned readback confirms no remaining process/group,219 recorded local ports closed and zero PostgreSQL processes. Failed snapshots retained. Parent MOBILE014 remains unlanded and excluded; upstream promotion/deployment remains held.",
+  "runtimeSlot": "Single full baseline/candidate run completed; fresh root and independent ownership readback confirms all owned application/database/browser/launcher processes and groups absent, all recorded ports closed. Failed v1 source retained. No owned runtime remains.",
   "policy": [
     "Exact configurable progressive25/50/100/250 tier boundaries with optional fixed lot override",
     "Custom-window and late-publication bounds",
@@ -257,7 +257,7 @@
     "actualReviewSHA256": "98b8921585eb9e182faf883d0f4677e96bb9c4be089a758372c4b0528a656fd1",
     "nextRequiredAuthorization": "NEW reviewed setup/lifecycle/provenance successor: serialize nested apps with at most one simultaneously active app, bind fixture ownership and exact pg/cluster layouts with failure-safe registration, isolate pure provenance diagnostics; preserve all original classifiers/assertion bodies/IDs/kinds/deadlines and final whole-group cleanup."
   },
-  "nextExecutableAction": "NEW reviewed setup/lifecycle/provenance successor: serialize nested apps with at most one simultaneously active app, bind fixture ownership and exact pg/cluster layouts with failure-safe registration, isolate pure provenance diagnostics; preserve all original classifiers/assertion bodies/IDs/kinds/deadlines and final whole-group cleanup. Current phase/source-only authorization does not cover these repairs. Three owner decisions, connected grants and promotion remain held.",
+  "nextExecutableAction": "Bounded local verification recovery complete. Parent resolves three unanswered owner approvals, connected permissions and remaining product dependencies before any upstream promotion or staging journey; whole D1 remains partial.",
   "previousInheritedRegression": {
     "status": "SPEC_ERROR_BEFORE_RUNTIME",
     "groups": 32,
@@ -277,5 +277,58 @@
     "runtimeStarted": false,
     "resolutionOwner": "Parent: authorize a reviewed versioned phase-aware inherited source-binding/helper successor and composed trusted freeze on genuine pre-Entry source, with renewed actual base/candidate evidence. Beyond current declaration-only authority; preserve assertions/kinds/deadlines/history/kernel.",
     "compositionDiagnostic": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/ENTRY_INHERITED_COMPOSITION_DIAGNOSTIC.json"
+  },
+  "localRecovery": {
+    "trustedBase": "8e929742459f933f0f7141d477b349ca28504761",
+    "candidate": "e3164bf8606f97a518a49472e41952155b2b3b59",
+    "selectedInheritedSource": "e0cef66f650bbfbf55d60862b3abe90127e5382f",
+    "packetCheckpoint": "390bec0130bd8e4dc7246ac1c634860922d298d2",
+    "task": "tasks/staging-staff-entry-composed-recovery-v2.toml",
+    "groupsPerPhase": 33,
+    "IDsPerPhase": 101,
+    "counts": {
+      "base": {
+        "pass": 96,
+        "finiteFail": 5,
+        "unverifiable": 0,
+        "total": 101
+      },
+      "candidate": {
+        "pass": 101,
+        "finiteFail": 0,
+        "unverifiable": 0,
+        "total": 101
+      }
+    },
+    "kernelVerdict": "supported",
+    "kernelClaim": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-08/task-3/evidence/full/claims.jsonl",
+      "sha256": "0584162df3bd7c2decafde805069f5e1c35442f06ec92419bda60cff94e00c30"
+    },
+    "independentFullReview": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-08/task-3/evidence/staff-entry-recovery-full-result-review-v2.json",
+      "sha256": "f4f49f194c782e08eec4237f08d1111a2ff5782ced564fced8f3f5ea45473387",
+      "verdict": "GO_FULL_BOUNDED_COMPOSITION_AND_OWNED_CLEANUP"
+    },
+    "archive": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-08/task-3/evidence/full-archive/ARCHIVE_BINDING.json",
+      "sha256": "88714f1c4ba1526ecd75face3449f1463dac6f4d2975511258c90ba04ffe6d69"
+    },
+    "ownedCleanup": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-08/task-3/evidence/OWNED_FULL_RECOVERY_CLEANUP.json",
+      "sha256": "2b034eaea73801ba7121990b66fec40be5173fd378570a701b8f863757fdadca"
+    },
+    "narrowResults": {
+      "originalRepairs": "V1 groups4/6 pass and real pg/cluster failure-registration probes pass; v1 group10 withheld99 remains preserved",
+      "outputIsolation": "V2 exact groups8/9/10 pass"
+    },
+    "application80AcceptedExact": true,
+    "all1023SelectedSourceGuardsExact": true,
+    "selectedInheritedSourceKernelRootAssurance": false,
+    "wholeFreshEventJourneyComplete": false,
+    "ownerApprovalsAnswered": false,
+    "connectedChanges": false,
+    "upstreamChanges": false,
+    "deployed": false
   }
 }
