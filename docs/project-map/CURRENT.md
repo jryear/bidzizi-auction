@@ -16,7 +16,7 @@ strictly before opening, after relevant waits and current authority checks;
 an already authorized transaction may commit or respond later. Astra accepted
 that focused semantic amendment, without granting full contract GO. The
 [unified schema-2 packet](../../tasks/staff-auction-rehearsal.toml) declares
-17 exact-candidate checks, including a deferred COMMIT crossing opening and a
+40 exact-candidate checks, including a deferred COMMIT crossing opening and a
 fresh event-lock wait crossing opening. It remains unfrozen and unexecuted
 pending independent full-packet review and meaningful BASELINE_READY. No new
 product capability or staging release is claimed.

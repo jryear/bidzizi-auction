@@ -1,0 +1,51 @@
+spec_version = 2
+id = "staging-mobile-poll-render-014"
+project = "bidzizi"
+goal = "Authenticated mobile bidder polls preserve unchanged catalog and bid-review DOM, focus and editing while current catalog, standing, permission, stale state, actor/session transitions and durable receipt recovery continue to update safely."
+bypass_policy = "fail"
+
+[scope]
+include = ["src/app/events/[[]id]/event-access.tsx", "public/staging-catalog/app.js", "public/staging-catalog/bidding.js", "public/staging-catalog/ui.js", "public/staging-catalog/views.js", "public/staging-catalog/reconcile.js"]
+exclude = ["*.env*", "package.json", "pnpm-lock.yaml", ".vercel/*", ".claims/*"]
+protected = ["tests/acceptance/*", "prototypes/*", "src/server/*", "src/app/api/*", "src/lib/database.ts", "src/app/events/[[]id]/demo-entry-form.tsx", "migrations/*"]
+test_files = ["*test*", "*spec*", "*__tests__*"]
+
+[worktree]
+link = ["node_modules"]
+
+[[checks]]
+name = "Mobile unchanged polling preserves DOM and editing"
+kind = "acceptance"
+timeout = 120
+argv = ["/Users/jryear/.nvm/versions/node/v24.4.1/bin/node", "tests/acceptance/staging-mobile-poll-render/run.mjs", "acceptance"]
+entry = "tests/acceptance/staging-mobile-poll-render/run.mjs"
+chain = ["tests/acceptance/staging-mobile-poll-render/run.mjs", "tests/acceptance/staging-mobile-poll-render/harness.mjs", "tests/acceptance/staging-mobile-poll-render/fixtures.mjs", "tests/acceptance/staging-mobile-poll-render/authority-source.json"]
+evidence = ["tests/acceptance/staging-mobile-poll-render/*"]
+assertions = ["webkit-idle-nodes", "webkit-search-editor", "webkit-review-editor", "webkit-single-publication", "chromium-idle-nodes", "chromium-search-editor", "chromium-review-editor", "chromium-single-publication"]
+baseline_failures = ["webkit-idle-nodes", "webkit-search-editor", "webkit-review-editor", "webkit-single-publication", "chromium-idle-nodes", "chromium-search-editor", "chromium-review-editor", "chromium-single-publication"]
+
+[[checks]]
+name = "Changed catalog standing closure and receipt recovery"
+kind = "regression"
+timeout = 120
+argv = ["/Users/jryear/.nvm/versions/node/v24.4.1/bin/node", "tests/acceptance/staging-mobile-poll-render/run.mjs", "regression"]
+entry = "tests/acceptance/staging-mobile-poll-render/run.mjs"
+chain = ["tests/acceptance/staging-mobile-poll-render/run.mjs", "tests/acceptance/staging-mobile-poll-render/harness.mjs", "tests/acceptance/staging-mobile-poll-render/fixtures.mjs", "tests/acceptance/staging-mobile-poll-render/authority-source.json"]
+evidence = ["tests/acceptance/staging-mobile-poll-render/*"]
+assertions = ["authority-source-identity", "webkit-changed-catalog", "webkit-changed-standing", "webkit-offline-reconnect", "webkit-phase-closure", "webkit-receipt-recovery", "chromium-changed-catalog", "chromium-changed-standing", "chromium-offline-reconnect", "chromium-phase-closure", "chromium-receipt-recovery"]
+baseline_failures = []
+
+[[checks]]
+name = "Context races denied access and stale transitions"
+kind = "adversarial"
+timeout = 90
+argv = ["/Users/jryear/.nvm/versions/node/v24.4.1/bin/node", "tests/acceptance/staging-mobile-poll-render/run.mjs", "adversarial"]
+entry = "tests/acceptance/staging-mobile-poll-render/run.mjs"
+chain = ["tests/acceptance/staging-mobile-poll-render/run.mjs", "tests/acceptance/staging-mobile-poll-render/harness.mjs", "tests/acceptance/staging-mobile-poll-render/fixtures.mjs", "tests/acceptance/staging-mobile-poll-render/authority-source.json"]
+evidence = ["tests/acceptance/staging-mobile-poll-render/*"]
+assertions = ["webkit-context-generation", "webkit-parent-sequence", "webkit-logout-race", "webkit-401-private-unmount", "webkit-stale-error", "chromium-context-generation", "chromium-parent-sequence", "chromium-logout-race", "chromium-401-private-unmount", "chromium-stale-error"]
+baseline_failures = []
+
+[notes]
+context = "Independent frozen evidence authored before implementation. Kernel actual version3.1.0/schema2; actual parent TSX and iframe source from VERIFY_ROOT, all responses browser-local, real periodic polls, sequential mobile WebKit/Chromium. No local server/build, DB or shared demo writes. Exact source hashes guard untouched API/server/demo enrollment/migrations; existing DB gates are outside this bounded UI slice. Physical-device visual flash and hosted deployment remain separate evidence."
+out_of_scope = "No new auction/identity semantics, real attendees/bids, demo enrollment changes, server/database/receipt changes, prototype redesign, unrelated functionality or inherited release work."

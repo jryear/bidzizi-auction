@@ -83,14 +83,14 @@ export const bidderPath=(id,lotId,suffix)=>'/api/v2/bidder/events/'+id+'/lots/'+
 export async function dbNow(f) {return(await f.db.query('SELECT clock_timestamp() AS at')).rows[0].at;}
 export async function waitDb(f,iso,maximum=240000) {const stop=Date.now()+maximum;while(Date.now()<stop){const at=await dbNow(f);if(at.getTime()>=Date.parse(iso))return at;await new Promise(done=>setTimeout(done,200));}throw new HarnessError('Observed DB boundary was not reached within bounded deadline.');}
 export async function lockedExpiry(f,session,eventId,request) {
-  // Set expiry before authority locks are acquired; do not UPDATE a locked session.
+  // Set expiry immediately before the blocked request; no request holds the session row yet.
   const token=session.cookie.slice('bz_session='.length),hash=createHash('sha256').update(token).digest('hex');
-  const expires=(await f.db.query("UPDATE bz_sessions SET expires_at=clock_timestamp()+interval '8 seconds' WHERE token_hash=$1 RETURNING expires_at",[hash])).rows[0].expires_at;
+  let expires;
   const lock=new pg.Client({connectionString:f.appUrl});await lock.connect();let released=false,pending;
-  try {await lock.query('BEGIN');await lock.query('SELECT id FROM bz_events WHERE id=$1 FOR UPDATE',[eventId]);const before=await snapshot(f);pending=request();
-    const limit=Date.now()+6500;let blocked=false;while(Date.now()<limit){blocked=(await f.db.query("SELECT count(*)::int n FROM pg_stat_activity WHERE datname=current_database() AND pid<>pg_backend_pid() AND wait_event_type='Lock' AND query ILIKE '%bz_events%'")).rows[0].n>0;if(blocked)break;await new Promise(done=>setTimeout(done,100));}
+  try {await lock.query('BEGIN');await lock.query('SELECT id FROM bz_events WHERE id=$1 FOR UPDATE',[eventId]);expires=(await f.db.query("UPDATE bz_sessions SET expires_at=clock_timestamp()+interval '3 seconds' WHERE token_hash=$1 RETURNING expires_at",[hash])).rows[0].expires_at;const before=await snapshot(f);pending=request();pending.catch(()=>{});
+    const limit=Date.now()+2200;let blocked=false;while(Date.now()<limit){blocked=(await f.db.query("SELECT count(*)::int n FROM pg_stat_activity WHERE datname=current_database() AND pid<>pg_backend_pid() AND wait_event_type='Lock' AND query ILIKE '%bz_events%'")).rows[0].n>0;if(blocked)break;await new Promise(done=>setTimeout(done,50));}
     if(!blocked)throw new HarnessError('Request was not observed blocked on owned event row before expiry.');
-    await waitDb(f,expires.toISOString(),12000);const during=await snapshot(f);same(during,before,'A held request mutated complete SQL before release.');await lock.query('COMMIT');released=true;
+    await waitDb(f,expires.toISOString(),5000);const during=await snapshot(f);same(during,before,'A held request mutated complete SQL before release.');await lock.query('COMMIT');released=true;
     const response=await pending;expect(response.status===401,'Post-wait expired session was accepted.',response);sealed(response);const after=await snapshot(f);same(after,before,'Expired held operation changed complete durable rows.');return {blocked,expiresAt:expires.toISOString(),response,before,after};
   }finally{if(!released)await lock.query('ROLLBACK').catch(()=>{});await lock.end();if(pending)await pending.catch(()=>{});}
 }

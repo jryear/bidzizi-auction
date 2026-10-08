@@ -1,0 +1,8 @@
+{
+  "tasks/staging-mobile-poll-render-014.toml": "209173307f836fadb2a303e2f7b2ef97c99576403b44e63563c5d8126b382bf3",
+  "tests/acceptance/staging-mobile-poll-render/README.md": "f53eeb5851cc51311ba5960cf06ca18afd552a479ba8b79b529791a6d69cf1ad",
+  "tests/acceptance/staging-mobile-poll-render/authority-source.json": "8efd1d2ac3a01b647d72567eae6bd860586b833e45d74d1873eecf0bf89e57bc",
+  "tests/acceptance/staging-mobile-poll-render/fixtures.mjs": "412f7ff2e75c4572e1168a324c1101944d2d7030071f344ce45fb77e3f238fac",
+  "tests/acceptance/staging-mobile-poll-render/harness.mjs": "78878e7bf4eb86a252ccb7e72691d88cd9694b1d3a50a9693ab9c659c252200e",
+  "tests/acceptance/staging-mobile-poll-render/run.mjs": "22c7158577f2661bb64a9799face2051630b19a9c5679c0b71871cc586903a38"
+}

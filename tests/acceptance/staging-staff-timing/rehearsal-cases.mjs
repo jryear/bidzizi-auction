@@ -6,7 +6,7 @@ import {fileURLToPath} from 'node:url';
 import {expect as pwExpect} from '@playwright/test';
 import pg from 'pg';
 import * as h from './fixture.mjs';
-import {expect,same,sealed} from './oracles.mjs';
+import {expect,same,sealed,acceptedTuple} from './oracles.mjs';
 import {HarnessError} from '../staff-drafts/harness.mjs';
 const rule='saturn-trade-tiered-v1';
 const denomination='SATURN_TRADE_DOLLAR_SYNTHETIC_V1';
@@ -34,6 +34,18 @@ async function standing(f,person,eventId,lotId){return h.api(f,person,h.bidderPa
 async function bid(f,person,eventId,lotId,businessId,amountMinor,requestId=randomUUID()){
  const intent={requestId,businessId,amountMinor,rulesetId:rule};
  return {intent,response:await h.api(f,person,h.bidderPath(eventId,lotId,'bids'),'POST',intent)};
+}
+async function durableTradeBid(f,p,person,item,call){
+ const receipt=call.response.data.receipt,known={requestId:call.intent.requestId,eventId:p.created.event.id,releaseId:p.approval.approval.id,lotId:item.id,actorId:person.person.id,businessId:call.intent.businessId,amountMinor:call.intent.amountMinor,rulesetId:rule,currency:denomination,status:'accepted',reason:null};
+ acceptedTuple(receipt,known,call.response.dbTimeBracket,p);
+ const bidRows=(await f.db.query('SELECT id,actor_id,business_id,request_id,event_id,release_id,lot_id,amount_minor::text AS amount_minor,ruleset_id,currency,standing_version FROM bz_manual_bids WHERE actor_id=$1 AND request_id=$2',[person.person.id,call.intent.requestId])).rows;
+ expect(bidRows.length===1,'Accepted synthetic intent has no unique durable bid.',{known,bidRows});
+ const row=bidRows[0];same({id:row.id,actorId:row.actor_id,businessId:row.business_id,requestId:row.request_id,eventId:row.event_id,releaseId:row.release_id,lotId:row.lot_id,amountMinor:Number(row.amount_minor),rulesetId:row.ruleset_id,currency:row.currency},{id:receipt.bidId,actorId:known.actorId,businessId:known.businessId,requestId:known.requestId,eventId:known.eventId,releaseId:known.releaseId,lotId:known.lotId,amountMinor:known.amountMinor,rulesetId:rule,currency:denomination},'Stored bid differs from exact independently submitted synthetic intent.');
+ const persisted=(await f.db.query('SELECT receipt,http_status FROM bz_bid_receipts WHERE actor_id=$1 AND request_id=$2',[person.person.id,call.intent.requestId])).rows;
+ same(persisted,[{receipt,http_status:201}],'Owned durable synthetic receipt differs from API result.');
+ const standing=(await f.db.query('SELECT current_amount_minor::text AS amount,leading_business_id,accepted_bid_id,accepted_bid_count,version,ruleset_id,currency FROM bz_lot_standing WHERE release_id=$1 AND lot_id=$2',[known.releaseId,item.id])).rows;
+ expect(standing.length===1&&standing[0].amount===String(known.amountMinor)&&standing[0].leading_business_id===known.businessId&&standing[0].accepted_bid_id===receipt.bidId&&standing[0].accepted_bid_count===row.standing_version&&standing[0].version===row.standing_version&&standing[0].ruleset_id===rule&&standing[0].currency===denomination,'Durable standing does not match exact accepted synthetic intent.',{known,row,standing});
+ return {bid:row,receipt:persisted[0],standing:standing[0]};
 }
 async function native(f){
  const steps=[],staff=await h.readiness(f),observations={};await h.create(f,staff,'Native v2 capability probe');
@@ -68,7 +80,7 @@ async function native(f){
 }
 async function phasesAndBids(f){
  const steps=[],lots=[lot('one minor below five hundred',49999),lot('at five hundred',50000),lot('one minor below one thousand',99999),lot('at one thousand',100000),lot('one minor below twenty five hundred',249999),lot('at twenty five hundred',250000),lot('fixed override',20000,7500)];
- const p=await setup(f,'Known tier and phase rehearsal',3,6,lots),id=p.created.event.id;
+ const p=await setup(f,'Known tier and phase rehearsal',3,3,lots),id=p.created.event.id;
  await h.authorize(f,id);const a=await h.login(f,'bidder-juniper'),b=await h.login(f,'bidder-harbor');
  const pre=await catalog(f,a,id);expect(pre.status===200&&pre.data.phase==='scheduled','Admitted pre-open catalog is unavailable.',pre);
  same(pre.data.catalog?.lots.map(x=>x.id),lots.map(x=>x.id),'Pre-open selected roster differs from saved selection.');
@@ -80,19 +92,25 @@ async function phasesAndBids(f){
  for(let i=0;i<lots.length;i++){
   const first=await bid(f,a,id,lots[i].id,h.ids.businessA,lots[i].opening);
   expect(first.response.status===201&&first.response.data.receipt.amountMinor===lots[i].opening,'First bid did not accept exact opening.',first);
+  await durableTradeBid(f,p,a,lots[i],first);
   const next=await standing(f,b,id,lots[i].id);expect(next.status===200&&next.data.standing.minimumAmountMinor===lots[i].opening+expectedRaise[i],'Tier/override minimum was not selected from current highest.',{next,lot:lots[i]});
   const previouslyEnteredSufficient={requestId:randomUUID(),businessId:h.ids.businessA,amountMinor:lots[i].opening+7*expectedRaise[i]+3,rulesetId:rule};
   const stale=await bid(f,b,id,lots[i].id,h.ids.businessB,lots[i].opening+expectedRaise[i]-1);
   expect(stale.response.status===409&&stale.response.data.receipt.reason==='BELOW_MINIMUM'&&stale.response.data.receipt.amountMinor===stale.intent.amountMinor,'Stale submitted amount was upgraded or accepted.',stale);
+  const staleRows=(await f.db.query('SELECT receipt,http_status FROM bz_bid_receipts WHERE actor_id=$1 AND request_id=$2',[b.person.id,stale.intent.requestId])).rows;
+  same(staleRows,[{receipt:stale.response.data.receipt,http_status:409}],'Rejected stale amount lacks its exact owned durable receipt.');
+  expect((await f.db.query('SELECT count(*)::int AS n FROM bz_manual_bids WHERE actor_id=$1 AND request_id=$2',[b.person.id,stale.intent.requestId])).rows[0].n===0,'Stale rejected amount wrote an accepted bid.');
   const excess=await bid(f,b,id,lots[i].id,h.ids.businessB,lots[i].opening+3*expectedRaise[i]+1);
   expect(excess.response.status===201&&excess.response.data.receipt.amountMinor===excess.intent.amountMinor,'Non-multiple eligible amount rejected.',excess);
+  await durableTradeBid(f,p,b,lots[i],excess);
   if(i===0){const sufficient=await h.api(f,a,h.bidderPath(id,lots[i].id,'bids'),'POST',previouslyEnteredSufficient);
    expect(sufficient.status===201&&sufficient.data.receipt.amountMinor===previouslyEnteredSufficient.amountMinor,'Previously entered but still sufficient amount was incorrectly rejected or upgraded.',sufficient);
+   await durableTradeBid(f,p,a,lots[i],{intent:previouslyEnteredSufficient,response:sufficient});
    receipts.push({first:first.response.data.receipt,excess:excess.response.data.receipt,stale:stale.response.data.receipt,sufficient:sufficient.data.receipt});}
   else receipts.push({first:first.response.data.receipt,excess:excess.response.data.receipt,stale:stale.response.data.receipt});
  }
  steps.push('All first bids, exact 49,999/50,000, 99,999/100,000 and 249,999/250,000 boundaries, fixed override, insufficient and still sufficient stale amounts, and tier-skipping bids observed durably');
- const beforeClose=await h.snapshot(f);await h.waitDb(f,p.closesAt,300000);
+ const beforeClose=await h.snapshot(f);await h.waitDb(f,p.closesAt,240000);
  const late=await bid(f,a,id,lots[0].id,h.ids.businessA,99900);
  expect(late.response.status===409&&late.response.data.receipt.reason==='CLOSED','A late bid was accepted.',late);
  const closed=await standing(f,a,id,lots[0].id);expect(closed.status===200&&closed.data.standing.phase==='closed','Closed standing is not readable.',closed);
@@ -126,6 +144,7 @@ async function held(f){
  const saved=await h.save(f,staff,id,created.revision,draft),body={expectedRevision:saved.packet.revision,requestId:randomUUID(),draft:{...draft,event:{...draft.event,name:'held edit'}}};
  const saveWait=await h.lockedExpiry(f,staff,id,()=>h.api(f,staff,'/api/v2/admin/events/'+id,'PUT',body));
  const fresh=await h.login(f),approvalBody={expectedRevision:saved.packet.revision,requestId:randomUUID(),lotIds:draft.lots.map(x=>x.id)};
+ await h.api(f,fresh,'/api/v2/admin/events/'+id+'/catalog-approval');
  const publishWait=await h.lockedExpiry(f,fresh,id,()=>h.api(f,fresh,'/api/v2/admin/events/'+id+'/catalog-approval','POST',approvalBody));
  steps.push('Held Save and initial publication recheck expired staff authority after event-lock wait');
  return done(steps,{saveWait,publishWait});
@@ -153,7 +172,7 @@ async function legacy(f){
  return done(steps,{approval:approval.data.approval,first:first.data.receipt,replay:replay.data.receipt,lookup:lookup.data.receipt});
 }
 async function concurrencyAndCap(f){
- const steps=[],lots=[lot('near inclusive cap',999999000),lot('concurrent lot',2500),lot('no bid lot',2500)],p=await setup(f,'Concurrent cutoff and cap',2,3,lots),id=p.created.event.id;
+ const steps=[],lots=[lot('near inclusive cap',999999000),lot('concurrent lot',2500),lot('no bid lot',2500),lot('eligible exact cap',1000000000)],p=await setup(f,'Concurrent cutoff and cap',2,3,lots),id=p.created.event.id;
  await h.authorize(f,id);const a=await h.login(f,'bidder-juniper'),b=await h.login(f,'bidder-harbor');
  await h.waitDb(f,p.opensAt,240000);
  const high=await bid(f,a,id,lots[0].id,h.ids.businessA,999999000);
@@ -164,7 +183,11 @@ async function concurrencyAndCap(f){
  expect(noRoom.response.status===409&&noRoom.response.data.receipt.reason==='AMOUNT_LIMIT','An amount below beyond-cap minimum was accepted.',noRoom);
  const aboveCap=await bid(f,b,id,lots[0].id,h.ids.businessB,1000000001);
  expect(aboveCap.response.status===400,'Cap plus one minor unit was accepted.',aboveCap);
- steps.push('Inclusive cap and no valid next raise are reflected in server standing');
+ const exactCap=await bid(f,a,id,lots[3].id,h.ids.businessA,1000000000);
+ expect(exactCap.response.status===201&&exactCap.response.data.receipt.amountMinor===1000000000,'Eligible exact inclusive cap was not accepted.',exactCap);
+ const capRow=(await f.db.query('SELECT amount_minor::text AS amount,ruleset_id,currency FROM bz_manual_bids WHERE actor_id=$1 AND request_id=$2',[a.person.id,exactCap.intent.requestId])).rows;
+ same(capRow,[{amount:'1000000000',ruleset_id:rule,currency:denomination}],'Exact-cap accepted SQL row differs from submitted synthetic intent.');
+ steps.push('Eligible exact inclusive cap commits; beyond-cap next raise and cap+1 reject');
  const racing=await Promise.all([bid(f,a,id,lots[1].id,h.ids.businessA,2500),bid(f,b,id,lots[1].id,h.ids.businessB,2500)]);
  same(racing.map(x=>x.response.status).sort(),[201,409],'Concurrent first bids did not serialize to one acceptance and one stale rejection.');
  const accepted=racing.find(x=>x.response.status===201),rejected=racing.find(x=>x.response.status===409);
@@ -172,15 +195,17 @@ async function concurrencyAndCap(f){
  const sql=(await f.db.query('SELECT amount_minor::text FROM bz_manual_bids WHERE release_id=$1 AND lot_id=$2',[p.approval.approval.id,lots[1].id])).rows;
  same(sql,[{amount_minor:'2500'}],'Concurrent lot produced multiple accepted SQL bids.');
  steps.push('Two concurrent private first bids serialize to one durable acceptance and unchanged stale intent');
+ await h.waitDb(f,utc(Date.parse(p.closesAt)-3000),360000);
  const blocker=new pg.Client({connectionString:f.appUrl});await blocker.connect();let pending,released=false;
  try {
   await blocker.query('BEGIN');await blocker.query('SELECT 1 FROM bz_lot_standing WHERE release_id=$1 AND lot_id=$2 FOR UPDATE',[p.approval.approval.id,lots[1].id]);
   const other=accepted.intent.businessId===h.ids.businessA?b:a,otherBusiness=accepted.intent.businessId===h.ids.businessA?h.ids.businessB:h.ids.businessA;
   pending=bid(f,other,id,lots[1].id,otherBusiness,5000);
+  pending.catch(()=>{});
   const deadline=Date.now()+10000;let blocked=false;
   while(Date.now()<deadline){const rows=(await f.db.query("SELECT query,pg_blocking_pids(pid) AS blockers FROM pg_stat_activity WHERE datname=current_database() AND wait_event_type='Lock'")).rows;blocked=rows.some(row=>row.blockers?.length&&/bz_lot_standing/i.test(row.query));if(blocked)break;await new Promise(resolve=>setTimeout(resolve,50));}
   if(!blocked)throw new HarnessError('Actual lot-lock wait was not observed; no cutoff assertion.');
-  await h.waitDb(f,p.closesAt,360000);await blocker.query('COMMIT');released=true;
+  await h.waitDb(f,p.closesAt,5000);await blocker.query('COMMIT');released=true;
   const late=await pending;expect(late.response.status===409&&late.response.data.receipt.reason==='CLOSED'&&late.response.data.receipt.amountMinor===5000,'Held bid crossed close but committed accepted or changed amount.',late);
   const closedNoBid=await standing(f,a,id,lots[2].id);
   expect(closedNoBid.status===200&&closedNoBid.data.standing.phase==='closed'&&closedNoBid.data.standing.currentAmountMinor===null&&closedNoBid.data.standing.acceptedBidCount===0,'Closed no-bid lot lacks truthful readable standing.',closedNoBid);
@@ -293,6 +318,8 @@ async function nativeJourney(f){
    expect(lostReceipt?.status==='accepted'&&lostReceipt.requestId===lostIntent?.requestId&&lostReceipt.amountMinor===10000,'Lost response lacked a committed exact bid witness.',{lostIntent,lostReceipt});
    const committedRows=(await f.db.query('SELECT amount_minor::text FROM bz_manual_bids WHERE actor_id=$1 AND request_id=$2',[attendees[1].identity,lostReceipt.requestId])).rows;
    same(committedRows,[{amount_minor:'10000'}],'Lost response request did not commit exactly one original bid.');
+   await attendees[1].page.reload({waitUntil:'domcontentloaded'});
+   await pwExpect(editing.locator('[data-action="check"]')).toBeVisible();
    await editing.locator('[data-action="check"]').click();await pwExpect(editing.locator('[data-owned-request="'+lostReceipt.requestId+'"]')).toBeVisible();
    const recovered=await editing.locator('[data-owned-request="'+lostReceipt.requestId+'"]').getAttribute('data-owned-request');
    same(recovered,lostReceipt.requestId,'UI recovered a different bid request after response loss.');
@@ -325,24 +352,39 @@ async function publicationBoundary(f){
  try{
   await f.db.query(`CREATE FUNCTION public.bz_test_deferred_publication_wait() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN PERFORM pg_advisory_xact_lock(${advisory}); RETURN NEW; END $$`);
   await f.db.query('CREATE CONSTRAINT TRIGGER bz_test_publication_commit_wait AFTER INSERT ON public.bz_catalog_approvals DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION public.bz_test_deferred_publication_wait()');installed=true;
+  await h.api(f,staff,'/api/v2/admin/events/'+early.id+'/catalog-approval');
   await blocker.query('SELECT pg_advisory_lock($1)',[advisory]);
+  await h.waitDb(f,utc(Date.parse(early.opensAt)-3000),300000);
   pending=h.api(f,staff,'/api/v2/admin/events/'+early.id+'/catalog-approval','POST',body);
   pending.catch(()=>{});
-  const limit=Date.now()+15000;let waiting=false;
+  const limit=Date.now()+2500;let waiting=false;
   while(Date.now()<limit){const rows=(await f.db.query("SELECT wait_event_type,query FROM pg_stat_activity WHERE datname=current_database() AND pid<>pg_backend_pid() AND wait_event_type='Lock'")).rows;
    waiting=rows.some(row=>row.wait_event_type==='Lock'&&/COMMIT/i.test(row.query));if(waiting)break;await new Promise(resolve=>setTimeout(resolve,50));}
   if(!waiting)throw new HarnessError('Deferred COMMIT advisory wait was not independently observed:99.');
   expect((await h.dbNow(f)).getTime()<Date.parse(early.opensAt),'The purported authorized decision was not observed before opening.');
   const invisible=(await f.db.query('SELECT count(*)::int AS n FROM bz_catalog_approvals WHERE event_id=$1',[early.id])).rows[0].n;
   expect(invisible===0,'Uncommitted approval was visible to a separate connection.');
-  await h.waitDb(f,early.opensAt,300000);await blocker.query('SELECT pg_advisory_unlock($1)',[advisory]);released=true;
+  await h.waitDb(f,early.opensAt,5000);await blocker.query('SELECT pg_advisory_unlock($1)',[advisory]);released=true;
   const completed=await pending;expect(completed.status===201,'Pre-opening authorized publication did not commit after opening.',completed);
   const rows=await f.db.query('SELECT (SELECT count(*)::int FROM bz_catalog_approvals WHERE event_id=$1) AS approvals,(SELECT count(*)::int FROM bz_catalog_lots WHERE event_id=$1) AS lots,(SELECT count(*)::int FROM bz_requests WHERE request_id=$2) AS receipts,(SELECT approved_at FROM bz_catalog_approvals WHERE event_id=$1) AS decision_at',[early.id,body.requestId]);
   const committed=rows.rows[0];expect(committed.decision_at instanceof Date&&committed.decision_at.getTime()<Date.parse(early.opensAt),'Final recorded DB decision was not strictly before opening.',committed);
   same({approvals:committed.approvals,lots:committed.lots,receipts:committed.receipts},{approvals:1,lots:1,receipts:1},'Approval, immutable selected lot and receipt did not commit atomically.');
+  const header=(await f.db.query('SELECT * FROM bz_catalog_approvals WHERE event_id=$1',[early.id])).rows[0];
+  const selected=(await f.db.query('SELECT lot_id,position,snapshot FROM bz_catalog_lots WHERE approval_id=$1 ORDER BY position',[header.id])).rows;
+  const owned=(await f.db.query('SELECT response,status FROM bz_requests WHERE actor_id=$1 AND request_id=$2',[staff.person.id,body.requestId])).rows;
+  expect(header.id===completed.data.approval.id&&header.source_revision===early.revision&&header.approved_by===staff.person.id&&header.opens_at.toISOString()===early.opensAt&&header.event_snapshot.rules?.denomination===denomination,'Committed publication header differs from independently saved terms.',{header,early});
+  expect(selected.length===1&&selected[0].lot_id===early.item.id&&selected[0].position===0&&selected[0].snapshot.opening===early.item.opening&&selected[0].snapshot.fixedRaiseMinor===early.item.fixedRaiseMinor&&selected[0].snapshot.title===early.item.title,'Committed immutable selected roster differs from saved input.',{selected,item:early.item});
+  same(owned,[{response:completed.data,status:201}],'Owned successful publication ledger differs from original response.');
   const replay=await h.api(f,staff,'/api/v2/admin/events/'+early.id+'/catalog-approval','POST',body);
   expect(replay.status===201,'Exact committed publication was not recoverable after opening.',replay);
   same(replay.data,completed.data,'Post-cutoff recovery changed the original publication receipt.');
+  const altered=await h.api(f,staff,'/api/v2/admin/events/'+early.id+'/catalog-approval','POST',{...body,lotIds:[randomUUID()]});
+  expect(altered.status===409&&altered.data.error.code==='IDEMPOTENCY_CONFLICT','Changed-body recovery reused the committed publication key.',altered);
+  const outsider=await h.login(f,'staff-pine'),foreign=await h.api(f,outsider,'/api/v2/admin/events/'+early.id+'/catalog-approval','POST',body);
+  expect([403,404].includes(foreign.status),'Foreign staff recovered a private publication receipt.',foreign);
+  const legacyAlias=await h.api(f,staff,'/api/admin/events/'+early.id,'PUT',{expectedRevision:early.revision,requestId:randomUUID(),draft:{event:event('Illicit alias edit',endpoints(early.opensAt,utc(Date.parse(early.opensAt)+30*60000))),lots:[early.item]}});
+  expect(legacyAlias.status===409&&legacyAlias.data.error.code==='UNSUPPORTED_EVENT_VERSION','Legacy Save alias changed or accepted a published v2 event.',legacyAlias);
+  same((await f.db.query('SELECT event_snapshot FROM bz_catalog_approvals WHERE id=$1',[header.id])).rows[0].event_snapshot,header.event_snapshot,'Legacy write alias changed immutable published terms.');
   observations.delayedCommit={opensAt:early.opensAt,waitObserved:waiting,invisibleBeforeRelease:invisible,committedAfterOpening:rows.rows[0],receipt:completed.data};
   steps.push('Final pre-opening authorization may finish atomic COMMIT and exact recovery after opening');
  } finally {
@@ -351,19 +393,31 @@ async function publicationBoundary(f){
   if(installed)await f.db.query('DROP TRIGGER bz_test_publication_commit_wait ON public.bz_catalog_approvals').catch(()=>{});
   await f.db.query('DROP FUNCTION IF EXISTS public.bz_test_deferred_publication_wait()').catch(()=>{});
  }
- const late=await prepare('Fresh queued publication after opening'),lock=new pg.Client({connectionString:f.appUrl});await lock.connect();let fresh,releasedLate=false;
+ const rollback=await prepare('Injected child failure rollback'),rollbackKey=randomUUID();let rollbackTrigger=false;
  try{
+  await f.db.query("CREATE FUNCTION public.bz_test_publication_child_failure() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'owned synthetic child failure'; END $$");
+  await f.db.query('CREATE TRIGGER bz_test_publication_child_failure BEFORE INSERT ON public.bz_catalog_lots FOR EACH ROW EXECUTE FUNCTION public.bz_test_publication_child_failure()');rollbackTrigger=true;
+  const raw=await fetch(f.origin+'/api/v2/admin/events/'+rollback.id+'/catalog-approval',{method:'POST',headers:{origin:f.origin,cookie:staff.cookie,'content-type':'application/json'},body:JSON.stringify({expectedRevision:rollback.revision,requestId:rollbackKey,lotIds:[rollback.item.id]}),signal:AbortSignal.timeout(20000)});
+  expect(raw.status>=500,'Injected child insert failure was falsely reported as successful publication.',{status:raw.status});
+  const absent=(await f.db.query('SELECT (SELECT count(*)::int FROM bz_catalog_approvals WHERE event_id=$1) AS approvals,(SELECT count(*)::int FROM bz_catalog_lots WHERE event_id=$1) AS lots,(SELECT count(*)::int FROM bz_requests WHERE actor_id=$2 AND request_id=$3) AS receipts',[rollback.id,staff.person.id,rollbackKey])).rows[0];
+  same(absent,{approvals:0,lots:0,receipts:0},'Failure after header insert left partial publication state.');
+  observations.injectedRollback={status:raw.status,rows:absent};steps.push('Forced child-write failure rolls back publication header, selected roster and success receipt');
+ }finally{if(rollbackTrigger)await f.db.query('DROP TRIGGER bz_test_publication_child_failure ON public.bz_catalog_lots').catch(()=>{});await f.db.query('DROP FUNCTION IF EXISTS public.bz_test_publication_child_failure()').catch(()=>{});}
+ const late=await prepare('Fresh queued publication after opening'),freshBody={expectedRevision:late.revision,requestId:randomUUID(),lotIds:[late.item.id]},lock=new pg.Client({connectionString:f.appUrl});await lock.connect();let fresh,releasedLate=false;
+ try{
+  await h.api(f,staff,'/api/v2/admin/events/'+late.id+'/catalog-approval');
+  await h.waitDb(f,utc(Date.parse(late.opensAt)-3000),300000);
   await lock.query('BEGIN');await lock.query('SELECT id FROM bz_events WHERE id=$1 FOR UPDATE',[late.id]);
-  fresh=h.api(f,staff,'/api/v2/admin/events/'+late.id+'/catalog-approval','POST',{expectedRevision:late.revision,requestId:randomUUID(),lotIds:[late.item.id]});
+  fresh=h.api(f,staff,'/api/v2/admin/events/'+late.id+'/catalog-approval','POST',freshBody);
   fresh.catch(()=>{});
-  const limit=Date.now()+15000;let waiting=false;while(Date.now()<limit){const rows=(await f.db.query("SELECT query,pg_blocking_pids(pid) AS blockers FROM pg_stat_activity WHERE datname=current_database() AND wait_event_type='Lock'")).rows;
+  const limit=Date.now()+2500;let waiting=false;while(Date.now()<limit){const rows=(await f.db.query("SELECT query,pg_blocking_pids(pid) AS blockers FROM pg_stat_activity WHERE datname=current_database() AND wait_event_type='Lock'")).rows;
    waiting=rows.some(row=>row.blockers?.length&&/bz_events/i.test(row.query));if(waiting)break;await new Promise(resolve=>setTimeout(resolve,50));}
   if(!waiting)throw new HarnessError('Fresh publication event-lock wait was not witnessed:99.');
-  await h.waitDb(f,late.opensAt,300000);await lock.query('COMMIT');releasedLate=true;
-  const denied=await fresh;expect(denied.status===409,'Fresh publication decision at/after opening was accepted.',denied);
-  const after=(await f.db.query('SELECT count(*)::int AS n FROM bz_catalog_approvals WHERE event_id=$1',[late.id])).rows[0].n;
-  expect(after===0,'Rejected fresh publication left a committed approval.');
-  observations.freshAfterWait={opensAt:late.opensAt,lockObserved:waiting,status:denied.status,approvalRows:after};
+  await h.waitDb(f,late.opensAt,5000);await lock.query('COMMIT');releasedLate=true;
+  const denied=await fresh;expect(denied.status===409&&denied.data.error.code==='PUBLICATION_STARTED','Fresh publication decision at/after opening did not reject for cutoff.',denied);
+  const after=(await f.db.query('SELECT (SELECT count(*)::int FROM bz_catalog_approvals WHERE event_id=$1) AS approvals,(SELECT count(*)::int FROM bz_catalog_lots WHERE event_id=$1) AS lots,(SELECT count(*)::int FROM bz_requests WHERE actor_id=$2 AND request_id=$3 AND status=201) AS successful_receipts',[late.id,staff.person.id,freshBody.requestId])).rows[0];
+  same(after,{approvals:0,lots:0,successful_receipts:0},'Rejected fresh publication left a committed header, child or success receipt.');
+  observations.freshAfterWait={opensAt:late.opensAt,lockObserved:waiting,status:denied.status,rows:after};
   steps.push('Fresh publication decision after an event-lock wait crossing opening rejects without a snapshot');
  }finally{if(!releasedLate)await lock.query('ROLLBACK').catch(()=>{});await lock.end();if(fresh)await fresh.catch(()=>{});}
  return done(steps,observations);

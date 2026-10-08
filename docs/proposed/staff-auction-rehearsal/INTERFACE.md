@@ -39,6 +39,8 @@ approval receipt. After all relevant lock waits and current staff-authority chec
 publication authorization decision uses database time strictly before opening.
 A fresh decision at/after opening rejects. `approved_at` records this final
 database-time decision, and is not described as the physical commit time.
+The fresh denial code is `PUBLICATION_STARTED` (HTTP 409); it creates no
+publication, selected lot or successful receipt.
 An authorized earlier decision may
 commit/respond later, but approval, immutable snapshot and receipt commit
 atomically. Exact committed recovery under current authority remains allowed.

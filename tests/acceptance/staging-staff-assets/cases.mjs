@@ -19,6 +19,10 @@ export async function v2Journey(f,record){
  const checked=r=>{if(r.status>=500)throw new HarnessError('Required v2 application returned an infrastructure/server error:99.');return r;};
  const created=checked(await f.request('/api/v2/admin/events',{method:'POST',cookie:actor.cookie,headers:{origin:f.origin},json:{organizationId:ids.saturn,name:'Synthetic v2 assets rehearsal',requestId:uuid()}}));
  assert.equal(created.status,201,'A fresh version-2 event must be creatable after accepted v1 health.');
+ const pkg=JSON.parse(await readFile(f.repo+'/package.json','utf8'));
+ assert.equal(pkg.dependencies.sharp,'0.35.5','Production raster decoder must be a direct exact dependency.');
+ const lock=await readFile(f.repo+'/pnpm-lock.yaml','utf8');
+ assert.match(lock.slice(lock.lastIndexOf('importers:\n\n  .:')),/\n      sharp:\n        specifier: 0\.35\.5\n/,'Candidate lock importer must declare direct sharp 0.35.5.');
  const packet=created.data.draft,event=packet.event.id;assert.equal(packet.version,2);
  const cover=await capability(f,actor,packet,files.cover,record),item=await upload(f,actor,event,files.item);
  assert.equal(item.response.status,201);const now=await f.dbNow(),start=new Date(now.getTime()+30*60000),end=new Date(start.getTime()+60*60000);
@@ -159,11 +163,10 @@ export async function authorization(f,record){
  assert.equal(cover.response.status,201);assert.equal(item.response.status,201);
  const beforeOpen=await save(f,actor,future,{event:{...await futureFields(f),cover:cover.asset.ref,coverAlt:'Synthetic exposed header cover'},lots:[{...completeLot(),image:item.asset.ref,alt:'Synthetic item visible before opening'}]});
  const futureApproval=await approve(f,actor,beforeOpen),futureViewer=await enroll009(f,beforeOpen.event.id);
- const projection=await f.request('/api/catalog/events/'+beforeOpen.event.id,{cookie:futureViewer.cookie});assert.equal(projection.status,200);assert.equal(projection.data.phase,'scheduled');assert.equal(projection.data.catalog?.approvalId,futureApproval.id);
- assert.ok(projection.data.catalog.lots.some(lot=>lot.image===item.asset.ref),'An admitted attendee sees the published item before opening.');
- encoded(await binary(f,path.published(beforeOpen.event.id,futureApproval.id,assetUUID(cover.asset.ref)),{cookie:futureViewer.cookie}),cover.asset);
- encoded(await binary(f,path.published(beforeOpen.event.id,futureApproval.id,assetUUID(item.asset.ref)),{cookie:futureViewer.cookie}),item.asset);
- record({stage:'approved-pre-open-published-images',scheduledHeaderReadable:true,scheduledItemReadable:true,unauthorizedStillDenied:true});
+ const projection=await f.request('/api/catalog/events/'+beforeOpen.event.id,{cookie:futureViewer.cookie});assert.equal(projection.status,200);assert.equal(projection.data.phase,'scheduled');assert.equal(projection.data.catalog,null,'Legacy v1 scheduled catalog visibility changed.');
+ await denied(f,path.published(beforeOpen.event.id,futureApproval.id,assetUUID(cover.asset.ref)),futureViewer);
+ await denied(f,path.published(beforeOpen.event.id,futureApproval.id,assetUUID(item.asset.ref)),futureViewer);
+ record({stage:'legacy-v1-scheduled-hidden',scheduledCatalogHidden:true,scheduledImagesHidden:true,version2VisibilityCoveredBy:'v2Journey'});
  await f.db.query('UPDATE public.bz_event_view_grants SET active=false WHERE person_id=$1 AND event_id=$2',[viewer.person,event]);await denied(f,path.published(event,p.id,assetUUID(a.ref)),viewer);
  await f.db.query('UPDATE public.bz_sessions SET revoked_at=clock_timestamp() WHERE token_hash=$1',[sessionHash(actor)]);await denied(f,path.saved(event,assetUUID(a.ref)),actor,401,'UNAUTHENTICATED');
  for(const privilege of ['SELECT','INSERT','UPDATE','DELETE','TRUNCATE','REFERENCES','TRIGGER','MAINTAIN'])assert.equal((await f.db.query('SELECT has_table_privilege($1,$2,$3) AS ok',[f.runtimeRole,'public.bz_staff_assets',privilege])).rows[0].ok,false,'Effective runtime table privilege '+privilege);
