@@ -12,6 +12,8 @@ let contextEpoch=0, loadingDraft=false;
 let catalogApproval=null, approvalAttempt=null, reviewedCatalog=null, approving=false, approvalLoading=false;
 let approvalState='none', approvalNotice='', approvalReadEpoch=0;
 let homeLoading=false, homeNotice='';
+let nextFieldFocus=null;
+const amountErrors=new Map();
 const current=ticket=>ticket===contextEpoch;
 const chosen=()=>d?.lots.find(l=>l.id===picked);
 const assigned=()=>d.lots.filter(l=>l.windowId);
@@ -35,7 +37,7 @@ function compact(packet){
 }
 function adopt(packet,preserveUi=false){
  if(confirmed?.event.id!==packet.event.id)resetCatalog();
- confirmed=clone(packet);d=clone(packet);dirty=false;saveState='saved';attempt=null;notice='';
+ confirmed=clone(packet);d=clone(packet);dirty=false;saveState='saved';attempt=null;notice='';amountErrors.clear();nextFieldFocus=null;
  picked=d.lots.some(l=>l.id===picked)?picked:d.lots[0]?.id;selected=preserveUi?new Set([...selected].filter(id=>d.lots.some(l=>l.id===id))):new Set();if(!preserveUi)search='';loadedOrgId=d.org.id;
  const current=eventList.find(x=>x.id===d.event.id);
  if(current)Object.assign(current,{name:d.event.name,revision:d.revision,savedAt:d.savedAt});
@@ -47,9 +49,9 @@ async function saveDraft(){
  const ticket=contextEpoch;
  if(!dirty&&!attempt)return true;
  if(!attempt){
-  const fields=[{raw:d.event.incrementText,label:'Bid increment'},...d.lots.map(l=>({raw:l.openingText,label:`Lot ${l.number} opening bid`}))];
+  const fields=[{raw:d.event.incrementText,label:'Bid increment',key:'increment',tab:'event',field:'increment'},...d.lots.map(l=>({raw:l.openingText,label:`Lot ${l.number} opening bid`,key:l.id,tab:'lots',field:'opening',id:l.id}))];
   const invalid=fields.find(f=>f.raw!==undefined&&String(f.raw).trim()&&(cents(f.raw)===null||cents(f.raw)>1_000_000_000));
-  if(invalid){notice=invalid.label+': enter an amount with at most two decimal places, or clear it.';saveState='dirty';refreshChrome();renderNotice();return false;}
+  if(invalid){notice=invalid.label+': enter an amount with at most two decimal places, or clear it.';amountErrors.set(invalid.key,notice);saveState='dirty';navigate(invalid.tab,invalid.id,`[data-${invalid.tab==='event'?'event':'lot'}="${invalid.field}"]`);refreshChrome();renderNotice();refreshAmountFields();return false;}
  }
  if(!attempt)attempt={requestId:crypto.randomUUID(),expectedRevision:confirmed.revision,draft:compact(d)};
  saving=true;saveState='saving';refreshChrome();
@@ -98,14 +100,24 @@ function refreshNotes(){
  const errors=$('#event-errors');if(errors)errors.innerHTML=eventIssues(d.event).map(t=>`<p class="note error">${esc(t)}</p>`).join('');
  const lotErrors=$('#lot-errors');if(lotErrors&&chosen())lotErrors.innerHTML=lotIssues(chosen(),d.event).map(t=>`<p class="note error">Add ${esc(t)} for the catalog.</p>`).join('');
  const band=$('.schedule-band');if(band){const n=assigned().length;band.innerHTML=`<div><strong>${timeText(d.event.start)} <span class="muted">→</span> ${timeText(d.event.end)} ${shortZone(d.event)}</strong><p>${n} ${n===1?'lot uses':'lots use'} this draft window. Changes apply to all assigned lots.</p></div><span class="tick" aria-hidden="true">◷</span>`;}
+ refreshAmountFields();
 }
 function refresh(){refreshChrome();renderInventory();refreshNotes();postPreview();}
-function navigate(tab,id){
+function focusEditorField(selector){const field=$(selector);if(field&&!field.disabled){field.focus();field.scrollIntoView({block:'center'});}}
+function navigate(tab,id,field){
  if(!d)return;if(id)picked=id;const hash=tab==='lots'?`#/lots${id?'/'+id:''}`:'#/event',same=location.hash===hash;
  if(!same)location.hash=hash;
  // Bind the durable outer route in this click turn, before a reload can start.
  eventUrl(d.event.id,{replace:true,tab,lot:tab==='lots'?picked:null});
- if(same){renderMain();refresh();}
+ if(same){nextFieldFocus=null;renderMain();refresh();if(field)focusEditorField(field);}
+ else nextFieldFocus=field||null;
+}
+function refreshAmountFields(){
+ for(const [selector,key,errorId] of [['[data-event="increment"]','increment','increment-error'],['[data-lot="opening"]',picked,'opening-error']]){
+  const field=$(selector),error=$('#'+errorId);if(!field||!error)continue;
+  const message=amountErrors.get(key)||'';error.textContent=message;
+  if(message)field.setAttribute('aria-invalid','true');else field.removeAttribute('aria-invalid');
+ }
 }
 function modalFocusTarget(el){
  if(!el||el===document.body)return null;
@@ -145,13 +157,13 @@ function retainEditorRoute(){
 function staffHeader(){return `<header class="top"><div class="top-left"><span class="studio-label">Studio</span></div><div class="top-right"><span class="proto-pill">Staging test</span><span class="role">${esc(session.person.name)}</span><button class="link-btn" data-action="signout">Sign out</button></div></header>`;}
 function staffSidebar(){
  const org=d?.org||session.staffOrganizations.find(o=>o.id===loadedOrgId);
- return `<aside class="studio-sidebar"><span class="brand">BidZizi</span><div class="studio-organization org-btn"><span class="org-mark" id="org-mark">${esc(org?.initials||'')}</span><span class="org-name" id="org-name">${esc(org?.name||'')}</span></div><button class="sidebar-home ${d?'':'active'}" data-action="events-home" ${d?'':'aria-current="page"'}>Events</button>${d?`<div class="sidebar-event"><button class="event-picker" data-action="events">Event studio <span aria-hidden="true">⌄</span></button><span class="sidebar-event-name">${esc(d.event.name||'Untitled event')}</span></div><nav class="tabs" aria-label="Event Studio"><a href="#/event" data-tab="event">Event</a><a href="#/lots" data-tab="lots">Lots <span class="count" id="lot-count"></span></a></nav>`:''}</aside>`;
+ return `<aside class="studio-sidebar"><span class="brand">BidZizi</span><div class="studio-organization org-btn"><span class="org-mark" id="org-mark">${esc(org?.initials||'')}</span><span class="org-name" id="org-name">${esc(org?.name||'')}</span></div><button class="sidebar-home ${d?'':'active'}" data-action="events-home" ${d?'':'aria-current="page"'}>Events</button>${d?`<div class="sidebar-event"><p class="event-heading">This event</p><button class="event-picker" data-action="events">Choose event <span aria-hidden="true">⌄</span></button><span class="sidebar-event-name">${esc(d.event.name||'Untitled event')}</span></div><nav class="tabs" aria-label="Event Studio"><a href="#/lots" data-tab="lots">Items <span class="count" id="lot-count"></span></a><a href="#/event" data-tab="event">Event & entry</a></nav>`:''}</aside>`;
 }
 function staffFooter(){return '<footer class="simulation"><span>Synthetic staff preview</span></footer>';}
 function shell(){
  $('#app').innerHTML=`<div class="studio-shell">${staffSidebar()}<div class="studio-body">${staffHeader()}
  <div class="bar workspace-heading"><div class="bar-line"><div><h1 id="event-title" tabindex="-1"></h1><div class="bar-sub"><span id="release-status" class="status"></span><span id="catalog-approval" class="status" role="status" aria-live="polite"></span><span id="event-meta"></span></div></div><div class="bar-actions"><div class="saved" id="saved" role="status" aria-live="polite"></div><button class="btn" id="preview-toggle" data-action="toggle-preview">Bidder preview</button><button class="btn primary save-action" id="save-draft" data-action="save-draft">Save draft</button><button class="btn dark" id="review-catalog" data-action="review">Review catalog</button></div></div></div>
- <main class="workspace" id="workspace" tabindex="-1"><div class="main studio-main" id="main"></div><aside class="preview" aria-label="Interactive bidder preview"><div class="preview-head"><h2>Bidder preview</h2><button class="preview-close" data-action="toggle-preview" aria-label="Close bidder preview">×</button></div><div class="preview-controls"><button data-preview-mode="working">Working draft</button><button data-preview-mode="saved" class="active">Saved draft</button></div><div class="device"><iframe id="bidder-frame" title="Interactive bidder preview" src="/staging-bidder-preview/index.html#/"></iframe></div><nav class="preview-route" aria-label="Preview screens"><button data-action="preview-route" data-path="/">Welcome</button><button data-action="preview-route" data-path="/lots">Catalog</button><button data-action="preview-lot">Selected lot</button></nav><p class="preview-caption" id="preview-mode-label"></p></aside></main>
+ <main class="workspace" id="workspace" tabindex="-1"><div class="main studio-main" id="main"></div><aside class="preview" aria-label="Interactive bidder preview"><div class="preview-head"><h2>Phone preview</h2><button class="preview-close" data-action="toggle-preview" aria-label="Close bidder preview">×</button></div><div class="preview-controls"><button data-preview-mode="working">Working draft</button><button data-preview-mode="saved" class="active">Saved draft</button></div><div class="device"><iframe id="bidder-frame" title="Interactive bidder preview" src="/staging-bidder-preview/index.html#/"></iframe></div><nav class="preview-route" aria-label="Preview screens"><button data-action="preview-route" data-path="/">Welcome</button><button data-action="preview-route" data-path="/lots">Catalog</button><button data-action="preview-lot">Selected lot</button></nav><p class="preview-caption" id="preview-mode-label"></p></aside></main>
  ${staffFooter()}</div></div>`;
  $('#bidder-frame').addEventListener('load',()=>postPreview());
 }
@@ -160,15 +172,15 @@ function eventView(){
  const e=d.event,w=assigned().length;
  return `${draftNotice()}${catalogSummary()}
  <section class="sheet"><div class="sheet-head"><h3>Welcome page</h3><span class="section-label">Welcome</span></div><div class="cover-grid"><div><div class="cover">${e.cover?`<img src="${esc(img(e.cover))}" alt="Event cover">`:'<div class="no-cover">Add an event photo</div>'}<button data-action="image" data-target="event">Change photo</button></div><p class="cover-note">Example photos.</p></div><div class="field-stack"><label>Event name<input class="name-input" data-event="name" value="${esc(e.name)}" maxlength="120"></label><label>Welcome line<input data-event="eyebrow" value="${esc(e.eyebrow)}" maxlength="120"></label><label>Location or event note<input data-event="venue" value="${esc(e.venue)}" maxlength="180"></label></div></div><label class="event-story">Welcome message<textarea aria-label="Welcome message" data-event="welcome" rows="3" maxlength="1800">${esc(e.welcome)}</textarea></label><div class="help">Items are provided by your organization. Add event sponsors below.</div></section>
- <section class="sheet"><div class="sheet-head"><h3>Bidding schedule</h3><span class="section-label">Timing</span></div><div class="schedule-band"><div><strong>${timeText(e.start)} <span class="muted">→</span> ${timeText(e.end)} ${shortZone(e)}</strong><p>${w} ${w===1?'lot uses':'lots use'} this window. ${w?'Changing it updates all of them in this draft.':'Assign lots together from the Lots tab.'}</p></div><span class="tick" aria-hidden="true">◷</span></div><div class="field-grid three"><label>Event date<input type="date" data-event="date" value="${esc(e.date)}"></label><label>Bidding opens<input type="time" data-event="start" value="${esc(e.start)}"></label><label>Bidding closes<input type="time" data-event="end" value="${esc(e.end)}"></label></div><div class="field-grid" style="margin-top:16px"><label>Event time zone<select aria-label="Event time zone" data-event="timezone">${zones(e.timezone)}</select></label><label>Bid increment · example USD<input inputmode="decimal" data-event="increment" value="${esc(rawAmount(e.increment,e.incrementText))}"></label></div><p class="note">The approved catalog appears at its opening time. Saving draft changes does not change an approved window. Test bidding requires separate bidder access.</p><div id="event-errors"></div></section>
- <section class="sheet"><div class="sheet-head"><h3>Event sponsors</h3><span class="section-label">Optional</span></div><label class="switch-label"><input type="checkbox" data-event="sponsorsEnabled" ${e.sponsorsEnabled?'checked':''}>Show event sponsors</label><p class="help">Separate from the organization providing auction items.</p><div id="sponsor-fields">${sponsorFields()}</div></section>`;
+ <section class="sheet"><div class="sheet-head"><h3>Bidding schedule</h3><span class="section-label">Timing</span></div><div class="schedule-band"><div><strong>${timeText(e.start)} <span class="muted">→</span> ${timeText(e.end)} ${shortZone(e)}</strong><p>${w} ${w===1?'lot uses':'lots use'} this window. ${w?'Changing it updates all of them in this draft.':'Assign lots together from Items.'}</p></div><span class="tick" aria-hidden="true">◷</span></div><div class="field-grid three"><label>Event date<input type="date" data-event="date" value="${esc(e.date)}"></label><label>Bidding opens<input type="time" data-event="start" value="${esc(e.start)}"></label><label>Bidding closes<input type="time" data-event="end" value="${esc(e.end)}"></label></div><div class="field-grid" style="margin-top:16px"><label>Event time zone<select aria-label="Event time zone" data-event="timezone">${zones(e.timezone)}</select></label><label>Bid increment · example USD<input inputmode="decimal" data-event="increment" aria-describedby="increment-error" value="${esc(rawAmount(e.increment,e.incrementText))}"><span id="increment-error" class="field-error" role="alert"></span></label></div><p class="note">The approved catalog appears at its opening time. Saving draft changes does not change an approved window. Test bidding requires separate bidder access.</p><div id="event-errors"></div></section>
+ <section class="sheet"><div class="sheet-head"><h3>Event sponsors</h3><span class="section-label">Optional</span></div><label class="switch-label"><input type="checkbox" data-event="sponsorsEnabled" ${e.sponsorsEnabled?'checked':''}>Show event sponsors</label><p class="help">Separate from the organization providing auction items.</p><div id="sponsor-fields">${sponsorFields()}</div></section><div id="studio-setup">${setupView()}</div>`;
 }
 function zones(current){const choices=[['UTC','UTC'],['America/Los_Angeles','Pacific · Los Angeles'],['America/Denver','Mountain · Denver'],['America/Chicago','Central · Chicago'],['America/New_York','Eastern · New York']];if(current&&!choices.some(([v])=>v===current))choices.unshift([current,current]);return choices.map(([v,t])=>`<option value="${esc(v)}" ${v===current?'selected':''}>${esc(t)}</option>`).join('');}
 function sponsorFields(){return d.event.sponsorsEnabled?`${d.event.sponsors.map((s,i)=>`<label class="sponsor-row">Sponsor ${i+1}<input data-sponsor="${i}" maxlength="200" value="${esc(s.name)}" placeholder="Organization or business name"><button class="btn small" data-action="remove-sponsor" data-index="${i}" aria-label="Remove sponsor ${i+1}">×</button></label>`).join('')}<button class="link-btn" data-action="add-sponsor">+ Add event sponsor</button>`:'';}
 function selectionBar(){return selected.size?`<div class="selection"><strong>${selected.size} ${selected.size===1?'lot':'lots'} selected</strong><div class="flex"><button data-action="clear-selection" style="color:inherit;font-size:12px">Clear</button><button class="btn small" data-action="assign-window">Assign auction window →</button></div></div>`:'';}
 function lotsView(){
- if(!d.lots.length)return `${draftNotice()}${catalogSummary()}<div class="intro"><div><p class="eyebrow">Auction catalog</p><h2>Lots</h2></div></div><div class="empty-state"><h3>No lots yet</h3><p>Add a lot to start building the catalog.</p><button class="btn primary" data-action="add-lot">Add lot</button></div>`;
- return `${draftNotice()}${catalogSummary()}<div class="intro"><div><p class="eyebrow">Auction catalog</p><h2>Lots</h2><p>Edit lots and assign their bidding schedule.</p></div><button class="btn" data-action="add-lot">+ Add lot</button></div><div id="selection-bar">${selectionBar()}</div><div class="lot-work"><section class="inventory" aria-label="Catalog lots"><div class="inventory-head"><label class="flex" style="gap:8px"><input id="select-all" type="checkbox" data-action="select-all" ${selected.size===d.lots.length?'checked':''}>Select all</label><span>${d.lots.length} lots</span></div><div class="inventory-search"><label class="sr" for="lot-search">Search your lots</label><input id="lot-search" type="search" placeholder="Find a lot…" value="${esc(search)}"></div><div id="lot-list"></div></section><div class="editor" id="editor">${editorView()}</div></div>`;
+ if(!d.lots.length)return `${draftNotice()}${catalogSummary()}<div class="intro"><div><h2>Items</h2><p>Your auction catalog starts here.</p></div></div><div class="empty-state"><h3>No items yet</h3><p>Add the title, details and starting amount for your first item.</p><button class="btn primary" data-action="add-lot">Add item</button></div><div id="studio-setup">${setupView()}</div>`;
+ return `${draftNotice()}${catalogSummary()}<div class="intro"><div><h2>Items</h2><p>${d.lots.length} ${d.lots.length===1?'item':'items'} · working catalog</p></div><button class="btn primary" data-action="add-lot">+ Add item</button></div><div id="selection-bar">${selectionBar()}</div><div class="lot-work"><section class="inventory" aria-label="Catalog lots"><div class="inventory-search"><label class="sr" for="lot-search">Search your lots</label><input id="lot-search" type="search" placeholder="Search items…" value="${esc(search)}"></div><div class="inventory-head"><label class="flex"><input id="select-all" type="checkbox" data-action="select-all" ${selected.size===d.lots.length?'checked':''}><span>Item</span><span class="sr">Select all</span></label><span>Starting amount · bidding window</span></div><div id="lot-list"></div></section><div class="editor" id="editor">${editorView()}</div></div><div id="studio-setup">${setupView()}</div>`;
 }
 function renderInventory(){
  const list=$('#lot-list');if(!list)return;
@@ -176,7 +188,7 @@ function renderInventory(){
  const matches=d.lots.filter(l=>`${l.title} ${l.number} ${l.category}`.toLowerCase().includes(search.toLowerCase()));
  list.innerHTML=matches.length?matches.map(l=>{
   const issues=lotIssues(l,d.event);const label=issues.length?`Needs ${issues[0]}`:l.windowId?'Draft window assigned':'Ready · no window';
-  return `<div class="lot-row ${l.id===picked?'active':''}" data-id="${esc(l.id)}"><label class="sr" for="pick-${esc(l.id)}">Select lot ${l.number}</label><input id="pick-${esc(l.id)}" type="checkbox" data-lot-select="${esc(l.id)}" ${selected.has(l.id)?'checked':''}><button data-action="edit-lot" data-id="${esc(l.id)}" aria-current="${l.id===picked}" aria-label="Edit lot ${l.number}: ${esc(l.title||'Untitled lot')}">${l.image?`<img class="lot-thumb" src="${esc(img(l.image))}" alt="">`:`<span class="lot-thumb empty">${l.number}</span>`}<span><span class="lot-number">Lot ${l.number}</span><span class="title">${esc(l.title||'Untitled lot')}</span><span class="meta ${issues.length?'warn':''}">${esc(label)}</span></span></button></div>`;
+  return `<div class="lot-row ${l.id===picked?'active':''}" data-id="${esc(l.id)}"><label class="sr" for="pick-${esc(l.id)}">Select lot ${l.number}</label><input id="pick-${esc(l.id)}" type="checkbox" data-lot-select="${esc(l.id)}" ${selected.has(l.id)?'checked':''}><button data-action="edit-lot" data-id="${esc(l.id)}" aria-current="${l.id===picked}" aria-label="Edit lot ${l.number}: ${esc(l.title||'Untitled lot')}">${l.image?`<img class="lot-thumb" src="${esc(img(l.image))}" alt="">`:`<span class="lot-thumb empty" aria-hidden="true">+</span>`}<span class="lot-copy"><span class="lot-number">${esc(l.number)}</span><span class="title">${esc(l.title||'Untitled item')}</span><span class="meta">${esc(l.category||'Add a category')}</span></span><span class="lot-context"><strong class="lot-amount">${Number.isSafeInteger(l.opening)&&l.opening>0?money(l.opening):'Set amount'}</strong><span class="meta ${issues.length?'warn':''}">${esc(label)}${l.windowId?`<span class="lot-time">${timeText(d.event.end)} close · ${esc(shortZone(d.event))}</span>`:''}</span></span></button></div>`;
  }).join(''):'<p class="help" style="padding:18px">No matching lots. Try another search.</p>';
  $('#selection-bar').innerHTML=selectionBar();
  $('#select-all').checked=selected.size===d.lots.length;
@@ -186,8 +198,8 @@ function renderInventory(){
 function editorView(){
  const l=chosen();if(!l)return '';
  const cats=[...new Set([...d.lots.map(x=>x.category),'Getaways','Food & drink','For the team','Good things'])];
- return `<section class="sheet" aria-label="Lot editor"><div class="sheet-head"><h3>Lot ${l.number}</h3><button class="link-btn" data-action="preview-lot">View in preview ↗</button></div><p id="lot-preview-help" class="help preview-help" role="status" hidden></p><div class="editor-photo">${l.image?`<img src="${esc(img(l.image))}" alt="${esc(l.alt)}">`:'<div class="empty">+</div>'}<div><p class="provider"><span class="org-mark">${esc(d.org.initials)}</span>Provided by ${esc(d.org.name)}</p><button class="link-btn" data-action="image" data-target="lot">${l.image?'Change':'Add'} photo</button>${l.image?'<button class="link-btn" data-action="clear-image" style="margin-left:12px;color:var(--muted)">Remove</button>':''}</div></div>
- <div class="field-stack"><label>Lot title<input data-lot="title" class="name-input" value="${esc(l.title)}" maxlength="200"></label><label>Short description<input data-lot="short" value="${esc(l.short)}" maxlength="180" placeholder="Brief summary shown in the catalog"></label><label>Description<textarea aria-label="Description" data-lot="description" rows="5" maxlength="4500" placeholder="Item details, condition, and restrictions">${esc(l.description)}</textarea></label><div class="field-grid"><label>Category<input data-lot="category" value="${esc(l.category)}" maxlength="100" list="category-options"><datalist id="category-options">${cats.map(c=>`<option value="${esc(c)}">`).join('')}</datalist></label><label>Opening bid · example USD<input data-lot="opening" inputmode="decimal" value="${esc(rawAmount(l.opening,l.openingText))}"></label></div></div>
+ return `<section class="sheet" aria-label="Lot editor"><div class="sheet-head"><div><p class="eyebrow">Editing item ${esc(l.number)}</p><h3>${esc(l.title||'New item')}</h3></div><button class="link-btn" data-action="preview-lot">View in preview ↗</button></div><p id="lot-preview-help" class="help preview-help" role="status" hidden></p><div class="editor-photo">${l.image?`<img src="${esc(img(l.image))}" alt="${esc(l.alt)}">`:'<div class="empty">+</div>'}<div><p class="provider"><span class="org-mark">${esc(d.org.initials)}</span>Provided by ${esc(d.org.name)}</p><button class="link-btn" data-action="image" data-target="lot">${l.image?'Change':'Add'} photo</button>${l.image?'<button class="link-btn" data-action="clear-image" style="margin-left:12px;color:var(--muted)">Remove</button>':''}</div></div>
+ <div class="field-stack"><label>Item title<input data-lot="title" class="name-input" value="${esc(l.title)}" maxlength="200"></label><label>Short description<input data-lot="short" value="${esc(l.short)}" maxlength="180" placeholder="Brief summary shown in the catalog"></label><label>Description<textarea aria-label="Description" data-lot="description" rows="5" maxlength="4500" placeholder="Item details, condition, and restrictions">${esc(l.description)}</textarea></label><div class="field-grid"><label>Category<input data-lot="category" value="${esc(l.category)}" maxlength="100" list="category-options"><datalist id="category-options">${cats.map(c=>`<option value="${esc(c)}">`).join('')}</datalist></label><label>Opening bid · example USD<input data-lot="opening" inputmode="decimal" aria-describedby="opening-error" value="${esc(rawAmount(l.opening,l.openingText))}"><span id="opening-error" class="field-error" role="alert"></span></label></div></div>
  <p class="help">Bid increment: ${d.event.increment?money(d.event.increment):'not set'} · shared across this event. <button class="link-btn" style="font-size:11px;min-height:24px" data-action="edit-event">Edit event defaults</button></p><div id="lot-errors"></div>
  <details class="disclosure"><summary>What’s included & details</summary><div class="field-stack"><label>Included · one per line<textarea aria-label="Included · one per line" data-lot="includes" rows="3">${esc(l.includes.join('\n'))}</textarea></label><label>Important details<textarea aria-label="Important details" data-lot="fine" rows="3" maxlength="5000">${esc(l.fine)}</textarea></label>${l.image?`<label>Photo description<input data-lot="alt" value="${esc(l.alt)}" maxlength="180"></label>`:''}</div></details>
  <div class="note">${l.windowId?`Uses the event window: ${dateText(d.event.date)}, ${timeText(d.event.start)}–${timeText(d.event.end)} ${shortZone(d.event)}.`:'No auction window yet. Select this lot and assign a window with other lots.'}</div><div class="lot-footer"><button class="btn small" data-action="duplicate-lot">Duplicate lot</button><div class="order-controls"><button data-action="move-up" aria-label="Move lot earlier" ${d.lots.indexOf(l)===0?'disabled':''}>↑</button><button data-action="move-down" aria-label="Move lot later" ${d.lots.indexOf(l)===d.lots.length-1?'disabled':''}>↓</button></div><small>Catalog order · ${d.lots.indexOf(l)+1} of ${d.lots.length}</small></div></section>`;
@@ -195,9 +207,27 @@ function editorView(){
 function renderMain(){
  const route=location.hash.match(/^#\/lots\/([^?]+)/);if(route&&d.lots.some(l=>l.id===route[1]))picked=route[1];
  if(!chosen())picked=d.lots[0]?.id;
- $('#main').innerHTML=activeTab()==='lots'?lotsView():eventView();
+ $('#main').innerHTML=activeTab()==='lots'?lotsView():eventView();$('#main').scrollTop=0;
  renderInventory();
 }
+function setupView(){
+ if(!confirmed)return '';
+ const saved=confirmed,problems=eventIssues(saved.event),incomplete=saved.lots.find(l=>lotIssues(l,saved.event).length);
+ const times=windowFor(saved.event);
+ const eventField=!saved.event.name.trim()?'name':!saved.event.welcome.trim()?'welcome':times.start===null||times.end===null?'date':times.end<=times.start?'end':'increment';
+ const itemField=incomplete?({title:'title',description:'description',category:'category','opening bid':'opening'}[lotIssues(incomplete,saved.event)[0]]):'title';
+ const welcomeOk=problems.length===0,itemsOk=saved.lots.length>0&&!incomplete;
+ const pending=approvalLoading||approving||['loading','sending'].includes(approvalState);
+ const approved=!pending&&approvalState==='approved'&&!!catalogApproval;
+ const approvalUnknown=['uncertain','unavailable','blocked','conflict'].includes(approvalState);
+ const action=(label,tab,field,id)=>`<button class="link-btn" data-action="fix-setup" data-tab="${tab}" data-field="${field}" ${id?`data-id="${esc(id)}"`:''} ${!editable()?'disabled':''}>${label} →</button>`;
+ return `<section class="studio-setup" data-studio-checklist data-basis="saved" aria-label="Event setup"><div class="setup-head"><h3>Event setup</h3><p>Saved revision ${saved.revision}${dirty?' · unsaved working changes are excluded':''}</p></div><ul class="setup-steps">
+ <li data-setup-step="welcome" data-state="${welcomeOk?'complete':'needs-attention'}"><span class="setup-mark" aria-hidden="true">${welcomeOk?'✓':'○'}</span><div><strong>Welcome & event details</strong><p>${welcomeOk?'Saved welcome and event details are complete.':esc(problems[0])}</p></div>${!welcomeOk?action('Edit event','event',eventField):''}</li>
+ <li data-setup-step="items" data-state="${itemsOk?'complete':'needs-attention'}"><span class="setup-mark" aria-hidden="true">${itemsOk?'✓':'○'}</span><div><strong>Saved items</strong><p>${itemsOk?`${saved.lots.length} saved ${saved.lots.length===1?'item has':'items have'} the required catalog details.`:incomplete?`Item ${esc(incomplete.number)} needs ${esc(lotIssues(incomplete,saved.event)[0])}.`:'Add and save your first item.'}</p></div>${!itemsOk?(incomplete?action('Finish item','lots',itemField,incomplete.id):action('Add item','lots','add')):''}</li>
+ <li data-setup-step="approval" data-state="${approved?'complete':pending?'pending':'needs-attention'}"><span class="setup-mark" aria-hidden="true">${approved?'✓':pending?'…':'○'}</span><div><strong>Catalog approval</strong><p>${approved?`Independently approved saved revision ${catalogApproval.sourceRevision}. Draft changes remain separate.`:pending?'Checking independent catalog approval. It is not confirmed yet.':approvalUnknown?'Independent catalog approval is unavailable or not confirmed. Check its status before proceeding.':'Catalog approval is separate from saving the draft. Select saved items, then review the catalog.'}</p></div>${!approved&&!pending&&!approvalUnknown&&saved.lots.length?action('Choose items','lots','selection'):''}</li>
+ <li data-setup-step="access" data-state="unavailable"><span class="setup-mark" aria-hidden="true">—</span><div><strong>New bidder entry</strong><p>Entry controls are not available in this workspace yet.</p></div></li></ul></section>`;
+}
+function renderSetup(){const el=$('#studio-setup');if(el)el.innerHTML=setupView();}
 
 function canLeaveDraft(){
  if(creating||createAttempt){toast('Wait for or retry the pending request before switching events.');return false;}
@@ -282,6 +312,7 @@ function refreshCatalogControls(){
  const review=$('#review-catalog');if(review)review.disabled=!canReviewCatalog();
  document.querySelectorAll('[data-lot-select],#select-all').forEach(el=>el.disabled=loadingDraft||approving||!!approvalAttempt);
  dialog.querySelectorAll('[data-action="approve-catalog"],[data-action="close-modal"]').forEach(el=>{if(approving)el.disabled=true;});
+ renderSetup();
 }
 function catalogSummary(){
  if(catalogApproval){const a=catalogApproval;return `<section class="catalog-summary" aria-label="Approved catalog"><div><strong>Approved catalog</strong><p>${esc(a.snapshot.event.name)} · saved revision ${a.sourceRevision} · ${a.snapshot.lots.length} lots</p><p>${dateText(a.local.date)} · ${timeText(a.local.start)}–${timeText(a.local.end)} ${esc(a.local.timezone)}</p></div><details><summary>View approved lots</summary><ol>${a.snapshot.lots.map(l=>`<li>Lot ${esc(l.number)} · ${esc(l.title)}</li>`).join('')}</ol><p>This saved copy and window are fixed. Draft edits remain separate.</p></details></section>`;}
@@ -352,7 +383,8 @@ const actions={
  'preview-route':el=>{previewOpen=true;refreshChrome();postPreview(el.dataset.path);},
  'preview-lot':()=>{if(!canPreviewLot())return;previewOpen=true;refreshChrome();postPreview('/lot/'+picked);},
  'edit-event':()=>navigate('event'),
- 'edit-lot':el=>{navigate('lots',el.dataset.id);postPreview('/lot/'+el.dataset.id);},
+ 'edit-lot':el=>{navigate('lots',el.dataset.id,'[data-lot="title"]');postPreview('/lot/'+el.dataset.id);},
+ 'fix-setup':el=>{if(!editable())return;if(el.dataset.field==='add'){actions['add-lot']();return;}const selector=el.dataset.field==='selection'?'#select-all':`[data-${el.dataset.tab==='event'?'event':'lot'}="${el.dataset.field}"]`;navigate(el.dataset.tab,el.dataset.id,selector);},
  'clear-selection':()=>{selected.clear();renderInventory();},
  'assign-window':()=>{if(editable())assignWindow();},
  'apply-window':()=>{if(!editable())return;const w=windowFor(windowDraft);if(w.start===null||w.end===null||w.end<=w.start){$('#window-error').innerHTML='<p class="note error">Choose valid times, with closing after opening.</p>';return;}Object.assign(d.event,windowDraft);d.lots.forEach(l=>{if(selected.has(l.id))l.windowId='main';});markDirty();closeModal();selected.clear();renderMain();refresh();toast('Draft window assigned. Save the draft to keep it.');},
@@ -388,7 +420,7 @@ async function signOut(){
  if(saving||creating||approving)return toast('Wait for the current request to finish.');
  const ticket=++contextEpoch;
  // Invalidate old operations and remove private content before the network wait.
- resetCatalog();d=null;confirmed=null;session=null;eventList=[];attempt=null;createAttempt=null;dirty=false;notice='';saving=false;creating=false;loadingDraft=false;homeLoading=false;homeNotice='';selected.clear();picked=null;search='';loadedOrgId=null;previewMode='saved';
+ resetCatalog();d=null;confirmed=null;session=null;eventList=[];attempt=null;createAttempt=null;dirty=false;notice='';saving=false;creating=false;loadingDraft=false;homeLoading=false;homeNotice='';selected.clear();picked=null;search='';loadedOrgId=null;previewMode='saved';amountErrors.clear();nextFieldFocus=null;
  if(dialog.open)dialog.close();dialog.replaceChildren();returnFocus=null;clearTimeout(toastTimer);$('#toast').textContent='';$('#toast').classList.remove('on');
  eventUrl(null,{replace:true});history.replaceState(history.state,'','#/events');
  $('#app').classList.remove('preview-open');$('#app').innerHTML='<main class="loading"><span class="brand">BidZizi</span><p>Signing out…</p></main>';
@@ -433,8 +465,8 @@ document.addEventListener('input',ev=>{
  if(el.dataset.window){windowDraft[el.dataset.window]=el.value;return;}
  if(!editable())return;
  if(el.dataset.sponsor!==undefined){d.event.sponsors[+el.dataset.sponsor].name=el.value;markDirty();return;}
- if(el.dataset.event){const name=el.dataset.event;if(name==='sponsorsEnabled')return;d.event[name]=name==='increment'?cents(el.value):el.value;if(name==='increment')d.event.incrementText=el.value;markDirty();renderInventory();return;}
- if(el.dataset.lot){const l=chosen(),name=el.dataset.lot;if(!l)return;l[name]=name==='opening'?cents(el.value):name==='includes'?el.value.split('\n').filter(x=>x.trim()):el.value;if(name==='opening')l.openingText=el.value;markDirty();renderInventory();}
+ if(el.dataset.event){const name=el.dataset.event;if(name==='sponsorsEnabled')return;d.event[name]=name==='increment'?cents(el.value):el.value;if(name==='increment'){d.event.incrementText=el.value;if(!String(el.value).trim()||(cents(el.value)!==null&&cents(el.value)<=1_000_000_000))amountErrors.delete('increment');}markDirty();renderInventory();return;}
+ if(el.dataset.lot){const l=chosen(),name=el.dataset.lot;if(!l)return;l[name]=name==='opening'?cents(el.value):name==='includes'?el.value.split('\n').filter(x=>x.trim()):el.value;if(name==='opening'){l.openingText=el.value;if(!String(el.value).trim()||(cents(el.value)!==null&&cents(el.value)<=1_000_000_000))amountErrors.delete(l.id);}markDirty();renderInventory();}
 });
 document.addEventListener('change',ev=>{
  const el=ev.target;if(!d)return;
@@ -442,7 +474,7 @@ document.addEventListener('change',ev=>{
  if(el.id==='select-all'){selected=el.checked?new Set(d.lots.map(l=>l.id)):new Set();renderInventory();return;}
  if(el.dataset.event==='sponsorsEnabled'&&editable()){d.event.sponsorsEnabled=el.checked;markDirty();$('#sponsor-fields').innerHTML=sponsorFields();}
 });
-window.addEventListener('hashchange',()=>{if(!d)return;if(location.hash==='#/events'){if(!canLeaveDraft()){retainEditorRoute();return;}showEventsHome();return;}renderMain();refresh();eventUrl(d.event.id,{replace:true});if(!dialog.open)$('#workspace').focus({preventScroll:true});});
+window.addEventListener('hashchange',()=>{if(!d)return;if(location.hash==='#/events'){if(!canLeaveDraft()){retainEditorRoute();return;}showEventsHome();return;}renderMain();refresh();eventUrl(d.event.id,{replace:true});if(nextFieldFocus){focusEditorField(nextFieldFocus);nextFieldFocus=null;}else if(!dialog.open)$('#workspace').focus({preventScroll:true});});
 try{routeHost().addEventListener('popstate',async()=>{
  if(!session?.authenticated||!session.staffOrganizations.length)return;
  const id=requestedEvent(),route=requestedTab();
