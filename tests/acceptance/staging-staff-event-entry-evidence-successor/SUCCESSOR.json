@@ -1,0 +1,225 @@
+{
+  "status": "UNFROZEN_STATIC_REPAIR_ONLY",
+  "predecessorContractCommit": "d96f33747abdd449fdfed6600d1d97e7b0d6022a",
+  "predecessorTask": "tasks/staging-staff-event-entry-015-draft.toml",
+  "successorTask": "tasks/staging-staff-event-entry-015-evidence-successor.toml",
+  "applicationCandidateUnderReview": "22f2071011945d512d69c48f636f18092c31f9ee",
+  "fixedAssertions": 36,
+  "checkGroups": 9,
+  "expectedBaselineFailures": 20,
+  "expectedBaselinePasses": 16,
+  "predecessorEvidenceSHA256": {
+    ".gitignore": "b40b44b310bdb19d8baa2e267161c1e02553cd457d7b6e83cfdebc8826561641",
+    "AGENTS.md": "22aeb173ad2c7e6b183055e81237704169f8fe44d3ffedbe2bba3b102a983237",
+    "docs/proposed/staff-event-entry/PERMISSION_AND_DECISIONS.md": "1f1ccb5f4b765d29da9adb1a8aa83631c042b77f7d23b3720aab7a28ccff21fb",
+    "docs/proposed/staff-event-entry/SCHEMA_PROPOSAL.sql": "3068f4690a3802ffaef568f387d9e16c6996548db6ede238f57d5da44bb009d9",
+    "migrations/001_staging_staff.sql": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a",
+    "migrations/002_staging_catalog.sql": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3",
+    "migrations/003_staging_manual_bid.sql": "e8e985e67aa5f47df7cd9f9baf56c19fb30915fa99662b3a4e469a9a98e36cf8",
+    "migrations/009_demo_attendee_entry.sql": "c4e87a9bb9b591228a62d4557865de76f7b391354b468c7876ba06bd305e4b4e",
+    "next-env.d.ts": "0f70629890b72a0a82e91972cc032c04b658b26c265373cb711cf576bfbf8fcc",
+    "next.config.ts": "dbb2046b5e03ff053711679f392c7caaa08fc79e2e0a4ae7efd0152254a7be72",
+    "package.json": "33e14f23b472c46939ded502b0eb7aa7e1f00ab1d2d8d93de36863e2206ce722",
+    "pnpm-lock.yaml": "4d034c5147ca042fcfb57c8429d0766705d25ad4e7c39269a2cfcf34213d9c2a",
+    "tasks/staging-staff-event-entry-015-draft.toml": "039293cedbd376464adc0347d6b26a676a2c37279c8c3f898a5354254eca9d5f",
+    "tasks/staging-studio-composition.toml": "608f2cad42e14ac6fa233f41f387635bc9fa6d7fdb78bb75c369d98c7f0f0f1a",
+    "tests/acceptance/staff-drafts/harness.mjs": "15a4a30eb54e0c71607a88cdcaaf6fce6f574689c2f67cb0b9fa6e6d1e08aed0",
+    "tests/acceptance/staff-drafts/protocol.mjs": "82a5995daf969b5c2d1e4f0cba0d355cf026d4166635645d014979466976b636",
+    "tests/acceptance/staff-drafts/seed.sql": "e476babf9ecc5e498b461b2396926a4773ba50b5dbe41722a89b1ce4270c909f",
+    "tests/acceptance/staging-manual-bid/app-clock-skew.cjs": "08aaf2090133693cf3683edc3fd560e74fc3be4d49cfed67e073860b32117704",
+    "tests/acceptance/staging-manual-bid/fixtures.mjs": "8bb0b7351a5f617611965a95a4315dc5abb2c5cccb39d48575aa16c837c188c5",
+    "tests/acceptance/staging-manual-bid/harness.mjs": "2d1ccba3f005f2113c93f3aa086fdf37f93ab5c5640482705acb641a4bf8c97a",
+    "tests/acceptance/staging-manual-bid/protocol.mjs": "8ec41e55a65ccbea2a60c64bc3e6f97ee164cdadd7cc7901e9cbe34456d07a3b",
+    "tests/acceptance/staging-manual-bid/seed-people.sql": "f6bb72cd50476bb35025bdae787605d345a5d71bccfc1c6b926359a67a76d8c2",
+    "tests/acceptance/staging-staff-event-entry/ASSERTION_REQUIREMENT_MAP.json": "ba0567e87b79cf2b6d70f8a3bc2e64f4a938a9628571e76d0c5eb2d67df74eab",
+    "tests/acceptance/staging-staff-event-entry/CHECKS.json": "bacd79f1b05e31548f70af6bb0b14713db4d98d7ea7134a66bde723e9ee1ef2b",
+    "tests/acceptance/staging-staff-event-entry/CONTRACT.md": "fa4f0636f3b410a5d91e1cda2e064c0c0cb912790e7185deca9f21500a1e8e14",
+    "tests/acceptance/staging-staff-event-entry/HARNESS_SUCCESSOR.json": "17ace55886020fc102a97235d2758347419b8f212ca09c9d1f08c088bbd3ca3b",
+    "tests/acceptance/staging-staff-event-entry/README.md": "1eee75595f4fe5404a42d8940ee94eb13a5811c864c00ea4892f7a1facd3182f",
+    "tests/acceptance/staging-staff-event-entry/SOURCE_BINDING.json": "3d4affeac6ddf94c1fabaa07516e85cd6d1393d7fc7b03a76dcff60699ca7cdc",
+    "tests/acceptance/staging-staff-event-entry/STUDIO_SUCCESSOR_CLOSURE.json": "443446d2ebfc9cd42a8d18fac4c1f18ac40e8a0af69445a416a594912643e295",
+    "tests/acceptance/staging-staff-event-entry/api.mjs": "a3f3a0755aab5f276ea1f875fd0a5ea8e0450deb729ea0e5f54e8a20949c4935",
+    "tests/acceptance/staging-staff-event-entry/cleanup.mjs": "e95ee84b66e4a473cd6060fefa8f6732dd7a2eb5ceb179ef4893d626dead46a5",
+    "tests/acceptance/staging-staff-event-entry/controls.mjs": "ed31706de1da4a342fd8aacaa57c6c5597e8fe014d583d454ba915eb0aa146bd",
+    "tests/acceptance/staging-staff-event-entry/decode-qr.swift": "dca6bdfb4dd538489a9ce205e8c9787df6e1ff64b425fddc7ef91b2ee18a22d8",
+    "tests/acceptance/staging-staff-event-entry/harness.mjs": "6f698af19e9b5e7f5388766db5ffa98ba5d19fb8916b1fb160f9b9ed1e6f65c5",
+    "tests/acceptance/staging-staff-event-entry/native.mjs": "958baa5adb42bc151b94a0ed87c5c794dfcb5f62bce44ef25533670cc7117605",
+    "tests/acceptance/staging-staff-event-entry/oracles.mjs": "85fac350fb0c2084efcefc937531720588da14adc9c33e6369a92435cac699ec",
+    "tests/acceptance/staging-staff-event-entry/run.mjs": "01e47c25b145d7dffe12ef81572bcfd5348b1095e2cbdef22f20ec7f0cf1507b",
+    "tests/acceptance/staging-staff-event-entry/setup.mjs": "f8124cb92477794a59914d3c6cf1155bfc99df105930c90a9da9010084ddc7b9",
+    "tests/acceptance/staging-studio-admission-successor/ASSERTION_REQUIREMENT_MAP.json": "1b4a2e25f1db048ee2af353b0ed5bef455cfcb03d6df8ddc4a08a393a6ba323c",
+    "tests/acceptance/staging-studio-admission-successor/CHECKS.json": "6b04b3ed4b20929c5d50a66184cf4bf0944b9733dbfdef8497e9ed00c8e6d9b2",
+    "tests/acceptance/staging-studio-admission-successor/README.md": "623eaf1683838afee53459d785ad38cec739418f1a92b45dc11564744bb14bd7",
+    "tests/acceptance/staging-studio-admission-successor/SOURCE_BINDING.json": "2a486344c0cde6ea93c72a2f1106e487b2afdc4d995104e4b34122696a48ca5a",
+    "tests/acceptance/staging-studio-admission-successor/controls.mjs": "eeb7f6c2dfe2caa52bf17582fa3890f103ae981bb07b5807c3cda6e74d593f87",
+    "tests/acceptance/staging-studio-admission-successor/entry.mjs": "f98c64b7ef4f972d82b47a9af7b2d48a5721960ca40b611938a7a31660dc2edb",
+    "tests/acceptance/staging-studio-admission-successor/groups.mjs": "72c56205867900324c023d7e513971f4f033fe4f7eba26a3ce3d5668028d6d40",
+    "tests/acceptance/staging-studio-admission-successor/oracles.mjs": "19328f363e6cb0f968ac85009e7e91a58a5e3090fa144a79d9c20480f59df086",
+    "tests/acceptance/staging-studio-admission-successor/run.mjs": "9a2dc0e59e286bd1ed5f6ffe59809f8fa73e8c656c78320622453b4ebced6f9e",
+    "tests/acceptance/staging-studio-composition/ASSERTION_REQUIREMENT_MAP.json": "eb2a04ea7d67779c055fd6935d18bd60b4cb3dd4b4bb12d8e2e0eca8252b264f",
+    "tests/acceptance/staging-studio-composition/CHECKS.json": "37777ff722e98d0abaaf70dfe41c736f8dd2a3818cd8ab12493ff9298180d1b1",
+    "tests/acceptance/staging-studio-composition/README.md": "7d7f7665a9871a83e30b879dfd0e5152911c7feaeedfb5c7b120517fd82584c5",
+    "tests/acceptance/staging-studio-composition/REQUIREMENT_DELTA.md": "7abf867c7bf605b7127a79d8fa6327d21288e1bab3f0151b71f4bee244e09838",
+    "tests/acceptance/staging-studio-composition/SOURCE_BINDING.json": "b33ff7ad84da8eeb8f1bd2ccecde9d236696e2f7c5b42648d1f6d757a42f5c24",
+    "tests/acceptance/staging-studio-composition/cases.mjs": "48402028ec70a3b5db1de0eee740ee5f40d1959a518152c2f8c43edf6f982736",
+    "tests/acceptance/staging-studio-composition/cleanup.mjs": "aaa641515606c792e85140dc323ce62fc01972aae2f56127009058fcdbd014c8",
+    "tests/acceptance/staging-studio-composition/controls.mjs": "722dac739f4c1bdabacebb715d21ad0b13f0fcf71cd4863d3584c63d95a94210",
+    "tests/acceptance/staging-studio-composition/fixture.mjs": "be3067d7d72a77604cc3b638d15f37ee8d91b5cbce4bedfdceacd883d58af860",
+    "tests/acceptance/staging-studio-composition/observe.mjs": "1be34bf9937327f9ce825f39517c6cf0a9c8a4f66b54b00554ba68c79ca4cbb6",
+    "tests/acceptance/staging-studio-composition/oracles.mjs": "079f736319b6e9073041feccf0c6c6a69ce117b80148e7d7fd25dda2e723ebeb",
+    "tests/acceptance/staging-studio-composition/run.mjs": "c33fb739e83b9893c9828613123c0736137eb1de33271d1b383212a93742556b",
+    "tsconfig.json": "6e3e1fba1547e5d6ffe754598bdda409e008dd043476ac82513eb778c12ccdd0"
+  },
+  "modules": {
+    "run.mjs": {
+      "predecessor": "tests/acceptance/staging-staff-event-entry/run.mjs",
+      "predecessorSHA256": "01e47c25b145d7dffe12ef81572bcfd5348b1095e2cbdef22f20ec7f0cf1507b",
+      "successor": "tests/acceptance/staging-staff-event-entry-evidence-successor/run.mjs",
+      "successorSHA256": "086e3c021770ab2020a98bc07c46286c13543bfcdeb0c9346898b27e2f24d9a7",
+      "exactReplacements": [
+        {
+          "before": "import {negativeControls} from './controls.mjs';",
+          "after": "import {negativeControls} from './controls.mjs';\nimport {safeErrorSite} from './oracles.mjs';"
+        },
+        {
+          "before": "const safe=e=>e instanceof assert.AssertionError?'Reached declared requirement contradicted':'Infrastructure/setup/evidence unavailable ('+(e?.name||'Error')+')';",
+          "after": "const safe=e=>e instanceof assert.AssertionError?'Reached declared requirement contradicted':'Infrastructure/setup/evidence unavailable ('+safeErrorSite(e).class+')';"
+        },
+        {
+          "before": "let output;",
+          "after": "let output,activeAssertion;"
+        },
+        {
+          "before": "'/tmp/task-root/staff-entry-'+phase+'-'",
+          "after": "'/tmp/task-root/staff-entry-successor-'+phase+'-'"
+        },
+        {
+          "before": " const start={commit:",
+          "after": " const successor=JSON.parse(await readFile(new URL('./SUCCESSOR.json',import.meta.url),'utf8'));\n for(const [path,pin]of Object.entries(successor.predecessorEvidenceSHA256))if(helperHashes[path]!==pin)throw new Error('Frozen predecessor evidence changed: '+path);\n const start={commit:"
+        },
+        {
+          "before": "assert.equal(id,group.ids[results.length],'Exact finite assertion order');let status='pass',observed={};",
+          "after": "assert.equal(id,group.ids[results.length],'Exact finite assertion order');activeAssertion=id;let status='pass',observed={},errorSite;"
+        },
+        {
+          "before": "catch(e){if(!(e instanceof assert.AssertionError))throw e;status='fail';}",
+          "after": "catch(e){if(!(e instanceof assert.AssertionError))throw e;status='fail';errorSite=safeErrorSite(e);}"
+        },
+        {
+          "before": "JSON.stringify({id,status,observed,detail:",
+          "after": "JSON.stringify({id,status,observed,...(errorSite?{errorSite}:{}),detail:"
+        },
+        {
+          "before": "await import('./cleanup.mjs'),{setup,login,fresh,readEntry}=await import('./setup.mjs');",
+          "after": "await import('../staging-staff-event-entry/cleanup.mjs'),{setup,login,fresh,readEntry}=await import('../staging-staff-event-entry/setup.mjs');"
+        },
+        {
+          "before": "{classification:'HARNESS99',detail:safe(e),terminalResult:false}",
+          "after": "{classification:'HARNESS99',detail:safe(e),assertion:activeAssertion||null,errorSite:safeErrorSite(e),terminalResult:false}"
+        }
+      ]
+    },
+    "api.mjs": {
+      "predecessor": "tests/acceptance/staging-staff-event-entry/api.mjs",
+      "predecessorSHA256": "a3f3a0755aab5f276ea1f875fd0a5ea8e0450deb729ea0e5f54e8a20949c4935",
+      "successor": "tests/acceptance/staging-staff-event-entry-evidence-successor/api.mjs",
+      "successorSHA256": "5081269c9c8c55f92be1c06dfbc3acc4687fb29153676fbccf426d41473ad632",
+      "exactReplacements": [
+        {
+          "before": "from './setup.mjs';",
+          "after": "from '../staging-staff-event-entry/setup.mjs';"
+        }
+      ]
+    },
+    "oracles.mjs": {
+      "predecessor": "tests/acceptance/staging-staff-event-entry/oracles.mjs",
+      "predecessorSHA256": "85fac350fb0c2084efcefc937531720588da14adc9c33e6369a92435cac699ec",
+      "successor": "tests/acceptance/staging-staff-event-entry-evidence-successor/oracles.mjs",
+      "successorSHA256": "ca8f9e0b5a618c9bc9457c7b5affae1c30e9f16c19ffafabd91b3df2011c69ca",
+      "exactReplacements": [
+        {
+          "before": "import assert from 'node:assert/strict';",
+          "after": "import assert from 'node:assert/strict';\nconst timestamp=value=>value instanceof Date?value.getTime():Date.parse(value);"
+        },
+        {
+          "before": "Date.parse(entryRows[0].updated_at)",
+          "after": "timestamp(entryRows[0].updated_at)"
+        },
+        {
+          "before": "Date.parse(row.applied_at)",
+          "after": "timestamp(row.applied_at)"
+        },
+        {
+          "before": "",
+          "after": "\n// Preserve only fixed error classes/operators and repository helper file positions.\n// Error messages, function labels, actual/expected values and absolute paths are omitted.\nconst priorErrorSites=new WeakMap();\nexport function safeErrorSite(error){\n if(error&&typeof error==='object'&&priorErrorSites.has(error))return priorErrorSites.get(error);\n const classes=['AssertionError','Error','TypeError','RangeError','SyntaxError','ReferenceError','TimeoutError','AbortError','HarnessError','ApplicationFailure'];\n const errorClass=[error?.constructor?.name,error?.name].find(name=>classes.includes(name))||'Error';\n const operators=['strictEqual','notStrictEqual','deepStrictEqual','notDeepStrictEqual','equal','notEqual','deepEqual','notDeepEqual','match','doesNotMatch','throws','doesNotThrow','rejects','doesNotReject','fail','ifError','==','===','!=','!=='];\n const operator=operators.includes(error?.operator)?error.operator:null,frames=[];\n for(const line of typeof error?.stack==='string'?error.stack.split('\\n').slice(1):[]){\n  const match=line.match(/(tests\\/acceptance\\/(?:staging-staff-event-entry-evidence-successor|staging-staff-event-entry|staging-manual-bid|staff-drafts)\\/[A-Za-z0-9._-]+\\.mjs):(\\d+):(\\d+)\\)?$/);\n  if(match){frames.push({file:match[1],line:Number(match[2]),column:Number(match[3])});if(frames.length===8)break;}\n }\n return {class:errorClass,operator,frames};\n}\nexport function preserveErrorSite(error,original){\n if(error&&typeof error==='object')priorErrorSites.set(error,safeErrorSite(original));\n return error;\n}\n",
+          "operation": "append"
+        }
+      ]
+    },
+    "controls.mjs": {
+      "predecessor": "tests/acceptance/staging-staff-event-entry/controls.mjs",
+      "predecessorSHA256": "ed31706de1da4a342fd8aacaa57c6c5597e8fe014d583d454ba915eb0aa146bd",
+      "successor": "tests/acceptance/staging-staff-event-entry-evidence-successor/controls.mjs",
+      "successorSHA256": "1afcf2e7bf5de70ebbed6f49f10e57334e141d63c58b68413ad996d0ce3bbde3",
+      "exactReplacements": [
+        {
+          "before": "{currentEntry,applied,persisted,preserved,denied,revisionConflict}",
+          "after": "{currentEntry,applied,persisted,preserved,denied,revisionConflict,safeErrorSite,preserveErrorSite}"
+        },
+        {
+          "before": "import {fileURLToPath} from 'node:url';",
+          "after": "import {fileURLToPath} from 'node:url';\nimport {persisted as predecessorPersisted} from '../staging-staff-event-entry/oracles.mjs';"
+        },
+        {
+          "before": " assert.equal(n,48);return {rejectedBrokenObservations:n,productRuntime:false};",
+          "after": " const dateStorage=structuredClone(storage),dateExpected=structuredClone(expected),precise='2026-10-08T00:00:00.789Z';\n dateStorage.entryRows[0].updated_at=new Date(precise);dateStorage.ledgerRows[0].applied_at=new Date(precise);dateExpected.entry.updatedAt=precise;dateExpected.operation.appliedAt=precise;\n persisted({...dateStorage,...dateExpected});assert.throws(()=>predecessorPersisted({...dateStorage,...dateExpected}),assert.AssertionError,'Frozen Date.parse(Date) oracle must reject the known nonzero-ms positive witness');\n for(const mutate of [s=>s.entryRows[0].updated_at=new Date('2026-10-08T00:00:00.788Z'),s=>s.ledgerRows[0].applied_at=new Date('2026-10-08T00:00:00.788Z')]){const s=structuredClone(dateStorage);mutate(s);assert.throws(()=>persisted({...s,...dateExpected}),assert.AssertionError);n++;}\n const subMsStorage=structuredClone(dateStorage),subMsExpected=structuredClone(dateExpected);subMsExpected.operation.appliedAt='2026-10-08T00:00:00.789001Z';subMsStorage.sqlTimeMatches.operation=false;\n assert.equal(Date.parse(subMsExpected.operation.appliedAt),subMsStorage.ledgerRows[0].applied_at.getTime(),'Sub-ms mismatch cannot be decided by JS milliseconds');assert.throws(()=>persisted({...subMsStorage,...subMsExpected}),assert.AssertionError);n++;\n const privateError=new assert.AssertionError({actual:'PRIVATE_ACTUAL',expected:'PRIVATE_EXPECTED',operator:'strictEqual',message:'PRIVATE_MESSAGE'});\n privateError.stack='AssertionError PRIVATE_MESSAGE\\n at PRIVATE_FUNCTION (file:///PRIVATE_ROOT/tests/acceptance/staging-staff-event-entry-evidence-successor/native.mjs:11:22)\\n at PRIVATE_OTHER';\n const site={class:'AssertionError',operator:'strictEqual',frames:[{file:'tests/acceptance/staging-staff-event-entry-evidence-successor/native.mjs',line:11,column:22}]};\n assert.deepEqual(safeErrorSite(privateError),site);assert.deepEqual(safeErrorSite(preserveErrorSite(new Error('PRIVATE_CONVERSION'),privateError)),site);\n assert.equal(n,51);return {rejectedBrokenObservations:n,nonzeroDateMillisecondsPositive:true,predecessorTimestampDefectReproduced:true,privateErrorSiteOnly:true,productRuntime:false};"
+        }
+      ]
+    },
+    "native.mjs": {
+      "predecessor": "tests/acceptance/staging-staff-event-entry/native.mjs",
+      "predecessorSHA256": "958baa5adb42bc151b94a0ed87c5c794dfcb5f62bce44ef25533670cc7117605",
+      "successor": "tests/acceptance/staging-staff-event-entry-evidence-successor/native.mjs",
+      "successorSHA256": "cafb9031241a6cb4f4cfc388ac5dba4dc360348c091d281a22706a0cacc59ebc",
+      "exactReplacements": [
+        {
+          "before": "from './setup.mjs';",
+          "after": "from '../staging-staff-event-entry/setup.mjs';"
+        },
+        {
+          "before": "const storageKey=id=>",
+          "after": "import {preserveErrorSite} from './oracles.mjs';\n\nconst storageKey=id=>"
+        },
+        {
+          "before": "catch(e){throw browserFailure(e);}",
+          "after": "catch(e){throw preserveErrorSite(browserFailure(e),e);}"
+        },
+        {
+          "before": "new URL('./decode-qr.swift',import.meta.url)",
+          "after": "new URL('../staging-staff-event-entry/decode-qr.swift',import.meta.url)"
+        },
+        {
+          "before": "   await ui.panel.getByRole('button',{name:'Copy event link',exact:true}).click();assert.equal(await ui.page.evaluate(()=>navigator.clipboard.readText()),f.origin+'/events/'+t.eventId);",
+          "after": "   // One native click revalidates current entry asynchronously before clipboard write.\n   const copyBy=Date.now()+20_000,copyRead=ui.page.waitForResponse(r=>r.request().method()==='GET'&&r.url()===f.origin+'/api/admin/events/'+t.eventId+'/entry',{timeout:20_000});\n   await ui.panel.getByRole('button',{name:'Copy event link',exact:true}).click();\n   const copyResponse=await copyRead;assert.equal(copyResponse.status(),200);let copyBodyTimer;\n   try{assert.equal(await Promise.race([copyResponse.finished(),new Promise((_,reject)=>copyBodyTimer=setTimeout(()=>reject(new HarnessError('Current-entry copy response did not settle')),Math.max(1,copyBy-Date.now())))]),null);}finally{clearTimeout(copyBodyTimer);}\n   await expect.poll(()=>ui.page.evaluate(()=>navigator.clipboard.readText()),{timeout:Math.max(1,copyBy-Date.now())}).toBe(f.origin+'/events/'+t.eventId);\n   assert.equal(await ui.page.evaluate(()=>navigator.clipboard.readText()),f.origin+'/events/'+t.eventId);"
+        },
+        {
+          "before": "import {join} from 'node:path';",
+          "after": "import {join} from 'node:path';\nimport {readFile,writeFile} from 'node:fs/promises';\nimport {createHash} from 'node:crypto';"
+        },
+        {
+          "before": "export const native={",
+          "after": "async function paintedPrivatePhone(ui,personId,png){\n await ui.page.bringToFront();await shown(ui,personId);\n await ui.page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));\n const observe=()=>ui.page.evaluate(()=>{\n  const markers=[...document.querySelectorAll('[data-catalog-phase][data-bidder-person]')],el=markers[0],rect=el?.getBoundingClientRect(),style=el?getComputedStyle(el):null;\n  return {visibilityState:document.visibilityState,hasFocus:document.hasFocus(),viewport:{width:innerWidth,height:innerHeight},chooserCount:[...document.querySelectorAll('h1,h2')].filter(h=>h.textContent.trim()==='Choose a test account').length,markerCount:markers.length,\n   marker:el?{phase:el.dataset.catalogPhase,personId:el.dataset.bidderPerson,bounds:{x:rect.x,y:rect.y,width:rect.width,height:rect.height},visible:rect.width>0&&rect.height>0&&style.display!=='none'&&style.visibility==='visible'&&Number(style.opacity)>0,withinViewport:rect.left<innerWidth&&rect.right>0&&rect.top<innerHeight&&rect.bottom>0}:null};\n });\n const validate=state=>{assert.equal(state.visibilityState,'visible');assert.equal(state.chooserCount,0);assert.equal(state.markerCount,1);assert.equal(state.marker?.personId,personId);assert.ok(state.marker?.phase);assert.equal(state.marker?.visible,true);assert.equal(state.marker?.withinViewport,true);};\n const path=png.replace(/\\.png$/,'.paint-witness.json'),witness={expectedPersonId:personId,before:await observe()};\n await writeFile(path,JSON.stringify(witness,null,2)+'\\n',{flag:'wx'});validate(witness.before);\n await ui.page.screenshot({path:png});witness.pngSha256=createHash('sha256').update(await readFile(png)).digest('hex');witness.after=await observe();\n await writeFile(path,JSON.stringify(witness,null,2)+'\\n');validate(witness.after);\n return {path,sha256:createHash('sha256').update(await readFile(path)).digest('hex'),pngPath:png,pngSha256:witness.pngSha256};\n}\n\nexport const native={"
+        },
+        {
+          "before": "   await left.page.screenshot({path:join(output,'fresh-attendee-left-phone.png')});await right.page.screenshot({path:join(output,'fresh-attendee-right-phone.png')});",
+          "after": "   const paintWitnesses=[await paintedPrivatePhone(left,a.person.id,join(output,'fresh-attendee-left-phone.png')),await paintedPrivatePhone(right,c.person.id,join(output,'fresh-attendee-right-phone.png'))];"
+        },
+        {
+          "before": "return {matchingClaimsDistinctPrivateBrowsers:true,refreshContinuity:true,logoutIsolated:true};",
+          "after": "return {matchingClaimsDistinctPrivateBrowsers:true,refreshContinuity:true,logoutIsolated:true,paintWitnesses};"
+        }
+      ]
+    }
+  },
+  "limits": "No product/source/permissions/clock/deadline weakening, app/DB/browser/build/kernel/services/provider/commits. Full SQL equality assertion verbatim; generic infrastructure remains99/no terminal. Actual clipboard/cancellation gates remain parent runtime work."
+}
