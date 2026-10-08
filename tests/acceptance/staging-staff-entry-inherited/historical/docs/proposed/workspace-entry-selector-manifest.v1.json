@@ -1,0 +1,987 @@
+{
+  "version": 1,
+  "sourceCommit": "916eaa2efa9220434d8b0bef6f53f637ca157d22",
+  "purpose": "Frozen old13check selector callsites for compatibility audit. This is source extraction, not parsed JS semantics or test execution. Full original source remains authoritative.",
+  "files": [
+    {
+      "file": "tests/acceptance/staff-drafts/context-race.mjs",
+      "sha256": "39784ffa2264af1a1ef8c6f22433595da2dadad9f8e00047b73eece9b5260592",
+      "selectorCallSites": [
+        {
+          "line": 27,
+          "source": "const admin=page.frameLocator('iframe[title=\"BidZizi admin workspace\"]');"
+        },
+        {
+          "line": 28,
+          "source": "await admin.getByLabel('Test account',{exact:true}).selectOption('staff-saturn');"
+        },
+        {
+          "line": 29,
+          "source": "await admin.getByRole('button',{name:'Sign in',exact:true}).click();"
+        },
+        {
+          "line": 30,
+          "source": "await expect(admin.locator('[data-event=\"name\"]')).toHaveValue(first.draft.event.name);"
+        },
+        {
+          "line": 50,
+          "source": "await admin.getByRole('button',{name:/^Event studio/}).click();"
+        },
+        {
+          "line": 51,
+          "source": "await admin.getByRole('button',{name:/Saturn delayed private review event/}).click();"
+        },
+        {
+          "line": 53,
+          "source": "assert.equal(await admin.locator('[data-event=\"name\"]').isDisabled(),true,'Pending event load must lock editing.');"
+        },
+        {
+          "line": 55,
+          "source": "await admin.getByRole('button',{name:'Sign out',exact:true}).click();"
+        },
+        {
+          "line": 56,
+          "source": "await expect(admin.getByRole('heading',{name:'Choose a test account',exact:true})).toBeVisible();"
+        },
+        {
+          "line": 57,
+          "source": "await admin.getByLabel('Test account',{exact:true}).selectOption('staff-pine');"
+        },
+        {
+          "line": 58,
+          "source": "await admin.getByRole('button',{name:'Sign in',exact:true}).click();"
+        },
+        {
+          "line": 59,
+          "source": "await expect(admin.locator('[data-event=\"name\"]')).toHaveValue(other.draft.event.name);"
+        },
+        {
+          "line": 63,
+          "source": "await expect(admin.locator('[data-event=\"name\"]')).toHaveValue(other.draft.event.name);"
+        },
+        {
+          "line": 64,
+          "source": "await expect(admin.locator('#org-name')).toHaveText('Pine Street Exchange');"
+        },
+        {
+          "line": 65,
+          "source": "const preview=admin.frameLocator('#bidder-frame');"
+        },
+        {
+          "line": 66,
+          "source": "await expect(preview.locator('h1')).toContainText(other.draft.event.name);"
+        },
+        {
+          "line": 67,
+          "source": "assert.ok(!(await admin.locator('body').innerText()).includes(held.draft.event.name),'Late Saturn response cannot repopulate Pine shell.');"
+        },
+        {
+          "line": 78,
+          "source": "await expect(admin.locator('[data-event=\"name\"]')).toHaveValue(canary);"
+        },
+        {
+          "line": 79,
+          "source": "await expect(preview.locator('h1')).toContainText(canary);"
+        },
+        {
+          "line": 85,
+          "source": "assert.equal(await adminFrame.locator('img[src=\"x\"]').count(),0);"
+        },
+        {
+          "line": 86,
+          "source": "assert.equal(await previewFrame.locator('img[src=\"x\"]').count(),0);"
+        }
+      ]
+    },
+    {
+      "file": "tests/acceptance/staff-drafts/run.mjs",
+      "sha256": "01c1a4a581235a970fcbd1ffa7473ab4fc0290eb1e76db741881f2af1c2638ee",
+      "selectorCallSites": [
+        {
+          "line": 81,
+          "source": "const admin=page.frameLocator('iframe[title=\"BidZizi admin workspace\"]');"
+        },
+        {
+          "line": 82,
+          "source": "await expect(admin.getByText(/Test accounts|Test sign-in|Staging test|Test mode/i).first()).toBeVisible();"
+        },
+        {
+          "line": 83,
+          "source": "await admin.getByLabel('Test account',{exact:true}).selectOption('staff-saturn');"
+        },
+        {
+          "line": 84,
+          "source": "await admin.getByRole('button',{name:'Sign in',exact:true}).click();"
+        },
+        {
+          "line": 85,
+          "source": "await expect(admin.locator('[data-event=\"name\"]')).toHaveValue(packet.event.name);"
+        },
+        {
+          "line": 90,
+          "source": "await admin.locator('[data-event=\"name\"]').fill(renamed);"
+        },
+        {
+          "line": 91,
+          "source": "await admin.locator('[data-event=\"welcome\"]').fill('Browser saved welcome.');"
+        },
+        {
+          "line": 92,
+          "source": "await admin.getByRole('button',{name:'Save draft',exact:true}).click();"
+        },
+        {
+          "line": 93,
+          "source": "await expect(admin.locator('#saved')).toHaveText('Saved');"
+        },
+        {
+          "line": 97,
+          "source": "const preview=admin.frameLocator('#bidder-frame');"
+        },
+        {
+          "line": 98,
+          "source": "await expect(preview.locator('h1')).toContainText(renamed);"
+        },
+        {
+          "line": 99,
+          "source": "await expect(admin.locator('#preview-mode-label')).toContainText('Saved draft');"
+        },
+        {
+          "line": 101,
+          "source": "await expect(admin.locator('[data-event=\"name\"]')).toHaveValue(renamed);"
+        },
+        {
+          "line": 105,
+          "source": "await expect(second.admin.locator('[data-event=\"welcome\"]')).toHaveValue('Browser saved welcome.');"
+        },
+        {
+          "line": 113,
+          "source": "await admin.locator('[data-event=\"name\"]').fill('Recovered event');"
+        },
+        {
+          "line": 114,
+          "source": "await admin.getByRole('button',{name:'Save draft',exact:true}).click();"
+        },
+        {
+          "line": 115,
+          "source": "await expect(admin.locator('#saved')).toContainText('Save not confirmed');"
+        },
+        {
+          "line": 117,
+          "source": "await expect(preview.locator('h1')).toContainText(renamed,'Saved preview must retain confirmed content during failure.');"
+        },
+        {
+          "line": 119,
+          "source": "await admin.getByRole('button',{name:'Retry save',exact:true}).click();"
+        },
+        {
+          "line": 120,
+          "source": "await expect(admin.locator('#saved')).toHaveText('Saved');"
+        },
+        {
+          "line": 124,
+          "source": "await second.admin.locator('[data-event=\"name\"]').fill('Stale browser edit');"
+        },
+        {
+          "line": 125,
+          "source": "await second.admin.getByRole('button',{name:'Save draft',exact:true}).click();"
+        },
+        {
+          "line": 126,
+          "source": "await expect(second.admin.getByText('This draft changed in another session.',{exact:true})).toBeVisible();"
+        },
+        {
+          "line": 128,
+          "source": "await second.admin.getByRole('button',{name:'Reload saved draft',exact:true}).click();"
+        },
+        {
+          "line": 129,
+          "source": "const confirmation=second.admin.getByRole('dialog');"
+        },
+        {
+          "line": 130,
+          "source": "if (await confirmation.count()) await confirmation.getByRole('button',{name:'Reload saved draft',exact:true}).click();"
+        },
+        {
+          "line": 131,
+          "source": "await expect(second.admin.locator('[data-event=\"name\"]')).toHaveValue('Recovered event');"
+        },
+        {
+          "line": 147,
+          "source": "await admin.locator('[data-event=\"name\"]').fill('Lost response event');"
+        },
+        {
+          "line": 148,
+          "source": "await admin.getByRole('button',{name:'Save draft',exact:true}).click();"
+        },
+        {
+          "line": 149,
+          "source": "await expect(admin.locator('#saved')).toContainText('Save not confirmed');"
+        },
+        {
+          "line": 153,
+          "source": "await admin.getByRole('button',{name:'Retry save',exact:true}).click();"
+        },
+        {
+          "line": 154,
+          "source": "await expect(admin.locator('#saved')).toHaveText('Saved');"
+        },
+        {
+          "line": 165,
+          "source": "await admin.locator('[data-event=\"name\"]').fill('Database recovery event');"
+        },
+        {
+          "line": 166,
+          "source": "await admin.getByRole('link',{name:/^Lots/}).click();"
+        },
+        {
+          "line": 167,
+          "source": "const savedHeading=await preview.locator('h1').innerText();"
+        },
+        {
+          "line": 168,
+          "source": "assert.equal(await admin.locator('[data-lot=\"title\"]').inputValue(),expectedRecovery.lots[0].title);"
+        },
+        {
+          "line": 169,
+          "source": "await admin.getByLabel('Description',{exact:true}).fill('Database rollback description.');"
+        },
+        {
+          "line": 173,
+          "source": "await admin.getByRole('button',{name:'Save draft',exact:true}).click();"
+        },
+        {
+          "line": 177,
+          "source": "await expect(admin.locator('#saved')).toContainText('Save not confirmed');"
+        },
+        {
+          "line": 180,
+          "source": "await expect(preview.locator('h1')).toHaveText(savedHeading);"
+        },
+        {
+          "line": 182,
+          "source": "await admin.getByRole('button',{name:'Retry save',exact:true}).click();"
+        },
+        {
+          "line": 183,
+          "source": "await expect(admin.locator('#saved')).toHaveText('Saved');"
+        },
+        {
+          "line": 189,
+          "source": "await independent.admin.getByRole('link',{name:/^Lots/}).click();"
+        },
+        {
+          "line": 190,
+          "source": "await expect(independent.admin.locator('[data-lot=\"title\"]')).toHaveValue(expectedRecovery.lots[0].title);"
+        },
+        {
+          "line": 191,
+          "source": "await expect(independent.admin.getByLabel('Description',{exact:true})).toHaveValue(expectedRecovery.lots[0].description);"
+        }
+      ]
+    },
+    {
+      "file": "tests/acceptance/staff-drafts-v1/run.mjs",
+      "sha256": "b31c62fe13a3fcafdcf8f9d66a135b8fd394f6432c0a3c0d0298319aad3e20e0",
+      "selectorCallSites": [
+        {
+          "line": 79,
+          "source": "const admin=page.frameLocator('iframe[title=\"BidZizi admin workspace\"]');"
+        },
+        {
+          "line": 80,
+          "source": "await expect(admin.getByText(/Test accounts|Test sign-in|Staging test|Test mode/i).first()).toBeVisible();"
+        },
+        {
+          "line": 81,
+          "source": "await admin.getByLabel('Test account',{exact:true}).selectOption('staff-saturn');"
+        },
+        {
+          "line": 82,
+          "source": "await admin.getByRole('button',{name:'Sign in',exact:true}).click();"
+        },
+        {
+          "line": 83,
+          "source": "await expect(admin.locator('[data-event=\"name\"]')).toHaveValue(packet.event.name);"
+        },
+        {
+          "line": 88,
+          "source": "await admin.locator('[data-event=\"name\"]').fill(renamed);"
+        },
+        {
+          "line": 89,
+          "source": "await admin.locator('[data-event=\"welcome\"]').fill('Browser saved welcome.');"
+        },
+        {
+          "line": 90,
+          "source": "await admin.getByRole('button',{name:'Save draft',exact:true}).click();"
+        },
+        {
+          "line": 91,
+          "source": "await expect(admin.locator('#saved')).toHaveText('Saved');"
+        },
+        {
+          "line": 95,
+          "source": "const preview=admin.frameLocator('#bidder-frame');"
+        },
+        {
+          "line": 96,
+          "source": "await expect(preview.locator('h1')).toContainText(renamed);"
+        },
+        {
+          "line": 97,
+          "source": "await expect(admin.locator('#preview-mode-label')).toContainText('Saved draft');"
+        },
+        {
+          "line": 99,
+          "source": "await expect(admin.locator('[data-event=\"name\"]')).toHaveValue(renamed);"
+        },
+        {
+          "line": 103,
+          "source": "await expect(second.admin.locator('[data-event=\"welcome\"]')).toHaveValue('Browser saved welcome.');"
+        },
+        {
+          "line": 111,
+          "source": "await admin.locator('[data-event=\"name\"]').fill('Recovered event');"
+        },
+        {
+          "line": 112,
+          "source": "await admin.getByRole('button',{name:'Save draft',exact:true}).click();"
+        },
+        {
+          "line": 113,
+          "source": "await expect(admin.locator('#saved')).toContainText('Save not confirmed');"
+        },
+        {
+          "line": 115,
+          "source": "await expect(preview.locator('h1')).toContainText(renamed,'Saved preview must retain confirmed content during failure.');"
+        },
+        {
+          "line": 117,
+          "source": "await admin.getByRole('button',{name:'Retry save',exact:true}).click();"
+        },
+        {
+          "line": 118,
+          "source": "await expect(admin.locator('#saved')).toHaveText('Saved');"
+        },
+        {
+          "line": 122,
+          "source": "await second.admin.locator('[data-event=\"name\"]').fill('Stale browser edit');"
+        },
+        {
+          "line": 123,
+          "source": "await second.admin.getByRole('button',{name:'Save draft',exact:true}).click();"
+        },
+        {
+          "line": 124,
+          "source": "await expect(second.admin.getByText('This draft changed in another session.',{exact:true})).toBeVisible();"
+        },
+        {
+          "line": 126,
+          "source": "await second.admin.getByRole('button',{name:'Reload saved draft',exact:true}).click();"
+        },
+        {
+          "line": 127,
+          "source": "const confirmation=second.admin.getByRole('dialog');"
+        },
+        {
+          "line": 128,
+          "source": "if (await confirmation.count()) await confirmation.getByRole('button',{name:'Reload saved draft',exact:true}).click();"
+        },
+        {
+          "line": 129,
+          "source": "await expect(second.admin.locator('[data-event=\"name\"]')).toHaveValue('Recovered event');"
+        },
+        {
+          "line": 145,
+          "source": "await admin.locator('[data-event=\"name\"]').fill('Lost response event');"
+        },
+        {
+          "line": 146,
+          "source": "await admin.getByRole('button',{name:'Save draft',exact:true}).click();"
+        },
+        {
+          "line": 147,
+          "source": "await expect(admin.locator('#saved')).toContainText('Save not confirmed');"
+        },
+        {
+          "line": 151,
+          "source": "await admin.getByRole('button',{name:'Retry save',exact:true}).click();"
+        },
+        {
+          "line": 152,
+          "source": "await expect(admin.locator('#saved')).toHaveText('Saved');"
+        },
+        {
+          "line": 160,
+          "source": "await admin.locator('[data-event=\"name\"]').fill('Database recovery event');"
+        },
+        {
+          "line": 161,
+          "source": "await admin.getByRole('link',{name:/^Lots/}).click();"
+        },
+        {
+          "line": 162,
+          "source": "const savedHeading=await preview.locator('h1').innerText();"
+        },
+        {
+          "line": 163,
+          "source": "await admin.getByLabel('Description',{exact:true}).fill('Database rollback description.');"
+        },
+        {
+          "line": 167,
+          "source": "await admin.getByRole('button',{name:'Save draft',exact:true}).click();"
+        },
+        {
+          "line": 171,
+          "source": "await expect(admin.locator('#saved')).toContainText('Save not confirmed');"
+        },
+        {
+          "line": 174,
+          "source": "await expect(preview.locator('h1')).toHaveText(savedHeading);"
+        },
+        {
+          "line": 176,
+          "source": "await admin.getByRole('button',{name:'Retry save',exact:true}).click();"
+        },
+        {
+          "line": 177,
+          "source": "await expect(admin.locator('#saved')).toHaveText('Saved');"
+        }
+      ]
+    },
+    {
+      "file": "tests/acceptance/staging-catalog/checks.mjs",
+      "sha256": "de63eaf65ebaf423188088e2afda9b6022b5f4983eeef8a500fc63b31b5c0817",
+      "selectorCallSites": [
+        {
+          "line": 96,
+          "source": "const admin=page.frameLocator('iframe[title=\"BidZizi admin workspace\"]');"
+        },
+        {
+          "line": 97,
+          "source": "await admin.getByRole('combobox',{name:'Test account',exact:true}).selectOption('staff-saturn');"
+        },
+        {
+          "line": 98,
+          "source": "await admin.getByRole('button',{name:'Sign in',exact:true}).click();"
+        },
+        {
+          "line": 99,
+          "source": "await expect(admin.locator('[data-event=\"name\"]')).toHaveValue(x.packet.event.name);"
+        },
+        {
+          "line": 100,
+          "source": "await admin.getByRole('link',{name:/^Lots/}).click();"
+        },
+        {
+          "line": 101,
+          "source": "await admin.getByRole('checkbox',{name:'Select lot 01',exact:true}).check();"
+        },
+        {
+          "line": 102,
+          "source": "await admin.getByRole('checkbox',{name:'Select lot 03',exact:true}).check();"
+        },
+        {
+          "line": 103,
+          "source": "await admin.getByRole('link',{name:'Event',exact:true}).click();"
+        },
+        {
+          "line": 104,
+          "source": "await admin.locator('[data-event=\"name\"]').fill('UNSAVED browser-only name');"
+        },
+        {
+          "line": 105,
+          "source": "await admin.getByRole('link',{name:/^Lots/}).click();"
+        },
+        {
+          "line": 106,
+          "source": "await expect(admin.getByRole('button',{name:'Review catalog',exact:true})).toBeDisabled();"
+        },
+        {
+          "line": 109,
+          "source": "await expect(admin.locator('[data-event=\"name\"]')).toHaveValue(x.packet.event.name);"
+        },
+        {
+          "line": 110,
+          "source": "await admin.getByRole('link',{name:/^Lots/}).click();"
+        },
+        {
+          "line": 111,
+          "source": "await admin.getByRole('checkbox',{name:'Select lot 01',exact:true}).check();"
+        },
+        {
+          "line": 112,
+          "source": "await admin.getByRole('checkbox',{name:'Select lot 03',exact:true}).check();"
+        },
+        {
+          "line": 113,
+          "source": "await admin.getByRole('button',{name:'Review catalog',exact:true}).click();"
+        },
+        {
+          "line": 114,
+          "source": "const dialog=admin.getByRole('dialog',{name:'Review catalog',exact:true});"
+        },
+        {
+          "line": 115,
+          "source": "await expect(dialog.getByText(x.first.title,{exact:true})).toBeVisible();"
+        },
+        {
+          "line": 116,
+          "source": "await expect(dialog.getByText(x.last.title,{exact:true})).toBeVisible();"
+        },
+        {
+          "line": 128,
+          "source": "await dialog.getByRole('button',{name:'Approve catalog',exact:true}).click();"
+        },
+        {
+          "line": 129,
+          "source": "await expect(admin.locator('#catalog-approval')).toHaveText('Approval not confirmed');"
+        },
+        {
+          "line": 131,
+          "source": "await admin.getByRole('button',{name:'Retry approval',exact:true}).click();"
+        },
+        {
+          "line": 132,
+          "source": "await expect(admin.locator('#catalog-approval')).toHaveText('Approval not confirmed');"
+        },
+        {
+          "line": 134,
+          "source": "await admin.getByRole('button',{name:'Retry approval',exact:true}).click();"
+        },
+        {
+          "line": 135,
+          "source": "await expect(admin.locator('#catalog-approval')).toHaveText('Approved');"
+        },
+        {
+          "line": 148,
+          "source": "await v.getByRole('combobox',{name:'Test account',exact:true}).selectOption('bidder-juniper');"
+        },
+        {
+          "line": 149,
+          "source": "await v.getByRole('button',{name:'Sign in',exact:true}).click();"
+        },
+        {
+          "line": 150,
+          "source": "const frame=v.frameLocator('iframe[title=\"BidZizi event\"]');"
+        },
+        {
+          "line": 151,
+          "source": "await expect(frame.locator('h1')).toContainText(x.packet.event.name);"
+        },
+        {
+          "line": 152,
+          "source": "await expect(frame.getByText(x.packet.event.welcome,{exact:true})).toBeVisible();"
+        },
+        {
+          "line": 153,
+          "source": "for(const sponsor of x.packet.event.sponsors)await expect(frame.getByText(sponsor.name,{exact:true}).first()).toBeVisible();"
+        },
+        {
+          "line": 154,
+          "source": "await expect(v.locator('[data-catalog-phase]')).toHaveAttribute('data-catalog-phase','scheduled');"
+        },
+        {
+          "line": 155,
+          "source": "const text=await frame.locator('body').innerText();"
+        },
+        {
+          "line": 157,
+          "source": "assert.equal(await frame.locator('a[href*=\"/lot/\"]').count(),0);"
+        },
+        {
+          "line": 158,
+          "source": "assert.equal(await frame.locator('[data-action=\"bid\"]:not([disabled])').count(),0);"
+        },
+        {
+          "line": 167,
+          "source": "await page.getByRole('combobox',{name:'Test account',exact:true}).selectOption(account);"
+        },
+        {
+          "line": 168,
+          "source": "await page.getByRole('button',{name:'Sign in',exact:true}).click();"
+        },
+        {
+          "line": 169,
+          "source": "const frame=page.frameLocator('iframe[title=\"BidZizi event\"]');"
+        },
+        {
+          "line": 170,
+          "source": "await expect(page.locator('[data-catalog-phase]')).toHaveAttribute('data-catalog-phase',phase);"
+        },
+        {
+          "line": 171,
+          "source": "await frame.getByRole('link',{name:'Browse the lots',exact:true}).click();"
+        },
+        {
+          "line": 172,
+          "source": "for(const l of [x.first,x.last])await expect(frame.getByText(l.title,{exact:true}).first()).toBeVisible();"
+        },
+        {
+          "line": 173,
+          "source": "assert.ok(!(await frame.locator('body').innerText()).includes(x.unselected.title));"
+        },
+        {
+          "line": 174,
+          "source": "await frame.locator('a[href=\"#/lot/'+x.last.id+'\"]').first().click();"
+        },
+        {
+          "line": 175,
+          "source": "const detail=frame.locator('main[data-lot=\"'+x.last.id+'\"]');"
+        },
+        {
+          "line": 176,
+          "source": "await expect(detail.locator('h1')).toHaveText(x.last.title);"
+        },
+        {
+          "line": 177,
+          "source": "await expect(detail.locator('.sponsor-line b')).toHaveText(x.packet.org.name);"
+        },
+        {
+          "line": 178,
+          "source": "await expect(detail.locator('.sponsor-line .cat')).toHaveText(x.last.category);"
+        },
+        {
+          "line": 179,
+          "source": "await expect(detail.getByText(x.last.description,{exact:true})).toBeVisible();"
+        },
+        {
+          "line": 180,
+          "source": "await expect(detail.getByText(x.last.fine,{exact:true})).toBeVisible();"
+        },
+        {
+          "line": 181,
+          "source": "for(const included of x.last.includes)await expect(detail.getByText(included,{exact:true})).toBeVisible();"
+        },
+        {
+          "line": 182,
+          "source": "await expect(detail.locator('.hero img')).toHaveAttribute('src',new RegExp(x.last.image.replaceAll('.','\\\\.')));"
+        },
+        {
+          "line": 183,
+          "source": "assert.equal(await frame.locator('[data-action=\"bid\"]:not([disabled])').count(),0);"
+        },
+        {
+          "line": 185,
+          "source": "await frame.getByRole('button',{name:'Back to Lots',exact:true}).click();"
+        },
+        {
+          "line": 186,
+          "source": "await expect(frame.getByText(x.last.title,{exact:true}).first()).toBeVisible();"
+        },
+        {
+          "line": 395,
+          "source": "await page.getByRole('combobox',{name:'Test account',exact:true}).selectOption('bidder-juniper');"
+        },
+        {
+          "line": 396,
+          "source": "await page.getByRole('button',{name:'Sign in',exact:true}).click();"
+        },
+        {
+          "line": 397,
+          "source": "const frame=page.frameLocator('iframe[title=\"BidZizi event\"]');"
+        },
+        {
+          "line": 398,
+          "source": "await expect(frame.locator('h1')).toContainText(x.packet.event.name);"
+        },
+        {
+          "line": 408,
+          "source": "await page.getByRole('button',{name:'Refresh event',exact:true}).click();"
+        },
+        {
+          "line": 410,
+          "source": "await page.getByRole('button',{name:'Sign out',exact:true}).click();"
+        },
+        {
+          "line": 411,
+          "source": "await page.getByRole('combobox',{name:'Test account',exact:true}).selectOption('bidder-harbor');"
+        },
+        {
+          "line": 412,
+          "source": "await page.getByRole('button',{name:'Sign in',exact:true}).click();"
+        },
+        {
+          "line": 413,
+          "source": "await expect(page.getByRole('heading',{name:'Event access unavailable',exact:true})).toBeVisible();"
+        },
+        {
+          "line": 415,
+          "source": "await expect(page.getByRole('heading',{name:'Event access unavailable',exact:true})).toBeVisible();"
+        },
+        {
+          "line": 416,
+          "source": "assert.ok(!(await page.locator('body').innerText()).includes(x.first.title));"
+        },
+        {
+          "line": 418,
+          "source": "for(const current of frames)assert.ok(!(await current.locator('body').innerText()).includes(x.packet.event.name),'Old authorized A content cannot survive account switch.');"
+        }
+      ]
+    },
+    {
+      "file": "tests/acceptance/staging-manual-bid/bound-probes.mjs",
+      "sha256": "824d4c28a9de7d8c168276f3d399b232405a4b4eb52ebecf31bcfc4df811f8c8",
+      "selectorCallSites": [
+        {
+          "line": 22,
+          "source": "assert.equal(await a.frame.locator('[data-action=\"max-open\"]:not([disabled])').count(),0,'Operational003 cannot offer a simulated maximum as real bidding.');"
+        },
+        {
+          "line": 37,
+          "source": "assert.equal(await dialog.locator('.result.t-green').count(),0);"
+        },
+        {
+          "line": 42,
+          "source": "await expect(dialog.locator('[data-owned-request=\"'+submitted.requestId+'\"]')).toBeVisible();"
+        },
+        {
+          "line": 45,
+          "source": "await dialog.getByRole('button',{name:'Keep browsing',exact:true}).click();"
+        },
+        {
+          "line": 49,
+          "source": "await openLot(a,f);await expect(a.frame.locator('.standing')).toContainText(/outbid/i);"
+        },
+        {
+          "line": 50,
+          "source": "await expect(a.frame.locator('main')).toContainText('Harbor Company');"
+        },
+        {
+          "line": 61,
+          "source": "assert.equal(await staleDialog.locator('.result.t-green').count(),0);"
+        },
+        {
+          "line": 62,
+          "source": "assert.equal(await staleDialog.locator('[data-owned-request=\"'+rejectedHTTP.data.receipt.requestId+'\"]').count(),0);"
+        },
+        {
+          "line": 83,
+          "source": "await dialog.getByRole('button',{name:'Check status',exact:true}).click();"
+        },
+        {
+          "line": 245,
+          "source": "assert.equal(current.phase,'open');await expect(ui.frame.locator('main')).not.toContainText('Bidding closed');"
+        },
+        {
+          "line": 247,
+          "source": "await expect(dialog.locator('[data-action=\"place\"]')).toBeEnabled();"
+        },
+        {
+          "line": 248,
+          "source": "await dialog.getByRole('button',{name:'Not now',exact:true}).click();"
+        },
+        {
+          "line": 261,
+          "source": "assert.equal(await ui.frame.locator('a[href*=\"#/lot/\"]').count(),0);"
+        },
+        {
+          "line": 262,
+          "source": "assert.ok(!(await ui.frame.locator('body').innerText()).includes(entry.approvedLots[0].title));"
+        },
+        {
+          "line": 264,
+          "source": "await openLot(ui,target);assert.equal(await ui.frame.locator('[data-action=\"bid\"]:not([disabled])').count(),0);"
+        },
+        {
+          "line": 279,
+          "source": "await dialog.getByRole('button',{name:'Check status',exact:true}).click();"
+        },
+        {
+          "line": 281,
+          "source": "await dialog.getByRole('button',{name:'Try again',exact:true}).click();"
+        },
+        {
+          "line": 286,
+          "source": "await dialog.getByRole('button',{name:'Keep browsing',exact:true}).click();await openLot(ui,f,f.fixtures.lotB);"
+        },
+        {
+          "line": 311,
+          "source": "await dialog.getByRole('button',{name:'Check status',exact:true}).click();await bounded(arrived.promise,'Authorized Juniper receipt capture');"
+        },
+        {
+          "line": 312,
+          "source": "await ui.page.getByRole('button',{name:'Sign out',exact:true}).click();"
+        },
+        {
+          "line": 313,
+          "source": "await ui.page.getByRole('combobox',{name:'Test account',exact:true}).selectOption('bidder-harbor');"
+        },
+        {
+          "line": 314,
+          "source": "await ui.page.getByRole('button',{name:'Sign in',exact:true}).click();"
+        },
+        {
+          "line": 315,
+          "source": "await expect(ui.page.locator('[data-bidder-person]')).toHaveAttribute('data-bidder-person',f.fixtures.personHarbor);"
+        },
+        {
+          "line": 319,
+          "source": "await expect(ui.frame.locator('main')).toContainText('Harbor Company');"
+        },
+        {
+          "line": 320,
+          "source": "assert.equal(await ui.frame.locator('[data-owned-request=\"'+body.requestId+'\"]').count(),0,'Harbor cannot inherit Juniper-owned success.');"
+        },
+        {
+          "line": 321,
+          "source": "assert.ok(!(await ui.frame.locator('body').innerText()).includes('Test Juniper Bidder'));"
+        },
+        {
+          "line": 334,
+          "source": "await ui.page.getByRole('button',{name:'Refresh event',exact:true}).click();await bounded(contextArrived.promise,'Authorized Harbor context capture');"
+        },
+        {
+          "line": 335,
+          "source": "await ui.page.getByRole('button',{name:'Sign out',exact:true}).click();"
+        },
+        {
+          "line": 336,
+          "source": "await ui.page.getByRole('combobox',{name:'Test account',exact:true}).selectOption('bidder-juniper');"
+        },
+        {
+          "line": 337,
+          "source": "await ui.page.getByRole('button',{name:'Sign in',exact:true}).click();"
+        },
+        {
+          "line": 338,
+          "source": "await expect(ui.page.locator('[data-bidder-person]')).toHaveAttribute('data-bidder-person',f.fixtures.personJuniper);"
+        },
+        {
+          "line": 341,
+          "source": "await expect(ui.page.locator('[data-bidder-person]')).toHaveAttribute('data-bidder-person',f.fixtures.personJuniper);"
+        },
+        {
+          "line": 356,
+          "source": "await expect(dialog.locator('[data-owned-request=\"'+first.requestId+'\"]')).toBeVisible();"
+        },
+        {
+          "line": 360,
+          "source": "await dialog.getByRole('button',{name:'Keep browsing',exact:true}).click();"
+        },
+        {
+          "line": 361,
+          "source": "await ui.frame.locator('a[href=\"#/lots\"]').first().click();"
+        },
+        {
+          "line": 363,
+          "source": "await expect(ui.frame.locator('.standing')).toContainText(/leading/i);"
+        },
+        {
+          "line": 364,
+          "source": "const stamp=await ui.frame.locator('[data-standing-as-of]').getAttribute('data-standing-as-of');"
+        },
+        {
+          "line": 369,
+          "source": "await expect(ui.frame.getByRole('status').filter({hasText:/as of|out of date|stale|offline|No connection/i}).first()).toBeVisible();"
+        },
+        {
+          "line": 370,
+          "source": "const asOf=ui.frame.locator('[data-standing-as-of]');await expect(asOf).toHaveAttribute('data-standing-as-of',stamp);"
+        },
+        {
+          "line": 375,
+          "source": "await expect(ui.frame.locator('[data-action=\"bid\"]').first()).toBeDisabled();"
+        },
+        {
+          "line": 383,
+          "source": "await expect(ui.frame.locator('.standing')).toContainText(/outbid/i);"
+        }
+      ]
+    },
+    {
+      "file": "tests/acceptance/staging-manual-bid/browser.mjs",
+      "sha256": "cd1dae5ef9e1c59082299e63bc9328efdb8ea19251329d7e38dedbab04dffc1b",
+      "selectorCallSites": [
+        {
+          "line": 29,
+          "source": "await expect(page.getByText('Staging test',{exact:true})).toBeVisible();"
+        },
+        {
+          "line": 30,
+          "source": "await page.getByRole('combobox',{name:'Test account',exact:true}).selectOption(account);"
+        },
+        {
+          "line": 31,
+          "source": "await page.getByRole('button',{name:'Sign in',exact:true}).click();"
+        },
+        {
+          "line": 32,
+          "source": "const frame=page.frameLocator('iframe[title=\"BidZizi event\"]');"
+        },
+        {
+          "line": 33,
+          "source": "await expect(frame.locator('h1')).toContainText(f.approvedEvent.name);"
+        },
+        {
+          "line": 41,
+          "source": "const detail=ui.frame.locator(`main[data-lot=\"${lot}\"]`);"
+        },
+        {
+          "line": 43,
+          "source": "const welcome=ui.frame.getByRole('link',{name:'Browse the lots',exact:true});"
+        },
+        {
+          "line": 45,
+          "source": "else await ui.frame.locator('a[href=\"#/lots\"]').first().click();"
+        },
+        {
+          "line": 46,
+          "source": "await ui.frame.locator(`a[href=\"#/lot/${lot}\"]`).first().click();"
+        },
+        {
+          "line": 47,
+          "source": "await expect(ui.frame.locator(`main[data-lot=\"${lot}\"]`)).toBeVisible();"
+        },
+        {
+          "line": 50,
+          "source": "await ui.frame.locator('[data-action=\"bid\"]').first().click();"
+        },
+        {
+          "line": 51,
+          "source": "const dialog=ui.frame.locator('dialog#sheet');"
+        },
+        {
+          "line": 53,
+          "source": "await dialog.locator('#amt').fill((amountMinor/100).toFixed(2));"
+        },
+        {
+          "line": 57,
+          "source": "await expect(dialog.locator('[data-action=\"place\"]')).toHaveText(`Place $${display} bid`);"
+        },
+        {
+          "line": 60,
+          "source": "export async function confirm(dialog){await dialog.locator('[data-action=\"place\"]').click();}"
+        },
+        {
+          "line": 68,
+          "source": "assert.equal(await dialog.locator('.result.t-green').count(),0,'Unconfirmed UI cannot assert acceptance.');"
+        }
+      ]
+    },
+    {
+      "file": "tests/acceptance/staging-manual-bid/probes.mjs",
+      "sha256": "d85f45d75ff28892aa05b759af484a99dc3bfbdb65efd5ece9f4f8cf7d4c73b5",
+      "selectorCallSites": [
+        {
+          "line": 69,
+          "source": "await expect(coworker.frame.locator('main')).toContainText('Juniper Studio');"
+        },
+        {
+          "line": 70,
+          "source": "assert.equal(await coworker.frame.locator('[data-owned-request=\"'+ar.requestId+'\"]').count(),0,'A business lead cannot fabricate the coworker\\'s own accepted request.');"
+        },
+        {
+          "line": 71,
+          "source": "assert.equal(await coworker.frame.locator('[data-action=\"raise\"]:not([disabled])').count(),0);"
+        }
+      ]
+    }
+  ],
+  "explicitBindings": [
+    "Exactly one visible Event link and one visible Lots link in studio navigation",
+    "Legacy no-hash/outer reload Event entry",
+    "Existing #saved, #bidder-frame, #preview-mode-label and data-event/data-lot selectors",
+    "Existing server origin/frame, organization/event URL shapes and real action handlers"
+  ]
+}

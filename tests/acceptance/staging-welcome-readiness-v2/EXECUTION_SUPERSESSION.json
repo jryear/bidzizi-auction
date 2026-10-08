@@ -1,0 +1,71 @@
+{
+  "version": 2,
+  "trustedPredecessor": "41c6ad6ae84419ddc600a407a590f2d6856d4a9e",
+  "predecessorTask": "tasks/staging-welcome-composition-006b.toml",
+  "predecessorTaskSHA256": "5dc42633c750f585e5905fbcc2d4dfca8fb37c1ae317260a0e619058e75b52c8",
+  "path": "tests/acceptance/staging-manual-bid/driver.mjs",
+  "originalSHA256": "bad88c9411ab24fd1de76ae2f0adf4cf60a8a991f518e45e26b194a69e3c8ee8",
+  "original": "    await prepareFixture(f,scenario);",
+  "replacement": "    await (await import('../staging-welcome-readiness-v2/readiness.mjs')).prepareManualReceiptReadiness(f);\n    await prepareFixture(f,scenario);",
+  "executedSHA256": "71ce23c4d252bc1c98fb95bbc732bc31f23d6fc9dcc176b94eeb4dea935d3324",
+  "mode": "acceptance",
+  "onlySupersession": "One strict actual unauthenticated receipt-route fixture bootstrap before prepareFixture; original anchor retained. No business assertion, classifier or deadline changed.",
+  "originalNestedArgv": [
+    "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+    "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
+    "2"
+  ],
+  "originalCaseArgv": [
+    "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+    "tests/acceptance/staging-manual-bid/run.mjs",
+    "acceptance"
+  ],
+  "unchangedManualAdversarialArgv": [
+    "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+    "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
+    "3"
+  ],
+  "originalSHA256ByPath": {
+    "tests/acceptance/staging-manual-bid/driver.mjs": "bad88c9411ab24fd1de76ae2f0adf4cf60a8a991f518e45e26b194a69e3c8ee8",
+    "tests/acceptance/staging-manual-bid/run.mjs": "6cf32dbdd4f5087de17f6aea99147292674f899c690757f734f17fbbe64b2f4a",
+    "tests/acceptance/staging-manual-bid/probes.mjs": "d85f45d75ff28892aa05b759af484a99dc3bfbdb65efd5ece9f4f8cf7d4c73b5",
+    "tests/acceptance/staging-manual-bid/bound-probes.mjs": "824d4c28a9de7d8c168276f3d399b232405a4b4eb52ebecf31bcfc4df811f8c8",
+    "tests/acceptance/staging-manual-bid/browser.mjs": "cd1dae5ef9e1c59082299e63bc9328efdb8ea19251329d7e38dedbab04dffc1b",
+    "tests/acceptance/staging-manual-bid/fixtures.mjs": "8bb0b7351a5f617611965a95a4315dc5abb2c5cccb39d48575aa16c837c188c5",
+    "tests/acceptance/staging-manual-bid/protocol.mjs": "8ec41e55a65ccbea2a60c64bc3e6f97ee164cdadd7cc7901e9cbe34456d07a3b",
+    "tests/acceptance/staging-manual-bid/harness.mjs": "2d1ccba3f005f2113c93f3aa086fdf37f93ab5c5640482705acb641a4bf8c97a",
+    "tests/acceptance/staging-manual-bid/seed-people.sql": "f6bb72cd50476bb35025bdae787605d345a5d71bccfc1c6b926359a67a76d8c2",
+    "tests/acceptance/staging-welcome/loader.mjs": "83e0bd999b0ff3f9170f70d9ef3216395b7717f0ce3c166ee0f7667ec764e878",
+    "tests/acceptance/staging-welcome/SUPERSESSION.json": "af597d368f9b8e95c79f2d66a6769daf47554dc87ff33e49df5b3e4df187b934",
+    "tests/acceptance/staging-welcome/INHERITED.json": "f750342ae60cf2c309d07fb669b25486999b6e2c57f1550ae60578edc61863b6",
+    "tests/acceptance/staging-welcome/inherited.mjs": "5553d889690e72ad8867b452e853c8bd5dd3d832b2984787854660e9d7000499",
+    "tests/acceptance/staging-workspace-entry-schema2-v1/adapter.mjs": "f86c9df482f38d244f92d674e25f612a609e115debdecaa8759b1485ee4a5ba0",
+    "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs": "2bed3db40863c87bdb692a93639f5b60125070f1b31ecb01ec450f4e7e1a0fcb"
+  },
+  "successorChain": [
+    "tasks/staging-welcome-composition-006b-v2.toml",
+    "tests/acceptance/staging-manual-bid/bound-probes.mjs",
+    "tests/acceptance/staging-manual-bid/browser.mjs",
+    "tests/acceptance/staging-manual-bid/driver.mjs",
+    "tests/acceptance/staging-manual-bid/fixtures.mjs",
+    "tests/acceptance/staging-manual-bid/harness.mjs",
+    "tests/acceptance/staging-manual-bid/probes.mjs",
+    "tests/acceptance/staging-manual-bid/protocol.mjs",
+    "tests/acceptance/staging-manual-bid/run.mjs",
+    "tests/acceptance/staging-manual-bid/seed-people.sql",
+    "tests/acceptance/staging-welcome-readiness-v2/ASSERTION_REQUIREMENT_MAP.json",
+    "tests/acceptance/staging-welcome-readiness-v2/EXECUTION_SUPERSESSION.json",
+    "tests/acceptance/staging-welcome-readiness-v2/README.md",
+    "tests/acceptance/staging-welcome-readiness-v2/case.mjs",
+    "tests/acceptance/staging-welcome-readiness-v2/controls.mjs",
+    "tests/acceptance/staging-welcome-readiness-v2/inherited.mjs",
+    "tests/acceptance/staging-welcome-readiness-v2/loader.mjs",
+    "tests/acceptance/staging-welcome-readiness-v2/readiness.mjs",
+    "tests/acceptance/staging-welcome/INHERITED.json",
+    "tests/acceptance/staging-welcome/SUPERSESSION.json",
+    "tests/acceptance/staging-welcome/inherited.mjs",
+    "tests/acceptance/staging-welcome/loader.mjs",
+    "tests/acceptance/staging-workspace-entry-schema2-v1/adapter.mjs",
+    "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs"
+  ]
+}

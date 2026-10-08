@@ -1,0 +1,73 @@
+{
+  "status": "DRAFT_UNFROZEN",
+  "records": [
+    {
+      "path": "tests/acceptance/staff-drafts/harness.mjs",
+      "diskSHA256": "15a4a30eb54e0c71607a88cdcaaf6fce6f574689c2f67cb0b9fa6e6d1e08aed0",
+      "steps": [
+        {
+          "before": "async initialize() { await configuration.initialize({ repo,appUrl,origin,db:admin,env:app.env,command }); },",
+          "after": "async initialize() { await configuration.initialize({ repo,appUrl,origin,db:admin,env:app.env,command }); await (await import('../staging-staff-entry-inherited/setup.mjs')).entryPrerequisite({repo,db:admin,runtime:appUser,HarnessError}); },",
+          "count": 1,
+          "reason": "After preserved old initialization/role allocation, install missing003/009 dependencies and015 only inside the owned disposable DB; exact2 EXECUTEs, unchanged009 function definitions, zero target-entry rows"
+        }
+      ],
+      "executedSHA256": "e3be925242e001063c4a47c584e6f67a67cfafe181aee8c115ceef8440b8aa49"
+    },
+    {
+      "path": "tests/acceptance/staff-drafts-v1/harness.mjs",
+      "diskSHA256": "b856d7a26f74630b35122314f2caa74e4e80cc49f560434053e74b725da686d7",
+      "steps": [
+        {
+          "before": "async initialize() { await configuration.initialize({ repo,appUrl,origin,db:admin,env:app.env,command }); },",
+          "after": "async initialize() { await configuration.initialize({ repo,appUrl,origin,db:admin,env:app.env,command }); await (await import('../staging-staff-entry-inherited/setup.mjs')).entryPrerequisite({repo,db:admin,runtime:appUser,HarnessError}); },",
+          "count": 1,
+          "reason": "After preserved old initialization/role allocation, install missing003/009 dependencies and015 only inside the owned disposable DB; exact2 EXECUTEs, unchanged009 function definitions, zero target-entry rows"
+        }
+      ],
+      "executedSHA256": "ebc986bb30eb855be04b16e8ea65e1e31a153ffd3734a983bd3eaf69a1f3eaca"
+    },
+    {
+      "path": "tests/acceptance/staging-catalog/harness.mjs",
+      "diskSHA256": "bde6a547ac3ec2afe1d4ae614d465d18ced3347183787d5fee3b1f27d0299b0f",
+      "steps": [
+        {
+          "before": "    app=await start();",
+          "after": "    await (await import('../staging-staff-entry-inherited/setup.mjs')).entryPrerequisite({repo,db:admin,runtime,HarnessError});\n    app=await start();",
+          "count": 1,
+          "reason": "After preserved old initialization/role allocation, install missing003/009 dependencies and015 only inside the owned disposable DB; exact2 EXECUTEs, unchanged009 function definitions, zero target-entry rows"
+        }
+      ],
+      "executedSHA256": "b5bc2755c857fc3c3e2db11f2d283acab47dc9263da322ed440c6cd7b35f9eb8"
+    },
+    {
+      "path": "tests/acceptance/staging-manual-bid/harness.mjs",
+      "diskSHA256": "2d1ccba3f005f2113c93f3aa086fdf37f93ab5c5640482705acb641a4bf8c97a",
+      "steps": [
+        {
+          "before": "    app=await start();",
+          "after": "    await (await import('../staging-staff-entry-inherited/setup.mjs')).entryPrerequisite({repo,db:admin,runtime,HarnessError});\n    app=await start();",
+          "count": 1,
+          "reason": "After preserved old initialization/role allocation, install missing003/009 dependencies and015 only inside the owned disposable DB; exact2 EXECUTEs, unchanged009 function definitions, zero target-entry rows"
+        }
+      ],
+      "executedSHA256": "f14e02bba4dff326ec825bc0fee5c707848ba335ca8fcf8fbfeebdefaa7267f6"
+    },
+    {
+      "path": "tests/acceptance/staging-workspace-entry/harness.mjs",
+      "diskSHA256": "f56f3f11ffefabfd6bd7bf5a0e77f505b76978ea780267769a2f0f660cc3c59f",
+      "steps": [
+        {
+          "before": "    app=await start();",
+          "after": "    await (await import('../staging-staff-entry-inherited/setup.mjs')).entryPrerequisite({repo,db:admin,runtime,HarnessError});\n    app=await start();",
+          "count": 1,
+          "reason": "After preserved old initialization/role allocation, install missing003/009 dependencies and015 only inside the owned disposable DB; exact2 EXECUTEs, unchanged009 function definitions, zero target-entry rows"
+        }
+      ],
+      "executedSHA256": "533672dba5dcb1bf493ee9876a17318a27ac0e9d8be55586f46daf11fe9edeae"
+    }
+  ],
+  "oldAssertionsChanged": 0,
+  "oldClocksAndDeadlinesChanged": 0,
+  "sharedGrants": false
+}

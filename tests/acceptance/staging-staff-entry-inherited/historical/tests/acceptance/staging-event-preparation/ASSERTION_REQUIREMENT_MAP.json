@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "authority": "Owner-authorized bounded same-event draft duplication; current006 TOML authority; map orientation only; source-bound receipts proof",
+  "approvedSemantics": {
+    "localUntilSave": true,
+    "sameEventOnly": true,
+    "copyAllowlist": [
+      "title",
+      "short",
+      "description",
+      "category",
+      "image",
+      "alt",
+      "opening",
+      "includes",
+      "fine"
+    ],
+    "freshUuid": true,
+    "windowId": null,
+    "bidRuntime": {
+      "count": 0,
+      "current": 0,
+      "history": []
+    },
+    "publicationState": "Never cloned from source",
+    "sourceUnchanged": true,
+    "saveProtocol": "Existing actor/event authority, expectedRevision, stable requestId and complete draft retry; no duplicate API"
+  },
+  "assertions": {
+    "DUPLICATE_EDIT_SAVE_RELOAD_PREVIEW": [
+      "Selected content is copied into exactly one fresh editable local draft in same event",
+      "Copy action creates no durable save; Saved preview remains confirmed snapshot until Save",
+      "Edit copy title/short/description/category/opening/includes/fine/alt; save\u2192API+SQL\u2192reload restores identity and fields",
+      "Actual titled same-origin saved Design A renders complete full packet/each lot; desktop/laptop/phone PNG plus actual nested A phone PNG",
+      "All source lots and approved SQL snapshot remain unchanged",
+      "Each actual admin viewport binds current copy ID/title and native reachable input geometry before screenshot"
+    ],
+    "DUPLICATE_RETRY_ONCE": [
+      "Double Save dispatches one first request",
+      "Committed response lost: no accepted status; copy action disabled while unknown",
+      "Retry sends exact same operation requestId/body; one intended copy+one durable request receipt+one revision",
+      "Reload and actual saved A use the persisted receipt packet"
+    ],
+    "DUPLICATE_SELECTED_ALLOWLIST": [
+      "Uses currently selected lot and current unsaved editable fields, never first/other source",
+      "Challenge authorized GET source with nonzero runtime/history and approval/publication sentinels",
+      "New copy initializes fresh runtime and omits unknown runtime/publication fields",
+      "Nested includes independent; source/local/database unchanged until ordinary Save",
+      "Exact copy key set excludes source-only opaque unknown property; generated provider/number/logo come from current event"
+    ],
+    "DUPLICATE_PENDING_CAPACITY": [
+      "Held real Save and uncertain result disable Duplicate and dispatched click cannot append",
+      "At existing max100, duplication cannot append or mutate durable data; enabled denial announces useful 100-lot limit"
+    ],
+    "DUPLICATE_AUTHORITY_IMMUTABLE": [
+      "Existing server authority rejects foreign event save and foreign existing lot ID",
+      "Unauthorized event never exposes Duplicate editor/private content",
+      "Independent API+SQL confirms own/foreign original drafts and approved snapshot unchanged"
+    ],
+    "ROUTER_REFRESH_EVENT_ROUTE": [
+      "Real Next router.refresh after current event fresh draft+approval consumption",
+      "Observe actual current-document HistoryUpdater completion, never arbitrary timer-only wait",
+      "Preserve exact cached and native selected-event query oracles and entire saved API+SQL+real saved A packet",
+      "Normal barrier only; no pending/held/dirty/unknown challenge changes",
+      "Deterministic route-refresh defect fixed independently; original historical trigger remains UNKNOWN"
+    ],
+    "DUPLICATE_APPROVAL_LOCKS": [
+      "Held real approval and lost response uncertainty disable new Duplicate action",
+      "Dispatched click cannot append while actual approval is pending or uncertain",
+      "Exact same approval retry recovers immutable snapshot and releases edit lock after confirmed result"
+    ]
+  },
+  "inheritedGuarantees": {
+    "contract": "tasks/staging-saturn-event-home-005-v3.toml",
+    "checks": "All original005v3 blocks and assertion bodies are reused as regression with empty baseline_failures; current006 base already has EventsHome. All fourteen cumulative regression guarantees plus complete005 event-home acceptance/adversarial remain mandatory. Historical contracts/graders unchanged.",
+    "supersededUI": [],
+    "securityDataBidRecovery": "No change",
+    "routeRefresh": "New concrete inherited route preservation challenge; no old oracle retired"
+  },
+  "controls": {
+    "class": "Diagnostic source-sandbox reference, not application gate proof",
+    "reference": "Independent minimal copy action on original no-copy source, local browser only",
+    "broken": [
+      "MISSING_COPY",
+      "WRONG_SOURCE",
+      "DUPLICATE_ID",
+      "ASSIGNED_WINDOW",
+      "RUNTIME_CARRYOVER",
+      "PREVIEW_CORRUPTION"
+    ],
+    "classification": "Reached assert/matcher finite1; setup/actiondeadline/browser/HTTP500/invalid receipt99",
+    "routeRefresh": {
+      "originalSource": "finite1 missing event query after actual framework refresh",
+      "externalHistoryStateShim": "0 selected event retained",
+      "actualMissingEventNegative": "finite1 unchanged original selected-event oracle",
+      "evidence": [
+        "/Users/jryear/Documents/Codex/2026-10-06/task-3/history-diagnosis/final-rsc-baseline/RESULT.json",
+        "/Users/jryear/Documents/Codex/2026-10-06/task-3/history-diagnosis/final-rsc-controls/RESULT.json"
+      ],
+      "actualWrongEventNegative": "finite1 unchanged original selected-event oracle"
+    }
+  },
+  "deferred": [
+    "Multiple windows",
+    "Bid tier boundaries",
+    "Event duplication/archive",
+    "Production identity policy",
+    "Provider/deploy/production promotion"
+  ],
+  "ownerRenderedAcceptance": "Pending"
+}

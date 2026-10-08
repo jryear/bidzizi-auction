@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "id": "staging-saturn-event-home-005-v3",
+  "predecessor": "tasks/staging-saturn-event-home-005-v2.toml",
+  "predecessorFreeze": "2621851fe32dc9705d2da10f4e1c9839bc443f0a",
+  "deadlinesMs": {
+    "acceptance": 500000,
+    "adversarial": 550000,
+    "case": 150000,
+    "direct": 180000
+  },
+  "cases": [
+    {
+      "id": "EVENTS_HOME_LIST_SELECT",
+      "mode": "acceptance",
+      "expectedBaseExit": 1
+    },
+    {
+      "id": "HOME_CREATE_RECOVERY",
+      "mode": "acceptance",
+      "expectedBaseExit": 1
+    },
+    {
+      "id": "EVENT_SAVE_DURABLE_PREVIEW",
+      "mode": "acceptance",
+      "expectedBaseExit": 0
+    },
+    {
+      "id": "HOME_DETAILS_HISTORY",
+      "mode": "acceptance",
+      "expectedBaseExit": 1
+    },
+    {
+      "id": "SHELL_FOCUS",
+      "mode": "acceptance",
+      "expectedBaseExit": 1
+    },
+    {
+      "id": "RESPONSIVE_SAVED_A",
+      "mode": "acceptance",
+      "expectedBaseExit": 1
+    },
+    {
+      "id": "HOME_TENANT_ISOLATION",
+      "mode": "adversarial",
+      "expectedBaseExit": 1
+    },
+    {
+      "id": "HOME_PENDING_STALE",
+      "mode": "adversarial",
+      "expectedBaseExit": 1
+    },
+    {
+      "id": "HOME_STALE_APPROVAL",
+      "mode": "adversarial",
+      "expectedBaseExit": 1
+    },
+    {
+      "id": "HOME_UNRESOLVED_WRITES",
+      "mode": "adversarial",
+      "expectedBaseExit": 1
+    },
+    {
+      "id": "MALFORMED_SAVE_RECOVERY",
+      "mode": "adversarial",
+      "expectedBaseExit": 0
+    },
+    {
+      "id": "DIRTY_REPLACEMENT",
+      "mode": "adversarial",
+      "expectedBaseExit": 0
+    },
+    {
+      "id": "APPROVED_NOTICE_ASYNC",
+      "mode": "adversarial",
+      "expectedBaseExit": 1
+    },
+    {
+      "id": "APPROVED_NOTICE_PRIORITY",
+      "mode": "adversarial",
+      "expectedBaseExit": 0
+    },
+    {
+      "id": "APPROVAL_RESPONSE_VARIANTS",
+      "mode": "adversarial",
+      "expectedBaseExit": 0
+    },
+    {
+      "id": "SELECTED_SUBSET_IMMUTABLE",
+      "mode": "adversarial",
+      "expectedBaseExit": 0
+    }
+  ]
+}

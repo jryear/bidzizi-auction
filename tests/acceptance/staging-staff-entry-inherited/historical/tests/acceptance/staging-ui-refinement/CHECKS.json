@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "sourcePaths": [
+    "public/staging-admin/studio.js",
+    "public/staging-admin/studio.css",
+    "public/staging-catalog/bidding.js",
+    "public/staging-catalog/styles.css",
+    "public/staging-catalog/views.js"
+  ],
+  "helperPaths": [
+    "tasks/staging-ui-refinement-006c.toml",
+    "tests/acceptance/staging-ui-refinement/oracles.mjs",
+    "tests/acceptance/staging-ui-refinement/observe.mjs",
+    "tests/acceptance/staging-ui-refinement/cases.mjs",
+    "tests/acceptance/staging-ui-refinement/run.mjs",
+    "tests/acceptance/staging-ui-refinement/CHECKS.json",
+    "tests/acceptance/staging-ui-refinement/ASSERTION_REQUIREMENT_MAP.json",
+    "tests/acceptance/staging-ui-refinement/README.md",
+    "tests/acceptance/staging-ui-refinement/INHERITED.json",
+    "tests/acceptance/staging-ui-refinement/controls.mjs",
+    "tests/acceptance/staging-workspace-entry/harness.mjs",
+    "tests/acceptance/staging-workspace-entry/fixtures.mjs",
+    "tests/acceptance/staging-workspace-entry/browser.mjs",
+    "tests/acceptance/staging-workspace-entry/protocol.mjs",
+    "tests/acceptance/staging-workspace-entry/seed-people.sql",
+    "tests/acceptance/staging-manual-bid/fixtures.mjs",
+    "tests/acceptance/staging-manual-bid/protocol.mjs",
+    "migrations/001_staging_staff.sql",
+    "migrations/002_staging_catalog.sql",
+    "migrations/003_staging_manual_bid.sql",
+    "package.json",
+    "pnpm-lock.yaml",
+    "next.config.ts",
+    "tsconfig.json",
+    "next-env.d.ts"
+  ],
+  "checks": [
+    {
+      "name": "Native bid review, invalid amount, refresh and durable asynchronous task focus",
+      "kind": "acceptance",
+      "timeout": 300,
+      "assertions": [
+        "BID_REVIEW_REFRESH",
+        "BID_AMOUNT_INVALID",
+        "BID_HELD_PENDING_FOCUS",
+        "BID_ACCEPTED_TASK_FOCUS",
+        "BID_ESCAPE_RETURN",
+        "BID_UNCONFIRMED_TASK_FOCUS",
+        "BID_ORIGINAL_UUID_RECOVERY"
+      ],
+      "baseline_failures": [
+        "BID_REVIEW_REFRESH",
+        "BID_AMOUNT_INVALID",
+        "BID_HELD_PENDING_FOCUS",
+        "BID_ACCEPTED_TASK_FOCUS",
+        "BID_ESCAPE_RETURN",
+        "BID_UNCONFIRMED_TASK_FOCUS",
+        "BID_ORIGINAL_UUID_RECOVERY"
+      ]
+    },
+    {
+      "name": "Actual staff name validation, edited lot and saved-preview explanation",
+      "kind": "acceptance",
+      "timeout": 240,
+      "assertions": [
+        "ADMIN_EDITED_LOT_CURRENT",
+        "ADMIN_UNSAVED_PREVIEW_HELP",
+        "ADMIN_CREATE_NAME_ERROR",
+        "ADMIN_CREATE_ERROR_CLEARS"
+      ],
+      "baseline_failures": [
+        "ADMIN_EDITED_LOT_CURRENT",
+        "ADMIN_UNSAVED_PREVIEW_HELP",
+        "ADMIN_CREATE_NAME_ERROR",
+        "ADMIN_CREATE_ERROR_CLEARS"
+      ]
+    },
+    {
+      "name": "Truthful Event information and compact native complete amount geometry",
+      "kind": "acceptance",
+      "timeout": 240,
+      "assertions": [
+        "EVENT_INFORMATION_AUTHORITY",
+        "COMPACT_NATIVE_AMOUNT_WATCH"
+      ],
+      "baseline_failures": [
+        "EVENT_INFORMATION_AUTHORITY",
+        "COMPACT_NATIVE_AMOUNT_WATCH"
+      ]
+    },
+    {
+      "name": "Unavailable actions and outer small-phone review footer reachability",
+      "kind": "adversarial",
+      "timeout": 180,
+      "assertions": [
+        "RESERVED_ACTIONS_DISABLED",
+        "SMALL_PHONE_OUTER_SCROLL_FOOTER"
+      ],
+      "baseline_failures": []
+    }
+  ]
+}

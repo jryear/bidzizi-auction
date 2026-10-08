@@ -1,0 +1,750 @@
+{
+  "version": 2,
+  "status": "DRAFT_V2_RUNTIME_CLOSURE_CORRECTION_REQUIRES_PREFREEZE_REVIEW",
+  "assertions": [
+    {
+      "id": "WELCOME_SAVE_RELOAD_COMPOSITION",
+      "group": "Saved welcome composition, independent durable field saves, null cover, long text and native routes",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "WELCOME_LONG_TITLE_SPONSORS",
+      "group": "Saved welcome composition, independent durable field saves, null cover, long text and native routes",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "WELCOME_AUTHORIZED_CATALOG",
+      "group": "Saved welcome composition, independent durable field saves, null cover, long text and native routes",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "WELCOME_KEYBOARD_ROUTES",
+      "group": "Saved welcome composition, independent durable field saves, null cover, long text and native routes",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "WELCOME_NULL_COVER",
+      "group": "Saved welcome composition, independent durable field saves, null cover, long text and native routes",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "WELCOME_AUTHORITY_LEGACY_TIMING",
+      "group": "Welcome source separation, disabled actions and unchanged authorized legacy catalog timing",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "WELCOME_DISABLED_SOURCE_ISOLATION",
+      "group": "Welcome source separation, disabled actions and unchanged authorized legacy catalog timing",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "DUPLICATE_EDIT_SAVE_RELOAD_PREVIEW",
+      "group": "Editable same-event lot copy, durable Save retry and actual saved Design A",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "DUPLICATE_RETRY_ONCE",
+      "group": "Editable same-event lot copy, durable Save retry and actual saved Design A",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "DUPLICATE_SELECTED_ALLOWLIST",
+      "group": "Editable same-event lot copy, durable Save retry and actual saved Design A",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "ROUTER_REFRESH_EVENT_ROUTE",
+      "group": "Editable same-event lot copy, durable Save retry and actual saved Design A",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "DUPLICATE_PENDING_CAPACITY",
+      "group": "Duplication guards preserve capacity, event authority and immutable approved catalog",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "DUPLICATE_AUTHORITY_IMMUTABLE",
+      "group": "Duplication guards preserve capacity, event authority and immutable approved catalog",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "DUPLICATE_APPROVAL_LOCKS",
+      "group": "Duplication guards preserve capacity, event authority and immutable approved catalog",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "EVENTS_HOME_LIST_SELECT",
+      "group": "Connected Saturn Events home, creation, durable saved A preview, navigation, focus and actual viewport scenes",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "HOME_CREATE_RECOVERY",
+      "group": "Connected Saturn Events home, creation, durable saved A preview, navigation, focus and actual viewport scenes",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "EVENT_SAVE_DURABLE_PREVIEW",
+      "group": "Connected Saturn Events home, creation, durable saved A preview, navigation, focus and actual viewport scenes",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "HOME_DETAILS_HISTORY",
+      "group": "Connected Saturn Events home, creation, durable saved A preview, navigation, focus and actual viewport scenes",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "SHELL_FOCUS",
+      "group": "Connected Saturn Events home, creation, durable saved A preview, navigation, focus and actual viewport scenes",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "RESPONSIVE_SAVED_A",
+      "group": "Connected Saturn Events home, creation, durable saved A preview, navigation, focus and actual viewport scenes",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "HOME_TENANT_ISOLATION",
+      "group": "Hidden organization shell preserves tenant isolation, pending operation recovery, stale responses and immutable approved catalog",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "HOME_PENDING_STALE",
+      "group": "Hidden organization shell preserves tenant isolation, pending operation recovery, stale responses and immutable approved catalog",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "HOME_STALE_APPROVAL",
+      "group": "Hidden organization shell preserves tenant isolation, pending operation recovery, stale responses and immutable approved catalog",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "HOME_UNRESOLVED_WRITES",
+      "group": "Hidden organization shell preserves tenant isolation, pending operation recovery, stale responses and immutable approved catalog",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "MALFORMED_SAVE_RECOVERY",
+      "group": "Hidden organization shell preserves tenant isolation, pending operation recovery, stale responses and immutable approved catalog",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "DIRTY_REPLACEMENT",
+      "group": "Hidden organization shell preserves tenant isolation, pending operation recovery, stale responses and immutable approved catalog",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "APPROVED_NOTICE_ASYNC",
+      "group": "Hidden organization shell preserves tenant isolation, pending operation recovery, stale responses and immutable approved catalog",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "APPROVED_NOTICE_PRIORITY",
+      "group": "Hidden organization shell preserves tenant isolation, pending operation recovery, stale responses and immutable approved catalog",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "APPROVAL_RESPONSE_VARIANTS",
+      "group": "Hidden organization shell preserves tenant isolation, pending operation recovery, stale responses and immutable approved catalog",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "SELECTED_SUBSET_IMMUTABLE",
+      "group": "Hidden organization shell preserves tenant isolation, pending operation recovery, stale responses and immutable approved catalog",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "COMMAND_03_COMPLETED",
+      "group": "Manual durable business bid, complete SQL receipts/retry and real A two-browser outbid",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "COMMAND_04_COMPLETED",
+      "group": "Current VIEW/BID authority, queued post-lock DB close, atomic storage and interrupted browser recovery",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "COMMAND_05_COMPLETED",
+      "group": "Cumulative002 / Immutable saved approval, explicit staff recovery, A viewer and real DB-clock transition",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "COMMAND_06_COMPLETED",
+      "group": "Cumulative002 / Scoped viewer and operator authority, selected readiness, UTC boundaries, split transaction and app-clock challenges",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "COMMAND_07_COMPLETED",
+      "group": "Cumulative002 / Cumulative original v1 acceptance",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "COMMAND_08_COMPLETED",
+      "group": "Cumulative002 / Cumulative original v1 empty-event adversarial cases",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "COMMAND_09_COMPLETED",
+      "group": "Cumulative002 / Cumulative unchanged v2 staff acceptance",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "COMMAND_10_COMPLETED",
+      "group": "Cumulative002 / Cumulative unchanged v2 populated-lot adversarial cases",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "COMMAND_11_COMPLETED",
+      "group": "Cumulative002 / Cumulative v2 controlled response race, stored text and restart",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "COMMAND_12_COMPLETED",
+      "group": "Cumulative002 / Cumulative001a dedicated Preview selector",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "COMMAND_13_COMPLETED",
+      "group": "Cumulative002 / Cumulative001a real adapter target and verified TLS",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "COMMAND_14_COMPLETED",
+      "group": "Cumulative002 / Existing admin prototype model",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "COMMAND_15_COMPLETED",
+      "group": "Cumulative002 / TypeScript",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "COMMAND_16_COMPLETED",
+      "group": "Actual static admin JavaScript parses under Node24",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "BID_REVIEW_REFRESH",
+      "group": "Native bid review, invalid amount, refresh and durable asynchronous task focus",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "BID_AMOUNT_INVALID",
+      "group": "Native bid review, invalid amount, refresh and durable asynchronous task focus",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "BID_HELD_PENDING_FOCUS",
+      "group": "Native bid review, invalid amount, refresh and durable asynchronous task focus",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "BID_ACCEPTED_TASK_FOCUS",
+      "group": "Native bid review, invalid amount, refresh and durable asynchronous task focus",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "BID_ESCAPE_RETURN",
+      "group": "Native bid review, invalid amount, refresh and durable asynchronous task focus",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "BID_UNCONFIRMED_TASK_FOCUS",
+      "group": "Native bid review, invalid amount, refresh and durable asynchronous task focus",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "BID_ORIGINAL_UUID_RECOVERY",
+      "group": "Native bid review, invalid amount, refresh and durable asynchronous task focus",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "ADMIN_EDITED_LOT_CURRENT",
+      "group": "Actual staff name validation, edited lot and saved-preview explanation",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "ADMIN_UNSAVED_PREVIEW_HELP",
+      "group": "Actual staff name validation, edited lot and saved-preview explanation",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "ADMIN_CREATE_NAME_ERROR",
+      "group": "Actual staff name validation, edited lot and saved-preview explanation",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "ADMIN_CREATE_ERROR_CLEARS",
+      "group": "Actual staff name validation, edited lot and saved-preview explanation",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "EVENT_INFORMATION_AUTHORITY",
+      "group": "Truthful Event information and compact native complete amount geometry",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "COMPACT_NATIVE_AMOUNT_WATCH",
+      "group": "Truthful Event information and compact native complete amount geometry",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "RESERVED_ACTIONS_DISABLED",
+      "group": "Unavailable actions and outer small-phone review footer reachability",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "SMALL_PHONE_OUTER_SCROLL_FOOTER",
+      "group": "Unavailable actions and outer small-phone review footer reachability",
+      "requirement": "Preserve and execute the exact accepted006c inherited assertion body, command, timeout and helper closure.",
+      "authority": "accepted006c24groups59IDs",
+      "successor": "Execution unchanged; regression baseline requirement accepted by009v2."
+    },
+    {
+      "id": "DISCOVERY_PRIVATE",
+      "group": "Demo entry and durable connected authority",
+      "requirement": "Enabled shared event discovery discloses no private catalog/identity and disabled event is sealed.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "EMPTY_SCOPED_ENROLLMENT",
+      "group": "Demo entry and durable connected authority",
+      "requirement": "Allocate fresh private scoped actor/business and ordinary current VIEW/BID grants atomically; initial bid/receipt state empty.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "CONCURRENT_IDENTICAL_RETRY",
+      "group": "Demo entry and durable connected authority",
+      "requirement": "Private event-bound identical enrollment retry returns one durable actor/business/session.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "CHANGED_RETRY_DENIED",
+      "group": "Demo entry and durable connected authority",
+      "requirement": "Changed claims cannot alter an unconfirmed enrolled identity.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "CLAIMS_DUPLICATE_ISOLATED",
+      "group": "Demo entry and durable connected authority",
+      "requirement": "Equal business/member text across enrollments remains distinct, with no join/return authority.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "REAL_BID_FOREIGN_RECEIPT_OPAQUE",
+      "group": "Demo entry and durable connected authority",
+      "requirement": "New private actor bids through real existing pipeline; foreign durable receipts stay opaque.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "ORIGIN_FIELDS_VALIDATION",
+      "group": "Demo entry adversarial authority and recovery",
+      "requirement": "Exact Origin/JSON/field/length/control constraints fail closed.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "BOOTSTRAP_EVENT_SECRET_REQUIRED",
+      "group": "Demo entry adversarial authority and recovery",
+      "requirement": "Private event-bound bootstrap, not public entryId/event link, authorizes enrollment/retry.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "BEGIN_SLOT_RACES",
+      "group": "Demo entry adversarial authority and recovery",
+      "requirement": "Reordered same/other private bootstrap slots cannot overwrite each other.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "DISABLED_EXPIRED_POST_LOCK",
+      "group": "Demo entry adversarial authority and recovery",
+      "requirement": "Disabled/expired bootstrap rejected using current post-lock DB state.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "ATOMIC_SESSION_FAILURE",
+      "group": "Demo entry adversarial authority and recovery",
+      "requirement": "Session write failure rolls back enrollment authority atomically.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "ACK_REPLAY_LOGOUT",
+      "group": "Demo entry adversarial authority and recovery",
+      "requirement": "Acknowledgment current-session binding, consumption, retry/logout cannot resurrect identity.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "STAFF_SESSION_NOT_REPLACED",
+      "group": "Demo entry adversarial authority and recovery",
+      "requirement": "Existing staff or active session cannot be silently replaced by demo begin/enroll.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "RUNTIME_ACL_DENIALS",
+      "group": "Demo entry adversarial authority and recovery",
+      "requirement": "Runtime has only scoped exact definer rights, no direct authority write or enabling rights.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "CURRENT_GRANT_REVOCATION",
+      "group": "Demo entry adversarial authority and recovery",
+      "requirement": "Current server membership/network/VIEW/BID authority continues to govern actual bids.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "NATIVE_EMPTY_PROFILE",
+      "group": "Native demo entry pending interruption refresh and bid",
+      "requirement": "Initial native profile is empty and synthetic/unverified entry is explicit.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "HELD_ENROLLMENT_UNCONFIRMED",
+      "group": "Native demo entry pending interruption refresh and bid",
+      "requirement": "Held enrollment remains uncertain with locked original claims.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "LOST_ENROLL_ACK_RETRY",
+      "group": "Native demo entry pending interruption refresh and bid",
+      "requirement": "Lost real enrollment response can retry only original private bootstrap/claims.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "REFRESH_PRIVATE_CONTINUITY",
+      "group": "Native demo entry pending interruption refresh and bid",
+      "requirement": "Refresh retains private original actor and completes current-session acknowledgement before catalog.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "LOST_ACK_IDEMPOTENT",
+      "group": "Native demo entry pending interruption refresh and bid",
+      "requirement": "Lost acknowledgement remains idempotent for its enrolled current private session.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "NATIVE_REAL_BID_OUTBID",
+      "group": "Native demo entry pending interruption refresh and bid",
+      "requirement": "Native new attendee reaches real accepted receipt and competing standing through existing bid rules.",
+      "authority": "unchanged009v2frozenCONTRACT/CHECKS/cases",
+      "body": "tests/acceptance/staging-demo-entry-v2/run.mjs",
+      "baselineFailure": true
+    },
+    {
+      "id": "DR01_PRIVATE_READ_ONLY",
+      "group": "Private board read authority, scheduled withholding and unavailable states",
+      "requirement": "Both direct routes use authorized existing GET reads only, never allocate standing or durable bid/receipt rows.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false,
+      "authority": "unchanged010frozenmap/body/oracle",
+      "baselineFailure": true
+    },
+    {
+      "id": "DR02_SCHEDULED_WITHHOLD",
+      "group": "Private board read authority, scheduled withholding and unavailable states",
+      "requirement": "Scheduled catalog withholds selected lot IDs/cards/standing probes, retains approved event context and UTC schedule.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false,
+      "authority": "unchanged010frozenmap/body/oracle",
+      "baselineFailure": true
+    },
+    {
+      "id": "DR03_VIEW_STAFF_SEPARATION",
+      "group": "Private board read authority, scheduled withholding and unavailable states",
+      "requirement": "VIEW-only sees approved catalog without numeric standing; anonymous, wrong-event, BID-only and same/wrong-org staff lack implied authority.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false,
+      "authority": "unchanged010frozenmap/body/oracle",
+      "baselineFailure": true
+    },
+    {
+      "id": "DR04_EMPTY_ERROR",
+      "group": "Private board read authority, scheduled withholding and unavailable states",
+      "requirement": "Honest empty approved catalog and initial503/error state do not invent lots or confirmed results.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false,
+      "authority": "unchanged010frozenmap/body/oracle",
+      "baselineFailure": true
+    },
+    {
+      "id": "DR05_SNAPSHOT_RELEASE_MATCH",
+      "group": "Immutable selected standing, exact money, individual as-of and privacy",
+      "requirement": "Approved order/numbers and titles come from selected immutable approval, not divergent saved draft; published-vs-draft distinction is explicit.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false,
+      "authority": "unchanged010frozenmap/body/oracle",
+      "baselineFailure": true
+    },
+    {
+      "id": "DR06_NO_BID_NULL",
+      "group": "Immutable selected standing, exact money, individual as-of and privacy",
+      "requirement": "Absent standing remains absent and reads No accepted bids, never opening metadata as current/zero sale.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false,
+      "authority": "unchanged010frozenmap/body/oracle",
+      "baselineFailure": true
+    },
+    {
+      "id": "DR07_EXACT_MONEY_ASOF_PRIVACY",
+      "group": "Immutable selected standing, exact money, individual as-of and privacy",
+      "requirement": "Exact integer cents, supported ruleset, count/version, per-row serverNow and updatedAt match real independent packets; private identity absent from DOM/persistence.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false,
+      "authority": "unchanged010frozenmap/body/oracle",
+      "baselineFailure": true
+    },
+    {
+      "id": "DR08_CLOSED_NOT_WINNER",
+      "group": "Immutable selected standing, exact money, individual as-of and privacy",
+      "requirement": "Closed admitted read remains visible despite canBid=false; no final-winner/settlement mutation or words.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false,
+      "authority": "unchanged010frozenmap/body/oracle",
+      "baselineFailure": true
+    },
+    {
+      "id": "DR09_MALFORMED_UNSUPPORTED",
+      "group": "Immutable selected standing, exact money, individual as-of and privacy",
+      "requirement": "Release/lot mismatch, malformed fractional amount, unsupported currency/ruleset and real unsupported event cannot reuse old numeric standing.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false,
+      "authority": "unchanged010frozenmap/body/oracle",
+      "baselineFailure": true
+    },
+    {
+      "id": "DR10_DENIED_CLEARING",
+      "group": "Current authority clearing, stale offline and late response isolation",
+      "requirement": "Revoked BID removes numeric/time fields only, revoked VIEW/person clears all private event content on current reads.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false,
+      "authority": "unchanged010frozenmap/body/oracle",
+      "baselineFailure": true
+    },
+    {
+      "id": "DR11_STALE_OFFLINE",
+      "group": "Current authority clearing, stale offline and late response isolation",
+      "requirement": "Real offline and transient row503 retain only confirmed values with unchanged original timestamps and conspicuous stale/offline wording.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false,
+      "authority": "unchanged010frozenmap/body/oracle",
+      "baselineFailure": true
+    },
+    {
+      "id": "DR12_ACCOUNT_EVENT_LATE_ISOLATION",
+      "group": "Current authority clearing, stale offline and late response isolation",
+      "requirement": "Native refresh cancels/invalidates held old account/route results; late response cannot restore former event or numeric authority.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false,
+      "authority": "unchanged010frozenmap/body/oracle",
+      "baselineFailure": true
+    },
+    {
+      "id": "DR13_SERVER_PHASE_REFRESH",
+      "group": "Server clock refresh, bounded visible polling and actual responsive DOM",
+      "requirement": "Skewed browser time cannot reveal scheduled lots or independently close them; refreshed real DB phase controls transition.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false,
+      "authority": "unchanged010frozenmap/body/oracle",
+      "baselineFailure": true
+    },
+    {
+      "id": "DR14_BOUNDED_VISIBLE_REFRESH",
+      "group": "Server clock refresh, bounded visible polling and actual responsive DOM",
+      "requirement": "Controlled5s/30s visible timers pause hidden and refresh resume; at most2 total API reads; each catalog begins after current session read.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false,
+      "authority": "unchanged010frozenmap/body/oracle",
+      "baselineFailure": true
+    },
+    {
+      "id": "DR15_NATIVE_RESPONSIVE",
+      "group": "Server clock refresh, bounded visible polling and actual responsive DOM",
+      "requirement": "Actual320/1280/1920 DOM on both routes keeps full amounts in visible clipping bounds, native visible focus, heading/table and valid navigation/reload.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false,
+      "authority": "unchanged010frozenmap/body/oracle",
+      "baselineFailure": true
+    },
+    {
+      "id": "DR_INHERITED_BINDING",
+      "group": "Inherited accepted source and exact59 assertion bindings remain unchanged",
+      "requirement": "Retain all198 original hashes and59 IDs/24 commands. Base exactly matches original; candidate changes only accepted009 wrapper and adds exact accepted009/010 paths. All protected historical helper/spec bytes stay exact. Also require two exact historical source-review metadata files and all seven failedv1packet files.",
+      "authority": "Explicit connected integration successor to original010binding; no behavioral oracle supersession.",
+      "body": "tests/acceptance/staging-connected-review-v2/binding-adapter.mjs",
+      "baselineFailure": false,
+      "originalBodyRetained": "tests/acceptance/staging-display-results/adapter.mjs4",
+      "why": "Original010 group4 treats all198 bytes immutable; accepted009 wrapper addition is now authorized and must be represented by a pinned successor instead of altering original evidence."
+    }
+  ],
+  "counts": {
+    "groups": 32,
+    "assertions": 96,
+    "baselinePass": 60,
+    "baselineFiniteRed": 36
+  },
+  "supersession": {
+    "only": "DR_INHERITED_BINDING command entry/chain augmented for exact accepted009wrapper",
+    "unchanged": "009v1/v2/010 source packets; inherited59 bodies/commands;21entry+15display behaviors; ID/name/kind/timeout of binding group",
+    "currentDTO": "Current shared-main-window; no007 dependency; future007 requires explicitrebind."
+  },
+  "limits": [
+    "No physical keyboard/projector or owner visual acceptance claim.",
+    "Natural HOME_DETAILS_HISTORY remains OPEN/UNKNOWN.",
+    "Runtime model identity unavailable; independent context is not cross-model.",
+    "Historical HOME_STALE_APPROVAL cause remains unknown; missing-source/sandbox setup diagnosis does not close it."
+  ],
+  "closureCorrection": "Only two exact frozen historical source-review metadata reads added; failedv1 preserved. Original31behavior commands/bodies/deadlines/IDs unchanged."
+}

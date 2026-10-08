@@ -1,0 +1,49 @@
+{
+  "status": "STATIC_PORTABILITY_PASS_ONLY",
+  "recordedUTC": "2026-10-08T12:21:06.101419+00:00",
+  "predecessorFreeze": "739ada079170f3546f7bbad64306279efdbcbf22",
+  "groups": 32,
+  "ids": 96,
+  "aliases": 17,
+  "oldFilesModified": false,
+  "productSourceModified": false,
+  "appDBBrowserBuildServicesStarted": false,
+  "kernelSourceInspectedOrExecuted": false,
+  "kernelPublicDocumentationReadOnly": true,
+  "runtimeReady": false,
+  "independentReviewPending": true,
+  "original433FilesExact": 433,
+  "acceptedApplicationHashesExact": 80,
+  "originalTaskByteReconstructionExact": true,
+  "old32CheckNamesKindsIDsAndDeadlinesExact": true,
+  "original15NativeAnd5SetupDeltasUnchanged": true,
+  "mandatoryAliasBeforeAfterGuard": true,
+  "originalResultForwardedByteExactOnlyAfterParity": true,
+  "negativeControlsRejected": 41,
+  "negativeControlsExecutedPurely": true,
+  "node24ModuleSyntax": "PASS",
+  "chainPaths": 542,
+  "evidencePaths": 543,
+  "literalBracketChainPaths": 0,
+  "aliasRegularFiles": 17,
+  "originalGroupImportedByAuthor": false,
+  "kernelPublicDocs": [
+    {
+      "path": "/Users/jryear/code/_kernel/README.md",
+      "sha256": "c5a9cbeb64ec6024d4be501945946b81dc26e21bad2c18452cca3b31748f6e75"
+    },
+    {
+      "path": "/Users/jryear/code/_kernel/releases/3.1.0/docs/SCHEMA2_PROTOCOL.md",
+      "sha256": "3c5b1178b1126fb6309cf20cf330f11f89871ebd77acc738abe4fd083c3f514e"
+    },
+    {
+      "path": "/Users/jryear/code/_kernel/releases/3.1.0/docs/SCHEMA2_PROTOCOL.v2.md",
+      "sha256": "4a6f2d662473470b42566fcab0ad8c5bfae57dd2d7f6505b5363ca4bc1a9dd8d"
+    }
+  ],
+  "remaining": [
+    "Independent exact portability/parity review",
+    "Root new tracked trusted freeze",
+    "Root sole sequential32group96ID inherited behavior closure with actual images/cleanup"
+  ]
+}

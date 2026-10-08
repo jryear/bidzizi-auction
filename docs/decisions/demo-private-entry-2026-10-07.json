@@ -1,0 +1,9 @@
+{
+  "scope": "Synthetic demo/staging attendee entry only",
+  "relayedBy": "Parent 01a0fe56-c648-7667-8b26-cee566ee303b, 2026-10-07 16:15 UTC",
+  "ownerReply": "On the bid identity, I think that's excellent for the demo",
+  "acceptedProposal": "Each signup gets its own bidder account, even when two people enter the same business or member ID. Those fields are labels, not proof that they can share bids or spending authority. Shared business access would need an invite or join credential.",
+  "allocation": "Fresh synthetic person and business per private enrollment; matching claims never join or recover another identity",
+  "entry": "Shared event URL is discovery, no SMS, private server session, automatic bounded demo admission",
+  "boundaries": ["No production member verification", "No shared-business spending authority", "No cross-device or cookie-loss account recovery", "No provider/payment/ledger connection"]
+}

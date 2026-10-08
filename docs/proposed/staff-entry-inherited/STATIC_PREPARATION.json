@@ -1,0 +1,62 @@
+{
+  "status": "STATIC_PREPARATION_PASS_ONLY",
+  "recordedUTC": "2026-10-08T12:00:01.188477+00:00",
+  "groups": 32,
+  "uniqueIDs": 96,
+  "standalone009PrefixGroups": 27,
+  "standalone009PrefixIDs": 80,
+  "exactOriginalMetadataPrefixEquality": true,
+  "historicalArchivePaths": 261,
+  "missingOnlyImportPaths": 148,
+  "nativeSuccessorRecords": 15,
+  "disposableSetupRecords": 5,
+  "negativeControlsRejected": 613,
+  "negativeControlsExecutedPurely": true,
+  "node24OwnSyntaxAnd20ExactSuccessorSyntax": "PASS",
+  "historicalProductFilesModified": false,
+  "oldHelpersModified": false,
+  "kernelInspectedOrExecuted": false,
+  "appDBBrowserBuildServicesStarted": false,
+  "connectedMigrationOrGrants": false,
+  "acceptedEntryRebind": {
+    "commit": "c10783537340549158d32b2c9a0c88336d01b6c3",
+    "completionReceipt": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/admission-supported-c107835/kernel-claim.json",
+      "sha256": "cb5fca61487ae4f1e7703f0772387ee3fb21a1f62189bc758b0e9797932175a2"
+    },
+    "sourceReview": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/staff-entry-source-review-c107835.json",
+      "sha256": "17b59b027d2d6266ec553921350c552bca4e151960a53a3fc0d4baf5cef7ca7d"
+    },
+    "applicationPaths": 80,
+    "stagedIntegrationCommit": "26b94441080716de0708c52d7b04d4d9ba5535da",
+    "stagedApplicationBytesExact": true
+  },
+  "freezeReady": false,
+  "remaining": [
+    "Independent final static review of real accepted-source rebind and closed packet",
+    "Root missing-only import and trusted inherited freeze",
+    "One sequential32group96ID allPASS runtime closure with actual screenshots/cleanup"
+  ],
+  "receiptNegativeControlsRejected": 85,
+  "lifecycleIdentityNegativeControlsRejected": 4,
+  "entrySuccessorExecutionHeld": false,
+  "finiteReviewRepairs": [
+    "Exact frozen9 groups/per-group IDs and receipt semantics",
+    "Changed/reused birth is HARNESS99 and refuses scratch deletion",
+    "Every recorded PostgreSQL listener port probed",
+    "Exact original workspace scratch prefix supported",
+    "Archived config restored from exact accepted f5745a git blob"
+  ],
+  "preparedEntryFreeze": "10530a0110eee5ed9e96161dc73d7f7ceb6697c0",
+  "preparedEntryTaskSHA256": "821ad1e050906bfd028736099675cf14d157c7fb595bd5726c54cb23f24715ef",
+  "preparedEntryEvidencePaths": 76,
+  "preparedEntryEvidenceExactFreezeBlobVerification": "PASS",
+  "inheritedClosedUnionPaths": 532,
+  "actualAcceptedReceiptSemanticValidation": "PASS",
+  "rootRebindAuthorization": {
+    "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/ENTRY_INHERITED_ROOT_REBIND_AUTHORIZATION.json",
+    "sha256": "0eab8d2e20b7a64d18f8b751f42def8c1d22220736bf2b84ceedc52f1b6aef71"
+  },
+  "inheritedRuntimeRequiresFinalReviewAndTrustedFreeze": true
+}

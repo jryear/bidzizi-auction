@@ -1,0 +1,26 @@
+{
+  "originalTask": "staging-demo-attendee-entry-009",
+  "frozenBase": "68a754127ff9c34ff9d3f2ff59028f088dd5d1d2",
+  "baseVerdict": "BASELINE_READY59PASS21finiteRED",
+  "candidateVerdict": "No supported candidate; direct groups1/2 exited99 for new authoring errors",
+  "failures": [
+    {
+      "path": "/tmp/task-root/demo009-direct-7EfwQX/FAILED.json",
+      "error": "Cookie helper received begin wrapper instead of response"
+    },
+    {
+      "path": "/tmp/task-root/demo009-direct-qtNePP/FAILED.json",
+      "error": "Expected accepted word; retained UI says Bid placed and exposes accepted state"
+    }
+  ],
+  "repairs": [
+    "Compare wrapper.cookie directly",
+    "Actual HTTP201 accepted receipt, current actor match, durable SQL bid row and native accepted state"
+  ],
+  "preserved": [
+    "Original frozen task/tests byte-identical",
+    "All21 assertion IDs and59 inherited regressions",
+    "Original deadlines/classifiers/kernel pins",
+    "Existing auth/bid engine/UI copy"
+  ]
+}

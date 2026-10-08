@@ -1,0 +1,285 @@
+{
+  "status": "DRAFT_UNFROZEN",
+  "sourceSubstitutionsOnly": true,
+  "observationsNormalized": false,
+  "assertionsRemoved": 0,
+  "records": [
+    {
+      "path": "tests/acceptance/staff-drafts-v1/run.mjs",
+      "diskSHA256": "b31c62fe13a3fcafdcf8f9d66a135b8fd394f6432c0a3c0d0298319aad3e20e0",
+      "steps": [
+        {
+          "before": "name:/^Lots/",
+          "after": "name:/^Items/",
+          "count": 1,
+          "reason": "Current accepted Items label"
+        }
+      ],
+      "executedSHA256": "fcf45b58cf9775414fbcfde9e40637a36d7cbc1c5b4c09cddebb90f24b45736b"
+    },
+    {
+      "path": "tests/acceptance/staff-drafts/context-race.mjs",
+      "diskSHA256": "39784ffa2264af1a1ef8c6f22433595da2dadad9f8e00047b73eece9b5260592",
+      "steps": [
+        {
+          "before": "name:/^Event studio/",
+          "after": "name:/^Choose event/",
+          "count": 1,
+          "reason": "Current Choose event control"
+        }
+      ],
+      "executedSHA256": "73ef43671f321e48cf394879d95efcb2d9441195c45f5d58e4c7fe44fa0bcf93"
+    },
+    {
+      "path": "tests/acceptance/staff-drafts/run.mjs",
+      "diskSHA256": "01c1a4a581235a970fcbd1ffa7473ab4fc0290eb1e76db741881f2af1c2638ee",
+      "steps": [
+        {
+          "before": "name:/^Lots/",
+          "after": "name:/^Items/",
+          "count": 2,
+          "reason": "Current accepted Items label"
+        }
+      ],
+      "executedSHA256": "7ccc800c44f4a7c30415d192162859c0fd14415c244dd76d94ef0d3c4be724fa"
+    },
+    {
+      "path": "tests/acceptance/staging-catalog/checks.mjs",
+      "diskSHA256": "de63eaf65ebaf423188088e2afda9b6022b5f4983eeef8a500fc63b31b5c0817",
+      "steps": [
+        {
+          "before": "name:/^Lots/",
+          "after": "name:/^Items/",
+          "count": 3,
+          "reason": "Current accepted Items label"
+        },
+        {
+          "before": "name:'Event',exact:true",
+          "after": "name:'Event & entry',exact:true",
+          "count": 1,
+          "reason": "Current Event & entry label"
+        }
+      ],
+      "executedSHA256": "710d30ad3138e4ae15d91b1488cb9b4bc5594df341b2c5be1d4ae666eec2aea6"
+    },
+    {
+      "path": "tests/acceptance/staging-event-preparation/checks.mjs",
+      "diskSHA256": "d3bdf4e5f7f96f1bfa4ed78ffa216c0add551c94496d75eb7e7fca16cddf75ab",
+      "steps": [
+        {
+          "before": "name:/^Lots/",
+          "after": "name:/^Items/",
+          "count": 1,
+          "reason": "Current accepted Items label"
+        }
+      ],
+      "executedSHA256": "272aeea467dca6442ada9ced1b04c4028b36f0b261b261e9b8abcb2903dc3315"
+    },
+    {
+      "path": "tests/acceptance/staging-saturn-event-home-v3/checks.mjs",
+      "diskSHA256": "afa4a22b52d5c10c0ab3fc8df39c5e89a749d9bf560d68f5b5c1422ecea01445",
+      "steps": [
+        {
+          "before": "name:/^Lots/",
+          "after": "name:/^Items/",
+          "count": 2,
+          "reason": "Current accepted Items label"
+        },
+        {
+          "before": "name:'Event',exact:true",
+          "after": "name:'Event & entry',exact:true",
+          "count": 1,
+          "reason": "Current Event & entry label"
+        }
+      ],
+      "executedSHA256": "63a06164a03b5ede0d5df3b439720a13ba1c090342b747cc8b1cf22c6777cd51"
+    },
+    {
+      "path": "tests/acceptance/staging-saturn-event-home-v3/legacy-checks.mjs",
+      "diskSHA256": "b1750d918a7953e34e9ace52acbbb02a18ae145f985bb055daec67be01f916c5",
+      "steps": [
+        {
+          "before": "name:/^Lots/",
+          "after": "name:/^Items/",
+          "count": 4,
+          "reason": "Current accepted Items label"
+        },
+        {
+          "before": "name:'Event',exact:true",
+          "after": "name:'Event & entry',exact:true",
+          "count": 4,
+          "reason": "Current Event & entry label"
+        },
+        {
+          "before": "name:/^Event studio/",
+          "after": "name:/^Choose event/",
+          "count": 9,
+          "reason": "Current Choose event control"
+        },
+        {
+          "before": "await eventLink.focus();await ui.page.keyboard.press('Tab');assert.equal(await ui.frame.evaluate(()=>document.activeElement.dataset.tab),'lots','Actual Tab reaches Lots');\n await settledRoute(ui,'#/lots',()=>ui.page.keyboard.press('Enter'));await expect(ui.admin.locator('[data-tab=\"lots\"]')).toHaveAttribute('aria-current','page');",
+          "after": "const itemsLink=ui.admin.locator('[data-tab=\"lots\"]');await itemsLink.focus();await ui.page.keyboard.press('Tab');assert.equal(await ui.frame.evaluate(()=>document.activeElement.dataset.tab),'event','Actual Tab reaches current Event & entry');\n await settledRoute(ui,'#/event',()=>ui.page.keyboard.press('Enter'));await expect(ui.admin.locator('[data-tab=\"event\"]')).toHaveAttribute('aria-current','page');await settledRoute(ui,'#/lots',()=>itemsLink.click());await expect(ui.admin.locator('[data-tab=\"lots\"]')).toHaveAttribute('aria-current','page');",
+          "count": 1,
+          "reason": "Current accepted Items\u2192Tab\u2192Event & entry order; both actualroutes/Enter/modal Back/Escape/focus remain required"
+        }
+      ],
+      "executedSHA256": "5fd6aa8aba4ca6c7628e8556a7917d99707ecb7fed22ab89cdeeff46aceb7f93"
+    },
+    {
+      "path": "tests/acceptance/staging-saturn-event-home-v3/regression-navigation/catalog-checks.mjs",
+      "diskSHA256": "01193cdc8a4f02d699f4edbd244623ba6b00d6dd6fc4db3d9aa8065e7a2367cf",
+      "steps": [
+        {
+          "before": "name:/^Lots/",
+          "after": "name:/^Items/",
+          "count": 3,
+          "reason": "Current accepted Items label"
+        },
+        {
+          "before": "name:'Event',exact:true",
+          "after": "name:'Event & entry',exact:true",
+          "count": 2,
+          "reason": "Current Event & entry label"
+        }
+      ],
+      "executedSHA256": "82ee5f19ff2e3a4ace963fe9d4db237a3a7a3ef4766dbaf56b2085cafb56981b"
+    },
+    {
+      "path": "tests/acceptance/staging-saturn-event-home-v3/regression-navigation/context-race.mjs",
+      "diskSHA256": "45bc3b9beda9d37a8b10bc6c3db91e1f7268e6b3ac60592a356977f9315f623d",
+      "steps": [
+        {
+          "before": "name:/^Event studio/",
+          "after": "name:/^Choose event/",
+          "count": 1,
+          "reason": "Current Choose event control"
+        }
+      ],
+      "executedSHA256": "f0655bc43cf6221d1f659749aaf52a2435d1380ea7563981a9827f8400e418b4"
+    },
+    {
+      "path": "tests/acceptance/staging-saturn-event-home-v3/regression-navigation/controls.mjs",
+      "diskSHA256": "194e6edb7d0ddf3f4274affa3ed157cb5e12bd118e52755bee1ac0eb1b1f7f64",
+      "steps": [
+        {
+          "before": "name:/^Lots/",
+          "after": "name:/^Items/",
+          "count": 1,
+          "reason": "Current accepted Items label"
+        }
+      ],
+      "executedSHA256": "97a7e06c9e1a511315f8914282a6523f83ac50b46704df467a0dac169e3b459d"
+    },
+    {
+      "path": "tests/acceptance/staging-saturn-event-home-v3/regression-navigation/staff-v1.mjs",
+      "diskSHA256": "44c0ac28b3f06a097077972ab1e75be025f108262018f0bcbdb26d5ba6946da5",
+      "steps": [
+        {
+          "before": "name:/^Lots/",
+          "after": "name:/^Items/",
+          "count": 1,
+          "reason": "Current accepted Items label"
+        }
+      ],
+      "executedSHA256": "d7e2353d6a85e2f8ff6c41daae5100a4842f1682076b3220f701ed29987cee06"
+    },
+    {
+      "path": "tests/acceptance/staging-saturn-event-home-v3/regression-navigation/staff-v2.mjs",
+      "diskSHA256": "90755f39662afbb87be828c6837c6381cbc66dea76ccc5d2374cb064145e0c56",
+      "steps": [
+        {
+          "before": "name:/^Lots/",
+          "after": "name:/^Items/",
+          "count": 2,
+          "reason": "Current accepted Items label"
+        }
+      ],
+      "executedSHA256": "41f8d6a3777d81d010b3ec0b2035b5286f9a3e4d6fa92fadea4960729d7e1f30"
+    },
+    {
+      "path": "tests/acceptance/staging-ui-refinement/cases.mjs",
+      "diskSHA256": "96cb44974b3ddda2357d25004e2ffa940092cd95cbe38fe3ea1eec19358dc544",
+      "steps": [
+        {
+          "before": "name:/^Lots/",
+          "after": "name:/^Items/",
+          "count": 1,
+          "reason": "Current accepted Items label"
+        }
+      ],
+      "executedSHA256": "4126ba073c8870dc7f34f27bc36f45f74753ee135eaeb980f9e09d5f60f9de4e"
+    },
+    {
+      "path": "tests/acceptance/staging-workspace-entry/browser.mjs",
+      "diskSHA256": "7a7a266afa621f4e8d885dbf89e1616c4f6303c5694a4c9dfefe429a3083839a",
+      "steps": [
+        {
+          "before": "name:/^Lots/",
+          "after": "name:/^Items/",
+          "count": 2,
+          "reason": "Current accepted Items label"
+        },
+        {
+          "before": "name:/^Lots(?:\\s+\\d+)?$/",
+          "after": "name:/^Items(?:\\s+\\d+)?$/",
+          "count": 1,
+          "reason": "Exactly one Items navigation control"
+        },
+        {
+          "before": "name:'Event',exact:true",
+          "after": "name:'Event & entry',exact:true",
+          "count": 3,
+          "reason": "Current Event & entry label"
+        },
+        {
+          "before": "name:/^Event studio/",
+          "after": "name:/^Choose event/",
+          "count": 1,
+          "reason": "Current Choose event control"
+        },
+        {
+          "before": "assert.ok(n.height>=120,'Selected navigation has meaningful sidebar composition');",
+          "after": "const nativeLinks=await nav.locator('a[data-tab]').evaluateAll(links=>links.map(link=>{const r=link.getBoundingClientRect();return {tab:link.dataset.tab,width:r.width,height:r.height};}));assert.deepEqual(nativeLinks.map(x=>x.tab),['lots','event'],'Current accepted native Items then Event & entry order');assert.ok(nativeLinks.every(x=>x.width>0&&x.height>=40),'Both current native sidebar links retain visible40px controls');",
+          "count": 1,
+          "reason": "Replace old120px aggregate sidebar shape with real current two40px native controls; retain sidebar placement/identity/route assertions"
+        }
+      ],
+      "executedSHA256": "f3de63531ee35572746959c9d03a77447e336fee9b275cd2e1c965abff3f61c5",
+      "acceptedPriorFanSHA256": "ab89d181d4059808491cf335ee423d85c06b5c117de2d76a5ac6ea4b451abb24",
+      "executedAfterPriorFanSHA256": "49f7297ec787cb5c030a09f1157c21f3449b706a816bdd2e7538d8a391675854"
+    },
+    {
+      "path": "tests/acceptance/staging-workspace-entry/checks.mjs",
+      "diskSHA256": "af70922df30db691a010acce8cb6fe45887cff0711bb1fa3c713cdf80b4656a6",
+      "steps": [
+        {
+          "before": "name:/^Lots/",
+          "after": "name:/^Items/",
+          "count": 4,
+          "reason": "Current accepted Items label"
+        },
+        {
+          "before": "name:'Event',exact:true",
+          "after": "name:'Event & entry',exact:true",
+          "count": 4,
+          "reason": "Current Event & entry label"
+        },
+        {
+          "before": "name:/^Event studio/",
+          "after": "name:/^Choose event/",
+          "count": 9,
+          "reason": "Current Choose event control"
+        },
+        {
+          "before": "await eventLink.focus();await ui.page.keyboard.press('Tab');assert.equal(await ui.frame.evaluate(()=>document.activeElement.dataset.tab),'lots','Actual Tab reaches Lots');\n await settledRoute(ui,'#/lots',()=>ui.page.keyboard.press('Enter'));await expect(ui.admin.locator('[data-tab=\"lots\"]')).toHaveAttribute('aria-current','page');",
+          "after": "const itemsLink=ui.admin.locator('[data-tab=\"lots\"]');await itemsLink.focus();await ui.page.keyboard.press('Tab');assert.equal(await ui.frame.evaluate(()=>document.activeElement.dataset.tab),'event','Actual Tab reaches current Event & entry');\n await settledRoute(ui,'#/event',()=>ui.page.keyboard.press('Enter'));await expect(ui.admin.locator('[data-tab=\"event\"]')).toHaveAttribute('aria-current','page');await settledRoute(ui,'#/lots',()=>itemsLink.click());await expect(ui.admin.locator('[data-tab=\"lots\"]')).toHaveAttribute('aria-current','page');",
+          "count": 1,
+          "reason": "Current accepted Items\u2192Tab\u2192Event & entry order; both actualroutes/Enter/modal Back/Escape/focus remain required"
+        }
+      ],
+      "executedSHA256": "f200afa4b63f71ec15c8050249f90081104cdd022bab8426308616ae33ef6d7b"
+    }
+  ],
+  "operatorOnlySupersession": "Only prior operator-only enabling rationale is replaced by frozen015 current-staff function authority; original runtime direct table-write denial remains unchanged",
+  "liveEntryGuarantees": "New36-ID frozen015 task, including twelve runnable acceptedStudio successor IDs; no invented old96 ID expands to fake nativeEntry observations"
+}

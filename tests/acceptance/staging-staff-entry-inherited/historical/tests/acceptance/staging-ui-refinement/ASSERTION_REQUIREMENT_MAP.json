@@ -1,0 +1,213 @@
+{
+  "version": 1,
+  "status": "SOURCE_REBOUND preparation55 UNACCEPTED; root must await SUPPORTED + independentGO before freeze",
+  "authority": {
+    "owner": "Explicit parent006c owner-authorized refinement integration and truthful event/compact fixes",
+    "designCode": [
+      "4274c0c157816f5d2b2c2e72aed705902491223c",
+      "8b2f37c447887ddb84c5c2266ecff1eae258e554"
+    ],
+    "designEvidence": "d4f7f8d04777f9dd908c793f9f159c5290e81e7c",
+    "preparationOnlyApp": "677606b0def819054e0079d2c9ba4a23eaa8eb1a",
+    "acceptedBase": "PENDING_SUPPORTED_55_AND_INDEPENDENT_GO",
+    "diagnosticStatus": "Implementation-owned read-only proposal; no imported executable diagnostic code",
+    "orientation": "AGENTS + project map + ACTIVE_AGENT_CONTEXT; frozen task/map authority; exact source-bound receipts proof",
+    "diagnosticSourceSHA256": "69895c68911e744c95d17621c2a0e52a25242e5f4e5c723ec87d731d361b7505",
+    "currentPreparationApp": "55a622e75dbc099a0b436419467484d9514c12f0",
+    "frozenWelcomeV2": "ff0ec0499c1268030367f2a20b83e84364b6beb6",
+    "preparationRebindReceipt": "ui-refinement-preparation/ROOT_PREPARATION_REBIND.json"
+  },
+  "inherited": {
+    "groups": 20,
+    "assertions": 44,
+    "commandBoundaries": 14,
+    "manifest": "INHERITED.json",
+    "onlyMetadataSupersession": "Kinds regression, baseline_failures empty; all original bodies/helpers/argv/deadlines preserved after accepted prerequisite"
+  },
+  "new": [
+    {
+      "id": "BID_REVIEW_REFRESH",
+      "requirement": "Ordinary real server-context refresh preserves current enabled review control plus amount focus/value/caret.",
+      "group": "Native bid review, invalid amount, refresh and durable asynchronous task focus",
+      "kind": "acceptance",
+      "baselineExpectedExit": 1,
+      "observation": "Actual native DOM/API+owned fixture SQL; source-stable receipt",
+      "controls": [
+        "BID_REVIEW_CONTROL_REFRESH"
+      ]
+    },
+    {
+      "id": "BID_AMOUNT_INVALID",
+      "requirement": "Invalid amount owns aria-invalid and described announced actual error; disabled submit cannot issue a bid.",
+      "group": "Native bid review, invalid amount, refresh and durable asynchronous task focus",
+      "kind": "acceptance",
+      "baselineExpectedExit": 1,
+      "observation": "Actual native DOM/API+owned fixture SQL; source-stable receipt",
+      "controls": [
+        "BID_AMOUNT_ERROR_WIRING",
+        "BID_INVALID_NO_WRITE"
+      ]
+    },
+    {
+      "id": "BID_HELD_PENDING_FOCUS",
+      "requirement": "Held outgoing real request retains dialog task focus, pending truth and zero durable bid/receipt.",
+      "group": "Native bid review, invalid amount, refresh and durable asynchronous task focus",
+      "kind": "acceptance",
+      "baselineExpectedExit": 1,
+      "observation": "Actual native DOM/API+owned fixture SQL; source-stable receipt",
+      "controls": [
+        "BID_DIALOG_TASK_FOCUS",
+        "BID_CURRENT_TASK_ID",
+        "BID_PENDING_NO_ACCEPTANCE"
+      ]
+    },
+    {
+      "id": "BID_ACCEPTED_TASK_FOCUS",
+      "requirement": "Actual accepted receipt/SQL relation agrees with amount and UUID while focus remains in native dialog.",
+      "group": "Native bid review, invalid amount, refresh and durable asynchronous task focus",
+      "kind": "acceptance",
+      "baselineExpectedExit": 1,
+      "observation": "Actual native DOM/API+owned fixture SQL; source-stable receipt",
+      "controls": [
+        "BID_DIALOG_TASK_FOCUS",
+        "BID_CURRENT_TASK_ID",
+        "BID_ACCEPTED_UUID"
+      ]
+    },
+    {
+      "id": "BID_ESCAPE_RETURN",
+      "requirement": "Native Escape restores current enabled review opener and, after durable acceptance disables the opener, current focusable lot heading.",
+      "group": "Native bid review, invalid amount, refresh and durable asynchronous task focus",
+      "kind": "acceptance",
+      "baselineExpectedExit": 1,
+      "observation": "Actual native DOM/API+owned fixture SQL; source-stable receipt",
+      "controls": [
+        "BID_ESCAPE_CONTEXT",
+        "BID_ESCAPE_ACCEPTED_FALLBACK"
+      ]
+    },
+    {
+      "id": "BID_UNCONFIRMED_TASK_FOCUS",
+      "requirement": "Actual commit with lost response stays uncertain and keeps dialog task focus.",
+      "group": "Native bid review, invalid amount, refresh and durable asynchronous task focus",
+      "kind": "acceptance",
+      "baselineExpectedExit": 1,
+      "observation": "Actual native DOM/API+owned fixture SQL; source-stable receipt",
+      "controls": [
+        "BID_DIALOG_TASK_FOCUS",
+        "BID_CURRENT_TASK_ID",
+        "BID_UNCONFIRMED_COPY"
+      ]
+    },
+    {
+      "id": "BID_ORIGINAL_UUID_RECOVERY",
+      "requirement": "Current original UUID GET recovery displays exactly matched person/business/event/release/lot/amount/ruleset receipt; SQL has one original bid/receipt.",
+      "group": "Native bid review, invalid amount, refresh and durable asynchronous task focus",
+      "kind": "acceptance",
+      "baselineExpectedExit": 1,
+      "observation": "Actual native DOM/API+owned fixture SQL; source-stable receipt",
+      "controls": [
+        "BID_DIALOG_TASK_FOCUS",
+        "BID_CURRENT_TASK_ID",
+        "BID_ACCEPTED_UUID",
+        "BID_RECOVERY_NO_NEW_POST",
+        "BID_RECOVERY_NO_EXTRA_SQL"
+      ]
+    },
+    {
+      "id": "ADMIN_EDITED_LOT_CURRENT",
+      "requirement": "Exactly the actual second edited row is current; title/ID agree and approval checkbox selection stays unchanged.",
+      "group": "Actual staff name validation, edited lot and saved-preview explanation",
+      "kind": "acceptance",
+      "baselineExpectedExit": 1,
+      "observation": "Actual native DOM/API+owned fixture SQL; source-stable receipt",
+      "controls": [
+        "ADMIN_ACTUAL_CURRENT_ROW"
+      ]
+    },
+    {
+      "id": "ADMIN_UNSAVED_PREVIEW_HELP",
+      "requirement": "Unsaved new lot explains save versus Working draft; Saved preview and SQL remain original.",
+      "group": "Actual staff name validation, edited lot and saved-preview explanation",
+      "kind": "acceptance",
+      "baselineExpectedExit": 1,
+      "observation": "Actual native DOM/API+owned fixture SQL; source-stable receipt",
+      "controls": [
+        "ADMIN_SAVED_PREVIEW_HELP"
+      ]
+    },
+    {
+      "id": "ADMIN_CREATE_NAME_ERROR",
+      "requirement": "Actual empty Create name error is adjacent, announced, described, invalid and focused.",
+      "group": "Actual staff name validation, edited lot and saved-preview explanation",
+      "kind": "acceptance",
+      "baselineExpectedExit": 1,
+      "observation": "Actual native DOM/API+owned fixture SQL; source-stable receipt",
+      "controls": [
+        "ADMIN_CREATE_ERROR_WIRING"
+      ]
+    },
+    {
+      "id": "ADMIN_CREATE_ERROR_CLEARS",
+      "requirement": "Correction clears obsolete name error and invalid signal.",
+      "group": "Actual staff name validation, edited lot and saved-preview explanation",
+      "kind": "acceptance",
+      "baselineExpectedExit": 1,
+      "observation": "Actual native DOM/API+owned fixture SQL; source-stable receipt",
+      "controls": [
+        "ADMIN_NAME_ERROR_CLEARS"
+      ]
+    },
+    {
+      "id": "EVENT_INFORMATION_AUTHORITY",
+      "requirement": "Open Event information reflects real admitted synthetic BID versus VIEW-only availability.",
+      "group": "Truthful Event information and compact native complete amount geometry",
+      "kind": "acceptance",
+      "baselineExpectedExit": 1,
+      "observation": "Actual native DOM/API+owned fixture SQL; source-stable receipt",
+      "controls": [
+        "EVENT_CURRENT_AUTHORITY_COPY"
+      ]
+    },
+    {
+      "id": "COMPACT_NATIVE_AMOUNT_WATCH",
+      "requirement": "Complete exact opening amount and native row link survive320/390; visible disabled watch box is disjoint or absent.",
+      "group": "Truthful Event information and compact native complete amount geometry",
+      "kind": "acceptance",
+      "baselineExpectedExit": 1,
+      "observation": "Actual native DOM/API+owned fixture SQL; source-stable receipt",
+      "controls": [
+        "COMPACT_AMOUNT_DISJOINT",
+        "COMPACT_AMOUNT_VISIBLE"
+      ]
+    },
+    {
+      "id": "RESERVED_ACTIONS_DISABLED",
+      "requirement": "Watching/My bids/watch retain truthful unavailable behavior and no operational routes.",
+      "group": "Unavailable actions and outer small-phone review footer reachability",
+      "kind": "adversarial",
+      "baselineExpectedExit": 0,
+      "observation": "Actual native DOM/API+owned fixture SQL; source-stable receipt",
+      "controls": [
+        "RESERVED_ACTIONS"
+      ]
+    },
+    {
+      "id": "SMALL_PHONE_OUTER_SCROLL_FOOTER",
+      "requirement": "Actual320x568 parent and min700 child retain reachable hit-testable review footer through native scroll; no physical-keyboard claim.",
+      "group": "Unavailable actions and outer small-phone review footer reachability",
+      "kind": "adversarial",
+      "baselineExpectedExit": 0,
+      "observation": "Actual native DOM/API+owned fixture SQL; source-stable receipt",
+      "controls": [
+        "FOOTER_NATIVE_BOUNDARY"
+      ]
+    }
+  ],
+  "classification": {
+    "finite1": "Only reached ReachedMismatch in requirement validator",
+    "reserved99": "Setup/dependencies, malformed protocol/receipt, HTTP500, browser/DB/action/transport/cleanup/deadline failures"
+  },
+  "unaccepted007": "No first-PUBLISHED/unused-window exclusion or other window policy implementation",
+  "controlLimits": "Actual Chromium DOM controls challenge focus, wiring, copy, current row and complete geometry. Recovery SQL/no-write and footer boundary have typed subpredicate controls; actual server SQL and outer/child scrolling are measured only by run.mjs. No app GREEN from controls. Refresh chosen-control replacement is native, but amount/caret after values in its control are typed copies; actual caret refresh is only in run.mjs. Classifier1/99/99 is a local type predicate, with real archived99 attempts and runner catch boundaries as classification evidence."
+}

@@ -1,0 +1,82 @@
+{
+  "groups": [
+    {
+      "name": "Demo entry and durable connected authority",
+      "kind": "acceptance",
+      "ids": [
+        "DISCOVERY_PRIVATE",
+        "EMPTY_SCOPED_ENROLLMENT",
+        "CONCURRENT_IDENTICAL_RETRY",
+        "CHANGED_RETRY_DENIED",
+        "CLAIMS_DUPLICATE_ISOLATED",
+        "REAL_BID_FOREIGN_RECEIPT_OPAQUE"
+      ]
+    },
+    {
+      "name": "Demo entry adversarial authority and recovery",
+      "kind": "adversarial",
+      "ids": [
+        "ORIGIN_FIELDS_VALIDATION",
+        "BOOTSTRAP_EVENT_SECRET_REQUIRED",
+        "BEGIN_SLOT_RACES",
+        "DISABLED_EXPIRED_POST_LOCK",
+        "ATOMIC_SESSION_FAILURE",
+        "ACK_REPLAY_LOGOUT",
+        "STAFF_SESSION_NOT_REPLACED",
+        "RUNTIME_ACL_DENIALS",
+        "CURRENT_GRANT_REVOCATION"
+      ]
+    },
+    {
+      "name": "Native demo entry pending interruption refresh and bid",
+      "kind": "acceptance",
+      "ids": [
+        "NATIVE_EMPTY_PROFILE",
+        "HELD_ENROLLMENT_UNCONFIRMED",
+        "LOST_ENROLL_ACK_RETRY",
+        "REFRESH_PRIVATE_CONTINUITY",
+        "LOST_ACK_IDEMPOTENT",
+        "NATIVE_REAL_BID_OUTBID"
+      ]
+    }
+  ],
+  "helperPaths": [
+    "tests/acceptance/staging-demo-entry/CONTRACT.md",
+    "tests/acceptance/staging-demo-entry/README.md",
+    "tests/acceptance/staging-demo-entry/CHECKS.json",
+    "tests/acceptance/staging-demo-entry/cases.mjs",
+    "tests/acceptance/staging-demo-entry/run.mjs",
+    "tests/acceptance/staging-workspace-entry/harness.mjs",
+    "tests/acceptance/staging-workspace-entry/seed-people.sql",
+    "tests/acceptance/staging-manual-bid/fixtures.mjs",
+    "tests/acceptance/staging-manual-bid/protocol.mjs",
+    "tests/acceptance/staging-manual-bid/browser.mjs",
+    "tests/acceptance/staging-manual-bid/harness.mjs",
+    "migrations/001_staging_staff.sql",
+    "migrations/002_staging_catalog.sql",
+    "migrations/003_staging_manual_bid.sql",
+    "package.json",
+    "pnpm-lock.yaml",
+    "next.config.ts",
+    "tsconfig.json",
+    "next-env.d.ts",
+    "tests/acceptance/staging-demo-entry/controls.mjs",
+    "tests/acceptance/staging-demo-entry/sanitize.mjs"
+  ],
+  "sourcePaths": [
+    "src/server/demo-entry.ts",
+    "migrations/009_demo_attendee_entry.sql",
+    "src/app/events/[id]/demo-entry-form.tsx",
+    "src/app/events/[id]/event-access.tsx",
+    "src/server/auth.ts",
+    "src/server/config.ts",
+    "src/server/http.ts",
+    "src/server/db.ts",
+    "src/server/manual-bids.ts",
+    "src/server/catalog.ts",
+    "src/app/api/demo/events/[eventId]/entry/route.ts",
+    "src/app/api/demo/events/[eventId]/begin/route.ts",
+    "src/app/api/demo/events/[eventId]/enroll/route.ts",
+    "src/app/api/demo/events/[eventId]/acknowledge/route.ts"
+  ]
+}
