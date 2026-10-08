@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "records": [
+    {
+      "path": "tests/acceptance/staging-staff-entry-inherited/group.mjs",
+      "diskSHA256": "644a600ad7a351089ea2ce1f024bbacdbc4f212eee84223903764d34744ff43f",
+      "executedSHA256": "372e90fb876f57c4e8b69072628a41e3045fc07e3a4b4f026ef60770740b1cbe",
+      "steps": [
+        {
+          "before": "join(root,'tests/acceptance/staging-staff-entry-inherited/loader.mjs')",
+          "after": "process.env.BZ_RECOVERY_LOADER",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "path": "tests/acceptance/staging-workspace-entry/harness.mjs",
+      "diskSHA256": "f56f3f11ffefabfd6bd7bf5a0e77f505b76978ea780267769a2f0f660cc3c59f",
+      "executedSHA256": "fc3c8cdb603f986ed223ea69f728d2926f3578085846ac938315bc016f59ceea",
+      "steps": [
+        {
+          "before": "export async function withFixture(run, configuration={}){",
+          "after": "const fixtureFrames=[];\nexport async function withFixture(run, configuration={}){\n const {fixtureScope}=await import(process.env.BZ_RECOVERY_OWNED);\n const parent=fixtureFrames.at(-1);if(parent)await parent.pause();\n try{return await fixtureScope(()=>withFixtureBody(run,configuration));}\n finally{if(parent)await parent.resume();}\n}\nasync function withFixtureBody(run, configuration={}){",
+          "count": 1
+        },
+        {
+          "before": "async function start(overrides={}){\n      const p=await port(),origin=",
+          "after": "async function start(overrides={},fixedPort){\n      const p=fixedPort??await port(),origin=",
+          "count": 1
+        },
+        {
+          "before": "return {origin,child};",
+          "after": "return {origin,child,overrides};",
+          "count": 1
+        },
+        {
+          "before": "    return await run(fixture);",
+          "after": "    const frame={pause:async()=>{await stop(app.child);(await import(process.env.BZ_RECOVERY_OWNED)).assertApplicationSlot();},resume:async()=>{app=await start(app.overrides,Number(new URL(app.origin).port));}};\n    fixtureFrames.push(frame);\n    try{return await run(fixture);}finally{assert.equal(fixtureFrames.pop(),frame,'Exact fixture stack');}",
+          "count": 1
+        }
+      ],
+      "priorExecutedSHA256": "533672dba5dcb1bf493ee9876a17318a27ac0e9d8be55586f46daf11fe9edeae",
+      "executedAfterPriorSHA256": "550aa9f03ed5e6b88c402bad08f3a1d717ddcf75d9ab01841f7122f549e1e33c"
+    },
+    {
+      "path": "tests/acceptance/staff-drafts-v1/harness.mjs",
+      "diskSHA256": "b856d7a26f74630b35122314f2caa74e4e80cc49f560434053e74b725da686d7",
+      "executedSHA256": "6bdf5b25f22ccd9008461614f35bb07114626ddc5a5faa9e00a40cad8511f59f",
+      "steps": [
+        {
+          "before": "  try {\n    await mkdir(socket);",
+          "after": "  let runtimeCopy;\n  try {\n    runtimeCopy=await (await import(process.env.BZ_RECOVERY_APP_COPY)).createRuntimeCopy(repo,scratch);\n    await mkdir(socket);",
+          "count": 1
+        },
+        {
+          "before": "join(repo,'node_modules/next/dist/bin/next')",
+          "after": "join(runtimeCopy.root,'node_modules/next/dist/bin/next')",
+          "count": 1
+        },
+        {
+          "before": "cwd:repo,env,detached:true",
+          "after": "cwd:runtimeCopy.root,env,detached:true",
+          "count": 1
+        },
+        {
+          "before": "    await rm(scratch,{ recursive:true,force:true });",
+          "after": "    if(runtimeCopy)await (await import(process.env.BZ_RECOVERY_APP_COPY)).validateRuntimeCopy(runtimeCopy);\n    await rm(scratch,{ recursive:true,force:true });",
+          "count": 1
+        }
+      ],
+      "priorExecutedSHA256": "ebc986bb30eb855be04b16e8ea65e1e31a153ffd3734a983bd3eaf69a1f3eaca",
+      "executedAfterPriorSHA256": "c3a0f0e79df77520207dc26a98afa68074eb8bbb5674648036c41d81ab72d6b4"
+    },
+    {
+      "path": "tests/acceptance/staff-drafts/harness.mjs",
+      "diskSHA256": "15a4a30eb54e0c71607a88cdcaaf6fce6f574689c2f67cb0b9fa6e6d1e08aed0",
+      "executedSHA256": "1fe38eb18ae10b1d2def4f424e5220e81ede96e40ba569764c4aea98c6e2309a",
+      "steps": [
+        {
+          "before": "  try {\n    await mkdir(socket);",
+          "after": "  let runtimeCopy;\n  try {\n    runtimeCopy=await (await import(process.env.BZ_RECOVERY_APP_COPY)).createRuntimeCopy(repo,scratch);\n    await mkdir(socket);",
+          "count": 1
+        },
+        {
+          "before": "join(repo,'node_modules/next/dist/bin/next')",
+          "after": "join(runtimeCopy.root,'node_modules/next/dist/bin/next')",
+          "count": 1
+        },
+        {
+          "before": "cwd:repo,env,detached:true",
+          "after": "cwd:runtimeCopy.root,env,detached:true",
+          "count": 1
+        },
+        {
+          "before": "    await rm(scratch,{ recursive:true,force:true });",
+          "after": "    if(runtimeCopy)await (await import(process.env.BZ_RECOVERY_APP_COPY)).validateRuntimeCopy(runtimeCopy);\n    await rm(scratch,{ recursive:true,force:true });",
+          "count": 1
+        }
+      ],
+      "priorExecutedSHA256": "e3be925242e001063c4a47c584e6f67a67cfafe181aee8c115ceef8440b8aa49",
+      "executedAfterPriorSHA256": "49d16bd6278d347b4df50fa87aeb0ee6d5e18ab8b24a2c8ce22fff39cf2d0546"
+    },
+    {
+      "path": "tests/acceptance/staging-catalog/harness.mjs",
+      "diskSHA256": "bde6a547ac3ec2afe1d4ae614d465d18ced3347183787d5fee3b1f27d0299b0f",
+      "executedSHA256": "feb391e15d61f5234d97d575dba308a63fc99951081c1bd1bb3348a76b9acc17",
+      "steps": [
+        {
+          "before": "  try{\n    await mkdir(socket);",
+          "after": "  let runtimeCopy;\n  try{\n    runtimeCopy=await (await import(process.env.BZ_RECOVERY_APP_COPY)).createRuntimeCopy(repo,scratch);\n    await mkdir(socket);",
+          "count": 1
+        },
+        {
+          "before": "join(repo,'node_modules/next/dist/bin/next')",
+          "after": "join(runtimeCopy.root,'node_modules/next/dist/bin/next')",
+          "count": 1
+        },
+        {
+          "before": "{cwd:repo,env:env({DATABASE_URL:runtimeUrl",
+          "after": "{cwd:runtimeCopy.root,env:env({DATABASE_URL:runtimeUrl",
+          "count": 1
+        },
+        {
+          "before": "    await rm(scratch,{recursive:true,force:true});",
+          "after": "    if(runtimeCopy)await (await import(process.env.BZ_RECOVERY_APP_COPY)).validateRuntimeCopy(runtimeCopy);\n    await rm(scratch,{recursive:true,force:true});",
+          "count": 1
+        }
+      ],
+      "priorExecutedSHA256": "b5bc2755c857fc3c3e2db11f2d283acab47dc9263da322ed440c6cd7b35f9eb8",
+      "executedAfterPriorSHA256": "ef7f32816551535692cb751759e9a50f961ac5c6dce8c104ee33b3a0051f52b2"
+    }
+  ],
+  "preservedClassifiers": true,
+  "assertionEdits": 0,
+  "deadlineEdits": 0
+}
