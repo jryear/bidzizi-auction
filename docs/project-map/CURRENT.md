@@ -47,8 +47,8 @@ request identity after uncertain responses. Disabled pending ACK stays pending;
 staff re-enable completes it with the same original private profile and cookies.
 Existing009 SQL and immutable bids/receipts remain intact.
 
-Exact product bytes were merged as an integration candidate at26b9444. Current
-integration freeze is `e0cef66f650bbfbf55d60862b3abe90127e5382f`; full inherited
+Exact product bytes were merged as an integration candidate at26b9444. Accepted external source
+snapshot is `e0cef66f650bbfbf55d60862b3abe90127e5382f`; full inherited
 integration acceptance is **not** established. Typecheck and the explicit webpack
 build passed on unchanged Entry source; default Turbopack build failed because the
 local dependency symlink is outside its filesystem root. This is no provider build.
@@ -61,41 +61,57 @@ Studio catalog `libfile_46e66db4270c819197d931f6a6fc7a3b`, Studio phone
 were verified stopped. Neither failed/interrupted evidence nor prior receipts
 have been represented as fresh GREEN.
 
-## Inherited closure: precise declaration blocker
+## Inherited closure: actual runtime is UNVERIFIABLE
 
-The reviewed32-group/96-ID inherited009+010 regression task was frozen at739ada0.
-The external verifier rejected17 archived bracketed dynamic-route paths before
-runtime. NEW-ONLY reviewed portability successor e0cef66 preserves all433 prior
-files,80 accepted application hashes,32 names/kinds,96 IDs and original deadlines.
-Its17 aliases are byte-identical and guarded before/after the unchanged delegate.
+Parent authorized a narrow NEW phase/source selector after the preserved parser
+and incompatible-base blockers. Independent hash-bound review approved11 NEW
+files; genuine pre-Entry contract freeze is `ff349660be240c60725cab1dd28ec2360163fe85`.
+Exact eight-file accepted source candidate is `22b619dc5b572bcb826e254092434767fc5b7dbb`.
+All460 predecessor files, all original assertions/kinds/deadlines, protected
+application bytes and the external kernel remain unchanged.
 
-The next actual invocation exited3 **SPEC_ERROR: contract needs at least one
-acceptance check**, also before any service or behavioral assertion ran. All32
-checks are regression with empty baseline failures. Schema2 acceptance requires
-a meaningful intended baseline failure. Relabeling an all-pass regression or
-inventing a RED would change the retained requirements. **Inherited96 remains
-unexecuted and unproved.** No frozen task, kernel, assertion body, kind, deadline or result has been weakened.
-This is a contract-format blocker, not a demonstrated product defect. The original
-path rejection and final specification error are separately preserved.
+Entry group0 runs directly on the actual kernel base and candidate. The32
+inherited regressions explicitly select accepted `e0cef66` as a local external
+source in both phases; this source is separately witnessed by full1023-file
+before/after checks, not claimed as kernel source-root assurance. Actual candidate
+application80 equals that selected source. The genuine base keeps six Entry files
+absent and two earlier Studio files; no fabricated RED or installed baseline Entry.
 
-Parent authorized inspecting declaration-only composition with the unchanged Entry
-acceptance check. Mixed acceptance/regression declarations are supported, but the
-checks have no common valid baseline: Entry's actual10530 base supplies its five
-finite failures; inherited source-observe/source-oracle require all80 acceptedc107
-application hashes unconditionally in both phases before child execution.10530
-has six missing and two differing application paths, including the absent old
-Entry route. Current accepted source passes the five Entry assertions, supplying
-no legitimate intended RED. The verifier has one global base and no per-check
-baseline or candidate-only option. No composed runtime was started.
+The actual sole composed run executed **33 groups on each phase /101 declared IDs
+per phase**, then exited2 **UNVERIFIABLE**. Base:81 PASS, five genuine finite Entry
+FAIL,15 unverifiable IDs. Candidate:86 PASS, zero finite FAIL,15 unverifiable IDs.
+Entry's five candidate assertions pass;22 inherited groups/81 assertions pass on
+both phases. Ten inherited groups on each phase emit harness99 and withhold15
+terminal assertions. This is not complete inherited96 acceptance.
 
-Required correction: a NEW independently reviewed phase-aware inherited source-
-binding/helper successor, composed with unchanged Entry acceptance on a genuine
-pre-Entry trusted freeze, followed by renewed base/candidate execution. Preserve
-all original assertion bodies/IDs/kinds/deadlines and frozen files. This changes
-a helper binding interface and exceeds the current declaration-only authorization;
-parent must authorize it before work resumes. The precise
-[composition diagnostic](</Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/ENTRY_INHERITED_COMPOSITION_DIAGNOSTIC.json>)
-records the eight source conflicts and public verifier limitation.
+Independent diagnosis distinguishes all20 failing invocations:
+
+- Inherited index4: nested Events-home responsive fixture teardown scans all
+  process-wide children, including the active outer fixture. No individual
+  offending PID was recorded; outer service attribution is inference.
+- Indices6/7/8/9: unchanged classifiers reject the innocuous word `harness` in a
+  truthful source-lineage diagnostic. Exact behavioral markers are preserved;
+  their withheld protocol is not an accepted terminal result.
+- Indices10–14: staff fixtures use `cluster`; the lifecycle observer assumes `pg`
+  and rejects registration after native PostgreSQL start, before any staff PASS.
+  Original registration/port proof is lost; later absence does not restore it.
+
+The main archive has1083 files; supporting468 includes134 actual native PNGs;
+inner173 preserves40 nested CLI directories bound by exact kernel run IDs.
+All raw result bytes, phases, source witnesses, failures and history are preserved.
+Fresh final cleanup checks recorded identities,219 local ports and all ten known
+unregistered staff cluster paths; no owned process/group remains, all recorded
+ports are closed and no PostgreSQL process exists. No signals were sent and failed
+snapshots remain preserved. This proves later cleanup, not validity of failed guards.
+
+Next authorization must cover a NEW reviewed setup/lifecycle/provenance successor:
+serialize nested app fixtures with at most one simultaneously active app while
+preserving later outer continuation, bind
+fixture-specific ownership and exact cluster layouts with failure-safe registration,
+and isolate pure provenance diagnostics in an owned channel. Keep all original
+classifiers, assertions, IDs, kinds, deadlines and final whole-group cleanup.
+These repairs exceed the current phase/source-only authorization. No application,
+old helper, contract or kernel repair has been made; no further runtime was started.
 
 ## Decisions, permissions and publication holds
 
@@ -150,16 +166,18 @@ Current status does not renew old gate observations.
 ## Evidence and next executable action
 
 [Task18 delivery status](</Users/jryear/Documents/Codex/2026-10-07/task-18/DELIVERY_STATUS.md>)
-records source, acceptance and holds. Entry's exact supported archive is
+records the bounded result. Original36-ID Entry acceptance remains
 [admission-supported-c107835](</Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/admission-supported-c107835/ARCHIVE_BINDING.json>).
-The [inherited specification error](</Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/ENTRY_INHERITED_SPEC_ERROR_e0cef66.json>)
-records no runtime and no inherited GREEN. The original historical map validator
-and Studio-only validate-delivery.py remain unchanged; the explicit
-[Entry status successor](contracts/validate-delivery-entry.py) checks only current
-source/map/CURRENT parity, never application behavior or hosted delivery.
+The actual [composed result](</Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/entry-inherited-composed-attempt-1-22b619d/ARCHIVE_BINDING.json>)
+is UNVERIFIABLE; [supporting native captures and diagnoses](</Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/entry-inherited-composed-supporting-22b619d/ARCHIVE_BINDING.json>)
+and [inner raw CLI evidence](</Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/entry-inherited-composed-inner-captures-22b619d/ARCHIVE_BINDING.json>)
+are separately pinned. Earlier specification errors, blocked composition diagnosis
+and all three historical status validators remain byte-identical. The NEW
+[runtime status validator](contracts/validate-delivery-entry-runtime.py) verifies
+source/receipt/map/CURRENT parity only; it starts no application or hosted gate.
 
-Next: parent resolves the reviewed phase-aware binding successor and the three held
-owner decisions; then rebind the exact accepted source, run the complete inherited
-requirements under a reviewed supported contract, and continue the remaining D1
-slices. After accepted integration and authorized connected installation/promotion,
-prove the fresh-event journey on staging.bidzizi.com with actual deployed captures.
+Next: parent authorizes the narrowly proposed setup/lifecycle/provenance successor,
+then renewed reviewed composition must close the inherited96 requirements. Resolve
+owner policy and connected permissions before remaining dependent D1 slices;
+after accepted integration and promotion, prove a fresh-event journey on
+staging.bidzizi.com. Full D1 remains partial and the new source is not deployed.

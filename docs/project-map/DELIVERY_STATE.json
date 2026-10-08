@@ -1,7 +1,7 @@
 {
-  "version": 2,
+  "version": 3,
   "owner": "task18 D1 delivery delegator",
-  "status": "STUDIO_AND_ENTRY_ACCEPTED_LOCAL_INHERITED_BLOCKED",
+  "status": "STUDIO_ENTRY_ACCEPTED_LOCAL_INHERITED_RUNTIME_UNVERIFIABLE",
   "productBase": "375d301c345bc47298dd2945a29bf9583c96fbc9",
   "docsCheckpoint": "7ecdcb5f6d4d52b052f40eadc369b98b9cffb333",
   "privateDocsCarryCommit": "f46d876",
@@ -11,7 +11,7 @@
     "ASSETS",
     "TIMING007"
   ],
-  "runtimeSlot": "Parent released one app-runtime/test slot to task18 after MOBILE014 private478 acceptance and cleanup. MOBILE014 push retry was denied; no mobile landing or indirect inclusion is authorized. Independent375 gates are authorized. Upstream merge/push/deploy held pending explicit owner reply and parent release.",
+  "runtimeSlot": "Sole root composed gate completed; final owned readback confirms no remaining process/group,219 recorded local ports closed and zero PostgreSQL processes. Failed snapshots retained. Parent MOBILE014 remains unlanded and excluded; upstream promotion/deployment remains held.",
   "policy": [
     "Exact configurable progressive25/50/100/250 tier boundaries with optional fixed lot override",
     "Custom-window and late-publication bounds",
@@ -172,6 +172,93 @@
     "allOwnedCleanupVerified": true
   },
   "inheritedRegression": {
+    "status": "UNVERIFIABLE_AFTER_REAL_COMPOSITION",
+    "groups": 32,
+    "assertions": 96,
+    "closureProved": false,
+    "composedGroupsPerPhase": 33,
+    "composedAssertionsPerPhase": 101,
+    "actualPhaseInvocations": 66,
+    "trustedFreeze": "ff349660be240c60725cab1dd28ec2360163fe85",
+    "candidate": "22b619dc5b572bcb826e254092434767fc5b7dbb",
+    "task": "tasks/staging-staff-entry-composed-selection-v1.toml",
+    "taskSHA256": "0a08caf3a0abdd5ce727c8f1733e4fcb2188ea6d49775a921fe5dce89470e159",
+    "kernelVerdict": "unverifiable",
+    "kernelExit": 2,
+    "kernelClaimSHA256": "4f2ae25e81eaa47f52e957aa5d76603409c56a18c0ab0df179a422ca15f37714",
+    "gateArchive": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/entry-inherited-composed-attempt-1-22b619d",
+    "supportingArchive": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/entry-inherited-composed-supporting-22b619d",
+    "innerArchive": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/entry-inherited-composed-inner-captures-22b619d",
+    "archiveBindingSHA256": {
+      "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/entry-inherited-composed-attempt-1-22b619d": "2ef5b758050af2beada321af10cbd32156cc93c213e2295d9783224189de8086",
+      "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/entry-inherited-composed-supporting-22b619d": "da92e6d90d4c84be7fee84a8995ff93cc73830aead2e59c6bd7921ed905bb263",
+      "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/entry-inherited-composed-inner-captures-22b619d": "d6d33cbfc014734ef04d95fa1a00698fbc28c4264adb6c0b08fd1634099c057f"
+    },
+    "sourceSelectionReview": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/staff-entry-inherited-selection-review-v1.json",
+    "sourceSelectionReviewSHA256": "8688862f9c3e5c2486952b441cd37163cc7e5ba2c3a0e605a99d7742dcfa7b67",
+    "selectedExternalSource": "e0cef66f650bbfbf55d60862b3abe90127e5382f",
+    "selectedSourceKernelAssured": false,
+    "selectedSourceHelperWitnessed": true,
+    "phaseCounts": {
+      "base": {
+        "pass": 81,
+        "finiteFail": 5,
+        "unverifiable": 15,
+        "harnessGroups": 10
+      },
+      "candidate": {
+        "pass": 86,
+        "finiteFail": 0,
+        "unverifiable": 15,
+        "harnessGroups": 10
+      }
+    },
+    "validInheritedGroupsPerPhase": 22,
+    "inheritedPassAssertionsPerPhase": 81,
+    "inheritedErrorIndices": [
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "causeClasses": {
+      "nestedFixtureLifetimeGuard": [
+        4
+      ],
+      "provenanceTokenClassifier": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "clusterPathRegistration": [
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
+    },
+    "runtimeStarted": true,
+    "runtimeCompleted": true,
+    "ownedCleanupConfirmed": true,
+    "cleanupEvidence": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/ENTRY_COMPOSED_FINAL_OWNED_RUNTIME_CLEANUP.json",
+    "cleanupSHA256": "189aa62831277742b641b36f82a939daf448e1917d797e27d14fed78e055ab5f",
+    "allPriorFrozenFilesPreserved": true,
+    "protectedApplicationChanged": false,
+    "productRepairMade": false,
+    "actualReviewFile": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/staff-entry-composed-source-review-22b619.json",
+    "actualReviewSHA256": "98b8921585eb9e182faf883d0f4677e96bb9c4be089a758372c4b0528a656fd1",
+    "nextRequiredAuthorization": "NEW reviewed setup/lifecycle/provenance successor: serialize nested apps with at most one simultaneously active app, bind fixture ownership and exact pg/cluster layouts with failure-safe registration, isolate pure provenance diagnostics; preserve all original classifiers/assertion bodies/IDs/kinds/deadlines and final whole-group cleanup."
+  },
+  "nextExecutableAction": "NEW reviewed setup/lifecycle/provenance successor: serialize nested apps with at most one simultaneously active app, bind fixture ownership and exact pg/cluster layouts with failure-safe registration, isolate pure provenance diagnostics; preserve all original classifiers/assertion bodies/IDs/kinds/deadlines and final whole-group cleanup. Current phase/source-only authorization does not cover these repairs. Three owner decisions, connected grants and promotion remain held.",
+  "previousInheritedRegression": {
     "status": "SPEC_ERROR_BEFORE_RUNTIME",
     "groups": 32,
     "assertions": 96,
@@ -190,6 +277,5 @@
     "runtimeStarted": false,
     "resolutionOwner": "Parent: authorize a reviewed versioned phase-aware inherited source-binding/helper successor and composed trusted freeze on genuine pre-Entry source, with renewed actual base/candidate evidence. Beyond current declaration-only authority; preserve assertions/kinds/deadlines/history/kernel.",
     "compositionDiagnostic": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/ENTRY_INHERITED_COMPOSITION_DIAGNOSTIC.json"
-  },
-  "nextExecutableAction": "Parent resolves phase-aware inherited binding successor authority; owner policy, connected privileges and upstream/staging promotion remain held. Assets/timing preparation already reviewed; no dependent implementation begins under unresolved holds."
+  }
 }
