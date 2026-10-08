@@ -103,7 +103,17 @@ export async function composeUI(ui) {
   const lots=[];
   for(let i=0;i<2;i++) {
     await admin.locator('[data-action="add-lot"]').click();
+    // Add item schedules editor rendering/focus. Settle that native work before
+    // fill can dispatch text; never retry entry or derive expectations from it.
+    await flush(frame);
     const id=new URL(ui.page.url()).searchParams.get('lot');product(!!id,'New item has no durable editor route identity.');
+    const initial=await frame.evaluate(()=>({hash:location.hash,
+      current:[...document.querySelectorAll('[data-action="edit-lot"][aria-current="true"]')].map(e=>e.dataset.id),
+      fields:Object.fromEntries(['title','short','description','category','opening','includes','fine'].map(key=>
+        [key,[...document.querySelectorAll('#editor [data-lot="'+key+'"]')].map(e=>({value:e.value,disabled:e.disabled}))]))}));
+    product(!lots.some(l=>l.id===id)&&initial.hash==='#/lots/'+id&&initial.current.length===1&&initial.current[0]===id&&
+      Object.values(initial.fields).every(fields=>fields.length===1&&!fields[0].disabled&&fields[0].value===''),
+      'New item editor is not empty, editable and bound to its new route identity.',{id,initial});
     const lot={id,title:titles[i],short:'Synthetic catalog summary.',description:'Synthetic item description entered by staff.',
       category:i?'Food & drink':'Getaways',image:'assets/lots/'+(i?'coffee':'cabin')+'.jpg',alt:'Staff-entered synthetic photograph '+(i+1),
       opening:i?23456:12345,includes:['First included synthetic detail','Second included synthetic detail'],fine:'Private synthetic item restrictions.',windowId:'main'};
