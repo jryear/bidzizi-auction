@@ -29,6 +29,14 @@ cleanup requirement before browser allocation and a retained `Lots` selector
 against the accepted Studio `Items` label. A narrow [successor](../proposed/staff-auction-rehearsal/BASELINE_07B09CF_SUCCESSOR.md)
 is prepared for independent review. No product implementation has started.
 
+Astra approved that two-fault successor at `8dfd160102d58eb3e574b43e78827ca9b8b5f01b`.
+Its complete full baseline removed both infrastructure 99s but returned
+**BASELINE_NOT_READY** because one retained native Entry check sampled session
+state before its asynchronous logout POST completed. A second narrow
+[Entry successor](../proposed/staff-auction-rehearsal/BASELINE_8DFD160_SUCCESSOR.md)
+is prepared for independent review. All other checks matched their declared
+baseline outcomes. Product files and connected environments remain untouched.
+
 **Studio, Entry and the bounded local 101-ID composition are independently accepted.
 Full D1 remains partial and the changes have not been deployed.**
 Task3 completed the authorized local verification recovery. Parent retains the
