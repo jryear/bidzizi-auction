@@ -67,4 +67,4 @@ export async function enroll009(f,event,claims={name:'Synthetic Assets Attendee'
 }
 export const sessionHash=actor=>hash(actor.cookie.split('=')[1]);
 export async function recovered(f,actor,event,requestId){const r=await f.request(path.recover(event,requestId),{cookie:actor.cookie});assert.equal(r.status,200);return meta(r.data,event,requestId);}
-export async function denied(f,url,actor,status=404,code='ASSET_UNAVAILABLE'){const r=await binary(f,url,{cookie:actor?.cookie});neutral(r,status,code);return r;}
+export async function denied(f,url,actor,status=404,code='ASSET_UNAVAILABLE'){const r=await binary(f,url,{cookie:actor?.cookie});assert.equal(r.status,status,`Asset denial for ${url}`);neutral(r,status,code);return r;}

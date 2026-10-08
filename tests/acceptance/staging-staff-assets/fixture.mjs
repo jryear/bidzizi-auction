@@ -15,7 +15,7 @@ export async function withAssetsFixture(run,output){
  };
  try{return await withOwnedFixture(async f=>{
    owned.scratch=f.scratch;owned.appPort=Number(new URL(f.origin).port);owned.pgPid=Number((await readFile(join(f.scratch,'pg/postmaster.pid'),'utf8')).split('\n')[0]);
-   f.connect=async()=>{if(owned.cancelled)throw new HarnessError('Owned connection allocation cancelled:99.');const c=new pg.Client({...f.db.connectionParameters,connectionTimeoutMillis:5000});owned.connections.push(c);await c.connect();if(owned.cancelled){await c.end();throw new HarnessError('Owned connection allocation cancelled:99.');}return c;};
+   f.connect=async()=>{if(owned.cancelled)throw new HarnessError('Owned connection allocation cancelled:99.');const p=f.db.connectionParameters;const c=new pg.Client({host:p.host,port:p.port,user:p.user,password:p.password,database:p.database,connectionTimeoutMillis:5000});owned.connections.push(c);await c.connect();if(owned.cancelled){await c.end();throw new HarnessError('Owned connection allocation cancelled:99.');}return c;};
    f.owned=owned;
    // Existing001/002 and synthetic authority seed are allocated by the unchanged
    // historical harness. All further statements operate only on its random DB.

@@ -220,7 +220,7 @@ async function nativeJourney(f){
   const createdPending=ui.page.waitForResponse(r=>r.request().method()==='POST'&&new URL(r.url()).pathname==='/api/v2/admin/events');
   await ui.admin.locator('[data-action="create-event"]').click();const created=await h.nativeResponse(await createdPending);
   expect(created.status===201&&created.data.draft?.version===2,'Native event creation did not persist new versioned preparation.',created);
-  const id=created.data.draft.event.id,now=await h.dbNow(f),start=Math.ceil(now.getTime()/60000)*60000+5*60000,end=start+3*60000;
+  const id=created.data.draft.event.id,now=await h.dbNow(f),start=Math.ceil(now.getTime()/60000)*60000+3*60000,end=start+3*60000;
   const timing=endpoints(utc(start),utc(end));
   await ui.admin.locator('[data-tab="event"]').click();
   expect(await ui.admin.locator('[data-event="timing.timezone"]').inputValue()==='America/Los_Angeles','New event did not default to Pacific IANA timezone.');
@@ -247,6 +247,7 @@ async function nativeJourney(f){
   await ui.page.reload({waitUntil:'domcontentloaded'});await ui.admin.locator('[data-preview-mode="saved"]').click();
   await ui.admin.locator('[data-action="preview-route"][data-path="/lots"]').click();
   const preview=ui.admin.frameLocator('#bidder-frame');await pwExpect(preview.getByText('Marigold synthetic item')).toBeVisible();
+  await pwExpect.poll(async()=>preview.locator('img[alt="Synthetic Marigold synthetic item photograph"]').first().evaluate(image=>image.naturalWidth),{timeout:15000}).toBeGreaterThan(0);
   await ui.capture('REHEARSAL_STAFF_SAVED_PHONE');steps.push('Staff created, uploaded both photos, saved and inspected native phone preview');
   await ui.admin.locator('[data-tab="lots"]').click();await ui.admin.locator('#select-all').check();await ui.admin.locator('#review-catalog').click();
   const publishPending=ui.page.waitForResponse(r=>r.request().method()==='POST'&&new URL(r.url()).pathname==='/api/v2/admin/events/'+id+'/catalog-approval');
@@ -269,12 +270,13 @@ async function nativeJourney(f){
     await page.getByRole('button',{name:'Enter demo event',exact:true}).click();await pwExpect(page.locator('[data-catalog-phase]')).toBeVisible();
     const session=await page.request.get(f.origin+'/api/session');attendees.at(-1).identity=(await session.json()).person.id;
     attendees.at(-1).frame=page.frameLocator('iframe[title="BidZizi event"]');
-    const browse=attendees.at(-1).frame.locator('[data-action="browse"]');if(await browse.count())await browse.click();
+    const browse=attendees.at(-1).frame.locator('[data-key="browse"]');await browse.waitFor({state:'visible'});await browse.click();
     await pwExpect(attendees.at(-1).frame.locator('[data-lot]').first()).toBeVisible();
-    await page.screenshot({path:join(f.scratch,'attendee-'+attendees.length+'-scheduled.png')});
+    await pwExpect.poll(async()=>attendees.at(-1).frame.locator('[data-lot]').first().locator('img').first().evaluate(image=>image.naturalWidth),{timeout:15000}).toBeGreaterThan(0);
+    await f.capture({page},'REHEARSAL_ATTENDEE_'+attendees.length+'_SCHEDULED');
    }
    expect(attendees[0].identity!==attendees[1].identity,'Two private phone contexts collapsed to one identity.');
-   await attendees[0].page.reload({waitUntil:'domcontentloaded'});const browseAgain=attendees[0].frame.locator('[data-action="browse"]');if(await browseAgain.count())await browseAgain.click();await pwExpect(attendees[0].frame.locator('[data-lot]').first()).toBeVisible();
+   await attendees[0].page.reload({waitUntil:'domcontentloaded'});const browseAgain=attendees[0].frame.locator('[data-key="browse"]');await browseAgain.waitFor({state:'visible'});await browseAgain.click();await pwExpect(attendees[0].frame.locator('[data-lot]').first()).toBeVisible();
    await panel.getByRole('button',{name:'Disable event entry',exact:true}).click();await pwExpect(panel).toHaveAttribute('data-entry-state','disabled');
    const blockedEntry=await f.request('/api/demo/events/'+id+'/begin',{method:'POST',json:{entryId:randomUUID()},headers:{origin:f.origin}});
    expect(blockedEntry.status>=400&&blockedEntry.status<500,'Disabled Entry admitted a new attendee.',{status:blockedEntry.status});
@@ -285,7 +287,7 @@ async function nativeJourney(f){
    async function place(attendee,amount){
     const frame=attendee.frame;await frame.locator('body').evaluate(()=>{location.hash='#/lots';});await frame.locator('a[href="#/lot/'+itemIds[0]+'"]').first().click();
     await pwExpect(frame.locator('[data-action="bid"]')).toBeEnabled();await frame.locator('[data-action="bid"]').click();
-    await frame.locator('#amt').fill((amount/100).toFixed(2));
+    await frame.locator('#amt').fill((amount/100).toFixed(2));await pwExpect(frame.locator('[data-action="place"]')).toBeEnabled();
     const pending=attendee.page.waitForResponse(r=>r.request().method()==='POST'&&new URL(r.url()).pathname==='/api/v2/bidder/events/'+id+'/lots/'+itemIds[0]+'/bids');
     await frame.locator('[data-action="place"]').click();const reply=await pending,body=await reply.json();
     expect(reply.status()===201&&body.receipt.amountMinor===amount,'Native bid did not durably accept the exact reviewed amount.',{status:reply.status(),body});
@@ -304,7 +306,7 @@ async function nativeJourney(f){
    const bPending=attendees[1].page.waitForResponse(r=>r.request().method()==='POST'&&new URL(r.url()).pathname==='/api/v2/bidder/events/'+id+'/lots/'+itemIds[0]+'/bids');
    await editing.locator('[data-action="place"]').click();const bResponse=await bPending,bData=await bResponse.json();
    expect(bResponse.status()===201&&bData.receipt.amountMinor===5000,'Active edited bid did not submit its exact reviewed amount.',{status:bResponse.status(),bData});
-   const b=bData.receipt;await editing.locator('[data-action="close-sheet"]').first().click();
+   const b=bData.receipt;await editing.locator('[data-action="close-sheet"]').first().click();await f.capture({page:attendees[1].page},'REHEARSAL_ATTENDEE_ACTIVE');
    await attendees[0].page.reload({waitUntil:'domcontentloaded'});const again=await place(attendees[0],7500);
    steps.push('Two phones bid, outbid and rebid; server polling changed minimum while preserving the active input node, focus, value and caret');
    await editing.locator('body').evaluate(()=>{location.hash='#/lots';});await editing.locator('a[href="#/lot/'+itemIds[0]+'"]').first().click();
@@ -314,13 +316,15 @@ async function nativeJourney(f){
     lostIntent=route.request().postDataJSON();const committed=await route.fetch();lostReceipt=(await committed.json()).receipt;await route.abort('failed');
    },{times:1});
    await editing.locator('[data-action="place"]').click();
-   await pwExpect(editing.locator('[data-action="check"]')).toBeVisible({timeout:20000});
+   await pwExpect.poll(async()=>await editing.locator('[data-action="check"]').count()+await editing.locator('[data-owned-request]').count(),{timeout:20000}).toBeGreaterThan(0);
    expect(lostReceipt?.status==='accepted'&&lostReceipt.requestId===lostIntent?.requestId&&lostReceipt.amountMinor===10000,'Lost response lacked a committed exact bid witness.',{lostIntent,lostReceipt});
    const committedRows=(await f.db.query('SELECT amount_minor::text FROM bz_manual_bids WHERE actor_id=$1 AND request_id=$2',[attendees[1].identity,lostReceipt.requestId])).rows;
    same(committedRows,[{amount_minor:'10000'}],'Lost response request did not commit exactly one original bid.');
    await attendees[1].page.reload({waitUntil:'domcontentloaded'});
-   await pwExpect(editing.locator('[data-action="check"]')).toBeVisible();
-   await editing.locator('[data-action="check"]').click();await pwExpect(editing.locator('[data-owned-request="'+lostReceipt.requestId+'"]')).toBeVisible();
+   await pwExpect(attendees[1].page.locator('[data-catalog-phase]')).toBeVisible();
+   await editing.locator('[data-key="browse"]').click();
+   await editing.locator('a[href="#/lot/'+itemIds[0]+'"]') .first().click();
+   await pwExpect(editing.locator('[data-owned-request="'+lostReceipt.requestId+'"]')).toBeVisible();
    const recovered=await editing.locator('[data-owned-request="'+lostReceipt.requestId+'"]').getAttribute('data-owned-request');
    same(recovered,lostReceipt.requestId,'UI recovered a different bid request after response loss.');
    observations.lostResponse={requestId:lostReceipt.requestId,amountMinor:lostReceipt.amountMinor,sqlRows:committedRows.length};
@@ -332,7 +336,9 @@ async function nativeJourney(f){
    const closed=await h.api(f,{cookie:'bz_session='+currentCookie.value},h.bidderPath(id,itemIds[1],'standing'));
    expect(closed.status===200&&closed.data.standing.phase==='closed'&&closed.data.standing.acceptedBidCount===0,'Closed no-bid lot is not readable.',closed);
    observations.attendees={ids:attendees.map(x=>x.identity),first:a,outbid:b,rebid:again,activeEdit:preserved,closedNoBid:closed.data.standing};
-   await attendees[0].page.screenshot({path:join(f.scratch,'attendee-closed.png')});steps.push('Closed catalog retained final standing and no-bid lot without award finalization');
+   await attendees[0].frame.locator('[data-key="browse"]').click();await attendees[0].frame.locator('a[href="#/lot/'+itemIds[1]+'"]') .first().click();
+   await pwExpect(attendees[0].frame.locator('.catalog-standing')).toContainText('Bidding closed');
+   await f.capture({page:attendees[0].page},'REHEARSAL_ATTENDEE_CLOSED_NO_BID');steps.push('Closed catalog retained final standing and no-bid lot without award finalization');
   } finally {for(const attendee of attendees)await attendee.context.close();}
  });return done(steps,observations);
 }

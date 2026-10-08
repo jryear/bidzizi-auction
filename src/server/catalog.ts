@@ -2,10 +2,12 @@ import "server-only";
 import { createHash, randomUUID } from "node:crypto";
 import type { PoolClient } from "pg";
 import { transaction } from "./db";
-import { identity, staff, grant, type Organization } from "./auth";
+import { identity, staff, grant, sessionHash, type Organization } from "./auth";
 import { testMode } from "./config";
 import { ApiError, body, forbidden, json, mutationMode, notFound, object, unauthenticated, uuid, validation } from "./http";
 import { draft as validateDraft, type EventFields, type LotFields } from "./draft";
+import { isTrade, resolveWindow, tradeDraft, TRADE_CAP, type TradeEvent, type TradeLot } from "./timing";
+import { referencedAssets, validateAssetRefs } from "./staff-assets";
 
 type ApprovedLot = LotFields & { number: string; provider: Organization };
 type ApprovalRow = {
@@ -78,6 +80,7 @@ export async function approveCatalog(request: Request, eventId: string): Promise
   const raw = await body(request);
   const result = await transaction(async client => {
     const { actor, event, organization } = await staffEvent(client, request, eventId, true);
+    if (isTrade(event.draft)) throw new ApiError(409,"UNSUPPORTED_EVENT_VERSION","Use the versioned publication route for this event.");
     const input = object(raw, ["expectedRevision", "requestId", "lotIds"]);
     if (!Number.isSafeInteger(input.expectedRevision) || (input.expectedRevision as number) < 1 || !Array.isArray(input.lotIds) || !input.lotIds.length || input.lotIds.length > 100) throw validation();
     const requestId = uuid(input.requestId), lotIds = input.lotIds.map(uuid).sort();
@@ -99,6 +102,8 @@ export async function approveCatalog(request: Request, eventId: string): Promise
     if ([event.draft.name, event.draft.welcome, event.draft.date, event.draft.start, event.draft.end, event.draft.timezone].some(v => typeof v !== "string" || !v.trim()) ||
         source.some(r => [r.data.title, r.data.description, r.data.category].some(v => typeof v !== "string" || !v.trim()))) throw incomplete();
     const validated = validateDraft({ event: event.draft, lots: source.map(r => r.data) });
+    await validateAssetRefs(client,request,event.id,validated);
+    if(referencedAssets(validated).length)await freshPublisher(client,request,actor.person.id,event.org_id,event.id);
     const e = validated.event;
     if (![e.name, e.welcome, e.date, e.start, e.end, e.timezone].every(v => v.trim()) || !Number.isSafeInteger(e.increment) || (e.increment as number) <= 0 ||
         validated.lots.some(l => !l.title.trim() || !l.description.trim() || !l.category.trim() || l.windowId !== "main" || !Number.isSafeInteger(l.opening) || (l.opening as number) <= 0)) throw incomplete();
@@ -117,6 +122,7 @@ export async function approveCatalog(request: Request, eventId: string): Promise
     }
     const data = await receipt(client, row);
     await client.query("INSERT INTO bz_requests(actor_id,operation,request_id,payload_hash,response,status) VALUES($1,$2,$3,$4,$5::jsonb,201)", [actor.person.id, operation, requestId, payloadHash, JSON.stringify(data)]);
+    if(referencedAssets(validated).length)await freshPublisher(client,request,actor.person.id,event.org_id,event.id);
     return { data, status: 201 };
   });
   return json(result.data, result.status);
@@ -135,11 +141,14 @@ export async function getCatalog(request: Request, eventId: string): Promise<Res
   enabled(request);
   return json(await transaction(async client => {
     const { approval: a, clock } = await viewerApproval(client, request, eventId);
+    if (isTrade(a.event_snapshot)) throw new ApiError(409,"UNSUPPORTED_EVENT_VERSION","Use the versioned catalog route for this event.");
     const e = a.event_snapshot;
     return {
-      event: { id: a.event_id, name: e.name, eyebrow: e.eyebrow, welcome: e.welcome, venue: e.venue, cover: e.cover, sponsorsEnabled: e.sponsorsEnabled, sponsors: e.sponsors },
+      event: { id: a.event_id, name: e.name, eyebrow: e.eyebrow, welcome: e.welcome, venue: e.venue,
+        cover: clock.phase==="scheduled"&&e.cover?.startsWith("asset:")?null:e.cover, sponsorsEnabled: e.sponsorsEnabled, sponsors: e.sponsors },
       organization: a.organization_snapshot, schedule: { opensAt: a.opens_at.toISOString(), closesAt: a.closes_at.toISOString() },
       serverNow: clock.at.toISOString(), phase: clock.phase, biddingEnabled: false,
+      ...(clock.phase!=="scheduled"&&referencedAssets({event:e,lots:await approvedLots(client,a.id)}).length?{assetContext:{version:1,approvalId:a.id}}:{}),
       catalog: clock.phase === "scheduled" ? null : { approvalId: a.id, sourceRevision: a.source_revision, lots: await approvedLots(client, a.id) },
     };
   }));
@@ -148,9 +157,98 @@ export async function getCatalogLot(request: Request, eventId: string, lotId: st
   enabled(request);
   return json(await transaction(async client => {
     const { approval: a, clock } = await viewerApproval(client, request, eventId);
+    if (isTrade(a.event_snapshot)) throw new ApiError(409,"UNSUPPORTED_EVENT_VERSION","Use the versioned catalog route for this event.");
     const lot = (await client.query<{ snapshot: ApprovedLot }>("SELECT snapshot FROM bz_catalog_lots WHERE approval_id=$1 AND lot_id=$2", [a.id, uuid(lotId)])).rows[0]?.snapshot;
     if (!lot) throw new ApiError(404, "NOT_FOUND", "This lot could not be found.");
     if (clock.phase === "scheduled") throw new ApiError(409, "CATALOG_NOT_OPEN", "The catalog appears when bidding opens.");
     return { eventId: a.event_id, approvalId: a.id, lot, phase: clock.phase, serverNow: clock.at.toISOString(), biddingEnabled: false };
+  }));
+}
+
+async function freshPublisher(client: PoolClient, request: Request, personId: string, orgId: string, eventId: string): Promise<Date> {
+  const row=await client.query<{at:Date}>(`WITH t AS MATERIALIZED (SELECT clock_timestamp() AS at)
+    SELECT t.at FROM t,bz_sessions s JOIN bz_people p ON p.id=s.person_id
+    JOIN bz_staff_grants g ON g.person_id=p.id JOIN bz_orgs o ON o.id=g.org_id
+    JOIN bz_events e ON e.org_id=o.id
+    WHERE s.token_hash=$1 AND p.id=$2 AND o.id=$3 AND e.id=$4
+      AND s.revoked_at IS NULL AND s.expires_at>t.at AND p.active AND p.is_test AND g.active`,
+    [sessionHash(request),personId,orgId,eventId]);
+  if(!row.rows[0])throw unauthenticated();
+  return row.rows[0].at;
+}
+async function tradeReceipt(client: PoolClient,row: ApprovalRow) {
+  return {approval:{id:row.id,eventId:row.event_id,organizationId:row.org_id,sourceRevision:row.source_revision,
+    approvedAt:row.approved_at.toISOString(),opensAt:row.opens_at.toISOString(),closesAt:row.closes_at.toISOString(),
+    local:{date:row.local_date,start:row.local_start,end:row.local_end,timezone:row.timezone},
+    snapshot:{organization:row.organization_snapshot,event:row.event_snapshot,lots:await approvedLots(client,row.id)}}};
+}
+export async function getTradeApproval(request:Request,eventId:string):Promise<Response>{
+  enabled(request);
+  return json(await transaction(async client=>{
+    const {actor,event}=await staffEvent(client,request,eventId,false);
+    if(!isTrade(event.draft))throw new ApiError(409,"UNSUPPORTED_EVENT_VERSION","This is a historical event.");
+    await freshPublisher(client,request,actor.person.id,event.org_id,event.id);
+    const row=await header(client,event.id);return row?tradeReceipt(client,row):{approval:null};
+  }));
+}
+export async function approveTradeCatalog(request:Request,eventId:string):Promise<Response>{
+  enabled(request);mutationMode(request);const raw=await body(request);
+  const result=await transaction(async client=>{
+    const {actor,event,organization}=await staffEvent(client,request,eventId,true);
+    if(!isTrade(event.draft))throw new ApiError(409,"UNSUPPORTED_EVENT_VERSION","This is a historical event.");
+    const input=object(raw,["expectedRevision","requestId","lotIds"]);
+    if(!Number.isSafeInteger(input.expectedRevision)||(input.expectedRevision as number)<1||!Array.isArray(input.lotIds)||!input.lotIds.length||input.lotIds.length>100)throw validation();
+    const requestId=uuid(input.requestId),lotIds=input.lotIds.map(uuid);
+    if(new Set(lotIds).size!==lotIds.length)throw validation();
+    const operation=`catalog-approval-v2:${event.id}`,payloadHash=createHash("sha256").update(canonical({expectedRevision:input.expectedRevision,lotIds})).digest("hex");
+    // Event serialization precedes owned ledger inspection. Exact committed replay survives opening.
+    const prior=(await client.query<{payload_hash:string;response:unknown;status:number}>("SELECT payload_hash,response,status FROM bz_requests WHERE actor_id=$1 AND operation=$2 AND request_id=$3",[actor.person.id,operation,requestId])).rows[0];
+    await freshPublisher(client,request,actor.person.id,event.org_id,event.id);
+    if(prior){if(prior.payload_hash!==payloadHash)throw new ApiError(409,"IDEMPOTENCY_CONFLICT","This request was already used for different terms.");return {data:prior.response,status:prior.status};}
+    if(await header(client,event.id))throw new ApiError(409,"CATALOG_APPROVAL_EXISTS","This event is already published.");
+    if(event.revision!==input.expectedRevision)throw new ApiError(409,"REVISION_CONFLICT","This draft changed.",{revision:event.revision});
+    const selected=(await client.query<{id:string;position:number;data:TradeLot}>("SELECT id,position,data FROM bz_lots WHERE event_id=$1 AND org_id=$2 AND id=ANY($3::uuid[]) ORDER BY position",[event.id,event.org_id,lotIds])).rows;
+    if(selected.length!==lotIds.length)throw validation();
+    const validated=tradeDraft({event:event.draft,lots:selected.map(r=>r.data)}),e=validated.event;
+    await validateAssetRefs(client,request,event.id,validated);
+    if(!e.name.trim()||!e.welcome.trim()||validated.lots.some(l=>!l.title.trim()||!l.description.trim()||!l.category.trim()||l.opening===null||l.opening<=0))throw incomplete();
+    const {opensAt,closesAt}=resolveWindow(e.timing);
+    const decision=await freshPublisher(client,request,actor.person.id,event.org_id,event.id);
+    if(decision>=opensAt)throw new ApiError(409,"PUBLICATION_STARTED","Publication must be authorized before bidding opens.");
+    const id=randomUUID(),snapshot={...e,version:2};
+    const row=(await client.query<ApprovalRow>(`INSERT INTO bz_catalog_approvals(id,event_id,org_id,source_revision,approved_by,approved_at,local_date,local_start,local_end,timezone,opens_at,closes_at,organization_snapshot,event_snapshot)
+      VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13::jsonb,$14::jsonb) RETURNING *`,
+      [id,event.id,event.org_id,event.revision,actor.person.id,decision.toISOString(),e.timing.startDate,e.timing.start,e.timing.end,e.timing.timezone,opensAt.toISOString(),closesAt.toISOString(),JSON.stringify(organization),JSON.stringify(snapshot)])).rows[0];
+    for(const [position,lot]of validated.lots.entries()){
+      const selectedRow=selected[position],immutable={...lot,number:String(selectedRow.position+1).padStart(2,"0"),provider:organization,timing:{opensAt:opensAt.toISOString(),closesAt:closesAt.toISOString()},effectiveRaiseMinor:lot.fixedRaiseMinor};
+      await client.query("INSERT INTO bz_catalog_lots(approval_id,event_id,org_id,lot_id,position,snapshot) VALUES($1,$2,$3,$4,$5,$6::jsonb)",[id,event.id,event.org_id,lot.id,position,JSON.stringify(immutable)]);
+    }
+    const data=await tradeReceipt(client,row);
+    await client.query("INSERT INTO bz_requests(actor_id,operation,request_id,payload_hash,response,status) VALUES($1,$2,$3,$4,$5::jsonb,201)",[actor.person.id,operation,requestId,payloadHash,JSON.stringify(data)]);
+    await freshPublisher(client,request,actor.person.id,event.org_id,event.id);
+    return {data,status:201};
+  });return json(result.data,result.status);
+}
+export async function getTradeCatalog(request:Request,eventId:string):Promise<Response>{
+  enabled(request);
+  return json(await transaction(async client=>{
+    const {approval:a,clock}=await viewerApproval(client,request,eventId);
+    if(!isTrade(a.event_snapshot))throw new ApiError(409,"UNSUPPORTED_EVENT_VERSION","This is a historical catalog.");
+    const e=a.event_snapshot as TradeEvent,schedule={opensAt:a.opens_at.toISOString(),closesAt:a.closes_at.toISOString()};
+    const lots=await approvedLots(client,a.id);
+    return {version:2,event:{id:a.event_id,name:e.name,eyebrow:e.eyebrow,welcome:e.welcome,venue:e.venue,cover:e.cover,coverAlt:e.coverAlt,sponsorsEnabled:e.sponsorsEnabled,sponsors:e.sponsors},organization:a.organization_snapshot,
+      schedule,serverNow:clock.at.toISOString(),phase:clock.phase,biddingEnabled:clock.phase==="open",
+      ...(referencedAssets({event:e,lots}).length?{assetContext:{version:1,approvalId:a.id}}:{}),
+      catalog:{approvalId:a.id,sourceRevision:a.source_revision,lots:lots.map(l=>({...l,phase:clock.phase,timing:schedule}))}};
+  }));
+}
+export async function getTradeCatalogLot(request:Request,eventId:string,lotId:string):Promise<Response>{
+  enabled(request);
+  return json(await transaction(async client=>{
+    const {approval:a,clock}=await viewerApproval(client,request,eventId);
+    if(!isTrade(a.event_snapshot))throw new ApiError(409,"UNSUPPORTED_EVENT_VERSION","This is a historical catalog.");
+    const lot=(await client.query<{snapshot:ApprovedLot}>("SELECT snapshot FROM bz_catalog_lots WHERE approval_id=$1 AND lot_id=$2",[a.id,uuid(lotId)])).rows[0]?.snapshot;
+    if(!lot)throw new ApiError(404,"NOT_FOUND","This lot could not be found.");
+    return {version:2,eventId:a.event_id,approvalId:a.id,lot:{...lot,phase:clock.phase,timing:{opensAt:a.opens_at.toISOString(),closesAt:a.closes_at.toISOString()}},phase:clock.phase,serverNow:clock.at.toISOString(),biddingEnabled:clock.phase==="open"};
   }));
 }

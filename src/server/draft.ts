@@ -5,8 +5,9 @@ const images = new Set(["cabin", "coffee", "dinner", "ceramics", "bicycle", "flo
 const logos = new Set(["cedar", "coffee", "table", "earth", "spoke", "floral", "harbor", "saturn"]);
 export type EventFields = {
   name: string; eyebrow: string; welcome: string; venue: string; cover: string | null;
+  coverAlt?: string;
   date: string; start: string; end: string; timezone: string; increment: number | null;
-  sponsorsEnabled: boolean; sponsors: { name: string; logo: string }[];
+  sponsorsEnabled: boolean; sponsors: { name: string; logo: string; alt?: string }[];
 };
 export type LotFields = {
   id: string; title: string; short: string; description: string; category: string;
@@ -14,11 +15,11 @@ export type LotFields = {
   fine: string; windowId: "main" | null;
 };
 export type DraftFields = { event: EventFields; lots: LotFields[] };
-const eventKeys = ["name","eyebrow","welcome","venue","cover","date","start","end","timezone","increment","sponsorsEnabled","sponsors"];
+const eventKeys = ["name","eyebrow","welcome","venue","cover","coverAlt","date","start","end","timezone","increment","sponsorsEnabled","sponsors"];
 const lotKeys = ["id","title","short","description","category","image","alt","opening","includes","fine","windowId"];
 function image(value: unknown): string | null {
   if (value === null || value === "") return null;
-  if (typeof value !== "string" || !images.has(value)) throw validation();
+  if (typeof value !== "string" || (!images.has(value) && !/^asset:[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(value))) throw validation();
   return value;
 }
 function amount(value: unknown): number | null {
@@ -48,12 +49,15 @@ export function draft(value: unknown): DraftFields {
   if (typeof e.sponsorsEnabled !== "boolean" || !Array.isArray(e.sponsors) || e.sponsors.length > 20) throw validation();
   const event: EventFields = {
     name: text(e.name,200), eyebrow: text(e.eyebrow,200), welcome: text(e.welcome,5000),
-    venue: text(e.venue,300), cover: image(e.cover), date: date(e.date), start: time(e.start), end: time(e.end),
+    venue: text(e.venue,300), cover: image(e.cover),
+    ...(e.coverAlt===undefined?{}:{coverAlt:text(e.coverAlt,300)}),
+    date: date(e.date), start: time(e.start), end: time(e.end),
     timezone, increment: amount(e.increment), sponsorsEnabled: e.sponsorsEnabled,
     sponsors: e.sponsors.map(value => {
-      const s = object(value,["name","logo"]), logo = text(s.logo,20);
-      if (!logos.has(logo)) throw validation();
-      return { name: text(s.name,200), logo };
+      const s = object(value,["name","logo","alt"]), logo = text(s.logo,100);
+      if (!logos.has(logo) && !/^asset:[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(logo)) throw validation();
+      if (logo.startsWith("asset:") && (typeof s.alt!=="string" || !s.alt.trim() || s.alt.length>300)) throw validation();
+      return { name: text(s.name,200), logo,...(s.alt===undefined?{}:{alt:text(s.alt,300)}) };
     }),
   };
   if (!Array.isArray(input.lots) || input.lots.length > 100) throw validation();
@@ -64,6 +68,8 @@ export function draft(value: unknown): DraftFields {
       category: text(l.category,100), image: image(l.image), alt: text(l.alt,300), opening: amount(l.opening),
       includes: l.includes.map(v => text(v,500)), fine: text(l.fine,5000), windowId: l.windowId };
   });
+  if (event.cover?.startsWith("asset:") && (!event.coverAlt || !event.coverAlt.trim())) throw validation();
+  if (lots.some(l=>l.image?.startsWith("asset:")&&!l.alt.trim())) throw validation();
   if (new Set(lots.map(l => l.id)).size !== lots.length) throw validation();
   return { event, lots };
 }

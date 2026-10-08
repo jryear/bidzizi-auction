@@ -1,64 +1,52 @@
-# Repository Operating Notes
+# BidZizi execution instructions
 
-## Product and context
+## Current authority and outcome
 
-BidZizi is a rebuild for company-hosted auctions. The current priority is a native-feeling mobile bidder experience. The staging application includes the original read-only Neon connectivity check and a gated synthetic staff-drafts slice: test sessions, server-held organization grants, durable event/lot draft saves, recovery, and an A bidder preview. A separate synthetic catalog slice adds immutable saved approval, explicit event VIEW grants and database-clock scheduled/open/closed catalog reads. A bounded synthetic manual slice adds separate current person/business/network/VIEW/BID authority, durable owned receipts and competing standing through A. Real phone/member admission, live auction rules, payments and PWA behavior are not implemented. The complete bidder journey remains the isolated simulated prototype (`prototypes/lanyard`). See [the staff handoff](docs/STAGING_STAFF_HANDOFF.md) and [gate receipts](docs/STAGING_GATE_RECEIPTS.txt); deterministic frozen checks decide local completion; model reviews propose cases, and deployed release checks are separate.
+The owner requested transfer to Junior using the existing 6.1 Sol / 900k Hermes and Telegram setup on October 8, 2026. Junior owns the remaining outcome through implementation, integration, verification and the authorized delivery destination. Use the existing runtime; this file does not configure a model or its context limit. Astra handles bounded consequential planning or independent review. Routine implementation does not require a new planning round.
 
-- [README.md](README.md): current scaffold, run commands, bidder-first discovery, and contract workflow.
-- [Staging connectivity](docs/STAGING_CONNECTIVITY.md): mutable provider identities, connection procedure, and operational evidence.
-- [Existing discovery draft](docs/PRODUCT_SLICE_001_DISCOVERY.md): provisional staff-first draft-event proposal, not an accepted direction. Preserve inherited work and reconcile it with the current bidder-first priority before freezing a contract.
-- [Bidder foundation handoff](docs/BIDDER_FOUNDATION_HANDOFF.md): the selected simulated prototype (`prototypes/lanyard`), what it does and does not contain, the requested next pass, and open decisions. Read it before bidder-interface work.
+Read the current handoff before writing. Confirm that predecessor writers have relinquished ownership. A request to stop, or an idle process, is not itself an acknowledged transfer. Preserve all tracked, untracked and dirty work. The owner's latest explicit hold takes precedence over continuation instructions.
 
-Public browsing, identity at first bid, phone versus invitation admission, and auction semantics remain proposals or open decisions. Do not infer bidding authority from successful sign-in or treat a prototype as a settled product rule.
+Deliver the approved staff-created synthetic rehearsal: create event, upload item images, configure one window and increments, save and inspect the native preview, publish before opening, enable Entry, share the real link/QR, admit two distinct attendees, bid/outbid/rebid, recover uncertain submissions and reload, and display closed standing. Preserve accepted Studio and Design A bidder interactions and MOBILE014 behavior. Final standing is not an award or settlement.
 
-## Durable guardrails
+The decision record is `docs/plans/STAFF_AUCTION_REHEARSAL_DECISIONS_2026-10-08.md`. Its product decisions remain authoritative within the approved scope; its earlier universal implementation sequencing and owner assignment are superseded by this execution policy. Historical status documents describe their dated snapshots, not current deployment or current source.
 
-- Keep credentials server-side, outside Git, client bundles, URLs, logs, and public responses. Database errors must not disclose provider details or secrets.
-- Preserve live request-time connectivity evidence and verified TLS. The existing database adapter requires a Neon pooled endpoint; do not silently weaken that production restriction to make tests run locally.
-- Import no legacy code or database contents without explicit scope. Keep old resources separate.
-- When bidding is implemented, derive identity, admission, lot state, and bid standing from server authority. Display acceptance only after durable server confirmation. Pending, stale, offline, or uncertain outcomes must not appear accepted.
-- Represent monetary amounts as integers in the agreed minor unit. Currency, scale, increments, ordering, retry semantics, and close behavior must be settled before the contract is frozen; this file does not choose them.
-- Honor the requested effect scope. Commits, pushes, provider configuration, migrations, data writes, and deployments are separate actions; a passing check does not authorize them.
+## Ordinary implementation is the default
 
-## Bidder design foundation
+The implementation owner classifies a change from its actual behavior and dependencies, with a brief reason in the existing work record. Resolve routine reversible choices without returning them to the human. Static copy, presentation layout, contained read-only behavior and covered refactors use the normal development loop: implement a small coherent change, run relevant existing checks, add a focused test when behavior warrants it, inspect the rendered result for UI work, and integrate within existing authority.
 
-The user selected `prototypes/lanyard` (prototype A) on 2026-10-02 as the canonical bidder foundation. Preserve its design language, page composition, onboarding, and bid interactions. A change to that language needs the user's decision; passing checks do not grant visual acceptance.
+Do not create a new TOML contract, frozen failing baseline, independent review cycle, or custom verifier for every ordinary change. Reuse existing tests. A CSS/file label, small diff or easy Git revert does not establish low risk: client submission, recovery and accepted/pending presentation can affect consequential behavior.
 
-- It is simulated. Its server, identity, clock, rivals, and fixtures are browser-local and are never operational truth. Its rules (USD, $25 steps, a 6:00 PM close, retry behavior) are fixtures; the A1–A23 markers list what is undecided. Do not promote any of them into a contract by copying.
-- Keep it isolated: no imports into or from `src/`, no production credentials or services, and no edits that bend it to fit the Next.js app. Production code reuses its design deliberately, under a frozen contract.
-- Entering a Member ID, business name, or invitation text never authorizes acting for a business. Authority comes from server-held admission, whatever the prototype shows.
-- Real auto-bidding is a later contract. Any auto-bid in the prototype is a labeled simulation.
+Use a bounded Kernel contract and independent review for important architectural boundaries, authorization, durable data/migrations, bid amounts and ordering, cutoff timing, concurrency, idempotency/recovery, publication immutability, upload security, verification integrity, and acceptance of a consequential integrated slice. Several small implementation changes can share one coherent acceptance contract. Scope scrutiny to the affected guarantee; expand only when evidence reveals a wider dependency.
 
-## Admin design prototype
+## Keep development moving
 
-The user approved the first admin Event/Lots prototype and its simplified copy, then requested it on a separate worktree. It lives in `prototypes/admin-studio`; read [the handoff](docs/ADMIN_JOURNEY_HANDOFF.md) before changing it. It is isolated from `src/` and production services, like the A foundation.
+Explicitly authorized implementation may overlap frozen baseline verification in separate source snapshots and isolated runtimes. The verification caller must remain clean and unchanged; do not edit its source or contend for its database, ports or fixtures. A baseline harness failure blocks the corresponding evidence claim, not all unrelated implementation. A correctness finding blocks affected integration/acceptance and goes directly to its repair owner.
 
-BidZizi contains organizations; Saturn is the first example organization and Holiday Trade Show is its event. Staff enter items internally. The organization supplies items; optional event sponsors are separate. Staff select lots together and assign a shared opening/closing window. The audience catalog appears when bidding opens. Organization onboarding, staff authorization, multiple windows, replacement/rescheduling and operational bidding remain future work. The synthetic catalog opens from database time and visible audience pages refresh from server authority; no cron or browser clock grants access. The manual test-version handoff is [here](docs/STAGING_MANUAL_BID_HANDOFF.md); real currency/increment/close/self-raise policy is not chosen by fixture code. Prototype rules are not a frozen contract.
+Preflight harness imports, selectors and resource lifecycle through the cheapest meaningful targeted checks. After a repair, rerun the affected check before scheduling an expensive full run. Distinguish product failure, harness failure, environment failure, contract conflict and missing authority. Fix the cause; preserve unsuccessful observations. Never convert setup failure into meaningful RED or weaken assertions to fit a candidate.
 
-## Work style and inspection
+Reviews run alongside useful authorized work. Each finding has an owner, affected scope and concrete resolution condition. The delivery owner receives the result, repairs or routes it, rechecks and continues. Review pending is not an indefinite stopping state. Report a real blocker or owner decision when necessary; do not require the human to relay routine results or restart the agent after each gate.
 
-Prefer one owner for a complete user outcome through interface, authority, persistence, and recovery. Resolve reversible implementation choices autonomously; surface decisions that change product meaning, security boundaries, durable data contracts, or external commitments.
+Maintain one current implementation record with source, next action, actual results and remaining boundary. Measure time to accepted delivery, human coordination, rework and false completion. Separate harness repair time from development time lost waiting on it. Do not build execution infrastructure or metrics software as a prerequisite to this auction.
 
-Inspect the actual repository and rendered product within the authorized scope. For substantial interface work, explore an isolated interactive prototype with clearly labeled fixtures before freezing the operational contract. Inspect phone and desktop behavior, including back/reload, keyboard/focus, pending and failed operations, stale standing, interruption, and terminal states. Tests alone do not settle visual or interaction quality.
+## Evidence and delivery
 
-Use Node 24 and pnpm 12.4.2. Existing commands are `pnpm dev`, `pnpm typecheck`, `pnpm build`, and `pnpm start`; there is no test script yet. Read context relevant to the task instead of preloading unrelated history.
+Use the external read-only `/Users/jryear/code/_kernel` installation; the verified rehearsal uses Kernel 3.1.0 and schema 2. Recheck installation identity when evidence depends on it. For Kernel-selected work, preserve the reviewed contract, complete declared execution chain, trusted base, assertion identities and exact candidate binding. Follow the external schema-2 protocol. Ordinary test output is useful development evidence and must not be labeled independent review or Kernel SUPPORTED.
 
-## Contracted work and evidence
+Existing frozen contracts and failed runs remain immutable history. If protected policy, harness or contract inputs must change, use an explicit reviewed successor for the affected claim; do not rewrite old records or silently claim the old contract passes. A policy edit itself supplies no product acceptance. Reuse valid historical evidence only within its original source and scope; do not restart passed baselines solely because ownership changed.
 
-Frozen contracts live in `tasks/`. Commit the contract and its executable acceptance/adversarial evidence, including relied-on helpers and fixtures, to the trusted base before implementation. Preserve the task spec, declared evidence, and protected paths on the candidate. Implementer-owned tests may help development but are not independent completion evidence.
+Verify the actual integrated candidate through the complete staff/attendee journey and relevant adversarial checks before claiming accepted delivery. Changed source requires appropriate renewed evidence; ancestry alone is insufficient. Keep implemented, locally checked, independently accepted and hosted/deployed claims distinct. Source review and rendered interaction review cover different questions.
 
-Use the external `~/code/_kernel/verify.py` trust anchor, version 3.0.0, with `python3`. Supply the base through trusted CLI/environment selection, not TOML. With `FROZEN_BASE_SHA` set to the committed contract-and-evidence revision:
+Connected migrations/grants, staging deployment, public publication and production changes retain their explicit release holds. Prepare the exact release candidate and required evidence before asking for that release decision. No credentials, model/provider settings, gateways or shared runtime configuration change is implied by this handoff.
 
-```bash
-python3 ~/code/_kernel/verify.py tasks/<task>.toml --repo . --base "$FROZEN_BASE_SHA" --baseline
-python3 ~/code/_kernel/verify.py tasks/<task>.toml --repo . --base "$FROZEN_BASE_SHA" --claim "<completion claim>" --implementer-model "<actual model/runtime>"
-```
+## Product and development boundaries
 
-Acceptance must be RED on base and GREEN on candidate; regressions pass on both, adversarial checks on candidate. Use independent evidence to challenge the complete outcome; review metadata alone does not prove a review happened.
+Keep credentials server-side and out of Git, client bundles, URLs and logs. Preserve the production Neon/TLS restrictions; use bounded disposable local adapters for tests. Never seed/reset shared staging as a fixture. Clean up only resources you own.
 
-`VERIFY_TREE` and `VERIFY_ROOT` identify trees, not isolated storage or credentials. Explicitly allocate disposable per-tree test databases/schemas and scoped credentials; never reset or seed shared staging for acceptance. Keep any test adapter bounded while preserving the production Neon/TLS checks. Infrastructure, dependency, setup, and timeout failures must exit 99 rather than masquerade as ordinary RED.
+Use server authority for identity, admission, immutable publication, bid standing and database-time decisions after relevant waits. Show acceptance only after durable confirmation. Preserve pending, stale, failed and uncertain states. Use exact integer minor units and the approved synthetic trade-dollar rules; historical USD receipts retain their original meaning.
 
-A supported kernel result is evidence for the frozen contract. Keep UI judgment, local checks, connected-provider verification, and release acceptance distinct. Verify the intended deployment revision and real domain/provider behavior before claiming release success; connectivity alone does not prove the bidder journey.
+Preserve selected visual direction and native phone interactions. Inspect phone/desktop, input/focus, back/reload, pending/recovery and closure when affected. Simulated prototype identity, clocks and money are fixtures, not authority. Group windows, additive publication, proxy bidding, final awards, payments, real SMS/member linkage and donation/watch expansion remain outside this rehearsal.
+
+Use Node 24 and pnpm 12.4.2. Inspect `package.json` for the current commands; established commands include `pnpm dev`, `pnpm typecheck`, `pnpm build` and `pnpm start`. Read relevant local Next.js documentation before framework changes. Inspect relevant project context rather than loading the archive into every task.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

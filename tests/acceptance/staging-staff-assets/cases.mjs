@@ -116,7 +116,7 @@ export async function recovery(f,record){
  const changed=await upload(f,actor,event,files.item,u.requestId);neutral(changed.response,409,'IDEMPOTENCY_CONFLICT');assert.equal(await count(f,event),1);
  const unknown=await f.request(path.recover(event,uuid()),{cookie:actor.cookie});neutral(unknown,404,'ASSET_UPLOAD_NOT_FOUND');
  // Native response loss occurs only after the independently observed commit.
- const n=await ui(f,actor);await n.page.goto(f.origin+'/admin?event='+event);let committed,requestId;
+ const n=await ui(f,actor);await n.page.goto(f.origin+'/admin?event='+event);await n.studio.getByLabel('Upload event photo',{exact:true}).waitFor({state:'attached'});let committed,requestId;
  await n.page.route('**/api/admin/events/'+event+'/assets',async route=>{const r=await route.fetch(),data=await r.json();committed=meta(data,event,data.asset?.requestId);requestId=committed.requestId;await route.abort('failed');});
  const input=n.studio.getByLabel('Upload event photo',{exact:true});assert.equal(await input.count(),1);await input.setInputFiles(f.repo+'/tests/acceptance/staging-staff-assets/fixtures/cover-exif.jpg');
  const end=Date.now()+10000;while(!committed&&Date.now()<end)await new Promise(r=>setTimeout(r,50));assert.ok(committed,'Lost reply must have an actual durable commit.');

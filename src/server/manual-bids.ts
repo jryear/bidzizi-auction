@@ -5,6 +5,7 @@ import { transaction } from "./db";
 import { identity, sessionHash, type Identity } from "./auth";
 import { testMode } from "./config";
 import { ApiError, body, forbidden, json, mutationMode, object, unauthenticated, uuid, validation } from "./http";
+import { isTrade, minimumFor, raiseFor, TRADE_CAP, TRADE_DENOMINATION, TRADE_RULESET, type TradeEvent, type TradeLot } from "./timing";
 
 // Bounded synthetic fixture version; these are not live auction policies.
 const RULESET = "staging-usd-manual-v1", INCREMENT = 2500, CAP = 1_000_000_000;
@@ -85,6 +86,7 @@ export async function bidderContext(request: Request, eventId: string): Promise<
   enabled(request);
   return json(await transaction(async client => {
     const auth = await authority(client, request, eventId, false), at = await clock(client, request), p = await phase(client, auth.release, at);
+    if (isTrade(auth.release.event_snapshot)) throw unsupported();
     return { testMode: true, person: auth.actor.person, businesses: auth.businesses.map(b => ({ id: b.id, name: b.name, canBid: b.can_bid && auth.bidAdmission && auth.release.event_snapshot.increment === INCREMENT && p === "open" })) };
   }));
 }
@@ -97,6 +99,100 @@ export async function bidStanding(request: Request, eventId: string, lotId: stri
     if (await phase(client, auth.release, before) === "scheduled") throw new ApiError(409, "CATALOG_NOT_OPEN", "The catalog appears when bidding opens.");
     const row = await lockedStanding(client, auth.release, lot.id, false), at = await clock(client, request);
     return { standing: await projection(client, auth, lot, row, at) };
+  }));
+}
+
+async function tradeAuthority(client:PoolClient,request:Request,eventId:string,requiredBid=false,businessId?:string){
+  const auth=await authority(client,request,eventId,requiredBid,businessId);
+  if(!isTrade(auth.release.event_snapshot))throw unsupported();
+  return auth;
+}
+async function freshTradeAuthority(client:PoolClient,request:Request,auth:Authority,businessId?:string){
+  const at=await clock(client,request);
+  const permitted=await client.query(`SELECT 1 FROM bz_event_view_grants v
+    JOIN bz_event_bidder_admissions a ON a.person_id=v.person_id AND a.event_id=v.event_id
+    JOIN bz_business_person_memberships m ON m.person_id=v.person_id
+    JOIN bz_businesses b ON b.id=m.business_id
+    JOIN bz_org_business_memberships n ON n.business_id=b.id
+    WHERE v.person_id=$1 AND v.event_id=$2 AND v.active AND a.active AND a.access='BID'
+      AND m.active AND m.can_bid AND b.active AND n.active AND n.org_id=$3 AND ($4::uuid IS NULL OR b.id=$4) LIMIT 1`,
+    [auth.actor.person.id,auth.release.event_id,auth.release.org_id,businessId??null]);
+  if(!permitted.rows.length)throw forbidden();
+  return at;
+}
+async function tradeLot(client:PoolClient,auth:Authority,lotId:string):Promise<TradeLot>{
+  const row=(await client.query<{snapshot:TradeLot}>("SELECT snapshot FROM bz_catalog_lots WHERE approval_id=$1 AND lot_id=$2",[auth.release.id,uuid(lotId)])).rows[0];
+  if(!row)throw missing("lot");return row.snapshot;
+}
+async function tradeStandingRow(client:PoolClient,auth:Authority,lot:TradeLot,write:boolean):Promise<StandingRow>{
+  const sql=`SELECT current_amount_minor::text,leading_business_id,accepted_bid_count,version,updated_at FROM bz_lot_standing WHERE release_id=$1 AND lot_id=$2 FOR ${write?"UPDATE":"SHARE"}`;
+  const prior=(await client.query<StandingRow>(sql,[auth.release.id,lot.id])).rows[0];
+  if(prior)return prior;
+  if(!write)return {current_amount_minor:null,leading_business_id:null,accepted_bid_count:0,version:0,updated_at:auth.release.approved_at};
+  await client.query(`INSERT INTO bz_lot_standing(release_id,lot_id,event_id,org_id,ruleset_id,currency,increment_minor,amount_cap_minor)
+    VALUES($1,$2,$3,$4,$5,$6,$7,$8) ON CONFLICT(release_id,lot_id) DO NOTHING`,
+    [auth.release.id,lot.id,auth.release.event_id,auth.release.org_id,TRADE_RULESET,TRADE_DENOMINATION,raiseFor(lot.opening??1,lot.fixedRaiseMinor),TRADE_CAP]);
+  return (await client.query<StandingRow>(sql,[auth.release.id,lot.id])).rows[0];
+}
+async function tradeProjection(client:PoolClient,auth:Authority,lot:TradeLot,row:StandingRow,at:Date){
+  const p=await phase(client,auth.release,at),current=row.current_amount_minor===null?null:Number(row.current_amount_minor),min=minimumFor(current,lot.opening!,lot.fixedRaiseMinor);
+  const leader=row.leading_business_id?(await client.query<{id:string;name:string}>("SELECT id,name FROM bz_businesses WHERE id=$1",[row.leading_business_id])).rows[0]:null;
+  return {releaseId:auth.release.id,lotId:lot.id,rulesetId:TRADE_RULESET,currency:TRADE_DENOMINATION,incrementMinor:raiseFor(current??lot.opening!,lot.fixedRaiseMinor),amountCapMinor:TRADE_CAP,
+    phase:p,currentAmountMinor:current,minimumAmountMinor:min,acceptedBidCount:row.accepted_bid_count,version:row.version,leadingBusiness:leader,
+    serverNow:at.toISOString(),updatedAt:row.updated_at.toISOString(),canBid:p==="open"&&min!==null&&auth.businesses.some(b=>b.can_bid&&b.id!==row.leading_business_id)};
+}
+export async function tradeBidderContext(request:Request,eventId:string):Promise<Response>{
+  enabled(request);return json(await transaction(async client=>{
+    const auth=await tradeAuthority(client,request,eventId,false),at=await clock(client,request),p=await phase(client,auth.release,at);
+    return {testMode:true,version:2,person:auth.actor.person,businesses:auth.businesses.map(b=>({id:b.id,name:b.name,canBid:b.can_bid&&auth.bidAdmission&&p==="open"})),serverNow:at.toISOString(),phase:p};
+  }));
+}
+export async function tradeBidStanding(request:Request,eventId:string,lotId:string):Promise<Response>{
+  enabled(request);return json(await transaction(async client=>{
+    const auth=await tradeAuthority(client,request,eventId,true),lot=await tradeLot(client,auth,lotId),row=await tradeStandingRow(client,auth,lot,false),at=await freshTradeAuthority(client,request,auth);
+    return {standing:await tradeProjection(client,auth,lot,row,at)};
+  }));
+}
+export async function placeTradeBid(request:Request,eventId:string,lotId:string):Promise<Response>{
+  enabled(request);mutationMode(request);const input=object(await body(request),["requestId","businessId","amountMinor","rulesetId"]);
+  const requestId=uuid(input.requestId),businessId=uuid(input.businessId),event=uuid(eventId),target=uuid(lotId);
+  if(!Number.isSafeInteger(input.amountMinor)||(input.amountMinor as number)<0||(input.amountMinor as number)>TRADE_CAP||input.rulesetId!==TRADE_RULESET)throw validation();
+  const amountMinor=input.amountMinor as number,hash=payloadHash(event,target,businessId,amountMinor,TRADE_RULESET);
+  const result=await transaction(async client=>{
+    const auth=await tradeAuthority(client,request,event,true,businessId),lot=await tradeLot(client,auth,target);
+    await client.query("SELECT pg_advisory_xact_lock(hashtextextended($1,0))",[auth.actor.person.id+"/"+requestId]);
+    const prior=(await client.query<{payload_hash:string;receipt:BidReceipt;http_status:number}>("SELECT payload_hash,receipt,http_status FROM bz_bid_receipts WHERE actor_id=$1 AND request_id=$2",[auth.actor.person.id,requestId])).rows[0];
+    await freshTradeAuthority(client,request,auth,businessId);
+    if(prior){if(prior.payload_hash!==hash)throw new ApiError(409,"IDEMPOTENCY_CONFLICT","This request was already used for another bid.");
+      if(prior.http_status===409)return {status:409,data:{receipt:prior.receipt}};
+      const row=await tradeStandingRow(client,auth,lot,false),at=await freshTradeAuthority(client,request,auth,businessId);
+      return {status:201,data:{receipt:prior.receipt,standing:await tradeProjection(client,auth,lot,row,at)}};
+    }
+    const row=await tradeStandingRow(client,auth,lot,true),at=await freshTradeAuthority(client,request,auth,businessId),p=await phase(client,auth.release,at);
+    const current=row.current_amount_minor===null?null:Number(row.current_amount_minor),min=minimumFor(current,lot.opening!,lot.fixedRaiseMinor);
+    const reason=p==="scheduled"?"NOT_OPEN":p==="closed"?"CLOSED":min===null?"AMOUNT_LIMIT":row.leading_business_id===businessId?"UNSUPPORTED_SELF_RAISE":amountMinor<min?"BELOW_MINIMUM":null;
+    const bidId=reason?null:randomUUID();
+    const receipt:BidReceipt={requestId,eventId:event,releaseId:auth.release.id,lotId:lot.id,actorId:auth.actor.person.id,businessId,amountMinor,rulesetId:TRADE_RULESET,currency:TRADE_DENOMINATION,status:reason?"rejected":"accepted",reason,bidId,decidedAt:at.toISOString()};
+    if(bidId){
+      await client.query(`INSERT INTO bz_manual_bids(id,actor_id,business_id,request_id,event_id,org_id,release_id,lot_id,amount_minor,ruleset_id,currency,standing_version,decided_at)
+        VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13::timestamptz)`,[bidId,auth.actor.person.id,businessId,requestId,event,auth.release.org_id,auth.release.id,lot.id,amountMinor,TRADE_RULESET,TRADE_DENOMINATION,row.version+1,at.toISOString()]);
+      await client.query(`UPDATE bz_lot_standing SET current_amount_minor=$3,leading_business_id=$4,accepted_bid_id=$5,accepted_bid_count=accepted_bid_count+1,version=version+1,
+        increment_minor=$6,updated_at=$7::timestamptz WHERE release_id=$1 AND lot_id=$2`,[auth.release.id,lot.id,amountMinor,businessId,bidId,raiseFor(amountMinor,lot.fixedRaiseMinor),at.toISOString()]);
+    }
+    const status=reason?409:201;
+    await client.query("INSERT INTO bz_bid_receipts(actor_id,request_id,payload_hash,receipt,http_status) VALUES($1,$2,$3,$4::jsonb,$5)",[auth.actor.person.id,requestId,hash,JSON.stringify(receipt),status]);
+    if(reason)return {status,data:{receipt}};
+    const updated=(await client.query<StandingRow>("SELECT current_amount_minor::text,leading_business_id,accepted_bid_count,version,updated_at FROM bz_lot_standing WHERE release_id=$1 AND lot_id=$2",[auth.release.id,lot.id])).rows[0];
+    return {status,data:{receipt,standing:await tradeProjection(client,auth,lot,updated,at)}};
+  });return json(result.data,result.status);
+}
+export async function tradeBidReceipt(request:Request,eventId:string,lotId:string,requestId:string):Promise<Response>{
+  enabled(request);return json(await transaction(async client=>{
+    const auth=await tradeAuthority(client,request,eventId,true),lot=await tradeLot(client,auth,lotId),row=(await client.query<{receipt:BidReceipt}>("SELECT receipt FROM bz_bid_receipts WHERE actor_id=$1 AND request_id=$2",[auth.actor.person.id,uuid(requestId)])).rows[0];
+    await freshTradeAuthority(client,request,auth);
+    if(!row||row.receipt.eventId!==auth.release.event_id||row.receipt.releaseId!==auth.release.id||row.receipt.lotId!==lot.id)throw missing("bid receipt");
+    if(!auth.businesses.some(b=>b.can_bid&&b.id===row.receipt.businessId))throw forbidden();
+    return {receipt:row.receipt};
   }));
 }
 function payloadHash(eventId: string, lotId: string, businessId: string, amountMinor: number, rulesetId: string) {

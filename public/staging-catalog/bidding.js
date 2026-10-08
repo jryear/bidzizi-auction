@@ -5,6 +5,8 @@ import {state} from './store.js';
 import {esc,money,icon,monogram} from './ui.js';
 import {reconcileHTML} from './reconcile.js';
 const RULESET='staging-usd-manual-v1';
+const ruleset=()=>catalog.version===2?'saturn-trade-tiered-v1':RULESET;
+const denomination=()=>catalog.version===2?'SATURN_TRADE_DOLLAR_SYNTHETIC_V1':'USD';
 const $=s=>document.querySelector(s);
 export const bidder={context:null,eventId:null,epoch:null,refresh:null,stale:false,activeLot:null,entries:new Map()};
 let generation=0,signature='',sheet=null,sheetReturn=null;
@@ -12,14 +14,14 @@ const changed=()=>window.dispatchEvent(new Event('bidder-change'));
 const currentBusiness=()=>bidder.context?.businesses.find(b=>b.id===state.identity?.businessId)||bidder.context?.businesses.find(b=>b.canBid)||bidder.context?.businesses[0]||null;
 const guard=()=>({generation,person:bidder.context?.person.id,event:bidder.eventId});
 const current=g=>g.generation===generation&&g.person===bidder.context?.person.id&&g.event===bidder.eventId;
-const root=lot=>`/api/bidder/events/${encodeURIComponent(bidder.eventId)}/lots/${encodeURIComponent(lot)}`;
+const root=lot=>`${catalog.version===2?'/api/v2':'/api'}/bidder/events/${encodeURIComponent(bidder.eventId)}/lots/${encodeURIComponent(lot)}`;
 const entryFor=id=>{
  if(!bidder.entries.has(id))bidder.entries.set(id,{standing:null,loading:false,stale:false,error:'',sequence:0,intent:null,receipt:null,mode:null,checking:false,recoveryAttempted:false});
  return bidder.entries.get(id);
 };
-const key=lot=>`bz:manual-intent:v1:${bidder.context?.person.id}/${bidder.eventId}/${lot}`;
+const key=lot=>`bz:manual-intent:v${catalog.version===2?2:1}:${bidder.context?.person.id}/${bidder.eventId}/${lot}`;
 const uuid=v=>typeof v==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v);
-function validIntent(v){return v&&Object.keys(v).sort().join(',')==='amountMinor,businessId,requestId,rulesetId'&&uuid(v.requestId)&&uuid(v.businessId)&&Number.isSafeInteger(v.amountMinor)&&v.amountMinor>=0&&v.amountMinor<=1_000_000_000&&v.rulesetId===RULESET;}
+function validIntent(v){return v&&Object.keys(v).sort().join(',')==='amountMinor,businessId,requestId,rulesetId'&&uuid(v.requestId)&&uuid(v.businessId)&&Number.isSafeInteger(v.amountMinor)&&v.amountMinor>=0&&v.amountMinor<=1_000_000_000&&v.rulesetId===ruleset();}
 function storedIntent(lot){
  try{const raw=localStorage.getItem(key(lot));if(!raw||raw.length>1000)return null;const v=JSON.parse(raw);return validIntent(v)&&bidder.context.businesses.some(b=>b.id===v.businessId)?v:null;}catch{return null;}
 }
@@ -29,9 +31,9 @@ async function request(path,body){
  return {status:response.status,data:await response.json()};
 }
 function receiptMatches(receipt,intent,lot){
- return receipt&&intent&&receipt.requestId===intent.requestId&&receipt.eventId===bidder.eventId&&receipt.releaseId===catalog.approvalId&&receipt.lotId===lot&&receipt.actorId===bidder.context?.person.id&&receipt.businessId===intent.businessId&&receipt.amountMinor===intent.amountMinor&&receipt.rulesetId===intent.rulesetId&&receipt.currency==='USD'&&['accepted','rejected'].includes(receipt.status)&&Number.isFinite(Date.parse(receipt.decidedAt))&&(receipt.status==='accepted'?typeof receipt.bidId==='string'&&receipt.reason===null:receipt.bidId===null&&typeof receipt.reason==='string');
+ return receipt&&intent&&receipt.requestId===intent.requestId&&receipt.eventId===bidder.eventId&&receipt.releaseId===catalog.approvalId&&receipt.lotId===lot&&receipt.actorId===bidder.context?.person.id&&receipt.businessId===intent.businessId&&receipt.amountMinor===intent.amountMinor&&receipt.rulesetId===intent.rulesetId&&receipt.currency===denomination()&&['accepted','rejected'].includes(receipt.status)&&Number.isFinite(Date.parse(receipt.decidedAt))&&(receipt.status==='accepted'?typeof receipt.bidId==='string'&&receipt.reason===null:receipt.bidId===null&&typeof receipt.reason==='string');
 }
-function validStanding(s,id){return s&&s.releaseId===catalog.approvalId&&s.lotId===id&&s.rulesetId===RULESET&&s.currency==='USD'&&s.incrementMinor===2500&&s.amountCapMinor===1_000_000_000&&['open','closed'].includes(s.phase)&&typeof s.canBid==='boolean'&&Number.isFinite(Date.parse(s.serverNow))&&Number.isFinite(Date.parse(s.updatedAt))&&Number.isSafeInteger(s.version)&&Number.isSafeInteger(s.acceptedBidCount)&&(s.currentAmountMinor===null||Number.isSafeInteger(s.currentAmountMinor))&&(s.minimumAmountMinor===null||Number.isSafeInteger(s.minimumAmountMinor));}
+function validStanding(s,id){return s&&s.releaseId===catalog.approvalId&&s.lotId===id&&s.rulesetId===ruleset()&&s.currency===denomination()&&Number.isSafeInteger(s.incrementMinor)&&s.incrementMinor>0&&s.amountCapMinor===1_000_000_000&&(catalog.version===2?['scheduled','open','closed']:['open','closed']).includes(s.phase)&&typeof s.canBid==='boolean'&&Number.isFinite(Date.parse(s.serverNow))&&Number.isFinite(Date.parse(s.updatedAt))&&Number.isSafeInteger(s.version)&&Number.isSafeInteger(s.acceptedBidCount)&&(s.currentAmountMinor===null||Number.isSafeInteger(s.currentAmountMinor))&&(s.minimumAmountMinor===null||Number.isSafeInteger(s.minimumAmountMinor));}
 function adoptReceipt(e,r,id){
  if(!receiptMatches(r,e.intent,id))return false;
  e.receipt=structuredClone(r);e.mode=r.status;return true;
@@ -83,11 +85,15 @@ export async function refreshLot(id,{fresh=false}={}){
  if(!current(g)||e.sequence!==sequence)return;
  e.loading=false;
  if(!e.intent)e.intent=storedIntent(id);
+ if(sheet?.lot===id&&sheet.mode==='review'&&e.standing){
+  sheet.minimum=e.standing.minimumAmountMinor??1_000_000_001;
+  sheet.increment=e.standing.incrementMinor;
+ }
  changed();
  if(e.intent&&!e.receipt&&!e.checking&&!e.recoveryAttempted)void recover(id,false);
  if(sheet?.lot===id)renderSheet();
 }
-function allowed(id){const e=entryFor(id),b=currentBusiness();return !!(b?.canBid&&e.standing?.canBid&&e.standing.phase==='open'&&e.standing.leadingBusiness?.id!==b.id&&!e.loading&&!e.stale&&!bidder.stale&&navigator.onLine);}
+function allowed(id){const e=entryFor(id),b=currentBusiness();return !!(b?.canBid&&e.standing?.canBid&&e.standing.phase==='open'&&e.standing.leadingBusiness?.id!==b.id&&!e.loading&&!e.stale&&!e.checking&&!(e.intent&&!e.receipt&&!e.recoveryAttempted)&&!bidder.stale&&navigator.onLine);}
 export function standingMarkup(lot){
  if(!bidder.context)return '';
  const e=entryFor(lot.id),s=e.standing;
@@ -98,12 +104,12 @@ export function standingMarkup(lot){
  const title=own?(ownLeading?"You're leading":'Outbid'):s.leadingBusiness?`${s.leadingBusiness.name} is leading`:'No bids yet';
  const tone=own?(ownLeading?'green':'red'):'grey';
  const stale=e.stale||bidder.stale||!navigator.onLine;
- return `<section class="standing catalog-standing t-${tone}" role="status"><div><span class="lbl">${stale?'Last confirmed standing':'Current standing'}</span><b>${esc(title)}</b>${s.currentAmountMinor!==null?`<span class="amt">${money(s.currentAmountMinor)}</span>`:''}</div>${s.leadingBusiness?`<p>${esc(s.leadingBusiness.name)}</p>`:''}${own?`<p>Your ${money(own.amountMinor)} bid was recorded for ${esc(bidder.context.businesses.find(b=>b.id===own.businessId)?.name||'your business')}.</p>`:''}<p class="catalog-asof" data-standing-as-of="${esc(s.serverNow)}">${stale?'Offline or out of date · ':''}As of ${esc(new Date(s.serverNow).toLocaleString('en-US',{timeZone:'UTC'}))} UTC</p>${s.phase==='closed'?'<p>Bidding closed. This standing is read-only.</p>':''}</section>`;
+ return `<section class="standing catalog-standing t-${tone}" role="status"><div><span class="lbl">${stale?'Last confirmed standing':'Current standing'}</span><b>${esc(title)}</b>${s.currentAmountMinor!==null?`<span class="amt">${money(s.currentAmountMinor)}</span>`:''}</div>${s.leadingBusiness?`<p>${esc(s.leadingBusiness.name)}</p>`:''}${own?`<p data-owned-request="${esc(own.requestId)}">Your ${money(own.amountMinor)} bid was recorded for ${esc(bidder.context.businesses.find(b=>b.id===own.businessId)?.name||'your business')}.</p>`:''}<p class="catalog-asof" data-standing-as-of="${esc(s.serverNow)}">${stale?'Offline or out of date · ':''}As of ${esc(new Date(s.serverNow).toLocaleString('en-US',{timeZone:'UTC'}))} UTC</p>${s.phase==='closed'?'<p>Bidding closed. This standing is read-only.</p>':''}</section>`;
 }
 export function bidderStub(lot){
  const e=entryFor(lot.id),s=e.standing;
  if(!bidder.context||!s||e.loading)return '';
- return `<span class="catalog-amount-note">${s.phase==='closed'?'Bidding closed':s.minimumAmountMinor===null?'No further amount available':`Next minimum ${money(s.minimumAmountMinor)}`} · synthetic USD</span>`;
+ return `<span class="catalog-amount-note">${s.phase==='closed'?'Bidding closed':s.minimumAmountMinor===null?'No further amount available':`Next minimum ${money(s.minimumAmountMinor)}`} · synthetic ${catalog.version===2?'Saturn trade dollars':'USD'}</span>`;
 }
 export function bidFooter(lot){
  const e=entryFor(lot.id),s=e.standing,b=currentBusiness();
@@ -182,7 +188,7 @@ async function submit(id,retry=false){
  const e=entryFor(id),g=guard();
  if(!retry){
   const v=reviewValidity();if(!v.ok){updateAmount();return;}
-  e.intent={requestId:crypto.randomUUID(),businessId:currentBusiness().id,amountMinor:amountMinor(sheet.amount),rulesetId:RULESET};e.receipt=null;e.recoveryAttempted=true;saveIntent(id,e.intent);
+  e.intent={requestId:crypto.randomUUID(),businessId:currentBusiness().id,amountMinor:amountMinor(sheet.amount),rulesetId:ruleset()};e.receipt=null;e.recoveryAttempted=true;saveIntent(id,e.intent);
  }
  if(!e.intent||!navigator.onLine)return;
  const payload=structuredClone(e.intent);e.mode='pending';if(sheet?.lot===id){sheet.mode='pending';renderSheet();}changed();

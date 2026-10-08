@@ -21,6 +21,7 @@ export async function uploadInput(f,native,label,file,event){
 export async function composeNative(f,actor,files,fields,record){
  const n=await ui(f,actor);await n.page.goto(f.origin+'/admin');await healthReady(n.studio.locator('[data-action="new-event"]'));
  await n.studio.locator('[data-action="new-event"]').click();await n.studio.locator('#new-event-name').fill('Synthetic ASSETS native staff auction');
+ await n.studio.locator('#new-event-format').selectOption('historical');
  const creation=n.page.waitForResponse(r=>new URL(r.url()).pathname==='/api/admin/events'&&r.request().method()==='POST');
  await n.studio.locator('[data-action="create-event"]').click();const made=await creation;assert.equal(made.status(),201);const event=(await made.json()).draft.event.id;
  await n.studio.locator('[data-tab="event"]').click();
@@ -66,7 +67,7 @@ export async function generationRaces(f,actor,file,record){
  const a=await create(f,actor,'Synthetic delayed upload target A'),lots=[completeLot('First synthetic target'),completeLot('Second synthetic target','dinner')];
  let p=await save(f,actor,a,{event:await openFields(f),lots}),other=await create(f,actor,'Synthetic delayed upload target B');
  for(const kind of ['item-target','event','actor']){
-   const n=await ui(f,actor);await n.page.goto(f.origin+'/admin?event='+p.event.id+'&lot='+lots[0].id);
+   const n=await ui(f,actor);const assetRequests=[];n.page.on('request',r=>{if(r.url().includes('/assets'))assetRequests.push([r.method(),r.url()]);});await n.page.goto(f.origin+'/admin?event='+p.event.id+'&lot='+lots[0].id);
    let release,committed,error,done,started=false;const hold=new Promise(r=>release=r),finished=new Promise(r=>done=r);
    await n.page.route('**/api/admin/events/'+p.event.id+'/assets',async route=>{
      started=true;try{const response=await route.fetch();assert.equal(response.status(),201);const body=await response.json();committed=meta(body,p.event.id,body.asset?.requestId);await hold;await route.fulfill({response});}
@@ -75,7 +76,7 @@ export async function generationRaces(f,actor,file,record){
    try{
      await n.studio.locator('[data-tab="lots"]').click();await n.studio.locator('[data-action="edit-lot"][data-id="'+lots[0].id+'"]').click();
      const input=n.studio.getByLabel('Upload item photo',{exact:true});assert.equal(await input.count(),1);await input.setInputFiles(join(f.repo,'tests/acceptance/staging-staff-assets/fixtures',file.name));
-     const deadline=Date.now()+10000;while(!committed&&!error&&Date.now()<deadline)await new Promise(r=>setTimeout(r,30));if(error)throw error;assert.ok(committed,'A held late response needs an actual commit witness.');
+     const deadline=Date.now()+10000;while(!committed&&!error&&Date.now()<deadline)await new Promise(r=>setTimeout(r,30));if(error)throw error;assert.ok(committed,`A held late response needs an actual commit witness (route started: ${started}; asset requests: ${JSON.stringify(assetRequests)}; notice: ${await n.studio.locator('#draft-notice').innerText()}).`);
      if(kind==='item-target'){await n.studio.locator('[data-action="edit-lot"][data-id="'+lots[1].id+'"]').click();await n.studio.locator('[data-lot="short"]').fill('Current target changed while upload reply was held.');}
      if(kind==='event'){await n.studio.locator('[data-action="events"]').click();await n.studio.locator('[data-action="switch-event"][data-id="'+other.event.id+'"]').click();await n.studio.getByRole('heading',{name:'Synthetic delayed upload target B',exact:true}).waitFor();await n.studio.locator('[data-tab="event"]').click();await n.studio.locator('[data-event="welcome"]').fill('Current event changed while old upload reply was held.');}
      if(kind==='actor'){const outsider=await login(f,'staff-pine'),[name,value]=outsider.cookie.split('=');await n.context.addCookies([{name,value,url:f.origin,httpOnly:true,sameSite:'Lax'}]);}

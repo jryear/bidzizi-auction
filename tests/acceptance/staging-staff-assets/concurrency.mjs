@@ -11,7 +11,7 @@ async function expireWhileHeld(f,actor,event,hold,operation,record){
    pending=operation();const waiter=await waitBlocked(f,r=>r.query.includes('bz_staff_asset_')||r.query.includes('bz_events')||r.query.includes('bz_catalog_lots')||r.query.includes('pg_advisory_xact_lock'));
    while((await f.dbNow()).getTime()<=expiration.getTime())await pause(30);
    await lock.query('COMMIT');const r=await bounded(pending,8000);
-   assert.ok([401,403].includes(r.status),'Current authority must deny after a witnessed wait crosses expiry.');
+   assert.ok([401,403].includes(r.status),`Current authority must deny after a witnessed wait crosses expiry (status ${r.status}, response ${JSON.stringify(r.data)}).`);
    assert.ok(r.data?.error&&r.headers.get('content-type')?.includes('json'));assert.ok(!r.bytes?.subarray(0,4).equals(Buffer.from('RIFF')));
    record({stage:'post-wait-expiry',event,waitEvent:waiter.wait_event,status:r.status,deniedImageBytes:0,expiredAt:expiration.toISOString()});
  }finally{await lock.query('ROLLBACK').catch(()=>{});await pending?.catch(()=>{});}
@@ -19,7 +19,8 @@ async function expireWhileHeld(f,actor,event,hold,operation,record){
 export async function concurrency(f,record){
  let {actor,packet}=await health(f,record);
  const u=await capability(f,actor,packet,files.item,record),event=packet.event.id;
- packet=await save(f,actor,packet,{event:{...await openFields(f),cover:u.asset.ref,coverAlt:'Synthetic locked cover'},lots:[{...completeLot(),image:u.asset.ref,alt:'Synthetic locked item'}]});
+ const knownDraft={event:{...await openFields(f),cover:u.asset.ref,coverAlt:'Synthetic locked cover'},lots:[{...completeLot(),image:u.asset.ref,alt:'Synthetic locked item'}]};
+ packet=await save(f,actor,packet,knownDraft);
  assert.equal((await binary(f,path.saved(event,assetUUID(u.asset.ref)),{cookie:actor.cookie})).status,200);
  assert.equal((await f.request(path.recover(event,u.requestId),{cookie:actor.cookie})).status,200);
  const warmLogout=await login(f);assert.equal((await f.request('/api/session/logout',{method:'POST',cookie:warmLogout.cookie,headers:{origin:f.origin},json:{}})).status,200);
@@ -34,7 +35,7 @@ export async function concurrency(f,record){
  await expireWhileHeld(f,actor,event,c=>c.query('SELECT id FROM public.bz_staff_assets WHERE id=$1 FOR UPDATE',[assetUUID(u.asset.ref)]),()=>binary(f,path.saved(event,assetUUID(u.asset.ref)),{cookie:actor.cookie}),record);
  actor=await login(f);
  await expireWhileHeld(f,actor,event,c=>c.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))',['bz-asset-request:'+actorId()+':'+event+':'+u.requestId]),()=>f.request(path.recover(event,u.requestId),{cookie:actor.cookie}),record);
- actor=await login(f);const expiredSave=uuid(),saveBody=compact(packet);
+ actor=await login(f);const expiredSave=uuid(),saveBody=knownDraft;
  await expireWhileHeld(f,actor,event,c=>c.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))',[actorId()+':save:'+event+':'+expiredSave]),()=>f.request('/api/admin/events/'+event,{method:'PUT',cookie:actor.cookie,headers:{origin:f.origin},json:{expectedRevision:packet.revision,requestId:expiredSave,draft:saveBody}}),record);
  assert.equal((await f.db.query('SELECT revision FROM public.bz_events WHERE id=$1',[event])).rows[0].revision,packet.revision,'Expired actual Save must roll back before receipt/mutation.');
  // Real Save reaches its existing request lock after authority/event UPDATE.
@@ -57,7 +58,7 @@ export async function concurrency(f,record){
      for(const [kind,sql,args] of probes){const c=await f.connect();await c.query('SET ROLE '+f.runtimeRole);await c.query('BEGIN');
        const call=c.query(sql,args).then(async r=>{await c.query('COMMIT');return {kind,rows:r.rows};},async error=>{await c.query('ROLLBACK');if(!['PBA02','PBA03'].includes(error.code))throw error;return {kind,state:error.code};});assetCalls.push(call);
        const wait=await waitBlocked(f,r=>r.query.includes('bz_staff_asset_'+kind));
-       assert.ok(wait.blockers.includes(revokeWait.pid),'Asset '+kind+' must block on queued authority before reaching Save event.');
+       assert.ok(wait.blockers.includes(revokeWait.pid),`Asset ${kind} must block on queued authority before reaching Save event (wait ${JSON.stringify(wait)}, queued revocation ${revokeWait.pid}, Save ${saveWait.pid}).`);
        assert.ok(!wait.blockers.includes(saveWait.pid),'Asset '+kind+' cannot take event before authority.');
        record({stage:'Save-queued-'+revoke+'-'+kind,waitBackend:wait.pid,blockingAuthority:revokeWait.pid});
      }
