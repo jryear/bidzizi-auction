@@ -1,5 +1,24 @@
 # BidZizi current staff-delivery checkpoint · October8,2026 UTC
 
+## Staff auction rehearsal pre-freeze checkpoint
+
+The owner approved bounded local preparation and implementation of a fresh
+synthetic staff auction with photos, one cross-date window, tiered trade-dollar
+bidding, Entry and MOBILE014. The decision record is
+[here](../plans/STAFF_AUCTION_REHEARSAL_DECISIONS_2026-10-08.md). A proposed
+shared initial-publication seam and evidence matrix are
+[here](../proposed/staff-auction-rehearsal/CONTRACT_DRAFT.md). No new product
+code, migration, grant, baseline, candidate, staging deployment or hosted result
+is claimed by this checkpoint.
+
+Freeze is blocked on the owner's strict physical commit-before-opening invariant.
+The [transaction-boundary review](../proposed/staff-auction-rehearsal/COMMIT_BOUNDARY_REVIEW.md)
+and disposable PostgreSQL counterexample show that checking time before COMMIT
+does not ensure the commit finishes before opening. Independent Astra review and
+a material owner/provider resolution are needed before the executable contract
+can be frozen and BASELINE_READY can be sought. Older Assets/Timing drafts and
+fixed `e0cef66` inherited checks do not establish this new journey.
+
 **Studio, Entry and the bounded local 101-ID composition are independently accepted.
 Full D1 remains partial and the changes have not been deployed.**
 Task3 completed the authorized local verification recovery. Parent retains the
