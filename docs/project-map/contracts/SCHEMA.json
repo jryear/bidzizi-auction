@@ -1,0 +1,237 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Documentation checkpoint inventory",
+  "type": "object",
+  "required": [
+    "version",
+    "snapshot",
+    "execution",
+    "doc_base",
+    "release",
+    "contract_authority",
+    "deliverables",
+    "decisions",
+    "slices"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "snapshot": {
+      "type": "string",
+      "minLength": 1
+    },
+    "execution": {
+      "const": "PAUSED_OWNER_REVIEW_REQUIRED"
+    },
+    "doc_base": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "release": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "contract_authority": {
+      "type": "string",
+      "minLength": 1
+    },
+    "deliverables": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "slices"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "enum": [
+              "D1",
+              "D2",
+              "D3",
+              "D4",
+              "CROSS",
+              "RELEASE"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "slices": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "decisions": {
+      "type": "object",
+      "minProperties": 6,
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "slices": {
+      "type": "array",
+      "minItems": 13,
+      "maxItems": 13,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "file",
+          "deliverable",
+          "status",
+          "readiness",
+          "depends_on",
+          "decisions",
+          "outcome",
+          "exclusions",
+          "implementation",
+          "verification",
+          "acceptance",
+          "successor",
+          "reading"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]*$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "file": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+\\.md$"
+          },
+          "deliverable": {
+            "enum": [
+              "D1",
+              "D2",
+              "D3",
+              "D4",
+              "CROSS",
+              "RELEASE"
+            ]
+          },
+          "status": {
+            "const": "DRAFT_UNFROZEN"
+          },
+          "readiness": {
+            "enum": [
+              "BLOCKED_REVIEW",
+              "BLOCKED_EVIDENCE",
+              "BLOCKED_OWNER_DECISION",
+              "BLOCKED_SUCCESSOR_EVIDENCE",
+              "BLOCKED_SUCCESSOR_REVIEW",
+              "BLOCKED_DEPENDENCIES"
+            ]
+          },
+          "outcome": {
+            "type": "string",
+            "minLength": 1
+          },
+          "depends_on": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "decisions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "exclusions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "implementation": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "verification": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "acceptance": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "successor": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "reading": {
+            "type": "array",
+            "minItems": 4,
+            "items": {
+              "type": "object",
+              "required": [
+                "source",
+                "sections"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "source": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "sections": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "verifiedAppSHA": "84c40f16fbe96b1c5f2501778550583da37321ce",
+  "frozenBaseSHA": "fb85bc52db0823b2e8d3149e450f3c6c200d6c33",
+  "recordedUTC": "2026-10-07T02:01:13.369165+00:00",
+  "files": [
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/84c40f16fbe9/CHECKPOINT_RECEIPT.json",
+      "bytes": 14451,
+      "sha256": "150c1adf835f0a119186dc092e14249ff3ae76bbe6cbc1aafa8b8dcfdee688e1"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/84c40f16fbe9/SOURCE_BINDING.json",
+      "bytes": 4393,
+      "sha256": "b4632185cc159734d0c2b6294cda9b3afeb83826dad226f0f153277f3812e302"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/kernel-006-candidate-recovered-claims.jsonl",
+      "bytes": 64469,
+      "sha256": "613e4b37ed49ac5b9d27584d3a652a56040e52734542ed926b74a39f78cd0ea8"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/006_RECOVERED_GATE_STATUS.json",
+      "bytes": 1537,
+      "sha256": "2bd568f8520a598b53953e16fe91170ab8f44156006beae57db6cbe98ceac3f7"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/006-complete/INDEX.json",
+      "bytes": 118145,
+      "sha256": "bbb550baaca6286889f53876e2435594cd6e6fb03b4da6623b0d5ece897874d5"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/independent-review/CANDIDATE_FINAL_REVIEW.json",
+      "bytes": 18834,
+      "sha256": "14c2c496b485d4955d9ce762a428293a5405718889d4ad56f8017e602c952331"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/independent-review/CONTRACT_FREEZE_SIGNOFF.json",
+      "bytes": 3909,
+      "sha256": "e04ba47210f32c64fec32b41cfc98d2e54bd0632c2ecd267a8084570d2d4e772"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/independent-review/CANDIDATE_PHASE1_REVIEW.json",
+      "bytes": 5960,
+      "sha256": "5b0fce0bbce0a09b17dbc547bf1e4d14996705a82e33fbee7d18383354737a71"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/006-preparation/INDEX.json",
+      "bytes": 6197,
+      "sha256": "c19191ed8d7dcbc76a1d5ee9fd090130cb241f1374b09c0f85403badc54b44b2"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/006-baseline/INDEX.json",
+      "bytes": 57341,
+      "sha256": "4869fd46c2d47c7123cc845b1f0b4c1265d7ba9e2665b44f4f5d0fc35314ce5c"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/006-interrupted-receipts/INDEX.json",
+      "bytes": 29372,
+      "sha256": "94530838dc00d97c6db3eba60e904a02a2181eb02b6faab0a09e08ef6121b71b"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/006_EXECUTION_INTERRUPTION.json",
+      "bytes": 1759,
+      "sha256": "167eb015b17d8ba81d5a616f9769e664c87b18f2306e599f160d4df69594d78b"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/history-diagnosis/DIAGNOSIS_RECEIPT.json",
+      "bytes": 3266,
+      "sha256": "f7a2a306e863f9df04d783ce14a79891a9e10fa2e6dc6719b831f7c9ae1b5861"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/history-diagnosis/SOURCE_BINDING.json",
+      "bytes": 28862,
+      "sha256": "310627a3ee0bb92554fe6218dcd701322f4aa4d44349cc463ec03375bfd8ee12"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/history-diagnosis/REFRESH_COMPLETION_RECEIPT.json",
+      "bytes": 6335,
+      "sha256": "a383f07ba3d19f4b0faa363701a220c035829f8614eab1337779e701672f4d3c"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/LIBRARY_SCREENSHOTS.json",
+      "bytes": 1456,
+      "sha256": "4bfadeedad0f99ec43407d3fd2114630afa6b365351a7a02ab69220ab2d619b7"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/review-runtime/RECOVERY.json",
+      "bytes": 1543,
+      "sha256": "2f3e61c61a5c44d3efe82bbf7d49bf1fa73ada10377247a7a70cac13dc570623"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/review-runtime/FRESH_RENDER.json",
+      "bytes": 922,
+      "sha256": "adc85ca29123a95f638342daf5588a3ef758b9eec83c76439df04746e8374ec9"
+    },
+    {
+      "path": "/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/RENDERED_IMAGES.json",
+      "bytes": 2777,
+      "sha256": "2372962142ae941e49ce07af40d64130d72b9342a06744a406240836742f4ec5"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-next/tasks/staging-event-preparation-006.toml",
+      "bytes": 91054,
+      "sha256": "8bf8f7b9733543a679a9584af228448b792d1ac40c877750c04dc1c5ec2949e5"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-next/tests/acceptance/staging-event-preparation/ASSERTION_REQUIREMENT_MAP.json",
+      "bytes": 5717,
+      "sha256": "acedf2ad36118e54e6f0e8c680f6a25d3d769d16b7d658e7ac889ead564d6bf4"
+    },
+    {
+      "path": "/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-desktop.png",
+      "bytes": 391135,
+      "sha256": "536976cefb59b966a6398190c4128ff8e7a5e1d1a89836b72e3dd5957bfe67f3"
+    },
+    {
+      "path": "/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-laptop.png",
+      "bytes": 309534,
+      "sha256": "05efb99fb46d9d0ac0b2f42755cc98f5cfbe2688ffd7d8210a31179459c3b815"
+    },
+    {
+      "path": "/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-phone.png",
+      "bytes": 89840,
+      "sha256": "403776a05abf3bbe4dce9a7584788e4d7cdcf216456538a8af5aa660aef88aef"
+    },
+    {
+      "path": "/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-saved-a-phone.png",
+      "bytes": 179650,
+      "sha256": "95be159ca5b3b485ec8841dc3377822b1e625a1f0788edc2fb78260319edae45"
+    }
+  ],
+  "archiveChildren": "Every child is independently byte-bound in 006-complete/INDEX.json; archive paths preserve original source bytes.",
+  "ownerAcceptance": false,
+  "publicPromotion": false
+}

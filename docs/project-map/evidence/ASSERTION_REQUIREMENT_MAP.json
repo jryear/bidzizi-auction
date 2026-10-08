@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "purpose": "Requirement-driven handoff. Interpret each old assertion against the current approved product contract; do not blindly inherit navigation scaffolding.",
+  "currentContract": "staging-saturn-event-home-005-v3",
+  "assertions": [
+    {
+      "id": "EVENTS_HOME_LIST_SELECT",
+      "status": "New shell",
+      "currentRequirement": "Staff sign-in lands on authorized Events home; actual selection of either existing event opens that event."
+    },
+    {
+      "id": "HOME_CREATE_RECOVERY",
+      "status": "New shell + retained recovery",
+      "currentRequirement": "Event creation, duplicate click, lost acknowledgement and same-request retry are durable and isolated."
+    },
+    {
+      "id": "EVENT_SAVE_DURABLE_PREVIEW",
+      "status": "Retained data + connected shell",
+      "currentRequirement": "Valid/invalid save, complete SQL/API readback, new-session reload, and real preview use the persisted packet."
+    },
+    {
+      "id": "HOME_DETAILS_HISTORY",
+      "status": "New navigation",
+      "currentRequirement": "Outer route carries event/tab/lot; immediate Lots click then reload preserves Lots; ordinary Back/Forward completes fresh draft+approval before next normal navigation."
+    },
+    {
+      "id": "SHELL_FOCUS",
+      "status": "New shell usability",
+      "currentRequirement": "Create dialog opens at body input; closing and confirming restore correct live focus."
+    },
+    {
+      "id": "RESPONSIVE_SAVED_A",
+      "status": "New presentation",
+      "currentRequirement": "Desktop/laptop native scrolling and actual saved Design A phone viewport meet measured reachability and overflow requirements."
+    },
+    {
+      "id": "HOME_TENANT_ISOLATION",
+      "status": "Retained security",
+      "currentRequirement": "Hidden organization selector does not remove server grant isolation; foreign event remains unavailable and recovery uses actual authorized list."
+    },
+    {
+      "id": "HOME_PENDING_STALE",
+      "status": "Retained isolation + recovery",
+      "currentRequirement": "Pending reads/actions and stale responses cannot replace a new event/context."
+    },
+    {
+      "id": "HOME_STALE_APPROVAL",
+      "status": "Retained isolation",
+      "currentRequirement": "Delayed approval response cannot cross event/context epoch."
+    },
+    {
+      "id": "HOME_UNRESOLVED_WRITES",
+      "status": "Retained recovery",
+      "currentRequirement": "Unresolved writes keep navigation guarded; retry preserves the original operation and payload."
+    },
+    {
+      "id": "MALFORMED_SAVE_RECOVERY",
+      "status": "Retained recovery",
+      "currentRequirement": "Malformed save acknowledgement cannot be accepted as saved; recovery remains truthful."
+    },
+    {
+      "id": "DIRTY_REPLACEMENT",
+      "status": "Retained recovery",
+      "currentRequirement": "Dirty work requires the existing replacement guard and cannot be silently lost."
+    },
+    {
+      "id": "APPROVED_NOTICE_ASYNC",
+      "status": "New defect fix + retained immutable catalog",
+      "currentRequirement": "Approval refresh updates the draft notice without requiring another user input."
+    },
+    {
+      "id": "APPROVED_NOTICE_PRIORITY",
+      "status": "Retained error truth",
+      "currentRequirement": "Approval notice synchronization cannot override save/recovery errors."
+    },
+    {
+      "id": "APPROVAL_RESPONSE_VARIANTS",
+      "status": "Retained data/error truth",
+      "currentRequirement": "Variant approval responses preserve truthful validated state."
+    },
+    {
+      "id": "SELECTED_SUBSET_IMMUTABLE",
+      "status": "Retained catalog invariant",
+      "currentRequirement": "Approved selected catalog remains immutable while staff draft changes."
+    }
+  ],
+  "retainedRegressionInvariants": [
+    "Server-authoritative bids, complete SQL receipts and retry idempotency",
+    "Current VIEW/BID grants, queued post-lock close, atomic storage and interrupted browser recovery",
+    "Immutable saved approval, selected readiness, DB clock/UTC boundaries and split transactions",
+    "Event/organization isolation, context epochs, stored text and restart durability",
+    "Safe existing disposable test database/TLS route and static syntax/type checks"
+  ],
+  "retiredNavigationAssumptions": [
+    {
+      "old": "Signing in to /admin automatically selects a saved event or Pine editor",
+      "current": "Sign-in reaches genuine authorized Events home, then actual authorized UID selection",
+      "versionedRegressionIndexes": [
+        6,
+        8,
+        10
+      ],
+      "protection": "Pine selection occurs before held Saturn response release; original postrelease DOM/SQL checks remain intact."
+    },
+    {
+      "old": "Dirty reload from Lots returns to default Event tab",
+      "current": "Reload preserves truthful selected event/tab/lot; catalog saved-data core may navigate to Event only after complete saved-data and route-consistency observations",
+      "versionedRegressionIndexes": [
+        4
+      ],
+      "protection": "Mandatory HOME_DETAILS_HISTORY separately rejects lost Lots tab; controlled lost-tab negative must fail finite1."
+    }
+  ],
+  "testBoundary": "Normal navigation completion helper is confined to three ordinary HOME_DETAILS_HISTORY selections and subsequent normal navigation; adversarial fixtures/helpers/bodies remain original. No settling between immediate Lots click and reload.",
+  "classification": "Finite expected baseline RED is assertion exit1 with valid complete evidence. Closed browser, missing observer, timeout/control failure or invalid receipt is harness99 and never accepted as expectedRED.",
+  "historicalProtection": "Old004,005 and005-v2 contracts/fixtures/graders preserved; fourteen regression names/counts/timeouts/core invariant assertions retained; ten command blocks unchanged; four navigation scaffolds explicitly versioned."
+}

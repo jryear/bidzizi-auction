@@ -1,0 +1,106 @@
+{
+  "completedUTC": "2026-10-06T23:15:35.878989+00:00",
+  "engineeringOutcome": "Usable local connected Saturn checkpoint; fixed frozen contract gate SUPPORTED. Owner rendered acceptance remains pending.",
+  "sourceSHA": "edd3153e4cfa1529b74407276def469d6ad6a6e4",
+  "freezeSHA": "8c673c2a1eaa15d77a2976677057bf9852a06a8f",
+  "branch": "codex/saturn-event-home-checkpoint-v3",
+  "checkout": "/Users/jryear/Documents/Codex/2026-10-06/task-2/saturn-delivery",
+  "kernel": {
+    "release": "3.1.0",
+    "verdict": "SUPPORTED",
+    "exit": 0,
+    "assurance": "schema2-evidence-validity",
+    "baseline": {
+      "regressionsPass": 14,
+      "uiPass": 6,
+      "declaredFiniteRed": 10,
+      "harnessErrors": 0
+    },
+    "candidate": {
+      "regressionsPass": 14,
+      "uiAssertionsPass": 16,
+      "finiteFailures": 0,
+      "harnessErrors": 0,
+      "unrunWithinContract": 0
+    },
+    "sourceBinding": {
+      "base": {
+        "commit": "8c673c2a1eaa15d77a2976677057bf9852a06a8f",
+        "tree": "a20cb8941c4683b684b42c253f3dd4a9edd35227",
+        "manifest_sha256": "58d0629a0f4e9960f2ce1506f65bb531de91b09cabcee8f8e042500020a59049"
+      },
+      "candidate": {
+        "commit": "edd3153e4cfa1529b74407276def469d6ad6a6e4",
+        "tree": "03bac591761dcfbfe9a14bfb51ac0bc959493ebd",
+        "manifest_sha256": "b7494cf4c4fcd425ec7fd417586b334389b68e917b0521b9446a880a5e990bb0"
+      },
+      "candidate_snapshot": true,
+      "clean_before": true,
+      "unchanged_after": true
+    },
+    "protectedChanges": [],
+    "outOfScope": [],
+    "mutableTestChanges": [],
+    "bypasses": [],
+    "reasons": [],
+    "warnings": [],
+    "claims": "/Users/jryear/Documents/Codex/2026-10-06/task-2/delivery-evidence/kernel-005-v3-final-claims.jsonl",
+    "claimsSHA256": "797ac441e346cb764bb7eb01babb8df0624571810af566f2f1ba63d833fd133c",
+    "log": "/Users/jryear/Documents/Codex/2026-10-06/task-2/delivery-evidence/kernel-005-v3-final.log",
+    "archivedReceipts": "/Users/jryear/Documents/Codex/2026-10-06/task-2/delivery-evidence/edd3153e4cfa/whole-gate/INDEX.json"
+  },
+  "runtime": {
+    "url": "http://127.0.0.1:55022/admin",
+    "account": "Choose Saturn staff, then Sign in",
+    "execSession": 10083,
+    "processPID": 31547,
+    "appPort": 55022,
+    "databasePort": 55015,
+    "postgresPID": 31632,
+    "syntheticDisposableOnly": true,
+    "finalHTTPStatus": 200
+  },
+  "renderedReview": {
+    "observationsPass": 7,
+    "captures": 9,
+    "pageErrors": 0,
+    "node": "v24.4.1",
+    "chromium": "153.0.8010.12",
+    "receipt": "/Users/jryear/Documents/Codex/2026-10-06/task-2/delivery-evidence/edd3153e4cfa/OWNER_REVIEW.json",
+    "eventsHome": "/Users/jryear/Documents/Codex/2026-10-06/task-2/delivery-evidence/edd3153e4cfa/events-home-final-desktop.png",
+    "eventLaptop": "/Users/jryear/Documents/Codex/2026-10-06/task-2/delivery-evidence/edd3153e4cfa/event-laptop-preview-open.png",
+    "savedPhone": "/Users/jryear/Documents/Codex/2026-10-06/task-2/delivery-evidence/edd3153e4cfa/saved-design-a-phone-390x844.png",
+    "phoneLimit": "Saved-renderer390x844 viewport review using actual persisted packet; no phone-admin claim."
+  },
+  "nativeLibraryIDs": null,
+  "library": "Prepare-upload helper unavailable; no IDs; parent requested no retry.",
+  "openFindings": [
+    {
+      "id": "INTERMITTENT_HOME_DETAILS_HISTORY_URL_NULL",
+      "status": "OPEN",
+      "receipt": "/tmp/task-root/saturn005-v3-ui-candidate-scoped-history-final/0-RESULT.json",
+      "meaning": "Prior exactNode24 preparation finite1 remains unexplained; unchanged assertion passes in current exact gate, which does not close the earlier counterexample."
+    },
+    {
+      "id": "CROSS_PROJECT_CONTRACT_COMMISSIONING",
+      "status": "OPEN",
+      "artifact": "/Users/jryear/Documents/Codex/2026-10-06/task-2/delivery-evidence/INFRA_FINDINGS.json",
+      "meaning": "Verifier trust versus product/setup semantics; local observed limitations do not establish universal shared kernel defect."
+    }
+  ],
+  "limits": [
+    "Synthetic staff auth only; real identity and ledger semantics remain later decisions.",
+    "Duplication/archive/CSV belong later event-lifecycle contract; deletion policy unresolved.",
+    "No publishing, merge, deployment, live migration or provider/credential expansion.",
+    "Original repositories preserved; existing kernel/runtime dependencies retained."
+  ],
+  "handoff": "/Users/jryear/Documents/Codex/2026-10-06/task-2/delivery-evidence/COORDINATOR_HANDOFF.json",
+  "requirementMap": "/Users/jryear/Documents/Codex/2026-10-06/task-2/delivery-evidence/ASSERTION_REQUIREMENT_MAP.json",
+  "infraFindings": "/Users/jryear/Documents/Codex/2026-10-06/task-2/delivery-evidence/INFRA_FINDINGS.json",
+  "independentReview": {
+    "report": "/Users/jryear/Documents/Codex/2026-10-06/task-2/delivery-evidence/edd3153e4cfa/INDEPENDENT_REVIEW.json",
+    "sha256": "f5a497bae484fbb7fe8352a81549049464475b0f108c0744a3200f6af90e0295",
+    "archivedFilesVerified": 261,
+    "activeReviewJobs": 0
+  }
+}

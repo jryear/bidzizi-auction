@@ -1,0 +1,107 @@
+{
+  "status": "DOCUMENTATION_ONLY_PRESERVED",
+  "base": "fa09638d513f46a4075146863aa9fd2865755d69",
+  "isolated_branch": "codex/docs-contracts-checkpoint-2026-10-07",
+  "all_write_paths": "Isolated task14 workspace; repository mutations under docs/project-map only. Authoring helpers/patch outside repo are documentation packaging only.",
+  "application_diff_from_docs_base": [],
+  "checkouts": [
+    {
+      "role": "documentation_source",
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-next",
+      "head": "fa09638d513f46a4075146863aa9fd2865755d69",
+      "branch": "codex/saturn-event-preparation",
+      "porcelain": "",
+      "operation": "read-only status/hash inspection"
+    },
+    {
+      "role": "released_product",
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release",
+      "head": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "branch": "codex/release-connected-009-010-public",
+      "porcelain": "",
+      "operation": "read-only status/hash inspection"
+    },
+    {
+      "role": "accepted_private",
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-connected-review",
+      "head": "800a10bde289fc8d77e860efaff98fff0b417346",
+      "branch": "codex/saturn-connected-009-010",
+      "porcelain": "",
+      "operation": "read-only status/hash inspection"
+    },
+    {
+      "role": "old_canonical",
+      "path": "/Users/jryear/code/bidzizi",
+      "head": "94fa63935af6aaf5f83f8d904612c6d4d4c4db0f",
+      "branch": "admin-event-studio-2",
+      "porcelain": " M AGENTS.md\n M README.md\n?? docs/PRODUCT_SLICE_001_DISCOVERY.md\n?? prototypes/holiday-social/\n?? prototypes/lanyard/\n?? prototypes/winter-exchange/\n",
+      "operation": "read-only status/hash inspection"
+    },
+    {
+      "role": "stopped_mobile",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-12/mobile-fix",
+      "head": "deba554033d716c57f65f542b75eb0af807f03e7",
+      "branch": "codex/mobile-poll-render",
+      "porcelain": "",
+      "operation": "read-only status/hash inspection"
+    }
+  ],
+  "canonical_existing_dirty_status_matches_initial_observation": true,
+  "kernel_component_hashes": {
+    "/Users/jryear/code/_kernel/verify.py": "0f638fc9b7a7682ab814c7923557ecbb0871f35140f1aa6838efde17855d4ca5",
+    "/Users/jryear/code/_kernel/kernel_runtime.py": "d185f76b12c30a0758fee453c8806508919fa0df2a457c8fb55fd124b7d1ac93",
+    "/Users/jryear/code/_kernel/kernel_report.py": "6c8c21d2f8bbcd81a5a6b0f2abb69166dc7603d7bf5df76e84d803fc5997bd0d"
+  },
+  "kernel_unchanged_vs_inherited_mobile_baseline": true,
+  "mobile_baseline_read_only_summary": {
+    "path": "/Users/jryear/Documents/Codex/2026-10-07/task-12/evidence/mobile-baseline-01.jsonl",
+    "sha256": "f51d87315cd30e6075b7ed6565cd3bcfdc9e620b93b0841d77f5d06eb7618c5e",
+    "recorded_at": "2026-10-07T23:54:35.131461+00:00",
+    "verdict": "baseline_ready",
+    "candidate_checks": 0,
+    "checks": [
+      {
+        "kind": "acceptance",
+        "exit": 1,
+        "harness_error": false,
+        "counts": {
+          "fail": 8
+        }
+      },
+      {
+        "kind": "regression",
+        "exit": 0,
+        "harness_error": false,
+        "counts": {
+          "pass": 11
+        }
+      },
+      {
+        "kind": "adversarial",
+        "exit": 0,
+        "harness_error": false,
+        "counts": {
+          "pass": 10
+        }
+      }
+    ]
+  },
+  "effects": {
+    "documentation_edits": true,
+    "static_document_validation": true,
+    "read_only_document_reviewer": true,
+    "application_edits": false,
+    "application_execution": false,
+    "baseline_runs": false,
+    "builds": false,
+    "migrations": false,
+    "services_started": false,
+    "pushes": false,
+    "merges": false,
+    "deployments": false,
+    "provider_operations": false,
+    "external_status_or_library_writeback": false,
+    "product_implementers_or_delivery_owners_started": false
+  },
+  "pause": "Owner checkpoint review and explicit continuation required; no automatic resume from document GO."
+}

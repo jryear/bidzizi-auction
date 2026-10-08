@@ -1,0 +1,380 @@
+{
+  "reviewUTC": "2026-10-07T01:58:27.963348+00:00",
+  "disposition": "GO_LOCAL_ENGINEERING_CHECKPOINT",
+  "verifiedAppSHA": "84c40f16fbe96b1c5f2501778550583da37321ce",
+  "frozenBaseSHA": "fb85bc52db0823b2e8d3149e450f3c6c200d6c33",
+  "reviewer": "Fresh independent internal Codex agent using inherited runtime; exact service model ID unavailable; no external or cross-model review",
+  "method": "Read-only exact Git/digest/receipt/ordered schema2/artifact audit; no gate rerun or app/runtime mutation",
+  "terminalGate": {
+    "statusReceiptSHA256": "2bd568f8520a598b53953e16fe91170ab8f44156006beae57db6cbe98ceac3f7",
+    "claimsPath": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/kernel-006-candidate-recovered-claims.jsonl",
+    "claimsSHA256": "613e4b37ed49ac5b9d27584d3a652a56040e52734542ed926b74a39f78cd0ea8",
+    "verdict": "supported",
+    "exit": 0,
+    "assurance": "schema2-evidence-validity",
+    "sourceBinding": {
+      "base": {
+        "commit": "fb85bc52db0823b2e8d3149e450f3c6c200d6c33",
+        "tree": "2708a3d4777f0fdcdfa0aed53a413361428f0eb5",
+        "manifest_sha256": "afa91585430674bd17a0923b291aa14f62aeb624fed98d33f0373f5b3b0377c3"
+      },
+      "candidate": {
+        "commit": "84c40f16fbe96b1c5f2501778550583da37321ce",
+        "tree": "17dbec4ecb2469dbcc358a69c9885f3c08611954",
+        "manifest_sha256": "5f6b53068609238ea2fe519c9c2147a318f92daf6e8bb6fe5f895e2df1fa3683"
+      },
+      "candidate_snapshot": true,
+      "clean_before": true,
+      "unchanged_after": true
+    },
+    "counts": {
+      "base": {
+        "groups": 18,
+        "pass": 30,
+        "fail": 7,
+        "harnessErrors": 0,
+        "newPass": 0,
+        "newFiniteRed": 7,
+        "retainedUiPass": 16,
+        "commandPass": 14
+      },
+      "candidate": {
+        "groups": 18,
+        "pass": 37,
+        "fail": 0,
+        "harnessErrors": 0,
+        "newPass": 7,
+        "newFiniteRed": 0,
+        "retainedUiPass": 16,
+        "commandPass": 14
+      }
+    },
+    "outerInvocationBindingsVerified": 36
+  },
+  "archives": {
+    "complete": {
+      "index": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/006-complete/INDEX.json",
+      "indexSHA256": "bbb550baaca6286889f53876e2435594cd6e6fb03b4da6623b0d5ece897874d5",
+      "filesVerified": 294,
+      "receiptDirectories": 56,
+      "missing": [],
+      "verdict": "supported",
+      "bindingErrors": []
+    },
+    "interrupted": {
+      "index": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/006-interrupted-receipts/INDEX.json",
+      "indexSHA256": "94530838dc00d97c6db3eba60e904a02a2181eb02b6faab0a09e08ef6121b71b",
+      "filesVerified": 72,
+      "receiptDirectories": 12,
+      "missing": [],
+      "verdict": "INCOMPLETE_INTERRUPTED_SOURCE_RECEIPTS_ONLY",
+      "bindingErrors": []
+    }
+  },
+  "archiveBindingAudit": {
+    "declaredDigestChecks": {
+      "declaredSourceHelperDigests": 9375,
+      "runtimeDigests": 90,
+      "nestedArtifactDigests": 156,
+      "syntaxSourceDigests": 2
+    },
+    "uniqueCommittedSourceHelperFiles": 248,
+    "referenceErrors": []
+  },
+  "frozenContractEquality": {
+    "fileHashes": {
+      "tasks/staging-event-preparation-006.toml": "8bf8f7b9733543a679a9584af228448b792d1ac40c877750c04dc1c5ec2949e5",
+      "tests/acceptance/staging-event-preparation/ASSERTION_REQUIREMENT_MAP.json": "acedf2ad36118e54e6f0e8c680f6a25d3d769d16b7d658e7ac889ead564d6bf4",
+      "tests/acceptance/staging-event-preparation/CHECKS.json": "68301446ee742c7b18b13070b9b27bfb4c54cdc55dc38ef57b84a3d33aff6616",
+      "tests/acceptance/staging-event-preparation/README.md": "b1146fc2841ae423ae1948f443124c32600db2bb3bad1eb0dcb25162e6347e64",
+      "tests/acceptance/staging-event-preparation/adapter.mjs": "fac8a2ddb1f60c3c837b29174cf7caf5c53bfacf3456c9ce304710d46f53bdd5",
+      "tests/acceptance/staging-event-preparation/checks.mjs": "d3bdf4e5f7f96f1bfa4ed78ffa216c0add551c94496d75eb7e7fca16cddf75ab",
+      "tests/acceptance/staging-event-preparation/controls.mjs": "e2487095c4eba0e6d0d52564040dc7efde54cbee3034fb05491fd0dae6f6a7e8",
+      "tests/acceptance/staging-event-preparation/refresh-checks.mjs": "5f92609f16d0541f682b4c431c56641275a901da4e88630bcced8aa5ce4cb6ef",
+      "tests/acceptance/staging-event-preparation/run.mjs": "3aa6f47fd62eb1f263d2ed57056676109a36b73e794ed9f493d39f08dcf6c010",
+      "tests/acceptance/staging-event-preparation/source-controls.mjs": "117ff74de295f2f6a9fbc2d0fb9bfe39b5dc80b2080da0ab4580ae30f851358a"
+    },
+    "unchangedAtBaseCandidateAndReview": true,
+    "inheritedCheckGroups": 16,
+    "historicalFilesVerified": 625,
+    "historicalChanges": []
+  },
+  "kernelPins": {
+    "version": "3.1.0",
+    "managedFilesVerified": 12,
+    "mismatches": [],
+    "loadedPackageBinding": {
+      "components": {
+        "verify.py": "0f638fc9b7a7682ab814c7923557ecbb0871f35140f1aa6838efde17855d4ca5",
+        "kernel_runtime.py": "d185f76b12c30a0758fee453c8806508919fa0df2a457c8fb55fd124b7d1ac93",
+        "kernel_report.py": "6c8c21d2f8bbcd81a5a6b0f2abb69166dc7603d7bf5df76e84d803fc5997bd0d"
+      },
+      "manifest_sha256": "8d67bd79e547634041dc377c05316aaac9d4cd7851469f18555a1b4b456fabf0",
+      "boundary": "schema2-start-loaded-components"
+    }
+  },
+  "runtime": {
+    "nodeExecutable": "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+    "nodeVersion": "v24.4.1",
+    "nodeSHA256": "0429b268de244397f6b8921a938f55151c4469ab70571799780533eae6abfbce",
+    "chromium": "153.0.8010.12 (preparation observed installed runtime; final archive app runner does not separately attest browser executable digest)",
+    "dependencies": [
+      {
+        "path": "node_modules",
+        "target": "/Users/jryear/code/bidzizi/node_modules"
+      }
+    ],
+    "model": "Inherited internal Codex runtime; exact model ID unavailable"
+  },
+  "copiedLotEvidence": {
+    "copyId": "04092211-61c9-4473-9734-b1a0c191e959",
+    "packetArchive": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/006-complete/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/DUPLICATE_PERSISTED.json",
+    "packetSHA256": "f9be7ab41ec46c70ccd3cb6b0be64790498660fb9ebafb90a0bce9bb436407e1",
+    "revision": 3,
+    "sourceLotsUnchangedAndApprovedCatalogPreserved": "Complete frozen check/API+SQL observation pass; diagnostic control force retained",
+    "images": [
+      {
+        "scene": "desktop",
+        "path": "/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-desktop.png",
+        "copyId": "04092211-61c9-4473-9734-b1a0c191e959",
+        "title": "006 Edited intended copy",
+        "editor": {
+          "left": 554,
+          "top": 702.015625,
+          "right": 992,
+          "bottom": 756.453125,
+          "width": 438,
+          "height": 54.4375,
+          "viewport": {
+            "width": 1440,
+            "height": 900
+          }
+        },
+        "actualViewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "dimensions": {
+          "width": 1440,
+          "height": 900
+        },
+        "sha256": "536976cefb59b966a6398190c4128ff8e7a5e1d1a89836b72e3dd5957bfe67f3",
+        "archive": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/006-complete/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-desktop.png",
+        "pngBytesVerified": true,
+        "currentCopyId": "04092211-61c9-4473-9734-b1a0c191e959",
+        "sameAcceptanceRun": "0ee0126562ac414784786b15aae68c49",
+        "visuallyInspectedByIndependentReviewer": true,
+        "visualObservation": "Selected copied Lot 03 and its edited title are visible; saved preview shows the cabin photo and 42.75 opening amount with bidding disabled."
+      },
+      {
+        "scene": "laptop",
+        "path": "/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-laptop.png",
+        "copyId": "04092211-61c9-4473-9734-b1a0c191e959",
+        "title": "006 Edited intended copy",
+        "editor": {
+          "left": 256,
+          "top": 434.5,
+          "right": 868,
+          "bottom": 488.9375,
+          "width": 612,
+          "height": 54.4375,
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          }
+        },
+        "actualViewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "dimensions": {
+          "width": 1280,
+          "height": 800
+        },
+        "sha256": "05efb99fb46d9d0ac0b2f42755cc98f5cfbe2688ffd7d8210a31179459c3b815",
+        "archive": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/006-complete/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-laptop.png",
+        "pngBytesVerified": true,
+        "currentCopyId": "04092211-61c9-4473-9734-b1a0c191e959",
+        "sameAcceptanceRun": "0ee0126562ac414784786b15aae68c49",
+        "visuallyInspectedByIndependentReviewer": true,
+        "visualObservation": "Selected copied Lot 03 title and edited summary/description are visible; saved preview is on revision 3 and shows the correct lot photo and disabled preview amount."
+      },
+      {
+        "scene": "phone",
+        "path": "/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-phone.png",
+        "copyId": "04092211-61c9-4473-9734-b1a0c191e959",
+        "title": "006 Edited intended copy",
+        "editor": {
+          "left": 38,
+          "top": 727.390625,
+          "right": 350,
+          "bottom": 781.828125,
+          "width": 312,
+          "height": 54.4375,
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        "actualViewport": {
+          "width": 390,
+          "height": 844
+        },
+        "dimensions": {
+          "width": 390,
+          "height": 844
+        },
+        "sha256": "403776a05abf3bbe4dce9a7584788e4d7cdcf216456538a8af5aa660aef88aef",
+        "archive": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/006-complete/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-phone.png",
+        "pngBytesVerified": true,
+        "currentCopyId": "04092211-61c9-4473-9734-b1a0c191e959",
+        "sameAcceptanceRun": "0ee0126562ac414784786b15aae68c49",
+        "visuallyInspectedByIndependentReviewer": true,
+        "visualObservation": "Selected copied Lot 03 title is wholly inside the 390px viewport. This is an observed editor capture, not a full phone-admin reachability or interaction acceptance claim."
+      },
+      {
+        "scene": "saved-a-phone",
+        "path": "/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-saved-a-phone.png",
+        "actualViewport": {
+          "width": 318,
+          "height": 593,
+          "overflow": false
+        },
+        "dimensions": {
+          "width": 318,
+          "height": 593
+        },
+        "sha256": "95be159ca5b3b485ec8841dc3377822b1e625a1f0788edc2fb78260319edae45",
+        "actualFrameURL": "http://127.0.0.1:65246/staging-bidder-preview/index.html#/lot/04092211-61c9-4473-9734-b1a0c191e959",
+        "parentFrameURL": "http://127.0.0.1:65246/staging-admin/index.html#/lots/04092211-61c9-4473-9734-b1a0c191e959",
+        "archive": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/006-complete/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-saved-a-phone.png",
+        "pngBytesVerified": true,
+        "currentCopyId": "04092211-61c9-4473-9734-b1a0c191e959",
+        "sameAcceptanceRun": "0ee0126562ac414784786b15aae68c49",
+        "visuallyInspectedByIndependentReviewer": true,
+        "visualObservation": "Actual native Saved A frame shows Lot 03, copied title/category/summary/photo, and 42.75 opening amount with bidding disabled."
+      }
+    ]
+  },
+  "controlledRefreshEvidence": {
+    "archive": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/006-complete/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/ROUTER_REFRESH_EVENT_ROUTE.json",
+    "sha256": "11540a72916c5cc9f0d9b10ea4c9029a3e9208751b538a571c292f66fe6e0195",
+    "freshCompletedMainFrameRSC": true,
+    "sameDocumentHistoryAfterHeaders": true,
+    "nativeCachedSelectedEventPreserved": true
+  },
+  "projectSourceBinding": {
+    "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/84c40f16fbe9/SOURCE_BINDING.json",
+    "sha256": "b4632185cc159734d0c2b6294cda9b3afeb83826dad226f0f153277f3812e302",
+    "entriesVerified": 22,
+    "bindingErrors": [],
+    "captureDisposition": "PENDING; read completed claims for proof",
+    "note": "Pre-gate binding-only capture; terminal disposition is supplied by exact completed claims and this review."
+  },
+  "currentRepository": {
+    "observedHEAD": "84c40f16fbe96b1c5f2501778550583da37321ce",
+    "committedPathsAfterVerifiedApp": [],
+    "workingStatus": [
+      " M docs/project-map/CURRENT.md",
+      " M docs/project-map/LIBRARY_SOURCE.json",
+      " M docs/project-map/index.html"
+    ],
+    "appBytesStillMatchVerifiedApp": true,
+    "scope": "Later documentation-only HEAD is distinct from verified application SHA"
+  },
+  "remainingBlockers": [],
+  "remainingLimitations": [
+    "Historical uncontrolled HOME_DETAILS_HISTORY trigger remains UNKNOWN/OPEN; controlled framework refresh correction is proven separately.",
+    "Interrupted attempt remains archived evidence only, with no terminal verifier verdict.",
+    "Native Library screenshot upload unavailable; local fallback does not imply confirmed Library writes.",
+    "Owner preview/access and rendered acceptance remain pending; this is local synthetic engineering evidence, not provider/production/release approval.",
+    "External installed dependencies/runtime are trust limits; model metadata alone is not independent review proof."
+  ],
+  "sideEffects": "Only independent-review diagnostics written; repository, frozen tests, verifier and all runtimes unchanged by reviewer.",
+  "stage": "Final exact-candidate independent source-bound engineering review",
+  "reviewFinalizedUTC": "2026-10-07T02:01:00.065491+00:00",
+  "verifiedScope": "Frozen 006 local synthetic engineering checkpoint; no owner product acceptance, uncontrolled-history closure, production or deployment implication",
+  "applicationSource": {
+    "changedFiles": [
+      "public/staging-admin/studio.css",
+      "public/staging-admin/studio.js"
+    ],
+    "sha256": {
+      "public/staging-admin/studio.css": "9bc9efaadc53b8320eb2524adb27f8c592f51a5cf6c59136122a9ac2bcbf24a3",
+      "public/staging-admin/studio.js": "64d6a09bce7a5c8d20b07c7db24d0b2209a3b83a1801ef196d09f471bf1d3fad"
+    },
+    "diffSHA256": "0cf1589a8906e5abd4d0c58dc56dcfba2feb35f599feb0f23ec2213a9991beba",
+    "reviewedBehavior": [
+      "Duplicate action uses existing editable lock and independent count>=100 guard before mutation. RefreshChrome also disables visible action for Save/approval/loading/blocked states.",
+      "Content constructed by explicit allowlist with cloned includes; fresh UUID/appended number/current organization branding, zero count/current/history and null window. No source writes, new network/API/schema operation or publication effects.",
+      "markDirty + selected editable route + existing Save/revision/request-ID recovery. Stable exact body/lost-response one-copy proof owned by frozen independent tests.",
+      "External eventUrl passes null incoming state only; installed Next copies its internal state and synchronizes canonical URL. No URL expectation or historical helper changed.",
+      "Footer wrapping and narrow phone one-column lot editor correct measured copied-title reachability."
+    ]
+  },
+  "renderedAcceptance": {
+    "artifactInspectionComplete": true,
+    "ownerRenderedAcceptance": "PENDING",
+    "ownerCurrentPreviewAccessConfirmation": "PENDING",
+    "fullPhoneAdminReachabilityClaim": false
+  },
+  "historicalHistoryFinding": {
+    "naturalTrigger": "UNKNOWN/OPEN",
+    "controlledNextRefreshDefect": "Independently reproduced, corrected and exact-candidate completed-RSC assertion passed",
+    "wrongOrMissingUrlAssertions": "Preserved; independently meaningful negative controls retained",
+    "luckyRerunClosureClaim": false
+  },
+  "toolsActuallyUsed": [
+    "functions.exec orchestration",
+    "local exec_command: Git, Python/hashlib and filesystem reads",
+    "view_image for local rendered artifacts",
+    "one earlier bounded authorized disposable loopback history diagnostic; no final gate rerun"
+  ],
+  "supportingIndependentReceipts": [
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/independent-review/FINAL_INDEPENDENT_REVIEW.json",
+      "bytes": 13245,
+      "sha256": "93a38e11c6c2c622674c2f18b1acc93827daf97172da69f1c5e44b941b6f02e8"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/independent-review/FINAL_OUTER_RECEIPT_BINDINGS.json",
+      "bytes": 20203,
+      "sha256": "a65491b01c2094abb5c5d596e35ea0a95a62f9d1a563a6b251dd54b88c478355"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/independent-review/CANDIDATE_PHASE1_REVIEW.json",
+      "bytes": 5960,
+      "sha256": "5b0fce0bbce0a09b17dbc547bf1e4d14996705a82e33fbee7d18383354737a71"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/independent-review/CONTRACT_FREEZE_SIGNOFF.json",
+      "bytes": 3909,
+      "sha256": "e04ba47210f32c64fec32b41cfc98d2e54bd0632c2ecd267a8084570d2d4e772"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/independent-review/CONTRACT_CONTROL_REVIEW.json",
+      "bytes": 361,
+      "sha256": "e01d19eb5f6827e62a3079c295c3219c891a1e21f9b38a298a59ea091be89ec2"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/independent-review/REFRESH_COMPLETION_REVIEW.json",
+      "bytes": 569,
+      "sha256": "365a96c835d1ced323cd6918d71c860bb6842bdd64e52f45cfc5183902fbf103"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/independent-review/HISTORY_REVIEW.json",
+      "bytes": 3745,
+      "sha256": "2a60d6a2338ad486a2377a8aa86067fe522e10cefeefbf5ac8886cc5b3d6b4d4"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/independent-review/HISTORY_REPLAY.json",
+      "bytes": 16285,
+      "sha256": "c53c9c4a2224a6c9b31435eb75b89b47131a6c5979a60ca3a8d5f7fa0826331a"
+    },
+    {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/independent-review/final-evidence-audit.py",
+      "bytes": 19649,
+      "sha256": "3b7d56d88789c8cf55f279e16df902d26fda4b2ba45a8ce52137711e9917f4b5"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "libraryFileId": "libfile_df01393488f88191b1cca9925dd24c7c",
+  "version": 1,
+  "filename": "index.html",
+  "sourceBytes": 23093,
+  "sourceSHA256": "5e7cbbb77484c8b65b6178aa04e62b57c83803b7689efa03dd01215e0fb8b2e4",
+  "exactImportCommit": "6a19249c22831a87730afa8776d2be76d4a69319",
+  "canonicalLocalPurpose": "Repo orientation map; manually updated projection. CURRENT.md and contracts/receipts own current authority and proof.",
+  "localChanges": "Updated manual status/date and navigation for exact verified 006 lot-copy checkpoint; original natural history trigger and owner acceptance stay open. Current handoff points to actual frozen authority and source-bound proof.",
+  "libraryChanged": false,
+  "hostedMapChanged": false,
+  "localUpdatedUTC": "2026-10-07T02:01:51.292602+00:00"
+}

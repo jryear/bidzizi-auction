@@ -1,0 +1,99 @@
+[
+  {
+    "scene": "desktop",
+    "path": "/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-desktop.png",
+    "copyId": "04092211-61c9-4473-9734-b1a0c191e959",
+    "title": "006 Edited intended copy",
+    "editor": {
+      "left": 554,
+      "top": 702.015625,
+      "right": 992,
+      "bottom": 756.453125,
+      "width": 438,
+      "height": 54.4375,
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    "actualViewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "dimensions": {
+      "width": 1440,
+      "height": 900
+    },
+    "sha256": "536976cefb59b966a6398190c4128ff8e7a5e1d1a89836b72e3dd5957bfe67f3"
+  },
+  {
+    "scene": "laptop",
+    "path": "/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-laptop.png",
+    "copyId": "04092211-61c9-4473-9734-b1a0c191e959",
+    "title": "006 Edited intended copy",
+    "editor": {
+      "left": 256,
+      "top": 434.5,
+      "right": 868,
+      "bottom": 488.9375,
+      "width": 612,
+      "height": 54.4375,
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      }
+    },
+    "actualViewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "dimensions": {
+      "width": 1280,
+      "height": 800
+    },
+    "sha256": "05efb99fb46d9d0ac0b2f42755cc98f5cfbe2688ffd7d8210a31179459c3b815"
+  },
+  {
+    "scene": "phone",
+    "path": "/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-phone.png",
+    "copyId": "04092211-61c9-4473-9734-b1a0c191e959",
+    "title": "006 Edited intended copy",
+    "editor": {
+      "left": 38,
+      "top": 727.390625,
+      "right": 350,
+      "bottom": 781.828125,
+      "width": 312,
+      "height": 54.4375,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    "actualViewport": {
+      "width": 390,
+      "height": 844
+    },
+    "dimensions": {
+      "width": 390,
+      "height": 844
+    },
+    "sha256": "403776a05abf3bbe4dce9a7584788e4d7cdcf216456538a8af5aa660aef88aef"
+  },
+  {
+    "scene": "saved-a-phone",
+    "path": "/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-saved-a-phone.png",
+    "actualViewport": {
+      "width": 318,
+      "height": 593,
+      "overflow": false
+    },
+    "dimensions": {
+      "width": 318,
+      "height": 593
+    },
+    "sha256": "95be159ca5b3b485ec8841dc3377822b1e625a1f0788edc2fb78260319edae45",
+    "actualFrameURL": "http://127.0.0.1:65246/staging-bidder-preview/index.html#/lot/04092211-61c9-4473-9734-b1a0c191e959",
+    "parentFrameURL": "http://127.0.0.1:65246/staging-admin/index.html#/lots/04092211-61c9-4473-9734-b1a0c191e959"
+  }
+]

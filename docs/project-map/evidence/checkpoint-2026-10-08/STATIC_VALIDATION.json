@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "method": "static documentation only; no application/baseline/hosted execution",
+  "slice_count": 13,
+  "source_count": 42,
+  "map_card_count": 17,
+  "local_links_checked": 241,
+  "checks": [
+    "inventory JSON schema (stdlib supported keyword subset)",
+    "13 unique finite slices, complete grouping and acyclic accepted dependencies",
+    "exact reading sources/hashes and all required contract sections/status/lifecycle",
+    "map/CURRENT/inventory readiness, links, pause and historical/mobile status parity",
+    "static HTML anchors/dialog targets and all scoped Markdown/local links",
+    "docs-only diff, original map CSS preservation and untouched source/mobile checkouts"
+  ],
+  "errors": [],
+  "map_javascript_static_syntax": {
+    "exit": 0,
+    "sha256": "45130aebf0a1816980d0229669d81a870869e041b73a93ca6a4b7311dda93a99",
+    "method": "node --check on extracted map JavaScript only"
+  }
+}

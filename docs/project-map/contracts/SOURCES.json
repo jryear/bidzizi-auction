@@ -1,0 +1,233 @@
+{
+  "version": 1,
+  "recorded_basis": "2026-10-07; source reads only, no app/hosted execution",
+  "documentation": {
+    "source_checkout": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-next",
+    "source_branch": "codex/saturn-event-preparation",
+    "source_head": "fa09638d513f46a4075146863aa9fd2865755d69",
+    "isolated_checkout": "/Users/jryear/Documents/Codex/2026-10-07/task-14/docs-checkpoint",
+    "isolated_branch": "codex/docs-contracts-checkpoint-2026-10-07",
+    "landing": "Private documentation successor of docs/project-map on existing map lineage; no shared checkout switch/reset, no public source publication. Parent may integrate documentation after review."
+  },
+  "product": {
+    "released_checkout": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release",
+    "released_head": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+    "accepted_private_checkout": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-connected-review",
+    "accepted_private_head": "800a10bde289fc8d77e860efaff98fff0b417346",
+    "canonical_checkout": "/Users/jryear/code/bidzizi",
+    "canonical_head": "94fa63935af6aaf5f83f8d904612c6d4d4c4db0f",
+    "canonical_meaning": "OLD prototype94fa639, dirty preserved; not the released app"
+  },
+  "sources": {
+    "VISION": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-2/product-vision/BIDZIZI_PRODUCT_VISION.md",
+      "sha256": "845e3047cfc1371af16d77af9ed5ba1b5a39f439d2af507c82feaea3e575aac7",
+      "meaning": "October 7 product direction. Its progress table predates release375; release handoff supersedes only that progress, not product intent."
+    },
+    "RELEASE": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-11/evidence/FINAL_RELEASE_HANDOFF.json",
+      "sha256": "0dd07f5e837c2fb06c1b058c68645ceab5730896671d51effa25a82788cd3c4f",
+      "meaning": "Recorded exact upstream/deployment/hosted journey evidence; this checkpoint does not repeat hosted verification."
+    },
+    "AGENTS": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-connected-review/AGENTS.md",
+      "sha256": "f39f7b2e55279f36c65f137a5ab9367363a0bb1ac756b89a84fd48477c1aa79a",
+      "meaning": "Repository guardrails. Current owner pause overrides historical commands/authorization; installed pinned kernel3.1.0 per current source-bound records, not stale version examples."
+    },
+    "DELIVERY": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/coordination/CHECKPOINT_DELIVERY_REQUIREMENT.json",
+      "sha256": "892d8623de7e84657f262829d4c9cd5539294344e3976964c4a2a823d34300c3",
+      "meaning": "Existing acceptance\u2192integration\u2192synthetic staging\u2192hosted check delivery expectation; current documentation pause supersedes immediate execution."
+    },
+    "CASES": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/coordination/CASE_DISPOSITION_2026_10_07.json",
+      "sha256": "d8f2657f5325419f33789f9700ea49b1dbbaa00ac13d557be8a3b2847d54642b",
+      "meaning": "Historical anomalies operationally closed/archived; causal uncertainty preserved."
+    },
+    "TIMELINE": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/coordination/OWNER_EVENT_TIMELINE_CORRECTION.json",
+      "sha256": "cbf4036962429620c7c035f63fbee43f60b6df95b99d4d7c180c3a80e71d771c",
+      "meaning": "Accepted independent event dates/default lot timing/publication visibility; outside-event and publication bounds unresolved."
+    },
+    "GROUPS": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/coordination/OWNER_GROUP_SCHEDULE_DIRECTION.json",
+      "sha256": "3f509672dc088ea01e647a61134de5c755e96738733c056913a61a2fca7f33c9",
+      "meaning": "Owner requests automatic default and human-readable group management; exact parent encoding remains a proposal."
+    },
+    "007_DELTA": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/windows-007-v3-preparation/IMPACTED_CONTRACT_DELTA.md",
+      "sha256": "8dcb91e404223edf4c5e2ecde364af28cf5b9d5ad4bfe8d11a1fa2cbee499b83",
+      "meaning": "Latest paused007 correction. Earlier selected-derived envelope/mandatory assignment assumptions are superseded."
+    },
+    "007_PREP": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/windows-publication-next/PROPOSAL.md",
+      "sha256": "703128ce7c3170fdcd9d6eba2c9394d79b402401f4df4f21d845d15157e72aac",
+      "meaning": "Useful earlier preparation only; date pending wording and derived cutoff must be read through TIMELINE and007_DELTA."
+    },
+    "008_PREP": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/publication-008-preparation/CONTRACT_OUTLINE.md",
+      "sha256": "12ed1f881e612439365b19f229fa09faac27406251e87f55a440fccfb48dc3be",
+      "meaning": "Unfrozen additive publication preparation;008_DELTA supersedes selected-derived timing policy."
+    },
+    "008_DELTA": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/publication-008-preparation/OWNER_EVENT_TIMELINE_DELTA.md",
+      "sha256": "4e41725a13780682be682d3170a7455cf1ac125c8986032c6e403fd5eb4b86fa",
+      "meaning": "Latest additive timing reconciliation; no implementation or freeze."
+    },
+    "COMPOSITION": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task/saturn-design/design-proposal/README.md",
+      "sha256": "21525c13e1391fecbeffc4459d254c9c187b2384274babd0d5a25cebb95363dd",
+      "meaning": "Unshipped9282ba3 composition overlay and selective port instructions; old baseline, no wholesale replacement."
+    },
+    "WORKSPACE": {
+      "path": "/Users/jryear/code/bidzizi-event-studio-workspace/prototypes/event-studio/README.md",
+      "sha256": "b4e77fdd978084d3e6f31376f11609f9c50482cd48bfe1f38f149b51c42da9b7",
+      "meaning": "Reusable simulated interactions only; its old policy assumptions are not current authority."
+    },
+    "012_PROPOSAL": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-4/entry-evidence/BIDDER_JOURNEY_NEXT_PROPOSAL.md",
+      "sha256": "b2230371c8cda1fd6ac150e27f36625ba20d097a4efd90b81ec46406572bccc4",
+      "meaning": "Accepted bounded personal Watching/actor-owned My Bids direction; no implementation, absence-check successor required."
+    },
+    "011_HANDOFF": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-7/saturn-donation-pledges/docs/STAGING_DONATION_PLEDGES_HANDOFF.md",
+      "sha256": "55055c7f99b36deb51544cc90129c110c95a80fd13f4fe45412f9cf8818874ec",
+      "meaning": "Reviewed unfrozen donation preparation/study, no product route/migration. Stale on/off question superseded by VISION; remaining policy nulls are not approval."
+    },
+    "011_UI": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-7/saturn-donation-pledges/docs/decisions/donation-ui-amounts-copy-2026-10-07.json",
+      "sha256": "add9b1b387dadcac83a57451e46f90960c707d57c368283e6a22cd86d84a2a74",
+      "meaning": "Owner-approved presets and ordinary donation language/manual processing."
+    },
+    "011_POLICY": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-7/saturn-donation-pledges/tests/acceptance/donation-pledges/policy.json",
+      "sha256": "0f3aab465fc58f49e2b731123e93656109069c1e7d01e1dc02f6221f4e7cf6bb",
+      "meaning": "Unresolved domain policy values remain null; do not infer authority from presets."
+    },
+    "011_SPEC": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-7/saturn-donation-pledges/docs/proposed/DONATION_PLEDGE_SLICE.md",
+      "sha256": "336b75cf8e13334eb0e9433e299e4ff0f597caf3f2ef19a7a6327604eb5f7c66",
+      "meaning": "Reusable donation protocol/schema/CSV preparation; rebind to release375 authority before freeze."
+    },
+    "NAMESPACES": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/coordination/011_012_NAMESPACE_RESERVATION.json",
+      "sha256": "3fa29d0a246bc11bff298b615efa5f6cc0e06556ced2d0a38e2dbef4007fc813",
+      "meaning": "Existing011/012 task/migration/interface reservations; no new numeric migration IDs allocated here."
+    },
+    "010_HANDOFF": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-6/saturn-display-results/docs/STAGING_DISPLAY_RESULTS_HANDOFF.md",
+      "sha256": "55ffb5122fd5be327b436cb863234d33b11f119f75137471d3c93417f841cae8",
+      "meaning": "Historical local010 scope, now shipped by RELEASE. Private boards are not staff numeric/public TV authority."
+    },
+    "006C": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-connected-review/tasks/staging-ui-refinement-006c.toml",
+      "sha256": "72856acf3bea00fb8e3a5788f0e515c3e18fb9aa8d30b3aa670d8db0b7c1247c",
+      "meaning": "Historical frozen contract; preserve bytes, use reviewed successor for newly enabled features."
+    },
+    "006C_MAP": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-connected-review/tests/acceptance/staging-ui-refinement/ASSERTION_REQUIREMENT_MAP.json",
+      "sha256": "457622c598bb5fef4cddbb04220ee38e7de40e23e90eb7e567f6dad28e1b069f",
+      "meaning": "Historical refinement requirement map, including watch absence and compact geometry expectations."
+    },
+    "009": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-connected-review/tasks/staging-demo-attendee-entry-009-v2.toml",
+      "sha256": "2f7f1bad8b94aedc161f7c1dea002a13622aa4cded8431a719c1bdab6c3774ea",
+      "meaning": "Shipped distinct private synthetic signup contract; do not recommission009."
+    },
+    "010": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-connected-review/tasks/staging-display-results-010.toml",
+      "sha256": "d03e8a3952dbc432cd54a2deb0dd5600462d19505a11a4bbce7e367a6af538d7",
+      "meaning": "Shipped private boards contract; public/device/staff expansion requires successor."
+    },
+    "INTEGRATED": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-connected-review/tests/acceptance/staging-connected-review-v2/CONTRACT.md",
+      "sha256": "9217ee60b317c862f555073f8a8efcf6954aa7af83aad6f1b48a0fce76726870",
+      "meaning": "Existing combined accepted authority/receipt/runtime closure reference, not a new gate run."
+    },
+    "014": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-12/mobile-fix/tasks/staging-mobile-poll-render-014.toml",
+      "sha256": "209173307f836fadb2a303e2f7b2ef97c99576403b44e63563c5d8126b382bf3",
+      "meaning": "First frozen mobile packet at deba554; stopped; reviewer improvements/successor pending before implementation."
+    },
+    "014_README": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-12/mobile-fix/tests/acceptance/staging-mobile-poll-render/README.md",
+      "sha256": "f53eeb5851cc51311ba5960cf06ca18afd552a479ba8b79b529791a6d69cf1ad",
+      "meaning": "Exact bounded client-only evidence and physical/hosted limitations."
+    },
+    "014_BASELINE": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-12/evidence/mobile-baseline-01.jsonl",
+      "sha256": "f51d87315cd30e6075b7ed6565cd3bcfdc9e620b93b0841d77f5d06eb7618c5e",
+      "meaning": "Completed already-in-flight baseline per parent:8 expected acceptance failures,11 regression passes,10 adversarial passes,zero harness errors. Not run here."
+    },
+    "STAFF": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/src/server/staff.ts",
+      "sha256": "7b3a6ac608c3fb88af41946bb82cac294373770b98d3de65fc89606f375cd849",
+      "meaning": "Actual released create/save/read behavior; no staff demo-entry enable in create."
+    },
+    "DRAFT": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/src/server/draft.ts",
+      "sha256": "981feead0cff19acd9fe9697c71852ecc7205ee5558beeebaa09aceaf3c1fcbb",
+      "meaning": "Actual released fixed asset allowlists and main|null timing representation."
+    },
+    "CATALOG": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/src/server/catalog.ts",
+      "sha256": "21cb5aa6d1454057792a97eddd668004a90bdb5b9e03569d8b3d806dd57059fe",
+      "meaning": "Actual released one immutable approval, scheduled catalog hidden, no append."
+    },
+    "BIDS": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/src/server/manual-bids.ts",
+      "sha256": "e9f1087098a344226200fa63cabdff9dcf09b1acd678c8f839db6023babe3b98",
+      "meaning": "Actual released server-authoritative synthetic fixed2500/USD ruleset, standing and owned receipts."
+    },
+    "AUTH": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/src/server/auth.ts",
+      "sha256": "7f6151c248366902cc0a000af59301135a1c0eeb118983b00ead9cef7b44dd9e",
+      "meaning": "Actual released staff/VIEW/BID/business/network authority separation."
+    },
+    "ENTRY": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/src/server/demo-entry.ts",
+      "sha256": "b4e4489ea221a4a7379bf46e74f156373b3cfb8f06e8a7fd06eb8a492813e139",
+      "meaning": "Actual released private entry server path; uses operator-owned enabled entry row."
+    },
+    "ENTRY_SQL": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/migrations/009_demo_attendee_entry.sql",
+      "sha256": "c4e87a9bb9b591228a62d4557865de76f7b391354b468c7876ba06bd305e4b4e",
+      "meaning": "Actual released distinct signup identities, disabled-default operator entry table and recovery protocol."
+    },
+    "ENTRY_VIEW": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/src/app/events/[id]/event-access.tsx",
+      "sha256": "22cfc7a5772fb9b7528954d65c384fc92731c74f71a64c16eee8a7a667fde806",
+      "meaning": "Actual released private wrapper/context generations."
+    },
+    "STUDIO_JS": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/public/staging-admin/studio.js",
+      "sha256": "6ed21b5cb39291d635d5b73136c4f7ca13b4d2a88fdcb013fca15ff53f128817",
+      "meaning": "Actual released saved/working preview, lot editing and checklist/navigation surfaces."
+    },
+    "STUDIO_CSS": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/public/staging-admin/studio.css",
+      "sha256": "c3d4ddae4fbefe434fe634e0293a0b842e35765f250129453b592bf48c61f072",
+      "meaning": "Actual released layout, including preview geometry."
+    },
+    "A_VIEWS": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/public/staging-catalog/views.js",
+      "sha256": "8a22203cc1340c43fa6375ee98c201fa80868991825eb7ba2d2bf511ee8664f4",
+      "meaning": "Actual released disabled Watching/My Bids/watch buttons; retained A composition."
+    },
+    "A_BIDDING": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/public/staging-catalog/bidding.js",
+      "sha256": "217d92033ae390b0281554e0ce7efc926f4227f40c86c8c6cb000e79af3c594e",
+      "meaning": "Actual released bid dialog/standing/receipt recovery and focused editing."
+    },
+    "BOARD": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/src/features/staging-display-results/authorized-read-view.tsx",
+      "sha256": "5cb2a2ce06d1e0ed6d96524888e5c54790b85c15bc3c2ec009fffb989e01775d",
+      "meaning": "Actual released private board generation/denial/stale handling; no staff-only numeric access."
+    },
+    "BOARD_MODEL": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/src/features/staging-display-results/read-model.ts",
+      "sha256": "773844845d3d7b4422a75ea71a3235d53634e6d80048e415baa40b4c85e7c304",
+      "meaning": "Actual released fixed synthetic-rule validation and projected standing; must adapt deliberately to successor policies."
+    }
+  }
+}

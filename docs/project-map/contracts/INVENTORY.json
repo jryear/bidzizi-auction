@@ -1,0 +1,1089 @@
+{
+  "version": 1,
+  "snapshot": "2026-10-08 UTC checkpoint of October7 direction and release",
+  "execution": "PAUSED_OWNER_REVIEW_REQUIRED",
+  "doc_base": "fa09638d513f46a4075146863aa9fd2865755d69",
+  "release": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+  "contract_authority": "All Markdown contracts are DRAFT_UNFROZEN;014 separately references a frozen first packet pending successor review. No new executable task or gate is frozen here.",
+  "deliverables": [
+    {
+      "id": "D1",
+      "title": "Staff prepares, publishes and admits a fresh event",
+      "slices": [
+        "STUDIO",
+        "ASSETS",
+        "TIMING007",
+        "INCREMENTS",
+        "PUBLICATION008",
+        "ADMISSION"
+      ]
+    },
+    {
+      "id": "D2",
+      "title": "Bidder follows items and returns to own activity",
+      "slices": [
+        "WATCH012"
+      ]
+    },
+    {
+      "id": "D3",
+      "title": "Donor records a donation; staff reads/exports for manual processing",
+      "slices": [
+        "DONATIONS011"
+      ]
+    },
+    {
+      "id": "D4",
+      "title": "Staff reconciles and presents outcomes",
+      "slices": [
+        "STAFF_RESULTS",
+        "DISPLAY_ACCESS",
+        "FINALIZATION"
+      ]
+    },
+    {
+      "id": "CROSS",
+      "title": "Mobile interaction continuity",
+      "slices": [
+        "MOBILE014"
+      ]
+    },
+    {
+      "id": "RELEASE",
+      "title": "Complete connected Saturn delivery",
+      "slices": [
+        "CONNECTED_RELEASE"
+      ]
+    }
+  ],
+  "decisions": {
+    "WINDOW_BOUNDS": "May custom group windows extend outside explicit event start/end? Cross-date windows and common event timezone are already accepted.",
+    "PUBLICATION_BOUNDS": "Exact initial approval cutoff and eligible active additions/default/custom window bounds; do not revive selected-derived cutoffs or invent closed/past-lot eligibility.",
+    "INCREMENT_POLICY": "Exact tier thresholds/inclusive boundaries, amount constraints, any fixed lot override and publication/rule lock.",
+    "DONATION_POLICY": "Donation cap and eligibility; any custom-hour policy. Staff on/off independent of auction hours and manual staff processing are already accepted. Unit/minimum/recovery nulls need technical alignment to owner authority.",
+    "DISPLAY_POLICY": "Display audience/privacy, visible fields, access issuance/revocation and acceptable TV/projector disclosure; private010 grants do not choose public access.",
+    "FINALIZATION_POLICY": "Closed standing only versus an explicit award/finalization operation, authority and language; payment/settlement remains outside scope."
+  },
+  "slices": [
+    {
+      "id": "STUDIO",
+      "title": "Coherent Studio composition and saved phone preview",
+      "file": "studio.md",
+      "deliverable": "D1",
+      "status": "DRAFT_UNFROZEN",
+      "readiness": "BLOCKED_REVIEW",
+      "depends_on": [],
+      "decisions": [
+        "Review compact composition/title-density tradeoff and intended checklist/preview; proposed section names remain provisional."
+      ],
+      "outcome": "Staff can choose an event, identify/edit its items, see truthful setup actions and inspect the actual saved bidder view in a phone-shaped preview.",
+      "exclusions": [
+        "No replacement of Studio from the old overlay; no new Live/Overview sections without a distinct purpose decision.",
+        "No timing, increment, admission, publication or donation rule changes; no modular page builder."
+      ],
+      "implementation": [
+        "After owner review, selectively port home/editor layout, Save-state grouping and selected-row visibility from9282ba3 to then-accepted released source.",
+        "Use the selected event title, readable01 numbering and compact imagery/copy; checklist reflects actual saved/approved/access states and links to real actions. Preserve confirmed versus working draft preview.",
+        "Bind actual preview viewport geometry and accessibility, including amount-field error association; retain current control IDs, locks, recovery and connected009/010 behavior."
+      ],
+      "verification": [
+        "Independent observations cover desktop/laptop and narrow saved-preview mode: full titles, reachable routine inputs, selected row, Back/Escape/focus and no overflow.",
+        "A held/lost Save preserves locks and exact retry; confirmed saved A agrees with saved API/SQL while working draft remains labeled. Empty/create-error/checklist states are truthful."
+      ],
+      "acceptance": [
+        "Owner reviews actual connected composition and phone preview; independent successor/regression evidence binds exact source.",
+        "Demonstrate event\u2192item edit\u2192Save\u2192reload\u2192saved preview, with an actionable checklist; aesthetic proposal evidence alone cannot accept the port."
+      ],
+      "successor": [
+        "Preserve006/006b/006c and their historical bytes. Replace only directly changed presentation expectations through an explicit reviewed requirement delta; amount, focus, saved/working and recovery guarantees remain."
+      ],
+      "reading": [
+        {
+          "source": "AGENTS",
+          "sections": "Current navigation and durable guardrails; do not execute historical command examples."
+        },
+        {
+          "source": "RELEASE",
+          "sections": "Release identity, acceptedSource and hosted evidence limits."
+        },
+        {
+          "source": "DELIVERY",
+          "sections": "CompletionRequirements and workflow only; current pause remains authoritative."
+        },
+        {
+          "source": "VISION",
+          "sections": "Experience and visual direction; Proposed Studio organization (names provisional)."
+        },
+        {
+          "source": "COMPOSITION",
+          "sections": "Review and connected integration; matched composition tradeoffs."
+        },
+        {
+          "source": "WORKSPACE",
+          "sections": "Steps3/6/7 and editor retention/Back/Escape/preview/readiness interactions only; all simulated, not authority for timing/admission/money."
+        },
+        {
+          "source": "STUDIO_JS",
+          "sections": "Event home, lot editor, Save/retry and preview/checklist rendering."
+        },
+        {
+          "source": "STUDIO_CSS",
+          "sections": "Home/editor layout and saved preview geometry."
+        },
+        {
+          "source": "006C",
+          "sections": "Scope and checks."
+        },
+        {
+          "source": "006C_MAP",
+          "sections": "Staff current-row/preview/focus and compact geometry requirements."
+        }
+      ]
+    },
+    {
+      "id": "ASSETS",
+      "title": "Real item images and integral sponsor assets",
+      "file": "assets.md",
+      "deliverable": "D1",
+      "status": "DRAFT_UNFROZEN",
+      "readiness": "BLOCKED_EVIDENCE",
+      "depends_on": [],
+      "decisions": [
+        "Bind storage/access/retention and upload limits in the contract; these technical proposals are not selected by fixture assets."
+      ],
+      "outcome": "Same-organization staff upload real event/item images and sponsor logos, save them, and see the same assets in saved A and the immutable published catalog.",
+      "exclusions": [
+        "No AI image generation commitment, universal brand editor, arbitrary remote-image fetching or new service operation during this checkpoint.",
+        "No retrospective replacement of published image snapshots."
+      ],
+      "implementation": [
+        "Specify durable opaque asset IDs, organization ownership, validated image content/type/size, alt text, interrupted upload recovery and publish-read permissions before freezing.",
+        "Extend the fixed image/logo allowlists deliberately; asset ownership must be server checked and publication snapshots must retain stable referenced bytes.",
+        "Choose minimal storage within an explicitly approved host/provider boundary later; freeze write/cleanup semantics and avoid orphan cleanup deleting referenced published assets."
+      ],
+      "verification": [
+        "Real uploaded test files survive Save/reload and render in saved/working/published A; sponsor marks are configured assets, not random fixtures.",
+        "Challenge foreign asset IDs, MIME/content mismatches, oversize/corrupt input, failed upload/save, revoked staff and old published-reference retention."
+      ],
+      "acceptance": [
+        "Actual staff upload\u2192saved preview\u2192published browse demonstrates correct assets/alt text and no cross-org access.",
+        "Independent durability/access and actual phone/desktop image observations pass on exact candidate; no placeholder fixture can supply acceptance."
+      ],
+      "successor": [
+        "Preserve historical fixed-asset checks. Freeze an explicit schema/allowlist successor while retaining old accepted assets and snapshot/recovery guarantees."
+      ],
+      "reading": [
+        {
+          "source": "AGENTS",
+          "sections": "Current navigation and durable guardrails; do not execute historical command examples."
+        },
+        {
+          "source": "RELEASE",
+          "sections": "Release identity, acceptedSource and hosted evidence limits."
+        },
+        {
+          "source": "DELIVERY",
+          "sections": "CompletionRequirements and workflow only; current pause remains authoritative."
+        },
+        {
+          "source": "VISION",
+          "sections": "Experience/visual direction: real upload and sponsors."
+        },
+        {
+          "source": "DRAFT",
+          "sections": "Image/logo validation and event/lot asset fields."
+        },
+        {
+          "source": "STAFF",
+          "sections": "Save allowlist, actor/org scope and immutable lot constraints."
+        },
+        {
+          "source": "CATALOG",
+          "sections": "Approved snapshot construction and allowed audience fields."
+        },
+        {
+          "source": "STUDIO_JS",
+          "sections": "Current image/sponsor controls and previews."
+        }
+      ]
+    },
+    {
+      "id": "TIMING007",
+      "title": "Default event timing and named custom groups (007 successor)",
+      "file": "timing007.md",
+      "deliverable": "D1",
+      "status": "DRAFT_UNFROZEN",
+      "readiness": "BLOCKED_OWNER_DECISION",
+      "depends_on": [],
+      "decisions": [
+        "WINDOW_BOUNDS",
+        "PUBLICATION_BOUNDS"
+      ],
+      "outcome": "Staff save explicit event start/end/timezone; every new complete item automatically uses that timeline, with optional human-readable custom groups/windows and bulk assignment. Approved items are browseable before their own server-gated bidding opens.",
+      "exclusions": [
+        "No same-day restriction or selected-lot-derived event timeline.",
+        "No published-lot reschedule, new post-approval windows, relisting, cancellation or bid-engine replacement."
+      ],
+      "implementation": [
+        "Reconcile the paused007 packet to release375 and the accepted default/custom correction; preserve useful authority, lock, timezone and recovery preparation.",
+        "Freeze exact independent event endpoints and default/custom DTO/SQL representation. Human-readable group schedule UI keeps categories a separate browsing axis; null/default encoding is a proposal until bound.",
+        "Use database time after relevant waits and current session/VIEW/BID/business/network authority; each lot follows its resolved immutable timing. Publication visibility is independent of bidding.",
+        "Adapt009 wrapper/A and010 board/read-model assumptions to per-lot phase, preopening visibility and selected supported rule; keep stable release/lot/receipt identity and original snapshots."
+      ],
+      "verification": [
+        "Before freezing, review realistic default/group interaction and independently map each accepted requirement to exact tests and negative controls; no baseline now.",
+        "Later prove event-default plus in-event cross-date custom lots, timezone/DST gap/fold/reversed rejection, independent event phase, bulk Save/retry and own-lot open/close boundaries.",
+        "Held locks with post-wait session expiry/revocation, foreign window IDs, stale saves and old snapshot/receipt exact replay require API+SQL evidence. Rebind actual010/009 consumers."
+      ],
+      "acceptance": [
+        "Owner answers bounds/cutoffs and reviews group/setup interaction; independent contract review resolves all affected policy/DTO assumptions.",
+        "Finite baseline RED then exact candidate GREEN, inherited regressions and native staff/A/board scenes agree with durable schedule and visibility. No frozen007 exists at this checkpoint."
+      ],
+      "successor": [
+        "Use a reviewed007 successor to legacy main|null and catalog-hidden-before-open expectations. Preserve all old frozen evidence; explicit delta replaces superseded derived-envelope/mandatory assignment proposals, not security/data invariants."
+      ],
+      "reading": [
+        {
+          "source": "AGENTS",
+          "sections": "Current navigation and durable guardrails; do not execute historical command examples."
+        },
+        {
+          "source": "RELEASE",
+          "sections": "Release identity, acceptedSource and hosted evidence limits."
+        },
+        {
+          "source": "DELIVERY",
+          "sections": "CompletionRequirements and workflow only; current pause remains authoritative."
+        },
+        {
+          "source": "VISION",
+          "sections": "Auction preparation and publication."
+        },
+        {
+          "source": "TIMELINE",
+          "sections": "CurrentAuthority, pendingOwnerChoices and unchanged."
+        },
+        {
+          "source": "GROUPS",
+          "sections": "OwnerIntent; parent encoding is provisional."
+        },
+        {
+          "source": "WORKSPACE",
+          "sections": "Steps4/5 bulk category/custom-window interaction only. Accepted automatic event-default timing supersedes prototype Unassigned; stale same-day/visibility/rule assumptions do not apply."
+        },
+        {
+          "source": "007_DELTA",
+          "sections": "Entire bounded impact document."
+        },
+        {
+          "source": "007_PREP",
+          "sections": "Unchanged authority/snapshot/recovery constraints only, through007_DELTA."
+        },
+        {
+          "source": "DRAFT",
+          "sections": "Current event endpoints and main|null lot representation."
+        },
+        {
+          "source": "CATALOG",
+          "sections": "Initial approval, schedule and audience visibility."
+        },
+        {
+          "source": "BIDS",
+          "sections": "Authority/phase/lock/receipt relation."
+        },
+        {
+          "source": "BOARD_MODEL",
+          "sections": "Current fixed-policy assumptions."
+        },
+        {
+          "source": "INTEGRATED",
+          "sections": "009/010 wrapper and runtime closure guarantees."
+        }
+      ]
+    },
+    {
+      "id": "INCREMENTS",
+      "title": "Configurable current-highest-bid increment tiers",
+      "file": "increments.md",
+      "deliverable": "D1",
+      "status": "DRAFT_UNFROZEN",
+      "readiness": "BLOCKED_OWNER_DECISION",
+      "depends_on": [
+        "TIMING007"
+      ],
+      "decisions": [
+        "INCREMENT_POLICY"
+      ],
+      "outcome": "Staff configure the agreed event tier rules; bidders see the actual next minimum and can review/submit an amount under the same authoritative saved rule.",
+      "exclusions": [
+        "No universal$25 rule, auto-bidding, fixed/percentage mode picker, payment conversion or speculative threshold defaults.",
+        "No editing a locked published rule unless separately selected."
+      ],
+      "implementation": [
+        "Bind exact minor-unit scale, amount range, thresholds/inclusive boundaries, optional lot override and lock point with owner source. Use current highest bid to select tier.",
+        "Version/freeze the rule snapshot and expose an allowlisted rule/next-minimum DTO; event increment input alone cannot claim bidding configurability.",
+        "Preserve old synthetic USD ruleset/receipts and stable bid targets; display Saturn trade dollars for the newly agreed product policy with one event disclosure, without silently relabeling historical USD data.",
+        "Rebind A and010 numeric validators deliberately; same backend rules determine review and acceptance after waits/concurrency."
+      ],
+      "verification": [
+        "Boundary tests around every tier and amount range use server standing, including no-bid opening, concurrent competing bids, stale reviewed amount, overflow and unauthorized updates.",
+        "Exact old receipts/rules stay recoverable; new tier rule displays match API/SQL and next minimum; rule lock and changed-body retries have independent negative controls."
+      ],
+      "acceptance": [
+        "Owner approves exact rule table/overrides/lock and reviews setup/review copy; independent contract and source evidence support every boundary.",
+        "Real two-actor bid\u2192tier transition\u2192next minimum\u2192review\u2192durable receipt demonstrates the configured policy, with truthful stale/recovery states."
+      ],
+      "successor": [
+        "Freeze reviewed ruleset and board/parser successors; preserve003/010 historical fixed2500/USD packet. Existing old-fixture tests are not evidence for the new rule."
+      ],
+      "reading": [
+        {
+          "source": "AGENTS",
+          "sections": "Current navigation and durable guardrails; do not execute historical command examples."
+        },
+        {
+          "source": "RELEASE",
+          "sections": "Release identity, acceptedSource and hosted evidence limits."
+        },
+        {
+          "source": "DELIVERY",
+          "sections": "CompletionRequirements and workflow only; current pause remains authoritative."
+        },
+        {
+          "source": "VISION",
+          "sections": "Auction preparation: increment direction; dollar explanation."
+        },
+        {
+          "source": "DRAFT",
+          "sections": "Current increment metadata."
+        },
+        {
+          "source": "BIDS",
+          "sections": "RULESET/INCREMENT/supported/standing/bid/replay behavior."
+        },
+        {
+          "source": "A_BIDDING",
+          "sections": "Context, minimum, review and recovery."
+        },
+        {
+          "source": "BOARD_MODEL",
+          "sections": "Ruleset/currency validation."
+        },
+        {
+          "source": "006C_MAP",
+          "sections": "Native amount/review/focus/recovery guarantees."
+        }
+      ]
+    },
+    {
+      "id": "PUBLICATION008",
+      "title": "Explicit immutable additive catalog publication (008)",
+      "file": "publication008.md",
+      "deliverable": "D1",
+      "status": "DRAFT_UNFROZEN",
+      "readiness": "BLOCKED_OWNER_DECISION",
+      "depends_on": [
+        "TIMING007"
+      ],
+      "decisions": [
+        "PUBLICATION_BOUNDS"
+      ],
+      "outcome": "After initial approval, staff save new private items and explicitly publish a selected saved subset as a new catalog version; attendees see the additions while all earlier schedules, bids and receipts retain their meaning.",
+      "exclusions": [
+        "No save/copy auto-publication; no replacing/removing/renumbering/rescheduling published lots.",
+        "No new post-approval windows or timeline extensions; no changes to old frozen contracts/migrations."
+      ],
+      "implementation": [
+        "Rebind existing008 preparation to the accepted007 timing/target interface and resolved publication bounds; expectedRevision/catalogVersion/requestId and schema details remain proposals until freeze.",
+        "Serialize event/revision and recheck current authority after waits. Atomically append selected saved private items, immutable origin/subset and recoverable response.",
+        "Original approval GET/replay remains byte-stable; stable release+lot bid/standing/receipt keys survive appends. Preserve existing FK and physical approved rows; do not replace approval with latest version.",
+        "Update staff private/published lists, A browsing and010 read consumers coherently; categories/windows provide simple views without new batch abstractions."
+      ],
+      "verification": [
+        "Prove Save without publish remains invisible; explicit append adds only chosen items once; lost response replay/version conflicts preserve durable state.",
+        "Independent before/after full SQL establishes unchanged original snapshot/order/numbers/schedules/bids/standing/receipts; duplicate/foreign/vacated IDs and unauthorized/stale/expired writes reject.",
+        "Real competing bid and original receipt lookup still work after multiple appends; native private-pool/publish/recovery/browse paths are observed."
+      ],
+      "acceptance": [
+        "Bounds and accepted007 seam are bound, contract independently reviewed and finite absent-feature baseline RED/negative controls established later.",
+        "Demonstrate initial catalog\u2192real bid\u2192save addition privately\u2192publish selected subset\u2192new browse with original bid/receipt unchanged; independent exact candidate evidence and owner render acceptance."
+      ],
+      "successor": [
+        "Reviewed008 successor must explicitly replace one-approval/no-additions absence expectations for the new version while retaining legacy root/subset GET and immutability. Earlier selected-derived cutoff is superseded preparation, never frozen authority."
+      ],
+      "reading": [
+        {
+          "source": "AGENTS",
+          "sections": "Current navigation and durable guardrails; do not execute historical command examples."
+        },
+        {
+          "source": "RELEASE",
+          "sections": "Release identity, acceptedSource and hosted evidence limits."
+        },
+        {
+          "source": "DELIVERY",
+          "sections": "CompletionRequirements and workflow only; current pause remains authoritative."
+        },
+        {
+          "source": "TIMELINE",
+          "sections": "PendingOwnerChoices and independent event timeline."
+        },
+        {
+          "source": "008_PREP",
+          "sections": "Additive identity, atomic publication and original-subset preservation."
+        },
+        {
+          "source": "008_DELTA",
+          "sections": "Entire latest timing addendum."
+        },
+        {
+          "source": "007_DELTA",
+          "sections": "Actual intended default/custom target seam and preserved guarantees."
+        },
+        {
+          "source": "CATALOG",
+          "sections": "Unique approval/read-all original receipt behavior."
+        },
+        {
+          "source": "STAFF",
+          "sections": "Private saves and approved-row preservation."
+        },
+        {
+          "source": "BIDS",
+          "sections": "Release/lot FK and replay identity."
+        },
+        {
+          "source": "BOARD",
+          "sections": "Approved catalog and standing projections."
+        }
+      ]
+    },
+    {
+      "id": "ADMISSION",
+      "title": "Staff-controlled fresh-event entry and sharing",
+      "file": "admission.md",
+      "deliverable": "D1",
+      "status": "DRAFT_UNFROZEN",
+      "readiness": "BLOCKED_EVIDENCE",
+      "depends_on": [],
+      "decisions": [
+        "Review precise enable/disable behavior; disabled-default new entry, existing private session/recovery, and grant revocation are separate authority states."
+      ],
+      "outcome": "Authorized Saturn staff enable synthetic attendee entry for a newly created event and share its actual event link/QR; a new attendee follows it into the already shipped distinct private signup and bidding journey.",
+      "exclusions": [
+        "No reimplementation of009, production Member ID verification, SMS, real-business authority, shared bidder session, or broad bidder-management console.",
+        "No silent grant/recovery changes when toggling enrollment availability."
+      ],
+      "implementation": [
+        "Connect scoped staff control to existing operator-owned bz_demo_event_entries with explicit current staff/org authority and exact idempotency/revision semantics.",
+        "Freeze enable/disable/new-enrollment and existing private recovery behavior using009 as authority. If desired behavior changes009 denial/acknowledge semantics, declare a reviewed successor rather than patching frozen evidence.",
+        "Share link/QR identifies only the event; private bootstrap/session cookies and secrets never enter QR or URL. Setup checklist uses actual availability state, not a seed-only success.",
+        "A fresh unseeded event must complete the staff\u2192attendee transition without operator SQL intervention; configured hosted synthetic boundary remains enforced."
+      ],
+      "verification": [
+        "Staff creates event, saves/approves under the accepted timing rules, enables entry, copies/scans event QR and signs up two distinct synthetic accounts.",
+        "Same names/Member IDs cannot merge identities; forbidden/foreign staff, disable races, session expiry, retry/lost enable response and bootstrap recovery keep precise authority.",
+        "Confirm browser/cookie/account isolation, refresh/logout and all009 behavior using actual server/SQL then required hosted checks later."
+      ],
+      "acceptance": [
+        "Independent API/SQL/native evidence proves a truly new staff event reaches009 entry; owner reviews the simple enable/share/denied journey.",
+        "Exact009 source remains reused or formally succeeded; no fixture provisioning alone can satisfy fresh-event admission acceptance."
+      ],
+      "successor": [
+        "009 is shipped. New control is a bounded successor only where operator-entry availability or frozen absence assumptions change. Retain distinct actor/business/session allocation and current-authority recovery; no broad identity redesign."
+      ],
+      "reading": [
+        {
+          "source": "AGENTS",
+          "sections": "Current navigation and durable guardrails; do not execute historical command examples."
+        },
+        {
+          "source": "RELEASE",
+          "sections": "Release identity, acceptedSource and hosted evidence limits."
+        },
+        {
+          "source": "DELIVERY",
+          "sections": "CompletionRequirements and workflow only; current pause remains authoritative."
+        },
+        {
+          "source": "VISION",
+          "sections": "Attendee and bidding journey; staging/demo scope."
+        },
+        {
+          "source": "WORKSPACE",
+          "sections": "Step9 shared-event QR presentation/printing only; loopback sharing is simulated and grants no identity or admission."
+        },
+        {
+          "source": "STAFF",
+          "sections": "CreateEvent and existing staff org grant."
+        },
+        {
+          "source": "AUTH",
+          "sections": "Staff and event VIEW/BID/business authority."
+        },
+        {
+          "source": "ENTRY",
+          "sections": "Availability/bootstrap/enroll/acknowledge."
+        },
+        {
+          "source": "ENTRY_SQL",
+          "sections": "Operator entry enable state, distinct identities and recovery."
+        },
+        {
+          "source": "ENTRY_VIEW",
+          "sections": "Shared-event/private wrapper behavior."
+        },
+        {
+          "source": "009",
+          "sections": "Entire bounded shipped contract."
+        },
+        {
+          "source": "INTEGRATED",
+          "sections": "009 shared-wrapper/runtime closure."
+        }
+      ]
+    },
+    {
+      "id": "WATCH012",
+      "title": "Personal Watching and durable actor-owned My Bids (012)",
+      "file": "watch012.md",
+      "deliverable": "D2",
+      "status": "DRAFT_UNFROZEN",
+      "readiness": "BLOCKED_SUCCESSOR_EVIDENCE",
+      "depends_on": [],
+      "decisions": [],
+      "outcome": "A private attendee saves/removes personal watched items, reloads them, returns to their own durable bid history and sees leading/outbid/ended standing from real backend activity.",
+      "exclusions": [
+        "No business-wide receipt list, merged accounts, imported prototype local storage/all-bid history or fake rival/clock.",
+        "No Won/awarded/settled meaning, new bid semantics, auto-bidding or donation work."
+      ],
+      "implementation": [
+        "Use accepted012 proposal and existing reservation; add event/actor-scoped naturally idempotent watch desired-state persistence and current-authority list/set APIs.",
+        "My Bids lists durable actor-owned receipts/bids, joins current server standing and immutable lot content, and separates personal activity from business leading status.",
+        "Connect retained A Watching/My Bids surfaces with loading/empty/pending/error/stale/ended states and actor/event epochs; retain individual original receipt recovery.",
+        "Minimum slice can target release375 shared window without waiting for unimplemented007/008. If those land first, rebind list target/catalog/timing DTOs to their exact accepted seam."
+      ],
+      "verification": [
+        "Fresh account empty; watch save/remove/retry survives reload; foreign actor/event/lot/session/VIEW challenges deny disclosure/write.",
+        "Actual HTTP/SQL-owned bid enters only own history; a real second actor changes leading\u2192outbid; shared-business coworker fixture retains separate personal receipts.",
+        "Backend close shows ended final/current standing without award; delayed old actor/event packets and offline recovery never appear current/accepted.",
+        "Independent native phone/desktop tests cover A cards/empty/error/keyboard, retained amount geometry and footer reachability."
+      ],
+      "acceptance": [
+        "No new product ownership or ended-standing decision is needed for this bounded outcome; implementation remains paused until checkpoint continuation and successor freeze.",
+        "Reviewed absence-check delta, finite baseline RED and negative controls precede exact candidate GREEN and independent durable/private/native evidence. Showcase watch\u2192reload\u2192own bid\u2192rival outbid."
+      ],
+      "successor": [
+        "Preserve006c RESERVED_ACTIONS_DISABLED and COMPACT_NATIVE_AMOUNT_WATCH originals; reviewed successor replaces only watch/My Bids disabled expectations with backend/private requirements. Retain unrelated disabled actions, complete amount geometry and footer reachability. No009 packet edits."
+      ],
+      "reading": [
+        {
+          "source": "AGENTS",
+          "sections": "Current navigation and durable guardrails; do not execute historical command examples."
+        },
+        {
+          "source": "RELEASE",
+          "sections": "Release identity, acceptedSource and hosted evidence limits."
+        },
+        {
+          "source": "DELIVERY",
+          "sections": "CompletionRequirements and workflow only; current pause remains authoritative."
+        },
+        {
+          "source": "012_PROPOSAL",
+          "sections": "Entire bounded proposal and required evidence transition."
+        },
+        {
+          "source": "NAMESPACES",
+          "sections": "012 reservation only."
+        },
+        {
+          "source": "A_VIEWS",
+          "sections": "Disabled watch/My Bids and A card/list composition."
+        },
+        {
+          "source": "A_BIDDING",
+          "sections": "Actual current receipt and standing recovery."
+        },
+        {
+          "source": "BIDS",
+          "sections": "Owned receipts, standing and current authority."
+        },
+        {
+          "source": "AUTH",
+          "sections": "VIEW/BID and actor/business distinction."
+        },
+        {
+          "source": "006C",
+          "sections": "Frozen refinement checks."
+        },
+        {
+          "source": "006C_MAP",
+          "sections": "RESERVED_ACTIONS_DISABLED and COMPACT_NATIVE_AMOUNT_WATCH; related amount/footer guarantees."
+        }
+      ]
+    },
+    {
+      "id": "DONATIONS011",
+      "title": "Record donations and provide staff list/export (011)",
+      "file": "donations011.md",
+      "deliverable": "D3",
+      "status": "DRAFT_UNFROZEN",
+      "readiness": "BLOCKED_OWNER_DECISION",
+      "depends_on": [],
+      "decisions": [
+        "DONATION_POLICY"
+      ],
+      "outcome": "An eligible private attendee chooses a curated nonprofit and$25/$50/$100/custom, reviews/confirms one donation, recovers its durable recorded receipt, and authorized staff reads/exports the original record for manual processing.",
+      "exclusions": [
+        "No external ledger posting, payment processor, charity-paid/tax/balance/settled claims or atomic multi-nonprofit cart.",
+        "No011 implementation exists; no routes/migration/nav work during this checkpoint."
+      ],
+      "implementation": [
+        "Reuse reviewed011 UI successor/study and reservations; rebind private authority and all inherited interfaces from its older preparation to release375.",
+        "Staff on/off is independent of auction bidding hours (accepted vision). Eligibility, cap and any custom-hour policy still require source-backed choices; null policy values cannot unlock freeze.",
+        "Use immutable destination ID/name/version, exact integer-minor amount and actor/request idempotency. Current authority/recovery and post-wait checks must be independently bound.",
+        "Record means pending Saturn staff processing. Staff org-scoped list/CSV exposes recorded amount/original destination; one submission per chosen nonprofit and explicit Donate again.",
+        "Separate reserved donation modules/routes/migration from shared wrapper/nav; owner integrates only exact accepted discovery hunks."
+      ],
+      "verification": [
+        "Later prove real donor review\u2192one durable record\u2192lost response/exact retry/reload\u2192owned receipt and staff list/export API+SQL.",
+        "Presets/custom decimal precision, cap/eligibility/on-off boundaries, foreign/expired actors, request-body conflicts and donation destination rename preserve exact original records.",
+        "Actual donor/staff phone/desktop renders retain ordinary copy and no financial settlement claim. Study/control passes are preparation, never candidate GREEN."
+      ],
+      "acceptance": [
+        "Owner cap/eligibility/custom-hour choices and technical unit/minimum/recovery policy are reconciled; reviewed final contract replaces nulls and rebinds current authority.",
+        "Full frozen baseline and exact candidate gates, independent API/SQL/native/CSV evidence and owner connected render acceptance complete the record/manual-processing journey."
+      ],
+      "successor": [
+        "Keep original011 packet/archive and UI successor preparation intact. Freeze the reconciled successor under existing011 reservation; preserve original assertion meanings/inherited guarantees and explicitly version any shared navigation absence expectation."
+      ],
+      "reading": [
+        {
+          "source": "AGENTS",
+          "sections": "Current navigation and durable guardrails; do not execute historical command examples."
+        },
+        {
+          "source": "RELEASE",
+          "sections": "Release identity, acceptedSource and hosted evidence limits."
+        },
+        {
+          "source": "DELIVERY",
+          "sections": "CompletionRequirements and workflow only; current pause remains authoritative."
+        },
+        {
+          "source": "VISION",
+          "sections": "Donations and event operations."
+        },
+        {
+          "source": "011_HANDOFF",
+          "sections": "Accepted UI/domain choices, evidence status and resume boundary."
+        },
+        {
+          "source": "011_UI",
+          "sections": "Presets, language and unchanged domain proof; stale availability question superseded byVISION."
+        },
+        {
+          "source": "011_POLICY",
+          "sections": "Null policy fields and unit/scale proposal."
+        },
+        {
+          "source": "011_SPEC",
+          "sections": "Protocol/schema/CSV/authority requirements."
+        },
+        {
+          "source": "NAMESPACES",
+          "sections": "011 reservation and shared-file boundary."
+        },
+        {
+          "source": "ENTRY",
+          "sections": "Current private actor entry."
+        },
+        {
+          "source": "AUTH",
+          "sections": "Current grants and recovery authority."
+        },
+        {
+          "source": "BIDS",
+          "sections": "Do not copy lot-phase eligibility into donations."
+        }
+      ]
+    },
+    {
+      "id": "STAFF_RESULTS",
+      "title": "Scoped staff standings and CSV export",
+      "file": "staff_results.md",
+      "deliverable": "D4",
+      "status": "DRAFT_UNFROZEN",
+      "readiness": "BLOCKED_EVIDENCE",
+      "depends_on": [],
+      "decisions": [
+        "Bind CSV columns and privacy projection; keep provisional standings distinct from final awards."
+      ],
+      "outcome": "Same-organization staff views actual current/closed event standings and exports an explicit server-authoritative CSV without creating a bidder identity.",
+      "exclusions": [
+        "No implicit staff BID/business authority, fake zero-result preview placeholders, all-person receipt disclosure or winner/settlement claims.",
+        "No replacement of shipped010 private boards or public TV grant."
+      ],
+      "implementation": [
+        "Add a purpose-scoped current staff/org results read/export authority path, projected from actual bid/standing data and immutable published lot identities.",
+        "Freeze exact column/projection/as-of semantics and CSV formula escaping; no opening amount or draft current:0 placeholder may substitute for results.",
+        "Show per-row freshness/denial/unavailable/no-accepted-bids; define whether export uses a consistent server snapshot rather than implying atomicity from sequential010 polling.",
+        "Adapt to accepted default/custom timing, additive targets and increment policies when present; release375 can support a bounded provisional staff read/export without waiting for full finalization."
+      ],
+      "verification": [
+        "Actual accepted bids and no-bid lots agree between staff API/SQL/table/CSV; foreign org/staff revoked/expired/no grant requests deny data.",
+        "Changed standing/closure/retry/download and malicious text fields are challenged; numeric values never leak after denial or become silently stale/current.",
+        "Desktop and phone tables show complete amounts and export state; independent reviewer checks column minimization and all data joins."
+      ],
+      "acceptance": [
+        "Reviewed access/CSV contract and finite baseline RED precede implementation; owner reviews real staff read/export journey.",
+        "Exact candidate evidence proves staff-only numeric access without bidder credentials, correct recorded rows and scoped safe CSV. Output remains provisional untilFINALIZATION is accepted."
+      ],
+      "successor": [
+        "Shipped010 deliberately denies staff-only numeric standing under bidder API authority. A reviewed new staff-read successor adds purpose-specific access while preserving old bidder denials/VIEW isolation; old010 tests stay byte-stable."
+      ],
+      "reading": [
+        {
+          "source": "AGENTS",
+          "sections": "Current navigation and durable guardrails; do not execute historical command examples."
+        },
+        {
+          "source": "RELEASE",
+          "sections": "Release identity, acceptedSource and hosted evidence limits."
+        },
+        {
+          "source": "DELIVERY",
+          "sections": "CompletionRequirements and workflow only; current pause remains authoritative."
+        },
+        {
+          "source": "VISION",
+          "sections": "Operations and displays/results."
+        },
+        {
+          "source": "010_HANDOFF",
+          "sections": "Numeric access limits, timestamps and no-result placeholders."
+        },
+        {
+          "source": "010",
+          "sections": "Historical bounded board authority."
+        },
+        {
+          "source": "BOARD",
+          "sections": "Denial/stale/generation behavior to retain."
+        },
+        {
+          "source": "BOARD_MODEL",
+          "sections": "Standing projection and exact amounts."
+        },
+        {
+          "source": "AUTH",
+          "sections": "Current staff/org grants versus BID authority."
+        },
+        {
+          "source": "BIDS",
+          "sections": "Actual standings/receipts/keys."
+        },
+        {
+          "source": "STAFF",
+          "sections": "Draft placeholder results must not be consumed."
+        }
+      ]
+    },
+    {
+      "id": "DISPLAY_ACCESS",
+      "title": "Authorized TV/projector display access",
+      "file": "display_access.md",
+      "deliverable": "D4",
+      "status": "DRAFT_UNFROZEN",
+      "readiness": "BLOCKED_OWNER_DECISION",
+      "depends_on": [
+        "STAFF_RESULTS"
+      ],
+      "decisions": [
+        "DISPLAY_POLICY"
+      ],
+      "outcome": "Staff previews a display draft and presents approved live/read-only standings on a TV/projector through a deliberately authorized display path that does not require creating a bidder.",
+      "exclusions": [
+        "No automatic public grant from private010 access or reused bidder bootstrap/session in display URLs.",
+        "No remote fleet/device discovery/control, notifications or award/payment behavior unless separately selected."
+      ],
+      "implementation": [
+        "Owner selects actual audience/privacy/access/revocation policy before freezing. Display-only access must be read-only and separate from staff mutation and BID authority.",
+        "Reuse010 layout/read/denial/stale projection; bind fields visible to an audience and remove person/business/leader identity unless explicitly authorized.",
+        "Keep staff draft preview separate from approved/applied live display, with honest server phases/freshness and lockout/revocation behavior.",
+        "Define safe pairing/token/session/storage and expiration at the selected boundary; no credentials in shared event QR/log/public URL and no implicit broader audience."
+      ],
+      "verification": [
+        "Separate staff preview, private approved board and authorized audience display are exercised with current/closed/no-bid/stale/denied states.",
+        "Replay/leaked/revoked/expired display access cannot bid/mutate/read private profile or another event; offline and old-generation packets clear/label data correctly.",
+        "Actual large-screen and phone renders use real DTOs and full amounts; physical TV/projector acceptance is separate from viewport emulation."
+      ],
+      "acceptance": [
+        "Owner source-backed privacy/audience/access policy and reviewed token/authority contract precede implementation.",
+        "Independent access/data/native evidence and owner actual presentation review show an authorized display without bidder identity; private010 shipping is not acceptance of this expansion."
+      ],
+      "successor": [
+        "Reviewed010 access/projection successor retains private board behavior and denials. Any new audience/credential boundary needs explicit scope authorization before release; do not infer it from synthetic staging promotion."
+      ],
+      "reading": [
+        {
+          "source": "AGENTS",
+          "sections": "Current navigation and durable guardrails; do not execute historical command examples."
+        },
+        {
+          "source": "RELEASE",
+          "sections": "Release identity, acceptedSource and hosted evidence limits."
+        },
+        {
+          "source": "DELIVERY",
+          "sections": "CompletionRequirements and workflow only; current pause remains authoritative."
+        },
+        {
+          "source": "VISION",
+          "sections": "Operations/privacy/device/finalization open choices."
+        },
+        {
+          "source": "WORKSPACE",
+          "sections": "Step8 draft/applied display distinction only; no connected screen, access grant or device control is established."
+        },
+        {
+          "source": "010_HANDOFF",
+          "sections": "Private browser/display disclosure boundary and data projection."
+        },
+        {
+          "source": "010",
+          "sections": "Protected scope and evidence."
+        },
+        {
+          "source": "BOARD",
+          "sections": "Refresh/generation/denial/stale logic."
+        },
+        {
+          "source": "BOARD_MODEL",
+          "sections": "Current allowlisted fields and policy assumptions."
+        },
+        {
+          "source": "AUTH",
+          "sections": "Existing private/staff scope separation."
+        }
+      ]
+    },
+    {
+      "id": "FINALIZATION",
+      "title": "Agreed ended outcome and finalization semantics",
+      "file": "finalization.md",
+      "deliverable": "D4",
+      "status": "DRAFT_UNFROZEN",
+      "readiness": "BLOCKED_OWNER_DECISION",
+      "depends_on": [
+        "STAFF_RESULTS"
+      ],
+      "decisions": [
+        "FINALIZATION_POLICY"
+      ],
+      "outcome": "Staff and attendees understand an ended event using the agreed finalization state and vocabulary; any selected award/finalization operation has explicit authority, durable audit and recoverable results.",
+      "exclusions": [
+        "No invented Won/awarded/settled meanings; current closed highest standing remains a truthful usable result.",
+        "No payment/ledger transfer, event archive/whole-event duplication or post-close reopening/rescheduling."
+      ],
+      "implementation": [
+        "Parent obtains exact meaning: closed provisional/final standing only, or an explicit staff finalization/award operation. Freeze only the selected branch; no default choice by implementer.",
+        "If an operation is selected, bind authorized roles, eligible states, conflict/retry/audit semantics and immutable output before schema work; distinguish award from settlement.",
+        "Update staff results/export, bidder ended views and display vocabulary together; no browser clock or model report establishes finalization."
+      ],
+      "verification": [
+        "Trace real last accepted bid/server close through each selected ended state; no-bid/late/concurrent cases cannot manufacture a winner.",
+        "If selected, independent API/SQL tests prove unauthorized/repeated/lost/conflicting finalize operations and resulting durable audit; otherwise verify read-only standing copy across all consumers.",
+        "Owner reviews actual ended staff/bidder/display/CSV language and independent reviewer checks consistent meaning."
+      ],
+      "acceptance": [
+        "Owner selects one bounded finalization branch and its language; until then this contract is blocked and provisional closed-standing journeys remain allowed by their accepted contracts.",
+        "Exact candidate and independent state/recovery evidence plus owner render review establish only the selected semantics, never payment settlement."
+      ],
+      "successor": [
+        "Reviewed successors for any new closed/final semantics replace only affected no-award expectations. Preserve historical closed standing/receipt evidence and bid ordering/authority."
+      ],
+      "reading": [
+        {
+          "source": "AGENTS",
+          "sections": "Current navigation and durable guardrails; do not execute historical command examples."
+        },
+        {
+          "source": "RELEASE",
+          "sections": "Release identity, acceptedSource and hosted evidence limits."
+        },
+        {
+          "source": "DELIVERY",
+          "sections": "CompletionRequirements and workflow only; current pause remains authoritative."
+        },
+        {
+          "source": "VISION",
+          "sections": "Ended outcomes and operations finalization choices."
+        },
+        {
+          "source": "012_PROPOSAL",
+          "sections": "Accepted ended highest/current standing without Won/award/settled."
+        },
+        {
+          "source": "010_HANDOFF",
+          "sections": "Provisional standing and omitted settlement claims."
+        },
+        {
+          "source": "BIDS",
+          "sections": "Server phase/last durable bid/receipt ordering."
+        },
+        {
+          "source": "BOARD",
+          "sections": "Current provisional/closed language and projection."
+        }
+      ]
+    },
+    {
+      "id": "MOBILE014",
+      "title": "Stable mobile polling and open bid task (014 successor review)",
+      "file": "mobile014.md",
+      "deliverable": "CROSS",
+      "status": "DRAFT_UNFROZEN",
+      "readiness": "BLOCKED_SUCCESSOR_REVIEW",
+      "depends_on": [],
+      "decisions": [
+        "Independent reviewer requires structural lot-change and open-sheet authority/receipt transition evidence before implementation."
+      ],
+      "outcome": "Authenticated mobile polls preserve unchanged catalog DOM, focus and active editing while real structural changes, authority loss, standing/close and durable receipt recovery still update correctly.",
+      "exclusions": [
+        "No app changes here or execution of014 tests; no server/API/database/enrollment/migration or bid-rule changes.",
+        "No claim of physical-phone visual verification, implementation, hosted repair or current freeze readiness."
+      ],
+      "implementation": [
+        "Existing owner stopped at clean deba554033d716c57f65f542b75eb0af807f03e7 on codex/mobile-poll-render. First frozen014 packet is six contract/evidence files only.",
+        "Preserve that packet and completed baseline bytes. Prepare independently reviewed additions/successor for structural lot additions/removals/reorder and open-sheet permission/phase/identity/receipt transitions before an implementation assignment.",
+        "After authorized continuation and accepted successor, implement only owned bounded client paths on exact released/then-accepted source; coordinate shared A/wrapper hunks withWATCH012/TIMING007/INCREMENTS, not concurrent whole-file replacement."
+      ],
+      "verification": [
+        "Recorded completed baseline:8 expected acceptance failures,11 regression passes,10 adversarial passes,zero harness errors. This checkpoint only reads that evidence.",
+        "Future reviewed cases must observe exact unchanged node/focus/value/caret preservation alongside actual structural changes and open task transitions; protect changed authority and original receipt recovery rather than only static content.",
+        "Independent exact candidate evidence, actual native/emulated phone render and separate physical/hosted observations remain required at their proper boundary."
+      ],
+      "acceptance": [
+        "Fresh review explicitly accepts strengthened successor evidence; baseline/control/candidate runs occur only after owner authorizes continuation.",
+        "Source-bound GREEN and independent review of both preserved editing and changed authority/structure, followed by owner phone check and exact hosted repair evidence. Current state is frozen-first-packet, review improvements pending, no product code."
+      ],
+      "successor": [
+        "Do not edit frozen014 files. Reviewed successor/delta preserves original29 assertion identities/meanings where applicable and adds missing structural/open-sheet cases; no test weakening or kernel changes."
+      ],
+      "reading": [
+        {
+          "source": "AGENTS",
+          "sections": "Current navigation and durable guardrails; do not execute historical command examples."
+        },
+        {
+          "source": "RELEASE",
+          "sections": "Release identity, acceptedSource and hosted evidence limits."
+        },
+        {
+          "source": "DELIVERY",
+          "sections": "CompletionRequirements and workflow only; current pause remains authoritative."
+        },
+        {
+          "source": "014",
+          "sections": "Entire exact first frozen contract."
+        },
+        {
+          "source": "014_README",
+          "sections": "Evidence architecture and explicit physical/hosted limits."
+        },
+        {
+          "source": "014_BASELINE",
+          "sections": "Recorded terminal baseline only; no rerun."
+        },
+        {
+          "source": "ENTRY_VIEW",
+          "sections": "Actual release375 wrapper refresh/context generation."
+        },
+        {
+          "source": "A_VIEWS",
+          "sections": "Structural catalog and task render seams."
+        },
+        {
+          "source": "A_BIDDING",
+          "sections": "Open task authority/standing/receipt lifecycle."
+        }
+      ]
+    },
+    {
+      "id": "CONNECTED_RELEASE",
+      "title": "Demonstrable connected Saturn checkpoint and hosted delivery",
+      "file": "connected_release.md",
+      "deliverable": "RELEASE",
+      "status": "DRAFT_UNFROZEN",
+      "readiness": "BLOCKED_DEPENDENCIES",
+      "depends_on": [
+        "STUDIO",
+        "ASSETS",
+        "TIMING007",
+        "INCREMENTS",
+        "PUBLICATION008",
+        "ADMISSION",
+        "WATCH012",
+        "DONATIONS011",
+        "STAFF_RESULTS",
+        "DISPLAY_ACCESS",
+        "FINALIZATION",
+        "MOBILE014"
+      ],
+      "decisions": [
+        "Owner accepts included product scopes; any new display audience requires specific authorization."
+      ],
+      "outcome": "The accepted scopes form one usable staff\u2192fresh-event attendee/bidder\u2192donor\u2192staff outcomes/display journey and land in the agreed synthetic staging with exact hosted revision/journey proof.",
+      "exclusions": [
+        "No repeat commissioning of shipped009/010/013; no universal production/SMS/payment/billing services.",
+        "No push/merge/deploy now and no private map/contracts/evidence in public source history."
+      ],
+      "implementation": [
+        "One fresh delegator per demonstrable deliverable owns contract implementers, coherent repairs and fresh independent review through acceptance\u2192integration\u2192staging\u2192hosted check. Parent sequences deliverables and decides product semantics.",
+        "Integrate each accepted bounded outcome as it is ready rather than waiting for all slices to get a local GREEN; full connected checkpoint depends on the included inventory.",
+        "Select exact public-safe product source from reviewed private candidate, preserve frozen/evidence history separately, and bind runtime/migration/grant/source/rollback checks to the accepted scope.",
+        "Rebind consumers as007/008/increments/asset/auth additions land. Current hosted375 is foundation, not proof for any later contract."
+      ],
+      "verification": [
+        "Later exact candidate regression/acceptance/adversarial and fresh independent full-journey evidence; no baseline or app gate now.",
+        "Verify upstream revision, configured synthetic staging audience, migration/auth/runtime boundaries, correct route/alias and fresh connected hosted journeys after authorized promotion.",
+        "Owner render acceptance remains distinct from deterministic checks; local GREEN is ready to integrate, never terminal delivery."
+      ],
+      "acceptance": [
+        "Owner reviews this documentation checkpoint and explicitly authorizes continuation first; then each frozen successor follows its own accepted gates.",
+        "All included deliverables have exact independent/owner acceptance, integration and hosted evidence; partial delivery remains explicitly partial. Expanded audience/credentials need specific authority."
+      ],
+      "successor": [
+        "Reuse existing delivery requirement/013 as history; freeze a future connected successor bound to then-accepted source/interfaces. Never rewrite accepted release375 receipts to imply new delivery."
+      ],
+      "reading": [
+        {
+          "source": "AGENTS",
+          "sections": "Current navigation and durable guardrails; do not execute historical command examples."
+        },
+        {
+          "source": "RELEASE",
+          "sections": "Release identity, acceptedSource and hosted evidence limits. Exact source/upstream/deployment/hosted identity and rollback bindings."
+        },
+        {
+          "source": "DELIVERY",
+          "sections": "CompletionRequirements and workflow only; current pause remains authoritative. Full existing delivery requirement."
+        },
+        {
+          "source": "INTEGRATED",
+          "sections": "Combined private identity/runtime/connected guarantees."
+        },
+        {
+          "source": "CASES",
+          "sections": "Archived disposition/reopen criteria; not a standing release blocker."
+        },
+        {
+          "source": "VISION",
+          "sections": "Connected Saturn release and deferred universal scope."
+        }
+      ]
+    }
+  ]
+}

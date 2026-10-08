@@ -1,0 +1,520 @@
+{
+  "schema": 1,
+  "recordedUTC": "2026-10-07T02:01:13.369165+00:00",
+  "task": "staging-event-preparation-006",
+  "repo": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-next",
+  "branch": "codex/saturn-event-preparation",
+  "verifiedAppSHA": "84c40f16fbe96b1c5f2501778550583da37321ce",
+  "frozenBaseSHA": "fb85bc52db0823b2e8d3149e450f3c6c200d6c33",
+  "sourceBinding": {
+    "base": {
+      "commit": "fb85bc52db0823b2e8d3149e450f3c6c200d6c33",
+      "tree": "2708a3d4777f0fdcdfa0aed53a413361428f0eb5",
+      "manifest_sha256": "afa91585430674bd17a0923b291aa14f62aeb624fed98d33f0373f5b3b0377c3"
+    },
+    "candidate": {
+      "commit": "84c40f16fbe96b1c5f2501778550583da37321ce",
+      "tree": "17dbec4ecb2469dbcc358a69c9885f3c08611954",
+      "manifest_sha256": "5f6b53068609238ea2fe519c9c2147a318f92daf6e8bb6fe5f895e2df1fa3683"
+    },
+    "candidate_snapshot": true,
+    "clean_before": true,
+    "unchanged_after": true
+  },
+  "verdict": "supported",
+  "exit": 0,
+  "kernelVersion": "3.1.0",
+  "kernelPackageBinding": {
+    "components": {
+      "verify.py": "0f638fc9b7a7682ab814c7923557ecbb0871f35140f1aa6838efde17855d4ca5",
+      "kernel_runtime.py": "d185f76b12c30a0758fee453c8806508919fa0df2a457c8fb55fd124b7d1ac93",
+      "kernel_report.py": "6c8c21d2f8bbcd81a5a6b0f2abb69166dc7603d7bf5df76e84d803fc5997bd0d"
+    },
+    "manifest_sha256": "8d67bd79e547634041dc377c05316aaac9d4cd7851469f18555a1b4b456fabf0",
+    "boundary": "schema2-start-loaded-components"
+  },
+  "phaseCounts": {
+    "base": {
+      "groups": 18,
+      "groupsPass": 16,
+      "assertionsPass": 30,
+      "assertionsFiniteRED": 7,
+      "harnessErrors": 0,
+      "assertions": [
+        {
+          "id": "DUPLICATE_EDIT_SAVE_RELOAD_PREVIEW",
+          "status": "fail"
+        },
+        {
+          "id": "DUPLICATE_RETRY_ONCE",
+          "status": "fail"
+        },
+        {
+          "id": "DUPLICATE_SELECTED_ALLOWLIST",
+          "status": "fail"
+        },
+        {
+          "id": "ROUTER_REFRESH_EVENT_ROUTE",
+          "status": "fail"
+        },
+        {
+          "id": "DUPLICATE_PENDING_CAPACITY",
+          "status": "fail"
+        },
+        {
+          "id": "DUPLICATE_AUTHORITY_IMMUTABLE",
+          "status": "fail"
+        },
+        {
+          "id": "DUPLICATE_APPROVAL_LOCKS",
+          "status": "fail"
+        },
+        {
+          "id": "EVENTS_HOME_LIST_SELECT",
+          "status": "pass"
+        },
+        {
+          "id": "HOME_CREATE_RECOVERY",
+          "status": "pass"
+        },
+        {
+          "id": "EVENT_SAVE_DURABLE_PREVIEW",
+          "status": "pass"
+        },
+        {
+          "id": "HOME_DETAILS_HISTORY",
+          "status": "pass"
+        },
+        {
+          "id": "SHELL_FOCUS",
+          "status": "pass"
+        },
+        {
+          "id": "RESPONSIVE_SAVED_A",
+          "status": "pass"
+        },
+        {
+          "id": "HOME_TENANT_ISOLATION",
+          "status": "pass"
+        },
+        {
+          "id": "HOME_PENDING_STALE",
+          "status": "pass"
+        },
+        {
+          "id": "HOME_STALE_APPROVAL",
+          "status": "pass"
+        },
+        {
+          "id": "HOME_UNRESOLVED_WRITES",
+          "status": "pass"
+        },
+        {
+          "id": "MALFORMED_SAVE_RECOVERY",
+          "status": "pass"
+        },
+        {
+          "id": "DIRTY_REPLACEMENT",
+          "status": "pass"
+        },
+        {
+          "id": "APPROVED_NOTICE_ASYNC",
+          "status": "pass"
+        },
+        {
+          "id": "APPROVED_NOTICE_PRIORITY",
+          "status": "pass"
+        },
+        {
+          "id": "APPROVAL_RESPONSE_VARIANTS",
+          "status": "pass"
+        },
+        {
+          "id": "SELECTED_SUBSET_IMMUTABLE",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_03_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_04_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_05_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_06_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_07_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_08_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_09_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_10_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_11_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_12_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_13_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_14_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_15_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_16_COMPLETED",
+          "status": "pass"
+        }
+      ]
+    },
+    "candidate": {
+      "groups": 18,
+      "groupsPass": 18,
+      "assertionsPass": 37,
+      "assertionsFiniteRED": 0,
+      "harnessErrors": 0,
+      "assertions": [
+        {
+          "id": "DUPLICATE_EDIT_SAVE_RELOAD_PREVIEW",
+          "status": "pass"
+        },
+        {
+          "id": "DUPLICATE_RETRY_ONCE",
+          "status": "pass"
+        },
+        {
+          "id": "DUPLICATE_SELECTED_ALLOWLIST",
+          "status": "pass"
+        },
+        {
+          "id": "ROUTER_REFRESH_EVENT_ROUTE",
+          "status": "pass"
+        },
+        {
+          "id": "DUPLICATE_PENDING_CAPACITY",
+          "status": "pass"
+        },
+        {
+          "id": "DUPLICATE_AUTHORITY_IMMUTABLE",
+          "status": "pass"
+        },
+        {
+          "id": "DUPLICATE_APPROVAL_LOCKS",
+          "status": "pass"
+        },
+        {
+          "id": "EVENTS_HOME_LIST_SELECT",
+          "status": "pass"
+        },
+        {
+          "id": "HOME_CREATE_RECOVERY",
+          "status": "pass"
+        },
+        {
+          "id": "EVENT_SAVE_DURABLE_PREVIEW",
+          "status": "pass"
+        },
+        {
+          "id": "HOME_DETAILS_HISTORY",
+          "status": "pass"
+        },
+        {
+          "id": "SHELL_FOCUS",
+          "status": "pass"
+        },
+        {
+          "id": "RESPONSIVE_SAVED_A",
+          "status": "pass"
+        },
+        {
+          "id": "HOME_TENANT_ISOLATION",
+          "status": "pass"
+        },
+        {
+          "id": "HOME_PENDING_STALE",
+          "status": "pass"
+        },
+        {
+          "id": "HOME_STALE_APPROVAL",
+          "status": "pass"
+        },
+        {
+          "id": "HOME_UNRESOLVED_WRITES",
+          "status": "pass"
+        },
+        {
+          "id": "MALFORMED_SAVE_RECOVERY",
+          "status": "pass"
+        },
+        {
+          "id": "DIRTY_REPLACEMENT",
+          "status": "pass"
+        },
+        {
+          "id": "APPROVED_NOTICE_ASYNC",
+          "status": "pass"
+        },
+        {
+          "id": "APPROVED_NOTICE_PRIORITY",
+          "status": "pass"
+        },
+        {
+          "id": "APPROVAL_RESPONSE_VARIANTS",
+          "status": "pass"
+        },
+        {
+          "id": "SELECTED_SUBSET_IMMUTABLE",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_03_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_04_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_05_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_06_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_07_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_08_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_09_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_10_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_11_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_12_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_13_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_14_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_15_COMPLETED",
+          "status": "pass"
+        },
+        {
+          "id": "COMMAND_16_COMPLETED",
+          "status": "pass"
+        }
+      ]
+    }
+  },
+  "changedAppFiles": [
+    "public/staging-admin/studio.css",
+    "public/staging-admin/studio.js"
+  ],
+  "proofArchive": {
+    "index": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/006-complete/INDEX.json",
+      "bytes": 118145,
+      "sha256": "bbb550baaca6286889f53876e2435594cd6e6fb03b4da6623b0d5ece897874d5"
+    },
+    "receiptDirectories": 56,
+    "files": 294,
+    "missing": 0
+  },
+  "claims": {
+    "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/kernel-006-candidate-recovered-claims.jsonl",
+    "bytes": 64469,
+    "sha256": "613e4b37ed49ac5b9d27584d3a652a56040e52734542ed926b74a39f78cd0ea8"
+  },
+  "independentReview": {
+    "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/independent-review/CANDIDATE_FINAL_REVIEW.json",
+    "bytes": 18834,
+    "sha256": "14c2c496b485d4955d9ce762a428293a5405718889d4ad56f8017e602c952331"
+  },
+  "renderedImages": [
+    {
+      "scene": "desktop",
+      "path": "/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-desktop.png",
+      "copyId": "04092211-61c9-4473-9734-b1a0c191e959",
+      "title": "006 Edited intended copy",
+      "editor": {
+        "left": 554,
+        "top": 702.015625,
+        "right": 992,
+        "bottom": 756.453125,
+        "width": 438,
+        "height": 54.4375,
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        }
+      },
+      "actualViewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "dimensions": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "536976cefb59b966a6398190c4128ff8e7a5e1d1a89836b72e3dd5957bfe67f3"
+    },
+    {
+      "scene": "laptop",
+      "path": "/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-laptop.png",
+      "copyId": "04092211-61c9-4473-9734-b1a0c191e959",
+      "title": "006 Edited intended copy",
+      "editor": {
+        "left": 256,
+        "top": 434.5,
+        "right": 868,
+        "bottom": 488.9375,
+        "width": 612,
+        "height": 54.4375,
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        }
+      },
+      "actualViewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "dimensions": {
+        "width": 1280,
+        "height": 800
+      },
+      "sha256": "05efb99fb46d9d0ac0b2f42755cc98f5cfbe2688ffd7d8210a31179459c3b815"
+    },
+    {
+      "scene": "phone",
+      "path": "/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-phone.png",
+      "copyId": "04092211-61c9-4473-9734-b1a0c191e959",
+      "title": "006 Edited intended copy",
+      "editor": {
+        "left": 38,
+        "top": 727.390625,
+        "right": 350,
+        "bottom": 781.828125,
+        "width": 312,
+        "height": 54.4375,
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "actualViewport": {
+        "width": 390,
+        "height": 844
+      },
+      "dimensions": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "403776a05abf3bbe4dce9a7584788e4d7cdcf216456538a8af5aa660aef88aef"
+    },
+    {
+      "scene": "saved-a-phone",
+      "path": "/tmp/task-root/event-preparation006-candidate-0ee0126562ac414784786b15aae68c49-pAuszs/duplicate-saved-saved-a-phone.png",
+      "actualViewport": {
+        "width": 318,
+        "height": 593,
+        "overflow": false
+      },
+      "dimensions": {
+        "width": 318,
+        "height": 593
+      },
+      "sha256": "95be159ca5b3b485ec8841dc3377822b1e625a1f0788edc2fb78260319edae45",
+      "actualFrameURL": "http://127.0.0.1:65246/staging-bidder-preview/index.html#/lot/04092211-61c9-4473-9734-b1a0c191e959",
+      "parentFrameURL": "http://127.0.0.1:65246/staging-admin/index.html#/lots/04092211-61c9-4473-9734-b1a0c191e959"
+    }
+  ],
+  "ownerRenderedAcceptance": "PENDING",
+  "ownerPreviewAccessConfirmation": "PENDING",
+  "historicalHistoryIssue": "Original natural HOME_DETAILS_HISTORY URL-null trigger UNKNOWN/OPEN. Controlled framework-refresh defect independently reproduced and fixed; no lucky-rerun closure.",
+  "effectScope": "Local isolated commit/test/proof only; no push, merge, deploy or provider change.",
+  "reviewApp": {
+    "url": "http://127.0.0.1:55562/admin",
+    "sourceSHA": "84c40f16fbe96b1c5f2501778550583da37321ce",
+    "latestControlledRender": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/review-runtime/FRESH_RENDER.json",
+      "bytes": 922,
+      "sha256": "adc85ca29123a95f638342daf5588a3ef758b9eec83c76439df04746e8374ec9"
+    },
+    "ownerWindowProven": false
+  },
+  "separateWelcomeStudy": {
+    "url": "http://127.0.0.1:55131/",
+    "ownerDecision": "PENDING",
+    "integrated": false
+  },
+  "preservedInterruptedAttempt": {
+    "index": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/006-interrupted-receipts/INDEX.json",
+      "bytes": 29372,
+      "sha256": "94530838dc00d97c6db3eba60e904a02a2181eb02b6faab0a09e08ef6121b71b"
+    },
+    "files": 72,
+    "receiptDirectories": 12,
+    "terminalVerdict": null,
+    "candidateReceipts": 0
+  },
+  "libraryScreenshotUpload": {
+    "status": "Unavailable; local fallback",
+    "binding": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/delivery-evidence/LIBRARY_SCREENSHOTS.json",
+      "bytes": 1456,
+      "sha256": "4bfadeedad0f99ec43407d3fd2114630afa6b365351a7a02ab69220ab2d619b7"
+    },
+    "confirmedWrites": false
+  },
+  "models": "Internal Codex agents, inherited runtime; exact model ID unavailable. No cross-model claim.",
+  "nextCalls": [
+    "Window date policy in event timezone",
+    "Owner welcome presentation approval"
+  ],
+  "documentationBoundary": "A later documentation-only HEAD is not a new full-gate app revision. App and frozen contract bytes remain bound to verifiedAppSHA."
+}

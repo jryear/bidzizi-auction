@@ -1,0 +1,124 @@
+{
+  "atUTC": "2026-10-07T01:46:53.326468+00:00",
+  "sourceSHA": "84c40f16fbe96b1c5f2501778550583da37321ce",
+  "tree": "17dbec4ecb2469dbcc358a69c9885f3c08611954",
+  "freezeSHA": "fb85bc52db0823b2e8d3149e450f3c6c200d6c33",
+  "repo": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-next",
+  "branch": "codex/saturn-event-preparation",
+  "cleanAtCapture": true,
+  "files": [
+    {
+      "path": "public/staging-admin/studio.js",
+      "bytes": 56665,
+      "sha256": "64d6a09bce7a5c8d20b07c7db24d0b2209a3b83a1801ef196d09f471bf1d3fad"
+    },
+    {
+      "path": "public/staging-admin/studio.css",
+      "bytes": 34430,
+      "sha256": "9bc9efaadc53b8320eb2524adb27f8c592f51a5cf6c59136122a9ac2bcbf24a3"
+    },
+    {
+      "path": "public/staging-admin/index.html",
+      "bytes": 616,
+      "sha256": "1bdcebb5f739e38504ade40ee0eaeee264840cc9c1dabde2f7f01d73802da224"
+    },
+    {
+      "path": "public/staging-admin/model.js",
+      "bytes": 3591,
+      "sha256": "b081ca833bf6fe314ec64cac2ad9616cef2928fbffc08f68f7139d88c8f9e719"
+    },
+    {
+      "path": "src/app/admin/page.tsx",
+      "bytes": 505,
+      "sha256": "a4cf8236ed14402116aaeab9aa89eb0e2d15d9c9141408948ef191e47a167aac"
+    },
+    {
+      "path": "src/server/staff.ts",
+      "bytes": 7140,
+      "sha256": "7b3a6ac608c3fb88af41946bb82cac294373770b98d3de65fc89606f375cd849"
+    },
+    {
+      "path": "src/server/catalog.ts",
+      "bytes": 11955,
+      "sha256": "21cb5aa6d1454057792a97eddd668004a90bdb5b9e03569d8b3d806dd57059fe"
+    },
+    {
+      "path": "src/server/manual-bids.ts",
+      "bytes": 13501,
+      "sha256": "e9f1087098a344226200fa63cabdff9dcf09b1acd678c8f839db6023babe3b98"
+    },
+    {
+      "path": "migrations/001_staging_staff.sql",
+      "bytes": 2100,
+      "sha256": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a"
+    },
+    {
+      "path": "migrations/002_staging_catalog.sql",
+      "bytes": 2082,
+      "sha256": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3"
+    },
+    {
+      "path": "migrations/003_staging_manual_bid.sql",
+      "bytes": 3829,
+      "sha256": "e8e985e67aa5f47df7cd9f9baf56c19fb30915fa99662b3a4e469a9a98e36cf8"
+    },
+    {
+      "path": "tasks/staging-event-preparation-006.toml",
+      "bytes": 91054,
+      "sha256": "8bf8f7b9733543a679a9584af228448b792d1ac40c877750c04dc1c5ec2949e5"
+    },
+    {
+      "path": "docs/decisions/event-preparation-direction-2026-10-07.json",
+      "bytes": 2644,
+      "sha256": "9c140db0ba3dedd4eae952481c581171adfe4fd2aeaa925094f0c237a8aba3b3"
+    },
+    {
+      "path": "tests/acceptance/staging-event-preparation/ASSERTION_REQUIREMENT_MAP.json",
+      "bytes": 5717,
+      "sha256": "acedf2ad36118e54e6f0e8c680f6a25d3d769d16b7d658e7ac889ead564d6bf4"
+    },
+    {
+      "path": "tests/acceptance/staging-event-preparation/CHECKS.json",
+      "bytes": 8682,
+      "sha256": "68301446ee742c7b18b13070b9b27bfb4c54cdc55dc38ef57b84a3d33aff6616"
+    },
+    {
+      "path": "tests/acceptance/staging-event-preparation/README.md",
+      "bytes": 3720,
+      "sha256": "b1146fc2841ae423ae1948f443124c32600db2bb3bad1eb0dcb25162e6347e64"
+    },
+    {
+      "path": "tests/acceptance/staging-event-preparation/adapter.mjs",
+      "bytes": 6716,
+      "sha256": "fac8a2ddb1f60c3c837b29174cf7caf5c53bfacf3456c9ce304710d46f53bdd5"
+    },
+    {
+      "path": "tests/acceptance/staging-event-preparation/checks.mjs",
+      "bytes": 21119,
+      "sha256": "d3bdf4e5f7f96f1bfa4ed78ffa216c0add551c94496d75eb7e7fca16cddf75ab"
+    },
+    {
+      "path": "tests/acceptance/staging-event-preparation/controls.mjs",
+      "bytes": 2993,
+      "sha256": "e2487095c4eba0e6d0d52564040dc7efde54cbee3034fb05491fd0dae6f6a7e8"
+    },
+    {
+      "path": "tests/acceptance/staging-event-preparation/refresh-checks.mjs",
+      "bytes": 7881,
+      "sha256": "5f92609f16d0541f682b4c431c56641275a901da4e88630bcced8aa5ce4cb6ef"
+    },
+    {
+      "path": "tests/acceptance/staging-event-preparation/run.mjs",
+      "bytes": 4125,
+      "sha256": "3aa6f47fd62eb1f263d2ed57056676109a36b73e794ed9f493d39f08dcf6c010"
+    },
+    {
+      "path": "tests/acceptance/staging-event-preparation/source-controls.mjs",
+      "bytes": 3329,
+      "sha256": "117ff74de295f2f6a9fbc2d0fb9bfe39b5dc80b2080da0ab4580ae30f851358a"
+    }
+  ],
+  "bindingOnly": true,
+  "gateVerdict": "PENDING; read completed claims for proof",
+  "ownerAcceptance": false
+}

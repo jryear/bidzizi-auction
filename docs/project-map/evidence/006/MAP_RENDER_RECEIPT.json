@@ -1,0 +1,42 @@
+{
+  "atUTC": "2026-10-07T02:02:00.999Z",
+  "node": "v24.4.1",
+  "browser": "153.0.8010.12",
+  "sourcePath": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-next/docs/project-map/index.html",
+  "sha256": "966e342797712d4ea007fd79dcc24b5739da736c18b946ff7c55768f384cde46",
+  "bytes": 25459,
+  "gateProof": false,
+  "ownerAcceptance": false,
+  "results": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "visibleCards": 12,
+      "overflow": false,
+      "dialogWorks": true,
+      "pageErrors": []
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "visibleCards": 12,
+      "overflow": false,
+      "dialogWorks": true,
+      "pageErrors": []
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "visibleCards": 12,
+      "overflow": false,
+      "dialogWorks": true,
+      "pageErrors": []
+    }
+  ]
+}
