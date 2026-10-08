@@ -1,0 +1,5 @@
+{
+  "classification": "HARNESS99",
+  "error": "Error: Fixture setup/internal failure: Cannot read properties of undefined (reading 'getSetCookie')\n    at withFixture (file:///Users/jryear/Documents/Codex/2026-10-07/task-4/saturn-demo-entry/tests/acceptance/staging-workspace-entry/harness.mjs:220:125)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async runGroup (file:///Users/jryear/Documents/Codex/2026-10-07/task-4/saturn-demo-entry/tests/acceptance/staging-demo-entry/cases.mjs:67:2)\n    at async file:///Users/jryear/Documents/Codex/2026-10-07/task-4/saturn-demo-entry/tests/acceptance/staging-demo-entry/run.mjs:28:2",
+  "terminalResult": false
+}

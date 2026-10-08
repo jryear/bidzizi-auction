@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "status": "UNFROZEN_PREIMPLEMENTATION_INDEPENDENT_REVIEW",
+  "new": [
+    {
+      "id": "DR01_PRIVATE_READ_ONLY",
+      "group": "Private board read authority, scheduled withholding and unavailable states",
+      "requirement": "Both direct routes use authorized existing GET reads only, never allocate standing or durable bid/receipt rows.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false
+    },
+    {
+      "id": "DR02_SCHEDULED_WITHHOLD",
+      "group": "Private board read authority, scheduled withholding and unavailable states",
+      "requirement": "Scheduled catalog withholds selected lot IDs/cards/standing probes, retains approved event context and UTC schedule.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false
+    },
+    {
+      "id": "DR03_VIEW_STAFF_SEPARATION",
+      "group": "Private board read authority, scheduled withholding and unavailable states",
+      "requirement": "VIEW-only sees approved catalog without numeric standing; anonymous, wrong-event, BID-only and same/wrong-org staff lack implied authority.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false
+    },
+    {
+      "id": "DR04_EMPTY_ERROR",
+      "group": "Private board read authority, scheduled withholding and unavailable states",
+      "requirement": "Honest empty approved catalog and initial503/error state do not invent lots or confirmed results.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false
+    },
+    {
+      "id": "DR05_SNAPSHOT_RELEASE_MATCH",
+      "group": "Immutable selected standing, exact money, individual as-of and privacy",
+      "requirement": "Approved order/numbers and titles come from selected immutable approval, not divergent saved draft; published-vs-draft distinction is explicit.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false
+    },
+    {
+      "id": "DR06_NO_BID_NULL",
+      "group": "Immutable selected standing, exact money, individual as-of and privacy",
+      "requirement": "Absent standing remains absent and reads No accepted bids, never opening metadata as current/zero sale.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false
+    },
+    {
+      "id": "DR07_EXACT_MONEY_ASOF_PRIVACY",
+      "group": "Immutable selected standing, exact money, individual as-of and privacy",
+      "requirement": "Exact integer cents, supported ruleset, count/version, per-row serverNow and updatedAt match real independent packets; private identity absent from DOM/persistence.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false
+    },
+    {
+      "id": "DR08_CLOSED_NOT_WINNER",
+      "group": "Immutable selected standing, exact money, individual as-of and privacy",
+      "requirement": "Closed admitted read remains visible despite canBid=false; no final-winner/settlement mutation or words.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false
+    },
+    {
+      "id": "DR09_MALFORMED_UNSUPPORTED",
+      "group": "Immutable selected standing, exact money, individual as-of and privacy",
+      "requirement": "Release/lot mismatch, malformed fractional amount, unsupported currency/ruleset and real unsupported event cannot reuse old numeric standing.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false
+    },
+    {
+      "id": "DR10_DENIED_CLEARING",
+      "group": "Current authority clearing, stale offline and late response isolation",
+      "requirement": "Revoked BID removes numeric/time fields only, revoked VIEW/person clears all private event content on current reads.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false
+    },
+    {
+      "id": "DR11_STALE_OFFLINE",
+      "group": "Current authority clearing, stale offline and late response isolation",
+      "requirement": "Real offline and transient row503 retain only confirmed values with unchanged original timestamps and conspicuous stale/offline wording.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false
+    },
+    {
+      "id": "DR12_ACCOUNT_EVENT_LATE_ISOLATION",
+      "group": "Current authority clearing, stale offline and late response isolation",
+      "requirement": "Native refresh cancels/invalidates held old account/route results; late response cannot restore former event or numeric authority.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false
+    },
+    {
+      "id": "DR13_SERVER_PHASE_REFRESH",
+      "group": "Server clock refresh, bounded visible polling and actual responsive DOM",
+      "requirement": "Skewed browser time cannot reveal scheduled lots or independently close them; refreshed real DB phase controls transition.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false
+    },
+    {
+      "id": "DR14_BOUNDED_VISIBLE_REFRESH",
+      "group": "Server clock refresh, bounded visible polling and actual responsive DOM",
+      "requirement": "Controlled5s/30s visible timers pause hidden and refresh resume; at most2 total API reads; each catalog begins after current session read.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false
+    },
+    {
+      "id": "DR15_NATIVE_RESPONSIVE",
+      "group": "Server clock refresh, bounded visible polling and actual responsive DOM",
+      "requirement": "Actual320/1280/1920 DOM on both routes keeps full amounts in visible clipping bounds, native visible focus, heading/table and valid navigation/reload.",
+      "evidence": "Actual browser DOM + existing GET packets + owned disposable DB; baseline route404 is finite reached mismatch",
+      "ownerAcceptance": false
+    }
+  ],
+  "inherited": {
+    "id": "DR_INHERITED_BINDING",
+    "meaning": "Byte identities and exact59 IDs/24 commands unchanged; does not execute inherited bodies",
+    "manifest": "INHERITED.json",
+    "parentIntegrationRequired": true
+  },
+  "privacyLimit": "Existing standing wire still contains authorized private leadingBusiness; UI projection strips it. No public endpoint/credential claim.",
+  "knownUnknowns": [
+    "Physical projector/mobile keyboard and owner visual acceptance unobserved.",
+    "Natural HOME_DETAILS_HISTORY remains OPEN/UNKNOWN.",
+    "Owner007/008 lifecycle and attendee009 are separate; current single-window DTO frozen here."
+  ],
+  "preFreezeCorrections": [
+    "Exact negative provisional disclaimer allowed; affirmative winner/sold claims rejected.",
+    "Cadence counts catalog cycles despite initial/final session reads; clock installed before navigation, native remaining-time observed.",
+    "Numeric six-viewport geometry requires real999999999-cent accepted fixture and nonempty amount set.",
+    "No-repair held account cycle proves final session recheck separately from later refresh.",
+    "Both routes authority/revocation/stale/offline; full-document privacy and pageerror observation.",
+    "Both missing routes are finite reached404, not harness timeout.",
+    "Concurrency client lifecycle starts before initial load and includes held cancellation with3 selected rows; scheduled5s and open5s each checked.",
+    "Schema2 evidence chains deduplicated before freeze; trusted kernel parser validates5 groups/16 IDs.",
+    "Sealed009_010 interface re-read/bound; exact15 application validators exported and shared by complete broken controls.",
+    "Healthy reached200 document missing native main is finite1; ordinary existing-board settle/API/transport deadlines remain99.",
+    "Confirmed standing visibly discloses synthetic USD, without requiring raw ruleset UI jargon."
+  ]
+}

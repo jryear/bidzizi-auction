@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "path": "tests/acceptance/staging-workspace-entry/browser.mjs",
+  "sourceBase": "a7e801a4ce66ac134d1824649c036bd0feceef9e",
+  "originalSHA256": "7a7a266afa621f4e8d885dbf89e1616c4f6303c5694a4c9dfefe429a3083839a",
+  "original": "frame.locator('.fan img')",
+  "replacement": "frame.locator('.event-hero img.event-cover, .fan img')",
+  "executedSHA256": "ab89d181d4059808491cf335ee423d85c06b5c117de2d76a5ac6ea4b451abb24",
+  "onlyRetiredExpectation": "Fan-specific cover selector. Both legacy fan and approved hero must render exact authoritative event cover; no phase-conditioned waiver. New acceptance independently requires hero and fan absence. Every other historical assertion remains unchanged.",
+  "unloadedArchives": [
+    "tests/acceptance/staging-workspace-entry/history/v3-08530-predecessor/browser.mjs",
+    "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/browser.mjs"
+  ]
+}

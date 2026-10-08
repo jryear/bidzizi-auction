@@ -1,0 +1,77 @@
+{
+  "status": "DRAFT_UNFROZEN_STATIC_PREPARATION",
+  "groups": 32,
+  "ids": 96,
+  "009Prefix": {
+    "groups": 27,
+    "ids": 80,
+    "exactAllMetadataEquality": true
+  },
+  "historicalClosedUnionPaths": 261,
+  "archivedBytesPaths": 261,
+  "rootImportMissingOnlyPaths": 148,
+  "knownSourceDeltas": [
+    {
+      "path": ".gitignore",
+      "historicalSHA256": "38d08896c6253e534e5a81fb050c1177430ae30f3de994c007da822a9c3f4039",
+      "currentSHA256": "b40b44b310bdb19d8baa2e267161c1e02553cd457d7b6e83cfdebc8826561641"
+    },
+    {
+      "path": "AGENTS.md",
+      "historicalSHA256": "f39f7b2e55279f36c65f137a5ab9367363a0bb1ac756b89a84fd48477c1aa79a",
+      "currentSHA256": "22aeb173ad2c7e6b183055e81237704169f8fe44d3ffedbe2bba3b102a983237"
+    },
+    {
+      "path": "public/staging-admin/studio.css",
+      "historicalSHA256": "c3d4ddae4fbefe434fe634e0293a0b842e35765f250129453b592bf48c61f072",
+      "currentSHA256": "78fee4931a48faca710408f5ef3e98b50f33ca06a95bdf081946178777ff6cf1"
+    },
+    {
+      "path": "public/staging-admin/studio.js",
+      "historicalSHA256": "6ed21b5cb39291d635d5b73136c4f7ca13b4d2a88fdcb013fca15ff53f128817",
+      "currentSHA256": "163424ddba02bf59fe7c5cc0801ed878fa1a7fa6fb7a7f1d8ca61b3ffa05d55a"
+    },
+    {
+      "path": "src/app/page.tsx",
+      "historicalSHA256": "949069d0d1ec607e2f68ea0dec6b9b36edd5634a0b2e3f7cad211b511a512cd0",
+      "currentSHA256": "3e3496d5bd16c12c366a93d29590966cfeeae2811e69880ed30dbb180827bfcd"
+    },
+    {
+      "path": "src/server/config.ts",
+      "historicalSHA256": "ace65fff9519b55182616914ecb5a0cc9e644d76bde2037808ab2adc687085fe",
+      "currentSHA256": "fcc39662d4d42893651fac761ae3067a2ddd7e8340854717af6405561fd9bdaf"
+    }
+  ],
+  "nativeSuccessorRecords": 15,
+  "noAppOrDBOrBrowserStarted": true,
+  "runtimeOwner": "/root",
+  "fullOutcomeDelivered": false,
+  "preparedEntryFreeze": "10530a0110eee5ed9e96161dc73d7f7ceb6697c0",
+  "preparedEntryTask": {
+    "path": "tasks/staging-staff-event-entry-015-evidence-successor-v2.toml",
+    "id": "staging-staff-event-entry-015-evidence-successor-v2",
+    "sha256": "821ad1e050906bfd028736099675cf14d157c7fb595bd5726c54cb23f24715ef"
+  },
+  "preparedEntryEvidencePaths": 76,
+  "inheritedClosedUnionPaths": 532,
+  "entrySuccessorExecutionHeld": false,
+  "acceptedEntry": {
+    "commit": "c10783537340549158d32b2c9a0c88336d01b6c3",
+    "completionReceipt": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/admission-supported-c107835/kernel-claim.json",
+      "sha256": "cb5fca61487ae4f1e7703f0772387ee3fb21a1f62189bc758b0e9797932175a2"
+    },
+    "sourceReview": {
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/staff-entry-source-review-c107835.json",
+      "sha256": "17b59b027d2d6266ec553921350c552bca4e151960a53a3fc0d4baf5cef7ca7d"
+    },
+    "applicationPaths": 80,
+    "stagedIntegrationCommit": "26b94441080716de0708c52d7b04d4d9ba5535da",
+    "stagedApplicationBytesExact": true
+  },
+  "rootRebindAuthorization": {
+    "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/ENTRY_INHERITED_ROOT_REBIND_AUTHORIZATION.json",
+    "sha256": "0eab8d2e20b7a64d18f8b751f42def8c1d22220736bf2b84ceedc52f1b6aef71"
+  },
+  "inheritedRuntimeRequiresFinalReviewAndTrustedFreeze": true
+}

@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "approvedIndexes": [
+    4,
+    6,
+    8,
+    10
+  ],
+  "unchangedOtherIndexes": [
+    2,
+    3,
+    5,
+    7,
+    9,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "invariantOwnership": "Shared catalog preserves saved event/organization/revision/full packet and SQL/real saved preview plus truthful native URL-tab consistency before Event reselection. Mandatory HOME_DETAILS_HISTORY requires immediate Lots-click/outer-reload Lots restoration and is expected RED on baseline. No phase-dependent skip. Pine native authorized card selection occurs before held Saturn response release.",
+  "records": [
+    {
+      "original": "tests/acceptance/staff-drafts-v1/run.mjs",
+      "replacement": "tests/acceptance/staging-saturn-event-home-v3/regression-navigation/staff-v1.mjs",
+      "originalSHA256": "b31c62fe13a3fcafdcf8f9d66a135b8fd394f6432c0a3c0d0298319aad3e20e0",
+      "replacementSHA256": "44c0ac28b3f06a097077972ab1e75be025f108262018f0bcbdb26d5ba6946da5",
+      "diff": "--- \n\n+++ \n\n@@ -1,8 +1,9 @@\n\n import assert from 'node:assert/strict';\n import { createHash } from 'node:crypto';\n import { chromium,expect } from '@playwright/test';\n-import { withFixture,HarnessError } from './harness.mjs';\n-import { configuration,ids,uuid,noStore,error,login,mutate,create,compact,lot,update,read } from './protocol.mjs';\n+import { withFixture,HarnessError } from '../../staff-drafts-v1/harness.mjs';\n+import { configuration,ids,uuid,noStore,error,login,mutate,create,compact,lot,update,read } from '../../staff-drafts-v1/protocol.mjs';\n+import { selectExistingEvent } from './navigation.mjs';\n \n const mode=process.argv[2];\n if (!['acceptance','adversarial'].includes(mode)) { console.error('Evidence mode must be acceptance or adversarial.'); process.exit(99); }\n@@ -80,6 +81,7 @@\n\n       await expect(admin.getByText(/Test accounts|Test sign-in|Staging test|Test mode/i).first()).toBeVisible();\n       await admin.getByLabel('Test account',{exact:true}).selectOption('staff-saturn');\n       await admin.getByRole('button',{name:'Sign in',exact:true}).click();\n+      await selectExistingEvent(page,admin,packet);\n       await expect(admin.locator('[data-event=\"name\"]')).toHaveValue(packet.event.name);\n       return { page,admin,context };\n     }",
+      "retiredExpectation": "Sign in at /admin automatically selects the saved event and exposes Event fields.",
+      "currentRequirement": "After completed real Events home listing, select the exact visible/enabled authorized UID card before the unchanged saved-name, durable SQL, retry/idempotency and reload assertions. A legacy already-selected authorized editor still satisfies the preserved old core data precondition.",
+      "replacementObservations": [
+        "Completed actual entry, not initial Loading events shell",
+        "Exactly one visible/enabled card with authorized UID and saved name",
+        "Selected actual event/org fields and completed native outer ?event=UID"
+      ],
+      "negativeControls": [
+        "Native home selection rejects foreign UID rather than selecting a fallback",
+        "Exact frozen staff complete durable SQL assertion rejects changed stored data"
+      ]
+    },
+    {
+      "original": "tests/acceptance/staff-drafts/run.mjs",
+      "replacement": "tests/acceptance/staging-saturn-event-home-v3/regression-navigation/staff-v2.mjs",
+      "originalSHA256": "01c1a4a581235a970fcbd1ffa7473ab4fc0290eb1e76db741881f2af1c2638ee",
+      "replacementSHA256": "90755f39662afbb87be828c6837c6381cbc66dea76ccc5d2374cb064145e0c56",
+      "diff": "--- \n\n+++ \n\n@@ -1,8 +1,9 @@\n\n import assert from 'node:assert/strict';\n import { createHash } from 'node:crypto';\n import { chromium,expect } from '@playwright/test';\n-import { withFixture,HarnessError,ApplicationFailure,evidenceExit,browserFailure } from './harness.mjs';\n-import { configuration,ids,uuid,noStore,error,login,mutate,create,compact,lot,update,read,storedEvent,assertStoredDraft } from './protocol.mjs';\n+import { withFixture,HarnessError,ApplicationFailure,evidenceExit,browserFailure } from '../../staff-drafts/harness.mjs';\n+import { configuration,ids,uuid,noStore,error,login,mutate,create,compact,lot,update,read,storedEvent,assertStoredDraft } from '../../staff-drafts/protocol.mjs';\n+import { selectExistingEvent } from './navigation.mjs';\n \n const mode=process.argv[2];\n if (!['acceptance','adversarial'].includes(mode)) { console.error('Evidence mode must be acceptance or adversarial.'); process.exit(99); }\n@@ -82,6 +83,7 @@\n\n       await expect(admin.getByText(/Test accounts|Test sign-in|Staging test|Test mode/i).first()).toBeVisible();\n       await admin.getByLabel('Test account',{exact:true}).selectOption('staff-saturn');\n       await admin.getByRole('button',{name:'Sign in',exact:true}).click();\n+      await selectExistingEvent(page,admin,packet);\n       await expect(admin.locator('[data-event=\"name\"]')).toHaveValue(packet.event.name);\n       return { page,admin,context };\n     }",
+      "retiredExpectation": "Sign in at /admin automatically selects the saved event and exposes Event fields.",
+      "currentRequirement": "After completed real Events home listing, select the exact visible/enabled authorized UID card before the unchanged saved-name, durable SQL, retry/idempotency and reload assertions. A legacy already-selected authorized editor still satisfies the preserved old core data precondition.",
+      "replacementObservations": [
+        "Completed actual entry, not initial Loading events shell",
+        "Exactly one visible/enabled card with authorized UID and saved name",
+        "Selected actual event/org fields and completed native outer ?event=UID"
+      ],
+      "negativeControls": [
+        "Native home selection rejects foreign UID rather than selecting a fallback",
+        "Exact frozen staff complete durable SQL assertion rejects changed stored data"
+      ]
+    },
+    {
+      "original": "tests/acceptance/staff-drafts/context-race.mjs",
+      "replacement": "tests/acceptance/staging-saturn-event-home-v3/regression-navigation/context-race.mjs",
+      "originalSHA256": "39784ffa2264af1a1ef8c6f22433595da2dadad9f8e00047b73eece9b5260592",
+      "replacementSHA256": "45bc3b9beda9d37a8b10bc6c3db91e1f7268e6b3ac60592a356977f9315f623d",
+      "diff": "--- \n\n+++ \n\n@@ -1,8 +1,10 @@\n\n // Independent red-team counterexample promoted into the protected packet.\n import assert from 'node:assert/strict';\n import { chromium,expect } from '@playwright/test';\n-import { withFixture,HarnessError,ApplicationFailure,evidenceExit,browserFailure } from './harness.mjs';\n-import { configuration,ids,login,create,read,mutate,compact,uuid,lot,assertStoredDraft } from './protocol.mjs';\n+import { withFixture,HarnessError,ApplicationFailure,evidenceExit,browserFailure } from '../../staff-drafts/harness.mjs';\n+import { configuration,ids,login,create,read,mutate,compact,uuid,lot,assertStoredDraft } from '../../staff-drafts/protocol.mjs';\n+\n+import {selectExistingEvent} from './navigation.mjs';\n \n const wait=ms=>new Promise(done=>setTimeout(done,ms));\n let groups=0;\n@@ -56,6 +58,7 @@\n\n       await expect(admin.getByRole('heading',{name:'Choose a test account',exact:true})).toBeVisible();\n       await admin.getByLabel('Test account',{exact:true}).selectOption('staff-pine');\n       await admin.getByRole('button',{name:'Sign in',exact:true}).click();\n+      await selectExistingEvent(page,admin,other.draft);\n       await expect(admin.locator('[data-event=\"name\"]')).toHaveValue(other.draft.event.name);\n       release();\n       await Promise.race([responseDelivered,wait(15_000).then(()=>{ throw new ApplicationFailure('Held authorized response was not delivered within the evidence deadline.'); })]);",
+      "retiredExpectation": "Pine sign-in automatically selects the Pine event editor.",
+      "currentRequirement": "Select the actual authorized Pine UID card BEFORE release of the held authorized Saturn response; all original stale-private-content, account, saved SQL and response-delivery assertions then run unchanged.",
+      "replacementObservations": [
+        "Actual Pine event/org/outer UID established before release()",
+        "Original held response still delivered and original stale-content assertions still executed"
+      ],
+      "negativeControls": [
+        "Native home selection rejects foreign UID rather than selecting a fallback",
+        "Exact frozen stale-private-content assertion rejects current Pine contamination"
+      ]
+    },
+    {
+      "original": "tests/acceptance/staging-catalog/checks.mjs",
+      "replacement": "tests/acceptance/staging-saturn-event-home-v3/regression-navigation/catalog-checks.mjs",
+      "originalSHA256": "de63eaf65ebaf423188088e2afda9b6022b5f4983eeef8a500fc63b31b5c0817",
+      "replacementSHA256": "01193cdc8a4f02d699f4edbd244623ba6b00d6dd6fc4db3d9aa8065e7a2367cf",
+      "diff": "--- \n\n+++ \n\n@@ -1,9 +1,11 @@\n\n import assert from 'node:assert/strict';\n import {chromium,expect} from '@playwright/test';\n-import {withFixture,HarnessError,ApplicationFailure,browserFailure} from './harness.mjs';\n+import {withFixture,HarnessError,ApplicationFailure,browserFailure} from '../../staging-catalog/harness.mjs';\n import {ids,uuid,approvalPath,audiencePath,lotPath,phaseFunction,login,mutate,create,saved,compact,completeLot,eventFields,\n   completeEvent,body,expectedSnapshot,approve,assertApprovalSQL,audience,error,noStore,assertNoPrivateLot,phaseBoundaries,\n-  futureFields,openFields,transitionFields,direct,sealedError} from './protocol.mjs';\n+  futureFields,openFields,transitionFields,direct,sealedError} from '../../staging-catalog/protocol.mjs';\n+\n+import {observeRestoredCatalog,installPacketObservation} from './navigation.mjs';\n \n let groups=0;\n const pass=label=>{groups++;console.log('PASS '+groups+': '+label);};\n@@ -92,6 +94,7 @@\n\n   const contexts=[];\n   try{\n     const c=await browser.newContext({viewport:{width:1440,height:1000}});contexts.push(c);\n+    await installPacketObservation(c);\n     const page=await c.newPage();await page.goto(f.origin+'/admin?event='+x.packet.event.id);\n     const admin=page.frameLocator('iframe[title=\"BidZizi admin workspace\"]');\n     await admin.getByRole('combobox',{name:'Test account',exact:true}).selectOption('staff-saturn');\n@@ -106,6 +109,8 @@\n\n     await expect(admin.getByRole('button',{name:'Review catalog',exact:true})).toBeDisabled();\n     page.on('dialog',dialog=>dialog.accept());\n     await page.reload();\n+    await observeRestoredCatalog(f,staff,page,admin,x.packet);\n+    await admin.getByRole('link',{name:'Event',exact:true}).click();\n     await expect(admin.locator('[data-event=\"name\"]')).toHaveValue(x.packet.event.name);\n     await admin.getByRole('link',{name:/^Lots/}).click();\n     await admin.getByRole('checkbox',{name:'Select lot 01',exact:true}).check();",
+      "retiredExpectation": "Outer reload from Lots always exposes the Event form by default.",
+      "currentRequirement": "Before actual Event tab reselection, shared catalog checks preserve authorized event/org/revision, full direct API+SQL+real saved preview packet and truthful actual URL/tab agreement. Mandatory HOME_DETAILS_HISTORY separately requires immediate Lots-click/outer-reload Lots restoration; it remains intended RED on old baseline.",
+      "replacementObservations": [
+        "Saved event/org/revision before reselection",
+        "Full direct API packet and frozen SQL equality plus real saved preview",
+        "Exactly one selected tab agrees with native inner hash and any declared outer tab",
+        "Actual Event tab click before unchanged field and approval assertions"
+      ],
+      "negativeControls": [
+        "Mandatory HOME_DETAILS_HISTORY rejects truthful lost Lots route",
+        "Exact frozen staff complete durable SQL assertion rejects changed stored data"
+      ]
+    }
+  ],
+  "assertionMappingRule": "Only the exact four mapped native navigation scaffolds change. All original core assertion bodies remain equal after the listed import/helper-call normalization; no auto-selection, tab restoration or settling behavior enters generic kernel verify.py."
+}

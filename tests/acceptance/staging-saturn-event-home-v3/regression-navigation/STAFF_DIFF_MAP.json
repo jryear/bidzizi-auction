@@ -1,0 +1,102 @@
+{
+  "schema": "saturn-navigation-delta-map-1",
+  "status": "reviewed-preparation-not-frozen",
+  "entries": [
+    {
+      "oldPath": "tests/acceptance/staff-drafts-v1/run.mjs",
+      "newPath": "tests/acceptance/staging-saturn-event-home-v3/regression-navigation/staff-v1.mjs",
+      "oldSha256": "b31c62fe13a3fcafdcf8f9d66a135b8fd394f6432c0a3c0d0298319aad3e20e0",
+      "newSha256": "44c0ac28b3f06a097077972ab1e75be025f108262018f0bcbdb26d5ba6946da5",
+      "oldLineCount": 301,
+      "newLineCount": 303,
+      "changes": [
+        {
+          "kind": "relative-import-rebase",
+          "oldLine": 4,
+          "newLine": 4,
+          "old": "./harness.mjs",
+          "new": "../../staff-drafts-v1/harness.mjs"
+        },
+        {
+          "kind": "relative-import-rebase",
+          "oldLine": 5,
+          "newLine": 5,
+          "old": "./protocol.mjs",
+          "new": "../../staff-drafts-v1/protocol.mjs"
+        },
+        {
+          "kind": "navigation-helper-import",
+          "newLine": 6
+        },
+        {
+          "kind": "navigation-call",
+          "function": "browserJourney.signedPage",
+          "newLine": 84,
+          "position": "immediately after the actual synthetic Sign in button click and before the original event name assertion"
+        }
+      ],
+      "normalizedBodyEquality": true,
+      "preserved": "All remaining executable bodies, assertions, PASS labels/count, modes, recovery, SQL, idempotency/retry, and browser error classification match the frozen source byte-for-byte after removing only the stated import rebases, helper import, and helper call.",
+      "unifiedDiff": "--- tests/acceptance/staff-drafts-v1/run.mjs\n+++ tests/acceptance/staging-saturn-event-home-v3/regression-navigation/staff-v1.mjs\n@@ -1,8 +1,9 @@\n import assert from 'node:assert/strict';\n import { createHash } from 'node:crypto';\n import { chromium,expect } from '@playwright/test';\n-import { withFixture,HarnessError } from './harness.mjs';\n-import { configuration,ids,uuid,noStore,error,login,mutate,create,compact,lot,update,read } from './protocol.mjs';\n+import { withFixture,HarnessError } from '../../staff-drafts-v1/harness.mjs';\n+import { configuration,ids,uuid,noStore,error,login,mutate,create,compact,lot,update,read } from '../../staff-drafts-v1/protocol.mjs';\n+import { selectExistingEvent } from './navigation.mjs';\n \n const mode=process.argv[2];\n if (!['acceptance','adversarial'].includes(mode)) { console.error('Evidence mode must be acceptance or adversarial.'); process.exit(99); }\n@@ -80,6 +81,7 @@\n       await expect(admin.getByText(/Test accounts|Test sign-in|Staging test|Test mode/i).first()).toBeVisible();\n       await admin.getByLabel('Test account',{exact:true}).selectOption('staff-saturn');\n       await admin.getByRole('button',{name:'Sign in',exact:true}).click();\n+      await selectExistingEvent(page,admin,packet);\n       await expect(admin.locator('[data-event=\"name\"]')).toHaveValue(packet.event.name);\n       return { page,admin,context };\n     }\n",
+      "retiredExpectation": "Sign in at /admin automatically selects the saved event and exposes Event fields.",
+      "currentRequirement": "After completed real Events home listing, select the exact visible/enabled authorized UID card before the unchanged saved-name, durable SQL, retry/idempotency and reload assertions. A legacy already-selected authorized editor still satisfies the preserved old core data precondition.",
+      "replacementObservations": [
+        "Completed actual entry, not initial Loading events shell",
+        "Exactly one visible/enabled card with authorized UID and saved name",
+        "Selected actual event/org fields and completed native outer ?event=UID"
+      ],
+      "negativeControls": [
+        "Native home selection rejects foreign UID rather than selecting a fallback",
+        "Exact frozen staff complete durable SQL assertion rejects changed stored data"
+      ]
+    },
+    {
+      "oldPath": "tests/acceptance/staff-drafts/run.mjs",
+      "newPath": "tests/acceptance/staging-saturn-event-home-v3/regression-navigation/staff-v2.mjs",
+      "oldSha256": "01c1a4a581235a970fcbd1ffa7473ab4fc0290eb1e76db741881f2af1c2638ee",
+      "newSha256": "90755f39662afbb87be828c6837c6381cbc66dea76ccc5d2374cb064145e0c56",
+      "oldLineCount": 328,
+      "newLineCount": 330,
+      "changes": [
+        {
+          "kind": "relative-import-rebase",
+          "oldLine": 4,
+          "newLine": 4,
+          "old": "./harness.mjs",
+          "new": "../../staff-drafts/harness.mjs"
+        },
+        {
+          "kind": "relative-import-rebase",
+          "oldLine": 5,
+          "newLine": 5,
+          "old": "./protocol.mjs",
+          "new": "../../staff-drafts/protocol.mjs"
+        },
+        {
+          "kind": "navigation-helper-import",
+          "newLine": 6
+        },
+        {
+          "kind": "navigation-call",
+          "function": "browserJourney.signedPage",
+          "newLine": 86,
+          "position": "immediately after the actual synthetic Sign in button click and before the original event name assertion"
+        }
+      ],
+      "normalizedBodyEquality": true,
+      "preserved": "All remaining executable bodies, assertions, PASS labels/count, modes, recovery, SQL, idempotency/retry, and browser error classification match the frozen source byte-for-byte after removing only the stated import rebases, helper import, and helper call.",
+      "unifiedDiff": "--- tests/acceptance/staff-drafts/run.mjs\n+++ tests/acceptance/staging-saturn-event-home-v3/regression-navigation/staff-v2.mjs\n@@ -1,8 +1,9 @@\n import assert from 'node:assert/strict';\n import { createHash } from 'node:crypto';\n import { chromium,expect } from '@playwright/test';\n-import { withFixture,HarnessError,ApplicationFailure,evidenceExit,browserFailure } from './harness.mjs';\n-import { configuration,ids,uuid,noStore,error,login,mutate,create,compact,lot,update,read,storedEvent,assertStoredDraft } from './protocol.mjs';\n+import { withFixture,HarnessError,ApplicationFailure,evidenceExit,browserFailure } from '../../staff-drafts/harness.mjs';\n+import { configuration,ids,uuid,noStore,error,login,mutate,create,compact,lot,update,read,storedEvent,assertStoredDraft } from '../../staff-drafts/protocol.mjs';\n+import { selectExistingEvent } from './navigation.mjs';\n \n const mode=process.argv[2];\n if (!['acceptance','adversarial'].includes(mode)) { console.error('Evidence mode must be acceptance or adversarial.'); process.exit(99); }\n@@ -82,6 +83,7 @@\n       await expect(admin.getByText(/Test accounts|Test sign-in|Staging test|Test mode/i).first()).toBeVisible();\n       await admin.getByLabel('Test account',{exact:true}).selectOption('staff-saturn');\n       await admin.getByRole('button',{name:'Sign in',exact:true}).click();\n+      await selectExistingEvent(page,admin,packet);\n       await expect(admin.locator('[data-event=\"name\"]')).toHaveValue(packet.event.name);\n       return { page,admin,context };\n     }\n",
+      "retiredExpectation": "Sign in at /admin automatically selects the saved event and exposes Event fields.",
+      "currentRequirement": "After completed real Events home listing, select the exact visible/enabled authorized UID card before the unchanged saved-name, durable SQL, retry/idempotency and reload assertions. A legacy already-selected authorized editor still satisfies the preserved old core data precondition.",
+      "replacementObservations": [
+        "Completed actual entry, not initial Loading events shell",
+        "Exactly one visible/enabled card with authorized UID and saved name",
+        "Selected actual event/org fields and completed native outer ?event=UID"
+      ],
+      "negativeControls": [
+        "Native home selection rejects foreign UID rather than selecting a fallback",
+        "Exact frozen staff complete durable SQL assertion rejects changed stored data"
+      ]
+    }
+  ]
+}

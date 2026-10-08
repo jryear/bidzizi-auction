@@ -1,0 +1,404 @@
+{
+  "version": 1,
+  "status": "Independent freeze proposal; root freeze after review, no app edits yet",
+  "authority": {
+    "owner": "Explicit parent/root delegation and decision continuationApproval/welcomeDesign",
+    "decision": "docs/decisions/event-preparation-direction-2026-10-07.json",
+    "decisionSHA256": "ad0bea0d3b181978f0734a0b99e2c8d473404aeea7ebc0e1e8caaa98fec8aa34",
+    "verifiedApplication": "84c40f16fbe96b1c5f2501778550583da37321ce",
+    "applicationBaseWithApprovedDirection": "a7e801a4ce66ac134d1824649c036bd0feceef9e",
+    "dependsOn007": false,
+    "policy": "Current v1 scheduled-hidden/open/closed rules. No new lifecycle/window/admission/currency/settlement choices."
+  },
+  "newAssertions": [
+    {
+      "id": "WELCOME_SAVE_RELOAD_COMPOSITION",
+      "requirement": "Owner-approved full-bleed cover/title overlay and saved eyebrow/welcome/Browse; existing durable fields only",
+      "observations": "Separate real UI cover Save, text Save, sponsor Save; fresh API/SQL and one receipt/revision; unsaved values remain separate; native reload/current saved child; exact packet/render and four image captures; strong hero/fan absence",
+      "controls": [
+        "WRONG_TITLE",
+        "WRONG_COVER",
+        "WRONG_WELCOME",
+        "WRONG_SPONSOR",
+        "WORKING_AS_SAVED",
+        "PROTOTYPE_CONTENT_LEAK",
+        "SPONSORS_AFTER_FACTS",
+        "SIDE_INSET",
+        "HIDDEN_TITLE"
+      ],
+      "kind": "acceptance",
+      "baselineExpectedExit": 1
+    },
+    {
+      "id": "WELCOME_LONG_TITLE_SPONSORS",
+      "requirement": "Sponsors integral after welcome and before secondary phone facts; disabled sponsors remove block; long title remains readable",
+      "observations": "120-character UI title, saved long sponsor names, native reload and desktop/laptop/phone/narrow captures; independent disabled sponsors Save retains underlying names and removes visible block; title geometry and no overflow",
+      "controls": [
+        "DISABLED_SPONSOR_LEAK",
+        "SPONSORS_AFTER_FACTS"
+      ],
+      "kind": "acceptance",
+      "baselineExpectedExit": 1
+    },
+    {
+      "id": "WELCOME_AUTHORIZED_CATALOG",
+      "requirement": "Same composition from authorized immutable attendee event fields; preserve v1 visibility/timing and A detail/Back",
+      "observations": "Approval API+full SQL snapshot; view-only session and explicit VIEW; exact request-time catalog DTO; saved private edits do not change published welcome; native catalog message/render/screenshots/reload; full detail and Back",
+      "controls": [
+        "DRAFT_AS_APPROVED",
+        "WRONG_TITLE",
+        "WRONG_COVER"
+      ],
+      "kind": "acceptance",
+      "baselineExpectedExit": 1
+    },
+    {
+      "id": "WELCOME_KEYBOARD_ROUTES",
+      "requirement": "Functional keyboard/focus on saved A, preserved Browse/detail/Back/Event information routes",
+      "observations": "Native Tab/Enter Browse with visible focus, actual Lots/detail/Back heading focus and native history in both Saved A and authorized view-only catalog; complete lot detail and disabled operations retained",
+      "controls": [
+        "FOCUS_LOST"
+      ],
+      "kind": "acceptance",
+      "baselineExpectedExit": 1
+    },
+    {
+      "id": "WELCOME_NULL_COVER",
+      "requirement": "Existing durable null cover renders plain ink hero without prototype, lot or default photo",
+      "observations": "Real API Save and SQL for cover:null; actual saved A reload/packet and separately authorized immutable open catalog both reached before media assertions; no img/default/lot fallback and full plain ink hero on both surfaces",
+      "controls": [
+        "WRONG_COVER"
+      ],
+      "kind": "acceptance",
+      "baselineExpectedExit": 1
+    },
+    {
+      "id": "WELCOME_AUTHORITY_LEGACY_TIMING",
+      "requirement": "Existing v1 scheduled catalog remains lot-hidden and VIEW/session authority remains server-held",
+      "observations": "Future approved catalog API/SQL scheduled, direct lot409, no VIEW403/no session401, actual native authorized scheduled welcome with no Browse or lot content, revoked VIEW unmounts frame",
+      "controls": [
+        "DRAFT_AS_APPROVED"
+      ],
+      "kind": "adversarial",
+      "baselineExpectedExit": 0
+    },
+    {
+      "id": "WELCOME_DISABLED_SOURCE_ISOLATION",
+      "requirement": "Working draft cannot masquerade as saved; bid/watch/account remain disabled in preview",
+      "observations": "Working edit switch to Saved, exact fresh durable full packet, source-render comparison, disabled operations, A complete lot detail and no durable change",
+      "controls": [
+        "WORKING_AS_SAVED",
+        "PROTOTYPE_CONTENT_LEAK"
+      ],
+      "kind": "adversarial",
+      "baselineExpectedExit": 0
+    }
+  ],
+  "supersession": {
+    "version": 1,
+    "path": "tests/acceptance/staging-workspace-entry/browser.mjs",
+    "sourceBase": "a7e801a4ce66ac134d1824649c036bd0feceef9e",
+    "originalSHA256": "7a7a266afa621f4e8d885dbf89e1616c4f6303c5694a4c9dfefe429a3083839a",
+    "original": "frame.locator('.fan img')",
+    "replacement": "frame.locator('.event-hero img.event-cover, .fan img')",
+    "executedSHA256": "ab89d181d4059808491cf335ee423d85c06b5c117de2d76a5ac6ea4b451abb24",
+    "onlyRetiredExpectation": "Fan-specific cover selector. Both legacy fan and approved hero must render exact authoritative event cover; no phase-conditioned waiver. New acceptance independently requires hero and fan absence. Every other historical assertion remains unchanged.",
+    "unloadedArchives": [
+      "tests/acceptance/staging-workspace-entry/history/v3-08530-predecessor/browser.mjs",
+      "tests/acceptance/staging-workspace-entry/history/v3-150ms-predecessor/browser.mjs"
+    ]
+  },
+  "inherited": [
+    {
+      "group": "Editable same-event lot copy, durable Save retry and actual saved Design A",
+      "kind": "regression",
+      "assertions": [
+        "DUPLICATE_EDIT_SAVE_RELOAD_PREVIEW",
+        "DUPLICATE_RETRY_ONCE",
+        "DUPLICATE_SELECTED_ALLOWLIST",
+        "ROUTER_REFRESH_EVENT_ROUTE"
+      ],
+      "originalArgv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-event-preparation/adapter.mjs",
+        "0"
+      ],
+      "baselineExpectedExit": 0,
+      "candidateExpectedExit": 0,
+      "authority": "Original006 frozen authority/receipt; all original assertions retain meaning except explicitly mapped cover selector in current browser helper"
+    },
+    {
+      "group": "Duplication guards preserve capacity, event authority and immutable approved catalog",
+      "kind": "regression",
+      "assertions": [
+        "DUPLICATE_PENDING_CAPACITY",
+        "DUPLICATE_AUTHORITY_IMMUTABLE",
+        "DUPLICATE_APPROVAL_LOCKS"
+      ],
+      "originalArgv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-event-preparation/adapter.mjs",
+        "1"
+      ],
+      "baselineExpectedExit": 0,
+      "candidateExpectedExit": 0,
+      "authority": "Original006 frozen authority/receipt; all original assertions retain meaning except explicitly mapped cover selector in current browser helper"
+    },
+    {
+      "group": "Connected Saturn Events home, creation, durable saved A preview, navigation, focus and actual viewport scenes",
+      "kind": "regression",
+      "assertions": [
+        "EVENTS_HOME_LIST_SELECT",
+        "HOME_CREATE_RECOVERY",
+        "EVENT_SAVE_DURABLE_PREVIEW",
+        "HOME_DETAILS_HISTORY",
+        "SHELL_FOCUS",
+        "RESPONSIVE_SAVED_A"
+      ],
+      "originalArgv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-saturn-event-home-v3/adapter.mjs",
+        "0"
+      ],
+      "baselineExpectedExit": 0,
+      "candidateExpectedExit": 0,
+      "authority": "Original006 frozen authority/receipt; all original assertions retain meaning except explicitly mapped cover selector in current browser helper"
+    },
+    {
+      "group": "Hidden organization shell preserves tenant isolation, pending operation recovery, stale responses and immutable approved catalog",
+      "kind": "regression",
+      "assertions": [
+        "HOME_TENANT_ISOLATION",
+        "HOME_PENDING_STALE",
+        "HOME_STALE_APPROVAL",
+        "HOME_UNRESOLVED_WRITES",
+        "MALFORMED_SAVE_RECOVERY",
+        "DIRTY_REPLACEMENT",
+        "APPROVED_NOTICE_ASYNC",
+        "APPROVED_NOTICE_PRIORITY",
+        "APPROVAL_RESPONSE_VARIANTS",
+        "SELECTED_SUBSET_IMMUTABLE"
+      ],
+      "originalArgv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-saturn-event-home-v3/adapter.mjs",
+        "1"
+      ],
+      "baselineExpectedExit": 0,
+      "candidateExpectedExit": 0,
+      "authority": "Original006 frozen authority/receipt; all original assertions retain meaning except explicitly mapped cover selector in current browser helper"
+    },
+    {
+      "group": "Manual durable business bid, complete SQL receipts/retry and real A two-browser outbid",
+      "kind": "regression",
+      "assertions": [
+        "COMMAND_03_COMPLETED"
+      ],
+      "originalArgv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
+        "2"
+      ],
+      "baselineExpectedExit": 0,
+      "candidateExpectedExit": 0,
+      "authority": "Original006 frozen authority/receipt; all original assertions retain meaning except explicitly mapped cover selector in current browser helper"
+    },
+    {
+      "group": "Current VIEW/BID authority, queued post-lock DB close, atomic storage and interrupted browser recovery",
+      "kind": "regression",
+      "assertions": [
+        "COMMAND_04_COMPLETED"
+      ],
+      "originalArgv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
+        "3"
+      ],
+      "baselineExpectedExit": 0,
+      "candidateExpectedExit": 0,
+      "authority": "Original006 frozen authority/receipt; all original assertions retain meaning except explicitly mapped cover selector in current browser helper"
+    },
+    {
+      "group": "Cumulative002 / Immutable saved approval, explicit staff recovery, A viewer and real DB-clock transition",
+      "kind": "regression",
+      "assertions": [
+        "COMMAND_05_COMPLETED"
+      ],
+      "originalArgv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-saturn-event-home-v3/regression-navigation/adapter.mjs",
+        "4"
+      ],
+      "baselineExpectedExit": 0,
+      "candidateExpectedExit": 0,
+      "authority": "Original006 frozen authority/receipt; all original assertions retain meaning except explicitly mapped cover selector in current browser helper"
+    },
+    {
+      "group": "Cumulative002 / Scoped viewer and operator authority, selected readiness, UTC boundaries, split transaction and app-clock challenges",
+      "kind": "regression",
+      "assertions": [
+        "COMMAND_06_COMPLETED"
+      ],
+      "originalArgv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
+        "5"
+      ],
+      "baselineExpectedExit": 0,
+      "candidateExpectedExit": 0,
+      "authority": "Original006 frozen authority/receipt; all original assertions retain meaning except explicitly mapped cover selector in current browser helper"
+    },
+    {
+      "group": "Cumulative002 / Cumulative original v1 acceptance",
+      "kind": "regression",
+      "assertions": [
+        "COMMAND_07_COMPLETED"
+      ],
+      "originalArgv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-saturn-event-home-v3/regression-navigation/adapter.mjs",
+        "6"
+      ],
+      "baselineExpectedExit": 0,
+      "candidateExpectedExit": 0,
+      "authority": "Original006 frozen authority/receipt; all original assertions retain meaning except explicitly mapped cover selector in current browser helper"
+    },
+    {
+      "group": "Cumulative002 / Cumulative original v1 empty-event adversarial cases",
+      "kind": "regression",
+      "assertions": [
+        "COMMAND_08_COMPLETED"
+      ],
+      "originalArgv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
+        "7"
+      ],
+      "baselineExpectedExit": 0,
+      "candidateExpectedExit": 0,
+      "authority": "Original006 frozen authority/receipt; all original assertions retain meaning except explicitly mapped cover selector in current browser helper"
+    },
+    {
+      "group": "Cumulative002 / Cumulative unchanged v2 staff acceptance",
+      "kind": "regression",
+      "assertions": [
+        "COMMAND_09_COMPLETED"
+      ],
+      "originalArgv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-saturn-event-home-v3/regression-navigation/adapter.mjs",
+        "8"
+      ],
+      "baselineExpectedExit": 0,
+      "candidateExpectedExit": 0,
+      "authority": "Original006 frozen authority/receipt; all original assertions retain meaning except explicitly mapped cover selector in current browser helper"
+    },
+    {
+      "group": "Cumulative002 / Cumulative unchanged v2 populated-lot adversarial cases",
+      "kind": "regression",
+      "assertions": [
+        "COMMAND_10_COMPLETED"
+      ],
+      "originalArgv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
+        "9"
+      ],
+      "baselineExpectedExit": 0,
+      "candidateExpectedExit": 0,
+      "authority": "Original006 frozen authority/receipt; all original assertions retain meaning except explicitly mapped cover selector in current browser helper"
+    },
+    {
+      "group": "Cumulative002 / Cumulative v2 controlled response race, stored text and restart",
+      "kind": "regression",
+      "assertions": [
+        "COMMAND_11_COMPLETED"
+      ],
+      "originalArgv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-saturn-event-home-v3/regression-navigation/adapter.mjs",
+        "10"
+      ],
+      "baselineExpectedExit": 0,
+      "candidateExpectedExit": 0,
+      "authority": "Original006 frozen authority/receipt; all original assertions retain meaning except explicitly mapped cover selector in current browser helper"
+    },
+    {
+      "group": "Cumulative002 / Cumulative001a dedicated Preview selector",
+      "kind": "regression",
+      "assertions": [
+        "COMMAND_12_COMPLETED"
+      ],
+      "originalArgv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
+        "11"
+      ],
+      "baselineExpectedExit": 0,
+      "candidateExpectedExit": 0,
+      "authority": "Original006 frozen authority/receipt; all original assertions retain meaning except explicitly mapped cover selector in current browser helper"
+    },
+    {
+      "group": "Cumulative002 / Cumulative001a real adapter target and verified TLS",
+      "kind": "regression",
+      "assertions": [
+        "COMMAND_13_COMPLETED"
+      ],
+      "originalArgv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
+        "12"
+      ],
+      "baselineExpectedExit": 0,
+      "candidateExpectedExit": 0,
+      "authority": "Original006 frozen authority/receipt; all original assertions retain meaning except explicitly mapped cover selector in current browser helper"
+    },
+    {
+      "group": "Cumulative002 / Existing admin prototype model",
+      "kind": "regression",
+      "assertions": [
+        "COMMAND_14_COMPLETED"
+      ],
+      "originalArgv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
+        "13"
+      ],
+      "baselineExpectedExit": 0,
+      "candidateExpectedExit": 0,
+      "authority": "Original006 frozen authority/receipt; all original assertions retain meaning except explicitly mapped cover selector in current browser helper"
+    },
+    {
+      "group": "Cumulative002 / TypeScript",
+      "kind": "regression",
+      "assertions": [
+        "COMMAND_15_COMPLETED"
+      ],
+      "originalArgv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
+        "14"
+      ],
+      "baselineExpectedExit": 0,
+      "candidateExpectedExit": 0,
+      "authority": "Original006 frozen authority/receipt; all original assertions retain meaning except explicitly mapped cover selector in current browser helper"
+    },
+    {
+      "group": "Actual static admin JavaScript parses under Node24",
+      "kind": "regression",
+      "assertions": [
+        "COMMAND_16_COMPLETED"
+      ],
+      "originalArgv": [
+        "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+        "tests/acceptance/staging-workspace-entry-schema2-v2/adapter.mjs",
+        "15"
+      ],
+      "baselineExpectedExit": 0,
+      "candidateExpectedExit": 0,
+      "authority": "Original006 frozen authority/receipt; all original assertions retain meaning except explicitly mapped cover selector in current browser helper"
+    }
+  ],
+  "viewportSemantics": "Screenshots bind native titled child and its actual innerWidth/innerHeight/timeOrigin separately from outer1440x1000/1280x800/390x844/320x568. Current saved child is narrow; current authorized catalog parent max480 remains untouched. No full-frame style overrides or wide-child claim.",
+  "effects": "Only new contract/tests; no historical test/kernel/product/prototype edits, DB/provider changes, commits, release or owner visual acceptance. Disposable private test DB/native browser only."
+}

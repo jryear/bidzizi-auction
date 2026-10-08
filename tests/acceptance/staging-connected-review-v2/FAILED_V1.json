@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "failedV1Freeze": "76461842668cf10a36cfe9da93cf1058eac155a2",
+  "taskId": "staging-connected-review-009-010-v1",
+  "verdict": "baseline_not_ready",
+  "claimsPath": "/Users/jryear/Documents/Codex/2026-10-06/task-3/connected-integration-evidence/baseline-01.claims.jsonl",
+  "claimsSHA256": "3b6fdea9c7baf73793052fc36248f6bf0c6de96115cf61bf4bb18404de41165d",
+  "groups": 32,
+  "harnessErrors": 31,
+  "sourceBindingPass": true,
+  "implementationStarted": false,
+  "rootCauses": [
+    "Two undeclared historical source-review files required by live runtime source-binding reads.",
+    "Sandbox EPERM on historical evidence destination and disposable loopback allocation; coordinator handles authorized permission rerun."
+  ],
+  "correction": "Add only two exact frozenGit source-review pins in combinedv2 successor chain/evidence; preserve31behaviorchecks and originalv1/current009/010 bytes. No helper/oracle/timeout/classifier weakening."
+}

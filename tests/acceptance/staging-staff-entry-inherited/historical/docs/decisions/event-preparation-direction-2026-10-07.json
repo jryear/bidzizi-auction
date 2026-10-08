@@ -1,0 +1,45 @@
+{
+  "dateUTC": "2026-10-07",
+  "authority": "Owner decisions relayed explicitly by parent in the active delegated task",
+  "parentThread": "01a0fe56-c648-7667-8b26-cee566ee303b",
+  "localEffectScope": "Isolated edits, disposable tests and commits; no push, merge, deploy, provider configuration, new external credentials or paid tools",
+  "duplication": {
+    "status": "Approved for current006 implementation",
+    "kind": "Same-event editable local draft; saved only by ordinary Save",
+    "copyFields": ["title", "short", "description", "category", "image", "alt", "opening", "includes", "fine"],
+    "freshIdentity": true,
+    "windowAssignment": null,
+    "runtimeAndPublicationCopied": false,
+    "sourceUnchanged": true,
+    "save": "Existing authorization, stable operation identity and idempotent retry"
+  },
+  "nextWindowsAndCatalog": {
+    "status": "Approved next requirements; not an implementation or release claim",
+    "ownerQuote": "Yes, show upcoming later -- and when attendees enter the event they can also see lots before it starts. Approve all -- should be done prior event. They can always add items later if event is active if they forget or find new items for example.",
+    "browseBeforeEvent": true,
+    "showUpcomingWindows": true,
+    "bids": "Server-disabled until the lot's own window opens; retained close and request-time authority",
+    "initialApproval": "One event-wide initial approval before the event",
+    "activeAddedLots": "Remain saved draft-only until explicit staff publish",
+    "publication": "Versioned additive immutable publication, retaining original snapshot provenance and existing bid receipts, standing and schedules",
+    "existingPublishedEditsOrRescheduling": "Separate decision; not authorized by adding items",
+    "historicalGrading": "Preserve original preopen-hidden tests; map exactly superseded visibility assertions in the next version, retain authorization/timing/data/bid/recovery guarantees"
+  },
+  "continuationApproval": {
+    "authority": "Owner answer and explicit parent interpretation in active delegation from 01a0fe56-c648-7667-8b26-cee566ee303b",
+    "ownerQuote": "Let's keep going, approved. While we continue, let's initiate a Claude sonnet team that reassesses and refines our design language. I want them to test intentionality and functionality of all of our design UI",
+    "parentInterpretation": "Approval covers cross-date bidding windows in the event timezone and the welcome composition",
+    "windowDatePolicy": "Independent start/end dates and times in one event timezone; allow cross-date/overnight windows; no one-day or event-date restriction",
+    "timezone": "Use the existing event timezone field; do not infer timezone from browser or deadline",
+    "initialApprovalCutoff": "Pending clarification: before earliest saved window opens versus existing event start. Dependent contract freeze waits; independent preparation continues.",
+    "deliverySequence": "007 named windows/pre-event and upcoming browsing/own-window server bidding; bounded approved welcome integration; 008 explicit additive publication",
+    "designTeam": "Separate coordinator verifies actual Claude Sonnet and reviews in isolated checkout/runtime/browser; exact-commit/path recommendations precede coordinator-owned integration",
+    "releaseAuthorization": false
+  },
+  "welcomeDesign": {
+    "status": "Composition approved by owner through parent; connected slice implementation and verification pending",
+    "preview": "/Users/jryear/Documents/Codex/2026-10-06/task-3/welcome-preview",
+    "data": "Existing durable cover/title/eyebrow/welcome/sponsors fields; no section builder"
+  },
+  "stillProvisional": ["Exact current-highest progressive tier boundaries and upper tiers", "Optional fixed per-lot increment override", "Allowed bid amounts and rule lock timing", "Production admission/business authority", "Cross-device recovery if it materially changes the journey", "Donation ledger posting versus manual records", "Event archive/duplication and display-device control"]
+}

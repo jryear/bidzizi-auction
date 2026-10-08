@@ -1,0 +1,205 @@
+{
+  "version": 1,
+  "authority": "Root-coordinated independent private GET-only display/results on existing VIEW and BID/business authority. No staff-result widening.",
+  "groups": [
+    {
+      "name": "Private board read authority, scheduled withholding and unavailable states",
+      "assertions": [
+        "DR01_PRIVATE_READ_ONLY",
+        "DR02_SCHEDULED_WITHHOLD",
+        "DR03_VIEW_STAFF_SEPARATION",
+        "DR04_EMPTY_ERROR"
+      ],
+      "timeout": 240,
+      "kind": "acceptance",
+      "baselineFailures": [
+        "DR01_PRIVATE_READ_ONLY",
+        "DR02_SCHEDULED_WITHHOLD",
+        "DR03_VIEW_STAFF_SEPARATION",
+        "DR04_EMPTY_ERROR"
+      ]
+    },
+    {
+      "name": "Immutable selected standing, exact money, individual as-of and privacy",
+      "assertions": [
+        "DR05_SNAPSHOT_RELEASE_MATCH",
+        "DR06_NO_BID_NULL",
+        "DR07_EXACT_MONEY_ASOF_PRIVACY",
+        "DR08_CLOSED_NOT_WINNER",
+        "DR09_MALFORMED_UNSUPPORTED"
+      ],
+      "timeout": 240,
+      "kind": "acceptance",
+      "baselineFailures": [
+        "DR05_SNAPSHOT_RELEASE_MATCH",
+        "DR06_NO_BID_NULL",
+        "DR07_EXACT_MONEY_ASOF_PRIVACY",
+        "DR08_CLOSED_NOT_WINNER",
+        "DR09_MALFORMED_UNSUPPORTED"
+      ]
+    },
+    {
+      "name": "Current authority clearing, stale offline and late response isolation",
+      "assertions": [
+        "DR10_DENIED_CLEARING",
+        "DR11_STALE_OFFLINE",
+        "DR12_ACCOUNT_EVENT_LATE_ISOLATION"
+      ],
+      "timeout": 240,
+      "kind": "acceptance",
+      "baselineFailures": [
+        "DR10_DENIED_CLEARING",
+        "DR11_STALE_OFFLINE",
+        "DR12_ACCOUNT_EVENT_LATE_ISOLATION"
+      ]
+    },
+    {
+      "name": "Server clock refresh, bounded visible polling and actual responsive DOM",
+      "assertions": [
+        "DR13_SERVER_PHASE_REFRESH",
+        "DR14_BOUNDED_VISIBLE_REFRESH",
+        "DR15_NATIVE_RESPONSIVE"
+      ],
+      "timeout": 300,
+      "kind": "acceptance",
+      "baselineFailures": [
+        "DR13_SERVER_PHASE_REFRESH",
+        "DR14_BOUNDED_VISIBLE_REFRESH",
+        "DR15_NATIVE_RESPONSIVE"
+      ]
+    },
+    {
+      "name": "Inherited accepted source and exact59 assertion bindings remain unchanged",
+      "assertions": [
+        "DR_INHERITED_BINDING"
+      ],
+      "timeout": 30,
+      "kind": "regression",
+      "baselineFailures": []
+    }
+  ],
+  "applicationPaths": [
+    "AGENTS.md",
+    "docs/STAGING_DISPLAY_RESULTS_HANDOFF.md",
+    "migrations/001_staging_staff.sql",
+    "migrations/002_staging_catalog.sql",
+    "migrations/003_staging_manual_bid.sql",
+    "next-env.d.ts",
+    "next.config.ts",
+    "package.json",
+    "pnpm-lock.yaml",
+    "public/staging-admin/index.html",
+    "public/staging-admin/model.js",
+    "public/staging-admin/studio.css",
+    "public/staging-admin/studio.js",
+    "public/staging-bidder-preview/assets/fonts/fraunces-vf.woff2",
+    "public/staging-bidder-preview/assets/fonts/instrument-sans-vf.woff2",
+    "public/staging-bidder-preview/assets/lots/bicycle.jpg",
+    "public/staging-bidder-preview/assets/lots/cabin.jpg",
+    "public/staging-bidder-preview/assets/lots/ceramics.jpg",
+    "public/staging-bidder-preview/assets/lots/coffee.jpg",
+    "public/staging-bidder-preview/assets/lots/dinner.jpg",
+    "public/staging-bidder-preview/assets/lots/flowers.jpg",
+    "public/staging-bidder-preview/index.html",
+    "public/staging-bidder-preview/src/app.js",
+    "public/staging-bidder-preview/src/data.js",
+    "public/staging-bidder-preview/src/store.js",
+    "public/staging-bidder-preview/src/ui.js",
+    "public/staging-bidder-preview/src/views.js",
+    "public/staging-bidder-preview/styles.css",
+    "public/staging-catalog/app.js",
+    "public/staging-catalog/bidding.js",
+    "public/staging-catalog/data.js",
+    "public/staging-catalog/index.html",
+    "public/staging-catalog/store.js",
+    "public/staging-catalog/styles.css",
+    "public/staging-catalog/ui.js",
+    "public/staging-catalog/views.js",
+    "scripts/migrate-catalog-staging.mjs",
+    "scripts/migrate-manual-staging.mjs",
+    "scripts/migrate-staging.mjs",
+    "src/app/admin/page.tsx",
+    "src/app/api/admin/events/[id]/catalog-approval/route.ts",
+    "src/app/api/admin/events/[id]/route.ts",
+    "src/app/api/admin/events/route.ts",
+    "src/app/api/bidder/events/[eventId]/context/route.ts",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/bid-receipts/[requestId]/route.ts",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/bids/route.ts",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/standing/route.ts",
+    "src/app/api/catalog/events/[id]/lots/[lotId]/route.ts",
+    "src/app/api/catalog/events/[id]/route.ts",
+    "src/app/api/health/database/route.ts",
+    "src/app/api/session/logout/route.ts",
+    "src/app/api/session/route.ts",
+    "src/app/api/test-auth/login/route.ts",
+    "src/app/events/[id]/display/page.tsx",
+    "src/app/events/[id]/event-access.tsx",
+    "src/app/events/[id]/page.tsx",
+    "src/app/events/[id]/results/page.tsx",
+    "src/app/globals.css",
+    "src/app/layout.tsx",
+    "src/app/page.tsx",
+    "src/features/staging-display-results/authorized-read-view.tsx",
+    "src/features/staging-display-results/display-results.module.css",
+    "src/features/staging-display-results/read-model.ts",
+    "src/lib/database.ts",
+    "src/server/auth.ts",
+    "src/server/catalog.ts",
+    "src/server/config.ts",
+    "src/server/db.ts",
+    "src/server/draft.ts",
+    "src/server/http.ts",
+    "src/server/manual-bids.ts",
+    "src/server/staff.ts",
+    "tsconfig.json"
+  ],
+  "helperPaths": [
+    "migrations/001_staging_staff.sql",
+    "migrations/002_staging_catalog.sql",
+    "migrations/003_staging_manual_bid.sql",
+    "next-env.d.ts",
+    "next.config.ts",
+    "package.json",
+    "pnpm-lock.yaml",
+    "tasks/staging-display-results-010.toml",
+    "tests/acceptance/staging-display-results/ASSERTION_REQUIREMENT_MAP.json",
+    "tests/acceptance/staging-display-results/CASE_PLAN.json",
+    "tests/acceptance/staging-display-results/INHERITED.json",
+    "tests/acceptance/staging-display-results/README.md",
+    "tests/acceptance/staging-display-results/adapter.mjs",
+    "tests/acceptance/staging-display-results/checks.mjs",
+    "tests/acceptance/staging-display-results/controls.mjs",
+    "tests/acceptance/staging-display-results/oracles.mjs",
+    "tests/acceptance/staging-display-results/source-binding.json",
+    "tests/acceptance/staging-manual-bid/fixtures.mjs",
+    "tests/acceptance/staging-manual-bid/protocol.mjs",
+    "tests/acceptance/staging-workspace-entry/harness.mjs",
+    "tests/acceptance/staging-workspace-entry/seed-people.sql",
+    "tsconfig.json"
+  ],
+  "semantics": {
+    "routes": [
+      "/events/[id]/display",
+      "/events/[id]/results"
+    ],
+    "root": "main[data-private-board] data-event-id/data-phase/data-state; aria-busy refresh; no authority from client clock",
+    "row": "[data-lot-id] data-standing-state; [data-current-amount] only confirmed numeric; time[data-standing-as-of] datetime=serverNow; time[data-standing-updated-at] datetime=updatedAt; explicit UTC",
+    "refresh": "Native Refresh display / Refresh standing; cancellation and account/event epoch guards; session first and final current-session recheck",
+    "apiMaxConcurrent": 2,
+    "cadenceSeconds": {
+      "scheduled": 5,
+      "open": 5,
+      "closed": 30
+    },
+    "visibility": "Controlled document visibility and browser clock drive timers; actual API DB phase determines content",
+    "publicTVAccessAuthorized": false,
+    "finalSettlementAuthorized": false,
+    "staffExtensionAuthorized": false,
+    "cadenceEvidence": "Clock before navigation; native5000/30000 timer request observations and remaining-time advancement; actual API phase; scheduler and open independently checked",
+    "concurrencyEvidence": "Client request/finished/failed events from before initial navigation;3 selected rows; held cancelled refresh; max2 noncancelled API requests",
+    "authorityEvidence": "Both routes VIEW/BID/staff/wrong-event and revoked BID/VIEW/person; both-route stale/offline; held original account cycle observed before repair refresh",
+    "privacyEvidence": "document.documentElement.outerHTML and browser persistence; uncaught pageerrors recorded",
+    "brokenControls": "All15 exact shared application validators receive synthetic positive and broken meaning mutations; no application GREEN inferred."
+  },
+  "fullHistoricalExecution": "Required at parent integration; local source-binding regression is not an execution substitute."
+}

@@ -1,0 +1,101 @@
+@font-face { font-family: "Display Fraunces"; src: url('/staging-bidder-preview/assets/fonts/fraunces-vf.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Display Instrument"; src: url('/staging-bidder-preview/assets/fonts/instrument-sans-vf.woff2') format('woff2'); font-weight: 400 700; font-display: swap; }
+.board { --paper: #f5f0e6; --ink: #1a1814; --muted: #5a5448; --line: #d9d0be; --card: #fffcf5; margin: 0; padding: 0; max-width: none; width: 100%; min-height: 100svh; display: block; color: var(--ink); background: var(--paper); font: 400 16px/1.5 "Display Instrument", system-ui, sans-serif; }
+.board *, .board *::before, .board *::after { box-sizing: border-box; }
+.board p, .board h1, .board h2, .board dl, .board dd { margin: 0; }
+.board a { color: inherit; text-underline-offset: 4px; }
+.board a:focus-visible, .board button:focus-visible { outline: 3px solid #2338c7; outline-offset: 5px; border-radius: 5px; }
+.board button { color: #2338c7; background: var(--card); border: 1px solid var(--line); border-radius: 40px; padding: 12px 22px; font: 600 15px/1.25 "Display Instrument", system-ui, sans-serif; min-height: 44px; cursor: pointer; flex-shrink: 0; }
+.board button:hover { background: #ece5d6; }
+.topbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; padding: 20px max(24px, 4vw); background: var(--ink); color: var(--paper); }
+.wordmark { font-size: 18px; font-weight: 650; display: flex; align-items: center; flex-wrap: wrap; gap: 20px; }
+.wordmark span { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; font-weight: 500; border-left: 1px solid #7d7666; padding-left: 20px; }
+.topbar nav { display: flex; align-items: center; flex-wrap: wrap; gap: 24px; font-size: 14px; }
+.topbar a { padding-block: 4px; }
+.topbar a:focus-visible { outline-color: #f5f0e6; }
+.content { max-width: 1800px; margin: 0 auto; padding: 42px max(24px, 4vw) 28px; }
+.board .hero { margin: 0; padding: 0 0 34px; display: grid; grid-template-columns: minmax(0, 1fr) 310px; gap: 46px; }
+.kicker { font-size: 11px; line-height: 1.4; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); }
+.eyebrow { margin-top: 14px !important; color: var(--muted); font-size: 14px; }
+.board h1 { font: 500 clamp(40px, 5vw, 76px)/1.08 "Display Fraunces", Georgia, serif; letter-spacing: -.035em; overflow-wrap: anywhere; margin: 8px 0 18px; }
+.welcome { font-size: 19px; line-height: 1.5; max-width: 62ch; white-space: pre-line; overflow-wrap: anywhere; }
+.venue { font-size: 16px; color: var(--muted); margin-top: 10px !important; overflow-wrap: anywhere; }
+.sponsors { font-size: 13px; color: var(--muted); margin-top: 16px !important; overflow-wrap: anywhere; }
+.schedule { border-top: 1px dashed var(--line); padding-top: 15px; align-self: start; }
+.schedule div + div { margin-top: 18px; }
+.schedule dt { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 4px; }
+.schedule dd { font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.notice { border-block: 1px solid var(--line); padding: 16px 0; display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 28px; }
+.notice strong { color: #12724a; font-weight: 650; }
+.notice p { color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
+.notice[data-stale="true"] { background: #fbebbe; padding-inline: 18px; }
+.notice[data-stale="true"] strong { color: #765008; }
+.board[data-state="error"] .notice strong, .board[data-state="denied"] .notice strong { color: var(--ink); }
+.board .displayLots, .board .results { padding: 0; margin: 0; }
+.lot { display: grid; grid-template-columns: 54px 120px minmax(0, 1fr) 350px; gap: 24px; align-items: center; border-top: 1px solid var(--line); padding: 26px 0; }
+.number { font: 500 40px/1 "Display Fraunces", Georgia, serif; color: #7d7666; }
+.lotImage { width: 120px; height: 92px; object-fit: cover; border-radius: 8px; background: #ece5d6; }
+.lot:not(:has(.lotImage)) { grid-template-columns: 54px minmax(0, 1fr) 350px; }
+.lotText { min-width: 0; }
+.board .lot h2 { font: 500 clamp(25px, 2.1vw, 34px)/1.15 "Display Fraunces", Georgia, serif; letter-spacing: -.02em; margin: 5px 0 8px; overflow-wrap: anywhere; }
+.lotText > p:last-child { color: var(--muted); font-size: 15px; overflow-wrap: anywhere; }
+.standing { min-width: 0; text-align: right; }
+.amount { display: block; font-size: clamp(30px, 3vw, 46px); font-weight: 650; line-height: 1.2; letter-spacing: -.02em; font-variant-numeric: tabular-nums; white-space: nowrap; margin: 5px 0 8px; }
+.amount[data-stale="true"] { color: var(--muted); text-decoration: underline dotted; text-underline-offset: 5px; }
+.noBid { display: block; font-size: 23px; font-weight: 600; line-height: 1.25; margin: 8px 0; }
+.unavailable { display: block; font-size: 18px; font-weight: 600; color: var(--muted); margin: 8px 0; }
+.readTime { color: var(--muted); font-size: 12px; line-height: 1.5; font-variant-numeric: tabular-nums; }
+.readTime strong { font-weight: 600; }
+.readTime p { overflow-wrap: anywhere; }
+.board .results > h2 { font: 500 36px/1.2 "Display Fraunces", Georgia, serif; margin: 0 0 20px; }
+.results table { width: 100%; border-collapse: collapse; text-align: left; table-layout: fixed; }
+.results thead th { color: var(--muted); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; padding: 12px 12px 12px 0; border-bottom: 1px solid var(--line); }
+.results thead th:first-child { width: 7%; }
+.results thead th:nth-child(2) { width: 32%; }
+.results thead th:nth-child(3) { width: 27%; }
+.results thead th:nth-child(4) { width: 34%; }
+.results td, .results tbody th { vertical-align: top; padding: 22px 12px 22px 0; border-bottom: 1px solid var(--line); }
+.tableNumber { font: 500 28px "Display Fraunces", Georgia, serif; color: #7d7666; text-align: left; }
+.tableLot strong { display: block; font: 500 24px/1.2 "Display Fraunces", Georgia, serif; overflow-wrap: anywhere; }
+.tableLot span { display: block; color: var(--muted); font-size: 12px; margin-top: 8px; }
+.results .amount { font-size: clamp(23px, 2.1vw, 34px); }
+.results .noBid { font-size: 20px; }
+.empty { padding: 26px 0; font-size: 18px; line-height: 1.5; max-width: 65ch; }
+.footer { border-top: 1px solid var(--line); padding-top: 20px; margin-top: 18px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.footer p + p { margin-top: 3px; }
+@media (max-width: 1100px) {
+  .lot { grid-template-columns: 48px minmax(0, 1fr) 310px; }
+  .lotImage { display: none; }
+  .lot:not(:has(.lotImage)) { grid-template-columns: 48px minmax(0, 1fr) 310px; }
+  .board .hero { grid-template-columns: minmax(0, 1fr) 280px; gap: 28px; }
+}
+@media (max-width: 760px) {
+  .topbar { padding: 18px 20px; gap: 14px; }
+  .topbar nav { gap: 18px; font-size: 13px; }
+  .wordmark { font-size: 16px; gap: 14px; }
+  .wordmark span { padding-left: 14px; }
+  .content { padding: 28px 20px 24px; }
+  .board .hero { grid-template-columns: 1fr; gap: 24px; padding-bottom: 28px; }
+  .board h1 { font-size: 42px; }
+  .welcome { font-size: 17px; }
+  .schedule { display: flex; flex-wrap: wrap; gap: 20px; }
+  .schedule div + div { margin-top: 0; }
+  .notice { align-items: flex-start; flex-direction: column; gap: 14px; }
+  .lot, .lot:not(:has(.lotImage)) { grid-template-columns: 42px minmax(0, 1fr); gap: 14px; padding: 24px 0; }
+  .number { font-size: 32px; align-self: start; padding-top: 20px; }
+  .standing { grid-column: 1 / -1; padding-left: 56px; text-align: left; }
+  .amount { font-size: 32px; }
+  .board .lot h2 { font-size: 27px; }
+  .readTime { font-size: 12px; }
+  .results table, .results tbody { display: block; }
+  .results thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .results tr { display: grid; grid-template-columns: 42px minmax(0, 1fr); column-gap: 14px; padding: 22px 0; border-top: 1px solid var(--line); }
+  .results td, .results tbody th { padding: 0; border: none; }
+  .results td:nth-child(3), .results td:nth-child(4) { grid-column: 1 / -1; margin-top: 12px; }
+  .results .amount { font-size: 32px; }
+}
+@media (max-width: 380px) {
+  .standing { padding-left: 0; }
+  .board h1 { font-size: 36px; }
+  .amount, .results .amount { font-size: 30px; }
+}

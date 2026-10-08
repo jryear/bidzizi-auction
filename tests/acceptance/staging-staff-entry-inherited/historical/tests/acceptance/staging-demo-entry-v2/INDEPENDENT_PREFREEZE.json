@@ -1,0 +1,9 @@
+{
+  "status": "Accepted independent v2 packet source review; candidate review remains open",
+  "reviewerThread": "01a116f8-2038-7158-a8aa-6c2059f9103b",
+  "originalReview": "Preserved in staging-demo-entry/INDEPENDENT_PREFREEZE.json",
+  "sourceBinding": "/Users/jryear/Documents/Codex/2026-10-07/task-5/entry-independent-review/v2-prefreeze-source-binding.json",
+  "sourceAggregate": "0bd07c7e1e5c32859a4adfdc00f108ca6ec3252bce93400d63285630dfccb523",
+  "independentControls": "/Users/jryear/Documents/Codex/2026-10-07/task-5/entry-independent-review/independent-v2-preparation-controls.json",
+  "scope": "Cookie wrapper correction; HTTP201 actor/request-owned durable receipt plus native accepted state; response timeout5000; original v1 bytes, 21IDs, inherited59 and outer deadlines unchanged"
+}
