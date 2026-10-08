@@ -1,6 +1,7 @@
 import { randomUUID,createHash } from 'node:crypto';
 import {spawnSync} from 'node:child_process';
 import {join} from 'node:path';
+import {access} from 'node:fs/promises';
 import pg from 'pg';
 import { configuration as acceptedConfiguration,withUI,previewUI } from '../staging-studio-composition/fixture.mjs';
 import { HarnessError,ApplicationFailure,pgBin } from '../staff-drafts/harness.mjs';
@@ -11,6 +12,11 @@ export const configuration={environment:acceptedConfiguration.environment,async 
   await acceptedConfiguration.initialize(config);
   const entry=spawnSync(join(pgBin,'psql'),['--dbname',config.appUrl,'-v','ON_ERROR_STOP=1','-f',join(config.repo,'migrations/015_staff_event_entry.sql')],{env:config.env,encoding:'utf8',timeout:30000,maxBuffer:2*1024*1024});
   if(entry.error||entry.status!==0)throw new HarnessError('Disposable accepted Entry015 migration failed.');
+  // Candidate-only Assets016 is real product DDL, never supplied by this
+  // fixture. Base has no file and must reach the missing v2 capability.
+  let assets=false;try{await access(join(config.repo,'migrations/016_staging_staff_assets.sql'));assets=true;}catch(e){if(e.code!=='ENOENT')throw e;}
+  if(assets){const result=spawnSync(join(pgBin,'psql'),['--dbname',config.appUrl,'-v','ON_ERROR_STOP=1','-f',join(config.repo,'migrations/016_staging_staff_assets.sql')],{env:config.env,encoding:'utf8',timeout:30000,maxBuffer:2*1024*1024});
+   if(result.error||result.status!==0)throw new HarnessError('Disposable candidate Assets016 migration failed:99.');}
   await config.db.query(`INSERT INTO bz_businesses(id,name) VALUES($1,'Synthetic Juniper Business'),($2,'Synthetic Harbor Business');`,[ids.businessA,ids.businessB]);
   await config.db.query('INSERT INTO bz_business_person_memberships(person_id,business_id,can_bid) VALUES($1,$2,true),($3,$4,true)',[ids.juniper,ids.businessA,ids.harbor,ids.businessB]);
   await config.db.query('INSERT INTO bz_org_business_memberships(org_id,business_id) VALUES($1,$2),($1,$3)',[ids.saturn,ids.businessA,ids.businessB]);

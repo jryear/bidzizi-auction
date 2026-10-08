@@ -15,7 +15,7 @@ test_files = ["*test*", "*spec*", "*__tests__*"]
 link = ["node_modules"]
 
 [[checks]]
-name = "Actual native uploads, saved A and immutable normalized publication"
+name = "Fresh v2 image upload, saved preview, immutable pre-open publication"
 kind = "acceptance"
 timeout = 360
 argv = ["/Users/jryear/.nvm/versions/node/v24.4.1/bin/node","tests/acceptance/staging-staff-assets/run.mjs","0"]

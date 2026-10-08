@@ -1,13 +1,73 @@
 {
   "status": "DRAFT_UNFROZEN_UNEXECUTED",
   "checks": [
-    {"name":"Actual native uploads, saved A and immutable normalized publication","kind":"acceptance","id":"ASSETS_NATIVE_DURABLE_SNAPSHOT","suite":"journey","baselineFailures":["ASSETS_NATIVE_DURABLE_SNAPSHOT"]},
-    {"name":"Raster decode, metadata, alpha and bounded request rejection","kind":"adversarial","id":"ASSETS_RASTER_CONTENT_LIMITS","suite":"content","baselineFailures":["ASSETS_RASTER_CONTENT_LIMITS"]},
-    {"name":"Owned exact recovery, lost reply and truthful failed Save","kind":"adversarial","id":"ASSETS_OWNED_RECOVERY","suite":"recovery","baselineFailures":["ASSETS_OWNED_RECOVERY"]},
-    {"name":"Context-bound authority, opaque references and least privilege","kind":"adversarial","id":"ASSETS_CONTEXT_AUTHORIZATION","suite":"authorization","baselineFailures":["ASSETS_CONTEXT_AUTHORIZATION"]},
-    {"name":"Exact SQL transport, deferred commit, atomic insert and quotas","kind":"adversarial","id":"ASSETS_SQL_TRANSPORT_QUOTA","suite":"sqlAndQuota","baselineFailures":["ASSETS_SQL_TRANSPORT_QUOTA"]},
-    {"name":"Compatible Save and asset locks, expiry and queued revocation","kind":"adversarial","id":"ASSETS_LOCK_EXPIRY_SERIALIZATION","suite":"concurrency","baselineFailures":["ASSETS_LOCK_EXPIRY_SERIALIZATION"]},
-    {"name":"Released375 fixed references, private009 profiles and010 rendering","kind":"regression","id":"ASSETS_RELEASE375_009_010_FIXED","suite":"regression","baselineFailures":[]},
-    {"name":"Independent observation oracle broken controls","kind":"regression","id":"ASSETS_EVIDENCE_NEGATIVE_CONTROLS","suite":"controls","baselineFailures":[]}
+    {
+      "name": "Fresh v2 image upload, saved preview, immutable pre-open publication",
+      "kind": "acceptance",
+      "id": "ASSETS_NATIVE_DURABLE_SNAPSHOT",
+      "suite": "v2Journey",
+      "baselineFailures": [
+        "ASSETS_NATIVE_DURABLE_SNAPSHOT"
+      ]
+    },
+    {
+      "name": "Raster decode, metadata, alpha and bounded request rejection",
+      "kind": "adversarial",
+      "id": "ASSETS_RASTER_CONTENT_LIMITS",
+      "suite": "content",
+      "baselineFailures": [
+        "ASSETS_RASTER_CONTENT_LIMITS"
+      ]
+    },
+    {
+      "name": "Owned exact recovery, lost reply and truthful failed Save",
+      "kind": "adversarial",
+      "id": "ASSETS_OWNED_RECOVERY",
+      "suite": "recovery",
+      "baselineFailures": [
+        "ASSETS_OWNED_RECOVERY"
+      ]
+    },
+    {
+      "name": "Context-bound authority, opaque references and least privilege",
+      "kind": "adversarial",
+      "id": "ASSETS_CONTEXT_AUTHORIZATION",
+      "suite": "authorization",
+      "baselineFailures": [
+        "ASSETS_CONTEXT_AUTHORIZATION"
+      ]
+    },
+    {
+      "name": "Exact SQL transport, deferred commit, atomic insert and quotas",
+      "kind": "adversarial",
+      "id": "ASSETS_SQL_TRANSPORT_QUOTA",
+      "suite": "sqlAndQuota",
+      "baselineFailures": [
+        "ASSETS_SQL_TRANSPORT_QUOTA"
+      ]
+    },
+    {
+      "name": "Compatible Save and asset locks, expiry and queued revocation",
+      "kind": "adversarial",
+      "id": "ASSETS_LOCK_EXPIRY_SERIALIZATION",
+      "suite": "concurrency",
+      "baselineFailures": [
+        "ASSETS_LOCK_EXPIRY_SERIALIZATION"
+      ]
+    },
+    {
+      "name": "Accepted fixed references, private009 profiles and010 rendering",
+      "kind": "regression",
+      "id": "ASSETS_RELEASE375_009_010_FIXED",
+      "suite": "regression",
+      "baselineFailures": []
+    },
+    {
+      "name": "Independent observation oracle broken controls",
+      "kind": "regression",
+      "id": "ASSETS_EVIDENCE_NEGATIVE_CONTROLS",
+      "suite": "controls",
+      "baselineFailures": []
+    }
   ]
 }

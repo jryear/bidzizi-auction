@@ -11,13 +11,15 @@ shared initial-publication seam and evidence matrix are
 code, migration, grant, baseline, candidate, staging deployment or hosted result
 is claimed by this checkpoint.
 
-Freeze is blocked on the owner's strict physical commit-before-opening invariant.
-The [transaction-boundary review](../proposed/staff-auction-rehearsal/COMMIT_BOUNDARY_REVIEW.md)
-and disposable PostgreSQL counterexample show that checking time before COMMIT
-does not ensure the commit finishes before opening. Independent Astra review and
-a material owner/provider resolution are needed before the executable contract
-can be frozen and BASELINE_READY can be sought. Older Assets/Timing drafts and
-fixed `e0cef66` inherited checks do not establish this new journey.
+The owner amended publication to a final database-time authorization decision
+strictly before opening, after relevant waits and current authority checks;
+an already authorized transaction may commit or respond later. Astra accepted
+that focused semantic amendment, without granting full contract GO. The
+[unified schema-2 packet](../../tasks/staff-auction-rehearsal.toml) declares
+17 exact-candidate checks, including a deferred COMMIT crossing opening and a
+fresh event-lock wait crossing opening. It remains unfrozen and unexecuted
+pending independent full-packet review and meaningful BASELINE_READY. No new
+product capability or staging release is claimed.
 
 **Studio, Entry and the bounded local 101-ID composition are independently accepted.
 Full D1 remains partial and the changes have not been deployed.**

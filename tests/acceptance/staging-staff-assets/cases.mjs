@@ -14,6 +14,41 @@ export async function health(f,record){
  }catch(e){if(e instanceof assert.AssertionError)throw new HarnessError('Released375 staff/session/event prerequisite did not pass:99.');throw e;}
  record({stage:'existing375-health',session:true,eventId:packet.event.id,revision:packet.revision,migrationPresent:f.migrationPresent});return {actor,packet};
 }
+export async function v2Journey(f,record){
+ const {actor}=await health(f,record);
+ const checked=r=>{if(r.status>=500)throw new HarnessError('Required v2 application returned an infrastructure/server error:99.');return r;};
+ const created=checked(await f.request('/api/v2/admin/events',{method:'POST',cookie:actor.cookie,headers:{origin:f.origin},json:{organizationId:ids.saturn,name:'Synthetic v2 assets rehearsal',requestId:uuid()}}));
+ assert.equal(created.status,201,'A fresh version-2 event must be creatable after accepted v1 health.');
+ const packet=created.data.draft,event=packet.event.id;assert.equal(packet.version,2);
+ const cover=await capability(f,actor,packet,files.cover,record),item=await upload(f,actor,event,files.item);
+ assert.equal(item.response.status,201);const now=await f.dbNow(),start=new Date(now.getTime()+30*60000),end=new Date(start.getTime()+60*60000);
+ const timing={startDate:start.toISOString().slice(0,10),start:start.toISOString().slice(11,16),endDate:end.toISOString().slice(0,10),end:end.toISOString().slice(11,16),timezone:'UTC'};
+ const eventDraft={name:'Synthetic v2 assets rehearsal',eyebrow:'Synthetic photos',welcome:'Private uploaded image preview.',venue:'Synthetic venue',cover:cover.asset.ref,coverAlt:'Synthetic event cover',timing,
+  rules:{rulesetId:'saturn-trade-tiered-v1',denomination:'SATURN_TRADE_DOLLAR_SYNTHETIC_V1',scale:100,amountCapMinor:1000000000,tiers:[{belowMinor:50000,raiseMinor:2500},{belowMinor:100000,raiseMinor:5000},{belowMinor:250000,raiseMinor:10000},{belowMinor:null,raiseMinor:25000}]},sponsorsEnabled:false,sponsors:[]};
+ const lot={id:uuid(),title:'Synthetic item image',short:'Photo item',description:'One uploaded synthetic item photo.',category:'Trade',image:item.asset.ref,alt:'Synthetic item photograph',opening:2500,includes:['Synthetic item'],fine:'No payment.',fixedRaiseMinor:null};
+ const saved=checked(await f.request('/api/v2/admin/events/'+event,{method:'PUT',cookie:actor.cookie,headers:{origin:f.origin},json:{expectedRevision:packet.revision,requestId:uuid(),draft:{event:eventDraft,lots:[lot]}}}));
+ assert.equal(saved.status,200);assert.equal(saved.data.draft.lots[0].image,item.asset.ref);
+ const confirmed=checked(await f.request('/api/v2/admin/events/'+event,{cookie:actor.cookie}));assert.equal(confirmed.status,200);assert.equal(confirmed.data.draft.event.cover,cover.asset.ref);
+ const requestId=uuid(),published=checked(await f.request('/api/v2/admin/events/'+event+'/catalog-approval',{method:'POST',cookie:actor.cookie,headers:{origin:f.origin},json:{expectedRevision:saved.data.draft.revision,requestId,lotIds:[lot.id]}}));
+ assert.equal(published.status,201);const approval=published.data.approval;assert.equal(approval.snapshot.lots[0].image,item.asset.ref);
+ const viewer=await enroll009(f,event),catalog=checked(await f.request('/api/v2/catalog/events/'+event,{cookie:viewer.cookie}));
+ assert.equal(catalog.status,200);assert.equal(catalog.data.phase,'scheduled');assert.equal(catalog.data.catalog?.lots[0]?.image,item.asset.ref);
+ for(const [name,asset] of [['cover',cover.asset],['item',item.asset]]){
+  const raw=await readFile(new URL('./fixtures/'+files[name].name,import.meta.url));persisted(await rows(f,asset.ref,asset.createdAt),asset,ids.staff,raw,{eventId:event,orgId:ids.saturn,sourceMime:files[name].mime});
+  for(const url of [path.own(event,asset.requestId),path.saved(event,assetUUID(asset.ref)),path.approved(event,approval.id,assetUUID(asset.ref)),path.published(event,approval.id,assetUUID(asset.ref))]){
+   const result=await binary(f,url,{cookie:url.includes('/api/catalog/')?viewer.cookie:actor.cookie});encoded(result,asset);record({stage:'v2-authorized-identical-normalized-bytes',name,path:url,...await decoded(result.bytes,asset,files[name])});
+  }
+ }
+ await denied(f,path.published(event,approval.id,assetUUID(item.asset.ref)),null,401,'UNAUTHENTICATED');
+ const before=(await f.db.query('SELECT row_to_json(a)::text AS value FROM bz_catalog_approvals a WHERE event_id=$1',[event])).rows[0].value;
+ const abandoned=await upload(f,actor,event,files.sponsor);assert.equal(abandoned.response.status,201);
+ const altered={...eventDraft,cover:abandoned.asset.ref},locked=checked(await f.request('/api/v2/admin/events/'+event,{method:'PUT',cookie:actor.cookie,headers:{origin:f.origin},json:{expectedRevision:saved.data.draft.revision,requestId:uuid(),draft:{event:altered,lots:[lot]}}}));
+ assert.equal(locked.status,409,'Published v2 image reference was editable.');
+ assert.equal((await f.db.query('SELECT row_to_json(a)::text AS value FROM bz_catalog_approvals a WHERE event_id=$1',[event])).rows[0].value,before);
+ await denied(f,path.published(event,approval.id,assetUUID(abandoned.asset.ref)),viewer);
+ assert.equal(await count(f,event),3,'Abandoned successful replacement must retain quota.');
+ record({stage:'v2-preopen-image-journey',event,approvalId:approval.id,cover:cover.asset.ref,item:item.asset.ref,abandoned:abandoned.asset.ref,preopenCatalog:true,publishedSnapshotUnchanged:true});
+}
 const rows=(f,ref,createdAt=null)=>f.db.query('SELECT *,created_at=$2::timestamptz AS created_at_matches_meta FROM public.bz_staff_assets WHERE id=$1',[assetUUID(ref),createdAt]).then(r=>r.rows);
 const count=(f,event)=>f.db.query('SELECT count(*)::integer AS n FROM public.bz_staff_assets WHERE event_id=$1',[event]).then(r=>r.rows[0].n);
 async function fingerprint(f,event){

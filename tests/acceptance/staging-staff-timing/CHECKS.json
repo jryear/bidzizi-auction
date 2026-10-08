@@ -52,7 +52,13 @@
     "src/server/manual-bids.ts",
     "src/server/staff.ts",
     "src/server/timing.ts",
-    "public/staging-catalog/reconcile.js"
+    "public/staging-catalog/reconcile.js",
+    "src/server/staff-assets.ts",
+    "src/server/staff-asset-codec.ts",
+    "migrations/016_staging_staff_assets.sql",
+    "src/app/api/admin/events/[id]/assets/route.ts",
+    "src/app/api/admin/events/[id]/asset-uploads/[requestId]/route.ts",
+    "src/app/api/catalog/events/[id]/assets/[assetId]/route.ts"
   ],
   "helperPaths": [
     ".gitignore",
@@ -98,7 +104,15 @@
     "docs/plans/STAFF_AUCTION_REHEARSAL_DECISIONS_2026-10-08.md",
     "tests/acceptance/staging-staff-timing/rehearsal-cases.mjs",
     "tests/acceptance/staging-staff-timing/REHEARSAL_DELTA.md",
-    "docs/proposed/staff-timing/REHEARSAL_REBIND.md"
+    "docs/proposed/staff-timing/REHEARSAL_REBIND.md",
+    "tests/acceptance/staging-staff-event-entry/decode-qr.swift",
+    "tests/acceptance/staging-staff-assets/fixtures/item.webp",
+    "tests/acceptance/staging-staff-assets/fixtures/cover-exif.jpg",
+    "docs/proposed/staff-auction-rehearsal/PERSISTENCE_AND_AUTHORITY.md",
+    "docs/proposed/staff-auction-rehearsal/ASTRA_REVIEW_DELTA.md",
+    "tasks/staff-auction-rehearsal.toml",
+    "tests/acceptance/staging-staff-assets/CHECKS.json",
+    "tests/acceptance/staging-staff-assets/fixture.mjs"
   ],
   "checks": [
     {
@@ -163,6 +177,28 @@
       ],
       "baseline_failures": [
         "REHEARSAL_CONCURRENT_CAP_CUTOFF"
+      ]
+    },
+    {
+      "name": "Native staff, Entry, two phones and closed standing",
+      "kind": "acceptance",
+      "timeout": 1200,
+      "assertions": [
+        "REHEARSAL_NATIVE_COMPLETE_JOURNEY"
+      ],
+      "baseline_failures": [
+        "REHEARSAL_NATIVE_COMPLETE_JOURNEY"
+      ]
+    },
+    {
+      "name": "Publication decision cutoff, delayed commit and exact recovery",
+      "kind": "adversarial",
+      "timeout": 900,
+      "assertions": [
+        "REHEARSAL_PUBLICATION_DECISION_ATOMIC"
+      ],
+      "baseline_failures": [
+        "REHEARSAL_PUBLICATION_DECISION_ATOMIC"
       ]
     },
     {

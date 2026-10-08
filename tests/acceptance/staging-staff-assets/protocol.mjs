@@ -2,9 +2,13 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {randomUUID} from 'node:crypto';
 import {HarnessError} from '../staging-catalog/harness.mjs';
-import {ids,login,create,openFields,futureFields,completeLot} from '../staging-catalog/protocol.mjs';
+import {ids,login,create,futureFields,completeLot} from '../staging-catalog/protocol.mjs';
 import {hash,meta,neutral} from './oracles.mjs';
-export {ids,login,create,openFields,futureFields,completeLot};
+// Local rehearsal publication must be attempted before its opening. The
+// inherited already-open fixture remains historical and is not an approval
+// fixture for this successor.
+export const openFields=futureFields;
+export {ids,login,create,futureFields,completeLot};
 export const uuid=()=>randomUUID();
 export const functions=[
  'public.bz_staff_asset_put(text,uuid,uuid,text,integer,text,bytea,integer,integer)',

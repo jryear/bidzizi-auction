@@ -1,6 +1,6 @@
 # Staff auction rehearsal — proposed contract seam
 
-**Status: REVIEW BLOCKED.** This is an implementation contract draft, not a frozen
+**Status: REVIEW DRAFT, UNFROZEN.** This is an implementation contract draft, not a frozen
 Kernel task or permission to edit product code. Source parent:
 `591686a4ecb38f64e29fcdf81f99d170d25872f5`. The approved owner decisions
 are in `docs/plans/STAFF_AUCTION_REHEARSAL_DECISIONS_2026-10-08.md`.
@@ -86,11 +86,15 @@ pixel/QR, current authority and negative-control observations rather than produc
 author assertions alone. Build/typecheck and independent source/render review are
 additional gates.
 
-**Freeze blocker:** initial publication must *commit* strictly before `opensAt`.
-The ordinary transaction function and pre-commit clock checks cannot prove this.
-See `COMMIT_BOUNDARY_REVIEW.md`. No implementation or BASELINE_READY is authorized
-until independent review accepts a feasible mechanism satisfying the exact owner
-requirement, or the owner explicitly changes that requirement.
+**Amended publication boundary:** The owner replaced the physical COMMIT cutoff.
+The final database-time authorization decision occurs strictly before `opensAt`,
+after all relevant lock waits and current-authority checks. A transaction so
+authorized may commit and respond after opening. Publication, immutable snapshot
+and receipt commit atomically. A new decision at/after opening rejects. Exact
+recovery of an already committed publication remains allowed under current
+authority. There is no 60-second margin. The final-decision and delayed-commit
+counterexamples in the executable packet require independent review before
+freeze; no product implementation or BASELINE_READY is claimed here.
 
 Prepared but unfrozen Assets and Timing packets remain at
 `/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/` under

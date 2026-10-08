@@ -23,8 +23,16 @@ the actual accepted Studio/Entry source at `591686a`; Entry015 is applied in
 the disposable fixture. New MOBILE014 bytes remain unintegrated until product
 implementation is authorized.
 
-The owner's physical initial-publication commit-before-opening invariant is
-still unresolved. The existing decision timestamp and a last pre-COMMIT check
-are insufficient. The Timing runner remains `freezeReady:false` until Astra
-independently reviews the exact mechanism and executable chain, and the parent
-authorizes freeze. No BASELINE_READY or candidate result exists.
+The earlier physical-COMMIT concern is historical and superseded below. The
+Timing runner remains `freezeReady:false` until Astra independently reviews
+the amended final-decision evidence and complete chain. No BASELINE_READY or
+candidate result exists.
+
+## Superseding publication decision
+
+The owner amended the physical commit cutoff on 2026-10-08 at 19:12 UTC.
+The final database-time publication authorization decision must be strictly
+before opening after all relevant waits and current authority checks; a later
+atomic commit/response is permitted. Fresh decisions at/after opening reject;
+committed exact recovery remains available under current authority. Historical
+physical-COMMIT concerns above document the earlier review and are superseded.

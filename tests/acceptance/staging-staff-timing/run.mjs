@@ -13,9 +13,9 @@ const must=(v,m)=>{if(!v)throw new HarnessError(m);};
 const command=(bin,args)=>{const r=spawnSync(bin,args,{cwd:root,encoding:'utf8',timeout:5000});must(!r.error&&!r.signal&&r.status===0,'Static source/runtime binding unavailable.');return r.stdout.trim();};
 let output,group,results=[];
 try {
-  must(process.argv.length===3&&/^[0-6]$/.test(process.argv[2]),'Use one exact rehearsal group0–6.');const index=+process.argv[2];
+  must(process.argv.length===3&&/^[0-8]$/.test(process.argv[2]),'Use one exact rehearsal group0–8.');const index=+process.argv[2];
   for(const key of ['DATABASE_URL','BIDZIZI_STAGING_DATABASE_URL','APP_ORIGIN','VERCEL','VERCEL_ENV','BIDZIZI_STAGING_TEST_AUTH','BIDZIZI_APP_MODE','BIDZIZI_LOCAL_TEST_DATABASE','NODE_OPTIONS'])must(process.env[key]===undefined,'Undeclared environment '+key);
-  const config=JSON.parse(await readFile(new URL('./CHECKS.json',import.meta.url),'utf8')),declared=config.checks[index];group=index===6?{...declared,run:controls}:groups[index];
+  const config=JSON.parse(await readFile(new URL('./CHECKS.json',import.meta.url),'utf8')),declared=config.checks[index];group=index===8?{...declared,run:controls}:groups[index];
   must(group.name===declared.name&&JSON.stringify(group.assertions)===JSON.stringify(declared.assertions),'Executed check differs from declaration.');
   const schema=process.env.VERIFY_RESULT_JSON!==undefined,phase=schema?process.env.VERIFY_TREE:'direct',runId=schema?process.env.VERIFY_RUN_ID:'direct';
   if(schema){must(['base','candidate'].includes(phase)&&/^[a-f0-9]{32}$/.test(runId||'')&&resolve(process.env.VERIFY_RESULT_JSON)===process.env.VERIFY_RESULT_JSON,'Invalid schema2 invocation.');try{await lstat(process.env.VERIFY_RESULT_JSON);throw new HarnessError('Preexisting result refused.');}catch(e){must(e.code==='ENOENT','Result path must be fresh.');}}
@@ -31,7 +31,7 @@ try {
   const record=async observation=>{let status='pass',detail='All targeted independent witnesses completed.';try{completion(observation);}catch(e){if(!(e instanceof ReachedMismatch))throw e;status='fail';detail=observation.reason||e.message;}const path=join(output,group.assertions[0]+'.json');await writeFile(path,JSON.stringify(observation,null,2)+'\n',{flag:'wx'});results.push({id:group.assertions[0],status,detail,observationPath:path,observationSHA256:sha(await readFile(path))});console.log('CASE_RESULT '+JSON.stringify(results[0]));};
   let observation,cleanup;
   const run=async f=>{try{return await group.run(f);}catch(e){if(!(e instanceof ReachedMismatch))throw e;return {completed:false,reason:e.message,reached:e.observation,steps:[{name:e.message,pass:false}]};}};
-  if(index===6){observation=await run();cleanup={kind:'pure-controls',runtimeStarted:false};}
+  if(index===8){observation=await run();cleanup={kind:'pure-controls',runtimeStarted:false};}
   else {const verified=await withVerifiedFixture(async f=>{f.capture=capture;await f.initialize();const schemaBefore=(await f.db.query("SELECT table_name,column_name,data_type FROM information_schema.columns WHERE table_schema='public' ORDER BY table_name,ordinal_position")).rows;const value=await run(f);const schemaAfter=(await f.db.query("SELECT table_name,column_name,data_type FROM information_schema.columns WHERE table_schema='public' ORDER BY table_name,ordinal_position")).rows;must(JSON.stringify(schemaBefore)===JSON.stringify(schemaAfter),'Timing introduced undeclared schema/columns.');return {value,browser:f.browserCleanup};},configuration);observation=verified.result.value;cleanup={services:verified.cleanup,browser:verified.result.browser};if(index===0)must(cleanup.browser?.allExited,'Owned native browser cleanup missing.');}
   await record(observation);must(results.length===1&&results[0].id===group.assertions[0],'Every declared assertion must be reached exactly once.');
   must(command('/usr/bin/git',['rev-parse','HEAD'])===commit&&JSON.stringify(await map(config.sourcePaths,true))===JSON.stringify(sourceHashes)&&JSON.stringify(await map(config.helperPaths))===JSON.stringify(helperHashes),'Source/evidence changed during run.');

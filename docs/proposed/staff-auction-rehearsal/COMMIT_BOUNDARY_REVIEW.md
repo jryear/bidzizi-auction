@@ -1,3 +1,26 @@
+# Historical commit-boundary finding and amended cutoff
+
+The original physical COMMIT-before-opening requirement was found infeasible
+with ordinary PostgreSQL pre-commit predicates. The original analysis below is
+retained as historical review context; it no longer defines the acceptance
+cutoff. Owner amendment `Sentinel_83deee9dde748191b0a149e0e7bfc263` at
+2026-10-08 19:12 UTC supersedes that one requirement.
+
+**Current acceptance rule:** After all relevant lock waits and current staff
+authority checks, use database time for the final publication authorization
+decision. It must be strictly before opening. A transaction authorized then may
+finish committing or respond after opening; approval, immutable snapshot and
+receipt must commit atomically. A fresh decision at/after opening rejects. Exact
+recovery of an already committed approval remains allowed under current
+authority. There is no safety-margin substitution. Evidence must deliberately
+cross opening both before the final decision (reject) and during a later commit
+(allow the previously authorized atomic result), then recover the original
+receipt after cutoff.
+
+---
+
+## Historical analysis of superseded physical COMMIT rule
+
 # Pre-freeze publication commit boundary
 
 **Material blocker for Astra and the parent.** The owner requires a newly

@@ -42,7 +42,16 @@
     "src/app/api/admin/events/[id]/asset-uploads/[requestId]/content/route.ts",
     "src/app/api/admin/events/[id]/catalog-approval/[approvalId]/assets/[assetId]/route.ts",
     "src/app/api/catalog/events/[id]/assets/[assetId]/route.ts",
-    "public/staging-catalog/reconcile.js"
+    "public/staging-catalog/reconcile.js",
+    "src/server/timing.ts",
+    "src/app/api/v2/admin/events/route.ts",
+    "src/app/api/v2/admin/events/[id]/route.ts",
+    "src/app/api/v2/admin/events/[id]/catalog-approval/route.ts",
+    "src/app/api/v2/catalog/events/[id]/route.ts",
+    "src/app/api/v2/catalog/events/[id]/lots/[lotId]/route.ts",
+    "src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/bids/route.ts",
+    "src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/standing/route.ts",
+    "src/server/manual-bids.ts"
   ],
   "evidencePaths": [
     "AGENTS.md",
@@ -103,7 +112,12 @@
     "docs/proposed/staff-auction-rehearsal/COMMIT_BOUNDARY_REVIEW.md",
     "docs/proposed/staff-assets/REHEARSAL_REBIND.md",
     "tests/acceptance/staging-staff-assets/REHEARSAL_DELTA.md",
-    "docs/plans/STAFF_AUCTION_REHEARSAL_DECISIONS_2026-10-08.md"
+    "docs/plans/STAFF_AUCTION_REHEARSAL_DECISIONS_2026-10-08.md",
+    "docs/proposed/staff-auction-rehearsal/INTERFACE.md",
+    "docs/proposed/staff-auction-rehearsal/PERSISTENCE_AND_AUTHORITY.md",
+    "docs/proposed/staff-auction-rehearsal/ASTRA_REVIEW_DELTA.md",
+    "tasks/staff-auction-rehearsal.toml",
+    "tests/acceptance/staging-staff-timing/rehearsal-cases.mjs"
   ],
   "inheritedHelpersSHA256": {
     "tests/acceptance/staging-catalog/harness.mjs": "bde6a547ac3ec2afe1d4ae614d465d18ced3347183787d5fee3b1f27d0299b0f",
