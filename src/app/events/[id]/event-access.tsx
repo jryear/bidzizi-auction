@@ -90,7 +90,6 @@ export default function EventAccess({ eventId }: { eventId: string }) {
     };
     window.addEventListener("message", ready); return () => window.removeEventListener("message", ready);
   }, [send]);
-  useEffect(() => { send(); }, [packet, bidder, send]);
   useEffect(() => {
     if (!session?.authenticated||entryRecovery) return;
     let stopped = false, checking = false;

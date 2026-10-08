@@ -3,6 +3,7 @@
 import {catalog,event,lotById} from './data.js';
 import {state} from './store.js';
 import {esc,money,icon,monogram} from './ui.js';
+import {reconcileHTML} from './reconcile.js';
 const RULESET='staging-usd-manual-v1';
 const $=s=>document.querySelector(s);
 export const bidder={context:null,eventId:null,epoch:null,refresh:null,stale:false,activeLot:null,entries:new Map()};
@@ -84,7 +85,7 @@ export async function refreshLot(id,{fresh=false}={}){
  if(!e.intent)e.intent=storedIntent(id);
  changed();
  if(e.intent&&!e.receipt&&!e.checking&&!e.recoveryAttempted)void recover(id,false);
- if(sheet?.lot===id&&sheet.mode!=='review')renderSheet();
+ if(sheet?.lot===id)renderSheet();
 }
 function allowed(id){const e=entryFor(id),b=currentBusiness();return !!(b?.canBid&&e.standing?.canBid&&e.standing.phase==='open'&&e.standing.leadingBusiness?.id!==b.id&&!e.loading&&!e.stale&&!bidder.stale&&navigator.onLine);}
 export function standingMarkup(lot){
@@ -140,8 +141,8 @@ export function openBid(id,recovery=false){
  if(recovery&&e.intent)sheet.mode=e.mode||'unconfirmed';
  renderSheet();const d=$('#sheet');if(!d.open)d.showModal();d.querySelector('#sheet-title')?.focus({preventScroll:true});
 }
-// Polling and durable outcomes replace the sheet DOM. Keep keyboard context
-// inside the native dialog, even when the submitting control no longer exists.
+// Keep keyboard context inside the native dialog when an outcome changes mode
+// and the submitting control no longer exists. Same-mode polling retains nodes.
 function captureSheetFocus(d){
  const active=document.activeElement;if(!d.open||!d.contains(active))return null;
  const selector=active.id?`#${CSS.escape(active.id)}`:active.dataset.action?`[data-action="${CSS.escape(active.dataset.action)}"]${active.dataset.d!==undefined?`[data-d="${CSS.escape(active.dataset.d)}"]`:''}${active.dataset.v!==undefined?`[data-v="${CSS.escape(active.dataset.v)}"]`:''}`:null;
@@ -161,7 +162,7 @@ function renderSheet(){
  const focus=captureSheetFocus(d);
  if(sheet.mode==='review'){
   const b=currentBusiness();d.dataset.bidState='review';d.dataset.lot=l.id;
-  d.innerHTML=`<div class="sheet-in">${head('Place a bid')}<div class="sheet-scroll">${lotMini(l)}${businessBlock({businessId:b?.id})}<div class="amount"><label class="lbl" for="amt">Your bid <span class="lbl-min">· minimum ${money(sheet.minimum)}</span></label><div class="stepper"><button class="step" data-action="step" data-d="-1" aria-label="Decrease by ${money(sheet.increment)}">${icon('minus')}</button><div class="amt-field"><span class="cur" aria-hidden="true">$</span><input id="amt" inputmode="decimal" autocomplete="off" maxlength="12" value="${esc(sheet.amount)}" aria-describedby="amt-err"></div><button class="step" data-action="step" data-d="1" aria-label="Increase by ${money(sheet.increment)}">${icon('plus')}</button></div><p id="amt-err" class="err" role="alert"></p><div class="quick">${[0,1,2].map(i=>sheet.minimum+i*sheet.increment).filter(c=>c<=1_000_000_000).map(c=>`<button class="chip" data-action="quick" data-v="${c}">${money(c)}</button>`).join('')}</div></div><section class="commit-box"><h3>Review your bid</h3><ul><li>Bid <b id="review-amount"></b> on <b>Lot ${esc(l.number)}</b> for <b>${esc(b?.name)}</b>.</li><li>Placed by <b>${esc(bidder.context.person.name)}</b>.</li><li>Acceptance appears after the server records this bid.</li><li class="note">Synthetic test bidding. No payment is taken.</li></ul></section></div><div class="sheet-foot"><button class="btn primary block lg" data-action="place">Place bid</button><button class="btn-link center" data-action="close-sheet">Not now</button></div></div>`;
+  reconcileHTML(d,`<div class="sheet-in">${head('Place a bid')}<div class="sheet-scroll">${lotMini(l)}${businessBlock({businessId:b?.id})}<div class="amount"><label class="lbl" for="amt">Your bid <span class="lbl-min">· minimum ${money(sheet.minimum)}</span></label><div class="stepper"><button class="step" data-action="step" data-d="-1" aria-label="Decrease by ${money(sheet.increment)}">${icon('minus')}</button><div class="amt-field"><span class="cur" aria-hidden="true">$</span><input id="amt" inputmode="decimal" autocomplete="off" maxlength="12" value="${esc(sheet.amount)}" aria-describedby="amt-err"></div><button class="step" data-action="step" data-d="1" aria-label="Increase by ${money(sheet.increment)}">${icon('plus')}</button></div><p id="amt-err" class="err" role="alert"></p><div class="quick">${[0,1,2].map(i=>sheet.minimum+i*sheet.increment).filter(c=>c<=1_000_000_000).map(c=>`<button class="chip" data-action="quick" data-v="${c}">${money(c)}</button>`).join('')}</div></div><section class="commit-box"><h3>Review your bid</h3><ul><li>Bid <b id="review-amount"></b> on <b>Lot ${esc(l.number)}</b> for <b>${esc(b?.name)}</b>.</li><li>Placed by <b>${esc(bidder.context.person.name)}</b>.</li><li>Acceptance appears after the server records this bid.</li><li class="note">Synthetic test bidding. No payment is taken.</li></ul></section></div><div class="sheet-foot"><button class="btn primary block lg" data-action="place">Place bid</button><button class="btn-link center" data-action="close-sheet">Not now</button></div></div>`);
   updateAmount();restoreSheetFocus(d,focus);return;
  }
  const mode=e.mode||sheet.mode,receipt=e.receipt,body=e.intent;
@@ -172,7 +173,7 @@ function renderSheet(){
  else if(mode==='rejected'){title='Bid not placed';tone='dashed';symbol='x';text=({BELOW_MINIMUM:'Another bid changed the minimum. Your bid was not placed.',CLOSED:'Bidding closed before this bid could be placed.',NOT_OPEN:'Bidding has not opened. Your bid was not placed.',UNSUPPORTED_SELF_RAISE:'Your business is already leading. Raising its own bid is unavailable in this test.',AMOUNT_LIMIT:'No further bid fits within this test limit.'})[receipt?.reason]||'This bid was not placed.';footer='<button class="btn quiet block lg" data-action="close-sheet">Keep browsing</button>';}
  else if(mode==='not-recorded'){title='Bid not recorded';tone='dashed';symbol='x';text=`We checked: this request is not recorded. Try again sends your original ${money(body.amountMinor)} bid using the same request.`;footer='<button class="btn primary block lg" data-action="retry">Try again</button><button class="btn-link center" data-action="close-sheet">Close</button>';}
  if(e.checking)extra+='<p class="r-note" role="status">Checking the original request…</p>';
- d.innerHTML=`<div class="sheet-in">${head(title)}<div class="sheet-scroll">${lotMini(l)}${businessBlock(body)}<div class="result t-${tone}" role="status"><span class="r-ic">${icon(symbol)}</span><h3>${title}</h3><p>${text}</p>${extra}</div></div><div class="sheet-foot">${footer}</div></div>`;
+ reconcileHTML(d,`<div class="sheet-in">${head(title)}<div class="sheet-scroll">${lotMini(l)}${businessBlock(body)}<div class="result t-${tone}" role="status"><span class="r-ic">${icon(symbol)}</span><h3>${title}</h3><p>${text}</p>${extra}</div></div><div class="sheet-foot">${footer}</div></div>`);
  d.querySelector('[data-action="check"]')?.toggleAttribute('disabled',e.checking||!navigator.onLine);
  d.querySelector('[data-action="retry"]')?.toggleAttribute('disabled',!navigator.onLine||bidder.stale);
  restoreSheetFocus(d,focus);

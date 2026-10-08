@@ -3,9 +3,10 @@ import {state} from './store.js';
 import {views,lotView,tabbar,lotsList,lotsCount} from './views.js';
 import {esc} from './ui.js';
 import {setContext,activateLot,bidAction} from './bidding.js';
+import {reconcileHTML} from './reconcile.js';
 const $=s=>document.querySelector(s);
 let ready=false,scope='',path='/';
-let renderedHash=null;
+let renderedHash=null,renderedView=null;
 const memories=new Map();
 function focusRouteHeading(){$('#view main h1')?.focus({preventScroll:true});}
 function render(){
@@ -16,10 +17,11 @@ function render(){
  const match=path.match(/^\/lot\/([\w-]+)$/);
  activateLot(match?.[1]||null);
  const view=match?lotView(match[1]):views[path==='/'?'entry':path.slice(1)]();
- const y=scrollY,key=document.activeElement?.dataset?.key;
- $('#view').innerHTML=view.html;$('#tabbar').innerHTML=tabbar(view.tab);$('#shell').dataset.chrome=view.chrome;document.body.dataset.chrome=view.chrome;
+ const y=scrollY,active=document.activeElement,key=active?.dataset?.key,viewKey=scope+':'+path;
+ if(renderedView===viewKey)reconcileHTML($('#view'),view.html);else $('#view').innerHTML=view.html;
+ renderedView=viewKey;reconcileHTML($('#tabbar'),tabbar(view.tab));$('#shell').dataset.chrome=view.chrome;document.body.dataset.chrome=view.chrome;
  document.title=view.title+' · BidZizi catalog';
- scrollTo(0,y);if(key)$(`[data-key="${CSS.escape(key)}"]`)?.focus({preventScroll:true});
+ if(scrollY!==y)scrollTo(0,y);if(key&&document.activeElement!==active)$(`[data-key="${CSS.escape(key)}"]`)?.focus({preventScroll:true});
 }
 function navigate(next,replace=false){
  if(catalog.phase==='scheduled'&&next!=='/event')next='/';
