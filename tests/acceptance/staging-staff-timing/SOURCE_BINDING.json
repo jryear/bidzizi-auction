@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "status": "REHEARSAL_REBIND_DRAFT_UNFROZEN_UNEXECUTED",
+  "freezeReady": false,
+  "selectedProductBase": "591686a4ecb38f64e29fcdf81f99d170d25872f5",
+  "initialHistoricalProductInspection": "retained task18 source preparation; superseded by 591686a",
+  "baselineProductSHA256": {
+    "public/staging-admin/index.html": "1bdcebb5f739e38504ade40ee0eaeee264840cc9c1dabde2f7f01d73802da224",
+    "public/staging-admin/model.js": "b081ca833bf6fe314ec64cac2ad9616cef2928fbffc08f68f7139d88c8f9e719",
+    "public/staging-admin/studio.css": "348ad61d56fea23e13c2c0e5776562596976ad7462a4c8b3c73841b4f519f6db",
+    "public/staging-admin/studio.js": "41c903c0ebf23083dcdc098d38d353d4264daa0428b7f7e0076e6e9dcba475c8",
+    "public/staging-bidder-preview/src/app.js": "454cedfcd7e4fad5928234ab45f4a0f256ff71d889ee0462b79ab53178453a65",
+    "public/staging-bidder-preview/src/data.js": "77421d2d75f3a491e98fd3684e7668ab7a2e3032fb40becad7ed96da4f9b3a9d",
+    "public/staging-bidder-preview/src/store.js": "b0a9da26a2a88eb677954974a2ef624deae6a863cd845961ef5286a607faf8b9",
+    "public/staging-bidder-preview/src/ui.js": "ba798dd174ecd6f521513b74c954046854c7923d10233ce2a81bd32ade8910c4",
+    "public/staging-bidder-preview/src/views.js": "f62b698c6d14de33ffc22ed52f4c24dd08476f3cbbe90a334c30971bb607d41d",
+    "public/staging-bidder-preview/styles.css": "fa0748c15dcd692c19df4e016cc407f6f812532c03d2874c51de76f1afd50631",
+    "public/staging-catalog/app.js": "3a52af0e1b71db37c8fce130dd1a6ab29b0136c38371f758d104636104bca111",
+    "public/staging-catalog/bidding.js": "217d92033ae390b0281554e0ce7efc926f4227f40c86c8c6cb000e79af3c594e",
+    "public/staging-catalog/data.js": "9277415a391117036d4794e4b7956fd1e364d956f7f10c4b9d942ff031697a63",
+    "public/staging-catalog/store.js": "be9f6441a24ab4da30b8a9a6ac5b8b90f27fff3c1f5818a517dcb915e991bc82",
+    "public/staging-catalog/styles.css": "f5213c34ee39ad7f211403c37328eb714c1829126068ad8af4e7a07f1ef796ef",
+    "public/staging-catalog/ui.js": "ba798dd174ecd6f521513b74c954046854c7923d10233ce2a81bd32ade8910c4",
+    "public/staging-catalog/views.js": "8a22203cc1340c43fa6375ee98c201fa80868991825eb7ba2d2bf511ee8664f4",
+    "src/app/api/admin/events/[id]/catalog-approval/route.ts": "9a1821daa8db2089d10b3068093642476d7cc548f43a4292c5e54cc95d819556",
+    "src/app/api/admin/events/[id]/route.ts": "0ff716401ab95aa84d53ce9afd4fb97c24f9930643bfe96d34ff3055261a5641",
+    "src/app/api/admin/events/route.ts": "fcd7cc294e8ce0a7a8ae721a7e7e212ffce5df61ab2f6612e26784c2c3acbe51",
+    "src/app/api/bidder/events/[eventId]/context/route.ts": "39d7cacf9065dbc2e783c0b7fdbc91d35a0800c3a8f560bce7cc96dde1abbd44",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/bid-receipts/[requestId]/route.ts": "c549573051ab78ab7ece0193fee2821a271220e889f11aad445c4e3a749f20df",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/bids/route.ts": "b666d43dbd97801f99734e5708865d41091e1a010eb9b5b0ee5564dbe91a39c7",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/standing/route.ts": "f688759f11445f734610905d90be6dc2ae0b569ea1534863d03e924b66a045a4",
+    "src/app/api/catalog/events/[id]/lots/[lotId]/route.ts": "658b9298c618ee57fd56ec2ac7bdf9f24fbc9314ae76e32f017cc6212ba02429",
+    "src/app/api/catalog/events/[id]/route.ts": "38166788f891add56f517d0fdef79cd1ab6d01c6a2cc6feeccadf769e24510b3",
+    "src/app/api/session/logout/route.ts": "16cd2c9bab409037cd7d0c7ed22649c11112b1f91e379ad4a1f827eb0773aa48",
+    "src/app/api/v2/admin/events/[id]/catalog-approval/route.ts": null,
+    "src/app/api/v2/admin/events/[id]/draft-lots/route.ts": null,
+    "src/app/api/v2/admin/events/[id]/route.ts": null,
+    "src/app/api/v2/admin/events/route.ts": null,
+    "src/app/api/v2/bidder/events/[eventId]/context/route.ts": null,
+    "src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/bid-receipts/[requestId]/route.ts": null,
+    "src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/bids/route.ts": null,
+    "src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/standing/route.ts": null,
+    "src/app/api/v2/catalog/events/[id]/lots/[lotId]/route.ts": null,
+    "src/app/api/v2/catalog/events/[id]/route.ts": null,
+    "src/app/events/[id]/event-access.tsx": "22cfc7a5772fb9b7528954d65c384fc92731c74f71a64c16eee8a7a667fde806",
+    "src/features/staging-display-results/authorized-read-view.tsx": "5cb2a2ce06d1e0ed6d96524888e5c54790b85c15bc3c2ec009fffb989e01775d",
+    "src/features/staging-display-results/read-model.ts": "773844845d3d7b4422a75ea71a3235d53634e6d80048e415baa40b4c85e7c304",
+    "src/server/auth.ts": "7f6151c248366902cc0a000af59301135a1c0eeb118983b00ead9cef7b44dd9e",
+    "src/server/catalog.ts": "21cb5aa6d1454057792a97eddd668004a90bdb5b9e03569d8b3d806dd57059fe",
+    "src/server/config.ts": "fcc39662d4d42893651fac761ae3067a2ddd7e8340854717af6405561fd9bdaf",
+    "src/server/db.ts": "c79b7447abedfb3d7e5c4a46f6dac2554eedc16ed64639f7d94be5ad0d83994e",
+    "src/server/demo-entry.ts": "b4e4489ea221a4a7379bf46e74f156373b3cfb8f06e8a7fd06eb8a492813e139",
+    "src/server/draft.ts": "981feead0cff19acd9fe9697c71852ecc7205ee5558beeebaa09aceaf3c1fcbb",
+    "src/server/http.ts": "134c97f03b4be7dd7bbbbe10a7bc6c40cd38a16f802305c0126df603a4c81359",
+    "src/server/manual-bids.ts": "e9f1087098a344226200fa63cabdff9dcf09b1acd678c8f839db6023babe3b98",
+    "src/server/staff.ts": "7b3a6ac608c3fb88af41946bb82cac294373770b98d3de65fc89606f375cd849",
+    "src/server/timing.ts": null,
+    "public/staging-catalog/reconcile.js": null
+  },
+  "historicalContractReview": {
+    "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/timing-contract-review.json",
+    "sha256": "e99b4a9b76b2bdb8cad500d1e6055bcb623ad53b3117ac97e940c0db4a1e510a",
+    "result": "GO_FOR_EXECUTABLE_PREPARATION_ONLY"
+  },
+  "externalKernel": {
+    "path": "/Users/jryear/code/_kernel/verify.py",
+    "observedVersion": "3.1.0",
+    "sha256": {
+      "verify.py": "0f638fc9b7a7682ab814c7923557ecbb0871f35140f1aa6838efde17855d4ca5",
+      "kernel_runtime.py": "d185f76b12c30a0758fee453c8806508919fa0df2a457c8fb55fd124b7d1ac93",
+      "kernel_report.py": "6c8c21d2f8bbcd81a5a6b0f2abb69166dc7603d7bf5df76e84d803fc5997bd0d",
+      "VERSION": "b2f44d3b6e29f8b1b73ea4735f006affc4d198e1fd9c7d50e736159b1ef636c6"
+    }
+  },
+  "literalNode": {
+    "path": "/Users/jryear/.nvm/versions/node/v24.4.1/bin/node",
+    "sha256": "0429b268de244397f6b8921a938f55151c4469ab70571799780533eae6abfbce"
+  },
+  "policyHolds": [
+    "Strict physical publication COMMIT-before-opening unresolved pending Astra/owner"
+  ],
+  "freezeHolds": [
+    "Independent review of one-window successor and full declared chain",
+    "Physical publication commit mechanism"
+  ],
+  "no007SchemaOrGrantChange": true,
+  "mobilePrivate478Included": false,
+  "upstreamPublicationAuthorized": false,
+  "runtimeExecutionObserved": false,
+  "executableReviewRepairs": [
+    "E-F1 unexpected unavailable Harness99, exact declared disposable corruption only",
+    "E-F2 shipped session logout durable revocation and source binding",
+    "E-F3 known complete private Save/API/SQL/revision/operation/visibility",
+    "E-F4 known full accepted intent and physical bid/standing independent keys",
+    "E-F5 live A module groups plus visible complete local schedule markup",
+    "E-F6 known January Pacific cross-date UTC inverse",
+    "E-F7 ls-tree absence represented null, never empty-file SHA"
+  ],
+  "historicalAbsentFiles": [
+    "src/app/api/v2/admin/events/[id]/catalog-approval/route.ts",
+    "src/app/api/v2/admin/events/[id]/draft-lots/route.ts",
+    "src/app/api/v2/admin/events/[id]/route.ts",
+    "src/app/api/v2/admin/events/route.ts",
+    "src/app/api/v2/bidder/events/[eventId]/context/route.ts",
+    "src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/bid-receipts/[requestId]/route.ts",
+    "src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/bids/route.ts",
+    "src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/standing/route.ts",
+    "src/app/api/v2/catalog/events/[id]/lots/[lotId]/route.ts",
+    "src/app/api/v2/catalog/events/[id]/route.ts",
+    "src/server/timing.ts"
+  ],
+  "historicalAbsenceMethod": "Exact git ls-tree375 path set first; only present blobs are hashed.",
+  "finalRereviewStrengthenings": [
+    "E-F1 same three normal healthy200 routes before injection and after exact restoration; no exception on healthy reads",
+    "E-F4 full bounded SQL snapshot after CLOSED rejection brackets accepted/owned/foreign-denial/original-approval recovery without writes"
+  ]
+}

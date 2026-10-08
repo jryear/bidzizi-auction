@@ -4,6 +4,7 @@
 Kernel task or permission to edit product code. Source parent:
 `591686a4ecb38f64e29fcdf81f99d170d25872f5`. The approved owner decisions
 are in `docs/plans/STAFF_AUCTION_REHEARSAL_DECISIONS_2026-10-08.md`.
+The concrete versioned API and DTO proposal is in `INTERFACE.md`.
 
 ## One initial-publication interface
 

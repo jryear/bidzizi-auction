@@ -1,0 +1,281 @@
+{
+  "version": 1,
+  "status": "STATIC_PREPARATION_BINDING_ONLY",
+  "recordedUTC": "2026-10-08T08:02:18.013243+00:00",
+  "productBase": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+  "docsCheckpoint": "7ecdcb5f6d4d52b052f40eadc369b98b9cffb333",
+  "frozenBase": null,
+  "acceptedCandidate": null,
+  "policyAnswersBound": false,
+  "runtimeStarted": false,
+  "schemaOrGrantsApplied": false,
+  "deployed": false,
+  "authoredPaths": [
+    "docs/proposed/staff-timing/CONTRACT.md",
+    "docs/proposed/staff-timing/EVIDENCE_PLAN.md",
+    "docs/proposed/staff-timing/INTERFACES.md",
+    "docs/proposed/staff-timing/LEAST_PERMISSION_ASSESSMENT.md",
+    "docs/proposed/staff-timing/SQL_AND_PERMISSIONS.md"
+  ],
+  "authorityFromCurrentDelegation": {
+    "scope": "D1 bounded timing packet only",
+    "runtimeOwner": "root only, one runtime",
+    "publication": "parent held",
+    "mobilePrivate478": "excluded; unlanded/denied",
+    "selectedMeaning": [
+      "event-default",
+      "optional named groups",
+      "bulk assignment",
+      "categories separate",
+      "common event timezone/cross-date",
+      "preopening browse",
+      "immutable accepted history"
+    ],
+    "pending": [
+      "CUSTOM_WINDOW_BOUNDS",
+      "PUBLICATION_ELIGIBILITY"
+    ],
+    "incrementInterface": "selected progressive/current-highest, optional fixed item override, any amount >= current minimum; exact tiers boundaries and lock pending",
+    "storageChoice": "Root explicitly selected least-permission existing JSON; no connected installation authorization"
+  },
+  "sources": [
+    {
+      "key": "AGENTS",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/AGENTS.md",
+      "productCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "sha256": "22aeb173ad2c7e6b183055e81237704169f8fe44d3ffedbe2bba3b102a983237",
+      "workingBytesMatchedBaseAtInspection": true,
+      "scope": "current durable guardrails"
+    },
+    {
+      "key": "DRAFT",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/src/server/draft.ts",
+      "productCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "sha256": "981feead0cff19acd9fe9697c71852ecc7205ee5558beeebaa09aceaf3c1fcbb",
+      "workingBytesMatchedBaseAtInspection": true,
+      "scope": "v1 strict main|null and one-date DTO"
+    },
+    {
+      "key": "STAFF",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/src/server/staff.ts",
+      "productCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "sha256": "7b3a6ac608c3fb88af41946bb82cac294373770b98d3de65fc89606f375cd849",
+      "workingBytesMatchedBaseAtInspection": true,
+      "scope": "event/request serialization; current delete/reinsert Save"
+    },
+    {
+      "key": "AUTH",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/src/server/auth.ts",
+      "productCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "sha256": "7f6151c248366902cc0a000af59301135a1c0eeb118983b00ead9cef7b44dd9e",
+      "workingBytesMatchedBaseAtInspection": true,
+      "scope": "authority-first selectors and session expiry"
+    },
+    {
+      "key": "CATALOG",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/src/server/catalog.ts",
+      "productCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "sha256": "21cb5aa6d1454057792a97eddd668004a90bdb5b9e03569d8b3d806dd57059fe",
+      "workingBytesMatchedBaseAtInspection": true,
+      "scope": "immutable original root, read-all receipt, same-date local resolver, scheduled visibility"
+    },
+    {
+      "key": "BIDS",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/src/server/manual-bids.ts",
+      "productCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "sha256": "e9f1087098a344226200fa63cabdff9dcf09b1acd678c8f839db6023babe3b98",
+      "workingBytesMatchedBaseAtInspection": true,
+      "scope": "authority, post-wait clock, stable release/lot/FKs, fixed fixture rule"
+    },
+    {
+      "key": "BOARD_MODEL",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/src/features/staging-display-results/read-model.ts",
+      "productCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "sha256": "773844845d3d7b4422a75ea71a3235d53634e6d80048e415baa40b4c85e7c304",
+      "workingBytesMatchedBaseAtInspection": true,
+      "scope": "scheduled null/main/fixed-policy parser expectations"
+    },
+    {
+      "key": "MODEL",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/public/staging-admin/model.js",
+      "productCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "sha256": "b081ca833bf6fe314ec64cac2ad9616cef2928fbffc08f68f7139d88c8f9e719",
+      "workingBytesMatchedBaseAtInspection": true,
+      "scope": "current mandatory assigned-main completeness and client wallTime"
+    },
+    {
+      "key": "STUDIO",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/public/staging-admin/studio.js",
+      "productCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "sha256": "6ed21b5cb39291d635d5b73136c4f7ca13b4d2a88fdcb013fca15ff53f128817",
+      "workingBytesMatchedBaseAtInspection": true,
+      "scope": "current persisted allowlist/save/approval/preview seams"
+    },
+    {
+      "key": "AUDIENCE_DATA",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/public/staging-catalog/data.js",
+      "productCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "sha256": "9277415a391117036d4794e4b7956fd1e364d956f7f10c4b9d942ff031697a63",
+      "workingBytesMatchedBaseAtInspection": true,
+      "scope": "scheduled catalog visibility and UTC-only adapter"
+    },
+    {
+      "key": "AUDIENCE_VIEWS",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/public/staging-catalog/views.js",
+      "productCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "sha256": "8a22203cc1340c43fa6375ee98c201fa80868991825eb7ba2d2bf511ee8664f4",
+      "workingBytesMatchedBaseAtInspection": true,
+      "scope": "event-wide phase and presentation"
+    },
+    {
+      "key": "AUDIENCE_BIDDING",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/public/staging-catalog/bidding.js",
+      "productCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "sha256": "217d92033ae390b0281554e0ce7efc926f4227f40c86c8c6cb000e79af3c594e",
+      "workingBytesMatchedBaseAtInspection": true,
+      "scope": "pending/accepted/uncertain/recovery source"
+    },
+    {
+      "key": "SCHEMA_001",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/migrations/001_staging_staff.sql",
+      "productCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "sha256": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a",
+      "workingBytesMatchedBaseAtInspection": true,
+      "scope": "current event/lot/request keys and JSON boundary"
+    },
+    {
+      "key": "SCHEMA_002",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/migrations/002_staging_catalog.sql",
+      "productCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "sha256": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3",
+      "workingBytesMatchedBaseAtInspection": true,
+      "scope": "root/lot keys and phase function"
+    },
+    {
+      "key": "SCHEMA_003",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/migrations/003_staging_manual_bid.sql",
+      "productCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "sha256": "e8e985e67aa5f47df7cd9f9baf56c19fb30915fa99662b3a4e469a9a98e36cf8",
+      "workingBytesMatchedBaseAtInspection": true,
+      "scope": "preserved stable release/lot bid and standing FKs"
+    },
+    {
+      "key": "ENTRY_WRAPPER",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/src/app/events/[id]/event-access.tsx",
+      "productCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "sha256": "22cfc7a5772fb9b7528954d65c384fc92731c74f71a64c16eee8a7a667fde806",
+      "workingBytesMatchedBaseAtInspection": true,
+      "scope": "009 consumer seam, no timing identity redesign"
+    },
+    {
+      "key": "TIMING_MAP",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/docs/project-map/contracts/timing007.md",
+      "sha256": "809f799245a72fa5d8b46505c3e99b73f7ce52483a81ad7ad0e49e741aa5f16f",
+      "scope": "reviewed bounded contract; historical paused label superseded by current parent continuation",
+      "readOnlySource": true
+    },
+    {
+      "key": "PUBLICATION_MAP",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/docs/project-map/contracts/publication008.md",
+      "sha256": "bcf191642fcd47eee8518c7e8d0d949e56b243c6a80d0b8458af63caa2a45a07",
+      "scope": "only accepted predecessor/default-target/additive receipt seam",
+      "readOnlySource": true
+    },
+    {
+      "key": "DELIVERY_MAP",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/docs/project-map/contracts/DELIVERY.md",
+      "sha256": "959943ca41b478ac390543049f163f4abccf65fcee937072bead2946b1cab4eb",
+      "scope": "contract lifecycle; historic pause superseded by parent continuation",
+      "readOnlySource": true
+    },
+    {
+      "key": "TIMELINE",
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/coordination/OWNER_EVENT_TIMELINE_CORRECTION.json",
+      "sha256": "cbf4036962429620c7c035f63fbee43f60b6df95b99d4d7c180c3a80e71d771c",
+      "scope": "currentAuthority/pendingOwnerChoices/unchanged",
+      "readOnlySource": true
+    },
+    {
+      "key": "GROUPS",
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/coordination/OWNER_GROUP_SCHEDULE_DIRECTION.json",
+      "sha256": "3f509672dc088ea01e647a61134de5c755e96738733c056913a61a2fca7f33c9",
+      "scope": "ownerIntent; parent encoding provisional",
+      "readOnlySource": true
+    },
+    {
+      "key": "007_DELTA",
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/windows-007-v3-preparation/IMPACTED_CONTRACT_DELTA.md",
+      "sha256": "8dcb91e404223edf4c5e2ecde364af28cf5b9d5ad4bfe8d11a1fa2cbee499b83",
+      "scope": "all bounded affected/default/custom and immutable/authority implications",
+      "readOnlySource": true
+    },
+    {
+      "key": "007_PREP",
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/windows-publication-next/PROPOSAL.md",
+      "sha256": "703128ce7c3170fdcd9d6eba2c9394d79b402401f4df4f21d845d15157e72aac",
+      "scope": "unchanged authority/snapshot/recovery constraints only; superseded envelope/cutoffs excluded",
+      "readOnlySource": true
+    },
+    {
+      "key": "WORKSPACE",
+      "path": "/Users/jryear/code/bidzizi-event-studio-workspace/prototypes/event-studio/README.md",
+      "sha256": "b4e77fdd978084d3e6f31376f11609f9c50482cd48bfe1f38f149b51c42da9b7",
+      "scope": "steps4/5 category/bulk/group interaction only; stale Unassigned/visibility/policy excluded",
+      "readOnlySource": true
+    },
+    {
+      "key": "INTEGRATED",
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-connected-review/tests/acceptance/staging-connected-review-v2/CONTRACT.md",
+      "sha256": "9217ee60b317c862f555073f8a8efcf6954aa7af83aad6f1b48a0fce76726870",
+      "scope": "009/010 explicit future window/parser rebind and retained96 guarantee metadata, not a new run",
+      "readOnlySource": true
+    },
+    {
+      "key": "RELEASE",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-11/evidence/FINAL_RELEASE_HANDOFF.json",
+      "sha256": "0dd07f5e837c2fb06c1b058c68645ceab5730896671d51effa25a82788cd3c4f",
+      "scope": "released source and staging provenance only",
+      "readOnlySource": true
+    },
+    {
+      "key": "OLD_ACL_RECEIPT",
+      "path": "/Users/jryear/Documents/Codex/2026-10-06/task-3/connected-release-operations/evidence/migration009-attempt-01.json",
+      "sha256": "1d267fe9a9e0fbdee6054fdb8dd5871a48fb37349432e0ae58c04beefe8f52b6",
+      "scope": "existing runtime effective permission summary only; no secret or credentials",
+      "readOnlySource": true
+    },
+    {
+      "key": "ASSETS_PROPOSAL",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/docs/proposed/staff-assets/CONTRACT.md",
+      "sha256": "84eef2995bdb2a821b12b2cd067478041bf20fc0ef7da04a1f9d760b9c0d57f1",
+      "scope": "proposed lock-free nested validate and exact VIEW image contexts; unaccepted dependency",
+      "readOnlySource": true
+    },
+    {
+      "key": "A_PREVIEW_DATA",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/public/staging-bidder-preview/src/data.js",
+      "productCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "sha256": "77421d2d75f3a491e98fd3684e7668ab7a2e3032fb40becad7ed96da4f9b3a9d",
+      "workingBytesMatchedBaseAtInspection": true,
+      "scope": "actual saved/working A data adapter legacy event endpoints; no timing authority"
+    },
+    {
+      "key": "A_PREVIEW_VIEWS",
+      "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/public/staging-bidder-preview/src/views.js",
+      "productCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "sha256": "f62b698c6d14de33ffc22ed52f4c24dd08476f3cbbe90a334c30971bb607d41d",
+      "workingBytesMatchedBaseAtInspection": true,
+      "scope": "accepted actual A read-only welcome/list/detail schedule rendering"
+    }
+  ],
+  "selectedInternalSeam": "Existing JSON _timing/_origin metadata; root selected; independent review pending",
+  "newSchemaRelationsColumnsFunctionsOrGrantsProposedFor007": false,
+  "supersededUnfrozenAlternative": "Three new relations/version column and 8 table privilege pairs; not to apply",
+  "initialProductInspectionUTC": "2026-10-08T07:49:56.480391+00:00",
+  "precisionRepairs": [
+    "T-F1 exact bidder paths/DTOs and immutable receipt vs fresh standing",
+    "T-F2 public event/lot strict projection strips _timing/_origin",
+    "T-F3 create auth/request/new UUID insert exception"
+  ],
+  "productSourceBindingNote": "Pinned inspection bytes belong to committed375; root STUDIO implementation may independently change the live working tree. This packet changes no product source."
+}

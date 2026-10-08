@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "status": "DRAFT_UNFROZEN_UNEXECUTED",
+  "assertions": [
+    {
+      "id": "TIMING_NATIVE_DEFAULT_GROUP_SAVED_A",
+      "kind": "acceptance",
+      "requirement": "Automatic event-default complete items, explicit cross-date timezone, optional named group and selected bulk assignment independent of category; reload actual saved A complete known content.",
+      "observation": "Native actual UI request, known one-pass entered content, saved API, durable SQL and actual imported A data/DOM.",
+      "baselineExpectation": "Old native create reaches version1 after v1 API/SQL readiness; one coherent assertion fails at real observation, without invented downstream passes.",
+      "outlineFamilies": [
+        "T01_NATIVE_FRESH_DEFAULT",
+        "T02_GROUPS_CATEGORY_BULK",
+        "T03_TIME_VALIDATION"
+      ],
+      "completeBoundedCaseRequired": true,
+      "executed": false
+    },
+    {
+      "id": "TIMING_PREOPEN_OWN_PHASE_IMMUTABLE",
+      "kind": "acceptance",
+      "requirement": "Initial saved subset and all frozen groups; preopen VIEW catalog, phase-independent context, each own DB phase and immutable accepted receipts; private Save preserves physical published rows and bid FKs.",
+      "observation": "Independently known UTC endpoints; DB brackets/waits; actual catalog/context/standing/bids; full SQL, original receipts and pg_constraint definitions.",
+      "baselineExpectation": "Actual v2 create path absence after v1 API/SQL readiness, then abort only this coherent group.",
+      "outlineFamilies": [
+        "T04_INITIAL_SUBSET_FREEZE",
+        "T05_PREOPEN_VIEW_AND_PHASE",
+        "T06_OWN_BID_BOUNDARIES",
+        "T09_IMMUTABLE_PRIVATE_POOL"
+      ],
+      "completeBoundedCaseRequired": true,
+      "executed": false
+    },
+    {
+      "id": "TIMING_LOCAL_TIME_AND_RECOVERY",
+      "kind": "acceptance",
+      "requirement": "DST gap/fold and reversed endpoints or unknown group reject atomically; exact Save/approval retries and numbering holes; stale revision conflict; malformed marker/manifest/target503 with no fallback.",
+      "observation": "Known local inputs, full before/after SQL, immutable original bodies, test-admin corruption restored exactly in owned disposable DB plus actual receipt/catalog/detail reads.",
+      "baselineExpectation": "Actual v2 create path absence after v1 API/SQL readiness.",
+      "outlineFamilies": [
+        "T03_TIME_VALIDATION",
+        "T08_APPROVAL_AND_SAVE_RECOVERY",
+        "T12_LEGACY_AND_SOURCE_EXACT"
+      ],
+      "completeBoundedCaseRequired": true,
+      "executed": false
+    },
+    {
+      "id": "TIMING_POSTWAIT_AUTH_CLOCK",
+      "kind": "adversarial",
+      "requirement": "Save and approval session expiry after observed event-row wait require current authority and no writes; foreign staff and logged-out owned retry denied.",
+      "observation": "Real event UPDATE lock; pg_stat_activity wait observation; DB expiry; API401/403 and full durable SQL before/during/after.",
+      "baselineExpectation": "Candidate only; infrastructure/unreached lock/timeout99.",
+      "outlineFamilies": [
+        "T10_POSTWAIT_AUTH_CLOCK",
+        "T08_APPROVAL_AND_SAVE_RECOVERY"
+      ],
+      "completeBoundedCaseRequired": true,
+      "executed": false
+    },
+    {
+      "id": "TIMING_RETAINED_V1",
+      "kind": "regression",
+      "requirement": "Genuine v1 null stays unassigned/main explicit, scheduled catalog stays hidden; original approval, actual accepted legacy bid and owned retry/FKs retain meaning.",
+      "observation": "Native existing API-created v1 events, independently known full tuples; scheduled and currently open known timezone fixture, actual bid and complete SQL.",
+      "baselineExpectation": "Regression must pass on both independently selected base and candidate.",
+      "outlineFamilies": [
+        "T12_LEGACY_AND_SOURCE_EXACT"
+      ],
+      "completeBoundedCaseRequired": true,
+      "executed": false
+    },
+    {
+      "id": "TIMING_EVIDENCE_CONTROLS",
+      "kind": "regression",
+      "requirement": "Known-content, consumed-A, own-time, metadata-strip and completion oracles reject independent broken observations.",
+      "observation": "Pure JSON-clone controls against the exact imported oracle functions; reference first passes then changed observation must be rejected. No product mutant/runtime claim.",
+      "baselineExpectation": "Regression must pass on both; pure observation controls are not actual app/SQL mutant gates.",
+      "outlineFamilies": [
+        "T01_NATIVE_FRESH_DEFAULT",
+        "T05_PREOPEN_VIEW_AND_PHASE",
+        "T12_LEGACY_AND_SOURCE_EXACT"
+      ],
+      "completeBoundedCaseRequired": true,
+      "executed": false
+    }
+  ],
+  "pendingCoverage": [
+    "Native copy/default reset and referenced group deletion",
+    "Equal/malformed endpoint/timezone and partial preparation field-specific completeness",
+    "Current VIEW/BID/network revocation, existing denied/pending/recovery/refresh and session isolation bodies",
+    "Actual dropped ACK and native pending/saved preview while held",
+    "Independent browser/app clock \u00b1years control",
+    "009 entry and010 board consumer bodies under exact accepted rebind",
+    "ASSETS atomic refs once storage permission and source accepted",
+    "Full source mutant controls and runner-classification interruption controls",
+    "Owner-selected outside-event bounds, late-publication and increment/lock cases"
+  ],
+  "reviewRepairCycle": {
+    "status": "STATIC_SAME_AUTHOR_REPAIR_ONLY_NO_RUNTIME",
+    "findingIds": [
+      "E-F1",
+      "E-F2",
+      "E-F3",
+      "E-F4",
+      "E-F5",
+      "E-F6",
+      "E-F7"
+    ],
+    "normalUnavailableClassification": "Harness99 before assertion; exact applied/restored corruption exception only",
+    "liveAConsumption": "Live data.js groups export and selected visible time markup; packet mode/revision only",
+    "privateSave": "Known full API/SQL tuple, one revision+operation, frozen JSON and private visibility",
+    "acceptedBid": "Known full input tuple plus generated UUID, DB bracket and full independently keyed bid/standing SQL",
+    "PacificUTC": "Known January standard offset8 inverse in receipt/root/catalog targets",
+    "finalStrengthenings": [
+      "E-F1 same three normal healthy200 routes before injection and after exact restoration; no exception on healthy reads",
+      "E-F4 full bounded SQL snapshot after CLOSED rejection brackets accepted/owned/foreign-denial/original-approval recovery without writes"
+    ]
+  }
+}
