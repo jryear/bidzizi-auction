@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-10-09T05:02:29.739Z",
+  "checkedAt": "2026-10-09T05:18:35.381Z",
   "nodeVersion": "v24.21.0",
-  "sourceCommit": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+  "sourceCommit": "1ecd9823b837622027b24ba66fc8463ac0898ba5",
   "projectId": "prj_fy9oxz1zTFpwqLRDJONdgvjI2KNP",
   "origin": "https://staging.bidzizi.com",
   "scope": "existing synthetic demo only",
@@ -54,6 +54,84 @@
     "bz_lot_standing": {
       "count": 6,
       "sha256": "e3323bec45c522704b6c465848872c8278a2229889c178344b79e6c4338ef56b"
+    }
+  },
+  "allExistingBefore": {
+    "bz_bid_receipts": {
+      "count": 21,
+      "sha256": "25160e1f6766b90c58317427ace7cac5ad2f44f571afd66f56f55da51fd42d88"
+    },
+    "bz_business_person_memberships": {
+      "count": 12,
+      "sha256": "ab749ea1bf8e7ded0065421c91ff2ddd021b6446a43ea8543a7a0af78718113c"
+    },
+    "bz_businesses": {
+      "count": 8,
+      "sha256": "5d1b9e959cf522d3b079b8318a5706c8ab506051f5c6109ce0275a362bea1dd9"
+    },
+    "bz_catalog_approvals": {
+      "count": 6,
+      "sha256": "9a85f5cf32f7375cf62643f4d94f054c95e4502bdc2ce17ffd14cb8ea027da98"
+    },
+    "bz_catalog_lots": {
+      "count": 13,
+      "sha256": "041489caf7d443e934a9e5ff9b54805ee342614016a60002d97419dd4cfcce76"
+    },
+    "bz_demo_entry_slots": {
+      "count": 5,
+      "sha256": "a1c058d17eef04db5adaafaf2da7001df133749af701aaff522ed38c8bf9561e"
+    },
+    "bz_demo_event_entries": {
+      "count": 1,
+      "sha256": "b88c4587268a2f143c21941955bf26620f13692bc91df142bf6d9b7dbb342885"
+    },
+    "bz_event_bidder_admissions": {
+      "count": 19,
+      "sha256": "6028fb115317daeff5f3376eb42baede49ca8b319edd017aeb83317c9def6f60"
+    },
+    "bz_event_view_grants": {
+      "count": 19,
+      "sha256": "e22daa71a67a64d0538a513b9dc58a54a7650b24cccad252b015d69e4df7a20c"
+    },
+    "bz_events": {
+      "count": 10,
+      "sha256": "df6df54337bebc9985598f21d8436ea1e2020636559bf8828add9ea3fc248426"
+    },
+    "bz_lot_standing": {
+      "count": 6,
+      "sha256": "e3323bec45c522704b6c465848872c8278a2229889c178344b79e6c4338ef56b"
+    },
+    "bz_lots": {
+      "count": 34,
+      "sha256": "93baee46916196b8107ea8d954fe0da296ca0edaa7a6dff712e6adb73e782025"
+    },
+    "bz_manual_bids": {
+      "count": 16,
+      "sha256": "c796a058a5b75a1ef67bcaa7aa28c521ebdfd4ca3132f9d0518048eb63f6914e"
+    },
+    "bz_org_business_memberships": {
+      "count": 8,
+      "sha256": "3df56f117879f8bb8ef90cfb3e9442004eac2f383d0f2269a422b5c8218a6f82"
+    },
+    "bz_orgs": {
+      "count": 2,
+      "sha256": "2a4456b49937cd3ce3b04ccf33a9223cd4fc532b96b1e0e8046ccd20c75d5137"
+    },
+    "bz_people": {
+      "count": 15,
+      "sha256": "6959dcda9e35dd6def5cf94d168727fcca37a11ae8a7a9c7fc7149dd49156f81"
+    },
+    "bz_requests": {
+      "count": 38,
+      "sha256": "45163be3cec6a1ab40e3106ed4ad9fa17b82f29bbef0797d6f5b8ef88374cef4"
+    },
+    "bz_sessions": {
+      "count": 75,
+      "sha256": "45248db01765e5db60c88195d6fdfe05e4dc0831ffc130789123d9e2a12890d2"
+    },
+    "bz_staff_grants": {
+      "count": 2,
+      "sha256": "5d7aa092c228ea8b025896c6a349a8225e4e9a31f421d5b29ec27c72a9451429"
     }
   }
 }
