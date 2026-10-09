@@ -95,7 +95,7 @@ export function entryView() {
       </div>
       ${sponsors.length ? `<section class="welcome-sponsors" aria-labelledby="sponsor-title">
         <p class="lbl" id="sponsor-title">With our event sponsors</p>
-        <ul>${sponsors.map(s=>`<li>${sponsorMark(s.logo,44)}<span>${esc(s.name)}</span></li>`).join('')}</ul>
+        <ul>${sponsors.map(s=>`<li>${sponsorMark(s.logo,44,s.name)}<span>${esc(s.name)}</span></li>`).join('')}</ul>
       </section>` : ''}
       <footer class="welcome-footer"><span>BidZizi</span><button class="btn-link" data-action="welcome" data-key="welcome">A welcome from ${esc(event.host)}</button></footer>
     </div>
@@ -248,7 +248,7 @@ export function bidsView() {
 
 // ---- event / how it works ---------------------------------------------------------------------
 export function eventView() {
- return {name:'event',title:'Event',chrome:'tabs',tab:'event',html:`${pass()}<main id="main" class="eventinfo"><div class="page-head"><h1 tabindex="-1" data-key="h1">${esc(event.name)}</h1><p>${esc(event.host)} · ${esc(event.date)}</p></div><section class="prose"><h2>Event details</h2><p>${esc(event.welcome)}</p><p class="fine-print">${esc(event.venue)}</p></section><section class="prose"><h2>Draft schedule</h2><dl class="facts onpage"><div><dt>Opens</dt><dd>${esc(event.opens)} ${esc(event.timezone)}</dd></div><div><dt>Closes</dt><dd>${esc(event.version===2&&event.closeDate!==event.date?event.closeDate+' · ':'')}${esc(event.closes)} ${esc(event.timezone)}</dd></div><div><dt>Lots</dt><dd>${lots.length}</dd></div></dl><p class="fine-print">This is staff draft content. The catalog is not published and bidding is disabled.</p></section>${sponsors.length?`<section class="prose"><h2>Event sponsors</h2><ul class="sponsors">${sponsors.map(s=>`<li>${sponsorMark(s.logo,40)}<span>${esc(s.name)}</span></li>`).join('')}</ul></section>`:''}</main>`};
+ return {name:'event',title:'Event',chrome:'tabs',tab:'event',html:`${pass()}<main id="main" class="eventinfo"><div class="page-head"><h1 tabindex="-1" data-key="h1">${esc(event.name)}</h1><p>${esc(event.host)} · ${esc(event.date)}</p></div><section class="prose"><h2>Event details</h2><p>${esc(event.welcome)}</p><p class="fine-print">${esc(event.venue)}</p></section><section class="prose"><h2>Draft schedule</h2><dl class="facts onpage"><div><dt>Opens</dt><dd>${esc(event.opens)} ${esc(event.timezone)}</dd></div><div><dt>Closes</dt><dd>${esc(event.version===2&&event.closeDate!==event.date?event.closeDate+' · ':'')}${esc(event.closes)} ${esc(event.timezone)}</dd></div><div><dt>Lots</dt><dd>${lots.length}</dd></div></dl><p class="fine-print">This is staff draft content. The catalog is not published and bidding is disabled.</p></section>${sponsors.length?`<section class="prose"><h2>Event sponsors</h2><ul class="sponsors">${sponsors.map(s=>`<li>${sponsorMark(s.logo,40,s.name)}<span>${esc(s.name)}</span></li>`).join('')}</ul></section>`:''}</main>`};
 }
 
 export const views = { entry: entryView, lots: lotsView, watching: watchingView, bids: bidsView, event: eventView };

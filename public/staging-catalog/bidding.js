@@ -1,6 +1,6 @@
 // A's manual-bid interaction, using current server context and durable receipts.
 // Storage keeps an operation intent only. Acceptance is always read from the server.
-import {catalog,event,lotById,timestamp,currencyLabel,currencySymbol} from './data.js';
+import {catalog,event,lots,lotById,timestamp,currencyLabel,currencySymbol} from './data.js';
 import {state} from './store.js';
 import {esc,money,icon,monogram} from './ui.js';
 import {reconcileHTML} from './reconcile.js';
@@ -54,6 +54,7 @@ export function setContext(message){
  bidder.context=c?structuredClone(c):null;bidder.eventId=message.eventId;bidder.epoch=message.epoch;bidder.refresh=message.refresh;bidder.stale=!!message.stale||!navigator.onLine;
  const b=currentBusiness();state.identity=c&&b?{business:b.name,businessId:b.id,person:c.person.name,personId:c.person.id}:null;
  if(!c){bidder.entries.clear();sheetReturn=null;if($('#sheet')?.open)$('#sheet').close();sheet=null;}
+ if(c)for(const l of lots){const e=entryFor(l.id);if(!e.intent){e.intent=storedIntent(l.id);if(e.intent){e.mode='unconfirmed';queueMicrotask(()=>recover(l.id,false));}}}
  changed();
  if(c&&bidder.activeLot&&(actorChanged||refreshChanged))void refreshLot(bidder.activeLot,{fresh:actorChanged});
  if(sheet)renderSheet();
