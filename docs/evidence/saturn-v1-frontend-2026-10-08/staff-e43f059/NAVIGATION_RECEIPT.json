@@ -1,0 +1,38 @@
+{
+  "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+  "origin": "http://127.0.0.1:43981",
+  "eventId": "b307252b-888b-4740-9785-994ee914da52",
+  "checks": [
+    "1440 ordinary Studio link reaches recorded standing",
+    "1440 ordinary results link reaches private display",
+    "1440 ordinary display link returns to correct Studio event",
+    "1440 Back and reload revalidate real standing",
+    "390 ordinary Studio link reaches recorded standing",
+    "390 ordinary results link reaches private display",
+    "390 ordinary display link returns to correct Studio event",
+    "390 Back and reload revalidate real standing",
+    "no browser exceptions"
+  ],
+  "captures": [
+    {
+      "name": "navigation-1440.png",
+      "state": {
+        "innerWidth": 1440,
+        "innerHeight": 1120,
+        "dpr": 1,
+        "documentWidth": 1440
+      }
+    },
+    {
+      "name": "navigation-390.png",
+      "state": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "dpr": 1,
+        "documentWidth": 390
+      }
+    }
+  ],
+  "errors": [],
+  "kind": "COMBINED_LOCAL_REAL_HTTP_UI"
+}

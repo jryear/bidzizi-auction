@@ -1,0 +1,9 @@
+{
+  "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+  "checks": [
+    "actual standing CSV4969+25000 minor and recorded-standing state",
+    "actual pledge CSV12345minor/123.45/scale100/trade-dollar/pending staff settlement",
+    "immutable Casey/Juniper/recipient version1 snapshots exact"
+  ],
+  "passed": true
+}

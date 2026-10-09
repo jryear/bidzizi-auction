@@ -1,0 +1,371 @@
+{
+  "kind": "REAL_HTTP_CONNECTED_CLIENT_ADVERSARIAL",
+  "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+  "origin": "http://127.0.0.1:43981",
+  "eventId": "db6209dc-e879-41c0-818d-7938fa31c69e",
+  "checks": [
+    {
+      "name": "owned-api-fixture-published-before-open",
+      "detail": {
+        "eventId": "db6209dc-e879-41c0-818d-7938fa31c69e",
+        "opensAt": "2026-10-09T05:12:00.000Z",
+        "closesAt": "2026-10-09T05:15:00.000Z",
+        "releaseId": "c20d1048-aea4-4176-9c0c-0c8673275016"
+      }
+    },
+    {
+      "name": "server-observed-opening",
+      "detail": "2026-10-09T05:12:00.197Z"
+    },
+    {
+      "name": "bounded-owned-event-access",
+      "detail": {
+        "personId": "9e20247d-e5d4-405b-8e48-1d0bb87d041d",
+        "access": "VIEW",
+        "active": true,
+        "operation": {
+          "access": "VIEW",
+          "active": true,
+          "eventId": "db6209dc-e879-41c0-818d-7938fa31c69e",
+          "personId": "9e20247d-e5d4-405b-8e48-1d0bb87d041d",
+          "revision": 1,
+          "appliedAt": "2026-10-08T22:12:00.853677-07:00",
+          "requestId": "95410c6d-fbe8-42e0-840d-6c9068657bd4"
+        }
+      }
+    },
+    {
+      "name": "held-grant-recovery-diagnostic",
+      "detail": {
+        "context": {
+          "status": 200,
+          "data": {
+            "testMode": true,
+            "version": 2,
+            "person": {
+              "id": "9e20247d-e5d4-405b-8e48-1d0bb87d041d",
+              "name": "Devon Controls"
+            },
+            "businesses": [
+              {
+                "id": "e3650636-b139-4c7a-adc6-32b70deb5273",
+                "name": "Willow Controls",
+                "canBid": false
+              }
+            ],
+            "serverNow": "2026-10-09T05:12:08.908Z",
+            "phase": "open"
+          }
+        },
+        "receipt": {
+          "status": 403,
+          "data": {
+            "error": {
+              "code": "FORBIDDEN",
+              "message": "This action is not available to this account."
+            }
+          }
+        },
+        "frame": "Lots\nBidZizi\nWC\nWillow Controls\n01\n\nSA\nProvided by\nSaturn Barter\nCONTROLS\n\nFull amount reading\n\nSynthetic cap presentation\n\nOPENING AMOUNT\nT$9,999,750\nCLOSES\n5:15 AM\nUTC\nBidding is not available to this account.\nAbout this lot\n\nExact published cap control.\n\nGood to know\n\nSynthetic only.\n\nEvent information\n\nServer status as of Oct 9, 5:12:06 AM UTC\n\nBidding for Willow Controls · Devon Controls\nBidding is not enabledCheck your original bid\nLots\nWatching\nMy bids\nEvent\nBid not confirmed\nLOT 01 · CONTROLS\n\nFull amount reading\n\nWC\nBIDDING FOR\nWillow Controls\nPlaced by Devon Controls\nBid not confirmed\n\nWe couldn't confirm this bid. It may or may not have been recorded.\n\nCheck status",
+        "wrapper": "Staging test\nDevon Controls\nRefresh event\nSign out",
+        "flags": {
+          "context": {
+            "testMode": true,
+            "version": 2,
+            "person": {
+              "id": "9e20247d-e5d4-405b-8e48-1d0bb87d041d",
+              "name": "Devon Controls"
+            },
+            "businesses": [
+              {
+                "id": "e3650636-b139-4c7a-adc6-32b70deb5273",
+                "name": "Willow Controls",
+                "canBid": false
+              }
+            ],
+            "serverNow": "2026-10-09T05:12:06.742Z",
+            "phase": "open"
+          },
+          "entries": [
+            {
+              "id": "1911cc9e-867d-43a8-a553-05ca8e485cad",
+              "checking": false,
+              "recoveryAttempted": true,
+              "mode": "unconfirmed",
+              "intent": {
+                "requestId": "d3b46070-9864-4917-b7d9-bd3e735b95f4",
+                "businessId": "e3650636-b139-4c7a-adc6-32b70deb5273",
+                "amountMinor": 999975000,
+                "rulesetId": "saturn-trade-tiered-v1"
+              },
+              "receipt": null
+            },
+            {
+              "id": "d5f4181b-5e1e-44e5-8d4f-29b7d613e141",
+              "checking": false,
+              "recoveryAttempted": false,
+              "mode": null,
+              "intent": null,
+              "receipt": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "bounded-owned-event-access",
+      "detail": {
+        "personId": "9e20247d-e5d4-405b-8e48-1d0bb87d041d",
+        "access": "BID",
+        "active": true,
+        "operation": {
+          "access": "BID",
+          "active": true,
+          "eventId": "db6209dc-e879-41c0-818d-7938fa31c69e",
+          "personId": "9e20247d-e5d4-405b-8e48-1d0bb87d041d",
+          "revision": 2,
+          "appliedAt": "2026-10-08T22:12:09.579452-07:00",
+          "requestId": "fea048b7-0a97-4582-a59e-6a09a2fcd0c6"
+        }
+      }
+    },
+    {
+      "name": "real-cap-current-minimum-review-accepted-full-amounts",
+      "detail": true
+    },
+    {
+      "name": "real-cookie-actor-switch-held-bid-not-adopted",
+      "detail": true
+    }
+  ],
+  "receipts": [
+    {
+      "kind": "grant-original-bid",
+      "status": 201,
+      "data": {
+        "receipt": {
+          "requestId": "d3b46070-9864-4917-b7d9-bd3e735b95f4",
+          "eventId": "db6209dc-e879-41c0-818d-7938fa31c69e",
+          "releaseId": "c20d1048-aea4-4176-9c0c-0c8673275016",
+          "lotId": "1911cc9e-867d-43a8-a553-05ca8e485cad",
+          "actorId": "9e20247d-e5d4-405b-8e48-1d0bb87d041d",
+          "businessId": "e3650636-b139-4c7a-adc6-32b70deb5273",
+          "amountMinor": 999975000,
+          "rulesetId": "saturn-trade-tiered-v1",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "status": "accepted",
+          "reason": null,
+          "bidId": "1bd67e0d-1108-48c0-a267-c3a42d0526ee",
+          "decidedAt": "2026-10-09T05:12:00.788Z"
+        },
+        "standing": {
+          "releaseId": "c20d1048-aea4-4176-9c0c-0c8673275016",
+          "lotId": "1911cc9e-867d-43a8-a553-05ca8e485cad",
+          "rulesetId": "saturn-trade-tiered-v1",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "incrementMinor": 25000,
+          "amountCapMinor": 1000000000,
+          "phase": "open",
+          "currentAmountMinor": 999975000,
+          "minimumAmountMinor": 1000000000,
+          "acceptedBidCount": 1,
+          "version": 1,
+          "leadingBusiness": {
+            "id": "e3650636-b139-4c7a-adc6-32b70deb5273",
+            "name": "Willow Controls"
+          },
+          "serverNow": "2026-10-09T05:12:00.788Z",
+          "updatedAt": "2026-10-09T05:12:00.788Z",
+          "canBid": false
+        }
+      }
+    },
+    {
+      "kind": "actor-held-bid",
+      "status": 201,
+      "data": {
+        "receipt": {
+          "requestId": "c51b56fe-e422-4511-9221-e69d2a5c9e09",
+          "eventId": "db6209dc-e879-41c0-818d-7938fa31c69e",
+          "releaseId": "c20d1048-aea4-4176-9c0c-0c8673275016",
+          "lotId": "d5f4181b-5e1e-44e5-8d4f-29b7d613e141",
+          "actorId": "9e20247d-e5d4-405b-8e48-1d0bb87d041d",
+          "businessId": "e3650636-b139-4c7a-adc6-32b70deb5273",
+          "amountMinor": 100,
+          "rulesetId": "saturn-trade-tiered-v1",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "status": "accepted",
+          "reason": null,
+          "bidId": "46db0d68-e6f0-4b22-8f14-ae53260aea19",
+          "decidedAt": "2026-10-09T05:12:12.059Z"
+        },
+        "standing": {
+          "releaseId": "c20d1048-aea4-4176-9c0c-0c8673275016",
+          "lotId": "d5f4181b-5e1e-44e5-8d4f-29b7d613e141",
+          "rulesetId": "saturn-trade-tiered-v1",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "incrementMinor": 100,
+          "amountCapMinor": 1000000000,
+          "phase": "open",
+          "currentAmountMinor": 100,
+          "minimumAmountMinor": 200,
+          "acceptedBidCount": 1,
+          "version": 1,
+          "leadingBusiness": {
+            "id": "e3650636-b139-4c7a-adc6-32b70deb5273",
+            "name": "Willow Controls"
+          },
+          "serverNow": "2026-10-09T05:12:12.059Z",
+          "updatedAt": "2026-10-09T05:12:12.059Z",
+          "canBid": false
+        }
+      }
+    }
+  ],
+  "captures": [
+    {
+      "name": "PHONE_360_NEAR_CAP_PREOPEN",
+      "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+      "viewport": {
+        "width": 360,
+        "height": 844
+      },
+      "png": {
+        "width": 360,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 360,
+        "innerHeight": 745,
+        "documentWidth": 360,
+        "scrollY": 0,
+        "scrollHeight": 1455
+      }
+    },
+    {
+      "name": "PHONE_360_NEAR_CAP_REVIEW",
+      "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+      "viewport": {
+        "width": 360,
+        "height": 844
+      },
+      "png": {
+        "width": 360,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 360,
+        "innerHeight": 745,
+        "documentWidth": 360,
+        "scrollY": 0,
+        "scrollHeight": 1176
+      }
+    },
+    {
+      "name": "HELD_GRANT_RECOVERY_TIMEOUT",
+      "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+      "viewport": {
+        "width": 360,
+        "height": 844
+      },
+      "png": {
+        "width": 360,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 360,
+        "innerHeight": 745,
+        "documentWidth": 360,
+        "scrollY": 0,
+        "scrollHeight": 1186
+      }
+    },
+    {
+      "name": "PHONE_390_FULL_CAP_REVIEW",
+      "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 791,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1261
+      }
+    },
+    {
+      "name": "PHONE_390_FULL_CAP_ACCEPTED",
+      "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 791,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1307
+      }
+    },
+    {
+      "name": "PHONE_390_FULL_CAP_CURRENT",
+      "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 791,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1307
+      }
+    },
+    {
+      "name": "PHONE_360_FULL_CAP_CURRENT",
+      "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+      "viewport": {
+        "width": 360,
+        "height": 844
+      },
+      "png": {
+        "width": 360,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 360,
+        "innerHeight": 745,
+        "documentWidth": 360,
+        "scrollY": 0,
+        "scrollHeight": 1282
+      }
+    }
+  ],
+  "errors": [
+    {
+      "kind": "grant-check",
+      "message": "locator.waitFor: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('iframe').contentFrame().locator('#sheet[data-bid-state=\"accepted\"]') to be visible\u001b[22m\n"
+    },
+    {
+      "kind": "check",
+      "name": "TimeoutError",
+      "message": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('iframe').contentFrame().locator('.catalog-standing').filter({ hasText: 'You\\'re leading' }) to be visible\u001b[22m\n"
+    }
+  ]
+}

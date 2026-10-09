@@ -1,0 +1,114 @@
+{
+  "kind": "REAL_HTTP_FRESH_NATIVE_PROFILES_NOT_GLOBAL_GRANT_MANIPULATION",
+  "source": "7b920d36d2bd776c6638db3ffa36c07bbe211047",
+  "rows": [
+    {
+      "case": "distinct-business-counterpart-owned-history",
+      "source": "7b920d36d2bd776c6638db3ffa36c07bbe211047",
+      "eventId": "605b3746-0549-4a50-b520-5158ef61b00f",
+      "originalRequest": "0dcacf07-1fba-4cb1-9659-8c967d4eb6d3",
+      "originalActor": "50fc9a17-e6b5-4836-840a-ac340040cfb9",
+      "context": {
+        "status": 200,
+        "data": {
+          "testMode": true,
+          "version": 2,
+          "person": {
+            "id": "c3a04182-0033-4c8c-945a-f8ea2e539ce4",
+            "name": "Receipt Counterpart Controls"
+          },
+          "businesses": [
+            {
+              "id": "374a6e59-075e-48ed-a904-2e6af9e45b4d",
+              "name": "Willow Controls",
+              "canBid": false
+            }
+          ],
+          "serverNow": "2026-10-09T05:36:16.789Z",
+          "phase": "closed"
+        }
+      },
+      "history": {
+        "status": 200,
+        "data": {
+          "bids": [],
+          "phase": "closed",
+          "scale": 100,
+          "person": {
+            "id": "c3a04182-0033-4c8c-945a-f8ea2e539ce4",
+            "name": "Receipt Counterpart Controls"
+          },
+          "eventId": "605b3746-0549-4a50-b520-5158ef61b00f",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "releaseId": "174e852e-48f7-4ddc-a678-2f64dd629c41",
+          "rulesetId": "saturn-trade-tiered-v1",
+          "serverNow": "2026-10-08T22:36:16.794007-07:00"
+        }
+      },
+      "direct": {
+        "status": 404,
+        "data": {
+          "error": {
+            "code": "NOT_FOUND",
+            "message": "This bid receipt could not be found."
+          }
+        }
+      },
+      "pass": true
+    },
+    {
+      "case": "other-authorized-event-owned-history",
+      "source": "7b920d36d2bd776c6638db3ffa36c07bbe211047",
+      "eventId": "db6209dc-e879-41c0-818d-7938fa31c69e",
+      "originalRequest": "0dcacf07-1fba-4cb1-9659-8c967d4eb6d3",
+      "originalActor": "50fc9a17-e6b5-4836-840a-ac340040cfb9",
+      "context": {
+        "status": 200,
+        "data": {
+          "testMode": true,
+          "version": 2,
+          "person": {
+            "id": "f0a6d8dc-2cdc-412b-ad4f-2d25e2d661d1",
+            "name": "Foreign Event Controls"
+          },
+          "businesses": [
+            {
+              "id": "8ea48935-d8df-4ebd-8ff5-157b2e0b6a86",
+              "name": "Foreign Synthetic",
+              "canBid": false
+            }
+          ],
+          "serverNow": "2026-10-09T05:36:17.009Z",
+          "phase": "closed"
+        }
+      },
+      "history": {
+        "status": 200,
+        "data": {
+          "bids": [],
+          "phase": "closed",
+          "scale": 100,
+          "person": {
+            "id": "f0a6d8dc-2cdc-412b-ad4f-2d25e2d661d1",
+            "name": "Foreign Event Controls"
+          },
+          "eventId": "db6209dc-e879-41c0-818d-7938fa31c69e",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "releaseId": "c20d1048-aea4-4176-9c0c-0c8673275016",
+          "rulesetId": "saturn-trade-tiered-v1",
+          "serverNow": "2026-10-08T22:36:17.012046-07:00"
+        }
+      },
+      "direct": {
+        "status": 404,
+        "data": {
+          "error": {
+            "code": "NOT_FOUND",
+            "message": "This lot could not be found."
+          }
+        }
+      },
+      "pass": true
+    }
+  ]
+}

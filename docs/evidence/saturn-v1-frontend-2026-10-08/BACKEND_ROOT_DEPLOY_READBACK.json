@@ -1,0 +1,56 @@
+{
+  "checkedAt": "2026-10-09T05:57:08.430Z",
+  "sourceCommit": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "deploymentId": "dpl_GNwQHvqibmQMCtxPv38wik9XcUZA",
+  "projectId": "prj_fy9oxz1zTFpwqLRDJONdgvjI2KNP",
+  "origin": "https://staging.bidzizi.com",
+  "target": "production",
+  "regions": [
+    "pdx1"
+  ],
+  "generatedUrl": "bidzizi-clean-staging-gxigqlp0d-saturn-ea53.vercel.app",
+  "readyState": "READY",
+  "aliasBound": true,
+  "root": {
+    "status": 307,
+    "location": "/events/990280fa-51db-47cd-aabe-5d15bf776002"
+  },
+  "event": {
+    "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+    "status": 200,
+    "entryStatus": 200
+  },
+  "assets": [
+    {
+      "path": "/staging-catalog/bidding.js",
+      "sha256": "467d74e5150fafeba758c7142c7b3ecd7b0f403ca239b0054f259c302cdf5727",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-catalog/collections.js",
+      "sha256": "5bc7aaf7cea9972b5750440843f37690aec1559ba982966a5f628acbef64a283",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-catalog/donations.js",
+      "sha256": "c848496b37d4f62e3c368f2b3ba066efe6afc181937d6bbd77ef17a3de3b75c7",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-catalog/views.js",
+      "sha256": "057650c3c8024ffd71805a625622a124761037177edee5500bcc0823868a1334",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-catalog/styles.css",
+      "sha256": "750076efd6a3970f29f3ac25545260a1024631ee8e49aa6f5db8cb540d666292",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-admin/staff-operations.js",
+      "sha256": "fd41248982c9632c4da7754eeb9353ba0cb6cdb42a40c283beec9d15842435dd",
+      "sourceMatches": true
+    }
+  ],
+  "scope": "Existing synthetic demo; hosted whole-event rehearsal continues on this exact root-linked source."
+}

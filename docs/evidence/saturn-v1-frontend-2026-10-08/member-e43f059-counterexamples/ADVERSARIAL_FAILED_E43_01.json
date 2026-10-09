@@ -1,0 +1,128 @@
+{
+  "kind": "REAL_HTTP_CONNECTED_CLIENT_ADVERSARIAL",
+  "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+  "origin": "http://127.0.0.1:43981",
+  "eventId": "ca6de11d-4dd9-4f9a-936d-8433f705a9c5",
+  "checks": [
+    {
+      "name": "owned-api-fixture-published-before-open",
+      "detail": {
+        "eventId": "ca6de11d-4dd9-4f9a-936d-8433f705a9c5",
+        "opensAt": "2026-10-09T05:08:00.000Z",
+        "closesAt": "2026-10-09T05:11:00.000Z",
+        "releaseId": "d473bf1e-a90c-4038-9c75-c76bdefc2a22"
+      }
+    },
+    {
+      "name": "server-observed-opening",
+      "detail": "2026-10-09T05:08:00.425Z"
+    },
+    {
+      "name": "bounded-owned-event-access",
+      "detail": {
+        "personId": "e525b2bc-4922-4bd9-99a5-3fe042be72e0",
+        "access": "VIEW",
+        "active": true,
+        "operation": {
+          "access": "VIEW",
+          "active": true,
+          "eventId": "ca6de11d-4dd9-4f9a-936d-8433f705a9c5",
+          "personId": "e525b2bc-4922-4bd9-99a5-3fe042be72e0",
+          "revision": 1,
+          "appliedAt": "2026-10-08T22:08:01.089418-07:00",
+          "requestId": "7cceff7f-5903-409c-8cb9-4c486cc0aa8d"
+        }
+      }
+    }
+  ],
+  "receipts": [
+    {
+      "kind": "grant-original-bid",
+      "status": 201,
+      "data": {
+        "receipt": {
+          "requestId": "6d5db2fd-706f-4399-927d-797d8faa3f45",
+          "eventId": "ca6de11d-4dd9-4f9a-936d-8433f705a9c5",
+          "releaseId": "d473bf1e-a90c-4038-9c75-c76bdefc2a22",
+          "lotId": "08690aee-6b7e-4bd3-a7b2-1609766f11f3",
+          "actorId": "e525b2bc-4922-4bd9-99a5-3fe042be72e0",
+          "businessId": "db6facd2-907b-4c3a-8a1c-8f2ce2959cd4",
+          "amountMinor": 999975000,
+          "rulesetId": "saturn-trade-tiered-v1",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "status": "accepted",
+          "reason": null,
+          "bidId": "eb1c79f4-4619-489e-99d1-916aeeb4c9fe",
+          "decidedAt": "2026-10-09T05:08:01.024Z"
+        },
+        "standing": {
+          "releaseId": "d473bf1e-a90c-4038-9c75-c76bdefc2a22",
+          "lotId": "08690aee-6b7e-4bd3-a7b2-1609766f11f3",
+          "rulesetId": "saturn-trade-tiered-v1",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "incrementMinor": 25000,
+          "amountCapMinor": 1000000000,
+          "phase": "open",
+          "currentAmountMinor": 999975000,
+          "minimumAmountMinor": 1000000000,
+          "acceptedBidCount": 1,
+          "version": 1,
+          "leadingBusiness": {
+            "id": "db6facd2-907b-4c3a-8a1c-8f2ce2959cd4",
+            "name": "Willow Controls"
+          },
+          "serverNow": "2026-10-09T05:08:01.024Z",
+          "updatedAt": "2026-10-09T05:08:01.024Z",
+          "canBid": false
+        }
+      }
+    }
+  ],
+  "captures": [
+    {
+      "name": "PHONE_360_NEAR_CAP_PREOPEN",
+      "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+      "viewport": {
+        "width": 360,
+        "height": 844
+      },
+      "png": {
+        "width": 360,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 360,
+        "innerHeight": 745,
+        "documentWidth": 360,
+        "scrollY": 0,
+        "scrollHeight": 1455
+      }
+    },
+    {
+      "name": "PHONE_360_NEAR_CAP_REVIEW",
+      "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+      "viewport": {
+        "width": 360,
+        "height": 844
+      },
+      "png": {
+        "width": 360,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 360,
+        "innerHeight": 745,
+        "documentWidth": 360,
+        "scrollY": 0,
+        "scrollHeight": 1176
+      }
+    }
+  ],
+  "errors": [
+    {
+      "kind": "check",
+      "name": "TimeoutError",
+      "message": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('iframe').contentFrame().locator('#sheet[data-bid-state=\"accepted\"]') to be visible\u001b[22m\n"
+    }
+  ]
+}

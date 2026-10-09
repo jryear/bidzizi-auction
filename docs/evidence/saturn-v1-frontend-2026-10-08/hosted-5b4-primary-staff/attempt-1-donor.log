@@ -1,0 +1,24 @@
+PASS donation policy initial intent and effective readiness returned
+node:internal/modules/run_main:105
+    triggerUncaughtException(
+    ^
+
+locator.fill: Error: Malformed value
+Call log:
+[2m  - waiting for locator('iframe[title="BidZizi admin workspace"]').contentFrame().locator('#donation-opens')[22m
+[2m    - locator resolved to <input value="" step="0.001" id="donation-opens" type="datetime-local"/>[22m
+[2m    - fill("2026-10-09T06:07:00.000")[22m
+[2m  - attempting fill action[22m
+[2m    - waiting for element to be visible, enabled and editable[22m
+
+    at /private/tmp/saturn-staff-ui-074450/hosted-donor.mjs:12:210 {
+  log: [
+    `  - waiting for locator('iframe[title="BidZizi admin workspace"]').contentFrame().locator('#donation-opens')`,
+    '    - locator resolved to <input value="" step="0.001" id="donation-opens" type="datetime-local"/>',
+    '    - fill("2026-10-09T06:07:00.000")',
+    '  - attempting fill action',
+    '    - waiting for element to be visible, enabled and editable'
+  ]
+}
+
+Node.js v24.4.1

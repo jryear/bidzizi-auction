@@ -1,0 +1,32 @@
+{
+  "kind": "READ_ONLY_NATIVE_ORCA_STATIC_UI_SOURCE_READBACK",
+  "origin": "https://staging.bidzizi.com",
+  "page": "/events/72216e01-08c8-40ce-83c7-13a4c16a996f",
+  "deploymentRevision": "not-yet-bound",
+  "writes": false,
+  "readback": [
+    {
+      "path": "/staging-catalog/bidding.js",
+      "status": 200,
+      "bytes": 26834,
+      "sha256": "467d74e5150fafeba758c7142c7b3ecd7b0f403ca239b0054f259c302cdf5727"
+    },
+    {
+      "path": "/staging-catalog/donations.js",
+      "status": 200,
+      "bytes": 10816,
+      "sha256": "c848496b37d4f62e3c368f2b3ba066efe6afc181937d6bbd77ef17a3de3b75c7"
+    },
+    {
+      "path": "/staging-admin/studio.js",
+      "status": 200,
+      "bytes": 89630,
+      "sha256": "1d4bcfd19f17c785aec57feff43b1ffc9cf8e3f71593fbbcdfa14f7b41b8bfa0"
+    }
+  ],
+  "comparison": "All three exact hashes and lengths match backend integration source read in the same checkpoint; deployment metadata and new hosted event journeys remain pending.",
+  "observationIntervalUTC": {
+    "notBefore": "2026-10-09T05:45:46Z",
+    "notAfter": "2026-10-09T05:47:39Z"
+  }
+}

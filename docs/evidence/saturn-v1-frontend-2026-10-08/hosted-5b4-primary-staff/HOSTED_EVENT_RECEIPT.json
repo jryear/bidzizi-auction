@@ -1,0 +1,396 @@
+{
+  "source": "5b4bb79b662ec3b151b860bc22f96034e496bbc8",
+  "origin": "https://staging.bidzizi.com",
+  "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+  "schedule": {
+    "opensAt": "2026-10-09T06:07:00.000Z",
+    "closesAt": "2026-10-09T19:00:00.000Z",
+    "timezone": "America/Los_Angeles"
+  },
+  "entryUrl": "https://staging.bidzizi.com/events/990280fa-51db-47cd-aabe-5d15bf776002",
+  "releaseId": "6473508e-6d74-4579-8ca0-4dc21de32e84",
+  "rules": {
+    "scale": 100,
+    "tiers": [
+      {
+        "belowMinor": 50000,
+        "raiseMinor": 2500
+      },
+      {
+        "belowMinor": 100000,
+        "raiseMinor": 5000
+      },
+      {
+        "belowMinor": 250000,
+        "raiseMinor": 10000
+      },
+      {
+        "belowMinor": null,
+        "raiseMinor": 25000
+      }
+    ],
+    "rulesetId": "saturn-trade-tiered-v1",
+    "denomination": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+    "amountCapMinor": 1000000000
+  },
+  "publishedLots": [
+    {
+      "id": "a39d4288-c1d1-4613-be22-8258a529ab3b",
+      "title": "Cabin weekend",
+      "opening": 2501,
+      "fixedRaiseMinor": 1234
+    },
+    {
+      "id": "c468ee4e-ab08-4a32-8579-893ad47b5219",
+      "title": "Coffee ritual kit",
+      "opening": 25000,
+      "fixedRaiseMinor": null
+    }
+  ],
+  "checks": [
+    "event created through original connected Studio",
+    "saved three real uploads and explicit one-window amounts",
+    "saved native Design A preview visible",
+    "publication subset selects two of three",
+    "published subset frozen before opening",
+    "real Entry URL and QR share this event",
+    "mobile native container and page have no horizontal overflow",
+    "six original-pattern nav links reachable",
+    "reload preserves selected Items route",
+    "no browser exceptions"
+  ],
+  "captures": [
+    {
+      "name": "desktop-event-authoring.png",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "documentWidth": 1440,
+            "main": null
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/event",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "documentWidth": 1440,
+            "main": {
+              "scrollTop": 0,
+              "clientWidth": 802,
+              "scrollWidth": 802,
+              "clientHeight": 898,
+              "scrollHeight": 2126
+            }
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "clientWidth": 340,
+              "scrollWidth": 340,
+              "clientHeight": 804,
+              "scrollHeight": 804
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "desktop-saved-native-preview.png",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002&tab=lots&lot=48a470f3-c88b-4d84-86a9-7c44d3754978",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "documentWidth": 1440,
+            "main": null
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/lots/48a470f3-c88b-4d84-86a9-7c44d3754978",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "documentWidth": 1440,
+            "main": {
+              "scrollTop": 0,
+              "clientWidth": 802,
+              "scrollWidth": 802,
+              "clientHeight": 898,
+              "scrollHeight": 1996
+            }
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "clientWidth": 340,
+              "scrollWidth": 340,
+              "clientHeight": 1116,
+              "scrollHeight": 1116
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "desktop-published-entry.png",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "documentWidth": 1440,
+            "main": null
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/event",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "documentWidth": 1440,
+            "main": {
+              "scrollTop": 1283,
+              "clientWidth": 1120,
+              "scrollWidth": 1120,
+              "clientHeight": 898,
+              "scrollHeight": 2302
+            }
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "clientWidth": 0,
+              "scrollWidth": 0,
+              "clientHeight": 0,
+              "scrollHeight": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mobile-event-initial.png",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "documentWidth": 390,
+            "main": null
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/event",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "documentWidth": 390,
+            "main": {
+              "scrollTop": 0,
+              "clientWidth": 358,
+              "scrollWidth": 358,
+              "clientHeight": 316,
+              "scrollHeight": 3047
+            }
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "clientWidth": 0,
+              "scrollWidth": 0,
+              "clientHeight": 0,
+              "scrollHeight": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mobile-entry.png",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "documentWidth": 390,
+            "main": null
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/event",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "documentWidth": 390,
+            "main": {
+              "scrollTop": 2348,
+              "clientWidth": 358,
+              "scrollWidth": 358,
+              "clientHeight": 316,
+              "scrollHeight": 3047
+            }
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "clientWidth": 0,
+              "scrollWidth": 0,
+              "clientHeight": 0,
+              "scrollHeight": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mobile-items-initial.png",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002&tab=lots&lot=48a470f3-c88b-4d84-86a9-7c44d3754978",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "documentWidth": 390,
+            "main": null
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/lots",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "documentWidth": 390,
+            "main": {
+              "scrollTop": 0,
+              "clientWidth": 358,
+              "scrollWidth": 358,
+              "clientHeight": 316,
+              "scrollHeight": 2330
+            }
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "clientWidth": 0,
+              "scrollWidth": 0,
+              "clientHeight": 0,
+              "scrollHeight": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mobile-editor-controls.png",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002&tab=lots&lot=48a470f3-c88b-4d84-86a9-7c44d3754978",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "documentWidth": 390,
+            "main": null
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/lots",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "documentWidth": 390,
+            "main": {
+              "scrollTop": 1777,
+              "clientWidth": 358,
+              "scrollWidth": 358,
+              "clientHeight": 316,
+              "scrollHeight": 2330
+            }
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "clientWidth": 0,
+              "scrollWidth": 0,
+              "clientHeight": 0,
+              "scrollHeight": 0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "kind": "HOSTED_REAL_HTTP_UI",
+  "mode": "main"
+}

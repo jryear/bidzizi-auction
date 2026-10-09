@@ -1,0 +1,93 @@
+{
+  "source": "7b920d36d2bd776c6638db3ffa36c07bbe211047",
+  "eventId": "605b3746-0549-4a50-b520-5158ef61b00f",
+  "rows": [
+    {
+      "width": 360,
+      "source": "7b920d36d2bd776c6638db3ffa36c07bbe211047",
+      "eventId": "605b3746-0549-4a50-b520-5158ef61b00f",
+      "kind": "fresh-native-viewer-current-closed-standing-readback",
+      "viewport": {
+        "width": 360,
+        "height": 844
+      },
+      "png": {
+        "width": 360,
+        "height": 844
+      },
+      "metrics": {
+        "innerWidth": 360,
+        "innerHeight": 757,
+        "documentWidth": 360,
+        "scrollY": 396,
+        "scrollHeight": 1384,
+        "panel": {
+          "top": 312.609375,
+          "bottom": 520.046875,
+          "height": 207.4375
+        },
+        "footerTop": 560,
+        "text": "FINAL RECORDED STANDING\nClosed · Willow Controls led\nT$3\n\nWillow Controls\n\nAs of Oct 9, 5:33:29 AM UTC\n\nBidding closed. This recorded standing is not an award or settlement."
+      },
+      "path": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/adversarial-7b920d3-20261009052626746/CLOSED_STANDING_FULL_360.png"
+    },
+    {
+      "width": 390,
+      "source": "7b920d36d2bd776c6638db3ffa36c07bbe211047",
+      "eventId": "605b3746-0549-4a50-b520-5158ef61b00f",
+      "kind": "fresh-native-viewer-current-closed-standing-readback",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "metrics": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "documentWidth": 390,
+        "scrollY": 426,
+        "scrollHeight": 1392,
+        "panel": {
+          "top": 305.75,
+          "bottom": 515.6875,
+          "height": 209.9375
+        },
+        "footerTop": 566,
+        "text": "FINAL RECORDED STANDING\nClosed · Willow Controls led\nT$3\n\nWillow Controls\n\nAs of Oct 9, 5:33:29 AM UTC\n\nBidding closed. This recorded standing is not an award or settlement."
+      },
+      "path": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/adversarial-7b920d3-20261009052626746/CLOSED_STANDING_FULL_390.png"
+    },
+    {
+      "width": 1440,
+      "source": "7b920d36d2bd776c6638db3ffa36c07bbe211047",
+      "eventId": "605b3746-0549-4a50-b520-5158ef61b00f",
+      "kind": "fresh-native-viewer-current-closed-standing-readback",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "png": {
+        "width": 1440,
+        "height": 1000
+      },
+      "metrics": {
+        "innerWidth": 480,
+        "innerHeight": 947,
+        "documentWidth": 480,
+        "scrollY": 334,
+        "scrollHeight": 1391,
+        "panel": {
+          "top": 416.296875,
+          "bottom": 606.734375,
+          "height": 190.4375
+        },
+        "footerTop": 768,
+        "text": "FINAL RECORDED STANDING\nClosed · Willow Controls led\nT$3\n\nWillow Controls\n\nAs of Oct 9, 5:33:29 AM UTC\n\nBidding closed. This recorded standing is not an award or settlement."
+      },
+      "path": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/adversarial-7b920d3-20261009052626746/CLOSED_STANDING_FULL_1440.png"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "kind": "ACTUAL_IHDR_READBACK_OF_PRESERVED_HOSTED_CAPTURES",
+  "captures": [
+    {
+      "path": "hosted-5b4-primary-entry-phone.png",
+      "nativePNG": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "path": "hosted-5b4-primary-staff/desktop-donation-policy.png",
+      "nativePNG": {
+        "width": 1440,
+        "height": 1120
+      }
+    },
+    {
+      "path": "hosted-5b4-primary-staff/desktop-published-entry.png",
+      "nativePNG": {
+        "width": 1440,
+        "height": 1120
+      }
+    },
+    {
+      "path": "hosted-5b4-primary-staff/desktop-saved-native-preview.png",
+      "nativePNG": {
+        "width": 1440,
+        "height": 1120
+      }
+    },
+    {
+      "path": "hosted-5b4-primary-staff/mobile-donation-recipient.png",
+      "nativePNG": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "path": "hosted-5b4-primary-staff/mobile-entry.png",
+      "nativePNG": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "path": "hosted-5b4-primary-staff/mobile-items-initial.png",
+      "nativePNG": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "path": "hosted-fe13009-staff-images/desktop-event-preview-loaded.png",
+      "nativePNG": {
+        "width": 1440,
+        "height": 1120
+      }
+    },
+    {
+      "path": "hosted-fe13009-staff-images/desktop-items-preview-loaded.png",
+      "nativePNG": {
+        "width": 1440,
+        "height": 1120
+      }
+    },
+    {
+      "path": "hosted-fe13009-staff-images/mobile-items-loaded.png",
+      "nativePNG": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "path": "hosted-member-scheduled-partial/DESKTOP_WELCOME.png",
+      "nativePNG": {
+        "width": 1440,
+        "height": 1000
+      }
+    },
+    {
+      "path": "hosted-member-scheduled-partial/PHONE_CATALOG_PREOPEN.png",
+      "nativePNG": {
+        "width": 390,
+        "height": 844
+      }
+    }
+  ],
+  "note": "Match CSS/native-scroll details to the accompanying source-bound child receipts; screenshot filenames alone do not establish viewport or acceptance."
+}
