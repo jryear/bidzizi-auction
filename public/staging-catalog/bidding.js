@@ -53,14 +53,14 @@ export function setContext(message){
  const actorChanged=bidder.eventId!==message.eventId||bidder.epoch!==message.epoch||bidder.context?.person.id!==c?.person.id;
  if(nextSignature!==signature){
   ++generation;signature=nextSignature;
-  if(!actorChanged){for(const entry of bidder.entries.values()){if(entry.mode==='pending')entry.mode='unconfirmed';}}
+  if(!actorChanged){for(const entry of bidder.entries.values()){if(entry.mode==='pending')entry.mode='unconfirmed';entry.checking=false;entry.loading=false;entry.recoveryAttempted=false;++entry.sequence;}}
   if(actorChanged){bidder.entries.clear();sheetReturn=null;if($('#sheet')?.open)$('#sheet').close();sheet=null;}
  }
  const refreshChanged=bidder.refresh!==message.refresh;
  bidder.context=c?structuredClone(c):null;bidder.eventId=message.eventId;bidder.epoch=message.epoch;bidder.refresh=message.refresh;bidder.stale=!!message.stale||!navigator.onLine;
  const b=currentBusiness();state.identity=c&&b?{business:b.name,businessId:b.id,person:c.person.name,personId:c.person.id}:null;
  if(!c){bidder.entries.clear();sheetReturn=null;if($('#sheet')?.open)$('#sheet').close();sheet=null;}
- if(c)for(const l of lots){const e=entryFor(l.id);if(!e.intent){e.intent=storedIntent(l.id);if(e.intent){e.mode='unconfirmed';queueMicrotask(()=>recover(l.id,false));}}}
+ if(c)for(const l of lots){const e=entryFor(l.id);if(!e.intent){e.intent=storedIntent(l.id);if(e.intent)e.mode='unconfirmed';}if(e.intent&&!e.receipt&&!e.checking&&!e.recoveryAttempted)queueMicrotask(()=>recover(l.id,false));}
  changed();
  if(c&&bidder.activeLot&&(actorChanged||refreshChanged))void refreshLot(bidder.activeLot,{fresh:actorChanged});
  if(sheet)renderSheet();
