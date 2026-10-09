@@ -10,6 +10,8 @@ const require = createRequire('/Users/jryear/orca/workspaces/integration/saturn-
 const {chromium} = require('@playwright/test');
 const mode = process.argv[2] || 'before';
 const candidate = mode!=='before' && mode!=='deployed';
+const deployedSource = mode==='deployed' ? process.argv[3] : null;
+if(mode==='deployed')assert.match(deployedSource||'',/^[0-9a-f]{40}$/,'Exact announced deployed source required');
 const origin = 'https://staging.bidzizi.com';
 const primary = '990280fa-51db-47cd-aabe-5d15bf776002';
 const short = '9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6';
@@ -22,13 +24,24 @@ const source = execFileSync('git',['rev-parse','HEAD'],{cwd:repo,encoding:'utf8'
 const css = await readFile(repo+'public/staging-admin/studio.css','utf8');
 const moduleCSS = await readFile(repo+'src/features/staging-display-results/display-results.module.css','utf8');
 const report = {mode,source,runtime:process.version,origin,startedAt:new Date().toISOString(),
+  probeSHA256:hash(await readFile(new URL(import.meta.url))),
+  ownHead:source,productCandidate:'34b0932741231841b3007c5656680e575797ee0a',deployedSource,
+  sourceFields:'source and ownHead identify this evidence checkout; deployedSource is the separately announced actual release',
   kind:candidate?'CANDIDATE_CSS_INTERCEPTION_REAL_HOSTED_DTOS':'REAL_HOSTED_READ_ONLY_RENDER',
-  cssHash:hash(css),moduleHash:hash(moduleCSS),served:[],rows:[],checks:[],errors:[],blockedWrites:[],interceptions:[]};
+  cssHash:hash(css),moduleHash:hash(moduleCSS),served:[],compiledCSS:[],rows:[],checks:[],errors:[],blockedWrites:[],interceptions:[]};
 const browser = await chromium.launch();
 const context = await browser.newContext({viewport:{width:1440,height:1120},deviceScaleFactor:1});
 const page = await context.newPage();
 page.setDefaultTimeout(18000);
 page.on('pageerror', e=>report.errors.push(e.message));
+const observedCSS=[];
+page.on('response',response=>{
+  const path=new URL(response.url()).pathname;
+  if(mode==='deployed' && path.startsWith('/_next/') && path.endsWith('.css'))observedCSS.push((async()=>{
+    const body=await response.body();
+    if(body.toString().includes('display-results-module'))report.compiledCSS.push({path,status:response.status(),sha256:hash(body)});
+  })().catch(error=>report.errors.push('CSS observation: '+error.message)));
+});
 await context.route('**/*', async route => {
   const request = route.request(), path = new URL(request.url()).pathname;
   if (!['GET','HEAD'].includes(request.method()) && !['/api/test-auth/login','/api/session/logout'].includes(path)) {
@@ -92,6 +105,7 @@ try {
   for(const path of ['/staging-admin/studio.css','/staging-admin/studio.js']) {
     const response=await context.request.get(origin+path);assert.equal(response.status(),200);
     report.served.push({path,sha256:hash(await response.body())});
+    if(mode==='deployed'&&path.endsWith('studio.css'))assert.equal(report.served.at(-1).sha256,hash(css));
   }
   for (const width of mode.startsWith('focused')?[]:[1440,390,360]) {
     await page.setViewportSize({width,height:width===1440?1120:844});
@@ -102,6 +116,7 @@ try {
       if(view==='bidders'||view==='donations')await frame.locator('#operations-status').filter({hasText:'Confirmed staff read'}).waitFor();
       await frame.locator('#main').evaluate(e=>e.scrollTop=0);
       await capture(view,width,frame,primary);
+      if(mode==='deployed'&&width!==1440)assert.equal(await frame.locator('#main').evaluate(e=>e.clientHeight),379);
       const main=frame.locator('#main');
       await main.evaluate(e=>e.scrollTop=e.scrollHeight);
       const scroll=await main.evaluate(e=>({scrollTop:e.scrollTop,scrollHeight:e.scrollHeight,clientHeight:e.clientHeight}));
@@ -112,6 +127,7 @@ try {
     for (const view of ['results','display']) {
       await page.goto(`${origin}/events/${short}/${view}`);
       await page.locator('main[data-state="current"]').waitFor();
+      if(mode==='deployed'&&width!==1440)assert.equal(await page.locator('h1').evaluate(e=>getComputedStyle(e).fontSize),'32px');
       await capture(view,width,page,short);
       const amounts=await page.locator('[data-current-amount]').allTextContents();
       assert.deepEqual(amounts,['T$62.03','T$250.00']);
@@ -147,7 +163,7 @@ try {
   await capture('keyboard-focus',390,frame,primary,'work');
   const touch=await frame.locator('.tabs a,.bar-actions .btn').evaluateAll(es=>es.filter(e=>!e.disabled).map(e=>({text:e.textContent,height:e.getBoundingClientRect().height})));
   report.checks.push({touchTargets:touch});
-  if(candidate)assert.ok(touch.every(e=>e.height>=44));
+  if(candidate||mode==='deployed')assert.ok(touch.every(e=>e.height>=44));
   await frame.getByRole('link',{name:'Recorded standing',exact:true}).click();
   await page.locator('main[data-state="current"]').waitFor();
   const primaryAmounts=await page.locator('[data-current-amount]').allTextContents();
@@ -198,6 +214,8 @@ try {
   await denied.screenshot({path:out+'/denied-display-390.png'});
   report.checks.push({denied:'Fresh anonymous browser real access refusal; no private rows or amounts; no overflow'});
   await anon.close();
+  await Promise.all(observedCSS);
+  if(mode==='deployed'){assert.deepEqual(report.interceptions,[]);assert.ok(report.compiledCSS.length>0);}
   assert.deepEqual(report.errors,[]);assert.deepEqual(report.blockedWrites,[]);
 } catch(error) {
   report.failure=String(error);process.exitCode=1;
