@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
-import {writeFile} from 'node:fs/promises';
+import {readFile,writeFile} from 'node:fs/promises';
 const [source,deploymentId,filename]=process.argv.slice(2);
 const origin='https://staging.bidzizi.com';
 const projectId='prj_fy9oxz1zTFpwqLRDJONdgvjI2KNP';
@@ -22,6 +22,7 @@ try{
  assert.equal(alias.alias,'staging.bidzizi.com');assert.equal(alias.projectId,projectId);assert.equal(alias.deploymentId,deploymentId);
  const paths=['/staging-catalog/bidding.js','/staging-catalog/collections.js','/staging-catalog/donations.js',
   '/staging-catalog/views.js','/staging-catalog/styles.css','/staging-admin/staff-operations.js','/staging-admin/styles.css',
+  '/staging-admin/studio.css','/staging-admin/studio.js',
   '/staging-bidder-preview/styles.css','/staging-bidder-preview/src/views.js'];
  const assets=[];
  for(const path of paths){
@@ -42,15 +43,33 @@ try{
  }
  const session=await (await fetch(origin+'/api/session',{cache:'no-store'})).json();
  assert.equal(session.testMode,true);assert.equal(session.authenticated,false);
+ // The results module is compiled by Next. Bind the actual served stylesheet to
+ // this source's successful local build, separately from raw public assets.
+ execFileSync('git',['diff','--quiet',source,'--','src','package.json','pnpm-lock.yaml']);
+ const resultsResponse=await fetch(origin+'/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/results',{cache:'no-store'});
+ assert.equal(resultsResponse.status,200);
+ const resultsHTML=await resultsResponse.text();
+ const cssPaths=[...new Set([...resultsHTML.matchAll(/href="([^" ]+\.css(?:\?[^" ]*)?)"/g)].map(match=>new URL(match[1],origin).pathname))];
+ const compiledStyles=[];
+ for(const path of cssPaths){
+  if(!path.startsWith('/_next/static/'))continue;
+  const response=await fetch(origin+path,{cache:'no-store'});assert.equal(response.status,200);
+  const bytes=Buffer.from(await response.arrayBuffer());
+  if(!bytes.toString().includes('display-results'))continue;
+  const expected=await readFile('.next/'+path.slice('/_next/'.length));assert.ok(bytes.equals(expected));
+  assert.match(bytes.toString(),/font-size:32px/);
+  compiledStyles.push({path,sha256:createHash('sha256').update(bytes).digest('hex'),localBuiltSourceMatches:true});
+ }
+ assert.ok(compiledStyles.length>0);
  for(const path of ['/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/results','/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/donations']){
   const response=await fetch(origin+path,{cache:'no-store'});assert.ok([401,403,404].includes(response.status));routes.push({path,status:response.status,anonymousPrivateDenial:true});
  }
  const report={checkedAt:new Date().toISOString(),readOnly:true,canonicalMain,sourceCommit:source,deploymentId,projectId,origin,
   target:deployment.target,regions:deployment.regions,generatedUrl:deployment.url,readyState:deployment.readyState,aliasBound:true,
-  root:{status:root.status,location:root.headers.get('location')},assets,routes,
+  root:{status:root.status,location:root.headers.get('location')},assets,compiledStyles,routes,
   scope:'Exact existing synthetic demo deployment, actual alias/source/served bytes and anonymous real paths; no sign-in or data writes. Rendered successor verification is separately owned by frontend.'};
  const path='docs/evidence/overnight-release/'+filename;
- await writeFile(path,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({path,source,deploymentId,readyState:report.readyState,aliasBound:true,servedAssets:assets.length,realRoutes:routes.length}));
+ await writeFile(path,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({path,source,deploymentId,readyState:report.readyState,aliasBound:true,servedAssets:assets.length,compiledStyles:compiledStyles.length,realRoutes:routes.length}));
 }catch(error){
  console.error(error instanceof assert.AssertionError?'Observed demo release binding/byte/path mismatch; private inputs withheld.':'Demo readback harness/provider setup failed; private inputs withheld.');
  process.exitCode=error instanceof assert.AssertionError?1:99;

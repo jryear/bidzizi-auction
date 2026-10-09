@@ -1,0 +1,438 @@
+{
+  "mode": "focused-3",
+  "source": "e026ce6bd5a72b63de38cabd0cada94ba26e8443",
+  "runtime": "v24.4.1",
+  "origin": "https://staging.bidzizi.com",
+  "startedAt": "2026-10-09T06:49:08.507Z",
+  "kind": "CANDIDATE_CSS_INTERCEPTION_REAL_HOSTED_DTOS",
+  "cssHash": "b3b768378ae368bc0093c70924357a82d2091088780fedbaa2445524de08682b",
+  "moduleHash": "2c19bcad5cc23a2d2d2747f4c8a86dfa0a70544325195ed76e0bb6977198c927",
+  "served": [
+    {
+      "path": "/staging-admin/studio.css",
+      "sha256": "7f08e1e62a5c3a9362f1f2df483104150faab3c461489699b8b39cdfac4b9a4d"
+    },
+    {
+      "path": "/staging-admin/studio.js",
+      "sha256": "1d4bcfd19f17c785aec57feff43b1ffc9cf8e3f71593fbbcdfa14f7b41b8bfa0"
+    }
+  ],
+  "rows": [
+    {
+      "view": "keyboard-focus",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "position": "work",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 16,
+          "y": 423.75,
+          "width": 358,
+          "height": 379.203125,
+          "scrollTop": 404,
+          "scrollHeight": 2251,
+          "clientHeight": 379,
+          "scrollWidth": 358,
+          "clientWidth": 358
+        },
+        "chrome": {
+          "sidebar": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 188
+          },
+          "top": {
+            "x": 0,
+            "y": 188,
+            "width": 390,
+            "height": 34
+          },
+          "bar": {
+            "x": 0,
+            "y": 222,
+            "width": 390,
+            "height": 193.75
+          },
+          "hero": null,
+          "notice": {
+            "x": 16,
+            "y": 19.75,
+            "width": 355,
+            "height": 20
+          }
+        },
+        "firstWork": {
+          "x": 16,
+          "y": 419.359375,
+          "width": 355,
+          "height": 118
+        },
+        "amounts": [
+          "T$25.01",
+          "T$250.00",
+          "T$35.00"
+        ],
+        "text": "Published terms are fixed.\n\nApproved catalog\n\nHoliday Trade Show · Saturn V1 Demo · saved revision 2 · 2 lots\n\nOctober 8, 2026 · 11:07 PM to October 9, 2026 · 12:00 PM America/Los_Angeles\n\nView approved lots\nItems\n\n3 items · working catalog\n\n+ Add item\nSearch your lots\nITEM\nSELECT ALL\nSelect lot 01\n01\nCabin weekend\nGetaways\nT$25.01\nShared event window\nSelect lot 02\n02\nCoffee ritual kit\nHome\nT$250.00\nShared event window\nSelect lot 03\n03\nSpring flowers\nGarden\nT$35.00\nShared event window\nEditing item 01\nView in preview\nUpload item photo\nItem title\nShort description\nDescription\nCategory\nOpening amount · synthetic trade dollars\nFixed raise override · optional\nPhoto and item details\nPhoto description\nIncluded\nImportant details\nDuplicate lot\n↑\n↓\nCatalog order · 1 of 3\nEvent setup\n\nSaved revision 2. One explicit window and tiered synthetic trade-dollar rules.\n\nWelcome and timing\n3 saved items\nPublished catalog\n✓\nNew bidder entry\n\nEntry enabled · revision 1. New synthetic attendees can create their own private demo profile.",
+        "title": "Holiday Trade Show · Saturn V1 Demo",
+        "images": [
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "width": 1000,
+            "height": 667
+          },
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+            "width": 1000,
+            "height": 667
+          },
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+            "width": 1000,
+            "height": 667
+          }
+        ],
+        "classes": [
+          "top",
+          "",
+          "workspace no-preview"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/focused-3/keyboard-focus-390-work.png",
+      "png": {
+        "width": 390,
+        "height": 844,
+        "sha256": "2cd58a3368918847f5029ee312354b3a7c36e44306ca4b890a0982f0b7ef072e"
+      }
+    },
+    {
+      "view": "primary-open-results",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "position": "top",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 1398.078125,
+          "scrollTop": 0,
+          "scrollHeight": 1398,
+          "clientHeight": 1398,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "chrome": {
+          "sidebar": null,
+          "top": null,
+          "bar": null,
+          "hero": null,
+          "notice": {
+            "x": 20,
+            "y": 468.984375,
+            "width": 350,
+            "height": 124.25
+          }
+        },
+        "firstWork": {
+          "x": 20,
+          "y": 719.578125,
+          "width": 350,
+          "height": 247.1875
+        },
+        "state": "current",
+        "amounts": [
+          "T$80.00",
+          "T$250.00"
+        ],
+        "text": "BidZizi\nPRIVATE STAFF STANDING\nEvent Studio\nPrivate display\n\nSATURN BARTER\n\nHoliday Trade Show · Saturn V1 Demo\n\nBrowse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\n\nHoliday Trade Show · synthetic rehearsal\n\nFROZEN OPENING\nOct 8, 2026, 11:07:00 PM PDT\nFROZEN CLOSING\nOct 9, 2026, 12:00:00 PM PDT\nTIME ZONE\nAmerica/Los_Angeles\nopen · confirmed staff read\n\nAs of Oct 8, 2026, 11:49:10 PM PDT\n\nRefresh standing\nRecorded lot standing\nDownload CSV\n\nLOT\nPUBLISHED ITEM\nACCEPTED AMOUNT\nSTANDING AND BUSINESS\n01\nCabin weekend\nGetaways\nT$80.00\nCurrent recorded standing\n\nJ\n\n4 accepted bids · version 4\n\nLast accepted change: Oct 8, 2026, 11:40:59 PM PDT\n\n02\nCoffee ritual kit\nHome\nT$250.00\nCurrent recorded standing\n\nJuniper Hosted Synthetic\n\n1 accepted bid · version 1\n\nLast accepted change: Oct 8, 2026, 11:08:09 PM PDT\n\nPrivate staff access · Published catalog is separate from draft preview.\n\nSynthetic Saturn trade dollars · Recorded amounts are for this published catalog.\n\nRecorded standing is not an award or finalization. No payment or settlement occurs here.",
+        "title": "Holiday Trade Show · Saturn V1 Demo",
+        "images": [],
+        "classes": [
+          "display-results-module__uP49Nq__board",
+          "display-results-module__uP49Nq__topbar",
+          "",
+          "display-results-module__uP49Nq__schedule"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/focused-3/primary-open-results-390-top.png",
+      "png": {
+        "width": 390,
+        "height": 844,
+        "sha256": "817efe9e65125bf01c4830dea622a2d79727a4cfd7a2be0ac2a12667669c31fb"
+      }
+    },
+    {
+      "view": "stale-results",
+      "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "position": "work",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 196,
+        "main": {
+          "x": 0,
+          "y": -196,
+          "width": 390,
+          "height": 1471.625,
+          "scrollTop": 0,
+          "scrollHeight": 1472,
+          "clientHeight": 1472,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "chrome": {
+          "sidebar": null,
+          "top": null,
+          "bar": null,
+          "hero": null,
+          "notice": {
+            "x": 20,
+            "y": 307.53125,
+            "width": 350,
+            "height": 163.25
+          }
+        },
+        "firstWork": {
+          "x": 20,
+          "y": 597.125,
+          "width": 350,
+          "height": 247.1875
+        },
+        "state": "stale",
+        "amounts": [
+          "T$62.03",
+          "T$250.00"
+        ],
+        "text": "BidZizi\nPRIVATE STAFF STANDING\nEvent Studio\nPrivate display\n\nSATURN BARTER\n\nHoliday Trade Show · Saturn V1 Short Rehearsal\n\nBrowse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\n\nHoliday Trade Show · synthetic rehearsal\n\nFROZEN OPENING\nOct 8, 2026, 11:06:00 PM PDT\nFROZEN CLOSING\nOct 8, 2026, 11:16:00 PM PDT\nTIME ZONE\nAmerica/Los_Angeles\nStale · last confirmed data\n\nAs of Oct 8, 2026, 11:49:12 PM PDT\n\nRefresh failed. Any retained amounts are from the dated, last confirmed read.\n\nRefresh standing\nRecorded lot standing\nDownload CSV\n\nLOT\nPUBLISHED ITEM\nACCEPTED AMOUNT\nSTANDING AND BUSINESS\n01\nCabin weekend\nGetaways\nT$62.03\nClosed recorded standing\n\nSpruce Hosted Recovery Synthetic\n\n4 accepted bids · version 4\n\nLast accepted change: Oct 8, 2026, 11:08:57 PM PDT\n\n02\nCoffee ritual kit\nHome\nT$250.00\nClosed recorded standing\n\nWillow Hosted Closing Synthetic\n\n1 accepted bid · version 1\n\nLast accepted change: Oct 8, 2026, 11:06:45 PM PDT\n\nPrivate staff access · Published catalog is separate from draft preview.\n\nSynthetic Saturn trade dollars · Recorded amounts are for this published catalog.\n\nRecorded standing is not an award or finalization. No payment or settlement occurs here.",
+        "title": "Holiday Trade Show · Saturn V1 Short Rehearsal",
+        "images": [],
+        "classes": [
+          "display-results-module__uP49Nq__board",
+          "display-results-module__uP49Nq__topbar",
+          "",
+          "display-results-module__uP49Nq__schedule"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/focused-3/stale-results-390-work.png",
+      "png": {
+        "width": 390,
+        "height": 844,
+        "sha256": "77a04cb54ddd22d1ee7185402e54e015a6b4922c3e9d730f2f1c61c204541390"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "keyboardFocusBeforeScroll": {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "outline": "rgb(35, 56, 199)",
+        "outlineWidth": "3px",
+        "visible": true,
+        "scrollTop": 0
+      }
+    },
+    {
+      "keyboardFocus": {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "outline": "rgb(35, 56, 199)",
+        "outlineWidth": "3px",
+        "visible": true,
+        "scrollTop": 0
+      },
+      "pageDownMainScroll": 15,
+      "filter": "Cabin local filter restored without save"
+    },
+    {
+      "touchTargets": [
+        {
+          "text": "Items 3",
+          "height": 44
+        },
+        {
+          "text": "Event & entry",
+          "height": 44
+        },
+        {
+          "text": "Bidders",
+          "height": 44
+        },
+        {
+          "text": "Donation pledges",
+          "height": 44
+        },
+        {
+          "text": "Recorded standing",
+          "height": 44
+        },
+        {
+          "text": "Private display",
+          "height": 44
+        },
+        {
+          "text": "Bidder preview",
+          "height": 44
+        }
+      ]
+    },
+    {
+      "primaryOpenRead": {
+        "serverNow": "2026-10-09T06:49:10.740Z",
+        "phase": "open",
+        "amountsMinor": [
+          8000,
+          25000
+        ],
+        "amounts": [
+          "T$80.00",
+          "T$250.00"
+        ]
+      }
+    },
+    {
+      "nativeNavigation": "Studio to exact primary results; reload amounts unchanged; Back and Studio reload retain same event"
+    },
+    {
+      "stale": "Injected GET failure retains dated exact amounts, marks both stale, disables CSV; explicit retry restores current"
+    },
+    {
+      "denied": "Fresh anonymous browser real access refusal; no private rows or amounts; no overflow"
+    }
+  ],
+  "errors": [],
+  "blockedWrites": [],
+  "interceptions": [
+    {
+      "path": "/staging-admin/studio.css",
+      "hash": "b3b768378ae368bc0093c70924357a82d2091088780fedbaa2445524de08682b"
+    },
+    {
+      "path": "/_next/static/immutable/chunks/0mctoinacv-cs.css",
+      "baseHash": "cb9742cd6591fd331078fe74fa8a301b05f167605eee945c2380bbfb877a8ce6",
+      "mapping": {
+        "board": "display-results-module__uP49Nq__board",
+        "topbar": "display-results-module__uP49Nq__topbar",
+        "wordmark": "display-results-module__uP49Nq__wordmark",
+        "content": "display-results-module__uP49Nq__content",
+        "hero": "display-results-module__uP49Nq__hero",
+        "kicker": "display-results-module__uP49Nq__kicker",
+        "eyebrow": "display-results-module__uP49Nq__eyebrow",
+        "welcome": "display-results-module__uP49Nq__welcome",
+        "venue": "display-results-module__uP49Nq__venue",
+        "sponsors": "display-results-module__uP49Nq__sponsors",
+        "schedule": "display-results-module__uP49Nq__schedule",
+        "notice": "display-results-module__uP49Nq__notice",
+        "displayLots": "display-results-module__uP49Nq__displayLots",
+        "results": "display-results-module__uP49Nq__results",
+        "lot": "display-results-module__uP49Nq__lot",
+        "number": "display-results-module__uP49Nq__number",
+        "lotImage": "display-results-module__uP49Nq__lotImage",
+        "lotText": "display-results-module__uP49Nq__lotText",
+        "standing": "display-results-module__uP49Nq__standing",
+        "amount": "display-results-module__uP49Nq__amount",
+        "noBid": "display-results-module__uP49Nq__noBid",
+        "unavailable": "display-results-module__uP49Nq__unavailable",
+        "readTime": "display-results-module__uP49Nq__readTime",
+        "tableNumber": "display-results-module__uP49Nq__tableNumber",
+        "tableLot": "display-results-module__uP49Nq__tableLot",
+        "empty": "display-results-module__uP49Nq__empty",
+        "footer": "display-results-module__uP49Nq__footer",
+        "exportActions": "display-results-module__uP49Nq__exportActions"
+      },
+      "candidateHash": "2c19bcad5cc23a2d2d2747f4c8a86dfa0a70544325195ed76e0bb6977198c927"
+    },
+    {
+      "path": "/_next/static/immutable/chunks/0mctoinacv-cs.css",
+      "baseHash": "cb9742cd6591fd331078fe74fa8a301b05f167605eee945c2380bbfb877a8ce6",
+      "mapping": {
+        "board": "display-results-module__uP49Nq__board",
+        "topbar": "display-results-module__uP49Nq__topbar",
+        "wordmark": "display-results-module__uP49Nq__wordmark",
+        "content": "display-results-module__uP49Nq__content",
+        "hero": "display-results-module__uP49Nq__hero",
+        "kicker": "display-results-module__uP49Nq__kicker",
+        "eyebrow": "display-results-module__uP49Nq__eyebrow",
+        "welcome": "display-results-module__uP49Nq__welcome",
+        "venue": "display-results-module__uP49Nq__venue",
+        "sponsors": "display-results-module__uP49Nq__sponsors",
+        "schedule": "display-results-module__uP49Nq__schedule",
+        "notice": "display-results-module__uP49Nq__notice",
+        "displayLots": "display-results-module__uP49Nq__displayLots",
+        "results": "display-results-module__uP49Nq__results",
+        "lot": "display-results-module__uP49Nq__lot",
+        "number": "display-results-module__uP49Nq__number",
+        "lotImage": "display-results-module__uP49Nq__lotImage",
+        "lotText": "display-results-module__uP49Nq__lotText",
+        "standing": "display-results-module__uP49Nq__standing",
+        "amount": "display-results-module__uP49Nq__amount",
+        "noBid": "display-results-module__uP49Nq__noBid",
+        "unavailable": "display-results-module__uP49Nq__unavailable",
+        "readTime": "display-results-module__uP49Nq__readTime",
+        "tableNumber": "display-results-module__uP49Nq__tableNumber",
+        "tableLot": "display-results-module__uP49Nq__tableLot",
+        "empty": "display-results-module__uP49Nq__empty",
+        "footer": "display-results-module__uP49Nq__footer",
+        "exportActions": "display-results-module__uP49Nq__exportActions"
+      },
+      "candidateHash": "2c19bcad5cc23a2d2d2747f4c8a86dfa0a70544325195ed76e0bb6977198c927"
+    },
+    {
+      "path": "/staging-admin/studio.css",
+      "hash": "b3b768378ae368bc0093c70924357a82d2091088780fedbaa2445524de08682b"
+    },
+    {
+      "path": "/staging-admin/studio.css",
+      "hash": "b3b768378ae368bc0093c70924357a82d2091088780fedbaa2445524de08682b"
+    },
+    {
+      "path": "/_next/static/immutable/chunks/0mctoinacv-cs.css",
+      "baseHash": "cb9742cd6591fd331078fe74fa8a301b05f167605eee945c2380bbfb877a8ce6",
+      "mapping": {
+        "board": "display-results-module__uP49Nq__board",
+        "topbar": "display-results-module__uP49Nq__topbar",
+        "wordmark": "display-results-module__uP49Nq__wordmark",
+        "content": "display-results-module__uP49Nq__content",
+        "hero": "display-results-module__uP49Nq__hero",
+        "kicker": "display-results-module__uP49Nq__kicker",
+        "eyebrow": "display-results-module__uP49Nq__eyebrow",
+        "welcome": "display-results-module__uP49Nq__welcome",
+        "venue": "display-results-module__uP49Nq__venue",
+        "sponsors": "display-results-module__uP49Nq__sponsors",
+        "schedule": "display-results-module__uP49Nq__schedule",
+        "notice": "display-results-module__uP49Nq__notice",
+        "displayLots": "display-results-module__uP49Nq__displayLots",
+        "results": "display-results-module__uP49Nq__results",
+        "lot": "display-results-module__uP49Nq__lot",
+        "number": "display-results-module__uP49Nq__number",
+        "lotImage": "display-results-module__uP49Nq__lotImage",
+        "lotText": "display-results-module__uP49Nq__lotText",
+        "standing": "display-results-module__uP49Nq__standing",
+        "amount": "display-results-module__uP49Nq__amount",
+        "noBid": "display-results-module__uP49Nq__noBid",
+        "unavailable": "display-results-module__uP49Nq__unavailable",
+        "readTime": "display-results-module__uP49Nq__readTime",
+        "tableNumber": "display-results-module__uP49Nq__tableNumber",
+        "tableLot": "display-results-module__uP49Nq__tableLot",
+        "empty": "display-results-module__uP49Nq__empty",
+        "footer": "display-results-module__uP49Nq__footer",
+        "exportActions": "display-results-module__uP49Nq__exportActions"
+      },
+      "candidateHash": "2c19bcad5cc23a2d2d2747f4c8a86dfa0a70544325195ed76e0bb6977198c927"
+    }
+  ],
+  "logoutStatus": 200,
+  "cleanup": "Owned context and browser closed; no app/database/harness started",
+  "completedAt": "2026-10-09T06:49:14.132Z"
+}

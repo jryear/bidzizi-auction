@@ -1,0 +1,39 @@
+{
+  "checkedAt": "2026-10-09T07:09:22.592048+00:00",
+  "sourceCommit": "3a4ab2b83b3255aae6449b5daeb2a8a64029e282",
+  "originalHostedSource": "e026ce6bd5a72b63de38cabd0cada94ba26e8443",
+  "productRef": "34b0932741231841b3007c5656680e575797ee0a",
+  "evidenceRef": "edfada68cf089ecac70c6ba8260eb16bc07d848e",
+  "node": "24.21.0",
+  "pnpm": "12.4.2",
+  "typecheckExit": 0,
+  "buildExit": 0,
+  "readbackHelperSyntaxExit": 0,
+  "sourceBaseAndCandidateHashesMatched": true,
+  "independentlyMatchedArtifacts": 85,
+  "productDelta": {
+    "files": [
+      "public/staging-admin/studio.css",
+      "src/features/staging-display-results/display-results.module.css"
+    ],
+    "insertions": 42,
+    "scope": "Phone CSS only; no server, route, authority, data, package or migration changes"
+  },
+  "unchangedProtectedPaths": [
+    "src/server",
+    "src/app/api",
+    "migrations",
+    "package.json",
+    "pnpm-lock.yaml",
+    "tasks",
+    "src/lib/database.ts"
+  ],
+  "canonicalMainBeforePush": "e026ce6bd5a72b63de38cabd0cada94ba26e8443",
+  "githubGates": {
+    "mainProtected": false,
+    "rulesets": [],
+    "checkRunCount": 0
+  },
+  "scope": "Combined-source focused build and source/evidence review, not deployed/visual acceptance or a new frozen-contract claim",
+  "remaining": "Actual existing demo deployment/source/alias/compiled CSS readback and affected phone/desktop renders; Junior holds Claude auth-blocked independent review"
+}
