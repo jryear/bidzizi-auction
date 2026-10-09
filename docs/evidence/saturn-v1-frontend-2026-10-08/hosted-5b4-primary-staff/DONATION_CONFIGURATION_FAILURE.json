@@ -1,0 +1,11 @@
+{
+  "source": "5b4bb79b662ec3b151b860bc22f96034e496bbc8",
+  "origin": "https://staging.bidzizi.com",
+  "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+  "checks": [
+    "donation policy initial intent and effective readiness returned"
+  ],
+  "captures": [],
+  "errors": [],
+  "error": "Error: locator.fill: Error: Malformed value\nCall log:\n\u001b[2m  - waiting for locator('iframe[title=\"BidZizi admin workspace\"]').contentFrame().locator('#donation-opens')\u001b[22m\n\u001b[2m    - locator resolved to <input value=\"\" step=\"0.001\" id=\"donation-opens\" type=\"datetime-local\"/>\u001b[22m\n\u001b[2m    - fill(\"2026-10-09T06:07:00.000\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and editable\u001b[22m\n"
+}

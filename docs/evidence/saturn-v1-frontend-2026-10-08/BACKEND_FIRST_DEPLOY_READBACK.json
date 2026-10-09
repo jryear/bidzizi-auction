@@ -1,0 +1,99 @@
+{
+  "checkedAt": "2026-10-09T05:48:49.179Z",
+  "sourceCommit": "5b4bb79b662ec3b151b860bc22f96034e496bbc8",
+  "nodeVersion": "v24.21.0",
+  "projectId": "prj_fy9oxz1zTFpwqLRDJONdgvjI2KNP",
+  "deploymentId": "dpl_4qotoD8ENe37gPRWePY9Afjc7NF1",
+  "origin": "https://staging.bidzizi.com",
+  "target": "production",
+  "scope": "Existing synthetic demo only",
+  "generatedUrl": "bidzizi-clean-staging-1mroufnmj-saturn-ea53.vercel.app",
+  "regions": [
+    "pdx1"
+  ],
+  "aliasBound": true,
+  "readyState": "READY",
+  "assets": [
+    {
+      "path": "/staging-catalog/bidding.js",
+      "status": 200,
+      "sha256": "467d74e5150fafeba758c7142c7b3ecd7b0f403ca239b0054f259c302cdf5727",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-catalog/collections.js",
+      "status": 200,
+      "sha256": "5bc7aaf7cea9972b5750440843f37690aec1559ba982966a5f628acbef64a283",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-catalog/donations.js",
+      "status": 200,
+      "sha256": "c848496b37d4f62e3c368f2b3ba066efe6afc181937d6bbd77ef17a3de3b75c7",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-catalog/views.js",
+      "status": 200,
+      "sha256": "057650c3c8024ffd71805a625622a124761037177edee5500bcc0823868a1334",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-catalog/styles.css",
+      "status": 200,
+      "sha256": "750076efd6a3970f29f3ac25545260a1024631ee8e49aa6f5db8cb540d666292",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-admin/staff-operations.js",
+      "status": 200,
+      "sha256": "fd41248982c9632c4da7754eeb9353ba0cb6cdb42a40c283beec9d15842435dd",
+      "sourceMatches": true
+    }
+  ],
+  "paths": [
+    {
+      "path": "/",
+      "status": 307,
+      "location": "/events/72216e01-08c8-40ce-83c7-13a4c16a996f",
+      "contentType": "text/html; charset=utf-8",
+      "bodySha256": "47f91ce9cc67ec80a3d7f1dc473ea0bb60e617f71c69f55cc96316e3e79ab1cf"
+    },
+    {
+      "path": "/admin",
+      "status": 200,
+      "location": null,
+      "contentType": "text/html; charset=utf-8",
+      "bodySha256": "0029c98cb0290db2dcad7f020aabb07b6fabc14a22adc20e99d513a1ab0be7ac"
+    },
+    {
+      "path": "/events/72216e01-08c8-40ce-83c7-13a4c16a996f",
+      "status": 200,
+      "location": null,
+      "contentType": "text/html; charset=utf-8",
+      "bodySha256": "662c684934256fd5dfd9599b0978462911a869a998231c592ee035a1da159d2c"
+    },
+    {
+      "path": "/api/session",
+      "status": 200,
+      "location": null,
+      "contentType": "application/json",
+      "bodySha256": "8a4dd4c6b6011ea7c38cc441f90a46e18ca4561866285f1714f788944e45ca15"
+    },
+    {
+      "path": "/api/admin/events",
+      "status": 401,
+      "location": null,
+      "contentType": "application/json",
+      "bodySha256": "ff3ae854963ef2adcf2d709390f23f6cc2622ffbedac459b5846b61535aaf8e5"
+    },
+    {
+      "path": "/api/bidder/events/72216e01-08c8-40ce-83c7-13a4c16a996f/my-bids",
+      "status": 401,
+      "location": null,
+      "contentType": "application/json",
+      "bodySha256": "ff3ae854963ef2adcf2d709390f23f6cc2622ffbedac459b5846b61535aaf8e5"
+    }
+  ],
+  "authenticatedWholeEventRehearsal": "Pending new owned fixture; anonymous route/byte checks are not whole-event completion."
+}

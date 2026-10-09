@@ -1,0 +1,88 @@
+{
+  "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "origin": "https://staging.bidzizi.com",
+  "backendDeployment": "dpl_GNwQHvqibmQMCtxPv38wik9XcUZA",
+  "kind": "READ_ONLY_HOSTED_ROOT_AND_SERVED_ASSET_BINDING",
+  "checks": [
+    {
+      "file": "app.js",
+      "sha256": "d767371d7747fde142bef22cd063b2e09beb157b408e052b2bdee60f96c6d76c",
+      "matchesOwnedSource": true
+    },
+    {
+      "file": "bidding.js",
+      "sha256": "467d74e5150fafeba758c7142c7b3ecd7b0f403ca239b0054f259c302cdf5727",
+      "matchesOwnedSource": true
+    },
+    {
+      "file": "donations.js",
+      "sha256": "c848496b37d4f62e3c368f2b3ba066efe6afc181937d6bbd77ef17a3de3b75c7",
+      "matchesOwnedSource": true
+    },
+    {
+      "file": "collections.js",
+      "sha256": "5bc7aaf7cea9972b5750440843f37690aec1559ba982966a5f628acbef64a283",
+      "matchesOwnedSource": true
+    },
+    {
+      "file": "views.js",
+      "sha256": "057650c3c8024ffd71805a625622a124761037177edee5500bcc0823868a1334",
+      "matchesOwnedSource": true
+    },
+    {
+      "file": "styles.css",
+      "sha256": "750076efd6a3970f29f3ac25545260a1024631ee8e49aa6f5db8cb540d666292",
+      "matchesOwnedSource": true
+    }
+  ],
+  "captures": [
+    {
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/HOSTED_ROOT_ENTRY_360.png",
+      "url": "https://staging.bidzizi.com/events/990280fa-51db-47cd-aabe-5d15bf776002",
+      "metrics": {
+        "innerWidth": 360,
+        "innerHeight": 844,
+        "documentWidth": 360,
+        "scrollY": 0,
+        "scrollHeight": 1039,
+        "text": "Staging test\nBidZizi\nDEMO EVENT\nB\nYour private bidding pass\nSynthetic demo · no SMS\nCreate your demo profile\n\nTell us who’s bidding. Your business name will appear with your bids.\n\nYour name\nBusiness name\nMember ID\n\nSelf-entered demo profile. Your Member ID is not verified. No payment is taken.\n\nEnter demo event\n\nKeep this browser session to return to your bids. A new profile starts with no bids."
+      },
+      "png": {
+        "width": 360,
+        "height": 844
+      }
+    },
+    {
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/HOSTED_ROOT_ENTRY_390.png",
+      "url": "https://staging.bidzizi.com/events/990280fa-51db-47cd-aabe-5d15bf776002",
+      "metrics": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1039,
+        "text": "Staging test\nBidZizi\nDEMO EVENT\nB\nYour private bidding pass\nSynthetic demo · no SMS\nCreate your demo profile\n\nTell us who’s bidding. Your business name will appear with your bids.\n\nYour name\nBusiness name\nMember ID\n\nSelf-entered demo profile. Your Member ID is not verified. No payment is taken.\n\nEnter demo event\n\nKeep this browser session to return to your bids. A new profile starts with no bids."
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/HOSTED_ROOT_ENTRY_1440.png",
+      "url": "https://staging.bidzizi.com/events/990280fa-51db-47cd-aabe-5d15bf776002",
+      "metrics": {
+        "innerWidth": 1440,
+        "innerHeight": 1000,
+        "documentWidth": 1440,
+        "scrollY": 0,
+        "scrollHeight": 1041,
+        "text": "Staging test\nBidZizi\nDEMO EVENT\nB\nYour private bidding pass\nSynthetic demo · no SMS\nCreate your demo profile\n\nTell us who’s bidding. Your business name will appear with your bids.\n\nYour name\nBusiness name\nMember ID\n\nSelf-entered demo profile. Your Member ID is not verified. No payment is taken.\n\nEnter demo event\n\nKeep this browser session to return to your bids. A new profile starts with no bids."
+      },
+      "png": {
+        "width": 1440,
+        "height": 1000
+      }
+    }
+  ]
+}

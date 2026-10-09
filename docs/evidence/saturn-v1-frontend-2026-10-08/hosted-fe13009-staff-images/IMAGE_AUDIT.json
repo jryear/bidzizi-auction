@@ -1,0 +1,440 @@
+{
+  "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+  "responses": [
+    {
+      "url": "https://staging.bidzizi.com/staging-bidder-preview/assets/fonts/instrument-sans-vf.woff2",
+      "status": 200,
+      "type": "font/woff2"
+    },
+    {
+      "url": "https://staging.bidzizi.com/staging-bidder-preview/assets/fonts/fraunces-vf.woff2",
+      "status": 200,
+      "type": "font/woff2"
+    },
+    {
+      "url": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+      "status": 200,
+      "type": "image/webp"
+    },
+    {
+      "url": "https://staging.bidzizi.com/staging-bidder-preview/assets/fonts/fraunces-vf.woff2",
+      "status": 304
+    },
+    {
+      "url": "https://staging.bidzizi.com/staging-bidder-preview/assets/fonts/instrument-sans-vf.woff2",
+      "status": 304
+    },
+    {
+      "url": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+      "status": 200,
+      "type": "image/webp"
+    },
+    {
+      "url": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+      "status": 200,
+      "type": "image/webp"
+    },
+    {
+      "url": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+      "status": 200,
+      "type": "image/webp"
+    },
+    {
+      "url": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/3c36c2d7-4468-48a7-b7f6-77b854c0b54c",
+      "status": 200,
+      "type": "image/webp"
+    },
+    {
+      "url": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+      "status": 200,
+      "type": "image/webp"
+    },
+    {
+      "url": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+      "status": 200,
+      "type": "image/webp"
+    }
+  ],
+  "errors": [],
+  "snapshots": [
+    {
+      "name": "desktop-items-preview-loaded.png",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002&tab=lots",
+          "dom": {
+            "width": 1440,
+            "height": 1120,
+            "dpr": 1,
+            "scrollWidth": 1440,
+            "imgs": [],
+            "backgrounds": []
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/lots",
+          "dom": {
+            "width": 1440,
+            "height": 1120,
+            "dpr": 1,
+            "scrollWidth": 1440,
+            "imgs": [
+              {
+                "src": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "currentSrc": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "complete": true,
+                "width": 1000,
+                "height": 667,
+                "rect": {
+                  "x": 259,
+                  "y": 522.421875,
+                  "width": 72,
+                  "height": 72
+                },
+                "class": "lot-thumb",
+                "alt": ""
+              },
+              {
+                "src": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+                "currentSrc": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+                "complete": true,
+                "width": 1000,
+                "height": 667,
+                "rect": {
+                  "x": 259,
+                  "y": 624.421875,
+                  "width": 72,
+                  "height": 72
+                },
+                "class": "lot-thumb",
+                "alt": ""
+              },
+              {
+                "src": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+                "currentSrc": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+                "complete": true,
+                "width": 1000,
+                "height": 667,
+                "rect": {
+                  "x": 259,
+                  "y": 726.421875,
+                  "width": 72,
+                  "height": 72
+                },
+                "class": "lot-thumb",
+                "alt": ""
+              },
+              {
+                "src": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "currentSrc": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "complete": true,
+                "width": 1000,
+                "height": 667,
+                "rect": {
+                  "x": 241,
+                  "y": 921.765625,
+                  "width": 112,
+                  "height": 98
+                },
+                "class": "",
+                "alt": "Cabin among trees"
+              }
+            ],
+            "backgrounds": []
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/",
+          "dom": {
+            "width": 340,
+            "height": 714,
+            "dpr": 1,
+            "scrollWidth": 340,
+            "imgs": [
+              {
+                "src": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+                "currentSrc": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+                "complete": true,
+                "width": 1000,
+                "height": 667,
+                "rect": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 340,
+                  "height": 320
+                },
+                "class": "event-cover",
+                "alt": ""
+              },
+              {
+                "src": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/3c36c2d7-4468-48a7-b7f6-77b854c0b54c",
+                "currentSrc": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/3c36c2d7-4468-48a7-b7f6-77b854c0b54c",
+                "complete": true,
+                "width": 64,
+                "height": 64,
+                "rect": {
+                  "x": 20,
+                  "y": 668.8125,
+                  "width": 34,
+                  "height": 44
+                },
+                "class": "",
+                "alt": ""
+              }
+            ],
+            "backgrounds": [
+              {
+                "tag": "NAV",
+                "class": "",
+                "background": "linear-gradient(to top, rgb(245, 240, 230) 60%, rgba(245, 240, 230, 0))"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "desktop-event-preview-loaded.png",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002",
+          "dom": {
+            "width": 1440,
+            "height": 1120,
+            "dpr": 1,
+            "scrollWidth": 1440,
+            "imgs": [],
+            "backgrounds": []
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/event",
+          "dom": {
+            "width": 1440,
+            "height": 1120,
+            "dpr": 1,
+            "scrollWidth": 1440,
+            "imgs": [
+              {
+                "src": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+                "currentSrc": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+                "complete": true,
+                "width": 1000,
+                "height": 667,
+                "rect": {
+                  "x": 241,
+                  "y": 403.34375,
+                  "width": 190,
+                  "height": 190
+                },
+                "class": "",
+                "alt": "Cabin among trees"
+              },
+              {
+                "src": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22180%22%20height%3D%22180%22%20viewBox%3D%220%200%2045%2045%22%3E%3Crect%20width%3D%2245%22%20height%3D%2245%22%20fill%3D%22white%22%2F%3E%3Cpath%20d%3D%22M4%2C4h1v1h-1zM5%2C4h1v1h-1zM6%2C4h1v1h-1zM7%2C4h1v1h-1zM8%2C4h1v1h-1zM9%2C4h1v1h-1zM10%2C4h1v1h-1zM12%2C4h1v1h-1zM13%2C4h1v1h-1zM15%2C4h1v1h-1zM16%2C4h1v1h-1zM17%2C4h1v1h-1zM18%2C4h1v1h-1zM19%2C4h1v1h-1zM22%2C4h1v1h-1zM23%2C4h1v1h-1zM26%2C4h1v1h-1zM27%2C4h1v1h-1zM28%2C4h1v1h-1zM30%2C4h1v1h-1zM31%2C4h1v1h-1zM34%2C4h1v1h-1zM35%2C4h1v1h-1zM36%2C4h1v1h-1zM37%2C4h1v1h-1zM38%2C4h1v1h-1zM39%2C4h1v1h-1zM40%2C4h1v1h-1zM4%2C5h1v1h-1zM10%2C5h1v1h-1zM13%2C5h1v1h-1zM15%2C5h1v1h-1zM20%2C5h1v1h-1zM21%2C5h1v1h-1zM22%2C5h1v1h-1zM24%2C5h1v1h-1zM25%2C5h1v1h-1zM32%2C5h1v1h-1zM34%2C5h1v1h-1zM40%2C5h1v1h-1zM4%2C6h1v1h-1zM6%2C6h1v1h-1zM7%2C6h1v1h-1zM8%2C6h1v1h-1zM10%2C6h1v1h-1zM13%2C6h1v1h-1zM15%2C6h1v1h-1zM16%2C6h1v1h-1zM18%2C6h1v1h-1zM20%2C6h1v1h-1zM21%2C6h1v1h-1zM22%2C6h1v1h-1zM23%2C6h1v1h-1zM24%2C6h1v1h-1zM25%2C6h1v1h-1zM28%2C6h1v1h-1zM31%2C6h1v1h-1zM34%2C6h1v1h-1zM36%2C6h1v1h-1zM37%2C6h1v1h-1zM38%2C6h1v1h-1zM40%2C6h1v1h-1zM4%2C7h1v1h-1zM6%2C7h1v1h-1zM7%2C7h1v1h-1zM8%2C7h1v1h-1zM10%2C7h1v1h-1zM12%2C7h1v1h-1zM13%2C7h1v1h-1zM14%2C7h1v1h-1zM20%2C7h1v1h-1zM23%2C7h1v1h-1zM24%2C7h1v1h-1zM27%2C7h1v1h-1zM29%2C7h1v1h-1zM30%2C7h1v1h-1zM31%2C7h1v1h-1zM32%2C7h1v1h-1zM34%2C7h1v1h-1zM36%2C7h1v1h-1zM37%2C7h1v1h-1zM38%2C7h1v1h-1zM40%2C7h1v1h-1zM4%2C8h1v1h-1zM6%2C8h1v1h-1zM7%2C8h1v1h-1zM8%2C8h1v1h-1zM10%2C8h1v1h-1zM12%2C8h1v1h-1zM13%2C8h1v1h-1zM15%2C8h1v1h-1zM16%2C8h1v1h-1zM18%2C8h1v1h-1zM19%2C8h1v1h-1zM22%2C8h1v1h-1zM27%2C8h1v1h-1zM30%2C8h1v1h-1zM31%2C8h1v1h-1zM34%2C8h1v1h-1zM36%2C8h1v1h-1zM37%2C8h1v1h-1zM38%2C8h1v1h-1zM40%2C8h1v1h-1zM4%2C9h1v1h-1zM10%2C9h1v1h-1zM12%2C9h1v1h-1zM13%2C9h1v1h-1zM14%2C9h1v1h-1zM15%2C9h1v1h-1zM17%2C9h1v1h-1zM22%2C9h1v1h-1zM23%2C9h1v1h-1zM24%2C9h1v1h-1zM25%2C9h1v1h-1zM26%2C9h1v1h-1zM28%2C9h1v1h-1zM29%2C9h1v1h-1zM32%2C9h1v1h-1zM34%2C9h1v1h-1zM40%2C9h1v1h-1zM4%2C10h1v1h-1zM5%2C10h1v1h-1zM6%2C10h1v1h-1zM7%2C10h1v1h-1zM8%2C10h1v1h-1zM9%2C10h1v1h-1zM10%2C10h1v1h-1zM12%2C10h1v1h-1zM14%2C10h1v1h-1zM16%2C10h1v1h-1zM18%2C10h1v1h-1zM20%2C10h1v1h-1zM22%2C10h1v1h-1zM24%2C10h1v1h-1zM26%2C10h1v1h-1zM28%2C10h1v1h-1zM30%2C10h1v1h-1zM32%2C10h1v1h-1zM34%2C10h1v1h-1zM35%2C10h1v1h-1zM36%2C10h1v1h-1zM37%2C10h1v1h-1zM38%2C10h1v1h-1zM39%2C10h1v1h-1zM40%2C10h1v1h-1zM12%2C11h1v1h-1zM13%2C11h1v1h-1zM14%2C11h1v1h-1zM15%2C11h1v1h-1zM17%2C11h1v1h-1zM19%2C11h1v1h-1zM20%2C11h1v1h-1zM21%2C11h1v1h-1zM22%2C11h1v1h-1zM24%2C11h1v1h-1zM25%2C11h1v1h-1zM26%2C11h1v1h-1zM28%2C11h1v1h-1zM30%2C11h1v1h-1zM4%2C12h1v1h-1zM8%2C12h1v1h-1zM10%2C12h1v1h-1zM11%2C12h1v1h-1zM12%2C12h1v1h-1zM13%2C12h1v1h-1zM14%2C12h1v1h-1zM15%2C12h1v1h-1zM16%2C12h1v1h-1zM18%2C12h1v1h-1zM22%2C12h1v1h-1zM23%2C12h1v1h-1zM25%2C12h1v1h-1zM27%2C12h1v1h-1zM30%2C12h1v1h-1zM33%2C12h1v1h-1zM34%2C12h1v1h-1zM35%2C12h1v1h-1zM36%2C12h1v1h-1zM37%2C12h1v1h-1zM40%2C12h1v1h-1zM5%2C13h1v1h-1zM6%2C13h1v1h-1zM8%2C13h1v1h-1zM9%2C13h1v1h-1zM13%2C13h1v1h-1zM16%2C13h1v1h-1zM18%2C13h1v1h-1zM20%2C13h1v1h-1zM21%2C13h1v1h-1zM23%2C13h1v1h-1zM24%2C13h1v1h-1zM25%2C13h1v1h-1zM26%2C13h1v1h-1zM27%2C13h1v1h-1zM28%2C13h1v1h-1zM29%2C13h1v1h-1zM31%2C13h1v1h-1zM32%2C13h1v1h-1zM36%2C13h1v1h-1zM37%2C13h1v1h-1zM39%2C13h1v1h-1zM6%2C14h1v1h-1zM8%2C14h1v1h-1zM10%2C14h1v1h-1zM11%2C14h1v1h-1zM13%2C14h1v1h-1zM14%2C14h1v1h-1zM15%2C14h1v1h-1zM17%2C14h1v1h-1zM20%2C14h1v1h-1zM22%2C14h1v1h-1zM24%2C14h1v1h-1zM27%2C14h1v1h-1zM28%2C14h1v1h-1zM29%2C14h1v1h-1zM31%2C14h1v1h-1zM32%2C14h1v1h-1zM33%2C14h1v1h-1zM35%2C14h1v1h-1zM36%2C14h1v1h-1zM38%2C14h1v1h-1zM4%2C15h1v1h-1zM7%2C15h1v1h-1zM8%2C15h1v1h-1zM12%2C15h1v1h-1zM15%2C15h1v1h-1zM17%2C15h1v1h-1zM18%2C15h1v1h-1zM21%2C15h1v1h-1zM22%2C15h1v1h-1zM25%2C15h1v1h-1zM28%2C15h1v1h-1zM32%2C15h1v1h-1zM34%2C15h1v1h-1zM35%2C15h1v1h-1zM37%2C15h1v1h-1zM38%2C15h1v1h-1zM39%2C15h1v1h-1zM5%2C16h1v1h-1zM7%2C16h1v1h-1zM8%2C16h1v1h-1zM9%2C16h1v1h-1zM10%2C16h1v1h-1zM12%2C16h1v1h-1zM13%2C16h1v1h-1zM14%2C16h1v1h-1zM15%2C16h1v1h-1zM19%2C16h1v1h-1zM21%2C16h1v1h-1zM22%2C16h1v1h-1zM23%2C16h1v1h-1zM25%2C16h1v1h-1zM26%2C16h1v1h-1zM28%2C16h1v1h-1zM33%2C16h1v1h-1zM34%2C16h1v1h-1zM37%2C16h1v1h-1zM38%2C16h1v1h-1zM39%2C16h1v1h-1zM40%2C16h1v1h-1zM4%2C17h1v1h-1zM5%2C17h1v1h-1zM6%2C17h1v1h-1zM7%2C17h1v1h-1zM8%2C17h1v1h-1zM9%2C17h1v1h-1zM11%2C17h1v1h-1zM13%2C17h1v1h-1zM16%2C17h1v1h-1zM17%2C17h1v1h-1zM19%2C17h1v1h-1zM20%2C17h1v1h-1zM21%2C17h1v1h-1zM27%2C17h1v1h-1zM28%2C17h1v1h-1zM29%2C17h1v1h-1zM30%2C17h1v1h-1zM31%2C17h1v1h-1zM32%2C17h1v1h-1zM33%2C17h1v1h-1zM36%2C17h1v1h-1zM37%2C17h1v1h-1zM39%2C17h1v1h-1zM4%2C18h1v1h-1zM5%2C18h1v1h-1zM6%2C18h1v1h-1zM10%2C18h1v1h-1zM18%2C18h1v1h-1zM19%2C18h1v1h-1zM20%2C18h1v1h-1zM22%2C18h1v1h-1zM25%2C18h1v1h-1zM26%2C18h1v1h-1zM27%2C18h1v1h-1zM28%2C18h1v1h-1zM30%2C18h1v1h-1zM31%2C18h1v1h-1zM32%2C18h1v1h-1zM33%2C18h1v1h-1zM35%2C18h1v1h-1zM36%2C18h1v1h-1zM37%2C18h1v1h-1zM38%2C18h1v1h-1zM39%2C18h1v1h-1zM5%2C19h1v1h-1zM8%2C19h1v1h-1zM11%2C19h1v1h-1zM15%2C19h1v1h-1zM16%2C19h1v1h-1zM19%2C19h1v1h-1zM20%2C19h1v1h-1zM23%2C19h1v1h-1zM24%2C19h1v1h-1zM25%2C19h1v1h-1zM26%2C19h1v1h-1zM27%2C19h1v1h-1zM30%2C19h1v1h-1zM34%2C19h1v1h-1zM35%2C19h1v1h-1zM36%2C19h1v1h-1zM38%2C19h1v1h-1zM5%2C20h1v1h-1zM6%2C20h1v1h-1zM9%2C20h1v1h-1zM10%2C20h1v1h-1zM12%2C20h1v1h-1zM13%2C20h1v1h-1zM15%2C20h1v1h-1zM16%2C20h1v1h-1zM17%2C20h1v1h-1zM20%2C20h1v1h-1zM24%2C20h1v1h-1zM25%2C20h1v1h-1zM27%2C20h1v1h-1zM31%2C20h1v1h-1zM33%2C20h1v1h-1zM34%2C20h1v1h-1zM37%2C20h1v1h-1zM38%2C20h1v1h-1zM39%2C20h1v1h-1zM5%2C21h1v1h-1zM6%2C21h1v1h-1zM7%2C21h1v1h-1zM12%2C21h1v1h-1zM13%2C21h1v1h-1zM16%2C21h1v1h-1zM21%2C21h1v1h-1zM22%2C21h1v1h-1zM23%2C21h1v1h-1zM25%2C21h1v1h-1zM26%2C21h1v1h-1zM27%2C21h1v1h-1zM28%2C21h1v1h-1zM30%2C21h1v1h-1zM31%2C21h1v1h-1zM32%2C21h1v1h-1zM35%2C21h1v1h-1zM36%2C21h1v1h-1zM39%2C21h1v1h-1zM7%2C22h1v1h-1zM8%2C22h1v1h-1zM10%2C22h1v1h-1zM11%2C22h1v1h-1zM14%2C22h1v1h-1zM16%2C22h1v1h-1zM19%2C22h1v1h-1zM21%2C22h1v1h-1zM23%2C22h1v1h-1zM25%2C22h1v1h-1zM27%2C22h1v1h-1zM31%2C22h1v1h-1zM38%2C22h1v1h-1zM5%2C23h1v1h-1zM6%2C23h1v1h-1zM11%2C23h1v1h-1zM12%2C23h1v1h-1zM14%2C23h1v1h-1zM16%2C23h1v1h-1zM18%2C23h1v1h-1zM19%2C23h1v1h-1zM20%2C23h1v1h-1zM21%2C23h1v1h-1zM22%2C23h1v1h-1zM23%2C23h1v1h-1zM24%2C23h1v1h-1zM25%2C23h1v1h-1zM28%2C23h1v1h-1zM30%2C23h1v1h-1zM31%2C23h1v1h-1zM32%2C23h1v1h-1zM33%2C23h1v1h-1zM35%2C23h1v1h-1zM38%2C23h1v1h-1zM39%2C23h1v1h-1zM5%2C24h1v1h-1zM7%2C24h1v1h-1zM8%2C24h1v1h-1zM9%2C24h1v1h-1zM10%2C24h1v1h-1zM11%2C24h1v1h-1zM12%2C24h1v1h-1zM13%2C24h1v1h-1zM15%2C24h1v1h-1zM17%2C24h1v1h-1zM20%2C24h1v1h-1zM21%2C24h1v1h-1zM22%2C24h1v1h-1zM24%2C24h1v1h-1zM25%2C24h1v1h-1zM28%2C24h1v1h-1zM33%2C24h1v1h-1zM34%2C24h1v1h-1zM35%2C24h1v1h-1zM38%2C24h1v1h-1zM9%2C25h1v1h-1zM11%2C25h1v1h-1zM13%2C25h1v1h-1zM16%2C25h1v1h-1zM18%2C25h1v1h-1zM19%2C25h1v1h-1zM27%2C25h1v1h-1zM29%2C25h1v1h-1zM30%2C25h1v1h-1zM31%2C25h1v1h-1zM32%2C25h1v1h-1zM35%2C25h1v1h-1zM36%2C25h1v1h-1zM6%2C26h1v1h-1zM7%2C26h1v1h-1zM8%2C26h1v1h-1zM9%2C26h1v1h-1zM10%2C26h1v1h-1zM12%2C26h1v1h-1zM13%2C26h1v1h-1zM16%2C26h1v1h-1zM19%2C26h1v1h-1zM20%2C26h1v1h-1zM21%2C26h1v1h-1zM24%2C26h1v1h-1zM25%2C26h1v1h-1zM26%2C26h1v1h-1zM27%2C26h1v1h-1zM30%2C26h1v1h-1zM31%2C26h1v1h-1zM35%2C26h1v1h-1zM36%2C26h1v1h-1zM37%2C26h1v1h-1zM38%2C26h1v1h-1zM39%2C26h1v1h-1zM7%2C27h1v1h-1zM8%2C27h1v1h-1zM9%2C27h1v1h-1zM11%2C27h1v1h-1zM14%2C27h1v1h-1zM15%2C27h1v1h-1zM16%2C27h1v1h-1zM17%2C27h1v1h-1zM18%2C27h1v1h-1zM19%2C27h1v1h-1zM20%2C27h1v1h-1zM21%2C27h1v1h-1zM22%2C27h1v1h-1zM24%2C27h1v1h-1zM25%2C27h1v1h-1zM26%2C27h1v1h-1zM31%2C27h1v1h-1zM32%2C27h1v1h-1zM33%2C27h1v1h-1zM35%2C27h1v1h-1zM36%2C27h1v1h-1zM38%2C27h1v1h-1zM4%2C28h1v1h-1zM5%2C28h1v1h-1zM6%2C28h1v1h-1zM7%2C28h1v1h-1zM8%2C28h1v1h-1zM10%2C28h1v1h-1zM11%2C28h1v1h-1zM14%2C28h1v1h-1zM15%2C28h1v1h-1zM16%2C28h1v1h-1zM17%2C28h1v1h-1zM19%2C28h1v1h-1zM22%2C28h1v1h-1zM23%2C28h1v1h-1zM25%2C28h1v1h-1zM27%2C28h1v1h-1zM28%2C28h1v1h-1zM30%2C28h1v1h-1zM31%2C28h1v1h-1zM34%2C28h1v1h-1zM37%2C28h1v1h-1zM38%2C28h1v1h-1zM40%2C28h1v1h-1zM4%2C29h1v1h-1zM5%2C29h1v1h-1zM9%2C29h1v1h-1zM12%2C29h1v1h-1zM14%2C29h1v1h-1zM17%2C29h1v1h-1zM20%2C29h1v1h-1zM21%2C29h1v1h-1zM23%2C29h1v1h-1zM24%2C29h1v1h-1zM25%2C29h1v1h-1zM26%2C29h1v1h-1zM27%2C29h1v1h-1zM29%2C29h1v1h-1zM31%2C29h1v1h-1zM32%2C29h1v1h-1zM35%2C29h1v1h-1zM36%2C29h1v1h-1zM37%2C29h1v1h-1zM9%2C30h1v1h-1zM10%2C30h1v1h-1zM11%2C30h1v1h-1zM13%2C30h1v1h-1zM14%2C30h1v1h-1zM15%2C30h1v1h-1zM16%2C30h1v1h-1zM18%2C30h1v1h-1zM20%2C30h1v1h-1zM21%2C30h1v1h-1zM24%2C30h1v1h-1zM27%2C30h1v1h-1zM30%2C30h1v1h-1zM31%2C30h1v1h-1zM33%2C30h1v1h-1zM35%2C30h1v1h-1zM37%2C30h1v1h-1zM38%2C30h1v1h-1zM7%2C31h1v1h-1zM8%2C31h1v1h-1zM11%2C31h1v1h-1zM12%2C31h1v1h-1zM13%2C31h1v1h-1zM14%2C31h1v1h-1zM15%2C31h1v1h-1zM17%2C31h1v1h-1zM21%2C31h1v1h-1zM22%2C31h1v1h-1zM25%2C31h1v1h-1zM31%2C31h1v1h-1zM32%2C31h1v1h-1zM35%2C31h1v1h-1zM36%2C31h1v1h-1zM38%2C31h1v1h-1zM40%2C31h1v1h-1zM4%2C32h1v1h-1zM5%2C32h1v1h-1zM6%2C32h1v1h-1zM7%2C32h1v1h-1zM10%2C32h1v1h-1zM11%2C32h1v1h-1zM15%2C32h1v1h-1zM16%2C32h1v1h-1zM19%2C32h1v1h-1zM20%2C32h1v1h-1zM21%2C32h1v1h-1zM22%2C32h1v1h-1zM23%2C32h1v1h-1zM24%2C32h1v1h-1zM25%2C32h1v1h-1zM26%2C32h1v1h-1zM32%2C32h1v1h-1zM33%2C32h1v1h-1zM34%2C32h1v1h-1zM35%2C32h1v1h-1zM36%2C32h1v1h-1zM38%2C32h1v1h-1zM39%2C32h1v1h-1zM40%2C32h1v1h-1zM12%2C33h1v1h-1zM13%2C33h1v1h-1zM15%2C33h1v1h-1zM16%2C33h1v1h-1zM18%2C33h1v1h-1zM19%2C33h1v1h-1zM21%2C33h1v1h-1zM27%2C33h1v1h-1zM29%2C33h1v1h-1zM32%2C33h1v1h-1zM36%2C33h1v1h-1zM4%2C34h1v1h-1zM5%2C34h1v1h-1zM6%2C34h1v1h-1zM7%2C34h1v1h-1zM8%2C34h1v1h-1zM9%2C34h1v1h-1zM10%2C34h1v1h-1zM12%2C34h1v1h-1zM13%2C34h1v1h-1zM14%2C34h1v1h-1zM15%2C34h1v1h-1zM17%2C34h1v1h-1zM19%2C34h1v1h-1zM20%2C34h1v1h-1zM22%2C34h1v1h-1zM26%2C34h1v1h-1zM27%2C34h1v1h-1zM28%2C34h1v1h-1zM32%2C34h1v1h-1zM34%2C34h1v1h-1zM36%2C34h1v1h-1zM4%2C35h1v1h-1zM10%2C35h1v1h-1zM13%2C35h1v1h-1zM15%2C35h1v1h-1zM16%2C35h1v1h-1zM17%2C35h1v1h-1zM20%2C35h1v1h-1zM23%2C35h1v1h-1zM24%2C35h1v1h-1zM25%2C35h1v1h-1zM26%2C35h1v1h-1zM27%2C35h1v1h-1zM30%2C35h1v1h-1zM32%2C35h1v1h-1zM36%2C35h1v1h-1zM37%2C35h1v1h-1zM38%2C35h1v1h-1zM39%2C35h1v1h-1zM40%2C35h1v1h-1zM4%2C36h1v1h-1zM6%2C36h1v1h-1zM7%2C36h1v1h-1zM8%2C36h1v1h-1zM10%2C36h1v1h-1zM12%2C36h1v1h-1zM14%2C36h1v1h-1zM20%2C36h1v1h-1zM23%2C36h1v1h-1zM24%2C36h1v1h-1zM27%2C36h1v1h-1zM28%2C36h1v1h-1zM30%2C36h1v1h-1zM32%2C36h1v1h-1zM33%2C36h1v1h-1zM34%2C36h1v1h-1zM35%2C36h1v1h-1zM36%2C36h1v1h-1zM37%2C36h1v1h-1zM38%2C36h1v1h-1zM39%2C36h1v1h-1zM40%2C36h1v1h-1zM4%2C37h1v1h-1zM6%2C37h1v1h-1zM7%2C37h1v1h-1zM8%2C37h1v1h-1zM10%2C37h1v1h-1zM13%2C37h1v1h-1zM14%2C37h1v1h-1zM15%2C37h1v1h-1zM17%2C37h1v1h-1zM18%2C37h1v1h-1zM22%2C37h1v1h-1zM23%2C37h1v1h-1zM27%2C37h1v1h-1zM31%2C37h1v1h-1zM32%2C37h1v1h-1zM33%2C37h1v1h-1zM34%2C37h1v1h-1zM35%2C37h1v1h-1zM40%2C37h1v1h-1zM4%2C38h1v1h-1zM6%2C38h1v1h-1zM7%2C38h1v1h-1zM8%2C38h1v1h-1zM10%2C38h1v1h-1zM13%2C38h1v1h-1zM15%2C38h1v1h-1zM17%2C38h1v1h-1zM18%2C38h1v1h-1zM19%2C38h1v1h-1zM21%2C38h1v1h-1zM23%2C38h1v1h-1zM25%2C38h1v1h-1zM27%2C38h1v1h-1zM28%2C38h1v1h-1zM29%2C38h1v1h-1zM32%2C38h1v1h-1zM33%2C38h1v1h-1zM34%2C38h1v1h-1zM37%2C38h1v1h-1zM4%2C39h1v1h-1zM10%2C39h1v1h-1zM13%2C39h1v1h-1zM15%2C39h1v1h-1zM17%2C39h1v1h-1zM19%2C39h1v1h-1zM20%2C39h1v1h-1zM21%2C39h1v1h-1zM23%2C39h1v1h-1zM24%2C39h1v1h-1zM25%2C39h1v1h-1zM27%2C39h1v1h-1zM28%2C39h1v1h-1zM31%2C39h1v1h-1zM34%2C39h1v1h-1zM36%2C39h1v1h-1zM37%2C39h1v1h-1zM38%2C39h1v1h-1zM39%2C39h1v1h-1zM4%2C40h1v1h-1zM5%2C40h1v1h-1zM6%2C40h1v1h-1zM7%2C40h1v1h-1zM8%2C40h1v1h-1zM9%2C40h1v1h-1zM10%2C40h1v1h-1zM12%2C40h1v1h-1zM13%2C40h1v1h-1zM14%2C40h1v1h-1zM16%2C40h1v1h-1zM18%2C40h1v1h-1zM20%2C40h1v1h-1zM21%2C40h1v1h-1zM22%2C40h1v1h-1zM25%2C40h1v1h-1zM26%2C40h1v1h-1zM28%2C40h1v1h-1zM31%2C40h1v1h-1zM33%2C40h1v1h-1zM34%2C40h1v1h-1zM35%2C40h1v1h-1zM38%2C40h1v1h-1zM39%2C40h1v1h-1zM40%2C40h1v1h-1z%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E",
+                "currentSrc": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22180%22%20height%3D%22180%22%20viewBox%3D%220%200%2045%2045%22%3E%3Crect%20width%3D%2245%22%20height%3D%2245%22%20fill%3D%22white%22%2F%3E%3Cpath%20d%3D%22M4%2C4h1v1h-1zM5%2C4h1v1h-1zM6%2C4h1v1h-1zM7%2C4h1v1h-1zM8%2C4h1v1h-1zM9%2C4h1v1h-1zM10%2C4h1v1h-1zM12%2C4h1v1h-1zM13%2C4h1v1h-1zM15%2C4h1v1h-1zM16%2C4h1v1h-1zM17%2C4h1v1h-1zM18%2C4h1v1h-1zM19%2C4h1v1h-1zM22%2C4h1v1h-1zM23%2C4h1v1h-1zM26%2C4h1v1h-1zM27%2C4h1v1h-1zM28%2C4h1v1h-1zM30%2C4h1v1h-1zM31%2C4h1v1h-1zM34%2C4h1v1h-1zM35%2C4h1v1h-1zM36%2C4h1v1h-1zM37%2C4h1v1h-1zM38%2C4h1v1h-1zM39%2C4h1v1h-1zM40%2C4h1v1h-1zM4%2C5h1v1h-1zM10%2C5h1v1h-1zM13%2C5h1v1h-1zM15%2C5h1v1h-1zM20%2C5h1v1h-1zM21%2C5h1v1h-1zM22%2C5h1v1h-1zM24%2C5h1v1h-1zM25%2C5h1v1h-1zM32%2C5h1v1h-1zM34%2C5h1v1h-1zM40%2C5h1v1h-1zM4%2C6h1v1h-1zM6%2C6h1v1h-1zM7%2C6h1v1h-1zM8%2C6h1v1h-1zM10%2C6h1v1h-1zM13%2C6h1v1h-1zM15%2C6h1v1h-1zM16%2C6h1v1h-1zM18%2C6h1v1h-1zM20%2C6h1v1h-1zM21%2C6h1v1h-1zM22%2C6h1v1h-1zM23%2C6h1v1h-1zM24%2C6h1v1h-1zM25%2C6h1v1h-1zM28%2C6h1v1h-1zM31%2C6h1v1h-1zM34%2C6h1v1h-1zM36%2C6h1v1h-1zM37%2C6h1v1h-1zM38%2C6h1v1h-1zM40%2C6h1v1h-1zM4%2C7h1v1h-1zM6%2C7h1v1h-1zM7%2C7h1v1h-1zM8%2C7h1v1h-1zM10%2C7h1v1h-1zM12%2C7h1v1h-1zM13%2C7h1v1h-1zM14%2C7h1v1h-1zM20%2C7h1v1h-1zM23%2C7h1v1h-1zM24%2C7h1v1h-1zM27%2C7h1v1h-1zM29%2C7h1v1h-1zM30%2C7h1v1h-1zM31%2C7h1v1h-1zM32%2C7h1v1h-1zM34%2C7h1v1h-1zM36%2C7h1v1h-1zM37%2C7h1v1h-1zM38%2C7h1v1h-1zM40%2C7h1v1h-1zM4%2C8h1v1h-1zM6%2C8h1v1h-1zM7%2C8h1v1h-1zM8%2C8h1v1h-1zM10%2C8h1v1h-1zM12%2C8h1v1h-1zM13%2C8h1v1h-1zM15%2C8h1v1h-1zM16%2C8h1v1h-1zM18%2C8h1v1h-1zM19%2C8h1v1h-1zM22%2C8h1v1h-1zM27%2C8h1v1h-1zM30%2C8h1v1h-1zM31%2C8h1v1h-1zM34%2C8h1v1h-1zM36%2C8h1v1h-1zM37%2C8h1v1h-1zM38%2C8h1v1h-1zM40%2C8h1v1h-1zM4%2C9h1v1h-1zM10%2C9h1v1h-1zM12%2C9h1v1h-1zM13%2C9h1v1h-1zM14%2C9h1v1h-1zM15%2C9h1v1h-1zM17%2C9h1v1h-1zM22%2C9h1v1h-1zM23%2C9h1v1h-1zM24%2C9h1v1h-1zM25%2C9h1v1h-1zM26%2C9h1v1h-1zM28%2C9h1v1h-1zM29%2C9h1v1h-1zM32%2C9h1v1h-1zM34%2C9h1v1h-1zM40%2C9h1v1h-1zM4%2C10h1v1h-1zM5%2C10h1v1h-1zM6%2C10h1v1h-1zM7%2C10h1v1h-1zM8%2C10h1v1h-1zM9%2C10h1v1h-1zM10%2C10h1v1h-1zM12%2C10h1v1h-1zM14%2C10h1v1h-1zM16%2C10h1v1h-1zM18%2C10h1v1h-1zM20%2C10h1v1h-1zM22%2C10h1v1h-1zM24%2C10h1v1h-1zM26%2C10h1v1h-1zM28%2C10h1v1h-1zM30%2C10h1v1h-1zM32%2C10h1v1h-1zM34%2C10h1v1h-1zM35%2C10h1v1h-1zM36%2C10h1v1h-1zM37%2C10h1v1h-1zM38%2C10h1v1h-1zM39%2C10h1v1h-1zM40%2C10h1v1h-1zM12%2C11h1v1h-1zM13%2C11h1v1h-1zM14%2C11h1v1h-1zM15%2C11h1v1h-1zM17%2C11h1v1h-1zM19%2C11h1v1h-1zM20%2C11h1v1h-1zM21%2C11h1v1h-1zM22%2C11h1v1h-1zM24%2C11h1v1h-1zM25%2C11h1v1h-1zM26%2C11h1v1h-1zM28%2C11h1v1h-1zM30%2C11h1v1h-1zM4%2C12h1v1h-1zM8%2C12h1v1h-1zM10%2C12h1v1h-1zM11%2C12h1v1h-1zM12%2C12h1v1h-1zM13%2C12h1v1h-1zM14%2C12h1v1h-1zM15%2C12h1v1h-1zM16%2C12h1v1h-1zM18%2C12h1v1h-1zM22%2C12h1v1h-1zM23%2C12h1v1h-1zM25%2C12h1v1h-1zM27%2C12h1v1h-1zM30%2C12h1v1h-1zM33%2C12h1v1h-1zM34%2C12h1v1h-1zM35%2C12h1v1h-1zM36%2C12h1v1h-1zM37%2C12h1v1h-1zM40%2C12h1v1h-1zM5%2C13h1v1h-1zM6%2C13h1v1h-1zM8%2C13h1v1h-1zM9%2C13h1v1h-1zM13%2C13h1v1h-1zM16%2C13h1v1h-1zM18%2C13h1v1h-1zM20%2C13h1v1h-1zM21%2C13h1v1h-1zM23%2C13h1v1h-1zM24%2C13h1v1h-1zM25%2C13h1v1h-1zM26%2C13h1v1h-1zM27%2C13h1v1h-1zM28%2C13h1v1h-1zM29%2C13h1v1h-1zM31%2C13h1v1h-1zM32%2C13h1v1h-1zM36%2C13h1v1h-1zM37%2C13h1v1h-1zM39%2C13h1v1h-1zM6%2C14h1v1h-1zM8%2C14h1v1h-1zM10%2C14h1v1h-1zM11%2C14h1v1h-1zM13%2C14h1v1h-1zM14%2C14h1v1h-1zM15%2C14h1v1h-1zM17%2C14h1v1h-1zM20%2C14h1v1h-1zM22%2C14h1v1h-1zM24%2C14h1v1h-1zM27%2C14h1v1h-1zM28%2C14h1v1h-1zM29%2C14h1v1h-1zM31%2C14h1v1h-1zM32%2C14h1v1h-1zM33%2C14h1v1h-1zM35%2C14h1v1h-1zM36%2C14h1v1h-1zM38%2C14h1v1h-1zM4%2C15h1v1h-1zM7%2C15h1v1h-1zM8%2C15h1v1h-1zM12%2C15h1v1h-1zM15%2C15h1v1h-1zM17%2C15h1v1h-1zM18%2C15h1v1h-1zM21%2C15h1v1h-1zM22%2C15h1v1h-1zM25%2C15h1v1h-1zM28%2C15h1v1h-1zM32%2C15h1v1h-1zM34%2C15h1v1h-1zM35%2C15h1v1h-1zM37%2C15h1v1h-1zM38%2C15h1v1h-1zM39%2C15h1v1h-1zM5%2C16h1v1h-1zM7%2C16h1v1h-1zM8%2C16h1v1h-1zM9%2C16h1v1h-1zM10%2C16h1v1h-1zM12%2C16h1v1h-1zM13%2C16h1v1h-1zM14%2C16h1v1h-1zM15%2C16h1v1h-1zM19%2C16h1v1h-1zM21%2C16h1v1h-1zM22%2C16h1v1h-1zM23%2C16h1v1h-1zM25%2C16h1v1h-1zM26%2C16h1v1h-1zM28%2C16h1v1h-1zM33%2C16h1v1h-1zM34%2C16h1v1h-1zM37%2C16h1v1h-1zM38%2C16h1v1h-1zM39%2C16h1v1h-1zM40%2C16h1v1h-1zM4%2C17h1v1h-1zM5%2C17h1v1h-1zM6%2C17h1v1h-1zM7%2C17h1v1h-1zM8%2C17h1v1h-1zM9%2C17h1v1h-1zM11%2C17h1v1h-1zM13%2C17h1v1h-1zM16%2C17h1v1h-1zM17%2C17h1v1h-1zM19%2C17h1v1h-1zM20%2C17h1v1h-1zM21%2C17h1v1h-1zM27%2C17h1v1h-1zM28%2C17h1v1h-1zM29%2C17h1v1h-1zM30%2C17h1v1h-1zM31%2C17h1v1h-1zM32%2C17h1v1h-1zM33%2C17h1v1h-1zM36%2C17h1v1h-1zM37%2C17h1v1h-1zM39%2C17h1v1h-1zM4%2C18h1v1h-1zM5%2C18h1v1h-1zM6%2C18h1v1h-1zM10%2C18h1v1h-1zM18%2C18h1v1h-1zM19%2C18h1v1h-1zM20%2C18h1v1h-1zM22%2C18h1v1h-1zM25%2C18h1v1h-1zM26%2C18h1v1h-1zM27%2C18h1v1h-1zM28%2C18h1v1h-1zM30%2C18h1v1h-1zM31%2C18h1v1h-1zM32%2C18h1v1h-1zM33%2C18h1v1h-1zM35%2C18h1v1h-1zM36%2C18h1v1h-1zM37%2C18h1v1h-1zM38%2C18h1v1h-1zM39%2C18h1v1h-1zM5%2C19h1v1h-1zM8%2C19h1v1h-1zM11%2C19h1v1h-1zM15%2C19h1v1h-1zM16%2C19h1v1h-1zM19%2C19h1v1h-1zM20%2C19h1v1h-1zM23%2C19h1v1h-1zM24%2C19h1v1h-1zM25%2C19h1v1h-1zM26%2C19h1v1h-1zM27%2C19h1v1h-1zM30%2C19h1v1h-1zM34%2C19h1v1h-1zM35%2C19h1v1h-1zM36%2C19h1v1h-1zM38%2C19h1v1h-1zM5%2C20h1v1h-1zM6%2C20h1v1h-1zM9%2C20h1v1h-1zM10%2C20h1v1h-1zM12%2C20h1v1h-1zM13%2C20h1v1h-1zM15%2C20h1v1h-1zM16%2C20h1v1h-1zM17%2C20h1v1h-1zM20%2C20h1v1h-1zM24%2C20h1v1h-1zM25%2C20h1v1h-1zM27%2C20h1v1h-1zM31%2C20h1v1h-1zM33%2C20h1v1h-1zM34%2C20h1v1h-1zM37%2C20h1v1h-1zM38%2C20h1v1h-1zM39%2C20h1v1h-1zM5%2C21h1v1h-1zM6%2C21h1v1h-1zM7%2C21h1v1h-1zM12%2C21h1v1h-1zM13%2C21h1v1h-1zM16%2C21h1v1h-1zM21%2C21h1v1h-1zM22%2C21h1v1h-1zM23%2C21h1v1h-1zM25%2C21h1v1h-1zM26%2C21h1v1h-1zM27%2C21h1v1h-1zM28%2C21h1v1h-1zM30%2C21h1v1h-1zM31%2C21h1v1h-1zM32%2C21h1v1h-1zM35%2C21h1v1h-1zM36%2C21h1v1h-1zM39%2C21h1v1h-1zM7%2C22h1v1h-1zM8%2C22h1v1h-1zM10%2C22h1v1h-1zM11%2C22h1v1h-1zM14%2C22h1v1h-1zM16%2C22h1v1h-1zM19%2C22h1v1h-1zM21%2C22h1v1h-1zM23%2C22h1v1h-1zM25%2C22h1v1h-1zM27%2C22h1v1h-1zM31%2C22h1v1h-1zM38%2C22h1v1h-1zM5%2C23h1v1h-1zM6%2C23h1v1h-1zM11%2C23h1v1h-1zM12%2C23h1v1h-1zM14%2C23h1v1h-1zM16%2C23h1v1h-1zM18%2C23h1v1h-1zM19%2C23h1v1h-1zM20%2C23h1v1h-1zM21%2C23h1v1h-1zM22%2C23h1v1h-1zM23%2C23h1v1h-1zM24%2C23h1v1h-1zM25%2C23h1v1h-1zM28%2C23h1v1h-1zM30%2C23h1v1h-1zM31%2C23h1v1h-1zM32%2C23h1v1h-1zM33%2C23h1v1h-1zM35%2C23h1v1h-1zM38%2C23h1v1h-1zM39%2C23h1v1h-1zM5%2C24h1v1h-1zM7%2C24h1v1h-1zM8%2C24h1v1h-1zM9%2C24h1v1h-1zM10%2C24h1v1h-1zM11%2C24h1v1h-1zM12%2C24h1v1h-1zM13%2C24h1v1h-1zM15%2C24h1v1h-1zM17%2C24h1v1h-1zM20%2C24h1v1h-1zM21%2C24h1v1h-1zM22%2C24h1v1h-1zM24%2C24h1v1h-1zM25%2C24h1v1h-1zM28%2C24h1v1h-1zM33%2C24h1v1h-1zM34%2C24h1v1h-1zM35%2C24h1v1h-1zM38%2C24h1v1h-1zM9%2C25h1v1h-1zM11%2C25h1v1h-1zM13%2C25h1v1h-1zM16%2C25h1v1h-1zM18%2C25h1v1h-1zM19%2C25h1v1h-1zM27%2C25h1v1h-1zM29%2C25h1v1h-1zM30%2C25h1v1h-1zM31%2C25h1v1h-1zM32%2C25h1v1h-1zM35%2C25h1v1h-1zM36%2C25h1v1h-1zM6%2C26h1v1h-1zM7%2C26h1v1h-1zM8%2C26h1v1h-1zM9%2C26h1v1h-1zM10%2C26h1v1h-1zM12%2C26h1v1h-1zM13%2C26h1v1h-1zM16%2C26h1v1h-1zM19%2C26h1v1h-1zM20%2C26h1v1h-1zM21%2C26h1v1h-1zM24%2C26h1v1h-1zM25%2C26h1v1h-1zM26%2C26h1v1h-1zM27%2C26h1v1h-1zM30%2C26h1v1h-1zM31%2C26h1v1h-1zM35%2C26h1v1h-1zM36%2C26h1v1h-1zM37%2C26h1v1h-1zM38%2C26h1v1h-1zM39%2C26h1v1h-1zM7%2C27h1v1h-1zM8%2C27h1v1h-1zM9%2C27h1v1h-1zM11%2C27h1v1h-1zM14%2C27h1v1h-1zM15%2C27h1v1h-1zM16%2C27h1v1h-1zM17%2C27h1v1h-1zM18%2C27h1v1h-1zM19%2C27h1v1h-1zM20%2C27h1v1h-1zM21%2C27h1v1h-1zM22%2C27h1v1h-1zM24%2C27h1v1h-1zM25%2C27h1v1h-1zM26%2C27h1v1h-1zM31%2C27h1v1h-1zM32%2C27h1v1h-1zM33%2C27h1v1h-1zM35%2C27h1v1h-1zM36%2C27h1v1h-1zM38%2C27h1v1h-1zM4%2C28h1v1h-1zM5%2C28h1v1h-1zM6%2C28h1v1h-1zM7%2C28h1v1h-1zM8%2C28h1v1h-1zM10%2C28h1v1h-1zM11%2C28h1v1h-1zM14%2C28h1v1h-1zM15%2C28h1v1h-1zM16%2C28h1v1h-1zM17%2C28h1v1h-1zM19%2C28h1v1h-1zM22%2C28h1v1h-1zM23%2C28h1v1h-1zM25%2C28h1v1h-1zM27%2C28h1v1h-1zM28%2C28h1v1h-1zM30%2C28h1v1h-1zM31%2C28h1v1h-1zM34%2C28h1v1h-1zM37%2C28h1v1h-1zM38%2C28h1v1h-1zM40%2C28h1v1h-1zM4%2C29h1v1h-1zM5%2C29h1v1h-1zM9%2C29h1v1h-1zM12%2C29h1v1h-1zM14%2C29h1v1h-1zM17%2C29h1v1h-1zM20%2C29h1v1h-1zM21%2C29h1v1h-1zM23%2C29h1v1h-1zM24%2C29h1v1h-1zM25%2C29h1v1h-1zM26%2C29h1v1h-1zM27%2C29h1v1h-1zM29%2C29h1v1h-1zM31%2C29h1v1h-1zM32%2C29h1v1h-1zM35%2C29h1v1h-1zM36%2C29h1v1h-1zM37%2C29h1v1h-1zM9%2C30h1v1h-1zM10%2C30h1v1h-1zM11%2C30h1v1h-1zM13%2C30h1v1h-1zM14%2C30h1v1h-1zM15%2C30h1v1h-1zM16%2C30h1v1h-1zM18%2C30h1v1h-1zM20%2C30h1v1h-1zM21%2C30h1v1h-1zM24%2C30h1v1h-1zM27%2C30h1v1h-1zM30%2C30h1v1h-1zM31%2C30h1v1h-1zM33%2C30h1v1h-1zM35%2C30h1v1h-1zM37%2C30h1v1h-1zM38%2C30h1v1h-1zM7%2C31h1v1h-1zM8%2C31h1v1h-1zM11%2C31h1v1h-1zM12%2C31h1v1h-1zM13%2C31h1v1h-1zM14%2C31h1v1h-1zM15%2C31h1v1h-1zM17%2C31h1v1h-1zM21%2C31h1v1h-1zM22%2C31h1v1h-1zM25%2C31h1v1h-1zM31%2C31h1v1h-1zM32%2C31h1v1h-1zM35%2C31h1v1h-1zM36%2C31h1v1h-1zM38%2C31h1v1h-1zM40%2C31h1v1h-1zM4%2C32h1v1h-1zM5%2C32h1v1h-1zM6%2C32h1v1h-1zM7%2C32h1v1h-1zM10%2C32h1v1h-1zM11%2C32h1v1h-1zM15%2C32h1v1h-1zM16%2C32h1v1h-1zM19%2C32h1v1h-1zM20%2C32h1v1h-1zM21%2C32h1v1h-1zM22%2C32h1v1h-1zM23%2C32h1v1h-1zM24%2C32h1v1h-1zM25%2C32h1v1h-1zM26%2C32h1v1h-1zM32%2C32h1v1h-1zM33%2C32h1v1h-1zM34%2C32h1v1h-1zM35%2C32h1v1h-1zM36%2C32h1v1h-1zM38%2C32h1v1h-1zM39%2C32h1v1h-1zM40%2C32h1v1h-1zM12%2C33h1v1h-1zM13%2C33h1v1h-1zM15%2C33h1v1h-1zM16%2C33h1v1h-1zM18%2C33h1v1h-1zM19%2C33h1v1h-1zM21%2C33h1v1h-1zM27%2C33h1v1h-1zM29%2C33h1v1h-1zM32%2C33h1v1h-1zM36%2C33h1v1h-1zM4%2C34h1v1h-1zM5%2C34h1v1h-1zM6%2C34h1v1h-1zM7%2C34h1v1h-1zM8%2C34h1v1h-1zM9%2C34h1v1h-1zM10%2C34h1v1h-1zM12%2C34h1v1h-1zM13%2C34h1v1h-1zM14%2C34h1v1h-1zM15%2C34h1v1h-1zM17%2C34h1v1h-1zM19%2C34h1v1h-1zM20%2C34h1v1h-1zM22%2C34h1v1h-1zM26%2C34h1v1h-1zM27%2C34h1v1h-1zM28%2C34h1v1h-1zM32%2C34h1v1h-1zM34%2C34h1v1h-1zM36%2C34h1v1h-1zM4%2C35h1v1h-1zM10%2C35h1v1h-1zM13%2C35h1v1h-1zM15%2C35h1v1h-1zM16%2C35h1v1h-1zM17%2C35h1v1h-1zM20%2C35h1v1h-1zM23%2C35h1v1h-1zM24%2C35h1v1h-1zM25%2C35h1v1h-1zM26%2C35h1v1h-1zM27%2C35h1v1h-1zM30%2C35h1v1h-1zM32%2C35h1v1h-1zM36%2C35h1v1h-1zM37%2C35h1v1h-1zM38%2C35h1v1h-1zM39%2C35h1v1h-1zM40%2C35h1v1h-1zM4%2C36h1v1h-1zM6%2C36h1v1h-1zM7%2C36h1v1h-1zM8%2C36h1v1h-1zM10%2C36h1v1h-1zM12%2C36h1v1h-1zM14%2C36h1v1h-1zM20%2C36h1v1h-1zM23%2C36h1v1h-1zM24%2C36h1v1h-1zM27%2C36h1v1h-1zM28%2C36h1v1h-1zM30%2C36h1v1h-1zM32%2C36h1v1h-1zM33%2C36h1v1h-1zM34%2C36h1v1h-1zM35%2C36h1v1h-1zM36%2C36h1v1h-1zM37%2C36h1v1h-1zM38%2C36h1v1h-1zM39%2C36h1v1h-1zM40%2C36h1v1h-1zM4%2C37h1v1h-1zM6%2C37h1v1h-1zM7%2C37h1v1h-1zM8%2C37h1v1h-1zM10%2C37h1v1h-1zM13%2C37h1v1h-1zM14%2C37h1v1h-1zM15%2C37h1v1h-1zM17%2C37h1v1h-1zM18%2C37h1v1h-1zM22%2C37h1v1h-1zM23%2C37h1v1h-1zM27%2C37h1v1h-1zM31%2C37h1v1h-1zM32%2C37h1v1h-1zM33%2C37h1v1h-1zM34%2C37h1v1h-1zM35%2C37h1v1h-1zM40%2C37h1v1h-1zM4%2C38h1v1h-1zM6%2C38h1v1h-1zM7%2C38h1v1h-1zM8%2C38h1v1h-1zM10%2C38h1v1h-1zM13%2C38h1v1h-1zM15%2C38h1v1h-1zM17%2C38h1v1h-1zM18%2C38h1v1h-1zM19%2C38h1v1h-1zM21%2C38h1v1h-1zM23%2C38h1v1h-1zM25%2C38h1v1h-1zM27%2C38h1v1h-1zM28%2C38h1v1h-1zM29%2C38h1v1h-1zM32%2C38h1v1h-1zM33%2C38h1v1h-1zM34%2C38h1v1h-1zM37%2C38h1v1h-1zM4%2C39h1v1h-1zM10%2C39h1v1h-1zM13%2C39h1v1h-1zM15%2C39h1v1h-1zM17%2C39h1v1h-1zM19%2C39h1v1h-1zM20%2C39h1v1h-1zM21%2C39h1v1h-1zM23%2C39h1v1h-1zM24%2C39h1v1h-1zM25%2C39h1v1h-1zM27%2C39h1v1h-1zM28%2C39h1v1h-1zM31%2C39h1v1h-1zM34%2C39h1v1h-1zM36%2C39h1v1h-1zM37%2C39h1v1h-1zM38%2C39h1v1h-1zM39%2C39h1v1h-1zM4%2C40h1v1h-1zM5%2C40h1v1h-1zM6%2C40h1v1h-1zM7%2C40h1v1h-1zM8%2C40h1v1h-1zM9%2C40h1v1h-1zM10%2C40h1v1h-1zM12%2C40h1v1h-1zM13%2C40h1v1h-1zM14%2C40h1v1h-1zM16%2C40h1v1h-1zM18%2C40h1v1h-1zM20%2C40h1v1h-1zM21%2C40h1v1h-1zM22%2C40h1v1h-1zM25%2C40h1v1h-1zM26%2C40h1v1h-1zM28%2C40h1v1h-1zM31%2C40h1v1h-1zM33%2C40h1v1h-1zM34%2C40h1v1h-1zM35%2C40h1v1h-1zM38%2C40h1v1h-1zM39%2C40h1v1h-1zM40%2C40h1v1h-1z%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E",
+                "complete": true,
+                "width": 180,
+                "height": 180,
+                "rect": {
+                  "x": 808,
+                  "y": 1964.40625,
+                  "width": 182,
+                  "height": 182
+                },
+                "class": "entry-qr",
+                "alt": "Event entry QR code"
+              }
+            ],
+            "backgrounds": []
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/",
+          "dom": {
+            "width": 340,
+            "height": 714,
+            "dpr": 1,
+            "scrollWidth": 340,
+            "imgs": [
+              {
+                "src": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+                "currentSrc": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+                "complete": true,
+                "width": 1000,
+                "height": 667,
+                "rect": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 340,
+                  "height": 320
+                },
+                "class": "event-cover",
+                "alt": ""
+              },
+              {
+                "src": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/3c36c2d7-4468-48a7-b7f6-77b854c0b54c",
+                "currentSrc": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/3c36c2d7-4468-48a7-b7f6-77b854c0b54c",
+                "complete": true,
+                "width": 64,
+                "height": 64,
+                "rect": {
+                  "x": 20,
+                  "y": 668.8125,
+                  "width": 34,
+                  "height": 44
+                },
+                "class": "",
+                "alt": ""
+              }
+            ],
+            "backgrounds": [
+              {
+                "tag": "NAV",
+                "class": "",
+                "background": "linear-gradient(to top, rgb(245, 240, 230) 60%, rgba(245, 240, 230, 0))"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "mobile-items-loaded.png",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002&tab=lots&lot=a39d4288-c1d1-4613-be22-8258a529ab3b",
+          "dom": {
+            "width": 390,
+            "height": 844,
+            "dpr": 1,
+            "scrollWidth": 390,
+            "imgs": [],
+            "backgrounds": []
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/lots",
+          "dom": {
+            "width": 390,
+            "height": 844,
+            "dpr": 1,
+            "scrollWidth": 390,
+            "imgs": [
+              {
+                "src": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "currentSrc": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "complete": true,
+                "width": 1000,
+                "height": 667,
+                "rect": {
+                  "x": 52,
+                  "y": 912.09375,
+                  "width": 61,
+                  "height": 61
+                },
+                "class": "lot-thumb",
+                "alt": ""
+              },
+              {
+                "src": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+                "currentSrc": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+                "complete": true,
+                "width": 1000,
+                "height": 667,
+                "rect": {
+                  "x": 52,
+                  "y": 1030.09375,
+                  "width": 61,
+                  "height": 61
+                },
+                "class": "lot-thumb",
+                "alt": ""
+              },
+              {
+                "src": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+                "currentSrc": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+                "complete": true,
+                "width": 1000,
+                "height": 667,
+                "rect": {
+                  "x": 52,
+                  "y": 1148.09375,
+                  "width": 61,
+                  "height": 61
+                },
+                "class": "lot-thumb",
+                "alt": ""
+              },
+              {
+                "src": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "currentSrc": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "complete": true,
+                "width": 1000,
+                "height": 667,
+                "rect": {
+                  "x": 35,
+                  "y": 1355.9375,
+                  "width": 112,
+                  "height": 98
+                },
+                "class": "",
+                "alt": "Cabin among trees"
+              }
+            ],
+            "backgrounds": []
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/",
+          "dom": {
+            "width": 340,
+            "height": 714,
+            "dpr": 1,
+            "scrollWidth": 340,
+            "imgs": [
+              {
+                "src": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+                "currentSrc": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+                "complete": true,
+                "width": 1000,
+                "height": 667,
+                "rect": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 0,
+                  "height": 0
+                },
+                "class": "event-cover",
+                "alt": ""
+              },
+              {
+                "src": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/3c36c2d7-4468-48a7-b7f6-77b854c0b54c",
+                "currentSrc": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/3c36c2d7-4468-48a7-b7f6-77b854c0b54c",
+                "complete": true,
+                "width": 64,
+                "height": 64,
+                "rect": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 0,
+                  "height": 0
+                },
+                "class": "",
+                "alt": ""
+              }
+            ],
+            "backgrounds": [
+              {
+                "tag": "NAV",
+                "class": "",
+                "background": "linear-gradient(to top, rgb(245, 240, 230) 60%, rgba(245, 240, 230, 0))"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

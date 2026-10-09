@@ -1,0 +1,164 @@
+{
+  "source": "5b4bb79b662ec3b151b860bc22f96034e496bbc8",
+  "origin": "https://staging.bidzizi.com",
+  "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+  "policy": {
+    "enabled": true,
+    "policyReady": true,
+    "availability": {
+      "mode": "window",
+      "opensAt": "2026-10-09T06:07:00.000Z",
+      "closesAt": "2026-10-09T19:00:00.000Z"
+    },
+    "minimumMinor": 1,
+    "amountCapMinor": 100000
+  },
+  "recipient": {
+    "id": "f2f9be40-5a90-41d3-9dde-eafdbb7fb6de",
+    "name": "Synthetic Holiday Trade Show Recipient",
+    "version": 1,
+    "description": "Synthetic rehearsal only: this fixture cap is 1,000.00 Saturn trade dollars, with donations available only during its frozen auction window. Staff process recorded pledges manually."
+  },
+  "checks": [
+    "donation policy initial intent and effective readiness returned",
+    "explicit synthetic cap100000 minor and frozen-auction-aligned window confirmed",
+    "synthetic recipient creation durably confirmed",
+    "phone donation controls no horizontal overflow",
+    "reload retains policy controls and donor tab",
+    "no browser exceptions"
+  ],
+  "captures": [
+    {
+      "name": "desktop-donation-policy.png",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002&tab=donations",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "documentWidth": 1440,
+            "main": null
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/donations",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "documentWidth": 1440,
+            "main": {
+              "scrollTop": 22,
+              "scrollWidth": 1120,
+              "clientWidth": 1120
+            }
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "scrollWidth": 0,
+              "clientWidth": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mobile-donation-policy-initial.png",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002&tab=donations",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "documentWidth": 390,
+            "main": null
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/donations",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "documentWidth": 390,
+            "main": {
+              "scrollTop": 0,
+              "scrollWidth": 358,
+              "clientWidth": 358
+            }
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "scrollWidth": 0,
+              "clientWidth": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mobile-donation-recipient.png",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002&tab=donations",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "documentWidth": 390,
+            "main": null
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/donations",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "documentWidth": 390,
+            "main": {
+              "scrollTop": 933,
+              "scrollWidth": 358,
+              "clientWidth": 358
+            }
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "scrollWidth": 0,
+              "clientWidth": 0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "kind": "HOSTED_REAL_HTTP_UI",
+  "fixtureAuthority": "Junior permits explicitly NEW synthetic fixture cap100000 minor and recipient; availability aligns exactly to frozen auction window; live operational activation held"
+}

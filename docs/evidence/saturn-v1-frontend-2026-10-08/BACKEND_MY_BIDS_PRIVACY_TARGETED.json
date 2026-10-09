@@ -1,0 +1,83 @@
+{
+  "developmentOnly": true,
+  "sourceRoot": "/Users/jryear/orca/workspaces/integration/junior-saturn-v1-backend",
+  "gitHead": "a2305fee6472272293c7bfcb66bee636d0f6cf49",
+  "nodeVersion": "v24.21.0",
+  "cases": [
+    {
+      "name": "My Bids excludes coworkers, keeps snapshots and refreshes business standing",
+      "result": "PASS"
+    }
+  ],
+  "witnesses": [],
+  "syntheticDonationPolicy": {
+    "amountCapMinor": 1000000000,
+    "availability": {
+      "mode": "any-time"
+    }
+  },
+  "postgresVersion": "PostgreSQL 18.6 (Homebrew) on aarch64-apple-darwin27.0.0, compiled by Apple clang version 21.0.0 (clang-2100.3.34.2), 64-bit",
+  "selectedCase": "My Bids excludes coworkers, keeps snapshots and refreshes business standing",
+  "cleanup": {
+    "clusterStopped": true,
+    "clusterRemoved": true,
+    "postgresPid": 66477,
+    "processAbsent": true,
+    "port": 51734,
+    "portClosed": true
+  },
+  "sourceBefore": {
+    "tests/development/attendee-activity.mjs": "53bfbf38b420d58a37c0480077409f5c4be924bc92ad770b158538890a7350e7",
+    "src/app/api/bidder/events/[eventId]/watching/route.ts": "2fc6266453f8eeeb64489f64387ff0fbc518849cfc734ec219ccb4015319c16c",
+    "src/server/attendee-activity.ts": "860e7efdc478a0d380b279bf701e4140a5a8fe037c32751bf1c35055c68324cf",
+    "src/server/auth.ts": "bab830bcee4d53d50b1f059314b336794933206c839ac41e32f0b0ad51c2ca60",
+    "src/server/config.ts": "fcc39662d4d42893651fac761ae3067a2ddd7e8340854717af6405561fd9bdaf",
+    "src/server/http.ts": "134c97f03b4be7dd7bbbbe10a7bc6c40cd38a16f802305c0126df603a4c81359",
+    "src/server/db.ts": "c79b7447abedfb3d7e5c4a46f6dac2554eedc16ed64639f7d94be5ad0d83994e",
+    "src/app/api/bidder/events/[eventId]/watching/requests/[requestId]/route.ts": "5b82605f05be532e5d32de4e3d3aa04eb56e0f1f064feb7b32ed67fc65a54280",
+    "src/app/api/bidder/events/[eventId]/my-bids/route.ts": "1f55f9022fae380e643f29e6ec6c15d737568173feaf5108d0c3955690e92564",
+    "src/app/api/bidder/events/[eventId]/donation-pledges/context/route.ts": "02faa341fc91ded2b234a14992aa4ae9f47bf755ac54fa500f6a00dd27c68075",
+    "src/server/donation-pledges.ts": "630fd7bfdf9f7f613ee190aa4328cf14a27e0584937949a5914af700b5f3a179",
+    "src/app/api/bidder/events/[eventId]/donation-pledges/route.ts": "5c1dbdd77b98c757510c5def53f2fa8c154ca2d10e2d204c4a263efd209db934",
+    "src/app/api/bidder/events/[eventId]/donation-pledges/[requestId]/route.ts": "eddddf2d253ff942aab56610d0c6806b56a98c1ee58340248e4727b3445b103d",
+    "src/app/api/admin/events/[id]/donations/route.ts": "07331f83b22accf7aecb5a03d21aa5accb1d7d887b9cc6efc7952f82983a368e",
+    "src/app/api/admin/events/[id]/donations/nonprofits/route.ts": "425a364bf7f1dde815ac9fdf665f7cbab23fba40c562bbaadcd618f17d5309b3",
+    "src/app/api/admin/events/[id]/donations/nonprofits/[nonprofitId]/route.ts": "1dfcd32e4a89ba9d8cab552f63055aeab7726d2e28275c363fef0785eb40e5df",
+    "src/app/api/admin/events/[id]/donations/export/route.ts": "e3760d9213a992eaa486edc2d003a10c2f2e1ef54eb9cedc40fa81b4204238a6",
+    "migrations/001_staging_staff.sql": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a",
+    "migrations/002_staging_catalog.sql": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3",
+    "migrations/003_staging_manual_bid.sql": "e8e985e67aa5f47df7cd9f9baf56c19fb30915fa99662b3a4e469a9a98e36cf8",
+    "migrations/009_demo_attendee_entry.sql": "c4e87a9bb9b591228a62d4557865de76f7b391354b468c7876ba06bd305e4b4e",
+    "migrations/015_staff_event_entry.sql": "726e1a22f2c8c756798866a04e98ef458f12d2e1ff9b3e5dd10acd5f923fb38f",
+    "migrations/016_staging_staff_assets.sql": "93b3475d2c10d80985abf7e6192d67195ffa02c0ac744168064898ed7ffa0506",
+    "migrations/018_attendee_activity_donations.sql": "e3c8b7882202b888cf6d9d8fd29fdfd75eb6e559a0230e399ecdb401672d3385",
+    "migrations/019_staff_bidder_operations.sql": "81ecb3c3f5a828e9e78bdf86aa0d841ed7550d9b81f2c9392123a2ed88569e2d"
+  },
+  "sourceAfter": {
+    "tests/development/attendee-activity.mjs": "53bfbf38b420d58a37c0480077409f5c4be924bc92ad770b158538890a7350e7",
+    "src/app/api/bidder/events/[eventId]/watching/route.ts": "2fc6266453f8eeeb64489f64387ff0fbc518849cfc734ec219ccb4015319c16c",
+    "src/server/attendee-activity.ts": "860e7efdc478a0d380b279bf701e4140a5a8fe037c32751bf1c35055c68324cf",
+    "src/server/auth.ts": "bab830bcee4d53d50b1f059314b336794933206c839ac41e32f0b0ad51c2ca60",
+    "src/server/config.ts": "fcc39662d4d42893651fac761ae3067a2ddd7e8340854717af6405561fd9bdaf",
+    "src/server/http.ts": "134c97f03b4be7dd7bbbbe10a7bc6c40cd38a16f802305c0126df603a4c81359",
+    "src/server/db.ts": "c79b7447abedfb3d7e5c4a46f6dac2554eedc16ed64639f7d94be5ad0d83994e",
+    "src/app/api/bidder/events/[eventId]/watching/requests/[requestId]/route.ts": "5b82605f05be532e5d32de4e3d3aa04eb56e0f1f064feb7b32ed67fc65a54280",
+    "src/app/api/bidder/events/[eventId]/my-bids/route.ts": "1f55f9022fae380e643f29e6ec6c15d737568173feaf5108d0c3955690e92564",
+    "src/app/api/bidder/events/[eventId]/donation-pledges/context/route.ts": "02faa341fc91ded2b234a14992aa4ae9f47bf755ac54fa500f6a00dd27c68075",
+    "src/server/donation-pledges.ts": "630fd7bfdf9f7f613ee190aa4328cf14a27e0584937949a5914af700b5f3a179",
+    "src/app/api/bidder/events/[eventId]/donation-pledges/route.ts": "5c1dbdd77b98c757510c5def53f2fa8c154ca2d10e2d204c4a263efd209db934",
+    "src/app/api/bidder/events/[eventId]/donation-pledges/[requestId]/route.ts": "eddddf2d253ff942aab56610d0c6806b56a98c1ee58340248e4727b3445b103d",
+    "src/app/api/admin/events/[id]/donations/route.ts": "07331f83b22accf7aecb5a03d21aa5accb1d7d887b9cc6efc7952f82983a368e",
+    "src/app/api/admin/events/[id]/donations/nonprofits/route.ts": "425a364bf7f1dde815ac9fdf665f7cbab23fba40c562bbaadcd618f17d5309b3",
+    "src/app/api/admin/events/[id]/donations/nonprofits/[nonprofitId]/route.ts": "1dfcd32e4a89ba9d8cab552f63055aeab7726d2e28275c363fef0785eb40e5df",
+    "src/app/api/admin/events/[id]/donations/export/route.ts": "e3760d9213a992eaa486edc2d003a10c2f2e1ef54eb9cedc40fa81b4204238a6",
+    "migrations/001_staging_staff.sql": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a",
+    "migrations/002_staging_catalog.sql": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3",
+    "migrations/003_staging_manual_bid.sql": "e8e985e67aa5f47df7cd9f9baf56c19fb30915fa99662b3a4e469a9a98e36cf8",
+    "migrations/009_demo_attendee_entry.sql": "c4e87a9bb9b591228a62d4557865de76f7b391354b468c7876ba06bd305e4b4e",
+    "migrations/015_staff_event_entry.sql": "726e1a22f2c8c756798866a04e98ef458f12d2e1ff9b3e5dd10acd5f923fb38f",
+    "migrations/016_staging_staff_assets.sql": "93b3475d2c10d80985abf7e6192d67195ffa02c0ac744168064898ed7ffa0506",
+    "migrations/018_attendee_activity_donations.sql": "e3c8b7882202b888cf6d9d8fd29fdfd75eb6e559a0230e399ecdb401672d3385",
+    "migrations/019_staff_bidder_operations.sql": "81ecb3c3f5a828e9e78bdf86aa0d841ed7550d9b81f2c9392123a2ed88569e2d"
+  }
+}
