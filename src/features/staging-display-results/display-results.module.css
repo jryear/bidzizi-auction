@@ -101,3 +101,20 @@
 }
 .exportActions{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:20px}
 .exportActions h2{font:500 36px/1.2 "Display Fraunces",Georgia,serif}
+
+/* The phone view retains the full frozen schedule and current/stale truth,
+   while giving recorded lots priority over oversized event chrome. */
+@media (max-width: 760px) {
+  .topbar { padding-block: 14px; gap: 10px; }
+  .topbar a { display: inline-flex; align-items: center; min-height: 44px; }
+  .content { padding-top: 20px; }
+  .board .hero { gap: 16px; padding-bottom: 18px; }
+  .board h1 { font-size: 32px; margin-bottom: 12px; }
+  .welcome { font-size: 15px; }
+  .venue { font-size: 14px; }
+  .schedule { gap: 10px; padding-top: 12px; }
+  .schedule dd { font-size: 14px; }
+  .notice { gap: 10px; margin-bottom: 20px; padding-block: 12px; }
+  .exportActions { gap: 12px; margin-bottom: 16px; }
+  .exportActions h2 { font-size: 28px; }
+}

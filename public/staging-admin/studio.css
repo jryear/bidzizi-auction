@@ -275,3 +275,28 @@ button,a,input,select,textarea{touch-action:manipulation}
 .donor-policy-fields{margin-top:18px}
 #donation-window[hidden]{display:none}
 #donation-window:not([hidden]){margin-top:18px}
+
+/* Keep the established phone chrome compact enough to leave room for work.
+   Navigation, authority, saved state and published terms remain visible. */
+@media(max-width:760px){
+ .studio-sidebar{gap:4px;padding-block:9px}
+ .studio-sidebar .tabs{gap:4px}
+ .studio-sidebar .tabs a{font-size:11.5px;padding:9px 6px;min-height:44px}
+ .studio-sidebar [data-action="events-home"],.studio-sidebar .event-picker{min-height:44px;padding-block:10px}
+ .studio-body .top{height:34px;min-height:34px;padding-block:4px}
+ .studio-body .bar,.preview-open .studio-body .bar{padding-block:8px 10px}
+ .studio-body .bar h1{font-size:24px}
+ .studio-body .bar-sub{margin-top:6px;gap:6px}
+ .studio-body .bar-actions{margin-top:8px}
+ .studio-body .bar-actions .btn{min-height:44px;font-size:12px;padding-inline:9px}
+ .studio-body .bar-actions .saved{min-height:15px}
+ .studio-body .workspace{padding-top:8px}
+ .studio-body .draft-notice{margin-bottom:12px}
+ .studio-body .catalog-summary{padding:12px 14px;gap:10px;margin-bottom:16px}
+ .studio-body .intro{margin-bottom:14px}
+ .studio-body .intro .btn{min-height:44px}
+ .studio-body .inventory-search{padding-block:8px}
+ .studio-body .inventory-search input{min-height:44px;font-size:12px}
+ .studio-body .inventory-head{padding-block:10px}
+ .studio-body .catalog-summary summary{min-height:44px;padding-block:12px}
+}
