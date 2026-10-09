@@ -1,0 +1,78 @@
+{
+  "source": "7b920d36d2bd776c6638db3ffa36c07bbe211047",
+  "origin": "http://127.0.0.1:43981",
+  "eventId": "b307252b-888b-4740-9785-994ee914da52",
+  "ownedUI": "a2171e9ca8d90821838d0ec344a4283133f810e3",
+  "moduleHash": "a94590613d970ed469757adcce5186c7502cb0145b688b716a0dab4b206bce69",
+  "checks": [
+    "actual served staff operations bytes match a2171e9 module",
+    "1440 exact guard copy renders with current real policy",
+    "1440 help and controls no overflow",
+    "1440 actual123.45 pledge retains ordinary amount and manual label",
+    "390 exact guard copy renders with current real policy",
+    "390 help and controls no overflow",
+    "390 actual123.45 pledge retains ordinary amount and manual label",
+    "reload retains real pledge and current policy",
+    "no browser exceptions"
+  ],
+  "captures": [
+    {
+      "name": "copy-1440.png",
+      "state": {
+        "innerWidth": 1440,
+        "innerHeight": 1120,
+        "dpr": 1,
+        "documentWidth": 1440,
+        "main": {
+          "scrollTop": 0,
+          "scrollWidth": 1120,
+          "clientWidth": 1120
+        }
+      }
+    },
+    {
+      "name": "pledge-label-1440.png",
+      "state": {
+        "innerWidth": 1440,
+        "innerHeight": 1120,
+        "dpr": 1,
+        "documentWidth": 1440,
+        "main": {
+          "scrollTop": 341,
+          "scrollWidth": 1120,
+          "clientWidth": 1120
+        }
+      }
+    },
+    {
+      "name": "copy-390.png",
+      "state": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "main": {
+          "scrollTop": 351,
+          "scrollWidth": 358,
+          "clientWidth": 358
+        }
+      }
+    },
+    {
+      "name": "pledge-label-390.png",
+      "state": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "main": {
+          "scrollTop": 1281,
+          "scrollWidth": 358,
+          "clientWidth": 358
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "kind": "COMBINED_LOCAL_REAL_HTTP_UI"
+}
