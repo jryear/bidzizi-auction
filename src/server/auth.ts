@@ -36,13 +36,10 @@ export async function staff(client: PoolClient, request: Request): Promise<Ident
   if (!testMode(request)) throw unauthenticated();
   const hash = sessionHash(request);
   if (!hash) throw unauthenticated();
-  // Share the database-enforced revocation gate before event/request locks,
-  // then read current authority in a fresh statement. Shared readers remain
-  // concurrent across actors and events; raw mutations enter before any tuple.
-  await client.query("SELECT pg_advisory_xact_lock_shared(hashtextextended($1,0))", ["bz-asset-authority:v1"]);
-  // The statement trigger queues writers before tuple acquisition. Retain the
-  // ordinary SHARE locks: they also reject stale repeatable-read snapshots of
-  // changed authority. No stronger session/person or organization lock is used.
+  // Lock current authority rows before event/request locks. Migration 017
+  // removes the global gate; raw revokers use PostgreSQL row-lock ordering,
+  // without priority merely because an uncommitted statement was queued.
+  // SHARE also rejects repeatable-read snapshots of changed authority.
   const actor = await identity(client, request);
   if (!actor.organizations.length) throw forbidden();
   return actor;
@@ -81,8 +78,8 @@ export async function login(request: Request): Promise<Response> {
   const token = randomBytes(32).toString("base64url");
   const hash = createHash("sha256").update(token).digest("hex");
   const result = await transaction(async client => {
-    // Old-cookie login enters the exclusive mutation gate before locking a
-    // person. A failed login rolls this revocation back with the transaction.
+    // Revoke the old session before locking the selected person. Preserve this
+    // order; a failed login rolls revocation back with the transaction.
     const previous = sessionHash(request);
     if (previous) await client.query("UPDATE bz_sessions SET revoked_at=now() WHERE token_hash=$1 AND revoked_at IS NULL", [previous]);
     const found = await client.query<{ id: string; name: string }>(
