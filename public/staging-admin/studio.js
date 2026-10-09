@@ -100,9 +100,9 @@ function refreshChrome(){
  document.querySelectorAll('[data-preview-mode]').forEach(b=>{const on=b.dataset.previewMode===previewMode;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on));});
  document.querySelectorAll('[data-action="preview-lot"]').forEach(el=>el.disabled=loadingDraft||!canPreviewLot());
  const previewHelp=$('#lot-preview-help');if(previewHelp){const unsaved=previewMode==='saved'&&chosen()&&!confirmed.lots.some(l=>l.id===picked);previewHelp.hidden=!unsaved;previewHelp.textContent=unsaved?'Save this lot to see it in Saved draft preview, or switch the preview to Working draft.':'';}
- const locked=loadingDraft||approving||!!approvalAttempt||['saving','uncertain','blocked'].includes(saveState)||(d.version===2&&!!catalogApproval);
+ const locked=loadingDraft||uploading||approving||!!approvalAttempt||['saving','uncertain','blocked'].includes(saveState)||(d.version===2&&!!catalogApproval);
  document.querySelectorAll('[data-event],[data-lot],[data-sponsor],[data-sponsor-alt],[data-upload]').forEach(el=>el.disabled=locked||uploading);
- document.querySelectorAll('[data-action="add-lot"],[data-action="duplicate-lot"],[data-action="move-up"],[data-action="move-down"],[data-action="image"],[data-action="clear-image"],[data-action="assign-window"],[data-action="apply-window"],[data-action="add-sponsor"],[data-action="remove-sponsor"]').forEach(el=>el.disabled=locked);
+ document.querySelectorAll('[data-action="attach-recovered"],[data-action="add-lot"],[data-action="duplicate-lot"],[data-action="move-up"],[data-action="move-down"],[data-action="image"],[data-action="clear-image"],[data-action="assign-window"],[data-action="apply-window"],[data-action="add-sponsor"],[data-action="remove-sponsor"]').forEach(el=>el.disabled=locked);
  document.querySelectorAll('[data-action="events"],[data-action="events-home"],[data-action="new-event"],[data-action="reload-draft"],[data-action="confirm-reload"]').forEach(el=>el.disabled=loadingDraft||approving||!!approvalAttempt);
  refreshCatalogControls();
  for(const [action,delta] of [['move-up',-1],['move-down',1]]){const el=document.querySelector(`[data-action="${action}"]`);if(el){const i=d.lots.findIndex(l=>l.id===picked);el.disabled=locked||i+delta<0||i+delta>=d.lots.length;}}
@@ -155,7 +155,7 @@ function openModal(title,body,footer='',subtitle=''){
  const field=dialog.querySelector('.modal-body input:not([disabled]),.modal-body textarea:not([disabled]),.modal-body select:not([disabled])');
  (field||dialog.querySelector('.modal-body button:not([disabled])')||dialog.querySelector('button:not([disabled])'))?.focus();
 }
-function draftNotice(){return `<div id="draft-notice" class="draft-notice ${notice?'error':''}" ${notice?'role="alert"':''}><p>${esc(uploadNotice||notice||(catalogApproval?'Published terms are fixed.':'Working draft. Save changes before approving a catalog.'))}</p>${recoveredUpload?'<p data-asset-recovery="confirmed">An owned upload was recovered. Select its target again before attaching it.</p>':''}${saveState==='conflict'?'<button class="btn small" data-action="reload-draft">Reload saved draft</button>':saveState==='blocked'?'<button class="btn small" data-action="signout">Sign in again</button>':''}</div>`;}
+function draftNotice(){return `<div id="draft-notice" class="draft-notice ${notice?'error':''}" ${notice?'role="alert"':''}><p>${esc(uploadNotice||notice||(catalogApproval?'Published terms are fixed.':'Working draft. Save changes before approving a catalog.'))}</p>${recoveredUpload?`<p data-asset-recovery="confirmed">An owned upload was confirmed. Choose its target, then save to attach it.</p><button class="btn small" data-action="attach-recovered" data-target="${activeTab()==='lots'&&chosen()?'lot':'event'}" ${editable()?'':'disabled'}>Use recovered image for ${activeTab()==='lots'&&chosen()?'this item':'the event'}</button>`:''}${saveState==='conflict'?'<button class="btn small" data-action="reload-draft">Reload saved draft</button>':saveState==='blocked'?'<button class="btn small" data-action="signout">Sign in again</button>':''}</div>`;}
 function renderNotice(){const el=$('#draft-notice');if(el)el.outerHTML=draftNotice();}
 function routeHost(){try{return parent===window?window:parent;}catch{return window;}}
 function requestedEvent(){try{return new URL(routeHost().location.href).searchParams.get('event');}catch{return null;}}
@@ -215,7 +215,7 @@ function eventView(){
 }
 function sponsorsView(){return `<section class="sheet"><div class="sheet-head"><h3>Event sponsors</h3><span class="section-label">Optional</span></div><label class="switch-label"><input type="checkbox" data-event="sponsorsEnabled" ${d.event.sponsorsEnabled?'checked':''}>Show event sponsors</label><p class="help">Separate from the organization providing auction items.</p><div id="sponsor-fields">${sponsorFields()}</div></section>`;}
 function zones(current){const choices=[['UTC','UTC'],['America/Los_Angeles','Pacific · Los Angeles'],['America/Denver','Mountain · Denver'],['America/Chicago','Central · Chicago'],['America/New_York','Eastern · New York']];if(current&&!choices.some(([v])=>v===current))choices.unshift([current,current]);return choices.map(([v,t])=>`<option value="${esc(v)}" ${v===current?'selected':''}>${esc(t)}</option>`).join('');}
-function sponsorFields(){return d.event.sponsorsEnabled?`${d.event.sponsors.map((s,i)=>`<label class="sponsor-row">Sponsor ${i+1}<input data-sponsor="${i}" maxlength="200" value="${esc(s.name)}" placeholder="Organization or business name"><button class="btn small" data-action="remove-sponsor" data-index="${i}" aria-label="Remove sponsor ${i+1}">×</button></label><label>Upload sponsor ${i+1} logo<input type="file" accept="image/jpeg,image/png,image/webp" data-upload="sponsor" data-index="${i}" aria-label="Upload sponsor ${i+1} logo"></label><label>Sponsor ${i+1} logo description<input data-sponsor-alt="${i}" value="${esc(s.alt||'')}"></label>`).join('')}<button class="link-btn" data-action="add-sponsor">+ Add event sponsor</button>`:'';}
+function sponsorFields(){return d.event.sponsorsEnabled?`${d.event.sponsors.map((s,i)=>`<label class="sponsor-row">Sponsor ${i+1}<input data-sponsor="${i}" maxlength="200" value="${esc(s.name)}" placeholder="Organization or business name"><button class="btn small" data-action="remove-sponsor" data-index="${i}" aria-label="Remove sponsor ${i+1}">×</button></label>${recoveredUpload?`<button class="btn small" data-action="attach-recovered" data-target="sponsor" data-index="${i}" ${editable()?'':'disabled'}>Use recovered image for sponsor ${i+1}</button>`:''}<label>Upload sponsor ${i+1} logo<input type="file" accept="image/jpeg,image/png,image/webp" data-upload="sponsor" data-index="${i}" aria-label="Upload sponsor ${i+1} logo"></label><label>Sponsor ${i+1} logo description<input data-sponsor-alt="${i}" value="${esc(s.alt||'')}"></label>`).join('')}<button class="link-btn" data-action="add-sponsor">+ Add event sponsor</button>`:'';}
 function selectionBar(){return selected.size?`<div class="selection"><strong>${selected.size} ${selected.size===1?'lot':'lots'} selected</strong><div class="flex"><button data-action="clear-selection" style="color:inherit;font-size:12px">Clear</button>${d.version===2?'<span>Uses the shared event window</span>':'<button class="btn small" data-action="assign-window">Assign auction window →</button>'}</div></div>`:'';}
 function lotsView(){
  if(!d.lots.length)return `${draftNotice()}${catalogSummary()}<div class="intro"><div><h2>Items</h2><p>Your auction catalog starts here.</p></div></div><div class="empty-state"><h3>No items yet</h3><p>Add the title, details and starting amount for your first item.</p><button class="btn primary" data-action="add-lot">Add item</button></div><div id="studio-setup">${setupView()}</div>`;
@@ -361,6 +361,7 @@ async function copyEntry(){
 }
 
 function canLeaveDraft(){
+ if(uploading){toast('Wait for the image request before switching events.');return false;}
  if(entrySaving){toast('Wait for the current entry update before switching events.');return false;}
  if(creating||createAttempt){toast('Wait for or retry the pending request before switching events.');return false;}
  if(approving||approvalAttempt){toast('Retry or finish the approval before switching events.');return false;}
@@ -532,13 +533,34 @@ async function uploadFile(input){
 }
 async function recoverPendingUpload(){
  if(!d)return;
+ const ticket=contextEpoch,eventId=d.event.id,actorId=session?.person.id;
  let pending;try{pending=JSON.parse(sessionStorage.getItem(pendingUploadKey())||'null');}catch{}
- if(!pending||pending.eventId!==d.event.id||pending.actorId!==session?.person.id)return;
+ if(!pending||pending.eventId!==eventId||pending.actorId!==actorId)return;
  try{
   const response=await api('/api/admin/events/'+pending.eventId+'/asset-uploads/'+pending.requestId);
-  if(response.asset?.requestId===pending.requestId){recoveredUpload=response.asset;uploadNotice='An earlier upload was confirmed; it is not saved to a target.';}
- }catch(error){if(error.status===404){uploadNotice='Earlier upload was not found. Select the image again to retry.';try{sessionStorage.removeItem(pendingUploadKey());}catch{}}}
+  if(!current(ticket)||d?.event.id!==eventId||session?.person.id!==actorId)return;
+  if(response.asset?.requestId===pending.requestId&&response.asset.eventId===eventId&&/^asset:[a-f0-9-]{36}$/.test(response.asset.ref)){
+   recoveredUpload=response.asset;uploadNotice='An earlier upload was confirmed; it is not saved to a target.';
+  }
+ }catch(error){if(current(ticket)&&d?.event.id===eventId&&error.status===404){uploadNotice='Earlier upload was not found. Select the image again to retry.';try{sessionStorage.removeItem(pendingUploadKey());}catch{}}}
+ if(!current(ticket)||d?.event.id!==eventId)return;
  renderNotice();
+}
+async function attachRecovered(input){
+ if(!editable()||!recoveredUpload||recoveredUpload.eventId!==d?.event.id)return;
+ const ticket=contextEpoch,eventId=d.event.id,actorId=session.person.id,asset=clone(recoveredUpload),target=input.dataset.target,lotId=picked,sponsorIndex=Number(input.dataset.index);
+ if(!['event','lot','sponsor'].includes(target))return;
+ uploading=true;refreshChrome();
+ try{
+  const actor=await api('/api/session');
+  if(!current(ticket)||d?.event.id!==eventId||!actor.authenticated||actor.person?.id!==actorId)return;
+  if(target==='lot'&&(!chosen()||picked!==lotId)||target==='sponsor'&&!d.event.sponsors[sponsorIndex])return;
+  uploadRefs.set(asset.ref,'/api/admin/events/'+eventId+'/asset-uploads/'+asset.requestId+'/content');
+  if(target==='lot')chosen().image=asset.ref;else if(target==='sponsor')d.event.sponsors[sponsorIndex].logo=asset.ref;else d.event.cover=asset.ref;
+  try{sessionStorage.removeItem(pendingUploadKey());}catch{}
+  recoveredUpload=null;uploadNotice='Recovered image attached to the working draft. Save to keep it.';markDirty();renderMain();refresh();
+ }catch{if(current(ticket)){uploadNotice='Current access could not be confirmed. Retry attaching the recovered image.';renderNotice();}}
+ finally{if(current(ticket)){uploading=false;refreshChrome();}}
 }
 function imagePicker(target){
  imageTarget=target;openModal('Choose photo',`<div class="image-grid">${photos.map(([id,name])=>`<button data-action="choose-image" data-image="assets/lots/${id}.jpg"><img src="/staging-bidder-preview/assets/lots/${id}.jpg" alt="${name}"><span>${name}</span></button>`).join('')}</div><p class="help">Example images for staging. Uploads are not enabled.</p>`);
@@ -562,6 +584,7 @@ function duplicateLot(){
  toast('Lot duplicated as an unsaved draft. Save the draft to keep it.');
 }
 const actions={
+ 'attach-recovered':attachRecovered,
  'enable-entry':()=>updateEntry(true),'disable-entry':()=>updateEntry(false),'check-entry':()=>entryAttempt?updateEntry(entryAttempt.enabled):loadEntry(d.event.id),'copy-entry':copyEntry,
  'close-modal':()=>closeModal(),
  'save-draft':saveDraft,
