@@ -7,6 +7,7 @@
 .sheet-in .amt-field:has(#amt[aria-invalid="true"]){border-color:var(--red)}
 .catalog-standing{display:block;margin:18px 0;padding:16px;border:1px solid var(--line);border-radius:16px;background:var(--card)}
 .catalog-standing>div{display:flex;flex-direction:column;gap:6px}.catalog-standing b{font:650 21px/1.25 var(--serif)}.catalog-standing p{font-size:13px;line-height:1.5;margin-top:7px}.catalog-standing.t-green{border-color:var(--green)}.catalog-standing.t-red{border-color:var(--red)}
+.catalog-footer .footer-standing{margin:0 0 6px;font-size:13px;line-height:1.4;color:var(--ink);overflow-wrap:anywhere}.catalog-footer .footer-standing b{font-weight:650}.catalog-footer .footer-standing.t-green b{color:var(--green)}.catalog-footer .footer-standing.t-red b{color:var(--red)}
 .catalog-footer>span{display:block;line-height:1.5}.catalog-footer>span b{color:var(--ink)}.catalog-footer .btn:disabled{opacity:.5;cursor:default}
 .catalog-footer{position:sticky;bottom:72px;background:var(--paper);z-index:4}.catalog-standing .catalog-asof{font-size:11px}.sheet-in .forbiz small{display:block;margin-top:4px}.sheet-in .result p{overflow-wrap:anywhere}
 @media(max-width:360px){.catalog-standing b{font-size:19px}.sheet-head h2{font-size:23px}.sheet-scroll{padding-left:16px;padding-right:16px}}

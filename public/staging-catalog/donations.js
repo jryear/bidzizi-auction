@@ -1,5 +1,5 @@
 // A recorded manual commitment; client selection and review never submit it.
-import {event,timestamp} from './data.js';
+import {event,timestamp,currencySymbol} from './data.js';
 import {bidder} from './bidding.js';
 import {memberRequest} from './collections.js';
 export const donation={context:null,error:'',accessError:'',review:null,refusal:null,mode:'entry',amount:'25',nonprofitId:'',businessId:'',intent:null,receipt:null,checking:false};
@@ -8,7 +8,8 @@ const actor=()=>bidder.context?.person.id;
 const root=()=>'/api/bidder/events/'+encodeURIComponent(event.id)+'/donation-pledges';
 const key=()=>`bz:donation-intent:v1:${actor()}/${event.id}`;
 const changed=()=>window.dispatchEvent(new Event('member-change'));
-export function donationMoney(minor){if(!Number.isSafeInteger(minor))return '—';const whole=Math.floor(minor/100),fraction=minor%100;return '$'+whole.toLocaleString('en-US')+(fraction?'.'+String(fraction).padStart(2,'0'):'');}
+// Same catalog trade-currency symbol as bids (T$ in V2); always two decimals of the exact minor units.
+export function donationMoney(minor){if(!Number.isSafeInteger(minor))return '—';const whole=Math.floor(minor/100),fraction=minor%100;return currencySymbol()+whole.toLocaleString('en-US')+'.'+String(fraction).padStart(2,'0');}
 export function donationMinor(text){if(!/^\d+(?:\.\d{1,2})?$/.test(String(text)))return null;const [whole,fraction='']=String(text).split('.');const n=Number(whole)*100+Number(fraction.padEnd(2,'0'));return Number.isSafeInteger(n)&&n>0?n:null;}
 const save=()=>{try{if(donation.intent)localStorage.setItem(key(),JSON.stringify(donation.intent));else localStorage.removeItem(key());}catch{}};
 const uuid=v=>typeof v==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v);

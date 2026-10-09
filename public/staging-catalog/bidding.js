@@ -102,16 +102,26 @@ export async function refreshLot(id,{fresh=false}={}){
  if(sheet?.lot===id)renderSheet();
 }
 function allowed(id){const e=entryFor(id),b=currentBusiness();return !!(b?.canBid&&e.standing?.canBid&&e.standing.phase==='open'&&e.standing.leadingBusiness?.id!==b.id&&!e.loading&&!e.stale&&!e.checking&&!(e.intent&&!e.receipt)&&!bidder.stale&&navigator.onLine);}
+// One derivation from the last server standing for both the detail card and the sticky bid bar.
+function standingSummary(e){
+ const s=e.standing,own=e.receipt?.status==='accepted'?e.receipt:null;
+ const ownLeading=own&&s.leadingBusiness?.id===own.businessId;
+ const title=s.phase==='closed'?(own?(ownLeading?'Closed · your business led':'Closed · outbid'):s.leadingBusiness?`Closed · ${s.leadingBusiness.name} led`:'Closed · no bids recorded'):own?(ownLeading?"You're leading":'Outbid'):s.leadingBusiness?`${s.leadingBusiness.name} is leading`:'No bids yet';
+ const tone=own?(ownLeading?'green':'red'):'grey';
+ return {own,title,tone,stale:e.stale||bidder.stale||!navigator.onLine};
+}
+function footerStanding(e){
+ if(e.loading||!e.standing)return '';
+ const s=e.standing,{title,tone,stale}=standingSummary(e);
+ const amount=s.currentAmountMinor!==null?` · ${s.phase==='closed'?'final recorded':'recorded top'} ${money(s.currentAmountMinor)}`:'';
+ return `<p class="footer-standing t-${tone}" data-standing-as-of="${esc(s.serverNow)}">${stale?'Last confirmed: ':''}<b>${esc(title)}</b>${amount}</p>`;
+}
 export function standingMarkup(lot){
  if(!bidder.context)return '';
  const e=entryFor(lot.id),s=e.standing;
  if(e.loading)return '<section class="standing catalog-standing" role="status"><b>Checking standing…</b><p>Waiting for the current server result.</p></section>';
  if(!s)return `<section class="standing catalog-standing" role="status"><b>${esc(e.error||'Checking bidding access…')}</b>${e.receipt?`<p data-owned-request="${esc(e.receipt.requestId)}">${e.receipt.status==='accepted'?`Your original ${money(e.receipt.amountMinor)} bid was recorded. Current lot standing could not be confirmed.`:'Your original request was rejected; no bid was placed.'}</p><a href="#/bids" data-nav>View your bid receipts</a>`:''}</section>`;
- const own=e.receipt?.status==='accepted'?e.receipt:null;
- const ownLeading=own&&s.leadingBusiness?.id===own.businessId;
- const title=s.phase==='closed'?(own?(ownLeading?'Closed · your business led':'Closed · outbid'):s.leadingBusiness?`Closed · ${s.leadingBusiness.name} led`:'Closed · no bids recorded'):own?(ownLeading?"You're leading":'Outbid'):s.leadingBusiness?`${s.leadingBusiness.name} is leading`:'No bids yet';
- const tone=own?(ownLeading?'green':'red'):'grey';
- const stale=e.stale||bidder.stale||!navigator.onLine;
+ const {own,title,tone,stale}=standingSummary(e);
  return `<section class="standing catalog-standing t-${tone}" role="status"><div><span class="lbl">${stale?'Last confirmed standing':s.phase==='closed'?'Final recorded standing':'Current standing'}</span><b>${esc(title)}</b>${s.currentAmountMinor!==null?`<span class="amt">${money(s.currentAmountMinor)}</span>`:''}</div>${s.leadingBusiness?`<p>${esc(s.leadingBusiness.name)}</p>`:''}${own?`<p data-owned-request="${esc(own.requestId)}">Your ${money(own.amountMinor)} bid was recorded for ${esc(bidder.context.businesses.find(b=>b.id===own.businessId)?.name||'your business')}.</p>`:''}<p class="catalog-asof" data-standing-as-of="${esc(s.serverNow)}">${stale?'Offline or out of date · ':''}As of ${esc(timestamp(s.serverNow))}</p>${s.phase==='closed'?'<p>Bidding closed. This recorded standing is not an award or settlement.</p>':''}</section>`;
 }
 export function bidderStub(lot){
@@ -122,7 +132,7 @@ export function bidderStub(lot){
 export function bidFooter(lot){
  const e=entryFor(lot.id),s=e.standing,b=currentBusiness();
  const label=!bidder.context?'Bidding is not enabled':s?.phase==='closed'?'Bidding closed':s?.phase==='scheduled'?'Bidding opens '+event.opens:!b?.canBid?'Bidding is not enabled':e.intent&&!e.receipt?'Check your original bid':e.stale||bidder.stale||!navigator.onLine?'Reconnect to bid':s?.leadingBusiness?.id===b.id?'Your business is leading':s?.minimumAmountMinor===null?'No further bid available':'Place a bid';
- return `<div class="catalog-footer">${bidder.context&&b?`<span>Bidding for <b>${esc(b.name)}</b> · ${esc(bidder.context.person.name)}</span>`:'Read-only catalog'}<button class="btn primary" data-action="bid" ${allowed(lot.id)?'':'disabled'}>${esc(label)}</button>${e.intent&&!e.receipt&&e.mode!=='pending'?'<button class="btn quiet" data-action="recover-open">Check your original bid</button>':''}</div>`;
+ return `<div class="catalog-footer">${bidder.context?footerStanding(e):''}${bidder.context&&b?`<span>Bidding for <b>${esc(b.name)}</b> · ${esc(bidder.context.person.name)}</span>`:'Read-only catalog'}<button class="btn primary" data-action="bid" ${allowed(lot.id)?'':'disabled'}>${esc(label)}</button>${e.intent&&!e.receipt&&e.mode!=='pending'?'<button class="btn quiet" data-action="recover-open">Check your original bid</button>':''}</div>`;
 }
 const head=title=>`<div class="grab" aria-hidden="true"></div><div class="sheet-head"><h2 id="sheet-title" tabindex="-1">${esc(title)}</h2><button class="x" data-action="close-sheet" aria-label="Close">${icon('close')}</button></div>`;
 function lotMini(l){return `<div class="lotmini"><div class="thumb sm">${l.image?`<img src="${esc(l.image)}" alt="" width="1000" height="667">`:'<span>No photo</span>'}</div><div><span class="lbl">Lot ${esc(l.number)} · ${esc(l.category)}</span><p>${esc(l.title)}</p></div></div>`;}
