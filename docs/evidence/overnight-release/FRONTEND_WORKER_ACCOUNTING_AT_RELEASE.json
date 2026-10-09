@@ -1,0 +1,94 @@
+{
+  "run": "run_7a4725fb5d9e",
+  "counts": {
+    "reclaimable": 1,
+    "retained": 3,
+    "released": 3
+  },
+  "workers": [
+    {
+      "dispatchId": "ctx_c1af1ec59aa8",
+      "taskId": "task_db26413db046",
+      "workerState": "stopped",
+      "dispatchStatus": "failed",
+      "terminalState": "released",
+      "resourceState": "released",
+      "resourceReason": null,
+      "nextAction": "none",
+      "releaseState": "released",
+      "archiveStatus": "unavailable"
+    },
+    {
+      "dispatchId": "ctx_600df2f1ad33",
+      "taskId": "task_4f5dd1644773",
+      "workerState": "succeeded",
+      "dispatchStatus": "completed",
+      "terminalState": "reclaimable",
+      "resourceState": "owned",
+      "resourceReason": null,
+      "nextAction": "release",
+      "releaseState": "not_requested",
+      "archiveStatus": null
+    },
+    {
+      "dispatchId": "ctx_cb1390c6d2cc",
+      "taskId": "task_4f5dd1644773",
+      "workerState": "failed",
+      "dispatchStatus": "failed",
+      "terminalState": "retained",
+      "resourceState": "absent",
+      "resourceReason": "not_materialized",
+      "nextAction": "none",
+      "releaseState": null,
+      "archiveStatus": null
+    },
+    {
+      "dispatchId": "ctx_4f0f4caf2722",
+      "taskId": "task_be16d07e1032",
+      "workerState": "succeeded",
+      "dispatchStatus": "completed",
+      "terminalState": "released",
+      "resourceState": "released",
+      "resourceReason": null,
+      "nextAction": "none",
+      "releaseState": "released",
+      "archiveStatus": "captured"
+    },
+    {
+      "dispatchId": "ctx_6b1935df6b40",
+      "taskId": "task_be16d07e1032",
+      "workerState": "failed",
+      "dispatchStatus": "failed",
+      "terminalState": "retained",
+      "resourceState": "absent",
+      "resourceReason": "not_materialized",
+      "nextAction": "none",
+      "releaseState": null,
+      "archiveStatus": null
+    },
+    {
+      "dispatchId": "ctx_074450776556",
+      "taskId": "task_2dd6b98958dd",
+      "workerState": "succeeded",
+      "dispatchStatus": "completed",
+      "terminalState": "released",
+      "resourceState": "released",
+      "resourceReason": null,
+      "nextAction": "none",
+      "releaseState": "released",
+      "archiveStatus": "captured"
+    },
+    {
+      "dispatchId": "ctx_722c3f3eac35",
+      "taskId": "task_2dd6b98958dd",
+      "workerState": "failed",
+      "dispatchStatus": "failed",
+      "terminalState": "retained",
+      "resourceState": "absent",
+      "resourceReason": "not_materialized",
+      "nextAction": "none",
+      "releaseState": null,
+      "archiveStatus": null
+    }
+  ]
+}
