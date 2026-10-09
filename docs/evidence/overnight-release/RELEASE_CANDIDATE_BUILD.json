@@ -1,0 +1,76 @@
+{
+  "recordedAt": "2026-10-09T05:35:43.091Z",
+  "repositoryHead": "9efbc832f67e7a3bc8699447a8b776b29737ff17",
+  "buildSource": "69ec6f70925204576341a85f04cdfdbedcfffeb3",
+  "productBytesUnchangedSinceBuild": true,
+  "nodeVersion": "v24.21.0",
+  "pnpmVersion": "12.4.2",
+  "checks": {
+    "typecheck": "PASS",
+    "build": "PASS",
+    "javascriptSyntax": "PASS"
+  },
+  "trees": {
+    "src": "b67574c4635a5af40f77a83a42d2f4f836b04a39",
+    "public": "d7ebc61c70a501d7cc5f365b3b67deafad00e119",
+    "migrations": "e5bc922bd6d2f3f077ef57a800fc14f117bea545",
+    "package.json": "ee90abed7414b70efa61be1b2e880b99fa87f2de",
+    "pnpm-lock.yaml": "dab1a6f7cef22de1edd25c532b6c1814ebe823ba",
+    "next.config.ts": "64f7cd636516f729dc5c93df62addf85bbec6209"
+  },
+  "protectedChecks": [
+    {
+      "scope": "historical-task-files",
+      "base": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "paths": [
+        "tasks"
+      ],
+      "unchanged": true
+    },
+    {
+      "scope": "retained-authority-and-oracle",
+      "base": "b07c535c39b55e3c1b10082c224aa70799dd3eb8",
+      "paths": [
+        "src/server/auth.ts",
+        "migrations/016_staging_staff_assets.sql",
+        "tests/development/asset-authority.mjs"
+      ],
+      "unchanged": true
+    }
+  ],
+  "githubGateObservation": {
+    "main": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+    "protected": false,
+    "rulesets": [],
+    "existingCheckRuns": 0,
+    "requiredGateBypass": false
+  },
+  "existingDemo": {
+    "projectId": "prj_fy9oxz1zTFpwqLRDJONdgvjI2KNP",
+    "origin": "https://staging.bidzizi.com",
+    "database": "bz_staging_e2e",
+    "installedMigrations": [
+      "015",
+      "016",
+      "018",
+      "019"
+    ],
+    "heldMigration": "017",
+    "additiveInstallReceipt": "ADDITIVE_INSTALL.json",
+    "postCommitReadback": "ADDITIVE_READBACK.json"
+  },
+  "localEvidence": {
+    "backendSource": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+    "retainedAuthority": "RETAINED_AUTHORITY_21.json",
+    "staffOperations": "../overnight-staff-operations/COMBINED_13.json",
+    "personalActivity": "COMBINED_MEMBER_23.json",
+    "recoveryRuntime": "7b920d36d2bd776c6638db3ffa36c07bbe211047",
+    "historicalFailedRecovery": "MEMBER_RECOVERY_FAILED_E43.json"
+  },
+  "remainingAtRecord": [
+    "Final real currentVIEW/closed recovery receipt and SAFE",
+    "Main landing and exact deployed source/alias readback",
+    "New owned hosted staff/two-attendee whole-event rehearsal",
+    "Final source-bound donor-unit renders and root event link"
+  ]
+}
