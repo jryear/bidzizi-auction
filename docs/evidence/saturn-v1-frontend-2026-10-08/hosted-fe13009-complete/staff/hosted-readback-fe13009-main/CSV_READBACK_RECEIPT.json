@@ -1,0 +1,85 @@
+{
+  "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "expected": {
+    "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+    "memberMessage": "msg_6b1e09f9aeee",
+    "cabin": {
+      "amountMinor": 4969,
+      "count": 3,
+      "requestId": "7e748151-685a-48fe-a852-b08a00fd8819",
+      "businessName": "Juniper Hosted Synthetic"
+    },
+    "coffee": {
+      "amountMinor": 25000,
+      "count": 1,
+      "requestId": "97190691-5795-4262-965a-222fa1dde7d3"
+    },
+    "pledge": {
+      "id": "c102f2b7-bc8d-4c18-ab22-005357a6122c",
+      "requestId": "c716d7fd-2c0a-43af-a05d-604d507c2987",
+      "amountMinor": 12345,
+      "actorName": "Casey Hosted Synthetic",
+      "businessName": "Juniper Hosted Synthetic"
+    },
+    "recipientName": "Synthetic Holiday Trade Show Recipient"
+  },
+  "standing": [
+    {
+      "Event": "Holiday Trade Show \u00b7 Saturn V1 Demo",
+      "Event ID": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "Release ID": "6473508e-6d74-4579-8ca0-4dc21de32e84",
+      "Lot": "01",
+      "Title": "Cabin weekend",
+      "Denomination": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+      "Rules": "saturn-trade-tiered-v1",
+      "Opens at": "2026-10-09T06:07:00.000Z",
+      "Closes at": "2026-10-09T19:00:00.000Z",
+      "Timezone": "America/Los_Angeles",
+      "Amount minor units": "4969",
+      "Leading business": "Juniper Hosted Synthetic",
+      "Bid count": "3",
+      "Recorded state": "recorded-standing",
+      "Observed at": "2026-10-09T06:11:31.047Z"
+    },
+    {
+      "Event": "Holiday Trade Show \u00b7 Saturn V1 Demo",
+      "Event ID": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "Release ID": "6473508e-6d74-4579-8ca0-4dc21de32e84",
+      "Lot": "02",
+      "Title": "Coffee ritual kit",
+      "Denomination": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+      "Rules": "saturn-trade-tiered-v1",
+      "Opens at": "2026-10-09T06:07:00.000Z",
+      "Closes at": "2026-10-09T19:00:00.000Z",
+      "Timezone": "America/Los_Angeles",
+      "Amount minor units": "25000",
+      "Leading business": "Juniper Hosted Synthetic",
+      "Bid count": "1",
+      "Recorded state": "recorded-standing",
+      "Observed at": "2026-10-09T06:11:31.047Z"
+    }
+  ],
+  "pledges": [
+    {
+      "id": "c102f2b7-bc8d-4c18-ab22-005357a6122c",
+      "request_id": "c716d7fd-2c0a-43af-a05d-604d507c2987",
+      "event_id": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "actor_name": "Casey Hosted Synthetic",
+      "business_name": "Juniper Hosted Synthetic",
+      "nonprofit_id": "f2f9be40-5a90-41d3-9dde-eafdbb7fb6de",
+      "nonprofit_name": "Synthetic Holiday Trade Show Recipient",
+      "nonprofit_version": "1",
+      "amount_minor": "12345",
+      "amount": "123.45",
+      "unit": "trade-dollar",
+      "scale": "100",
+      "status": "pending_staff_settlement",
+      "recorded_at": "2026-10-09T06:08:27.916378+00:00"
+    }
+  ],
+  "checks": [
+    "Exact two published lot minor/count/rules/zone/recordedstate fields",
+    "Immutable exactpledge ID/request/actor/business/unit/scale/version/manualstate fields"
+  ],
+  "kind": "HOSTED_ACTUAL_UI_DOWNLOADED_CSV"
+}

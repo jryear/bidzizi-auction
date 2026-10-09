@@ -1,0 +1,427 @@
+{
+  "kind": "VERSIONED_HOSTED_EVIDENCE_SNAPSHOT",
+  "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "scope": "Source file bytes preserved; earlier candidate labels and harness errors retained; preview collision unresolved at capture",
+  "files": [
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-readback-fe13009-main/CSV_READBACK_RECEIPT.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-readback-fe13009-main/CSV_READBACK_RECEIPT.json",
+      "sha256": "00de4f83d22c30fe00a5970452e72039831dd21c2ad77d05d2dd7472291d3229",
+      "bytes": 3081
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-readback-fe13009-main/SHARED_OPEN_READBACK_RECEIPT.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-readback-fe13009-main/SHARED_OPEN_READBACK_RECEIPT.json",
+      "sha256": "185d7d8f1724328c6b6e0f0f6db95e3672d2e19ddc7c5f9dc2370de7bd98f2f4",
+      "bytes": 11603
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-readback-fe13009-main/shared-open-pledges.csv",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-readback-fe13009-main/shared-open-pledges.csv",
+      "sha256": "890a6890ed957df9e3cddb300d185788ab332577d534c878c6a057a8501b12a8",
+      "bytes": 527
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-readback-fe13009-main/shared-open-standing.csv",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-readback-fe13009-main/shared-open-standing.csv",
+      "sha256": "e8f64d7d9746ec04b21563adf23d003c0adf2bc75a49ff0426260a783f689f71",
+      "bytes": 912
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-readback-fe13009-short/shared-closed-pledges.csv",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-readback-fe13009-short/shared-closed-pledges.csv",
+      "sha256": "0490404f74b0e68ed726161914d8c8fc845ade3087f7f0a86e46fe67297d3898",
+      "bytes": 542
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-readback-fe13009-short/CSV_CLOSED_RECEIPT.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-readback-fe13009-short/CSV_CLOSED_RECEIPT.json",
+      "sha256": "a9b71ea69cc8615f154cbcc465455da9fc5b0088f82bb58ae3599501b64834d7",
+      "bytes": 3149
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-readback-fe13009-short/SHARED_CLOSED_READBACK_RECEIPT.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-readback-fe13009-short/SHARED_CLOSED_READBACK_RECEIPT.json",
+      "sha256": "738a41fa0a2fcc454a06120ad4a0e6d2582755526bc32e968a8b11bc5f1e65ef",
+      "bytes": 11694
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-readback-fe13009-short/SHARED_OPEN_READBACK_RECEIPT.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-readback-fe13009-short/SHARED_OPEN_READBACK_RECEIPT.json",
+      "sha256": "a3a49d218c7d41580753804a857f8c025189ecd688ee8bf1c546e8066a471f13",
+      "bytes": 11678
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-readback-fe13009-short/shared-open-pledges.csv",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-readback-fe13009-short/shared-open-pledges.csv",
+      "sha256": "0490404f74b0e68ed726161914d8c8fc845ade3087f7f0a86e46fe67297d3898",
+      "bytes": 542
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-readback-fe13009-short/shared-open-standing.csv",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-readback-fe13009-short/shared-open-standing.csv",
+      "sha256": "9e2a6f3b0026bf91fc3bdf1c6bf4f4b4c60b8969de6ee263d7e63a952816fab4",
+      "bytes": 949
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-readback-fe13009-short/CSV_OPEN_RECEIPT.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-readback-fe13009-short/CSV_OPEN_RECEIPT.json",
+      "sha256": "36d3f20a4501fabd7f900433235d1af6708d4565188e041eb4a32242a3a0e89a",
+      "bytes": 3122
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-readback-fe13009-short/shared-closed-standing.csv",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-readback-fe13009-short/shared-closed-standing.csv",
+      "sha256": "3116794e0dd104b309e1e26a9b8a6a331fba1a706c1f2af30bf6ad57d1d6146f",
+      "bytes": 949
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-private-fe13009/PRIVATE_CONTROLS_RECEIPT.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-private-fe13009/PRIVATE_CONTROLS_RECEIPT.json",
+      "sha256": "1f31ee27663320adf30de4fe9dcb59bca946021112029cdee2cf5cf4a11daec8",
+      "bytes": 1611
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-grants-fe13009/8e2a0f98-924a-4742-ab44-19147af0e0ad-BID-1_RECEIPT.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-grants-fe13009/8e2a0f98-924a-4742-ab44-19147af0e0ad-BID-1_RECEIPT.json",
+      "sha256": "6af9b7c64e90d0d8ff038ff9d29d38de24778ac90e902cbb7760be672b814efa",
+      "bytes": 4691
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-grants-fe13009/8e2a0f98-924a-4742-ab44-19147af0e0ad-VIEW-0_RECEIPT.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-grants-fe13009/8e2a0f98-924a-4742-ab44-19147af0e0ad-VIEW-0_RECEIPT.json",
+      "sha256": "6b0ff0a47e5118d028c505ba8344dac52c4a929c162c5a52bb80d849cba7c87f",
+      "bytes": 4896
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-preview-final-fe13009/DIAGNOSTIC.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-preview-final-fe13009/DIAGNOSTIC.json",
+      "sha256": "9bdbb6e5617493925bbf802f3e9987e94ae662781b5f9cd9d1b842dc405484f0",
+      "bytes": 97473
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-readback.mjs",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/probes/hosted-readback.mjs",
+      "sha256": "9c909e1cb53cdc7b7397aae6e47dad9f669055c53f2e864fd8133cdb32ee4040",
+      "bytes": 8563
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-private-controls.mjs",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/probes/hosted-private-controls.mjs",
+      "sha256": "88e0450960ca312cc88ea707efa6909577acd914bf5b0cb29b366a335cce5a5f",
+      "bytes": 6310
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-grant.mjs",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/probes/hosted-grant.mjs",
+      "sha256": "a8eaabf9a3ec1ed50b05e76cb8fab0045188d22bc4b387cf91811d0c6ed56d91",
+      "bytes": 6116
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-preview-final.mjs",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/probes/hosted-preview-final.mjs",
+      "sha256": "3b3536d044cef01cf13486a9f0c41c0f618a2cf1e1a1651fc2dd2e9ac041c36e",
+      "bytes": 4718
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-readback-fe13009-short/desktop-shared-closed-standing.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-readback-fe13009-short/desktop-shared-closed-standing.png",
+      "sha256": "ff84de85dbf431359379838a7c4558d081f0f444bea47b731b333a6e88adbf95",
+      "bytes": 162372,
+      "png": {
+        "width": 1440,
+        "height": 1120
+      }
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-readback-fe13009-short/mobile-shared-closed-standing.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-readback-fe13009-short/mobile-shared-closed-standing.png",
+      "sha256": "9631a6d45d88eca709a159685148c3efd9ce10081c24a8f8e77d8343f8c1774b",
+      "bytes": 67243,
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-readback-fe13009-short/desktop-shared-closed-display.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-readback-fe13009-short/desktop-shared-closed-display.png",
+      "sha256": "735624e3a33e7941cd7699fcabb61846ea8025c8c4c21dac031d2c16768cfb56",
+      "bytes": 217662,
+      "png": {
+        "width": 1440,
+        "height": 1120
+      }
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-readback-fe13009-short/mobile-shared-closed-display.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-readback-fe13009-short/mobile-shared-closed-display.png",
+      "sha256": "1c02f8b3915e21d8f28e1dd010ec27866f4dc7124cb23bd9c3876cda0ce128f5",
+      "bytes": 72753,
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-readback-fe13009-short/mobile-shared-closed-pledge.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-readback-fe13009-short/mobile-shared-closed-pledge.png",
+      "sha256": "8c1f0525de7eb3355cb66b95b7959787ef56c7438fc8f32b8fc71e40fab6dec3",
+      "bytes": 63106,
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-private-fe13009/phone-stale-standing.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-private-fe13009/phone-stale-standing.png",
+      "sha256": "0b53b91835accb0f7b6283a817ecaefec48eb94842eeef85cd7cbd62c56318a5",
+      "bytes": 68803,
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-private-fe13009/phone-denied-display.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-private-fe13009/phone-denied-display.png",
+      "sha256": "28b0ae7b4ec202e285b7567c253468cc95e0a9b79c2b4d7f429bca81b5d55a79",
+      "bytes": 47659,
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-private-fe13009/phone-denied-export.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-private-fe13009/phone-denied-export.png",
+      "sha256": "29d05ef84f411cc7d1ff4301d35f6f3d2459ddf78cb1db3b1104fe18fad021cd",
+      "bytes": 47062,
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-preview-final-fe13009/after-selected.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-preview-final-fe13009/after-selected.png",
+      "sha256": "cf3204282d05f2f93fc58d3967278dc2f582f45986d00edbbaab6043664cbcd6",
+      "bytes": 424494,
+      "png": {
+        "width": 1440,
+        "height": 1120
+      }
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-preview-final-fe13009/catalog-image-1.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-preview-final-fe13009/catalog-image-1.png",
+      "sha256": "dc566cefdf6b9be996e31d75ea92bd9d05d76cf7f31f6c290ba51ebd26a20ef4",
+      "bytes": 378837,
+      "png": {
+        "width": 1440,
+        "height": 1120
+      }
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-preview-final-fe13009/catalog-image-2.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-preview-final-fe13009/catalog-image-2.png",
+      "sha256": "f2cc2d3a0373d426392a135f63eb589296bf733dcfbb5ba80b99590e55498303",
+      "bytes": 347843,
+      "png": {
+        "width": 1440,
+        "height": 1120
+      }
+    },
+    {
+      "sourcePath": "/tmp/saturn-staff-ui-074450/hosted-preview-final-fe13009/catalog-image-3.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/hosted-preview-final-fe13009/catalog-image-3.png",
+      "sha256": "24dfae265a0f26c41edebf1ea5c6dcac539ba2a297266e7ffe5b76bab51f23fd",
+      "bytes": 357901,
+      "png": {
+        "width": 1440,
+        "height": 1120
+      }
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/staff-ui-delivery-ctx_074450776556/STAFF_UI_DELIVERY.md",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/staff/STAFF_UI_DELIVERY.md",
+      "sha256": "666ff52a357fec244acaebe17170a9a6d07e66fc5e10c6ce8f8916915e0c929f",
+      "bytes": 11214
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PREOPEN_DTO_HARNESS_FAILED_01.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-primary-5b4bb79-202610090559/PREOPEN_DTO_HARNESS_FAILED_01.json",
+      "sha256": "6b57751a9612495f7ff450d49625f3f6b5ab124fdae199a978ca8c408f134cd6",
+      "bytes": 11862
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/ROOT_FE13009_READBACK.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-primary-5b4bb79-202610090559/ROOT_FE13009_READBACK.json",
+      "sha256": "596a2813c1d0bee53918fc95a317bb19ae8819a766620283acaf2cc6cded441f",
+      "bytes": 3966
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/CONNECTED_MEMBER_RECEIPT.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-primary-5b4bb79-202610090559/CONNECTED_MEMBER_RECEIPT.json",
+      "sha256": "0a425b8fcba5d312ffb5d12cdcb879f5c4c8203b59a1e4ddf1b2c7974012ba70",
+      "bytes": 40759
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/CLOSED_READBACK_HARNESS_FAILED_01.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-short-fe13009-202610090602/CLOSED_READBACK_HARNESS_FAILED_01.json",
+      "sha256": "7856de985dcfdcf1f00664c9cabee4a2ebae00148d713cf6cbbbcb12ca06671a",
+      "bytes": 592
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/CLOSED_FULL_READBACK.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-short-fe13009-202610090602/CLOSED_FULL_READBACK.json",
+      "sha256": "735712f18bc9d8fe7a39d40267e2a6ee4c6f39c6349f8a0010383d0f168ef88f",
+      "bytes": 5250
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/ORIGINAL_ACTOR_CLOSED_DOM_READBACK.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-short-fe13009-202610090602/ORIGINAL_ACTOR_CLOSED_DOM_READBACK.json",
+      "sha256": "c48533c4ae470d18bc41518a08eb300692965318bdf2cae4344d20381cba7010",
+      "bytes": 2527
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/CLOSED_CONTINUATION_HARNESS_FAILED_01.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-short-fe13009-202610090602/CLOSED_CONTINUATION_HARNESS_FAILED_01.json",
+      "sha256": "7bb475701bee104736c5221dbc3509db6ef3ef7fd0d00d5d64456b1b13b866d2",
+      "bytes": 45264
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/CONNECTED_MEMBER_RECEIPT.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-short-fe13009-202610090602/CONNECTED_MEMBER_RECEIPT.json",
+      "sha256": "7bb475701bee104736c5221dbc3509db6ef3ef7fd0d00d5d64456b1b13b866d2",
+      "bytes": 45264
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/CLOSED_READBACK_HARNESS_FAILED_01.mjs",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-short-fe13009-202610090602/CLOSED_READBACK_HARNESS_FAILED_01.mjs",
+      "sha256": "8e8d27b54354f014ae6ac56b54190253b68afa87fe5e0e63907c52a1135b0280",
+      "bytes": 3746
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-challenge-fe13009-202610090608/CONNECTED_MEMBER_RECEIPT.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-challenge-fe13009-202610090608/CONNECTED_MEMBER_RECEIPT.json",
+      "sha256": "80f82fe4dd687c1b200464ed620b4177580cf67189138cd803b1ed1c95cb11cf",
+      "bytes": 11439
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-member.mjs",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-member.mjs",
+      "sha256": "8ee1df399b5c4ce36de08fdc536e69cf149795b0acbb6bfc4d80b7a5d16fe185",
+      "bytes": 23287
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-closed-readback.mjs",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-closed-readback.mjs",
+      "sha256": "9e60c22c0b9ab91a81a32a3583fdf45b585cd1719def3746cdd10371a4ccd87d",
+      "bytes": 3819
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-root-readback.mjs",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-root-readback.mjs",
+      "sha256": "48f57832346f69907232c9651f57e4243ae771f7f21dadbad4758c39a21bfd77",
+      "bytes": 2265
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/HOSTED_MEMBER_DELIVERY_MANIFEST.json",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/HOSTED_MEMBER_DELIVERY_MANIFEST.json",
+      "sha256": "48846934178b63ac720788e21d2643f3219a30ee4190c22d8e52758beefad013",
+      "bytes": 12831
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_NATIVE_BID_REVIEW.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-primary-5b4bb79-202610090559/PHONE_NATIVE_BID_REVIEW.png",
+      "sha256": "847e2dd9986e19665720a89975919b0632ba73a86d8fc87391f637c7ca279b6a",
+      "bytes": 83910,
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_MY_BIDS_DURABLE.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-primary-5b4bb79-202610090559/PHONE_MY_BIDS_DURABLE.png",
+      "sha256": "2ca2d935f1fe32d68e50723811a00c9d9032f86a559392ecf56e2bf952503705",
+      "bytes": 91251,
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_360_DONATION_RECORDED.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-primary-5b4bb79-202610090559/PHONE_360_DONATION_RECORDED.png",
+      "sha256": "6ef30637e791c3a079576fcef1bbaece101140b292aab2b203247417dd7cde72",
+      "bytes": 78134,
+      "png": {
+        "width": 360,
+        "height": 844
+      }
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/CLOSED_STANDING_FULL_360.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-short-fe13009-202610090602/CLOSED_STANDING_FULL_360.png",
+      "sha256": "15b9eee277b4b404771b33148af43e910322bac05730525cf10d6d25e1cf04ff",
+      "bytes": 82420,
+      "png": {
+        "width": 360,
+        "height": 844
+      }
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/CLOSED_STANDING_FULL_390.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-short-fe13009-202610090602/CLOSED_STANDING_FULL_390.png",
+      "sha256": "88e430d18e586f3c4f6aceae99137bfdda9f637521e51198440d2ae49a357dd1",
+      "bytes": 83339,
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/CLOSED_STANDING_FULL_1440.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-short-fe13009-202610090602/CLOSED_STANDING_FULL_1440.png",
+      "sha256": "a8291ccdbad8017b6bd04dc972936ce5de46b65487eb9e4f2ab154fca1b522f8",
+      "bytes": 144665,
+      "png": {
+        "width": 1440,
+        "height": 1000
+      }
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_CLOSED_MY_BIDS.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-short-fe13009-202610090602/PHONE_CLOSED_MY_BIDS.png",
+      "sha256": "f3b2a272be9a8c20412a7c7b2267a3a39c3d0ba1bcfcf6c6fdc1fbcbe36ef4f0",
+      "bytes": 98804,
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-challenge-fe13009-202610090608/PHONE_VIEW_AUTHORIZED_ORIGINAL_RECEIPT.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-challenge-fe13009-202610090608/PHONE_VIEW_AUTHORIZED_ORIGINAL_RECEIPT.png",
+      "sha256": "10efe30dd8edd8e761fb26faf6f628d55f020a8ef456606cfdce4d77f4f4980b",
+      "bytes": 141822,
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-challenge-fe13009-202610090608/PHONE_BID_RESTORED_RELOAD.png",
+      "preservedPath": "docs/evidence/saturn-v1-frontend-2026-10-08/hosted-fe13009-complete/member/hosted-challenge-fe13009-202610090608/PHONE_BID_RESTORED_RELOAD.png",
+      "sha256": "a5521439ee5a5e3fa5e7ba2b10f00844a0aecaf86fe0abd4b83d3a68777e0066",
+      "bytes": 260880,
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    }
+  ]
+}

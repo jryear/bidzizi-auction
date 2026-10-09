@@ -1,0 +1,793 @@
+{
+  "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+  "states": [
+    {
+      "name": "before-catalog",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002&tab=lots",
+          "state": {
+            "text": "(self.__next_f=self.__next_f||[]).push([0])self.__next_f.push([1,\"1:\\\"$Sreact.fragment\\\"\\n2:I[45379,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\"]\\n3:I[95065,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\"]\\n4:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"OutletBoundary\\\"]\\n5:\\\"$Sreact.suspense\\\"\\n8:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"ViewportBoundary\\\"]\\na:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"MetadataBoundary\\\"]\\nc:I[5694,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\",1]\\n:HL[\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"style\\\"]\\n7:X\\n0:{\\\"P\\\":null,\\\"c\\\":[\\\"\\\",\\\"admin\\\"],\\\"q\\\":\\\"\\\",\\\"i\\\":false,\\\"f\\\":[[[\\\"\\\",{\\\"children\\\":[\\\"admin\\\",{\\\"children\\\":[\\\"__PAGE__\\\",{},\\\"$undefined\\\",\\\"$undefined\\\",4608]},\\\"$undefined\\\",\\\"$undefined\\\",4608]},\\\"$undefined\\\",\\\"$undefined\\\",4624],[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}],[\\\"$\\\",\\\"script\\\",\\\"script-0\\\",{\\\"src\\\":\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"}]],[\\\"$\\\",\\\"html\\\",null,{\\\"lang\\\":\\\"en\\\",\\\"children\\\":[\\\"$\\\",\\\"body\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$L2\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L3\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":[[[\\\"$\\\",\\\"title\\\",null,{\\\"children\\\":\\\"404: This page could not be found.\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":{\\\"fontFamily\\\":\\\"system-ui,\\\\\\\"Segoe UI\\\\\\\",Roboto,Helvetica,Arial,sans-serif,\\\\\\\"Apple Color Emoji\\\\\\\",\\\\\\\"Segoe UI Emoji\\\\\\\"\\\",\\\"height\\\":\\\"100vh\\\",\\\"textAlign\\\":\\\"center\\\",\\\"display\\\":\\\"flex\\\",\\\"flexDirection\\\":\\\"column\\\",\\\"alignItems\\\":\\\"center\\\",\\\"justifyContent\\\":\\\"center\\\"},\\\"children\\\":[\\\"$\\\",\\\"div\\\",null,{\\\"children\\\":[[\\\"$\\\",\\\"style\\\",null,{\\\"dangerouslySetInnerHTML\\\":{\\\"__html\\\":\\\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\\\"}}],[\\\"$\\\",\\\"h1\\\",null,{\\\"className\\\":\\\"next-error-h1\\\",\\\"style\\\":{\\\"display\\\":\\\"inline-block\\\",\\\"margin\\\":\\\"0 20px 0 0\\\",\\\"padding\\\":\\\"0 23px 0 0\\\",\\\"fontSize\\\":24,\\\"fontWeight\\\":500,\\\"verticalAlign\\\":\\\"top\\\",\\\"lineHeight\\\":\\\"49px\\\"},\\\"children\\\":404}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":{\\\"display\\\":\\\"inline-block\\\"},\\\"children\\\":[\\\"$\\\",\\\"h2\\\",null,{\\\"style\\\":{\\\"fontSize\\\":14,\\\"fontWeight\\\":400,\\\"lineHeight\\\":\\\"49px\\\",\\\"margin\\\":0},\\\"children\\\":\\\"This page could not be found.\\\"}]}]]}]}]],[]],\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]}]}]]}],{\\\"children\\\":[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L2\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L3\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":\\\"$undefined\\\",\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]]}],{\\\"children\\\":[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[\\\"$\\\",\\\"iframe\\\",null,{\\\"title\\\":\\\"BidZizi admin workspace\\\",\\\"src\\\":\\\"/staging-admin/index.html\\\",\\\"style\\\":{\\\"position\\\":\\\"fixed\\\",\\\"inset\\\":0,\\\"width\\\":\\\"100%\\\",\\\"height\\\":\\\"100dvh\\\",\\\"border\\\":0,\\\"background\\\":\\\"#f5f0e6\\\"}}],null,[\\\"$\\\",\\\"$L4\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$5\\\",null,{\\\"name\\\":\\\"Next.MetadataOutlet\\\",\\\"children\\\":\\\"$@6\\\"}]}]]}],{},null,false,null]},null,false,\\\"$7\\\"]},null,false,null],[\\\"$\\\",\\\"$1\\\",\\\"h\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L8\\\",null,{\\\"children\\\":\\\"$L9\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"hidden\\\":true,\\\"children\\\":[\\\"$\\\",\\\"$La\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$5\\\",null,{\\\"name\\\":\\\"Next.Metadata\\\",\\\"children\\\":\\\"$Lb\\\"}]}]}],null]}],false]],\\\"m\\\":\\\"$undefined\\\",\\\"G\\\":[\\\"$c\\\",[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}]]],\\\"S\\\":true,\\\"h\\\":null,\\\"r\\\":\\\"$undefined\\\",\\\"s\\\":\\\"$undefined\\\",\\\"a\\\":\\\"$undefined\\\",\\\"l\\\":\\\"$undefined\\\",\\\"p\\\":\\\"$undefined\\\",\\\"d\\\":\\\"$undefined\\\"}\\n7:C\\n9:[[\\\"$\\\",\\\"meta\\\",\\\"0\\\",{\\\"charSet\\\":\\\"utf-8\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"viewport\\\",\\\"content\\\":\\\"width=device-width, initial-scale=1\\\"}]]\\n6:null\\nb:[[\\\"$\\\",\\\"title\\\",\\\"0\\\",{\\\"children\\\":\\\"Event studio · BidZizi staging\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"description\\\",\\\"content\\\":\\\"Staging event and lot editing for authorized test staff.\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"2\\\",{\\\"name\\\":\\\"robots\\\",\\\"content\\\":\\\"noindex, nofollow\\\"}]]\\n\"])",
+            "imgs": [],
+            "messages": [],
+            "width": 1440,
+            "scrollWidth": 1440
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/lots",
+          "state": {
+            "text": "\n    Skip to content\n    BidZiziSBSaturn BarterEventsThis eventChoose event ⌄Holiday Trade Show · Saturn V1 DemoItems 3Event & entryBiddersDonation pledgesRecorded standingPrivate displayStudioStaging testTest Saturn StaffSign out\n Holiday Trade Show · Saturn V1 DemoWorking draftApproved2026-10-08 · 23:07–2026-10-09 12:00 America/Los_AngelesSavedHide previewSave draftReview catalog\n Published terms are fixed.Approved catalogHoliday Trade Show · Saturn V1 Demo · saved revision 2 · 2 lotsOctober 8, 2026 · 11:07 PM to October 9, 2026 · 12:00 PM America/Los_AngelesView approved lotsLot 01 · Cabin weekendLot 02 · Coffee ritual kitThis saved copy and window are fixed.Items3 items · working catalog+ Add itemSearch your lotsItemSelect allStarting amount · bidding windowSelect lot 0101Cabin weekendGetawaysT$25.01Shared event windowSelect lot 0202Coffee ritual kitHomeT$250.00Shared event windowSelect lot 0303Spring flowersGardenT$35.00Shared event windowEditing item 01View in preview\n Upload item photo\n Item title\n Short description\n DescriptionRecognizable uploaded item in a synthetic trade-dollar rehearsal.\n Category\n Opening amount · synthetic trade dollars\n Fixed raise override · optional\n Photo and item detailsPhoto description\n IncludedImportant detailsDuplicate lot↑↓Catalog order · 1 of 3Event setupSaved revision 2. One explicit window and tiered synthetic trade-dollar rules.\n Welcome and timing\n 3 saved items\n Published catalog✓New bidder entryEntry enabled · revision 1. New synthetic attendees can create their own private demo profile.Phone preview×Working draftSaved draftWelcomeCatalogSelected lotSaved draft · revision 2\n Synthetic staff preview\n    \n    \n    \n  \n\n",
+            "imgs": [
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              }
+            ],
+            "messages": [],
+            "width": 1440,
+            "scrollWidth": 1440
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/",
+          "state": {
+            "text": "\n  \n    \n    \n      \n      \n        BidZizi\n        Saturn Barter\n      \n      \n        Saturn Barter presents\n        Holiday Trade Show · Saturn V1 Demo\n      \n    \n    \n      \n        \n          Member auction\n          Browse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\n          \n            Browse the lots \n            Event information \n          \n        \n        \n          Holiday Trade Show · synthetic rehearsal\n          \n            When2026-10-08\n            Draft close2026-10-09 · 12:00 PM America/Los_Angeles\n            Lots3\n            First itemCabin weekend\n          \n          Staff draft preview. Bidding is disabled. Synthetic Saturn trade dollars; no payment or settlement.\n        \n      \n      \n        With our event sponsors\n        Synthetic Holiday Trade Show Sponsor\n      \n      BidZiziA welcome from Saturn Barter\n    \n  LotsWatchingMy bidsEvent",
+            "imgs": [
+              {
+                "class": "event-cover",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/3c36c2d7-4468-48a7-b7f6-77b854c0b54c",
+                "naturalWidth": 64,
+                "naturalHeight": 64
+              }
+            ],
+            "messages": [
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 30.5
+              },
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 107.90000000596046
+              },
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 168.5
+              }
+            ],
+            "width": 340,
+            "scrollWidth": 340
+          }
+        }
+      ]
+    },
+    {
+      "name": "catalog-image-1",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002&tab=lots",
+          "state": {
+            "text": "(self.__next_f=self.__next_f||[]).push([0])self.__next_f.push([1,\"1:\\\"$Sreact.fragment\\\"\\n2:I[45379,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\"]\\n3:I[95065,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\"]\\n4:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"OutletBoundary\\\"]\\n5:\\\"$Sreact.suspense\\\"\\n8:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"ViewportBoundary\\\"]\\na:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"MetadataBoundary\\\"]\\nc:I[5694,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\",1]\\n:HL[\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"style\\\"]\\n7:X\\n0:{\\\"P\\\":null,\\\"c\\\":[\\\"\\\",\\\"admin\\\"],\\\"q\\\":\\\"\\\",\\\"i\\\":false,\\\"f\\\":[[[\\\"\\\",{\\\"children\\\":[\\\"admin\\\",{\\\"children\\\":[\\\"__PAGE__\\\",{},\\\"$undefined\\\",\\\"$undefined\\\",4608]},\\\"$undefined\\\",\\\"$undefined\\\",4608]},\\\"$undefined\\\",\\\"$undefined\\\",4624],[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}],[\\\"$\\\",\\\"script\\\",\\\"script-0\\\",{\\\"src\\\":\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"}]],[\\\"$\\\",\\\"html\\\",null,{\\\"lang\\\":\\\"en\\\",\\\"children\\\":[\\\"$\\\",\\\"body\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$L2\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L3\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":[[[\\\"$\\\",\\\"title\\\",null,{\\\"children\\\":\\\"404: This page could not be found.\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":{\\\"fontFamily\\\":\\\"system-ui,\\\\\\\"Segoe UI\\\\\\\",Roboto,Helvetica,Arial,sans-serif,\\\\\\\"Apple Color Emoji\\\\\\\",\\\\\\\"Segoe UI Emoji\\\\\\\"\\\",\\\"height\\\":\\\"100vh\\\",\\\"textAlign\\\":\\\"center\\\",\\\"display\\\":\\\"flex\\\",\\\"flexDirection\\\":\\\"column\\\",\\\"alignItems\\\":\\\"center\\\",\\\"justifyContent\\\":\\\"center\\\"},\\\"children\\\":[\\\"$\\\",\\\"div\\\",null,{\\\"children\\\":[[\\\"$\\\",\\\"style\\\",null,{\\\"dangerouslySetInnerHTML\\\":{\\\"__html\\\":\\\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\\\"}}],[\\\"$\\\",\\\"h1\\\",null,{\\\"className\\\":\\\"next-error-h1\\\",\\\"style\\\":{\\\"display\\\":\\\"inline-block\\\",\\\"margin\\\":\\\"0 20px 0 0\\\",\\\"padding\\\":\\\"0 23px 0 0\\\",\\\"fontSize\\\":24,\\\"fontWeight\\\":500,\\\"verticalAlign\\\":\\\"top\\\",\\\"lineHeight\\\":\\\"49px\\\"},\\\"children\\\":404}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":{\\\"display\\\":\\\"inline-block\\\"},\\\"children\\\":[\\\"$\\\",\\\"h2\\\",null,{\\\"style\\\":{\\\"fontSize\\\":14,\\\"fontWeight\\\":400,\\\"lineHeight\\\":\\\"49px\\\",\\\"margin\\\":0},\\\"children\\\":\\\"This page could not be found.\\\"}]}]]}]}]],[]],\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]}]}]]}],{\\\"children\\\":[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L2\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L3\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":\\\"$undefined\\\",\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]]}],{\\\"children\\\":[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[\\\"$\\\",\\\"iframe\\\",null,{\\\"title\\\":\\\"BidZizi admin workspace\\\",\\\"src\\\":\\\"/staging-admin/index.html\\\",\\\"style\\\":{\\\"position\\\":\\\"fixed\\\",\\\"inset\\\":0,\\\"width\\\":\\\"100%\\\",\\\"height\\\":\\\"100dvh\\\",\\\"border\\\":0,\\\"background\\\":\\\"#f5f0e6\\\"}}],null,[\\\"$\\\",\\\"$L4\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$5\\\",null,{\\\"name\\\":\\\"Next.MetadataOutlet\\\",\\\"children\\\":\\\"$@6\\\"}]}]]}],{},null,false,null]},null,false,\\\"$7\\\"]},null,false,null],[\\\"$\\\",\\\"$1\\\",\\\"h\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L8\\\",null,{\\\"children\\\":\\\"$L9\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"hidden\\\":true,\\\"children\\\":[\\\"$\\\",\\\"$La\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$5\\\",null,{\\\"name\\\":\\\"Next.Metadata\\\",\\\"children\\\":\\\"$Lb\\\"}]}]}],null]}],false]],\\\"m\\\":\\\"$undefined\\\",\\\"G\\\":[\\\"$c\\\",[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}]]],\\\"S\\\":true,\\\"h\\\":null,\\\"r\\\":\\\"$undefined\\\",\\\"s\\\":\\\"$undefined\\\",\\\"a\\\":\\\"$undefined\\\",\\\"l\\\":\\\"$undefined\\\",\\\"p\\\":\\\"$undefined\\\",\\\"d\\\":\\\"$undefined\\\"}\\n7:C\\n9:[[\\\"$\\\",\\\"meta\\\",\\\"0\\\",{\\\"charSet\\\":\\\"utf-8\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"viewport\\\",\\\"content\\\":\\\"width=device-width, initial-scale=1\\\"}]]\\n6:null\\nb:[[\\\"$\\\",\\\"title\\\",\\\"0\\\",{\\\"children\\\":\\\"Event studio · BidZizi staging\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"description\\\",\\\"content\\\":\\\"Staging event and lot editing for authorized test staff.\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"2\\\",{\\\"name\\\":\\\"robots\\\",\\\"content\\\":\\\"noindex, nofollow\\\"}]]\\n\"])",
+            "imgs": [],
+            "messages": [],
+            "width": 1440,
+            "scrollWidth": 1440
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/lots",
+          "state": {
+            "text": "\n    Skip to content\n    BidZiziSBSaturn BarterEventsThis eventChoose event ⌄Holiday Trade Show · Saturn V1 DemoItems 3Event & entryBiddersDonation pledgesRecorded standingPrivate displayStudioStaging testTest Saturn StaffSign out\n Holiday Trade Show · Saturn V1 DemoWorking draftApproved2026-10-08 · 23:07–2026-10-09 12:00 America/Los_AngelesSavedHide previewSave draftReview catalog\n Published terms are fixed.Approved catalogHoliday Trade Show · Saturn V1 Demo · saved revision 2 · 2 lotsOctober 8, 2026 · 11:07 PM to October 9, 2026 · 12:00 PM America/Los_AngelesView approved lotsLot 01 · Cabin weekendLot 02 · Coffee ritual kitThis saved copy and window are fixed.Items3 items · working catalog+ Add itemSearch your lotsItemSelect allStarting amount · bidding windowSelect lot 0101Cabin weekendGetawaysT$25.01Shared event windowSelect lot 0202Coffee ritual kitHomeT$250.00Shared event windowSelect lot 0303Spring flowersGardenT$35.00Shared event windowEditing item 01View in preview\n Upload item photo\n Item title\n Short description\n DescriptionRecognizable uploaded item in a synthetic trade-dollar rehearsal.\n Category\n Opening amount · synthetic trade dollars\n Fixed raise override · optional\n Photo and item detailsPhoto description\n IncludedImportant detailsDuplicate lot↑↓Catalog order · 1 of 3Event setupSaved revision 2. One explicit window and tiered synthetic trade-dollar rules.\n Welcome and timing\n 3 saved items\n Published catalog✓New bidder entryEntry enabled · revision 1. New synthetic attendees can create their own private demo profile.Phone preview×Working draftSaved draftWelcomeCatalogSelected lotSaved draft · revision 2\n Synthetic staff preview\n    \n    \n    \n  \n\n",
+            "imgs": [
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              }
+            ],
+            "messages": [],
+            "width": 1440,
+            "scrollWidth": 1440
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/lots",
+          "state": {
+            "text": "\n  Staff previewDraft content onlyPreview only\n  \n    Lots3 of 3\n    Search lots\n    AllGetawaysHomeGarden\n    Sort lotsLot orderMost bidsLowest bid first\n      \n    \n    \n    \n      01Saturn Barter\n      GetawaysCabin weekendTwo quiet nights among the trees\n      Opening bidT$25.010 bidsNo bids in draft preview\n      \n    \n    \n    \n      02Saturn Barter\n      HomeCoffee ritual kitStart the morning slowly\n      Opening bidT$2500 bidsNo bids in draft preview\n      \n    \n    \n    \n      03Saturn Barter\n      GardenSpring flowersKept outside this published subset\n      Opening bidT$350 bidsNo bids in draft preview\n      \n    That's every lot. \n  LotsWatchingMy bidsEvent",
+            "imgs": [
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "",
+                "src": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+                "naturalWidth": 0,
+                "naturalHeight": 0
+              },
+              {
+                "class": "",
+                "src": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+                "naturalWidth": 0,
+                "naturalHeight": 0
+              }
+            ],
+            "messages": [
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 30.5
+              },
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 107.90000000596046
+              },
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 168.5
+              },
+              {
+                "type": "staff-draft-preview",
+                "path": "/lots",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 325
+              }
+            ],
+            "width": 340,
+            "scrollWidth": 340
+          }
+        }
+      ]
+    },
+    {
+      "name": "catalog-image-2",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002&tab=lots",
+          "state": {
+            "text": "(self.__next_f=self.__next_f||[]).push([0])self.__next_f.push([1,\"1:\\\"$Sreact.fragment\\\"\\n2:I[45379,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\"]\\n3:I[95065,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\"]\\n4:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"OutletBoundary\\\"]\\n5:\\\"$Sreact.suspense\\\"\\n8:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"ViewportBoundary\\\"]\\na:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"MetadataBoundary\\\"]\\nc:I[5694,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\",1]\\n:HL[\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"style\\\"]\\n7:X\\n0:{\\\"P\\\":null,\\\"c\\\":[\\\"\\\",\\\"admin\\\"],\\\"q\\\":\\\"\\\",\\\"i\\\":false,\\\"f\\\":[[[\\\"\\\",{\\\"children\\\":[\\\"admin\\\",{\\\"children\\\":[\\\"__PAGE__\\\",{},\\\"$undefined\\\",\\\"$undefined\\\",4608]},\\\"$undefined\\\",\\\"$undefined\\\",4608]},\\\"$undefined\\\",\\\"$undefined\\\",4624],[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}],[\\\"$\\\",\\\"script\\\",\\\"script-0\\\",{\\\"src\\\":\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"}]],[\\\"$\\\",\\\"html\\\",null,{\\\"lang\\\":\\\"en\\\",\\\"children\\\":[\\\"$\\\",\\\"body\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$L2\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L3\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":[[[\\\"$\\\",\\\"title\\\",null,{\\\"children\\\":\\\"404: This page could not be found.\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":{\\\"fontFamily\\\":\\\"system-ui,\\\\\\\"Segoe UI\\\\\\\",Roboto,Helvetica,Arial,sans-serif,\\\\\\\"Apple Color Emoji\\\\\\\",\\\\\\\"Segoe UI Emoji\\\\\\\"\\\",\\\"height\\\":\\\"100vh\\\",\\\"textAlign\\\":\\\"center\\\",\\\"display\\\":\\\"flex\\\",\\\"flexDirection\\\":\\\"column\\\",\\\"alignItems\\\":\\\"center\\\",\\\"justifyContent\\\":\\\"center\\\"},\\\"children\\\":[\\\"$\\\",\\\"div\\\",null,{\\\"children\\\":[[\\\"$\\\",\\\"style\\\",null,{\\\"dangerouslySetInnerHTML\\\":{\\\"__html\\\":\\\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\\\"}}],[\\\"$\\\",\\\"h1\\\",null,{\\\"className\\\":\\\"next-error-h1\\\",\\\"style\\\":{\\\"display\\\":\\\"inline-block\\\",\\\"margin\\\":\\\"0 20px 0 0\\\",\\\"padding\\\":\\\"0 23px 0 0\\\",\\\"fontSize\\\":24,\\\"fontWeight\\\":500,\\\"verticalAlign\\\":\\\"top\\\",\\\"lineHeight\\\":\\\"49px\\\"},\\\"children\\\":404}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":{\\\"display\\\":\\\"inline-block\\\"},\\\"children\\\":[\\\"$\\\",\\\"h2\\\",null,{\\\"style\\\":{\\\"fontSize\\\":14,\\\"fontWeight\\\":400,\\\"lineHeight\\\":\\\"49px\\\",\\\"margin\\\":0},\\\"children\\\":\\\"This page could not be found.\\\"}]}]]}]}]],[]],\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]}]}]]}],{\\\"children\\\":[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L2\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L3\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":\\\"$undefined\\\",\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]]}],{\\\"children\\\":[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[\\\"$\\\",\\\"iframe\\\",null,{\\\"title\\\":\\\"BidZizi admin workspace\\\",\\\"src\\\":\\\"/staging-admin/index.html\\\",\\\"style\\\":{\\\"position\\\":\\\"fixed\\\",\\\"inset\\\":0,\\\"width\\\":\\\"100%\\\",\\\"height\\\":\\\"100dvh\\\",\\\"border\\\":0,\\\"background\\\":\\\"#f5f0e6\\\"}}],null,[\\\"$\\\",\\\"$L4\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$5\\\",null,{\\\"name\\\":\\\"Next.MetadataOutlet\\\",\\\"children\\\":\\\"$@6\\\"}]}]]}],{},null,false,null]},null,false,\\\"$7\\\"]},null,false,null],[\\\"$\\\",\\\"$1\\\",\\\"h\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L8\\\",null,{\\\"children\\\":\\\"$L9\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"hidden\\\":true,\\\"children\\\":[\\\"$\\\",\\\"$La\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$5\\\",null,{\\\"name\\\":\\\"Next.Metadata\\\",\\\"children\\\":\\\"$Lb\\\"}]}]}],null]}],false]],\\\"m\\\":\\\"$undefined\\\",\\\"G\\\":[\\\"$c\\\",[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}]]],\\\"S\\\":true,\\\"h\\\":null,\\\"r\\\":\\\"$undefined\\\",\\\"s\\\":\\\"$undefined\\\",\\\"a\\\":\\\"$undefined\\\",\\\"l\\\":\\\"$undefined\\\",\\\"p\\\":\\\"$undefined\\\",\\\"d\\\":\\\"$undefined\\\"}\\n7:C\\n9:[[\\\"$\\\",\\\"meta\\\",\\\"0\\\",{\\\"charSet\\\":\\\"utf-8\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"viewport\\\",\\\"content\\\":\\\"width=device-width, initial-scale=1\\\"}]]\\n6:null\\nb:[[\\\"$\\\",\\\"title\\\",\\\"0\\\",{\\\"children\\\":\\\"Event studio · BidZizi staging\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"description\\\",\\\"content\\\":\\\"Staging event and lot editing for authorized test staff.\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"2\\\",{\\\"name\\\":\\\"robots\\\",\\\"content\\\":\\\"noindex, nofollow\\\"}]]\\n\"])",
+            "imgs": [],
+            "messages": [],
+            "width": 1440,
+            "scrollWidth": 1440
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/lots",
+          "state": {
+            "text": "\n    Skip to content\n    BidZiziSBSaturn BarterEventsThis eventChoose event ⌄Holiday Trade Show · Saturn V1 DemoItems 3Event & entryBiddersDonation pledgesRecorded standingPrivate displayStudioStaging testTest Saturn StaffSign out\n Holiday Trade Show · Saturn V1 DemoWorking draftApproved2026-10-08 · 23:07–2026-10-09 12:00 America/Los_AngelesSavedHide previewSave draftReview catalog\n Published terms are fixed.Approved catalogHoliday Trade Show · Saturn V1 Demo · saved revision 2 · 2 lotsOctober 8, 2026 · 11:07 PM to October 9, 2026 · 12:00 PM America/Los_AngelesView approved lotsLot 01 · Cabin weekendLot 02 · Coffee ritual kitThis saved copy and window are fixed.Items3 items · working catalog+ Add itemSearch your lotsItemSelect allStarting amount · bidding windowSelect lot 0101Cabin weekendGetawaysT$25.01Shared event windowSelect lot 0202Coffee ritual kitHomeT$250.00Shared event windowSelect lot 0303Spring flowersGardenT$35.00Shared event windowEditing item 01View in preview\n Upload item photo\n Item title\n Short description\n DescriptionRecognizable uploaded item in a synthetic trade-dollar rehearsal.\n Category\n Opening amount · synthetic trade dollars\n Fixed raise override · optional\n Photo and item detailsPhoto description\n IncludedImportant detailsDuplicate lot↑↓Catalog order · 1 of 3Event setupSaved revision 2. One explicit window and tiered synthetic trade-dollar rules.\n Welcome and timing\n 3 saved items\n Published catalog✓New bidder entryEntry enabled · revision 1. New synthetic attendees can create their own private demo profile.Phone preview×Working draftSaved draftWelcomeCatalogSelected lotSaved draft · revision 2\n Synthetic staff preview\n    \n    \n    \n  \n\n",
+            "imgs": [
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              }
+            ],
+            "messages": [],
+            "width": 1440,
+            "scrollWidth": 1440
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/lots",
+          "state": {
+            "text": "\n  Staff previewDraft content onlyPreview only\n  \n    Lots3 of 3\n    Search lots\n    AllGetawaysHomeGarden\n    Sort lotsLot orderMost bidsLowest bid first\n      \n    \n    \n    \n      01Saturn Barter\n      GetawaysCabin weekendTwo quiet nights among the trees\n      Opening bidT$25.010 bidsNo bids in draft preview\n      \n    \n    \n    \n      02Saturn Barter\n      HomeCoffee ritual kitStart the morning slowly\n      Opening bidT$2500 bidsNo bids in draft preview\n      \n    \n    \n    \n      03Saturn Barter\n      GardenSpring flowersKept outside this published subset\n      Opening bidT$350 bidsNo bids in draft preview\n      \n    That's every lot. \n  LotsWatchingMy bidsEvent",
+            "imgs": [
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "",
+                "src": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+                "naturalWidth": 0,
+                "naturalHeight": 0
+              }
+            ],
+            "messages": [
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 30.5
+              },
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 107.90000000596046
+              },
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 168.5
+              },
+              {
+                "type": "staff-draft-preview",
+                "path": "/lots",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 325
+              }
+            ],
+            "width": 340,
+            "scrollWidth": 340
+          }
+        }
+      ]
+    },
+    {
+      "name": "catalog-image-3",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002&tab=lots",
+          "state": {
+            "text": "(self.__next_f=self.__next_f||[]).push([0])self.__next_f.push([1,\"1:\\\"$Sreact.fragment\\\"\\n2:I[45379,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\"]\\n3:I[95065,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\"]\\n4:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"OutletBoundary\\\"]\\n5:\\\"$Sreact.suspense\\\"\\n8:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"ViewportBoundary\\\"]\\na:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"MetadataBoundary\\\"]\\nc:I[5694,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\",1]\\n:HL[\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"style\\\"]\\n7:X\\n0:{\\\"P\\\":null,\\\"c\\\":[\\\"\\\",\\\"admin\\\"],\\\"q\\\":\\\"\\\",\\\"i\\\":false,\\\"f\\\":[[[\\\"\\\",{\\\"children\\\":[\\\"admin\\\",{\\\"children\\\":[\\\"__PAGE__\\\",{},\\\"$undefined\\\",\\\"$undefined\\\",4608]},\\\"$undefined\\\",\\\"$undefined\\\",4608]},\\\"$undefined\\\",\\\"$undefined\\\",4624],[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}],[\\\"$\\\",\\\"script\\\",\\\"script-0\\\",{\\\"src\\\":\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"}]],[\\\"$\\\",\\\"html\\\",null,{\\\"lang\\\":\\\"en\\\",\\\"children\\\":[\\\"$\\\",\\\"body\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$L2\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L3\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":[[[\\\"$\\\",\\\"title\\\",null,{\\\"children\\\":\\\"404: This page could not be found.\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":{\\\"fontFamily\\\":\\\"system-ui,\\\\\\\"Segoe UI\\\\\\\",Roboto,Helvetica,Arial,sans-serif,\\\\\\\"Apple Color Emoji\\\\\\\",\\\\\\\"Segoe UI Emoji\\\\\\\"\\\",\\\"height\\\":\\\"100vh\\\",\\\"textAlign\\\":\\\"center\\\",\\\"display\\\":\\\"flex\\\",\\\"flexDirection\\\":\\\"column\\\",\\\"alignItems\\\":\\\"center\\\",\\\"justifyContent\\\":\\\"center\\\"},\\\"children\\\":[\\\"$\\\",\\\"div\\\",null,{\\\"children\\\":[[\\\"$\\\",\\\"style\\\",null,{\\\"dangerouslySetInnerHTML\\\":{\\\"__html\\\":\\\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\\\"}}],[\\\"$\\\",\\\"h1\\\",null,{\\\"className\\\":\\\"next-error-h1\\\",\\\"style\\\":{\\\"display\\\":\\\"inline-block\\\",\\\"margin\\\":\\\"0 20px 0 0\\\",\\\"padding\\\":\\\"0 23px 0 0\\\",\\\"fontSize\\\":24,\\\"fontWeight\\\":500,\\\"verticalAlign\\\":\\\"top\\\",\\\"lineHeight\\\":\\\"49px\\\"},\\\"children\\\":404}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":{\\\"display\\\":\\\"inline-block\\\"},\\\"children\\\":[\\\"$\\\",\\\"h2\\\",null,{\\\"style\\\":{\\\"fontSize\\\":14,\\\"fontWeight\\\":400,\\\"lineHeight\\\":\\\"49px\\\",\\\"margin\\\":0},\\\"children\\\":\\\"This page could not be found.\\\"}]}]]}]}]],[]],\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]}]}]]}],{\\\"children\\\":[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L2\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L3\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":\\\"$undefined\\\",\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]]}],{\\\"children\\\":[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[\\\"$\\\",\\\"iframe\\\",null,{\\\"title\\\":\\\"BidZizi admin workspace\\\",\\\"src\\\":\\\"/staging-admin/index.html\\\",\\\"style\\\":{\\\"position\\\":\\\"fixed\\\",\\\"inset\\\":0,\\\"width\\\":\\\"100%\\\",\\\"height\\\":\\\"100dvh\\\",\\\"border\\\":0,\\\"background\\\":\\\"#f5f0e6\\\"}}],null,[\\\"$\\\",\\\"$L4\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$5\\\",null,{\\\"name\\\":\\\"Next.MetadataOutlet\\\",\\\"children\\\":\\\"$@6\\\"}]}]]}],{},null,false,null]},null,false,\\\"$7\\\"]},null,false,null],[\\\"$\\\",\\\"$1\\\",\\\"h\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L8\\\",null,{\\\"children\\\":\\\"$L9\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"hidden\\\":true,\\\"children\\\":[\\\"$\\\",\\\"$La\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$5\\\",null,{\\\"name\\\":\\\"Next.Metadata\\\",\\\"children\\\":\\\"$Lb\\\"}]}]}],null]}],false]],\\\"m\\\":\\\"$undefined\\\",\\\"G\\\":[\\\"$c\\\",[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}]]],\\\"S\\\":true,\\\"h\\\":null,\\\"r\\\":\\\"$undefined\\\",\\\"s\\\":\\\"$undefined\\\",\\\"a\\\":\\\"$undefined\\\",\\\"l\\\":\\\"$undefined\\\",\\\"p\\\":\\\"$undefined\\\",\\\"d\\\":\\\"$undefined\\\"}\\n7:C\\n9:[[\\\"$\\\",\\\"meta\\\",\\\"0\\\",{\\\"charSet\\\":\\\"utf-8\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"viewport\\\",\\\"content\\\":\\\"width=device-width, initial-scale=1\\\"}]]\\n6:null\\nb:[[\\\"$\\\",\\\"title\\\",\\\"0\\\",{\\\"children\\\":\\\"Event studio · BidZizi staging\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"description\\\",\\\"content\\\":\\\"Staging event and lot editing for authorized test staff.\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"2\\\",{\\\"name\\\":\\\"robots\\\",\\\"content\\\":\\\"noindex, nofollow\\\"}]]\\n\"])",
+            "imgs": [],
+            "messages": [],
+            "width": 1440,
+            "scrollWidth": 1440
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/lots",
+          "state": {
+            "text": "\n    Skip to content\n    BidZiziSBSaturn BarterEventsThis eventChoose event ⌄Holiday Trade Show · Saturn V1 DemoItems 3Event & entryBiddersDonation pledgesRecorded standingPrivate displayStudioStaging testTest Saturn StaffSign out\n Holiday Trade Show · Saturn V1 DemoWorking draftApproved2026-10-08 · 23:07–2026-10-09 12:00 America/Los_AngelesSavedHide previewSave draftReview catalog\n Published terms are fixed.Approved catalogHoliday Trade Show · Saturn V1 Demo · saved revision 2 · 2 lotsOctober 8, 2026 · 11:07 PM to October 9, 2026 · 12:00 PM America/Los_AngelesView approved lotsLot 01 · Cabin weekendLot 02 · Coffee ritual kitThis saved copy and window are fixed.Items3 items · working catalog+ Add itemSearch your lotsItemSelect allStarting amount · bidding windowSelect lot 0101Cabin weekendGetawaysT$25.01Shared event windowSelect lot 0202Coffee ritual kitHomeT$250.00Shared event windowSelect lot 0303Spring flowersGardenT$35.00Shared event windowEditing item 01View in preview\n Upload item photo\n Item title\n Short description\n DescriptionRecognizable uploaded item in a synthetic trade-dollar rehearsal.\n Category\n Opening amount · synthetic trade dollars\n Fixed raise override · optional\n Photo and item detailsPhoto description\n IncludedImportant detailsDuplicate lot↑↓Catalog order · 1 of 3Event setupSaved revision 2. One explicit window and tiered synthetic trade-dollar rules.\n Welcome and timing\n 3 saved items\n Published catalog✓New bidder entryEntry enabled · revision 1. New synthetic attendees can create their own private demo profile.Phone preview×Working draftSaved draftWelcomeCatalogSelected lotSaved draft · revision 2\n Synthetic staff preview\n    \n    \n    \n  \n\n",
+            "imgs": [
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              }
+            ],
+            "messages": [],
+            "width": 1440,
+            "scrollWidth": 1440
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/lots",
+          "state": {
+            "text": "\n  Staff previewDraft content onlyPreview only\n  \n    Lots3 of 3\n    Search lots\n    AllGetawaysHomeGarden\n    Sort lotsLot orderMost bidsLowest bid first\n      \n    \n    \n    \n      01Saturn Barter\n      GetawaysCabin weekendTwo quiet nights among the trees\n      Opening bidT$25.010 bidsNo bids in draft preview\n      \n    \n    \n    \n      02Saturn Barter\n      HomeCoffee ritual kitStart the morning slowly\n      Opening bidT$2500 bidsNo bids in draft preview\n      \n    \n    \n    \n      03Saturn Barter\n      GardenSpring flowersKept outside this published subset\n      Opening bidT$350 bidsNo bids in draft preview\n      \n    That's every lot. \n  LotsWatchingMy bidsEvent",
+            "imgs": [
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              }
+            ],
+            "messages": [
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 30.5
+              },
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 107.90000000596046
+              },
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 168.5
+              },
+              {
+                "type": "staff-draft-preview",
+                "path": "/lots",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 325
+              }
+            ],
+            "width": 340,
+            "scrollWidth": 340
+          }
+        }
+      ]
+    },
+    {
+      "name": "after-catalog",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002&tab=lots",
+          "state": {
+            "text": "(self.__next_f=self.__next_f||[]).push([0])self.__next_f.push([1,\"1:\\\"$Sreact.fragment\\\"\\n2:I[45379,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\"]\\n3:I[95065,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\"]\\n4:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"OutletBoundary\\\"]\\n5:\\\"$Sreact.suspense\\\"\\n8:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"ViewportBoundary\\\"]\\na:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"MetadataBoundary\\\"]\\nc:I[5694,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\",1]\\n:HL[\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"style\\\"]\\n7:X\\n0:{\\\"P\\\":null,\\\"c\\\":[\\\"\\\",\\\"admin\\\"],\\\"q\\\":\\\"\\\",\\\"i\\\":false,\\\"f\\\":[[[\\\"\\\",{\\\"children\\\":[\\\"admin\\\",{\\\"children\\\":[\\\"__PAGE__\\\",{},\\\"$undefined\\\",\\\"$undefined\\\",4608]},\\\"$undefined\\\",\\\"$undefined\\\",4608]},\\\"$undefined\\\",\\\"$undefined\\\",4624],[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}],[\\\"$\\\",\\\"script\\\",\\\"script-0\\\",{\\\"src\\\":\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"}]],[\\\"$\\\",\\\"html\\\",null,{\\\"lang\\\":\\\"en\\\",\\\"children\\\":[\\\"$\\\",\\\"body\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$L2\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L3\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":[[[\\\"$\\\",\\\"title\\\",null,{\\\"children\\\":\\\"404: This page could not be found.\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":{\\\"fontFamily\\\":\\\"system-ui,\\\\\\\"Segoe UI\\\\\\\",Roboto,Helvetica,Arial,sans-serif,\\\\\\\"Apple Color Emoji\\\\\\\",\\\\\\\"Segoe UI Emoji\\\\\\\"\\\",\\\"height\\\":\\\"100vh\\\",\\\"textAlign\\\":\\\"center\\\",\\\"display\\\":\\\"flex\\\",\\\"flexDirection\\\":\\\"column\\\",\\\"alignItems\\\":\\\"center\\\",\\\"justifyContent\\\":\\\"center\\\"},\\\"children\\\":[\\\"$\\\",\\\"div\\\",null,{\\\"children\\\":[[\\\"$\\\",\\\"style\\\",null,{\\\"dangerouslySetInnerHTML\\\":{\\\"__html\\\":\\\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\\\"}}],[\\\"$\\\",\\\"h1\\\",null,{\\\"className\\\":\\\"next-error-h1\\\",\\\"style\\\":{\\\"display\\\":\\\"inline-block\\\",\\\"margin\\\":\\\"0 20px 0 0\\\",\\\"padding\\\":\\\"0 23px 0 0\\\",\\\"fontSize\\\":24,\\\"fontWeight\\\":500,\\\"verticalAlign\\\":\\\"top\\\",\\\"lineHeight\\\":\\\"49px\\\"},\\\"children\\\":404}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":{\\\"display\\\":\\\"inline-block\\\"},\\\"children\\\":[\\\"$\\\",\\\"h2\\\",null,{\\\"style\\\":{\\\"fontSize\\\":14,\\\"fontWeight\\\":400,\\\"lineHeight\\\":\\\"49px\\\",\\\"margin\\\":0},\\\"children\\\":\\\"This page could not be found.\\\"}]}]]}]}]],[]],\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]}]}]]}],{\\\"children\\\":[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L2\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L3\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":\\\"$undefined\\\",\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]]}],{\\\"children\\\":[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[\\\"$\\\",\\\"iframe\\\",null,{\\\"title\\\":\\\"BidZizi admin workspace\\\",\\\"src\\\":\\\"/staging-admin/index.html\\\",\\\"style\\\":{\\\"position\\\":\\\"fixed\\\",\\\"inset\\\":0,\\\"width\\\":\\\"100%\\\",\\\"height\\\":\\\"100dvh\\\",\\\"border\\\":0,\\\"background\\\":\\\"#f5f0e6\\\"}}],null,[\\\"$\\\",\\\"$L4\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$5\\\",null,{\\\"name\\\":\\\"Next.MetadataOutlet\\\",\\\"children\\\":\\\"$@6\\\"}]}]]}],{},null,false,null]},null,false,\\\"$7\\\"]},null,false,null],[\\\"$\\\",\\\"$1\\\",\\\"h\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L8\\\",null,{\\\"children\\\":\\\"$L9\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"hidden\\\":true,\\\"children\\\":[\\\"$\\\",\\\"$La\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$5\\\",null,{\\\"name\\\":\\\"Next.Metadata\\\",\\\"children\\\":\\\"$Lb\\\"}]}]}],null]}],false]],\\\"m\\\":\\\"$undefined\\\",\\\"G\\\":[\\\"$c\\\",[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}]]],\\\"S\\\":true,\\\"h\\\":null,\\\"r\\\":\\\"$undefined\\\",\\\"s\\\":\\\"$undefined\\\",\\\"a\\\":\\\"$undefined\\\",\\\"l\\\":\\\"$undefined\\\",\\\"p\\\":\\\"$undefined\\\",\\\"d\\\":\\\"$undefined\\\"}\\n7:C\\n9:[[\\\"$\\\",\\\"meta\\\",\\\"0\\\",{\\\"charSet\\\":\\\"utf-8\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"viewport\\\",\\\"content\\\":\\\"width=device-width, initial-scale=1\\\"}]]\\n6:null\\nb:[[\\\"$\\\",\\\"title\\\",\\\"0\\\",{\\\"children\\\":\\\"Event studio · BidZizi staging\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"description\\\",\\\"content\\\":\\\"Staging event and lot editing for authorized test staff.\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"2\\\",{\\\"name\\\":\\\"robots\\\",\\\"content\\\":\\\"noindex, nofollow\\\"}]]\\n\"])",
+            "imgs": [],
+            "messages": [],
+            "width": 1440,
+            "scrollWidth": 1440
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/lots",
+          "state": {
+            "text": "\n    Skip to content\n    BidZiziSBSaturn BarterEventsThis eventChoose event ⌄Holiday Trade Show · Saturn V1 DemoItems 3Event & entryBiddersDonation pledgesRecorded standingPrivate displayStudioStaging testTest Saturn StaffSign out\n Holiday Trade Show · Saturn V1 DemoWorking draftApproved2026-10-08 · 23:07–2026-10-09 12:00 America/Los_AngelesSavedHide previewSave draftReview catalog\n Published terms are fixed.Approved catalogHoliday Trade Show · Saturn V1 Demo · saved revision 2 · 2 lotsOctober 8, 2026 · 11:07 PM to October 9, 2026 · 12:00 PM America/Los_AngelesView approved lotsLot 01 · Cabin weekendLot 02 · Coffee ritual kitThis saved copy and window are fixed.Items3 items · working catalog+ Add itemSearch your lotsItemSelect allStarting amount · bidding windowSelect lot 0101Cabin weekendGetawaysT$25.01Shared event windowSelect lot 0202Coffee ritual kitHomeT$250.00Shared event windowSelect lot 0303Spring flowersGardenT$35.00Shared event windowEditing item 01View in preview\n Upload item photo\n Item title\n Short description\n DescriptionRecognizable uploaded item in a synthetic trade-dollar rehearsal.\n Category\n Opening amount · synthetic trade dollars\n Fixed raise override · optional\n Photo and item detailsPhoto description\n IncludedImportant detailsDuplicate lot↑↓Catalog order · 1 of 3Event setupSaved revision 2. One explicit window and tiered synthetic trade-dollar rules.\n Welcome and timing\n 3 saved items\n Published catalog✓New bidder entryEntry enabled · revision 1. New synthetic attendees can create their own private demo profile.Phone preview×Working draftSaved draftWelcomeCatalogSelected lotSaved draft · revision 2\n Synthetic staff preview\n    \n    \n    \n  \n\n",
+            "imgs": [
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              }
+            ],
+            "messages": [],
+            "width": 1440,
+            "scrollWidth": 1440
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/lots",
+          "state": {
+            "text": "\n  Staff previewDraft content onlyPreview only\n  \n    Lots3 of 3\n    Search lots\n    AllGetawaysHomeGarden\n    Sort lotsLot orderMost bidsLowest bid first\n      \n    \n    \n    \n      01Saturn Barter\n      GetawaysCabin weekendTwo quiet nights among the trees\n      Opening bidT$25.010 bidsNo bids in draft preview\n      \n    \n    \n    \n      02Saturn Barter\n      HomeCoffee ritual kitStart the morning slowly\n      Opening bidT$2500 bidsNo bids in draft preview\n      \n    \n    \n    \n      03Saturn Barter\n      GardenSpring flowersKept outside this published subset\n      Opening bidT$350 bidsNo bids in draft preview\n      \n    That's every lot. \n  LotsWatchingMy bidsEvent",
+            "imgs": [
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              }
+            ],
+            "messages": [
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 30.5
+              },
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 107.90000000596046
+              },
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 168.5
+              },
+              {
+                "type": "staff-draft-preview",
+                "path": "/lots",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 325
+              }
+            ],
+            "width": 340,
+            "scrollWidth": 340
+          }
+        }
+      ]
+    },
+    {
+      "name": "after-selected",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002&tab=lots",
+          "state": {
+            "text": "(self.__next_f=self.__next_f||[]).push([0])self.__next_f.push([1,\"1:\\\"$Sreact.fragment\\\"\\n2:I[45379,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\"]\\n3:I[95065,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\"]\\n4:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"OutletBoundary\\\"]\\n5:\\\"$Sreact.suspense\\\"\\n8:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"ViewportBoundary\\\"]\\na:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"MetadataBoundary\\\"]\\nc:I[5694,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\",1]\\n:HL[\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"style\\\"]\\n7:X\\n0:{\\\"P\\\":null,\\\"c\\\":[\\\"\\\",\\\"admin\\\"],\\\"q\\\":\\\"\\\",\\\"i\\\":false,\\\"f\\\":[[[\\\"\\\",{\\\"children\\\":[\\\"admin\\\",{\\\"children\\\":[\\\"__PAGE__\\\",{},\\\"$undefined\\\",\\\"$undefined\\\",4608]},\\\"$undefined\\\",\\\"$undefined\\\",4608]},\\\"$undefined\\\",\\\"$undefined\\\",4624],[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}],[\\\"$\\\",\\\"script\\\",\\\"script-0\\\",{\\\"src\\\":\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"}]],[\\\"$\\\",\\\"html\\\",null,{\\\"lang\\\":\\\"en\\\",\\\"children\\\":[\\\"$\\\",\\\"body\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$L2\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L3\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":[[[\\\"$\\\",\\\"title\\\",null,{\\\"children\\\":\\\"404: This page could not be found.\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":{\\\"fontFamily\\\":\\\"system-ui,\\\\\\\"Segoe UI\\\\\\\",Roboto,Helvetica,Arial,sans-serif,\\\\\\\"Apple Color Emoji\\\\\\\",\\\\\\\"Segoe UI Emoji\\\\\\\"\\\",\\\"height\\\":\\\"100vh\\\",\\\"textAlign\\\":\\\"center\\\",\\\"display\\\":\\\"flex\\\",\\\"flexDirection\\\":\\\"column\\\",\\\"alignItems\\\":\\\"center\\\",\\\"justifyContent\\\":\\\"center\\\"},\\\"children\\\":[\\\"$\\\",\\\"div\\\",null,{\\\"children\\\":[[\\\"$\\\",\\\"style\\\",null,{\\\"dangerouslySetInnerHTML\\\":{\\\"__html\\\":\\\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\\\"}}],[\\\"$\\\",\\\"h1\\\",null,{\\\"className\\\":\\\"next-error-h1\\\",\\\"style\\\":{\\\"display\\\":\\\"inline-block\\\",\\\"margin\\\":\\\"0 20px 0 0\\\",\\\"padding\\\":\\\"0 23px 0 0\\\",\\\"fontSize\\\":24,\\\"fontWeight\\\":500,\\\"verticalAlign\\\":\\\"top\\\",\\\"lineHeight\\\":\\\"49px\\\"},\\\"children\\\":404}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":{\\\"display\\\":\\\"inline-block\\\"},\\\"children\\\":[\\\"$\\\",\\\"h2\\\",null,{\\\"style\\\":{\\\"fontSize\\\":14,\\\"fontWeight\\\":400,\\\"lineHeight\\\":\\\"49px\\\",\\\"margin\\\":0},\\\"children\\\":\\\"This page could not be found.\\\"}]}]]}]}]],[]],\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]}]}]]}],{\\\"children\\\":[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L2\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L3\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":\\\"$undefined\\\",\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]]}],{\\\"children\\\":[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[\\\"$\\\",\\\"iframe\\\",null,{\\\"title\\\":\\\"BidZizi admin workspace\\\",\\\"src\\\":\\\"/staging-admin/index.html\\\",\\\"style\\\":{\\\"position\\\":\\\"fixed\\\",\\\"inset\\\":0,\\\"width\\\":\\\"100%\\\",\\\"height\\\":\\\"100dvh\\\",\\\"border\\\":0,\\\"background\\\":\\\"#f5f0e6\\\"}}],null,[\\\"$\\\",\\\"$L4\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$5\\\",null,{\\\"name\\\":\\\"Next.MetadataOutlet\\\",\\\"children\\\":\\\"$@6\\\"}]}]]}],{},null,false,null]},null,false,\\\"$7\\\"]},null,false,null],[\\\"$\\\",\\\"$1\\\",\\\"h\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L8\\\",null,{\\\"children\\\":\\\"$L9\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"hidden\\\":true,\\\"children\\\":[\\\"$\\\",\\\"$La\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$5\\\",null,{\\\"name\\\":\\\"Next.Metadata\\\",\\\"children\\\":\\\"$Lb\\\"}]}]}],null]}],false]],\\\"m\\\":\\\"$undefined\\\",\\\"G\\\":[\\\"$c\\\",[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}]]],\\\"S\\\":true,\\\"h\\\":null,\\\"r\\\":\\\"$undefined\\\",\\\"s\\\":\\\"$undefined\\\",\\\"a\\\":\\\"$undefined\\\",\\\"l\\\":\\\"$undefined\\\",\\\"p\\\":\\\"$undefined\\\",\\\"d\\\":\\\"$undefined\\\"}\\n7:C\\n9:[[\\\"$\\\",\\\"meta\\\",\\\"0\\\",{\\\"charSet\\\":\\\"utf-8\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"viewport\\\",\\\"content\\\":\\\"width=device-width, initial-scale=1\\\"}]]\\n6:null\\nb:[[\\\"$\\\",\\\"title\\\",\\\"0\\\",{\\\"children\\\":\\\"Event studio · BidZizi staging\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"description\\\",\\\"content\\\":\\\"Staging event and lot editing for authorized test staff.\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"2\\\",{\\\"name\\\":\\\"robots\\\",\\\"content\\\":\\\"noindex, nofollow\\\"}]]\\n\"])",
+            "imgs": [],
+            "messages": [],
+            "width": 1440,
+            "scrollWidth": 1440
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/lots",
+          "state": {
+            "text": "\n    Skip to content\n    BidZiziSBSaturn BarterEventsThis eventChoose event ⌄Holiday Trade Show · Saturn V1 DemoItems 3Event & entryBiddersDonation pledgesRecorded standingPrivate displayStudioStaging testTest Saturn StaffSign out\n Holiday Trade Show · Saturn V1 DemoWorking draftApproved2026-10-08 · 23:07–2026-10-09 12:00 America/Los_AngelesSavedHide previewSave draftReview catalog\n Published terms are fixed.Approved catalogHoliday Trade Show · Saturn V1 Demo · saved revision 2 · 2 lotsOctober 8, 2026 · 11:07 PM to October 9, 2026 · 12:00 PM America/Los_AngelesView approved lotsLot 01 · Cabin weekendLot 02 · Coffee ritual kitThis saved copy and window are fixed.Items3 items · working catalog+ Add itemSearch your lotsItemSelect allStarting amount · bidding windowSelect lot 0101Cabin weekendGetawaysT$25.01Shared event windowSelect lot 0202Coffee ritual kitHomeT$250.00Shared event windowSelect lot 0303Spring flowersGardenT$35.00Shared event windowEditing item 01View in preview\n Upload item photo\n Item title\n Short description\n DescriptionRecognizable uploaded item in a synthetic trade-dollar rehearsal.\n Category\n Opening amount · synthetic trade dollars\n Fixed raise override · optional\n Photo and item detailsPhoto description\n IncludedImportant detailsDuplicate lot↑↓Catalog order · 1 of 3Event setupSaved revision 2. One explicit window and tiered synthetic trade-dollar rules.\n Welcome and timing\n 3 saved items\n Published catalog✓New bidder entryEntry enabled · revision 1. New synthetic attendees can create their own private demo profile.Phone preview×Working draftSaved draftWelcomeCatalogSelected lotSaved draft · revision 2\n Synthetic staff preview\n    \n    \n    \n  \n\n",
+            "imgs": [
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              }
+            ],
+            "messages": [],
+            "width": 1440,
+            "scrollWidth": 1440
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/lot/a39d4288-c1d1-4613-be22-8258a529ab3b",
+          "state": {
+            "text": "\n  LotsBidZiziPreview\n  \n    01\n    \n      Provided bySaturn BarterGetaways\n      Cabin weekend\n      Two quiet nights among the trees\n      \n        Opening bidT$25.01No bids in draft preview\n        Bids0Closes12:00 PM2026-10-09 · America/Los_Angeles \n      \n      \n      About this lotRecognizable uploaded item in a synthetic trade-dollar rehearsal.\n      What's included\n      Good to know\n      Bid historyBids are not recorded in the staff draft preview. No bids in draft preview. The opening bid is T$25.01. \n      Event information\n    \n    Staff draft preview · bidding is disabledNext bidT$25.01Preview only\n  LotsWatchingMy bidsEvent",
+            "imgs": [
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              }
+            ],
+            "messages": [
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 30.5
+              },
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 107.90000000596046
+              },
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 168.5
+              },
+              {
+                "type": "staff-draft-preview",
+                "path": "/lots",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 325
+              },
+              {
+                "type": "staff-draft-preview",
+                "path": "/lot/a39d4288-c1d1-4613-be22-8258a529ab3b",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 925
+              }
+            ],
+            "width": 340,
+            "scrollWidth": 340
+          }
+        }
+      ]
+    },
+    {
+      "name": "mobile-items-visible",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=990280fa-51db-47cd-aabe-5d15bf776002&tab=lots",
+          "state": {
+            "text": "(self.__next_f=self.__next_f||[]).push([0])self.__next_f.push([1,\"1:\\\"$Sreact.fragment\\\"\\n2:I[45379,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\"]\\n3:I[95065,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\"]\\n4:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"OutletBoundary\\\"]\\n5:\\\"$Sreact.suspense\\\"\\n8:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"ViewportBoundary\\\"]\\na:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"MetadataBoundary\\\"]\\nc:I[5694,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\",1]\\n:HL[\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"style\\\"]\\n7:X\\n0:{\\\"P\\\":null,\\\"c\\\":[\\\"\\\",\\\"admin\\\"],\\\"q\\\":\\\"\\\",\\\"i\\\":false,\\\"f\\\":[[[\\\"\\\",{\\\"children\\\":[\\\"admin\\\",{\\\"children\\\":[\\\"__PAGE__\\\",{},\\\"$undefined\\\",\\\"$undefined\\\",4608]},\\\"$undefined\\\",\\\"$undefined\\\",4608]},\\\"$undefined\\\",\\\"$undefined\\\",4624],[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}],[\\\"$\\\",\\\"script\\\",\\\"script-0\\\",{\\\"src\\\":\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"}]],[\\\"$\\\",\\\"html\\\",null,{\\\"lang\\\":\\\"en\\\",\\\"children\\\":[\\\"$\\\",\\\"body\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$L2\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L3\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":[[[\\\"$\\\",\\\"title\\\",null,{\\\"children\\\":\\\"404: This page could not be found.\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":{\\\"fontFamily\\\":\\\"system-ui,\\\\\\\"Segoe UI\\\\\\\",Roboto,Helvetica,Arial,sans-serif,\\\\\\\"Apple Color Emoji\\\\\\\",\\\\\\\"Segoe UI Emoji\\\\\\\"\\\",\\\"height\\\":\\\"100vh\\\",\\\"textAlign\\\":\\\"center\\\",\\\"display\\\":\\\"flex\\\",\\\"flexDirection\\\":\\\"column\\\",\\\"alignItems\\\":\\\"center\\\",\\\"justifyContent\\\":\\\"center\\\"},\\\"children\\\":[\\\"$\\\",\\\"div\\\",null,{\\\"children\\\":[[\\\"$\\\",\\\"style\\\",null,{\\\"dangerouslySetInnerHTML\\\":{\\\"__html\\\":\\\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\\\"}}],[\\\"$\\\",\\\"h1\\\",null,{\\\"className\\\":\\\"next-error-h1\\\",\\\"style\\\":{\\\"display\\\":\\\"inline-block\\\",\\\"margin\\\":\\\"0 20px 0 0\\\",\\\"padding\\\":\\\"0 23px 0 0\\\",\\\"fontSize\\\":24,\\\"fontWeight\\\":500,\\\"verticalAlign\\\":\\\"top\\\",\\\"lineHeight\\\":\\\"49px\\\"},\\\"children\\\":404}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":{\\\"display\\\":\\\"inline-block\\\"},\\\"children\\\":[\\\"$\\\",\\\"h2\\\",null,{\\\"style\\\":{\\\"fontSize\\\":14,\\\"fontWeight\\\":400,\\\"lineHeight\\\":\\\"49px\\\",\\\"margin\\\":0},\\\"children\\\":\\\"This page could not be found.\\\"}]}]]}]}]],[]],\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]}]}]]}],{\\\"children\\\":[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L2\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L3\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":\\\"$undefined\\\",\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]]}],{\\\"children\\\":[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[\\\"$\\\",\\\"iframe\\\",null,{\\\"title\\\":\\\"BidZizi admin workspace\\\",\\\"src\\\":\\\"/staging-admin/index.html\\\",\\\"style\\\":{\\\"position\\\":\\\"fixed\\\",\\\"inset\\\":0,\\\"width\\\":\\\"100%\\\",\\\"height\\\":\\\"100dvh\\\",\\\"border\\\":0,\\\"background\\\":\\\"#f5f0e6\\\"}}],null,[\\\"$\\\",\\\"$L4\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$5\\\",null,{\\\"name\\\":\\\"Next.MetadataOutlet\\\",\\\"children\\\":\\\"$@6\\\"}]}]]}],{},null,false,null]},null,false,\\\"$7\\\"]},null,false,null],[\\\"$\\\",\\\"$1\\\",\\\"h\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L8\\\",null,{\\\"children\\\":\\\"$L9\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"hidden\\\":true,\\\"children\\\":[\\\"$\\\",\\\"$La\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$5\\\",null,{\\\"name\\\":\\\"Next.Metadata\\\",\\\"children\\\":\\\"$Lb\\\"}]}]}],null]}],false]],\\\"m\\\":\\\"$undefined\\\",\\\"G\\\":[\\\"$c\\\",[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}]]],\\\"S\\\":true,\\\"h\\\":null,\\\"r\\\":\\\"$undefined\\\",\\\"s\\\":\\\"$undefined\\\",\\\"a\\\":\\\"$undefined\\\",\\\"l\\\":\\\"$undefined\\\",\\\"p\\\":\\\"$undefined\\\",\\\"d\\\":\\\"$undefined\\\"}\\n7:C\\n9:[[\\\"$\\\",\\\"meta\\\",\\\"0\\\",{\\\"charSet\\\":\\\"utf-8\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"viewport\\\",\\\"content\\\":\\\"width=device-width, initial-scale=1\\\"}]]\\n6:null\\nb:[[\\\"$\\\",\\\"title\\\",\\\"0\\\",{\\\"children\\\":\\\"Event studio · BidZizi staging\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"description\\\",\\\"content\\\":\\\"Staging event and lot editing for authorized test staff.\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"2\\\",{\\\"name\\\":\\\"robots\\\",\\\"content\\\":\\\"noindex, nofollow\\\"}]]\\n\"])",
+            "imgs": [],
+            "messages": [],
+            "width": 390,
+            "scrollWidth": 390
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/lots",
+          "state": {
+            "text": "\n    Skip to content\n    BidZiziSBSaturn BarterEventsThis eventChoose event ⌄Holiday Trade Show · Saturn V1 DemoItems 3Event & entryBiddersDonation pledgesRecorded standingPrivate displayStudioStaging testTest Saturn StaffSign out\n Holiday Trade Show · Saturn V1 DemoWorking draftApproved2026-10-08 · 23:07–2026-10-09 12:00 America/Los_AngelesSavedBidder previewSave draftReview catalog\n Published terms are fixed.Approved catalogHoliday Trade Show · Saturn V1 Demo · saved revision 2 · 2 lotsOctober 8, 2026 · 11:07 PM to October 9, 2026 · 12:00 PM America/Los_AngelesView approved lotsLot 01 · Cabin weekendLot 02 · Coffee ritual kitThis saved copy and window are fixed.Items3 items · working catalog+ Add itemSearch your lotsItemSelect allStarting amount · bidding windowSelect lot 0101Cabin weekendGetawaysT$25.01Shared event windowSelect lot 0202Coffee ritual kitHomeT$250.00Shared event windowSelect lot 0303Spring flowersGardenT$35.00Shared event windowEditing item 01View in preview\n Upload item photo\n Item title\n Short description\n DescriptionRecognizable uploaded item in a synthetic trade-dollar rehearsal.\n Category\n Opening amount · synthetic trade dollars\n Fixed raise override · optional\n Photo and item detailsPhoto description\n IncludedImportant detailsDuplicate lot↑↓Catalog order · 1 of 3Event setupSaved revision 2. One explicit window and tiered synthetic trade-dollar rules.\n Welcome and timing\n 3 saved items\n Published catalog✓New bidder entryEntry enabled · revision 1. New synthetic attendees can create their own private demo profile.Phone preview×Working draftSaved draftWelcomeCatalogSelected lotSaved draft · revision 2\n Synthetic staff preview\n    \n    \n    \n  \n\n",
+            "imgs": [
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "lot-thumb",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              }
+            ],
+            "messages": [],
+            "width": 390,
+            "scrollWidth": 390
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/lot/a39d4288-c1d1-4613-be22-8258a529ab3b",
+          "state": {
+            "text": "\n  LotsBidZiziPreview\n  \n    01\n    \n      Provided bySaturn BarterGetaways\n      Cabin weekend\n      Two quiet nights among the trees\n      \n        Opening bidT$25.01No bids in draft preview\n        Bids0Closes12:00 PM2026-10-09 · America/Los_Angeles \n      \n      \n      About this lotRecognizable uploaded item in a synthetic trade-dollar rehearsal.\n      What's included\n      Good to know\n      Bid historyBids are not recorded in the staff draft preview. No bids in draft preview. The opening bid is T$25.01. \n      Event information\n    \n    Staff draft preview · bidding is disabledNext bidT$25.01Preview only\n  LotsWatchingMy bidsEvent",
+            "imgs": [
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              }
+            ],
+            "messages": [
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 30.5
+              },
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 107.90000000596046
+              },
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 168.5
+              },
+              {
+                "type": "staff-draft-preview",
+                "path": "/lots",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 325
+              },
+              {
+                "type": "staff-draft-preview",
+                "path": "/lot/a39d4288-c1d1-4613-be22-8258a529ab3b",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 925
+              },
+              {
+                "type": "staff-draft-preview",
+                "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+                "lotCount": 3,
+                "at": 1041.2999999970198
+              }
+            ],
+            "width": 340,
+            "scrollWidth": 340
+          }
+        }
+      ]
+    },
+    {
+      "name": "mobile-short-closed-donor-policy",
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/admin?event=9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6&tab=donations",
+          "state": {
+            "text": "(self.__next_f=self.__next_f||[]).push([0])self.__next_f.push([1,\"1:\\\"$Sreact.fragment\\\"\\n2:I[45379,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\"]\\n3:I[95065,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\"]\\n4:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"OutletBoundary\\\"]\\n5:\\\"$Sreact.suspense\\\"\\n8:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"ViewportBoundary\\\"]\\na:I[26055,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"MetadataBoundary\\\"]\\nc:I[5694,[\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\"],\\\"default\\\",1]\\n:HL[\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"style\\\"]\\n7:X\\n0:{\\\"P\\\":null,\\\"c\\\":[\\\"\\\",\\\"admin\\\"],\\\"q\\\":\\\"\\\",\\\"i\\\":false,\\\"f\\\":[[[\\\"\\\",{\\\"children\\\":[\\\"admin\\\",{\\\"children\\\":[\\\"__PAGE__\\\",{},\\\"$undefined\\\",\\\"$undefined\\\",4608]},\\\"$undefined\\\",\\\"$undefined\\\",4608]},\\\"$undefined\\\",\\\"$undefined\\\",4624],[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}],[\\\"$\\\",\\\"script\\\",\\\"script-0\\\",{\\\"src\\\":\\\"/_next/static/immutable/chunks/3avlr_tp1rqit.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"}]],[\\\"$\\\",\\\"html\\\",null,{\\\"lang\\\":\\\"en\\\",\\\"children\\\":[\\\"$\\\",\\\"body\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$L2\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L3\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":[[[\\\"$\\\",\\\"title\\\",null,{\\\"children\\\":\\\"404: This page could not be found.\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":{\\\"fontFamily\\\":\\\"system-ui,\\\\\\\"Segoe UI\\\\\\\",Roboto,Helvetica,Arial,sans-serif,\\\\\\\"Apple Color Emoji\\\\\\\",\\\\\\\"Segoe UI Emoji\\\\\\\"\\\",\\\"height\\\":\\\"100vh\\\",\\\"textAlign\\\":\\\"center\\\",\\\"display\\\":\\\"flex\\\",\\\"flexDirection\\\":\\\"column\\\",\\\"alignItems\\\":\\\"center\\\",\\\"justifyContent\\\":\\\"center\\\"},\\\"children\\\":[\\\"$\\\",\\\"div\\\",null,{\\\"children\\\":[[\\\"$\\\",\\\"style\\\",null,{\\\"dangerouslySetInnerHTML\\\":{\\\"__html\\\":\\\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\\\"}}],[\\\"$\\\",\\\"h1\\\",null,{\\\"className\\\":\\\"next-error-h1\\\",\\\"style\\\":{\\\"display\\\":\\\"inline-block\\\",\\\"margin\\\":\\\"0 20px 0 0\\\",\\\"padding\\\":\\\"0 23px 0 0\\\",\\\"fontSize\\\":24,\\\"fontWeight\\\":500,\\\"verticalAlign\\\":\\\"top\\\",\\\"lineHeight\\\":\\\"49px\\\"},\\\"children\\\":404}],[\\\"$\\\",\\\"div\\\",null,{\\\"style\\\":{\\\"display\\\":\\\"inline-block\\\"},\\\"children\\\":[\\\"$\\\",\\\"h2\\\",null,{\\\"style\\\":{\\\"fontSize\\\":14,\\\"fontWeight\\\":400,\\\"lineHeight\\\":\\\"49px\\\",\\\"margin\\\":0},\\\"children\\\":\\\"This page could not be found.\\\"}]}]]}]}]],[]],\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]}]}]]}],{\\\"children\\\":[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L2\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L3\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":\\\"$undefined\\\",\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]]}],{\\\"children\\\":[[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[\\\"$\\\",\\\"iframe\\\",null,{\\\"title\\\":\\\"BidZizi admin workspace\\\",\\\"src\\\":\\\"/staging-admin/index.html\\\",\\\"style\\\":{\\\"position\\\":\\\"fixed\\\",\\\"inset\\\":0,\\\"width\\\":\\\"100%\\\",\\\"height\\\":\\\"100dvh\\\",\\\"border\\\":0,\\\"background\\\":\\\"#f5f0e6\\\"}}],null,[\\\"$\\\",\\\"$L4\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$5\\\",null,{\\\"name\\\":\\\"Next.MetadataOutlet\\\",\\\"children\\\":\\\"$@6\\\"}]}]]}],{},null,false,null]},null,false,\\\"$7\\\"]},null,false,null],[\\\"$\\\",\\\"$1\\\",\\\"h\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L8\\\",null,{\\\"children\\\":\\\"$L9\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"hidden\\\":true,\\\"children\\\":[\\\"$\\\",\\\"$La\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$5\\\",null,{\\\"name\\\":\\\"Next.Metadata\\\",\\\"children\\\":\\\"$Lb\\\"}]}]}],null]}],false]],\\\"m\\\":\\\"$undefined\\\",\\\"G\\\":[\\\"$c\\\",[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/immutable/chunks/3x5ewukzg9f9i.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}]]],\\\"S\\\":true,\\\"h\\\":null,\\\"r\\\":\\\"$undefined\\\",\\\"s\\\":\\\"$undefined\\\",\\\"a\\\":\\\"$undefined\\\",\\\"l\\\":\\\"$undefined\\\",\\\"p\\\":\\\"$undefined\\\",\\\"d\\\":\\\"$undefined\\\"}\\n7:C\\n9:[[\\\"$\\\",\\\"meta\\\",\\\"0\\\",{\\\"charSet\\\":\\\"utf-8\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"viewport\\\",\\\"content\\\":\\\"width=device-width, initial-scale=1\\\"}]]\\n6:null\\nb:[[\\\"$\\\",\\\"title\\\",\\\"0\\\",{\\\"children\\\":\\\"Event studio · BidZizi staging\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"description\\\",\\\"content\\\":\\\"Staging event and lot editing for authorized test staff.\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"2\\\",{\\\"name\\\":\\\"robots\\\",\\\"content\\\":\\\"noindex, nofollow\\\"}]]\\n\"])",
+            "imgs": [],
+            "messages": [],
+            "width": 390,
+            "scrollWidth": 390
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/donations",
+          "state": {
+            "text": "\n    Skip to content\n    BidZiziSBSaturn BarterEventsThis eventChoose event ⌄Holiday Trade Show · Saturn V1 Short RehearsalItems 3Event & entryBiddersDonation pledgesRecorded standingPrivate displayStudioStaging testTest Saturn StaffSign out\n Holiday Trade Show · Saturn V1 Short RehearsalWorking draftApproved2026-10-08 · 23:06–2026-10-08 23:16 America/Los_AngelesSavedBidder previewSave draftReview catalog\n Donation pledgesSaturn staff process recorded pledges manually. Amounts are Saturn trade dollars; this screen does not charge an account or post to a ledger.RefreshConfirmed staff read · Oct 8, 2026, 11:18 PMDonation enablementSave availabilityRequested donation enablementSaved enablement intent: enabled. Effective availability: Closed at the last server read. Status as of Oct 8, 2026, 11:18 PM.Donation amount cap · trade dollarsWhen donations are availableNot configuredAny time for this eventExplicit donation windowDonations open · UTCDonations close · UTCMinimum: $0.01. Configure a positive cap and availability before enabling donations. Disable donations before clearing either setting. No rule is selected automatically.Event recipientsRecipient nameDescriptionSynthetic rehearsal only: this fixture cap is 1,000.00 Saturn trade dollars, with donations available only during its frozen auction window. Staff process recorded pledges manually.Active recipientSaved version 1Save recipientAdd a recipientRecipient nameDescriptionSave new recipientRecorded donation pledgesDownload CSVSynthetic Holiday Trade Show RecipientWillow Hosted Closing Synthetic · Devon Hosted Closing SyntheticRecorded Oct 8, 2026, 11:07 PMRecipient snapshot · version 1$123.45Saturn trade dollarsPending manual staff processingPhone preview×Working draftSaved draftWelcomeCatalogSelected lotSaved draft · revision 2\n Synthetic staff preview\n    \n    \n    \n  \n\n",
+            "imgs": [],
+            "messages": [],
+            "width": 390,
+            "scrollWidth": 390
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/",
+          "state": {
+            "text": "\n  \n    \n    \n      \n      \n        BidZizi\n        Saturn Barter\n      \n      \n        Saturn Barter presents\n        Holiday Trade Show · Saturn V1 Short Rehearsal\n      \n    \n    \n      \n        \n          Member auction\n          Browse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\n          \n            Browse the lots \n            Event information \n          \n        \n        \n          Holiday Trade Show · synthetic rehearsal\n          \n            When2026-10-08\n            Draft close11:16 PM America/Los_Angeles\n            Lots3\n            First itemCabin weekend\n          \n          Staff draft preview. Bidding is disabled. Synthetic Saturn trade dollars; no payment or settlement.\n        \n      \n      \n        With our event sponsors\n        Synthetic Holiday Trade Show Sponsor\n      \n      BidZiziA welcome from Saturn Barter\n    \n  LotsWatchingMy bidsEvent",
+            "imgs": [
+              {
+                "class": "event-cover",
+                "src": "https://staging.bidzizi.com/api/admin/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/fe08b76f-0e15-4b08-a73e-c8c90e84f05e",
+                "naturalWidth": 1000,
+                "naturalHeight": 667
+              },
+              {
+                "class": "",
+                "src": "https://staging.bidzizi.com/api/admin/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/288a2572-1b08-4a80-a089-19cecc36a841",
+                "naturalWidth": 64,
+                "naturalHeight": 64
+              }
+            ],
+            "messages": [
+              {
+                "type": "staff-draft-preview",
+                "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+                "lotCount": 3,
+                "at": 9.700000002980232
+              },
+              {
+                "type": "staff-draft-preview",
+                "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+                "lotCount": 3,
+                "at": 122.40000000596046
+              },
+              {
+                "type": "staff-draft-preview",
+                "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+                "lotCount": 3,
+                "at": 123.40000000596046
+              }
+            ],
+            "width": 0,
+            "scrollWidth": 0
+          }
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "kind": "HOSTED_REAL_HTTP_UI_DIAGNOSTIC"
+}

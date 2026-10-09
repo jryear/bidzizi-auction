@@ -1,0 +1,131 @@
+{
+  "kind": "INDEPENDENT_READ_ONLY_REAL_HOSTED_RENDER",
+  "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+  "origin": "https://staging.bidzizi.com",
+  "runtime": "v24.4.1",
+  "rows": [
+    {
+      "view": "results",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 691,
+        "state": "current",
+        "amounts": [
+          "T$62.03",
+          "T$250.00"
+        ],
+        "text": "BidZizi\nPRIVATE STAFF STANDING\nEvent Studio\nPrivate display\n\nSATURN BARTER\n\nHoliday Trade Show · Saturn V1 Short Rehearsal\n\nBrowse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\n\nHoliday Trade Show · synthetic rehearsal\n\nFROZEN OPENING\nOct 8, 2026, 11:06:00 PM PDT\nFROZEN CLOSING\nOct 8, 2026, 11:16:00 PM PDT\nTIME ZONE\nAmerica/Los_Angeles\nClosed · recorded standing\n\nAs of Oct 8, 2026, 11:30:31 PM PDT\n\nRefresh standing\nRecorded lot standing\nDownload CSV\n\nLOT\nPUBLISHED ITEM\nACCEPTED AMOUNT\nSTANDING AND BUSINESS\n01\nCabin weekend\nGetaways\nT$62.03\nClosed recorded standing\n\nSpruce Hosted Recovery Synthetic\n\n4 accepted bids · version 4\n\nLast accepted change: Oct 8, 2026, 11:08:57 PM PDT\n\n02\nCoffee ritual kit\nHome\nT$250.00\nClosed recorded standing\n\nWillow Hosted Closing Synthetic\n\n1 accepted bid · version 1\n\nLast accepted change: Oct 8, 2026, 11:06:45 PM PDT\n\nPrivate staff access · Published catalog is separate from draft preview.\n\nSynthetic Saturn trade dollars · Recorded amounts are for this published catalog.\n\nRecorded standing is not an award or finalization. No payment or settlement occurs here.",
+        "images": []
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/junior-saturn-v1-frontend/docs/evidence/saturn-v1-frontend-2026-10-08/parent-fe13009-short-results-390.png",
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "d135f3b6457b8ff00f9d14df89373aae39e824c74d7a764073a4bc69452f1b85"
+    },
+    {
+      "view": "results",
+      "metrics": {
+        "width": 1440,
+        "height": 1120,
+        "dpr": 1,
+        "documentWidth": 1440,
+        "scrollY": 0,
+        "state": "current",
+        "amounts": [
+          "T$62.03",
+          "T$250.00"
+        ],
+        "text": "BidZizi\nPRIVATE STAFF STANDING\nEvent Studio\nPrivate display\n\nSATURN BARTER\n\nHoliday Trade Show · Saturn V1 Short Rehearsal\n\nBrowse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\n\nHoliday Trade Show · synthetic rehearsal\n\nFROZEN OPENING\nOct 8, 2026, 11:06:00 PM PDT\nFROZEN CLOSING\nOct 8, 2026, 11:16:00 PM PDT\nTIME ZONE\nAmerica/Los_Angeles\nClosed · recorded standing\n\nAs of Oct 8, 2026, 11:30:31 PM PDT\n\nRefresh standing\nRecorded lot standing\nDownload CSV\n\nLOT\tPUBLISHED ITEM\tACCEPTED AMOUNT\tSTANDING AND BUSINESS\n01\t\nCabin weekend\nGetaways\n\t\nT$62.03\n\t\nClosed recorded standing\n\nSpruce Hosted Recovery Synthetic\n\n4 accepted bids · version 4\n\nLast accepted change: Oct 8, 2026, 11:08:57 PM PDT\n\n\n02\t\nCoffee ritual kit\nHome\n\t\nT$250.00\n\t\nClosed recorded standing\n\nWillow Hosted Closing Synthetic\n\n1 accepted bid · version 1\n\nLast accepted change: Oct 8, 2026, 11:06:45 PM PDT\n\nPrivate staff access · Published catalog is separate from draft preview.\n\nSynthetic Saturn trade dollars · Recorded amounts are for this published catalog.\n\nRecorded standing is not an award or finalization. No payment or settlement occurs here.",
+        "images": []
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/junior-saturn-v1-frontend/docs/evidence/saturn-v1-frontend-2026-10-08/parent-fe13009-short-results-1440.png",
+      "png": {
+        "width": 1440,
+        "height": 1120
+      },
+      "sha256": "9d6ba7da0dfde14c8912fba6fe823d06fc599fabcbe6b61df593581b42396c4a"
+    },
+    {
+      "view": "display",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 258,
+        "state": "current",
+        "amounts": [
+          "T$62.03",
+          "T$250.00"
+        ],
+        "text": "BidZizi\nPRIVATE STAFF DISPLAY\nEvent Studio\nRecorded standing\n\nSATURN BARTER\n\nHoliday Trade Show · Saturn V1 Short Rehearsal\n\nBrowse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\n\nHoliday Trade Show · synthetic rehearsal\n\nFROZEN OPENING\nOct 8, 2026, 11:06:00 PM PDT\nFROZEN CLOSING\nOct 8, 2026, 11:16:00 PM PDT\nTIME ZONE\nAmerica/Los_Angeles\nClosed · recorded standing\n\nAs of Oct 8, 2026, 11:30:32 PM PDT\n\nRefresh display\n01\n\nGETAWAYS\n\nCabin weekend\n\nTwo quiet nights among the trees\n\nCLOSED RECORDED AMOUNT\n\nT$62.03\nClosed recorded standing\n\nSpruce Hosted Recovery Synthetic\n\n4 accepted bids · version 4\n\nLast accepted change: Oct 8, 2026, 11:08:57 PM PDT\n\n02\n\nHOME\n\nCoffee ritual kit\n\nStart the morning slowly\n\nCLOSED RECORDED AMOUNT\n\nT$250.00\nClosed recorded standing\n\nWillow Hosted Closing Synthetic\n\n1 accepted bid · version 1\n\nLast accepted change: Oct 8, 2026, 11:06:45 PM PDT\n\nPrivate staff access · Published catalog is separate from draft preview.\n\nSynthetic Saturn trade dollars · Recorded amounts are for this published catalog.\n\nRecorded standing is not an award or finalization. No payment or settlement occurs here.",
+        "images": [
+          {
+            "path": "/api/admin/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/catalog-approval/33dec28e-1e6e-4096-b4d7-68b16ed8221c/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": false,
+            "naturalWidth": 0,
+            "naturalHeight": 0
+          },
+          {
+            "path": "/api/admin/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/catalog-approval/33dec28e-1e6e-4096-b4d7-68b16ed8221c/assets/4a4f4a4a-6aac-41b4-8d84-bcfab4e30c56",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/junior-saturn-v1-frontend/docs/evidence/saturn-v1-frontend-2026-10-08/parent-fe13009-short-display-390.png",
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "72ba6e02ee9fac17bce9f6a1b7e161d60588974b8bd9750951c81f4bacbf8dd0"
+    },
+    {
+      "view": "display",
+      "metrics": {
+        "width": 1440,
+        "height": 1120,
+        "dpr": 1,
+        "documentWidth": 1440,
+        "scrollY": 0,
+        "state": "current",
+        "amounts": [
+          "T$62.03",
+          "T$250.00"
+        ],
+        "text": "BidZizi\nPRIVATE STAFF DISPLAY\nEvent Studio\nRecorded standing\n\nSATURN BARTER\n\nHoliday Trade Show · Saturn V1 Short Rehearsal\n\nBrowse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\n\nHoliday Trade Show · synthetic rehearsal\n\nFROZEN OPENING\nOct 8, 2026, 11:06:00 PM PDT\nFROZEN CLOSING\nOct 8, 2026, 11:16:00 PM PDT\nTIME ZONE\nAmerica/Los_Angeles\nClosed · recorded standing\n\nAs of Oct 8, 2026, 11:30:32 PM PDT\n\nRefresh display\n01\n\nGETAWAYS\n\nCabin weekend\n\nTwo quiet nights among the trees\n\nCLOSED RECORDED AMOUNT\n\nT$62.03\nClosed recorded standing\n\nSpruce Hosted Recovery Synthetic\n\n4 accepted bids · version 4\n\nLast accepted change: Oct 8, 2026, 11:08:57 PM PDT\n\n02\n\nHOME\n\nCoffee ritual kit\n\nStart the morning slowly\n\nCLOSED RECORDED AMOUNT\n\nT$250.00\nClosed recorded standing\n\nWillow Hosted Closing Synthetic\n\n1 accepted bid · version 1\n\nLast accepted change: Oct 8, 2026, 11:06:45 PM PDT\n\nPrivate staff access · Published catalog is separate from draft preview.\n\nSynthetic Saturn trade dollars · Recorded amounts are for this published catalog.\n\nRecorded standing is not an award or finalization. No payment or settlement occurs here.",
+        "images": [
+          {
+            "path": "/api/admin/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/catalog-approval/33dec28e-1e6e-4096-b4d7-68b16ed8221c/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "path": "/api/admin/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/catalog-approval/33dec28e-1e6e-4096-b4d7-68b16ed8221c/assets/4a4f4a4a-6aac-41b4-8d84-bcfab4e30c56",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/junior-saturn-v1-frontend/docs/evidence/saturn-v1-frontend-2026-10-08/parent-fe13009-short-display-1440.png",
+      "png": {
+        "width": 1440,
+        "height": 1120
+      },
+      "sha256": "02dc9f23bb981b23170c2a73049874d5fcf52fe13a4ffbf5786cda3ba753a71c"
+    }
+  ],
+  "errors": [],
+  "logoutStatus": 200,
+  "sourceBinding": "Backend exact deployment and contemporaneous canonical main readback; no new deployment claimed",
+  "cleanup": "Fresh no-cookie synthetic staff session logged out; browser closed; no fixture or grant writes"
+}
