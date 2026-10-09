@@ -88,6 +88,7 @@ export function entryView() {
             <div><dt>When</dt><dd>${esc(event.date)}</dd></div>
             <div><dt>Draft close</dt><dd>${esc(event.closes)} ${esc(event.timezone)}</dd></div>
             <div><dt>Lots</dt><dd>${event.lotCount}</dd></div>
+            ${event.version===2&&lots.length?`<div><dt>First item</dt><dd>${esc(lots[0].title)}</dd></div>`:''}
           </dl>
           <p class="fine">Staff draft preview. Bidding is disabled.</p>
         </aside>

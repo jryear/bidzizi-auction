@@ -27,6 +27,7 @@ export const icon = (name, cls = '') =>
 
 /** Sponsors are squares. */
 export function sponsorMark(id, px = 28) {
+  if(typeof id==='string'&&id.startsWith('/api/admin/events/'))return `<span class="mark sq" style="--s:${px}px"><img src="${esc(id)}" alt="" width="${px}" height="${px}"></span>`;
   const l = LOGOS[id];
   return `<span class="mark sq" style="--s:${px}px" aria-hidden="true"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="9" fill="${l.bg}"/>${l.g}</svg></span>`;
 }

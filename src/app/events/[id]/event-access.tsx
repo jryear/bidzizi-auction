@@ -8,13 +8,16 @@ type Person = { id: string; name: string };
 type BidderContext = { testMode: true; person: Person; businesses: { id: string; name: string; canBid: boolean }[] };
 type Session = { authenticated: boolean; testMode: boolean; person?: Person };
 class RequestError extends Error {
-  constructor(message: string, public status: number) { super(message); }
+  constructor(message: string, public status: number, public code?: string) { super(message); }
 }
 async function api(path: string, input?: unknown) {
   const response = await fetch(path, { credentials: "same-origin", cache: "no-store", ...(input === undefined ? {} : { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(input) }) });
   const data = await response.json();
-  if (!response.ok) throw new RequestError(data.error?.message || "The request could not be confirmed.", response.status);
+  if (!response.ok) throw new RequestError(data.error?.message || "The request could not be confirmed.", response.status,data.error?.code);
   return data;
+}
+async function versioned(v2:string,v1:string){
+  try{return await api(v2);}catch(error){if(error instanceof RequestError&&error.code==="UNSUPPORTED_EVENT_VERSION")return api(v1);throw error;}
 }
 export default function EventAccess({ eventId }: { eventId: string }) {
   const [session, setSession] = useState<Session | null>(null);
@@ -39,8 +42,8 @@ export default function EventAccess({ eventId }: { eventId: string }) {
   const load = useCallback(async (ticket: number) => {
     const attempt = ++sequence.current;
     const results = await Promise.allSettled([
-      api(`/api/catalog/events/${encodeURIComponent(eventId)}`),
-      api(`/api/bidder/events/${encodeURIComponent(eventId)}/context`),
+      versioned(`/api/v2/catalog/events/${encodeURIComponent(eventId)}`,`/api/catalog/events/${encodeURIComponent(eventId)}`),
+      versioned(`/api/v2/bidder/events/${encodeURIComponent(eventId)}/context`,`/api/bidder/events/${encodeURIComponent(eventId)}/context`),
     ]);
     if (epoch.current !== ticket || sequence.current !== attempt) return;
     const catalogResult = results[0], bidderResult = results[1];
@@ -90,7 +93,6 @@ export default function EventAccess({ eventId }: { eventId: string }) {
     };
     window.addEventListener("message", ready); return () => window.removeEventListener("message", ready);
   }, [send]);
-  useEffect(() => { send(); }, [packet, bidder, send]);
   useEffect(() => {
     if (!session?.authenticated||entryRecovery) return;
     let stopped = false, checking = false;

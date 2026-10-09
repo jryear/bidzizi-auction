@@ -21,10 +21,24 @@ export let previewPhase = 'scheduled';
 LOGOS.saturn = { bg:'#1A1814', g:'<ellipse cx="20" cy="20" rx="16" ry="6" transform="rotate(-25 20 20)" fill="none" stroke="#F2B632" stroke-width="2.2"/><circle cx="20" cy="20" r="8" fill="#F2B632"/>' };
 export function applyAdminDraft(payload) {
   const e=payload.event;
-  Object.assign(event,e,{ host:payload.org.name, date:e.date?new Date(e.date+'T12:00:00Z').toLocaleDateString('en-US',{month:'long',day:'numeric',timeZone:'UTC'}):'Date not set', closes:labelTime(e.end), opens:labelTime(e.start), timezone:zoneLabel(e), increment:Number.isSafeInteger(e.increment)&&e.increment>0?e.increment:2500 });
-  lots.splice(0,lots.length,...payload.lots.map(l=>({...structuredClone(l),sponsor:l.provider||payload.org.name,logo:'saturn',opening:Number.isSafeInteger(l.opening)?l.opening:null})));
+  const asset=ref=>typeof ref==='string'&&ref.startsWith('asset:')?
+    '/api/admin/events/'+encodeURIComponent(e.id)+'/assets/'+ref.slice(6):ref;
+  if(e.version===2){
+    const t=e.timing;
+    Object.assign(event,e,{host:payload.org.name,date:t.startDate||'Date not set',
+      opens:labelTime(t.start),closes:labelTime(t.end),timezone:t.timezone,
+      cover:asset(e.cover),increment:2500});
+    lots.splice(0,lots.length,...payload.lots.map(l=>({...structuredClone(l),
+      image:asset(l.image),sponsor:l.provider||payload.org.name,logo:'saturn',opening:Number.isSafeInteger(l.opening)?l.opening:null})));
+    categories.splice(0,categories.length,'All',...new Set(lots.map(l=>l.category)));
+    sponsors.splice(0,sponsors.length,...(e.sponsorsEnabled?e.sponsors.filter(s=>s.name.trim()).map(s=>({...s,logo:asset(s.logo)})):[]));
+    event.lotCount=lots.length;previewPhase=payload.phase;network.name=payload.org.name;
+    CLOSE_MIN=0;CLOCK0_MIN=0;return;
+  }
+  Object.assign(event,e,{ host:payload.org.name,cover:asset(e.cover), date:e.date?new Date(e.date+'T12:00:00Z').toLocaleDateString('en-US',{month:'long',day:'numeric',timeZone:'UTC'}):'Date not set', closes:labelTime(e.end), opens:labelTime(e.start), timezone:zoneLabel(e), increment:Number.isSafeInteger(e.increment)&&e.increment>0?e.increment:2500 });
+  lots.splice(0,lots.length,...payload.lots.map(l=>({...structuredClone(l),image:asset(l.image),sponsor:l.provider||payload.org.name,logo:'saturn',opening:Number.isSafeInteger(l.opening)?l.opening:null})));
   categories.splice(0,categories.length,'All',...new Set(lots.map(l=>l.category)));
-  sponsors.splice(0,sponsors.length,...(e.sponsorsEnabled?e.sponsors.filter(s=>s.name.trim()):[]));
+  sponsors.splice(0,sponsors.length,...(e.sponsorsEnabled?e.sponsors.filter(s=>s.name.trim()).map(s=>({...s,logo:asset(s.logo)})):[]));
   event.lotCount=lots.length;
   const [h,m]=(e.end||'').split(':').map(Number);CLOSE_MIN=h*60+m;
   try { const parts=new Intl.DateTimeFormat('en-US',{timeZone:e.timezone,hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(payload.now);CLOCK0_MIN=Number(parts.find(x=>x.type==='hour').value)*60+Number(parts.find(x=>x.type==='minute').value); } catch { CLOCK0_MIN=18*60; }
