@@ -99,3 +99,5 @@
   .board h1 { font-size: 36px; }
   .amount, .results .amount { font-size: 30px; }
 }
+.exportActions{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:20px}
+.exportActions h2{font:500 36px/1.2 "Display Fraunces",Georgia,serif}
