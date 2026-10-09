@@ -39,13 +39,25 @@ try{
   to_regclass('public.bz_staff_assets') IS NOT NULL AS assets,to_regclass('public.bz_attendee_watches') IS NOT NULL AS activity,
   to_regclass('public.bz_staff_bidder_controls') IS NOT NULL AS bidders`)).rows[0];
  if(Object.values(state).some(Boolean))throw Error('installation already present or partial');
+ const originalTables=(await client.query("SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename")).rows.map(r=>r.tablename);
+ const snapshotExisting=async()=>{
+  const snapshot={};for(const table of originalTables){
+   if(!/^bz_[a-z_]+$/.test(table))throw Error('unexpected existing relation');
+   // 015 adds explicitly new observation metadata. Existing entry fields,
+   // bootstrap identities and claims must remain byte-equivalent.
+   const rowValue=table==='bz_demo_event_entries'?"to_jsonb(t)-'entry_revision'-'updated_at'-'updated_by'":'to_jsonb(t)';
+   const row=(await client.query(`SELECT count(*)::int AS count,COALESCE(jsonb_agg(${rowValue} ORDER BY (${rowValue})::text),'[]'::jsonb)::text AS bytes FROM ${table} t`)).rows[0];
+   snapshot[table]={count:row.count,sha256:sha(row.bytes)};
+  }return snapshot;
+ };
+ const allExistingBefore=await snapshotExisting();
  const migrationSources={},sql=[];
  for(const name of files){const bytes=await readFile('migrations/'+name),source=bytes.toString();migrationSources[name]=sha(bytes);
   if(!/^BEGIN;\s/.test(source)||!(/COMMIT;\s*$/.test(source)))throw Error('migration wrapper');
   sql.push(source.replace(/^BEGIN;\s/,'').replace(/COMMIT;\s*$/,''));}
  const report={checkedAt:new Date().toISOString(),nodeVersion:process.version,sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),
   projectId:binding.projectId,origin:binding.origin,scope:'existing synthetic demo only',identity,runtime,verifiedTLS:true,
-  applied:apply,migrations:migrationSources,authority:'016 preserved; 017 explicitly held by Junior',before:binding.baseline};
+  applied:apply,migrations:migrationSources,authority:'016 preserved; 017 explicitly held by Junior',before:binding.baseline,allExistingBefore};
  if(apply){
   execFileSync('git',['diff','--quiet','--','migrations','src','public','package.json','pnpm-lock.yaml']);
   for(const source of sql)await client.query(source);
@@ -69,7 +81,9 @@ try{
   const after={};for(const table of Object.keys(binding.baseline)){
    const row=(await client.query(`SELECT count(*)::int AS count,COALESCE(jsonb_agg(to_jsonb(t) ORDER BY to_jsonb(t)::text),'[]'::jsonb)::text AS bytes FROM ${table} t`)).rows[0];
    after[table]={count:row.count,sha256:sha(row.bytes)};if(JSON.stringify(after[table])!==JSON.stringify(binding.baseline[table]))throw Error('existing records changed');}
-  report.after=after;report.existingRecordsUnchanged=true;report.functions=functionChecks;report.privateTables=tableChecks;
+  const allExistingAfter=await snapshotExisting();
+  if(JSON.stringify(allExistingAfter)!==JSON.stringify(allExistingBefore))throw Error('existing identity/entry/operational records changed');
+  report.after=after;report.allExistingAfter=allExistingAfter;report.existingRecordsUnchanged=true;report.functions=functionChecks;report.privateTables=tableChecks;
   await client.query('COMMIT');committed=true;
  }else await client.query('ROLLBACK');
  await mkdir('docs/evidence/overnight-release',{recursive:true});
