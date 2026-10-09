@@ -23,7 +23,7 @@ const pools=new Set(), connect=pg.Pool.prototype.connect;
 pg.Pool.prototype.connect=function(...args){pools.add(this);return connect.apply(this,args);};
 export const sha = value => createHash('sha256').update(value).digest('hex');
 export async function localFixture(name, migrations) {
-  if(!/^bz_test_[a-z_]+$/.test(name)) throw Error('Disposable database name required');
+  if(!/^bz_test_[a-z0-9_]+$/.test(name)) throw Error('Disposable database name required');
   const root=await mkdtemp(join(tmpdir(),name+'-')), cluster=join(root,'cluster');
   const pgBin='/opt/homebrew/opt/postgresql@18/bin';
   const portServer=createServer();await new Promise(r=>portServer.listen(0,'127.0.0.1',r));
@@ -70,7 +70,7 @@ export async function localFixture(name, migrations) {
       bz_businesses,bz_business_person_memberships,bz_org_business_memberships,bz_event_bidder_admissions TO fixture_runtime`);
     Object.assign(process.env,{BIDZIZI_APP_MODE:'local-test',BIDZIZI_STAGING_TEST_AUTH:'true',BIDZIZI_LOCAL_TEST_DATABASE:'true',
       APP_ORIGIN:'http://127.0.0.1:43877',DATABASE_URL:`postgres://fixture_runtime:disposable-only@127.0.0.1:${port}/${name}`});
-    return {admin,client,close,report,root,port};
+    return {admin,client,close,report,root,port,pid};
   }catch(error){report.setupError=error.message;await close();throw error;}
 }
 export function request(token, value, method='POST') {

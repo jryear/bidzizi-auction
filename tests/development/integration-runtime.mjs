@@ -44,7 +44,7 @@ try {
   for(let i=0;i<100;i++){try{const response=await fetch(origin+'/admin');if(response.ok){ready=true;break;}}catch{}await sleep(100);}
   if(!ready)throw Error('Owned app readiness failed');
   const descriptor={sourceCommit:head,sourceRoot:appRoot,origin,organizationId,otherOrganizationId,staffAlias:'staff-saturn',otherStaffAlias:'staff-pine',
-    runtimePid:process.pid,appPid:app.pid,postgresPid:f.report.cleanup?.pid??null,port:f.port,scope:'disposable local synthetic event rehearsal',migrations};
+    runtimePid:process.pid,appPid:app.pid,postgresPid:f.pid,port:f.port,scope:'disposable local synthetic event rehearsal',migrations};
   f.report.runtime=descriptor;
   const path=join(f.root,'RUNTIME.json');await writeFile(path,JSON.stringify(descriptor,null,2)+'\n',{mode:0o600});
   console.log('RUNTIME_READY '+JSON.stringify({descriptor:path,...descriptor}));
