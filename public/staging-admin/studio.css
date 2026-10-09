@@ -258,3 +258,17 @@ button,a,input,select,textarea{touch-action:manipulation}
 .studio-body .lot-context{grid-template-columns:max-content minmax(0,120px)}
 .studio-body .lot-amount{white-space:nowrap}
 @media(max-width:760px){.studio-body .lot-context{grid-template-columns:max-content minmax(0,1fr)}}
+
+.staff-operations h2{font-size:28px}
+.staff-operations #operations-status{padding:12px 0;color:var(--muted);font-size:13px}
+@media(max-width:760px){.studio-sidebar .tabs{flex-wrap:wrap}}
+.staff-list{border-top:1px solid var(--line)}
+.staff-row{display:flex;align-items:start;justify-content:space-between;gap:24px;padding:24px 0;border-bottom:1px solid var(--line)}
+.staff-row>div{min-width:0;overflow-wrap:anywhere}
+.staff-row h3,.staff-row h4{font-size:22px;margin:0;font-family:var(--serif)}
+.staff-row-controls{display:grid;gap:14px;min-width:240px;max-width:360px}
+.staff-subsection{border-top:1px solid var(--line);padding:24px 0}
+.staff-recipient{margin-top:18px;padding:18px;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+.staff-recipient .btn{margin-top:12px}
+.staff-amount{font-size:23px;font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(max-width:760px){.staff-row{flex-direction:column;gap:16px}.staff-row-controls{width:100%;min-width:0;max-width:none}.staff-operations h2{font-size:25px}}
