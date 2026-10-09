@@ -200,8 +200,8 @@ export function lotView(id) {
       <p class="sponsor-line">${sponsorMark(lot.logo, 30)}<span><small>Provided by</small><b>${esc(lot.sponsor)}</b></span><span class="cat">${esc(lot.category)}</span></p>
       <h1 class="d-title" tabindex="-1" data-key="h1">${esc(lot.title)}</h1>
       <p class="d-short">${esc(lot.short)}</p>
-      <section class="stub" aria-label="Bid status">
-        <div class="stub-main"><span class="lbl">${t ? curLabel() : 'Opening bid'}</span><span class="amt xl${state.online ? '' : ' stale'}">${money(t ? t.amount : lot.opening)}</span><span class="leaderrow">${t ? `<span class="lbl">Top bid</span>` : ''}${leaderLine(lot, 28)}${t ? `<span class="who-p">${esc(t.person)}</span>` : ''}</span></div>
+      <section class="stub${event.version===2?' preview-stub':''}" aria-label="Bid status">
+        <div class="stub-main"><span class="lbl">${t ? curLabel() : 'Opening bid'}</span><span class="amt xl${event.version===2&&money(t ? t.amount : lot.opening).length>7?' money-long':''}${state.online ? '' : ' stale'}">${money(t ? t.amount : lot.opening)}</span><span class="leaderrow">${t ? `<span class="lbl">Top bid</span>` : ''}${leaderLine(lot, 28)}${t ? `<span class="who-p">${esc(t.person)}</span>` : ''}</span></div>
         <div class="stub-side"><div><span class="lbl">Bids</span><span class="n">${n}</span></div><div><span class="lbl">${state.snap.closed ? 'Closed' : 'Closes'}</span><span class="n sm">${esc(event.closes)}</span>${event.version===2?`<span class="tl">${esc(event.closeDate)} · ${esc(event.timezone)}</span>`:state.snap.closed ? '' : `<span class="tl">${esc(timeLeft())}</span>`} ${assume('A6')}</div></div>
       </section>
       ${standing}${maxCard(lot)}
@@ -211,7 +211,7 @@ export function lotView(id) {
       <section class="prose"><h2>Bid history</h2><p class="sub">Bids are not recorded in the staff draft preview. ${assume('A11')}</p>${historyList(lot)}</section>
       <a class="btn-link center" href="#/event" data-nav>Event information</a>
     </div>
-    <div class="actionbar">${forLine}<div class="ab-row">${left}${cta ? `<button class="btn ${cta.tone}" data-action="bid" data-lot="${lot.id}" data-key="cta">${esc(cta.label)}</button>` : `<span class="closed-note">${state.snap.closed ? 'Bidding closed' : 'Not available'}</span>`}</div></div>
+    <div class="actionbar${event.version===2&&money(min).length>7?' preview-actionbar-long':''}">${forLine}<div class="ab-row">${left}${cta ? `<button class="btn ${cta.tone}" data-action="bid" data-lot="${lot.id}" data-key="cta">${esc(cta.label)}</button>` : `<span class="closed-note">${state.snap.closed ? 'Bidding closed' : 'Not available'}</span>`}</div></div>
   </main>` };
 }
 
