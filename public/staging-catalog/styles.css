@@ -14,4 +14,8 @@
 .welcome-connected .welcome-footer .catalog-asof{flex-basis:100%;text-align:left;margin-top:0}
 
 /* Keep A's pass and phone reading column usable with real long business names. */
-.pass-badge{min-width:0;flex:1}.pass-text{min-width:0;flex:1}.pass-text b{max-width:none}.topbar .chip-pass>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.topbar .chip-pass{min-width:0}.stub-main{min-width:0}.stub .amt.xl{font-size:clamp(32px,10vw,54px);overflow-wrap:anywhere}.stub-side .tl{font-size:10px;overflow-wrap:anywhere;max-width:110px}.row-end .count{max-width:100px;white-space:normal;line-height:1.25}.catalog-footer .btn{min-height:48px}.card-numbers .leaderrow{font-size:11px;line-height:1.4}.sheet-in .amt-field .cur{font-size:24px}.welcome-facts dd{overflow-wrap:anywhere}
+.pass-badge{min-width:0;flex:1}.pass-text{min-width:0;flex:1}.pass-text b{max-width:none}.topbar .chip-pass>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.topbar .chip-pass{min-width:0}.stub-main{min-width:0}.stub .amt.xl{font-size:clamp(32px,10vw,54px);white-space:nowrap}.stub-side .tl{font-size:10px;overflow-wrap:anywhere;max-width:110px}.row-end .count{max-width:100px;white-space:normal;line-height:1.25}.catalog-footer .btn{min-height:48px}.card-numbers .leaderrow{font-size:11px;line-height:1.4}.sheet-in .amt-field .cur{font-size:24px}.welcome-facts dd{overflow-wrap:anywhere}
+
+.stub:has(.money-long){grid-template-columns:1fr}.stub .amt.xl.money-long{font-size:clamp(24px,7vw,32px);white-space:nowrap}.stub:has(.money-long) .stub-side{border-left:0;border-top:1px dashed var(--line);padding-block:12px}.stub:has(.money-long) .stub-side>div{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.stub:has(.money-long) .stub-side .tl{max-width:none}
+
+.stub:has(.money-long) .stub-side::after{left:auto;right:-10px;top:-10px;bottom:auto}

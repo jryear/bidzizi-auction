@@ -43,7 +43,7 @@ export function setContext(message){
  if(message.eventId!==event.id||typeof message.epoch!=='number')return;
  const c=message.context;
  if(c!==null&&(!c||c.testMode!==true||typeof c.person?.id!=='string'||typeof c.person?.name!=='string'||!Array.isArray(c.businesses)||!c.businesses.every(b=>uuid(b.id)&&typeof b.name==='string'&&typeof b.canBid==='boolean')))return;
- const nextSignature=JSON.stringify([message.eventId,message.epoch,c]);
+ const nextSignature=JSON.stringify([message.eventId,message.epoch,c?{testMode:c.testMode,version:c.version,person:c.person,businesses:c.businesses,phase:c.phase}:null]);
  const actorChanged=bidder.eventId!==message.eventId||bidder.epoch!==message.epoch||bidder.context?.person.id!==c?.person.id;
  if(nextSignature!==signature){
   ++generation;signature=nextSignature;
@@ -113,7 +113,7 @@ export function bidderStub(lot){
 }
 export function bidFooter(lot){
  const e=entryFor(lot.id),s=e.standing,b=currentBusiness();
- const label=!bidder.context||!b?.canBid?'Bidding is not enabled':s?.phase==='closed'?'Bidding closed':s?.phase==='scheduled'?'Bidding opens '+event.opens:e.intent&&!e.receipt?'Check your original bid':e.stale||bidder.stale||!navigator.onLine?'Reconnect to bid':s?.leadingBusiness?.id===b.id?'Your business is leading':s?.minimumAmountMinor===null?'No further bid available':'Place a bid';
+ const label=!bidder.context?'Bidding is not enabled':s?.phase==='closed'?'Bidding closed':s?.phase==='scheduled'?'Bidding opens '+event.opens:!b?.canBid?'Bidding is not enabled':e.intent&&!e.receipt?'Check your original bid':e.stale||bidder.stale||!navigator.onLine?'Reconnect to bid':s?.leadingBusiness?.id===b.id?'Your business is leading':s?.minimumAmountMinor===null?'No further bid available':'Place a bid';
  return `<div class="catalog-footer">${bidder.context&&b?`<span>Bidding for <b>${esc(b.name)}</b> · ${esc(bidder.context.person.name)}</span>`:'Read-only catalog'}<button class="btn primary" data-action="bid" ${allowed(lot.id)?'':'disabled'}>${esc(label)}</button>${e.intent&&!e.receipt&&e.mode!=='pending'?'<button class="btn quiet" data-action="recover-open">Check your original bid</button>':''}</div>`;
 }
 const head=title=>`<div class="grab" aria-hidden="true"></div><div class="sheet-head"><h2 id="sheet-title" tabindex="-1">${esc(title)}</h2><button class="x" data-action="close-sheet" aria-label="Close">${icon('close')}</button></div>`;
