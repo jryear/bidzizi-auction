@@ -5,7 +5,7 @@ const integer=(v,min=0)=>Number.isSafeInteger(v)&&v>=min;
 const text=v=>typeof v==='string';
 const at=v=>text(v)&&Number.isFinite(Date.parse(v));
 const minorInput=v=>`${Math.floor(v/100)}.${String(v%100).padStart(2,'0')}`;
-const money=v=>`$${Math.floor(v/100).toLocaleString('en-US')}.${String(v%100).padStart(2,'0')}`;
+const money=v=>`T$${Math.floor(v/100).toLocaleString('en-US')}.${String(v%100).padStart(2,'0')}`;
 const date=v=>new Date(v).toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'});
 function requireValue(v){if(!v)throw {status:503,invalid:true,message:'The staff response could not be verified.'};}
 function parseBidders(raw,eventId){
