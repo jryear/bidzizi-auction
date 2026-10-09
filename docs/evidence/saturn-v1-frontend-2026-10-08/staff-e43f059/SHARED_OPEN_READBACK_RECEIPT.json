@@ -1,0 +1,345 @@
+{
+  "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+  "origin": "http://127.0.0.1:43981",
+  "eventId": "b307252b-888b-4740-9785-994ee914da52",
+  "packet": {
+    "schemaVersion": 1,
+    "testMode": true,
+    "published": true,
+    "eventId": "b307252b-888b-4740-9785-994ee914da52",
+    "releaseId": "5036477e-9ad3-485a-829c-b2fae6bf4621",
+    "event": {
+      "name": "Saturn Synthetic Staff Rehearsal · Original Studio",
+      "cover": "asset:0a2cabb7-fcd4-449d-b17e-77d2f76b0fe0",
+      "rules": {
+        "scale": 100,
+        "tiers": [
+          {
+            "belowMinor": 50000,
+            "raiseMinor": 2500
+          },
+          {
+            "belowMinor": 100000,
+            "raiseMinor": 5000
+          },
+          {
+            "belowMinor": 250000,
+            "raiseMinor": 10000
+          },
+          {
+            "belowMinor": null,
+            "raiseMinor": 25000
+          }
+        ],
+        "rulesetId": "saturn-trade-tiered-v1",
+        "denomination": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+        "amountCapMinor": 1000000000
+      },
+      "venue": "Local combined rehearsal",
+      "timing": {
+        "end": "05:13",
+        "start": "05:01",
+        "endDate": "2026-10-09",
+        "timezone": "UTC",
+        "startDate": "2026-10-09"
+      },
+      "eyebrow": "Member auction",
+      "version": 2,
+      "welcome": "Synthetic Saturn trade-dollar rehearsal. Closed standing is recorded; staff handle follow-up manually.",
+      "coverAlt": "Cabin among trees",
+      "sponsors": [
+        {
+          "alt": "Synthetic sponsor mark",
+          "logo": "asset:871224a6-0b7a-4213-abb9-f8395e847f1b",
+          "name": "Synthetic Saturn sponsor"
+        }
+      ],
+      "sponsorsEnabled": true,
+      "id": "b307252b-888b-4740-9785-994ee914da52"
+    },
+    "organization": {
+      "id": "c5067deb-73ef-429d-a9d9-1677fbe90ff4",
+      "name": "Saturn Barter",
+      "initials": "SA"
+    },
+    "schedule": {
+      "opensAt": "2026-10-09T05:01:00.000Z",
+      "closesAt": "2026-10-09T05:13:00.000Z",
+      "timezone": "UTC"
+    },
+    "phase": "open",
+    "serverNow": "2026-10-09T05:10:50.480Z",
+    "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+    "rulesetId": "saturn-trade-tiered-v1",
+    "scale": 100,
+    "finalized": false,
+    "assetContext": {
+      "version": 1,
+      "approvalId": "5036477e-9ad3-485a-829c-b2fae6bf4621"
+    },
+    "lots": [
+      {
+        "lot": {
+          "id": "b18fe22d-4c4a-40ad-be25-3cb686ea3442",
+          "alt": "Cabin among trees",
+          "fine": "",
+          "image": "asset:d9f8cb79-5f57-41ea-bb10-e51bed535e86",
+          "short": "Two quiet nights among the trees",
+          "title": "Cabin weekend",
+          "number": "01",
+          "timing": {
+            "opensAt": "2026-10-09T05:01:00.000Z",
+            "closesAt": "2026-10-09T05:13:00.000Z"
+          },
+          "opening": 2501,
+          "category": "Getaways",
+          "includes": [],
+          "provider": {
+            "id": "c5067deb-73ef-429d-a9d9-1677fbe90ff4",
+            "name": "Saturn Barter",
+            "initials": "SA"
+          },
+          "description": "Recognizable uploaded item in a synthetic trade-dollar rehearsal.",
+          "fixedRaiseMinor": 1234,
+          "effectiveRaiseMinor": 1234
+        },
+        "standing": {
+          "currentAmountMinor": 4969,
+          "leadingBusiness": {
+            "id": "10fcdd33-a2c4-4bd9-a6ed-81f9948de44e",
+            "name": "Juniper Synthetic"
+          },
+          "acceptedBidCount": 3,
+          "version": 3,
+          "updatedAt": "2026-10-09T05:01:46.830Z"
+        },
+        "recordedState": "recorded-standing"
+      },
+      {
+        "lot": {
+          "id": "d58b9ae3-5927-4e3d-a1d1-c886ca46e8ca",
+          "alt": "Coffee and a cup",
+          "fine": "",
+          "image": "asset:c7443318-f418-4981-a39d-c8e9308319c2",
+          "short": "Start the morning slowly",
+          "title": "Coffee ritual kit",
+          "number": "02",
+          "timing": {
+            "opensAt": "2026-10-09T05:01:00.000Z",
+            "closesAt": "2026-10-09T05:13:00.000Z"
+          },
+          "opening": 25000,
+          "category": "Home",
+          "includes": [],
+          "provider": {
+            "id": "c5067deb-73ef-429d-a9d9-1677fbe90ff4",
+            "name": "Saturn Barter",
+            "initials": "SA"
+          },
+          "description": "Recognizable uploaded item in a synthetic trade-dollar rehearsal.",
+          "fixedRaiseMinor": null,
+          "effectiveRaiseMinor": null
+        },
+        "standing": {
+          "currentAmountMinor": 25000,
+          "leadingBusiness": {
+            "id": "10fcdd33-a2c4-4bd9-a6ed-81f9948de44e",
+            "name": "Juniper Synthetic"
+          },
+          "acceptedBidCount": 1,
+          "version": 1,
+          "updatedAt": "2026-10-09T05:01:48.867Z"
+        },
+        "recordedState": "recorded-standing"
+      }
+    ]
+  },
+  "pledges": {
+    "event": {
+      "id": "b307252b-888b-4740-9785-994ee914da52",
+      "name": "Saturn Synthetic Staff Rehearsal · Original Studio"
+    },
+    "enabled": true,
+    "pledges": [
+      {
+        "id": "e8c52b08-a7da-4b4e-9f35-03b9c9b30a2e",
+        "unit": "trade-dollar",
+        "scale": 100,
+        "status": "pending_staff_settlement",
+        "actorId": "e52774f9-bac6-4fd9-a5ed-8053f9753a84",
+        "eventId": "b307252b-888b-4740-9785-994ee914da52",
+        "actorName": "Casey Member",
+        "nonprofit": {
+          "id": "d7d7d7fc-f6fa-481e-a167-bd78cf6909e3",
+          "name": "Synthetic Saturn Community Recipient",
+          "version": 1,
+          "description": "Synthetic rehearsal only. Staff process recorded pledges manually."
+        },
+        "requestId": "77715128-ccab-4d3c-9d54-d66d2713cabb",
+        "businessId": "10fcdd33-a2c4-4bd9-a6ed-81f9948de44e",
+        "recordedAt": "2026-10-08T22:03:42.29086-07:00",
+        "amountMinor": 12345,
+        "businessName": "Juniper Synthetic",
+        "organizationId": "c5067deb-73ef-429d-a9d9-1677fbe90ff4"
+      }
+    ],
+    "serverNow": "2026-10-08T22:10:51.019281-07:00",
+    "nonprofits": [
+      {
+        "id": "d7d7d7fc-f6fa-481e-a167-bd78cf6909e3",
+        "name": "Synthetic Saturn Community Recipient",
+        "active": true,
+        "version": 1,
+        "description": "Synthetic rehearsal only. Staff process recorded pledges manually."
+      }
+    ],
+    "policyReady": true,
+    "availability": {
+      "mode": "any-time"
+    },
+    "minimumMinor": 1,
+    "amountCapMinor": 100000
+  },
+  "checks": [
+    "actual open server standing exact to shared accepted receipts",
+    "staff table renders exact accepted amounts",
+    "standing explicitly remains unawarded",
+    "actual standing CSV downloaded",
+    "phone recorded standing no page overflow",
+    "reload renders same actual standing",
+    "phone private display photos and amounts retained",
+    "staff read contains immutable12345-minor manual pledge snapshot",
+    "ordinary dollar pledge display and manualprocessing truth",
+    "actual pledge CSV downloaded",
+    "phone actual pledge amount and processing copy no overflow",
+    "no browser exceptions"
+  ],
+  "captures": [
+    {
+      "name": "desktop-shared-open-standing.png",
+      "state": {
+        "innerWidth": 1440,
+        "innerHeight": 1120,
+        "dpr": 1,
+        "documentWidth": 1440,
+        "documentScrollTop": 0
+      },
+      "frames": []
+    },
+    {
+      "name": "mobile-shared-open-standing.png",
+      "state": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 676
+      },
+      "frames": []
+    },
+    {
+      "name": "mobile-shared-open-display.png",
+      "state": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 195
+      },
+      "frames": []
+    },
+    {
+      "name": "desktop-shared-open-display.png",
+      "state": {
+        "innerWidth": 1440,
+        "innerHeight": 1120,
+        "dpr": 1,
+        "documentWidth": 1440,
+        "documentScrollTop": 0
+      },
+      "frames": []
+    },
+    {
+      "name": "desktop-shared-open-pledge.png",
+      "state": {
+        "innerWidth": 1440,
+        "innerHeight": 1120,
+        "dpr": 1,
+        "documentWidth": 1440,
+        "documentScrollTop": 0
+      },
+      "frames": [
+        {
+          "url": "http://127.0.0.1:43981/staging-admin/index.html#/donations",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "documentWidth": 1440,
+            "main": {
+              "scrollTop": 341,
+              "scrollWidth": 1120,
+              "clientWidth": 1120
+            }
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "scrollWidth": 0,
+              "clientWidth": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mobile-shared-open-pledge.png",
+      "state": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 0
+      },
+      "frames": [
+        {
+          "url": "http://127.0.0.1:43981/staging-admin/index.html#/donations",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "documentWidth": 390,
+            "main": {
+              "scrollTop": 1300,
+              "scrollWidth": 358,
+              "clientWidth": 358
+            }
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "scrollWidth": 0,
+              "clientWidth": 0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "kind": "COMBINED_LOCAL_REAL_HTTP_UI"
+}

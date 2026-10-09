@@ -1,0 +1,124 @@
+{
+  "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+  "origin": "http://127.0.0.1:43981",
+  "eventId": "b8078be1-eb02-4f33-8f76-cd9019a111ae",
+  "focusEventId": "3159d0f4-1304-4c2b-9038-cb9f1bd435dc",
+  "recoveredRecipient": {
+    "id": "b7f03d09-a957-423c-aff4-5e016cd882be",
+    "name": "Recovery Fixture Recipient",
+    "version": 1,
+    "description": "Synthetic recipient version and uncertainty probe."
+  },
+  "createIntent": {
+    "requestId": "78c3491f-8578-4664-9651-d0fa3e352c22",
+    "name": "Recovery Fixture Recipient",
+    "description": "Synthetic recipient version and uncertainty probe."
+  },
+  "checks": [
+    "shared attendee acknowledged current BID active e52774f9-bac6-4fd9-a5ed-8053f9753a84",
+    "shared attendee acknowledged current BID active d7f9133f-14e7-4452-aa55-3690b461a55a",
+    "incomplete enabled policy refused by current backend guard",
+    "refused enablement refresh restores actual disabled truth",
+    "future explicit donor window shows scheduled from actual server read",
+    "past explicit donor window shows closed from actual server read",
+    "lost recipient create reload retries exact original idempotency key",
+    "recipient revision conflict refuses stale change",
+    "conflict refresh retains current authoritative recipient",
+    "uncertain recipient edit resolves current applied version without overwrite",
+    "new item has no later title focus steal 1",
+    "new item has no later title focus steal 2",
+    "new item has no later title focus steal 3",
+    "rapidly focused item inputs save exact amounts and titles",
+    "no browser exceptions"
+  ],
+  "captures": [
+    {
+      "name": "desktop-shared-bidders.png",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:43981/admin?event=b307252b-888b-4740-9785-994ee914da52&tab=bidders",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "documentWidth": 1440,
+            "main": null
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-admin/index.html#/bidders",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "documentWidth": 1440,
+            "main": {
+              "scrollTop": 0,
+              "scrollWidth": 1120,
+              "clientWidth": 1120
+            }
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "scrollWidth": 0,
+              "clientWidth": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "desktop-recipient-recovery.png",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:43981/admin?event=b8078be1-eb02-4f33-8f76-cd9019a111ae&tab=donations",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "documentWidth": 1440,
+            "main": null
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-admin/index.html#/donations",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "documentWidth": 1440,
+            "main": {
+              "scrollTop": 0,
+              "scrollWidth": 802,
+              "clientWidth": 802
+            }
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "scrollWidth": 340,
+              "clientWidth": 340
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "kind": "COMBINED_LOCAL_REAL_HTTP_UI"
+}

@@ -1,0 +1,29 @@
+{
+  "kind": "PARENT_COMBINED_LOCAL_REAL_HTTP_PRIVATE_DISPLAY",
+  "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+  "measurement": {
+    "url": "http://127.0.0.1:43981/events/b307252b-888b-4740-9785-994ee914da52/display",
+    "width": 390,
+    "height": 844,
+    "dpr": 1,
+    "documentWidth": 390,
+    "state": "current",
+    "images": [
+      {
+        "src": "/api/admin/events/b307252b-888b-4740-9785-994ee914da52/catalog-approval/5036477e-9ad3-485a-829c-b2fae6bf4621/assets/d9f8cb79-5f57-41ea-bb10-e51bed535e86",
+        "complete": true,
+        "naturalWidth": 1000,
+        "naturalHeight": 667
+      },
+      {
+        "src": "/api/admin/events/b307252b-888b-4740-9785-994ee914da52/catalog-approval/5036477e-9ad3-485a-829c-b2fae6bf4621/assets/c7443318-f418-4981-a39d-c8e9308319c2",
+        "complete": true,
+        "naturalWidth": 1000,
+        "naturalHeight": 667
+      }
+    ],
+    "text": "BidZizi\nPRIVATE STAFF DISPLAY\nEvent Studio\nRecorded standing\n\nSATURN BARTER\n\nSaturn Synthetic Staff Rehearsal \u00b7 Original Studio\n\nSynthetic Saturn trade-dollar rehearsal. Closed standing is recorded; staff handle follow-up manually.\n\nLocal combined rehearsal\n\nFROZEN OPENING\nOct 9, 2026, 5:01:00 AM UTC\nFROZEN CLOSING\nOct 9, 2026, 5:13:00 AM UTC\nTIME ZONE\nUTC\nopen \u00b7 confirmed staff read\n\nAs of Oct 9, 2026, 5:12:12 AM UTC\n\nRefresh display\n01\n\nGETAWAYS\n\nCabin weekend\n\nTwo quiet nights among the trees\n\nACCEPTED AMOUNT\n\nT$49.69\nCurrent recorded standing\n\nJuniper Synthetic\n\n3 accepted bids \u00b7 version 3\n\nLast accepted change: Oct 9, 2026, 5:01:46 AM UTC\n\n02\n\nHOME\n\nCoffee ritual kit\n\nStart the morning slowly\n\nACCEPTED AMOUNT\n\nT$250.00\nCurrent recorded standing\n\nJuniper Synthetic\n\n1 accepted bid \u00b7 version 1\n\nLast accepted change: Oct 9, 2026, 5:01:48 AM UTC\n\nPrivate staff access \u00b7 Published catalog is separate from draft preview.\n\nSynthetic Saturn trade dollars \u00b7 Recorded amounts are for this published catalog.\n\nRecorded standing is not an award or finalization. No payment or settlement occurs here."
+  },
+  "capturedAt": "2026-10-09T05:12:13.609240+00:00",
+  "screenshot": "combined-e43f059-private-display-phone.png"
+}
