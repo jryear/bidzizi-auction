@@ -11,13 +11,14 @@ const {chromium} = require('@playwright/test');
 const mode = process.argv[2] || 'before';
 const candidate = mode!=='before' && mode!=='deployed';
 const deployedSource = mode==='deployed' ? process.argv[3] : null;
+const focusedOnly = process.argv[4]==='focused';
 if(mode==='deployed')assert.match(deployedSource||'',/^[0-9a-f]{40}$/,'Exact announced deployed source required');
 const origin = 'https://staging.bidzizi.com';
 const primary = '990280fa-51db-47cd-aabe-5d15bf776002';
 const short = '9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6';
 const root = new URL('.', import.meta.url).pathname;
 const repo = new URL('../../../', import.meta.url).pathname;
-const out = root + mode;
+const out = root + mode + (deployedSource?'-'+deployedSource.slice(0,7)+'-'+new Date().toISOString().replaceAll(/[:.]/g,'-'):'');
 await mkdir(out, {recursive:true});
 const hash = value => createHash('sha256').update(value).digest('hex');
 const source = execFileSync('git',['rev-parse','HEAD'],{cwd:repo,encoding:'utf8'}).trim();
@@ -107,7 +108,7 @@ try {
     report.served.push({path,sha256:hash(await response.body())});
     if(mode==='deployed'&&path.endsWith('studio.css'))assert.equal(report.served.at(-1).sha256,hash(css));
   }
-  for (const width of mode.startsWith('focused')?[]:[1440,390,360]) {
+  for (const width of mode.startsWith('focused')||focusedOnly?[]:[1440,390,360]) {
     await page.setViewportSize({width,height:width===1440?1120:844});
     for (const view of ['lots','event','bidders','donations']) {
       await page.goto(`${origin}/admin?event=${primary}&tab=${view}`);
@@ -143,6 +144,7 @@ try {
   await page.goto(`${origin}/admin?event=${primary}&tab=lots`);
   let frame=await page.locator('iframe[title="BidZizi admin workspace"]').elementHandle().then(e=>e.contentFrame());
   await frame.locator('#event-title').waitFor();
+  await frame.locator('#catalog-approval').filter({hasText:'Approved'}).waitFor();
   const search=frame.locator('.inventory-search input');
   await search.fill('Cabin');
   assert.equal(await frame.locator('.lot-row').count(),1);
@@ -172,7 +174,8 @@ try {
   assert.deepEqual(primaryAmounts,dtoAmounts);
   report.checks.push({primaryOpenRead:{serverNow:primaryDTO.serverNow,phase:primaryDTO.phase,
     amountsMinor:primaryDTO.lots.map(row=>row.standing.currentAmountMinor),amounts:primaryAmounts}});
-  assert.match(await page.locator('main').innerText(),/open · confirmed staff read/);
+  assert.equal(primaryDTO.phase,'open');
+  await page.getByText('open · confirmed staff read',{exact:true}).waitFor();
   await capture('primary-open-results',390,page,primary);
   await page.reload();await page.locator('main[data-state="current"]').waitFor();
   assert.deepEqual(await page.locator('[data-current-amount]').allTextContents(),primaryAmounts);
