@@ -6,7 +6,7 @@ type View={packet:StaffResults|null;state:'loading'|'current'|'stale'|'offline'|
 const empty=():View=>({packet:null,state:'loading',busy:true,message:'Confirming staff access…'});
 export default function AuthorizedReadView({eventId,mode}:{eventId:string;mode:'display'|'results'}){
  const [view,setView]=useState<View>(empty),[exportMessage,setExportMessage]=useState('');
- const refresh=useRef<()=>void>(()=>{}),generationRef=useRef(0),actorRef=useRef<string|null>(null);
+ const refresh=useRef<()=>void>(()=>{}),deny=useRef<()=>void>(()=>{}),generationRef=useRef(0),actorRef=useRef<string|null>(null);
  useEffect(()=>{
   let snapshot=empty(),disposed=false,active:Promise<void>|undefined,controller:AbortController|undefined,timer:ReturnType<typeof setTimeout>|undefined;
   const publish=(next:View)=>{if(!disposed){snapshot=next;setView(next);}};
@@ -34,17 +34,18 @@ export default function AuthorizedReadView({eventId,mode}:{eventId:string;mode:'
   const suspend=()=>{++generationRef.current;clearTimeout(timer);controller?.abort();publish({...snapshot,state:snapshot.packet?'stale':'loading',busy:false,message:'View paused. Refresh to confirm current staff data.'});};
   const visibility=()=>document.visibilityState==='visible'?run():suspend();
   const offline=()=>{suspend();publish({...snapshot,state:snapshot.packet?'offline':'error',message:'Offline · last confirmed staff data.'});};
+  deny.current=()=>{++generationRef.current;clearTimeout(timer);controller?.abort();actorRef.current=null;clear('This private staff view is unavailable to the current account.');};
   refresh.current=run;document.addEventListener('visibilitychange',visibility);window.addEventListener('offline',offline);window.addEventListener('online',run);window.addEventListener('pageshow',run);window.addEventListener('pagehide',suspend);run();
-  return()=>{disposed=true;++generationRef.current;clearTimeout(timer);controller?.abort();refresh.current=()=>{};actorRef.current=null;document.removeEventListener('visibilitychange',visibility);window.removeEventListener('offline',offline);window.removeEventListener('online',run);window.removeEventListener('pageshow',run);window.removeEventListener('pagehide',suspend);};
+  return()=>{disposed=true;++generationRef.current;clearTimeout(timer);controller?.abort();refresh.current=()=>{};deny.current=()=>{};actorRef.current=null;document.removeEventListener('visibilitychange',visibility);window.removeEventListener('offline',offline);window.removeEventListener('online',run);window.removeEventListener('pageshow',run);window.removeEventListener('pagehide',suspend);};
  },[eventId]);
  const exportCSV=async()=>{
   const ticket=generationRef.current,actor=actorRef.current;setExportMessage('Preparing private CSV…');
   try{
-   const signal=AbortSignal.timeout(12000),before=parseSession(await readJSON('/api/session',signal));if(!actor||before!==actor)throw new Error('Account changed.');
-   const response=await fetch(`/api/admin/events/${encodeURIComponent(eventId)}/results/export`,{credentials:'same-origin',cache:'no-store',signal});if(!response.ok||!response.headers.get('content-type')?.includes('text/csv'))throw new Error('CSV unavailable.');
-   const blob=await response.blob(),after=parseSession(await readJSON('/api/session',signal));if(ticket!==generationRef.current||after!==actor)throw new Error('Access changed.');
+   const signal=AbortSignal.timeout(12000),before=parseSession(await readJSON('/api/session',signal));if(!actor||before!==actor)throw new ReadFailure(401);if(ticket!==generationRef.current)return;
+   const response=await fetch(`/api/admin/events/${encodeURIComponent(eventId)}/results/export`,{credentials:'same-origin',cache:'no-store',signal});if(!response.ok)throw new ReadFailure(response.status);if(!response.headers.get('content-type')?.includes('text/csv'))throw new Error('CSV unavailable.');
+   const blob=await response.blob(),after=parseSession(await readJSON('/api/session',signal));if(ticket!==generationRef.current)return;if(after!==actor)throw new ReadFailure(401);
    const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=`event-${eventId}-recorded-standing.csv`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);setExportMessage('CSV downloaded. Recorded standing remains subject to manual staff processing.');
-  }catch{setExportMessage('CSV download could not be confirmed. Refresh staff access and try again.');}
+  }catch(error){if(ticket!==generationRef.current)return;if(error instanceof InvalidPayload||error instanceof ReadFailure&&[401,403,404].includes(error.status))deny.current();setExportMessage('CSV download could not be confirmed. Refresh staff access and try again.');}
  };
  const packet=view.packet,old=view.state==='stale'||view.state==='offline',zone=packet?.schedule?.timezone||'UTC';
  return <main className={styles.board} data-state={view.state} data-mode={mode} data-event-id={eventId}>
