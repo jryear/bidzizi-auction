@@ -1,6 +1,24 @@
 export const clone = (x) => structuredClone(x);
 export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
 export const money = (n) => new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:2 }).format(n / 100);
+export function tradeMoney(minor, rules) {
+  if (rules?.denomination !== 'SATURN_TRADE_DOLLAR_SYNTHETIC_V1' || rules.scale !== 100 ||
+      !Number.isSafeInteger(minor) || minor < 0 || !Number.isSafeInteger(rules.amountCapMinor) || minor > rules.amountCapMinor) return 'Amount unavailable';
+  return `T$${Math.floor(minor / 100).toLocaleString('en-US')}.${String(minor % 100).padStart(2,'0')}`;
+}
+export function tradeRulesText(rules) {
+  if (!Array.isArray(rules?.tiers) || !rules.tiers.length || tradeMoney(0,rules) === 'Amount unavailable') return 'Bid rules are unavailable. Reload the saved event to check them.';
+  let lower=0;
+  const ranges=[];
+  for (const [index,tier] of rules.tiers.entries()) {
+    if (!Number.isSafeInteger(tier.raiseMinor) || tier.raiseMinor <= 0 || tier.raiseMinor > rules.amountCapMinor ||
+        (tier.belowMinor === null ? index !== rules.tiers.length-1 : !Number.isSafeInteger(tier.belowMinor) || tier.belowMinor <= lower || tier.belowMinor > rules.amountCapMinor)) return 'Bid rules are unavailable. Reload the saved event to check them.';
+    const range=tier.belowMinor===null?`from ${tradeMoney(lower,rules)}`:lower===0?`below ${tradeMoney(tier.belowMinor,rules)}`:`${tradeMoney(lower,rules)} to below ${tradeMoney(tier.belowMinor,rules)}`;
+    ranges.push(`${range}: ${tradeMoney(tier.raiseMinor,rules)}`);lower=tier.belowMinor;
+  }
+  if (lower !== null) return 'Bid rules are unavailable. Reload the saved event to check them.';
+  return `Minimum raise uses the current highest accepted bid: ${ranges.join('; ')}. A positive item override replaces the raise. The first bid starts at the opening amount. Any amount at or above the applicable minimum is allowed, up to ${tradeMoney(rules.amountCapMinor,rules)}.`;
+}
 export function cents(text) {
   if (!/^\d+(?:\.\d{1,2})?$/.test(String(text))) return null;
   const [a,b=''] = String(text).split('.');
