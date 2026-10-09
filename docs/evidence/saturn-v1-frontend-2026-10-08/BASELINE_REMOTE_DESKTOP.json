@@ -1,0 +1,19 @@
+{
+  "kind": "REMOTE_READ_ONLY_BASELINE",
+  "nodeVersion": "v24.4.1",
+  "deploymentRevision": "unbound existing alias; backend owns revision verification",
+  "requestedUrl": "https://staging.bidzizi.com",
+  "status": 200,
+  "measurement": {
+    "url": "https://staging.bidzizi.com/events/72216e01-08c8-40ce-83c7-13a4c16a996f",
+    "width": 1440,
+    "height": 1000,
+    "dpr": 1,
+    "scrollWidth": 1440,
+    "isMobileViewport": false
+  },
+  "profileCreated": false,
+  "dataMutation": false,
+  "capturedAt": "2026-10-09T04:46:19.657Z",
+  "screenshot": "baseline-demo-entry-desktop-actual.png"
+}
