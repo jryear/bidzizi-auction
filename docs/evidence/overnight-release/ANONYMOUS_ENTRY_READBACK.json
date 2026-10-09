@@ -1,0 +1,172 @@
+{
+  "checkedAt": "2026-10-09T06:24:24.525Z",
+  "origin": "https://staging.bidzizi.com",
+  "announcedDeployedSource": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "sourceBinding": "Prior exact metadata/alias readback plus fresh matching six served interface hashes; metadata not requeried by this render probe.",
+  "scope": "Anonymous native Entry rendering only; no profile, sign-in, admission, bidding or private closed-state acceptance claimed.",
+  "readOnly": true,
+  "root": {
+    "status": 307,
+    "location": "/events/990280fa-51db-47cd-aabe-5d15bf776002"
+  },
+  "hashes": [
+    {
+      "path": "/staging-catalog/bidding.js",
+      "sha256": "467d74e5150fafeba758c7142c7b3ecd7b0f403ca239b0054f259c302cdf5727",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-catalog/collections.js",
+      "sha256": "5bc7aaf7cea9972b5750440843f37690aec1559ba982966a5f628acbef64a283",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-catalog/donations.js",
+      "sha256": "c848496b37d4f62e3c368f2b3ba066efe6afc181937d6bbd77ef17a3de3b75c7",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-catalog/views.js",
+      "sha256": "057650c3c8024ffd71805a625622a124761037177edee5500bcc0823868a1334",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-catalog/styles.css",
+      "sha256": "750076efd6a3970f29f3ac25545260a1024631ee8e49aa6f5db8cb540d666292",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-admin/staff-operations.js",
+      "sha256": "fd41248982c9632c4da7754eeb9353ba0cb6cdb42a40c283beec9d15842435dd",
+      "sourceMatches": true
+    }
+  ],
+  "captures": [
+    {
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "filename": "ANONYMOUS_ENTRY_990280fa_390.png",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentHeight": 1039
+      },
+      "authenticated": false,
+      "entryEnabled": true
+    },
+    {
+      "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "filename": "ANONYMOUS_ENTRY_9c32e7e7_390.png",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentHeight": 1039
+      },
+      "authenticated": false,
+      "entryEnabled": true
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/events/990280fa-51db-47cd-aabe-5d15bf776002"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/_next/static/immutable/chunks/3x5ewukzg9f9i.css"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/_next/static/immutable/chunks/2kg-1n8a9qiom.js"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/_next/static/immutable/chunks/23uwctiensgem.js"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/_next/static/immutable/chunks/1-o-maoqbbyhw.js"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/_next/static/immutable/chunks/turbopack-32bfuvcknrhbv.js"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/_next/static/immutable/chunks/3avlr_tp1rqit.js"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/_next/static/immutable/chunks/2hefkbg3p1h9l.js"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/api/session"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/api/demo/events/990280fa-51db-47cd-aabe-5d15bf776002/entry"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/staging-bidder-preview/assets/fonts/instrument-sans-vf.woff2"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/staging-bidder-preview/assets/fonts/fraunces-vf.woff2"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/_next/static/immutable/chunks/3x5ewukzg9f9i.css"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/_next/static/immutable/chunks/2kg-1n8a9qiom.js"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/_next/static/immutable/chunks/23uwctiensgem.js"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/_next/static/immutable/chunks/1-o-maoqbbyhw.js"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/_next/static/immutable/chunks/turbopack-32bfuvcknrhbv.js"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/_next/static/immutable/chunks/3avlr_tp1rqit.js"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/_next/static/immutable/chunks/2hefkbg3p1h9l.js"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/api/session"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/api/demo/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/entry"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/staging-bidder-preview/assets/fonts/instrument-sans-vf.woff2"
+    },
+    {
+      "method": "GET",
+      "url": "https://staging.bidzizi.com/staging-bidder-preview/assets/fonts/fraunces-vf.woff2"
+    }
+  ],
+  "errors": [],
+  "browserClosedInFinally": true
+}
