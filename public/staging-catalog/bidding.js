@@ -27,8 +27,14 @@ function storedIntent(lot){
 }
 function saveIntent(lot,intent){try{localStorage.setItem(key(lot),JSON.stringify(intent));}catch{/* Server recovery remains available while this page stays open. */}}
 async function request(path,body){
- const response=await fetch(path,{credentials:'same-origin',cache:'no-store',...(body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})});
- return {status:response.status,data:await response.json()};
+ const expected=guard(),expectedEpoch=bidder.epoch,controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
+ try{
+  const response=await fetch(path,{signal:controller.signal,credentials:'same-origin',cache:'no-store',...(body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})}),data=await response.json();
+  const sessionResponse=await fetch('/api/session',{signal:controller.signal,credentials:'same-origin',cache:'no-store'}),session=await sessionResponse.json();
+  if(!sessionResponse.ok||session.authenticated!==true||session.person?.id!==expected.person){window.dispatchEvent(new Event('member-session-changed'));throw new Error('The private session changed. The original bid remains with its owner.');}
+  if(!current(expected)||expectedEpoch!==bidder.epoch)throw new Error('The member view changed before this response could be used.');
+  return {status:response.status,data};
+ }finally{clearTimeout(timer);}
 }
 function receiptMatches(receipt,intent,lot){
  return receipt&&intent&&receipt.requestId===intent.requestId&&receipt.eventId===bidder.eventId&&receipt.releaseId===catalog.approvalId&&receipt.lotId===lot&&receipt.actorId===bidder.context?.person.id&&receipt.businessId===intent.businessId&&receipt.amountMinor===intent.amountMinor&&receipt.rulesetId===intent.rulesetId&&receipt.currency===denomination()&&['accepted','rejected'].includes(receipt.status)&&Number.isFinite(Date.parse(receipt.decidedAt))&&(receipt.status==='accepted'?typeof receipt.bidId==='string'&&receipt.reason===null:receipt.bidId===null&&typeof receipt.reason==='string');
