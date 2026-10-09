@@ -113,6 +113,14 @@ const cases={
   await admin.query("UPDATE bz_event_bidder_admissions SET access='VIEW' WHERE person_id=$1",[actor]);
   const first=await ok('history');assert.equal(first.person.id,actor);assert.equal(first.bids.length,2);assert.equal(first.phase,'open');
   const accepted=first.bids.find(r=>r.receipt.status==='accepted');assert.equal(accepted.recordedState,'leading');assert.equal(accepted.lot.title,'Frozen title');assert.equal(first.bids.find(r=>r.receipt.status==='rejected').recordedState,'rejected');
+  assert.ok(first.bids.every(r=>r.receipt.actorId===actor));
+  const coworkerHistory=await ok('history','GET',undefined,'coworker');
+  assert.equal(coworkerHistory.person.id,coworker);assert.equal(coworkerHistory.bids.length,1);
+  assert.ok(coworkerHistory.bids.every(r=>r.receipt.actorId===coworker));
+  assert.ok(!coworkerHistory.bids.some(r=>r.receipt.requestId===accepted.receipt.requestId));
+  const otherHistory=await ok('history','GET',undefined,'actor',{eventId:otherEvent});
+  assert.equal(otherHistory.eventId,otherEvent);assert.equal(otherHistory.releaseId,foreignRelease);
+  assert.deepEqual(otherHistory.bids,[]);
   await admin.query("UPDATE bz_lots SET data=jsonb_set(data,'{title}','\"Draft changed\"') WHERE id=$1",[lot]);
   await admin.query('UPDATE bz_lot_standing SET leading_business_id=$1 WHERE release_id=$2',[rival,release]);
   const after=await ok('history');assert.equal(after.bids.find(r=>r.receipt.status==='accepted').recordedState,'outbid');assert.deepEqual(after.bids[0].lot,first.bids[0].lot);assert.deepEqual(after.bids[0].receipt,first.bids[0].receipt);
@@ -284,7 +292,9 @@ try{
  for(const [person,status] of [[actor,'accepted'],[actor,'rejected'],[coworker,'accepted']]){const key=id();const data={actorId:person,requestId:key,eventId:event,releaseId:release,lotId:lot,businessId:business,amountMinor:2500,rulesetId:'saturn-trade-tiered-v1',currency:'SATURN_TRADE_DOLLAR_SYNTHETIC_V1',status,reason:status==='rejected'?'STALE_MINIMUM':null,bidId:status==='accepted'?acceptedBid:null,decidedAt:new Date().toISOString()};
  await admin.query('INSERT INTO bz_bid_receipts(actor_id,request_id,payload_hash,receipt,http_status) VALUES($1,$2,$3,$4,$5)',[person,key,sha(key),JSON.stringify(data),status==='accepted'?201:409]);}
  Object.assign(process.env,{BIDZIZI_APP_MODE:'local-test',BIDZIZI_STAGING_TEST_AUTH:'true',BIDZIZI_LOCAL_TEST_DATABASE:'true',APP_ORIGIN:origin,DATABASE_URL:`postgres://activity_runtime:disposable-only@127.0.0.1:${port}/bz_test_attendee_activity`});
- for(const [name,run] of Object.entries(cases)){
+ const selectedCase=process.argv[2];if(selectedCase&&!Object.hasOwn(cases,selectedCase))throw Error('Unknown selected development case');
+ receipt.selectedCase=selectedCase??null;
+ for(const [name,run] of Object.entries(cases).filter(([name])=>!selectedCase||name===selectedCase)){
   await resetAuthority();try{await run();receipt.cases.push({name,result:'PASS'});console.log('PASS '+name);}catch(e){receipt.cases.push({name,result:'FAIL',message:e.message});console.error('FAIL '+name+': '+e.stack);process.exitCode=1;}
  }
 }catch(e){console.error(e);receipt.setupError=e.message;process.exitCode=1;}

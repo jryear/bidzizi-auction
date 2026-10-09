@@ -1,0 +1,26 @@
+{
+  "recordedAt": "2026-10-09T05:41:45.567Z",
+  "backendSource": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+  "recoveryUISource": "7b920d36d2bd776c6638db3ffa36c07bbe211047",
+  "finalBuiltProductSource": "69ec6f70925204576341a85f04cdfdbedcfffeb3",
+  "backendChecks": {
+    "retainedAuthority": 21,
+    "staffOperations": 13,
+    "memberActivity": 23
+  },
+  "focusedSameBusinessAndOtherEventPrivacy": "PASS",
+  "realRecoveryActorViewCloseChecks": 20,
+  "allUIOwnersSafe": true,
+  "originalFailedProbePreserved": "MEMBER_RECOVERY_FAILED_E43.json",
+  "historicalAuthTasksOracle016Unchanged": true,
+  "donationPolicy": "Disabled/unconfigured runtime defaults; operational activation held; only explicitly labeled synthetic fixture exercise authorized.",
+  "authoritySuccessor017": "Held, isolated and uninstalled; known016unrelated-organization/global-queue availability limitation remains.",
+  "remaining": [
+    "GitHub main landing",
+    "Exact existing demo source/alias readback",
+    "Hosted new-owned staff and two-attendee whole-event exercise",
+    "Final source-bound unit-label renders and root-link release",
+    "Frontend-owned accepted refinements and child settlement"
+  ],
+  "scope": "Local combined behavior; not deployed acceptance"
+}

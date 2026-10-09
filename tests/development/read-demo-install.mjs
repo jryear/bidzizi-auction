@@ -50,7 +50,8 @@ try{
  const report={checkedAt:new Date().toISOString(),sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),nodeVersion:process.version,
   scope:'read-only post-COMMIT verification of existing synthetic demo',projectId:installed.projectId,origin:installed.origin,
   verifiedTLS:true,existingRecordsUnchanged:true,records,functions,privateTables,directPrivateReadDenied,...held};
- const path='docs/evidence/overnight-release/ADDITIVE_READBACK.json';await writeFile(path,JSON.stringify(report,null,2)+'\n');
- console.log(JSON.stringify({path,existingRecordsUnchanged:true,directPrivateReadDenied,originalGateRetained:true,functions:functions.length,privateTables:privateTables.length}));
+ const stdoutOnly=process.argv.includes('--stdout'),path='docs/evidence/overnight-release/ADDITIVE_READBACK.json';
+ if(!stdoutOnly)await writeFile(path,JSON.stringify(report,null,2)+'\n');
+ console.log(JSON.stringify({...(stdoutOnly?{readOnly:true,receiptWritten:false,checkedAt:report.checkedAt,sourceCommit:report.sourceCommit,projectId:report.projectId,origin:report.origin,database:'bz_staging_e2e',ownerRole:'staging_e2e_owner',runtimeRole:'staging_e2e_app',verifiedTLS:true}:{path}),existingRecordsUnchanged:true,directPrivateReadDenied,originalGateRetained:true,functions:functions.length,privateTables:privateTables.length}));
 }catch{console.error('Read-only demo installation verification failed; private inputs withheld.');process.exitCode=1;}
 finally{for(const c of clients){await c.query('ROLLBACK').catch(()=>{});await c.end().catch(()=>{});}}

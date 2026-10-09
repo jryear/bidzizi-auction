@@ -1,0 +1,11 @@
+{
+  "classification": "HARNESS_SETUP_FAILURE",
+  "productAssertionsRun": false,
+  "disposableDatabaseCreated": false,
+  "nodeVersion": "v24.21.0",
+  "commandFlag": "--experimental-strip-types",
+  "code": "ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX",
+  "reason": "Existing ApiError TypeScript parameter properties require --experimental-transform-types.",
+  "successorFlag": "--experimental-transform-types",
+  "successorReceipt": "MY_BIDS_PRIVACY_TARGETED.json"
+}
