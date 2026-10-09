@@ -1,0 +1,73 @@
+{
+  "kind": "OBSERVED_NATIVE_TRANSCRIPT_EXTRACT_NOT_FULL_ARCHIVE",
+  "task": "task_db26413db046",
+  "dispatch": "ctx_c1af1ec59aa8",
+  "provider": "claude",
+  "base": "e026ce6bd5a72b63de38cabd0cada94ba26e8443",
+  "observedVia": "orca orchestration worker-read --dispatch ctx_c1af1ec59aa8 --source auto --limit 20 --json",
+  "source": "transcript",
+  "sourceIdentity": "YbJY2OZLqTwOpZW5J2_9WtbPnwD-ZYaa",
+  "sourceExact": true,
+  "contentComplete": false,
+  "clipping": [
+    "transcript_payload"
+  ],
+  "authMessages": [
+    {
+      "id": "d2667f83-7ca6-414d-ab4a-cc2df0e5c580",
+      "timestamp": 1791528246837,
+      "text": "Not logged in \u00b7 Please run /login"
+    },
+    {
+      "id": "50df80e9-2191-4341-8432-aaa257a9d6e4",
+      "timestamp": 1791528328293,
+      "text": "Not logged in \u00b7 Please run /login"
+    },
+    {
+      "id": "025cc697-cd41-4b99-8a56-ddd173ff37a2",
+      "timestamp": 1791528462592,
+      "text": "Not logged in \u00b7 Please run /login"
+    },
+    {
+      "id": "07ac157f-a364-40df-b2d7-41a955f266e4",
+      "timestamp": 1791528544183,
+      "text": "Not logged in \u00b7 Please run /login"
+    },
+    {
+      "id": "91d72704-a508-4a2a-81a6-7c0cb9409c8f",
+      "timestamp": 1791528759245,
+      "text": "Not logged in \u00b7 Please run /login"
+    }
+  ],
+  "lifecycle": {
+    "stop": {
+      "state": "stopped",
+      "alreadySettled": false,
+      "processAction": "closed_agent_terminal",
+      "ptyKilled": true
+    },
+    "task": {
+      "status": "failed",
+      "completedAt": "2026-10-09T06:58:58.355Z"
+    },
+    "release": {
+      "state": "released",
+      "processAction": "none",
+      "archive": {
+        "source": null,
+        "status": "unavailable"
+      }
+    }
+  },
+  "postReleaseRead": "CLAUDE_AUTH_BLOCKED_NATIVE_READ.json records exact native archive-unavailable error, not an auth transcript",
+  "coordinatorDecision": {
+    "question": "msg_aefb9005d56f",
+    "answer": "msg_ce10827664cb",
+    "summary": "No login retry, guessed provider or model/global-setting change; cross-model review explicitly outstanding and owner sign-in/provider decision surfaced by Junior; continue functional delivery and contained original-direction repairs."
+  },
+  "scope": "No Claude review or product edits occurred; task transport readiness was not effective CLI authentication; supported lifecycle closed the process without timeout inference; no credentials inspected or changed",
+  "observationWindowUtc": {
+    "precedingCheckpoint": "2026-10-09T06:54:03Z",
+    "followingNativeEscalation": "2026-10-09T06:56:36Z"
+  }
+}
