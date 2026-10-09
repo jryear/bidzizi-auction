@@ -1,7 +1,7 @@
 // Owned, persistent rehearsal runtime. Source and database are disposable;
 // credentials never leave process environment and no provider is contacted.
 import { execFileSync, spawn } from 'node:child_process';
-import { mkdir, symlink, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { randomUUID } from 'node:crypto';
@@ -35,8 +35,8 @@ try {
   await mkdir(appRoot);
   const archive=execFileSync('git',['archive',head],{cwd:repo,maxBuffer:128*1024*1024});
   execFileSync('tar',['-xf','-','-C',appRoot],{input:archive});
-  await symlink(join(repo,'node_modules'),join(appRoot,'node_modules'),'dir');
   const environment={...process.env,APP_ORIGIN:origin,LC_ALL:'C',LANG:'C'};
+  execFileSync('pnpm',['install','--offline','--frozen-lockfile'],{cwd:appRoot,env:environment,stdio:'pipe',maxBuffer:16*1024*1024});
   execFileSync(process.execPath,[join(appRoot,'node_modules/next/dist/bin/next'),'build'],{cwd:appRoot,env:environment,stdio:'pipe',maxBuffer:16*1024*1024});
   app=spawn(process.execPath,[join(appRoot,'node_modules/next/dist/bin/next'),'start','--hostname','127.0.0.1','-p',String(appPort)],{cwd:appRoot,env:environment,stdio:['ignore','pipe','pipe']});
   app.stdout.on('data',bytes=>process.stdout.write(bytes));app.stderr.on('data',bytes=>process.stderr.write(bytes));
