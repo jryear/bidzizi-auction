@@ -26,6 +26,9 @@ try {
     bz_staff_asset_validate(text,uuid,uuid[]),bz_staff_asset_read(text,uuid,uuid,text,uuid),
     bz_staff_bidder_list(text,uuid),bz_staff_bidder_set(text,uuid,uuid,uuid,integer,text,boolean) TO fixture_runtime`);
   await f.admin.query('GRANT SELECT ON bz_demo_event_entries TO fixture_runtime');
+  if(migrations.includes('018_attendee_activity_donations.sql'))await f.admin.query(`GRANT EXECUTE ON FUNCTION
+    bz_attendee_activity(text,uuid,text,jsonb),bz_donation_member(text,uuid,text,jsonb),
+    bz_donation_staff(text,uuid,text,jsonb) TO fixture_runtime`);
   const organizationId=randomUUID(),otherOrganizationId=randomUUID(),staffId=randomUUID(),otherStaffId=randomUUID();
   await f.admin.query("INSERT INTO bz_orgs(id,name,initials) VALUES($1,'Saturn Barter','SA'),($2,'Other synthetic organization','OT')",[organizationId,otherOrganizationId]);
   await f.admin.query("INSERT INTO bz_people(id,alias,name,is_test) VALUES($1,'staff-saturn','Saturn staff',true),($2,'staff-pine','Other staff',true)",[staffId,otherStaffId]);

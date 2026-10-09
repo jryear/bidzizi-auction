@@ -1,0 +1,53 @@
+{
+  "checkedAt": "2026-10-09T04:51:47.536Z",
+  "node": "v24.21.0",
+  "projectId": "prj_fy9oxz1zTFpwqLRDJONdgvjI2KNP",
+  "deploymentId": "dpl_D2HLsiidFERFRnRFPAzwDWLyBeVU",
+  "sourceCommit": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+  "origin": "https://staging.bidzizi.com",
+  "target": "production",
+  "scope": "existing synthetic demo",
+  "ownerIdentity": {
+    "database": "bz_staging_e2e",
+    "role": "staging_e2e_owner"
+  },
+  "runtimeIdentity": {
+    "database": "bz_staging_e2e",
+    "role": "staging_e2e_app"
+  },
+  "verifiedTLS": true,
+  "sensitiveVercelRuntimeEnv": true,
+  "bindingProof": "Fresh hosted synthetic staff login produced a unique session observed in retained runtime database; exact authorized event IDs matched and diagnostic session was then revoked",
+  "diagnosticSessionRevoked": true,
+  "visibleEventCount": 10,
+  "baseline": {
+    "bz_events": {
+      "count": 10,
+      "sha256": "df6df54337bebc9985598f21d8436ea1e2020636559bf8828add9ea3fc248426"
+    },
+    "bz_lots": {
+      "count": 34,
+      "sha256": "93baee46916196b8107ea8d954fe0da296ca0edaa7a6dff712e6adb73e782025"
+    },
+    "bz_catalog_approvals": {
+      "count": 6,
+      "sha256": "9a85f5cf32f7375cf62643f4d94f054c95e4502bdc2ce17ffd14cb8ea027da98"
+    },
+    "bz_catalog_lots": {
+      "count": 13,
+      "sha256": "041489caf7d443e934a9e5ff9b54805ee342614016a60002d97419dd4cfcce76"
+    },
+    "bz_manual_bids": {
+      "count": 16,
+      "sha256": "c796a058a5b75a1ef67bcaa7aa28c521ebdfd4ca3132f9d0518048eb63f6914e"
+    },
+    "bz_bid_receipts": {
+      "count": 21,
+      "sha256": "25160e1f6766b90c58317427ace7cac5ad2f44f571afd66f56f55da51fd42d88"
+    },
+    "bz_lot_standing": {
+      "count": 6,
+      "sha256": "e3323bec45c522704b6c465848872c8278a2229889c178344b79e6c4338ef56b"
+    }
+  }
+}
