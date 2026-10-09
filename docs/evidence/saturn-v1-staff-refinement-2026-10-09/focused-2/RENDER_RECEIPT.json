@@ -1,0 +1,221 @@
+{
+  "mode": "focused-2",
+  "source": "e026ce6bd5a72b63de38cabd0cada94ba26e8443",
+  "runtime": "v24.4.1",
+  "origin": "https://staging.bidzizi.com",
+  "startedAt": "2026-10-09T06:48:49.905Z",
+  "kind": "CANDIDATE_CSS_INTERCEPTION_REAL_HOSTED_DTOS",
+  "cssHash": "b3b768378ae368bc0093c70924357a82d2091088780fedbaa2445524de08682b",
+  "moduleHash": "2c19bcad5cc23a2d2d2747f4c8a86dfa0a70544325195ed76e0bb6977198c927",
+  "served": [
+    {
+      "path": "/staging-admin/studio.css",
+      "sha256": "7f08e1e62a5c3a9362f1f2df483104150faab3c461489699b8b39cdfac4b9a4d"
+    },
+    {
+      "path": "/staging-admin/studio.js",
+      "sha256": "1d4bcfd19f17c785aec57feff43b1ffc9cf8e3f71593fbbcdfa14f7b41b8bfa0"
+    }
+  ],
+  "rows": [
+    {
+      "view": "keyboard-focus",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "position": "work",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 16,
+          "y": 423.75,
+          "width": 358,
+          "height": 379.203125,
+          "scrollTop": 507,
+          "scrollHeight": 2251,
+          "clientHeight": 379,
+          "scrollWidth": 358,
+          "clientWidth": 358
+        },
+        "chrome": {
+          "sidebar": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 188
+          },
+          "top": {
+            "x": 0,
+            "y": 188,
+            "width": 390,
+            "height": 34
+          },
+          "bar": {
+            "x": 0,
+            "y": 222,
+            "width": 390,
+            "height": 193.75
+          },
+          "hero": null,
+          "notice": {
+            "x": 16,
+            "y": -83.25,
+            "width": 355,
+            "height": 20
+          }
+        },
+        "firstWork": {
+          "x": 16,
+          "y": 316.359375,
+          "width": 355,
+          "height": 118
+        },
+        "amounts": [
+          "T$25.01",
+          "T$250.00",
+          "T$35.00"
+        ],
+        "text": "Published terms are fixed.\n\nApproved catalog\n\nHoliday Trade Show · Saturn V1 Demo · saved revision 2 · 2 lots\n\nOctober 8, 2026 · 11:07 PM to October 9, 2026 · 12:00 PM America/Los_Angeles\n\nView approved lots\nItems\n\n3 items · working catalog\n\n+ Add item\nSearch your lots\nITEM\nSELECT ALL\nSelect lot 01\n01\nCabin weekend\nGetaways\nT$25.01\nShared event window\nSelect lot 02\n02\nCoffee ritual kit\nHome\nT$250.00\nShared event window\nSelect lot 03\n03\nSpring flowers\nGarden\nT$35.00\nShared event window\nEditing item 01\nView in preview\nUpload item photo\nItem title\nShort description\nDescription\nCategory\nOpening amount · synthetic trade dollars\nFixed raise override · optional\nPhoto and item details\nPhoto description\nIncluded\nImportant details\nDuplicate lot\n↑\n↓\nCatalog order · 1 of 3\nEvent setup\n\nSaved revision 2. One explicit window and tiered synthetic trade-dollar rules.\n\nWelcome and timing\n3 saved items\nPublished catalog\n✓\nNew bidder entry\n\nEntry enabled · revision 1. New synthetic attendees can create their own private demo profile.",
+        "title": "Holiday Trade Show · Saturn V1 Demo",
+        "images": [
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "width": 1000,
+            "height": 667
+          },
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+            "width": 1000,
+            "height": 667
+          },
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+            "width": 1000,
+            "height": 667
+          },
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "width": 1000,
+            "height": 667
+          }
+        ],
+        "classes": [
+          "top",
+          "",
+          "workspace no-preview"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/focused-2/keyboard-focus-390-work.png",
+      "png": {
+        "width": 390,
+        "height": 844,
+        "sha256": "055c9665fde83998b485dc079ee09c8c9898413ed017c37f4b9d179c962d04a6"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "keyboardFocusBeforeScroll": {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "outline": "rgb(35, 56, 199)",
+        "outlineWidth": "3px",
+        "visible": true,
+        "scrollTop": 0
+      }
+    },
+    {
+      "keyboardFocus": {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "outline": "rgb(35, 56, 199)",
+        "outlineWidth": "3px",
+        "visible": true,
+        "scrollTop": 0
+      },
+      "pageDownMainScroll": 25,
+      "filter": "Cabin local filter restored without save"
+    },
+    {
+      "touchTargets": [
+        {
+          "text": "Items 3",
+          "height": 44
+        },
+        {
+          "text": "Event & entry",
+          "height": 44
+        },
+        {
+          "text": "Bidders",
+          "height": 44
+        },
+        {
+          "text": "Donation pledges",
+          "height": 44
+        },
+        {
+          "text": "Recorded standing",
+          "height": 44
+        },
+        {
+          "text": "Private display",
+          "height": 44
+        },
+        {
+          "text": "Bidder preview",
+          "height": 44
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "blockedWrites": [],
+  "interceptions": [
+    {
+      "path": "/staging-admin/studio.css",
+      "hash": "b3b768378ae368bc0093c70924357a82d2091088780fedbaa2445524de08682b"
+    },
+    {
+      "path": "/_next/static/immutable/chunks/0mctoinacv-cs.css",
+      "baseHash": "cb9742cd6591fd331078fe74fa8a301b05f167605eee945c2380bbfb877a8ce6",
+      "mapping": {
+        "board": "display-results-module__uP49Nq__board",
+        "topbar": "display-results-module__uP49Nq__topbar",
+        "wordmark": "display-results-module__uP49Nq__wordmark",
+        "content": "display-results-module__uP49Nq__content",
+        "hero": "display-results-module__uP49Nq__hero",
+        "kicker": "display-results-module__uP49Nq__kicker",
+        "eyebrow": "display-results-module__uP49Nq__eyebrow",
+        "welcome": "display-results-module__uP49Nq__welcome",
+        "venue": "display-results-module__uP49Nq__venue",
+        "sponsors": "display-results-module__uP49Nq__sponsors",
+        "schedule": "display-results-module__uP49Nq__schedule",
+        "notice": "display-results-module__uP49Nq__notice",
+        "displayLots": "display-results-module__uP49Nq__displayLots",
+        "results": "display-results-module__uP49Nq__results",
+        "lot": "display-results-module__uP49Nq__lot",
+        "number": "display-results-module__uP49Nq__number",
+        "lotImage": "display-results-module__uP49Nq__lotImage",
+        "lotText": "display-results-module__uP49Nq__lotText",
+        "standing": "display-results-module__uP49Nq__standing",
+        "amount": "display-results-module__uP49Nq__amount",
+        "noBid": "display-results-module__uP49Nq__noBid",
+        "unavailable": "display-results-module__uP49Nq__unavailable",
+        "readTime": "display-results-module__uP49Nq__readTime",
+        "tableNumber": "display-results-module__uP49Nq__tableNumber",
+        "tableLot": "display-results-module__uP49Nq__tableLot",
+        "empty": "display-results-module__uP49Nq__empty",
+        "footer": "display-results-module__uP49Nq__footer",
+        "exportActions": "display-results-module__uP49Nq__exportActions"
+      },
+      "candidateHash": "2c19bcad5cc23a2d2d2747f4c8a86dfa0a70544325195ed76e0bb6977198c927"
+    }
+  ],
+  "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n+   'T$80.00',\n-   'T$49.69',\n    'T$250.00'\n  ]\n",
+  "logoutStatus": 200,
+  "cleanup": "Owned context and browser closed; no app/database/harness started",
+  "completedAt": "2026-10-09T06:48:52.206Z"
+}
