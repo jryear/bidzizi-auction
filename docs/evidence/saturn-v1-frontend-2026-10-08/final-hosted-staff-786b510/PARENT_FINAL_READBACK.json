@@ -1,0 +1,323 @@
+{
+  "checkedAt": "2026-10-09T07:57:08.267196+00:00",
+  "kind": "PARENT_FRESH_SERVED_BYTES_AND_PRESERVED_RENDER_REVIEW",
+  "readOnly": true,
+  "canonicalMain": "e8712ee52a1cafebf593347284e8700c685780b9",
+  "metadataSource": "e8712ee52a1cafebf593347284e8700c685780b9",
+  "metadataDeploymentId": "dpl_3jCMbFcT2GZusPymqciMfjJWp6VW",
+  "origin": "https://staging.bidzizi.com",
+  "renderedSource": "786b5103303a0990b0a3ef3e45d5c5ea12371389",
+  "renderedDeploymentId": "dpl_7tSse2oR3tpYL49hjDrHT86pFvJ6",
+  "docsOnlySuccessorPaths": [
+    "docs/OVERNIGHT_DEMO_DELIVERY.md",
+    "docs/SATURN_V1_DEMO_RUNBOOK.md",
+    "docs/evidence/overnight-release/DONATION_PREFIX_DEPLOY_READBACK.json",
+    "docs/evidence/overnight-release/FRONTEND_WORKER_ACCOUNTING_AT_RELEASE.json",
+    "docs/evidence/overnight-release/HOSTED_PRESERVATION_POST_REFRESH.json",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/HOSTED_BACKEND_READBACK_786b510.json",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/RENDER_RECEIPT.json",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/bidders-1440-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/bidders-360-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/bidders-390-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/denied-display-390.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-1440-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-360-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-360-work.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-390-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-390-work.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/donations-1440-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/donations-360-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/donations-390-bottom.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/donations-390-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/event-1440-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/event-360-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/event-390-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/keyboard-focus-390-work.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/lots-1440-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/lots-360-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/lots-390-bottom.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/lots-390-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/primary-open-results-390-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-1440-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-360-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-360-work.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-390-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-390-work.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/stale-results-390-work.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/HOSTED_WORKER_READBACK_786b510.json",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/IMPORT_BINDING.json",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/STAFF_REFINEMENT_REVIEW.md",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed-786b510-2026-10-09T07-31-44-181Z/RENDER_RECEIPT.json",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed-786b510-2026-10-09T07-31-44-181Z/denied-display-390.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed-786b510-2026-10-09T07-31-44-181Z/keyboard-focus-390-work.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed-786b510-2026-10-09T07-31-44-181Z/primary-open-results-390-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed-786b510-2026-10-09T07-31-44-181Z/stale-results-390-work.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/RENDER_RECEIPT.json",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/bidders-1440-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/bidders-360-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/bidders-390-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/display-1440-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/display-360-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/display-360-work.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/display-390-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/display-390-work.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/donations-1440-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/donations-360-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/donations-390-bottom.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/donations-390-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/event-1440-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/event-360-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/event-390-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/failure.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/keyboard-focus-390-work.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/lots-1440-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/lots-360-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/lots-390-bottom.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/lots-390-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/results-1440-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/results-360-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/results-360-work.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/results-390-top.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/results-390-work.png",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/probe-focused-c3a6bee.mjs",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/probe-partial-b89bf13.mjs",
+    "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/read-only-render.mjs"
+  ],
+  "freshServedAssets": [
+    {
+      "path": "/staging-catalog/bidding.js",
+      "status": 200,
+      "sha256": "467d74e5150fafeba758c7142c7b3ecd7b0f403ca239b0054f259c302cdf5727"
+    },
+    {
+      "path": "/staging-catalog/collections.js",
+      "status": 200,
+      "sha256": "5bc7aaf7cea9972b5750440843f37690aec1559ba982966a5f628acbef64a283"
+    },
+    {
+      "path": "/staging-catalog/donations.js",
+      "status": 200,
+      "sha256": "c848496b37d4f62e3c368f2b3ba066efe6afc181937d6bbd77ef17a3de3b75c7"
+    },
+    {
+      "path": "/staging-catalog/views.js",
+      "status": 200,
+      "sha256": "057650c3c8024ffd71805a625622a124761037177edee5500bcc0823868a1334"
+    },
+    {
+      "path": "/staging-catalog/styles.css",
+      "status": 200,
+      "sha256": "750076efd6a3970f29f3ac25545260a1024631ee8e49aa6f5db8cb540d666292"
+    },
+    {
+      "path": "/staging-admin/staff-operations.js",
+      "status": 200,
+      "sha256": "ad733fe4ff89e43c47c0ea599853bb6e92075e3abc345e602990a5d84a91e9c2"
+    },
+    {
+      "path": "/staging-admin/studio.css",
+      "status": 200,
+      "sha256": "b3b768378ae368bc0093c70924357a82d2091088780fedbaa2445524de08682b"
+    },
+    {
+      "path": "/staging-admin/studio.js",
+      "status": 200,
+      "sha256": "1d4bcfd19f17c785aec57feff43b1ffc9cf8e3f71593fbbcdfa14f7b41b8bfa0"
+    },
+    {
+      "path": "/staging-bidder-preview/styles.css",
+      "status": 200,
+      "sha256": "779ce573f2d26c47bea51278ddf5c2f57bd834f8855bd3e841dc399728ee2fb0"
+    },
+    {
+      "path": "/staging-bidder-preview/src/views.js",
+      "status": 200,
+      "sha256": "dfa0d2c1e25215a1d8e53378fa39d2d5241a2433673aedc32db5a1cd4b6bc5b4"
+    },
+    {
+      "path": "/_next/static/immutable/chunks/0x2l8mmbydeop.css",
+      "status": 200,
+      "sha256": "f82bfab65e21410e1bc0022d244fd82b5c4adad60dffadf72300b3615d06764d"
+    }
+  ],
+  "root": {
+    "status": 307,
+    "location": "/events/990280fa-51db-47cd-aabe-5d15bf776002"
+  },
+  "actualAnonymousDenials": [
+    {
+      "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/results",
+      "status": 401
+    },
+    {
+      "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/donations",
+      "status": 401
+    }
+  ],
+  "independentlyValidatedManifestCounts": {
+    "workerFiles": 32,
+    "backendFiles": 29
+  },
+  "workerRun": {
+    "partialRows": 25,
+    "partialFailurePreserved": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /open \u00b7 confirmed staff read/. Input:\n\n'BidZizi\\n' +\n  'PRIVATE STAFF STANDING\\n' +\n  'Event Studio\\n' +\n  'Private display\\n' +\n  '\\n' +\n  'SATURN BARTER\\n' +\n  '\\n' +\n  'Holiday Trade Show \u00b7 Saturn V1 Demo\\n' +\n  '\\n' +\n  'Browse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\\n' +\n  '\\n' +\n  'Holiday Trade Show \u00b7 synthetic rehearsal\\n' +\n  '\\n' +\n  'FROZEN OPENING\\n' +\n  'Oct 8, 2026, 11:07:00 PM PDT\\n' +\n  'FROZEN CLOSING\\n' +\n  'Oct 9, 2026, 12:00:00 PM PDT\\n' +\n  'TIME ZONE\\n' +\n  'America/Los_Angeles\\n' +\n  'Refreshing staff view\u2026\\n' +\n  '\\n' +\n  'As of Oct 9, 2026, 12:30:11 AM PDT\\n' +\n  '\\n' +\n  'Refreshing \u00b7 showing the last confirmed staff read.\\n' +\n  '\\n' +\n  'Refresh standing\\n' +\n  'Recorded lot standing\\n' +\n  'Download CSV\\n' +\n  '\\n' +\n  'LOT\\n' +\n  'PUBLISHED ITEM\\n' +\n  'ACCEPTED AMOUNT\\n' +\n  'STANDING AND BUSINESS\\n' +\n  '01\\n' +\n  'Cabin weekend\\n' +\n  'Getaways\\n' +\n  'T$80.00\\n' +\n  'Current recorded standing\\n' +\n  '\\n' +\n  'J\\n' +\n  '\\n' +\n  '4 accepted bids \u00b7 version 4\\n' +\n  '\\n' +\n  'Last accepted change: Oct 8, 2026, 11:40:59 PM PDT\\n' +\n  '\\n' +\n  '02\\n' +\n  'Coffee ritual kit\\n' +\n  'Home\\n' +\n  'T$250.00\\n' +\n  'Current recorded standing\\n' +\n  '\\n' +\n  'Juniper Hosted Synthetic\\n' +\n  '\\n' +\n  '1 accepted bid \u00b7 version 1\\n' +\n  '\\n' +\n  'Last accepted change: Oct 8, 2026, 11:08:09 PM PDT\\n' +\n  '\\n' +\n  'Private staff access \u00b7 Published catalog is separate from draft preview.\\n' +\n  '\\n' +\n  'Synthetic Saturn trade dollars \u00b7 Recorded amounts are for this published catalog.\\n' +\n  '\\n' +\n  'Recorded standing is not an award or finalization. No payment or settlement occurs here.'\n",
+    "focusedRows": 3,
+    "focusedChecks": [
+      {
+        "keyboardFocusBeforeScroll": {
+          "tag": "INPUT",
+          "type": "checkbox",
+          "outline": "rgb(35, 56, 199)",
+          "outlineWidth": "3px",
+          "visible": true,
+          "scrollTop": 191
+        }
+      },
+      {
+        "keyboardFocus": {
+          "tag": "INPUT",
+          "type": "checkbox",
+          "outline": "rgb(35, 56, 199)",
+          "outlineWidth": "3px",
+          "visible": true,
+          "scrollTop": 191
+        },
+        "pageDownMainScroll": 203,
+        "filter": "Cabin local filter restored without save"
+      },
+      {
+        "touchTargets": [
+          {
+            "text": "Items 3",
+            "height": 44
+          },
+          {
+            "text": "Event & entry",
+            "height": 44
+          },
+          {
+            "text": "Bidders",
+            "height": 44
+          },
+          {
+            "text": "Donation pledges",
+            "height": 44
+          },
+          {
+            "text": "Recorded standing",
+            "height": 44
+          },
+          {
+            "text": "Private display",
+            "height": 44
+          },
+          {
+            "text": "Bidder preview",
+            "height": 44
+          }
+        ]
+      },
+      {
+        "primaryOpenRead": {
+          "serverNow": "2026-10-09T07:31:46.513Z",
+          "phase": "open",
+          "amountsMinor": [
+            8000,
+            25000
+          ],
+          "amounts": [
+            "T$80.00",
+            "T$250.00"
+          ]
+        }
+      },
+      {
+        "nativeNavigation": "Studio to exact primary results; reload amounts unchanged; Back and Studio reload retain same event"
+      },
+      {
+        "stale": "Injected GET failure retains dated exact amounts, marks both stale, disables CSV; explicit retry restores current"
+      },
+      {
+        "denied": "Fresh anonymous browser real access refusal; no private rows or amounts; no overflow"
+      }
+    ]
+  },
+  "backendSeparateRun": {
+    "captureRows": 27,
+    "browserErrors": [],
+    "cssInterceptions": [],
+    "blockedWrites": [],
+    "logoutStatus": 200
+  },
+  "copiedArtifacts": [
+    {
+      "source": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/HOSTED_WORKER_READBACK_786b510.json",
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/final-hosted-staff-786b510/WORKER_READBACK_786b510.json",
+      "bytes": 15974,
+      "sha256": "0434e4ea35d2ae47f43a957896bff10e4539798be3b56881277d6eaf5e383806"
+    },
+    {
+      "source": "/Users/jryear/orca/workspaces/integration/junior-saturn-v1-backend/docs/evidence/saturn-v1-staff-refinement-2026-10-09/HOSTED_BACKEND_READBACK_786b510.json",
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/final-hosted-staff-786b510/BACKEND_READBACK_786b510.json",
+      "bytes": 9921,
+      "sha256": "44da78e7da1608555c8ca23d7ff0870774f56fd3ef5e683a6d14c123c0728524"
+    },
+    {
+      "source": "/Users/jryear/.hermes/projects/bidzizi-20261008/FINAL_RELEASE_READBACK_e8712ee.json",
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/final-hosted-staff-786b510/BACKEND_FINAL_RELEASE_e8712ee.json",
+      "bytes": 9856,
+      "sha256": "25173bac2581eb505af3bf012383b439fd3538284fea9e179dbd7493ea516838"
+    },
+    {
+      "source": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/lots-360-top.png",
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/final-hosted-staff-786b510/lots-360-top.png",
+      "bytes": 63173,
+      "sha256": "5a9fcb3c28b028ab7cdb4467fd9b8e841498f8a2d264fb3554ddff28272de6f3",
+      "png": {
+        "width": 360,
+        "height": 844
+      }
+    },
+    {
+      "source": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/lots-1440-top.png",
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/final-hosted-staff-786b510/lots-1440-top.png",
+      "bytes": 425867,
+      "sha256": "c1d010acc34bb3147a957a2da380c7c9086672fb341fbe56e3210a9a70d19b1c",
+      "png": {
+        "width": 1440,
+        "height": 1120
+      }
+    },
+    {
+      "source": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/donations-390-bottom.png",
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/final-hosted-staff-786b510/donations-390-bottom.png",
+      "bytes": 61476,
+      "sha256": "365a5fab6dddb52e2f1caa3af8cc99a56572b00881aa3ad292ffbd52c20e0758",
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "source": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-390-work.png",
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/final-hosted-staff-786b510/results-390-work.png",
+      "bytes": 81219,
+      "sha256": "e6b1e0a122f018024590acc3877e08e98599ec11e1ff932bfe08067fc7e65236",
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "source": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-1440-top.png",
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/final-hosted-staff-786b510/display-1440-top.png",
+      "bytes": 218051,
+      "sha256": "d930026e5a99bd1b7e04802b01951070e5497b30f42d751be93dd8b8235670d8",
+      "png": {
+        "width": 1440,
+        "height": 1120
+      }
+    }
+  ],
+  "scope": "Fresh GET-only served hashes/root/anonymous denial plus independent preserved manifest validation and actual hosted PNG review. No new browser run, sign-in, data write, deployment or owner taste acceptance. Earlier rendered sources are not relabeled as this documentation successor."
+}

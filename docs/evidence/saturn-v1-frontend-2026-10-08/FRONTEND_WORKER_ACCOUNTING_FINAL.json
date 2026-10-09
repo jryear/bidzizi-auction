@@ -1,0 +1,104 @@
+{
+  "checkedAt": "2026-10-09T07:55:44Z",
+  "run": "run_7a4725fb5d9e",
+  "counts": {
+    "retained": 3,
+    "released": 4
+  },
+  "zeroActiveChildTasks": true,
+  "zeroOwnedChildResources": true,
+  "workers": [
+    {
+      "dispatchId": "ctx_c1af1ec59aa8",
+      "taskId": "task_db26413db046",
+      "workerState": "stopped",
+      "dispatchStatus": "failed",
+      "terminalState": "released",
+      "resourceState": "released",
+      "resourceReason": null,
+      "nextAction": "none",
+      "releaseState": "released",
+      "releaseCompletedAt": "2026-10-09 06:58:58",
+      "archiveStatus": "unavailable"
+    },
+    {
+      "dispatchId": "ctx_600df2f1ad33",
+      "taskId": "task_4f5dd1644773",
+      "workerState": "succeeded",
+      "dispatchStatus": "completed",
+      "terminalState": "released",
+      "resourceState": "released",
+      "resourceReason": null,
+      "nextAction": "none",
+      "releaseState": "released",
+      "releaseCompletedAt": "2026-10-09 07:54:03",
+      "archiveStatus": "captured"
+    },
+    {
+      "dispatchId": "ctx_cb1390c6d2cc",
+      "taskId": "task_4f5dd1644773",
+      "workerState": "failed",
+      "dispatchStatus": "failed",
+      "terminalState": "retained",
+      "resourceState": "absent",
+      "resourceReason": "not_materialized",
+      "nextAction": "none",
+      "releaseState": null,
+      "releaseCompletedAt": null,
+      "archiveStatus": null
+    },
+    {
+      "dispatchId": "ctx_4f0f4caf2722",
+      "taskId": "task_be16d07e1032",
+      "workerState": "succeeded",
+      "dispatchStatus": "completed",
+      "terminalState": "released",
+      "resourceState": "released",
+      "resourceReason": null,
+      "nextAction": "none",
+      "releaseState": "released",
+      "releaseCompletedAt": "2026-10-09 06:39:53",
+      "archiveStatus": "captured"
+    },
+    {
+      "dispatchId": "ctx_6b1935df6b40",
+      "taskId": "task_be16d07e1032",
+      "workerState": "failed",
+      "dispatchStatus": "failed",
+      "terminalState": "retained",
+      "resourceState": "absent",
+      "resourceReason": "not_materialized",
+      "nextAction": "none",
+      "releaseState": null,
+      "releaseCompletedAt": null,
+      "archiveStatus": null
+    },
+    {
+      "dispatchId": "ctx_074450776556",
+      "taskId": "task_2dd6b98958dd",
+      "workerState": "succeeded",
+      "dispatchStatus": "completed",
+      "terminalState": "released",
+      "resourceState": "released",
+      "resourceReason": null,
+      "nextAction": "none",
+      "releaseState": "released",
+      "releaseCompletedAt": "2026-10-09 06:27:42",
+      "archiveStatus": "captured"
+    },
+    {
+      "dispatchId": "ctx_722c3f3eac35",
+      "taskId": "task_2dd6b98958dd",
+      "workerState": "failed",
+      "dispatchStatus": "failed",
+      "terminalState": "retained",
+      "resourceState": "absent",
+      "resourceReason": "not_materialized",
+      "nextAction": "none",
+      "releaseState": null,
+      "releaseCompletedAt": null,
+      "archiveStatus": null
+    }
+  ],
+  "note": "Three retained historical startup projections have absent/not_materialized resources; four actual resources are released. Claude failed before review; its observed extract exists but archive is unavailable. Codex succeeded/completed and actual native release captured transcript."
+}
