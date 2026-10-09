@@ -1,0 +1,42 @@
+{
+  "recordedAt": "2026-10-09T06:53:21.263Z",
+  "source": "e026ce6bd5a72b63de38cabd0cada94ba26e8443",
+  "previousHostedSource": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "nodeVersion": "v24.21.0",
+  "pnpmVersion": "12.4.2",
+  "typecheck": {
+    "exitCode": 0
+  },
+  "productionBuild": {
+    "exitCode": 0,
+    "nextVersion": "16.3.8"
+  },
+  "previewJavaScriptSyntax": {
+    "exitCode": 0
+  },
+  "combinedWasCleanBeforeMainPush": true,
+  "canonicalMainAfterNonForcePush": "e026ce6bd5a72b63de38cabd0cada94ba26e8443",
+  "mainBeforePush": {
+    "sha": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+    "protected": false,
+    "rulesets": [],
+    "checkRuns": 0,
+    "requiredGateBypass": false
+  },
+  "unchangedTreesFromPreviousHosted": {
+    "src": true,
+    "migrations": true,
+    "package": true,
+    "lock": true,
+    "tasks": true
+  },
+  "historicalTasksUnchangedFromStarting375": true,
+  "changedProductPaths": [
+    "public/staging-bidder-preview/styles.css",
+    "public/staging-bidder-preview/src/views.js"
+  ],
+  "childSource": "dbf2e8fcbc31cfea79087cf8d8d67748965d6f12",
+  "controlledPreviewRenders": 9,
+  "mockedWireMemberControls": 8,
+  "scope": "Targeted ordinary build/source verification of the contained preview successor; prior full hosted behavior remains separately bound to fe13009."
+}
