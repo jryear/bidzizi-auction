@@ -234,7 +234,7 @@ export async function getTradeCatalog(request:Request,eventId:string):Promise<Re
   return json(await transaction(async client=>{
     const {approval:a,clock}=await viewerApproval(client,request,eventId);
     if(!isTrade(a.event_snapshot))throw new ApiError(409,"UNSUPPORTED_EVENT_VERSION","This is a historical catalog.");
-    const e=a.event_snapshot as TradeEvent,schedule={opensAt:a.opens_at.toISOString(),closesAt:a.closes_at.toISOString()};
+    const e=a.event_snapshot as TradeEvent,schedule={opensAt:a.opens_at.toISOString(),closesAt:a.closes_at.toISOString(),timezone:a.timezone};
     const lots=await approvedLots(client,a.id);
     return {version:2,event:{id:a.event_id,name:e.name,eyebrow:e.eyebrow,welcome:e.welcome,venue:e.venue,cover:e.cover,coverAlt:e.coverAlt,sponsorsEnabled:e.sponsorsEnabled,sponsors:e.sponsors},organization:a.organization_snapshot,
       schedule,serverNow:clock.at.toISOString(),phase:clock.phase,biddingEnabled:clock.phase==="open",
@@ -249,6 +249,6 @@ export async function getTradeCatalogLot(request:Request,eventId:string,lotId:st
     if(!isTrade(a.event_snapshot))throw new ApiError(409,"UNSUPPORTED_EVENT_VERSION","This is a historical catalog.");
     const lot=(await client.query<{snapshot:ApprovedLot}>("SELECT snapshot FROM bz_catalog_lots WHERE approval_id=$1 AND lot_id=$2",[a.id,uuid(lotId)])).rows[0]?.snapshot;
     if(!lot)throw new ApiError(404,"NOT_FOUND","This lot could not be found.");
-    return {version:2,eventId:a.event_id,approvalId:a.id,lot:{...lot,phase:clock.phase,timing:{opensAt:a.opens_at.toISOString(),closesAt:a.closes_at.toISOString()}},phase:clock.phase,serverNow:clock.at.toISOString(),biddingEnabled:clock.phase==="open"};
+    return {version:2,eventId:a.event_id,approvalId:a.id,lot:{...lot,phase:clock.phase,timing:{opensAt:a.opens_at.toISOString(),closesAt:a.closes_at.toISOString(),timezone:a.timezone}},phase:clock.phase,serverNow:clock.at.toISOString(),biddingEnabled:clock.phase==="open"};
   }));
 }

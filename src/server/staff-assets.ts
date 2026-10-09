@@ -56,12 +56,12 @@ export async function recoverAssetMeta(client:PoolClient,request:Request,eventId
   if(row.rows[0].value.error==="DENIED"){if(!await sessionIsCurrent(client,request))throw unauthenticated();throw unavailable();}
   return mapped(row.rows[0].value,"ASSET_UNAVAILABLE").asset!;
 }
-export function referencedAssets(draft:{event:{cover?:string|null;sponsors?:{logo:string}[]};lots:{image?:string|null}[]}):string[]{
+export function referencedAssets(draft:{event:{cover?:string|null;sponsors?:{logo:string|null}[]};lots:{image?:string|null}[]}):string[]{
   const refs=[draft.event.cover,...(draft.event.sponsors??[]).map(s=>s.logo),...draft.lots.map(l=>l.image)];
   return [...new Set(refs.filter((v):v is string=>typeof v==="string"&&v.startsWith("asset:")).map(v=>uuid(v.slice(6))))];
 }
 export async function validateAssetRefs(client:PoolClient,request:Request,eventId:string,
-  draft:{event:{cover?:string|null;sponsors?:{logo:string}[]};lots:{image?:string|null}[]}):Promise<void>{
+  draft:{event:{cover?:string|null;sponsors?:{logo:string|null}[]};lots:{image?:string|null}[]}):Promise<void>{
   const refs=referencedAssets(draft);
   if(!refs.length)return;
   const row=await client.query<{value:SQLResult}>("SELECT public.bz_staff_asset_validate($1,$2,$3::uuid[]) AS value",

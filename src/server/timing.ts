@@ -13,7 +13,7 @@ export const TRADE_TIERS = [
 
 export type TradeTiming = { startDate: string; start: string; endDate: string; end: string; timezone: string };
 export type TradeRules = { rulesetId: typeof TRADE_RULESET; denomination: typeof TRADE_DENOMINATION; scale: 100; amountCapMinor: typeof TRADE_CAP; tiers: { belowMinor: number | null; raiseMinor: number }[] };
-export type TradeEvent = { version: 2; name: string; eyebrow: string; welcome: string; venue: string; cover: string | null; coverAlt?: string; timing: TradeTiming; rules: TradeRules; sponsorsEnabled: boolean; sponsors: { name: string; logo: string; alt?: string }[] };
+export type TradeEvent = { version: 2; name: string; eyebrow: string; welcome: string; venue: string; cover: string | null; coverAlt?: string; timing: TradeTiming; rules: TradeRules; sponsorsEnabled: boolean; sponsors: { name: string; logo: string | null; alt?: string }[] };
 export type TradeLot = { id: string; title: string; short: string; description: string; category: string; image: string | null; alt: string; opening: number | null; includes: string[]; fine: string; fixedRaiseMinor: number | null };
 export type TradeDraft = { event: TradeEvent; lots: TradeLot[] };
 
@@ -32,7 +32,8 @@ export function photoRef(value: unknown): string | null {
   if (value.startsWith("asset:")) uuid(value.slice(6));
   return value;
 }
-export function logoRef(value: unknown): string {
+export function logoRef(value: unknown): string | null {
+  if (value === null || value === "") return null;
   const v = text(value, 100);
   if (!fixedLogos.has(v) && !/^asset:[a-f0-9-]{36}$/.test(v)) throw validation();
   if (v.startsWith("asset:")) uuid(v.slice(6));
@@ -70,7 +71,7 @@ export function tradeDraft(value: unknown): TradeDraft {
     ...(e.coverAlt === undefined ? {} : { coverAlt: text(e.coverAlt, 300) }), timing,
     rules: { rulesetId: TRADE_RULESET, denomination: TRADE_DENOMINATION, scale: 100, amountCapMinor: TRADE_CAP, tiers },
     sponsorsEnabled: e.sponsorsEnabled, sponsors: e.sponsors.map(v => { const s = object(v, ["name", "logo", "alt"]), logo=logoRef(s.logo);
-      if (logo.startsWith("asset:") && (typeof s.alt!=="string" || !s.alt.trim() || s.alt.length>300)) throw validation();
+      if (logo?.startsWith("asset:") && (typeof s.alt!=="string" || !s.alt.trim() || s.alt.length>300)) throw validation();
       return { name: text(s.name, 200), logo, ...(s.alt===undefined?{}:{alt:text(s.alt,300)}) }; }) };
   if (!Array.isArray(source.lots) || source.lots.length > 100) throw validation();
   const lots: TradeLot[] = source.lots.map(v => {
