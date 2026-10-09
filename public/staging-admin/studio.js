@@ -1,9 +1,11 @@
 import { clone, esc, money, tradeMoney, tradeRulesText, cents, eventIssues, lotIssues, releaseIssues, windowFor, dateText, timeText, shortZone } from './model.js';
+import {operationsShell,createStaffOperations} from './staff-operations.js';
 import { qrcodegen } from './vendor/qr-code.js';
 
 // All drafts and staff grants come from authenticated APIs. Browser memory holds
 // only the current editor and confirmed packet; it cannot grant authority.
 const $=s=>document.querySelector(s);
+const staffOperations=createStaffOperations();
 const dialog=$('#modal');
 let session=null, eventList=[], d=null, confirmed=null, dirty=false, saveState='saved';
 let attempt=null, createAttempt=null, saving=false, creating=false, returnFocus=null, toastTimer;
@@ -24,7 +26,8 @@ const current=ticket=>ticket===contextEpoch;
 const chosen=()=>d?.lots.find(l=>l.id===picked);
 const assigned=()=>d.lots.filter(l=>l.windowId);
 const rawAmount=(v,raw)=>raw ?? (v===null?'':String(v/100));
-const activeTab=()=>location.hash.startsWith('#/lots')?'lots':'event';
+const staffTabs=new Set(['event','lots','bidders','donations']);
+const activeTab=()=>{const tab=location.hash.slice(2).split('/')[0];return staffTabs.has(tab)?tab:'event';};
 const eventMoney=n=>d?.version===2?tradeMoney(n,d.event.rules):money(n);
 const img=path=>path?.startsWith('asset:')&&d?
  (uploadRefs.get(path)||'/api/admin/events/'+encodeURIComponent(d.event.id)+'/assets/'+path.slice(6)):
@@ -123,7 +126,7 @@ function refreshNotes(){
 function refresh(){refreshChrome();renderInventory();refreshNotes();postPreview();}
 function focusEditorField(selector){const field=$(selector);if(field&&!field.disabled){field.focus();field.scrollIntoView({block:'center'});}}
 function navigate(tab,id,field){
- if(!d)return;if(id)picked=id;const hash=tab==='lots'?`#/lots${id?'/'+id:''}`:'#/event',same=location.hash===hash;
+ if(!d)return;if(id)picked=id;const hash=tab==='lots'?`#/lots${id?'/'+id:''}`:`#/${tab}`,same=location.hash===hash;
  if(!same)location.hash=hash;
  // Bind the durable outer route in this click turn, before a reload can start.
  eventUrl(d.event.id,{replace:true,tab,lot:tab==='lots'?picked:null});
@@ -159,15 +162,15 @@ function draftNotice(){return `<div id="draft-notice" class="draft-notice ${noti
 function renderNotice(){const el=$('#draft-notice');if(el)el.outerHTML=draftNotice();}
 function routeHost(){try{return parent===window?window:parent;}catch{return window;}}
 function requestedEvent(){try{return new URL(routeHost().location.href).searchParams.get('event');}catch{return null;}}
-function requestedTab(){try{const query=new URL(routeHost().location.href).searchParams;return {tab:query.get('tab')==='lots'?'lots':'event',lot:query.get('lot')};}catch{return {tab:'event',lot:null};}}
+function requestedTab(){try{const query=new URL(routeHost().location.href).searchParams;return {tab:staffTabs.has(query.get('tab'))?query.get('tab'):'event',lot:query.get('lot')};}catch{return {tab:'event',lot:null};}}
 function eventUrl(id,{replace=false,tab=activeTab(),lot=picked}={}){
  // Next copies its internal state and synchronizes this external URL update.
  // Forwarding its __NA marker would bypass that canonical URL synchronization.
- try{const target=routeHost(),url=new URL(target.location.href);if(id){url.searchParams.set('event',id);if(tab==='lots'){url.searchParams.set('tab','lots');lot?url.searchParams.set('lot',lot):url.searchParams.delete('lot');}else{url.searchParams.delete('tab');url.searchParams.delete('lot');}}else{url.searchParams.delete('event');url.searchParams.delete('tab');url.searchParams.delete('lot');}if(url.href!==target.location.href)target.history[replace?'replaceState':'pushState'](null,'',url);}catch{}
+ try{const target=routeHost(),url=new URL(target.location.href);if(id){url.searchParams.set('event',id);if(tab!=='event'){url.searchParams.set('tab',tab);tab==='lots'&&lot?url.searchParams.set('lot',lot):url.searchParams.delete('lot');}else{url.searchParams.delete('tab');url.searchParams.delete('lot');}}else{url.searchParams.delete('event');url.searchParams.delete('tab');url.searchParams.delete('lot');}if(url.href!==target.location.href)target.history[replace?'replaceState':'pushState'](null,'',url);}catch{}
 }
 function replaceEditorRoute(tab='event',id){
  if(id&&d?.lots.some(l=>l.id===id))picked=id;
- const hash=tab==='lots'?`#/lots${id?'/'+id:''}`:'#/event';history.replaceState(history.state,'',hash);
+ const hash=tab==='lots'?`#/lots${id?'/'+id:''}`:`#/${tab}`;history.replaceState(history.state,'',hash);
 }
 function retainEditorRoute(){
  const tab=$('.tabs a[aria-current="page"]')?.dataset.tab||activeTab();replaceEditorRoute(tab,tab==='lots'?picked:null);eventUrl(d?.event.id||null,{replace:true,tab});
@@ -175,7 +178,7 @@ function retainEditorRoute(){
 function staffHeader(){return `<header class="top"><div class="top-left"><span class="studio-label">Studio</span></div><div class="top-right"><span class="proto-pill">Staging test</span><span class="role">${esc(session.person.name)}</span><button class="link-btn" data-action="signout">Sign out</button></div></header>`;}
 function staffSidebar(){
  const org=d?.org||session.staffOrganizations.find(o=>o.id===loadedOrgId);
- return `<aside class="studio-sidebar"><span class="brand">BidZizi</span><div class="studio-organization org-btn"><span class="org-mark" id="org-mark">${esc(org?.initials||'')}</span><span class="org-name" id="org-name">${esc(org?.name||'')}</span></div><button class="sidebar-home ${d?'':'active'}" data-action="events-home" ${d?'':'aria-current="page"'}>Events</button>${d?`<div class="sidebar-event"><p class="event-heading">This event</p><button class="event-picker" data-action="events">Choose event <span aria-hidden="true">⌄</span></button><span class="sidebar-event-name">${esc(d.event.name||'Untitled event')}</span></div><nav class="tabs" aria-label="Event Studio"><a href="#/lots" data-tab="lots">Items <span class="count" id="lot-count"></span></a><a href="#/event" data-tab="event">Event & entry</a></nav>`:''}</aside>`;
+ return `<aside class="studio-sidebar"><span class="brand">BidZizi</span><div class="studio-organization org-btn"><span class="org-mark" id="org-mark">${esc(org?.initials||'')}</span><span class="org-name" id="org-name">${esc(org?.name||'')}</span></div><button class="sidebar-home ${d?'':'active'}" data-action="events-home" ${d?'':'aria-current="page"'}>Events</button>${d?`<div class="sidebar-event"><p class="event-heading">This event</p><button class="event-picker" data-action="events">Choose event <span aria-hidden="true">⌄</span></button><span class="sidebar-event-name">${esc(d.event.name||'Untitled event')}</span></div><nav class="tabs" aria-label="Event Studio"><a href="#/lots" data-tab="lots">Items <span class="count" id="lot-count"></span></a><a href="#/event" data-tab="event">Event & entry</a><a href="#/bidders" data-tab="bidders">Bidders</a><a href="#/donations" data-tab="donations">Donation pledges</a><a href="/events/${encodeURIComponent(d.event.id)}/results" target="_top">Recorded standing</a><a href="/events/${encodeURIComponent(d.event.id)}/display" target="_top">Private display</a></nav>`:''}</aside>`;
 }
 function staffFooter(){return '<footer class="simulation"><span>Synthetic staff preview</span></footer>';}
 function shell(){
@@ -256,7 +259,8 @@ function editorView(){
 function renderMain(){
  const route=location.hash.match(/^#\/lots\/([^?]+)/);if(route&&d.lots.some(l=>l.id===route[1]))picked=route[1];
  if(!chosen())picked=d.lots[0]?.id;
- $('#main').innerHTML=activeTab()==='lots'?lotsView():eventView();$('#main').scrollTop=0;
+ const tab=activeTab();$('#main').innerHTML=tab==='lots'?lotsView():tab==='event'?eventView():operationsShell(tab);$('#main').scrollTop=0;
+ staffOperations.stop();if(tab==='bidders'||tab==='donations'){const ticket=contextEpoch,eventId=d.event.id;staffOperations.mount({eventId,actorId:session.person.id,kind:tab,isCurrent:()=>current(ticket)&&d?.event.id===eventId&&activeTab()===tab});}
  if(d.version===1){
   const cover=$('.cover');if(cover)cover.insertAdjacentHTML('beforeend',`<label>Upload event photo<input type="file" accept="image/jpeg,image/png,image/webp" data-upload="event" aria-label="Upload event photo"></label><label>Event photo description<input data-event="coverAlt" value="${esc(d.event.coverAlt||'')}" aria-label="Event photo description"></label>`);
   const photo=$('.editor-photo');if(photo)photo.insertAdjacentHTML('beforeend','<label>Upload item photo<input type="file" accept="image/jpeg,image/png,image/webp" data-upload="lot" aria-label="Upload item photo"></label>');
@@ -608,7 +612,7 @@ const actions={
  'image':el=>{if(editable())imagePicker(el.dataset.target);},
  'choose-image':el=>{if(editable())applyImage(el.dataset.image);},
  'clear-image':()=>{if(!editable())return;chosen().image=null;markDirty();renderMain();refresh();},
- 'add-sponsor':()=>{if(!editable())return;d.event.sponsors.push({name:'',logo:['cedar','coffee','table','earth'][d.event.sponsors.length%4]});markDirty();$('#sponsor-fields').innerHTML=sponsorFields();},
+ 'add-sponsor':()=>{if(!editable())return;d.event.sponsors.push({name:'',logo:d.version===2?null:['cedar','coffee','table','earth'][d.event.sponsors.length%4]});markDirty();$('#sponsor-fields').innerHTML=sponsorFields();},
  'remove-sponsor':el=>{if(!editable())return;d.event.sponsors.splice(+el.dataset.index,1);markDirty();$('#sponsor-fields').innerHTML=sponsorFields();},
  'events':events,'events-home':()=>showEventsHome(),'retry-events':()=>showEventsHome(),'new-event':()=>{if(!canLeaveDraft())return;if(dialog.open)closeModal();newEvent();},
  'switch-event':async el=>{
@@ -627,7 +631,7 @@ const actions={
 };
 async function signOut(){
  if(saving||creating||approving||entrySaving)return toast('Wait for the current request to finish.');
- const ticket=++contextEpoch;
+ const ticket=++contextEpoch;staffOperations.stop();
  // Invalidate old operations and remove private content before the network wait.
  resetCatalog();resetEntry();d=null;confirmed=null;session=null;eventList=[];attempt=null;createAttempt=null;dirty=false;notice='';saving=false;creating=false;loadingDraft=false;homeLoading=false;homeNotice='';selected.clear();picked=null;search='';loadedOrgId=null;previewMode='saved';amountErrors.clear();nextFieldFocus=null;
  if(dialog.open)dialog.close();dialog.replaceChildren();returnFocus=null;clearTimeout(toastTimer);$('#toast').textContent='';$('#toast').classList.remove('on');
@@ -661,6 +665,7 @@ async function boot(){
  catch{if(current(ticket))$('#app').innerHTML='<main class="loading"><span class="brand">BidZizi</span><h1>Events unavailable</h1><p>Events could not be loaded. Try again when the connection returns.</p><button class="btn" data-action="retry-load">Retry</button></main>';}
 }
 document.addEventListener('click',ev=>{
+ const operation=ev.target.closest('[data-op]');if(operation){Promise.resolve(staffOperations.handle(operation)).catch(()=>toast('Staff update could not be confirmed. Check its current state.'));return;}
  const tab=ev.target.closest('a[data-tab]');if(tab&&d&&ev.button===0&&!ev.metaKey&&!ev.ctrlKey&&!ev.shiftKey&&!ev.altKey){ev.preventDefault();navigate(tab.dataset.tab);return;}
  const mode=ev.target.closest('[data-preview-mode]');if(mode){previewMode=mode.dataset.previewMode;refreshChrome();postPreview();return;}
  const el=ev.target.closest('[data-action]');if(!el||el.disabled||el.dataset.action==='select-all')return;
