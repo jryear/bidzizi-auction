@@ -272,3 +272,6 @@ button,a,input,select,textarea{touch-action:manipulation}
 .staff-recipient .btn{margin-top:12px}
 .staff-amount{font-size:23px;font-variant-numeric:tabular-nums;white-space:nowrap}
 @media(max-width:760px){.staff-row{flex-direction:column;gap:16px}.staff-row-controls{width:100%;min-width:0;max-width:none}.staff-operations h2{font-size:25px}}
+.donor-policy-fields{margin-top:18px}
+#donation-window[hidden]{display:none}
+#donation-window:not([hidden]){margin-top:18px}

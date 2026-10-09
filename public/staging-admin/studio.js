@@ -693,6 +693,7 @@ document.addEventListener('input',ev=>{
 });
 document.addEventListener('change',ev=>{
  const el=ev.target;if(!d)return;
+ if(el.id==='donation-availability'){const panel=$('#donation-window');if(panel)panel.hidden=el.value!=='window';return;}
  if(el.dataset.upload){uploadFile(el);return;}
  if(el.dataset.lotSelect){el.checked?selected.add(el.dataset.lotSelect):selected.delete(el.dataset.lotSelect);renderInventory();return;}
  if(el.id==='select-all'){selected=el.checked?new Set(d.lots.map(l=>l.id)):new Set();renderInventory();return;}
