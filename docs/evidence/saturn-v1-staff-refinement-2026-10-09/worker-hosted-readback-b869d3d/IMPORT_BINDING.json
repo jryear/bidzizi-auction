@@ -1,0 +1,232 @@
+{
+  "sourceEvidenceCommit": "b869d3dae42dda1e25c903e6eef794887c457d93",
+  "deployedSource": "786b5103303a0990b0a3ef3e45d5c5ea12371389",
+  "independentlyMatchedWorkerManifestFiles": 32,
+  "mappingNote": "Immutable worker records retain their original source paths. Resolve those paths through this import mapping, not the backend own-run deployed directory. Earlier backend/candidate records are untouched. Scripts are original archived bytes, not executed from this relocated import.",
+  "entries": [
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/HOSTED_WORKER_READBACK_786b510.json",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/HOSTED_WORKER_READBACK_786b510.json",
+      "bytes": 15974,
+      "sha256": "0434e4ea35d2ae47f43a957896bff10e4539798be3b56881277d6eaf5e383806"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/STAFF_REFINEMENT_REVIEW.md",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/STAFF_REFINEMENT_REVIEW.md",
+      "bytes": 10986,
+      "sha256": "2662135718e8dc6d5c85a912e5b06d8ce5a7e8274b061e59664f5ed287667a9e"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed-786b510-2026-10-09T07-31-44-181Z/RENDER_RECEIPT.json",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed-786b510-2026-10-09T07-31-44-181Z/RENDER_RECEIPT.json",
+      "bytes": 13309,
+      "sha256": "8e345d6892a0bc8e80c9fdf35c94717b4ff32768a4001843421a8d60f1ae7a66"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed-786b510-2026-10-09T07-31-44-181Z/denied-display-390.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed-786b510-2026-10-09T07-31-44-181Z/denied-display-390.png",
+      "bytes": 44800,
+      "sha256": "b7ef501d4b57b23f9f4a88853324ba85fe10caacfc472bba1ef210528111b363"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed-786b510-2026-10-09T07-31-44-181Z/keyboard-focus-390-work.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed-786b510-2026-10-09T07-31-44-181Z/keyboard-focus-390-work.png",
+      "bytes": 76386,
+      "sha256": "0a73cb9d4381f054cdef7d4bc9e705bdd0961df5123dfa18211d71b3ff13985b"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed-786b510-2026-10-09T07-31-44-181Z/primary-open-results-390-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed-786b510-2026-10-09T07-31-44-181Z/primary-open-results-390-top.png",
+      "bytes": 75244,
+      "sha256": "6d976f3de72d6d9211ba76258703fdceb212614ec24adf7f25ff0f2a34267f89"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed-786b510-2026-10-09T07-31-44-181Z/stale-results-390-work.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed-786b510-2026-10-09T07-31-44-181Z/stale-results-390-work.png",
+      "bytes": 80139,
+      "sha256": "60933be566531d7b9cc17274314e8c39e16bb9604e5ca6d4c8bccc7ac42cf5d7"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/RENDER_RECEIPT.json",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/RENDER_RECEIPT.json",
+      "bytes": 87537,
+      "sha256": "68178fc7edacd2ae5abb21e76dd59d7e377a145657fe4b4dafa563210f971063"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/bidders-1440-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/bidders-1440-top.png",
+      "bytes": 382812,
+      "sha256": "54506d7d42b749f128fee5132717b6bdc8371794a9ebf661d8540e99f7fa1fac"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/bidders-360-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/bidders-360-top.png",
+      "bytes": 67613,
+      "sha256": "0bf1848a78f5db4fced9f7a7c7db7623bc176e9cdc67b25431444f372dd98e54"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/bidders-390-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/bidders-390-top.png",
+      "bytes": 67535,
+      "sha256": "d46568a276af3043af1138fb25bd7f54a85459668848a2a261389fe57da0f50a"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-1440-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/display-1440-top.png",
+      "bytes": 218051,
+      "sha256": "d930026e5a99bd1b7e04802b01951070e5497b30f42d751be93dd8b8235670d8"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-360-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/display-360-top.png",
+      "bytes": 71665,
+      "sha256": "bb1cf4193ffe3a147fce3e28218c66def0048dcb639619214560b3be46fe0829"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-360-work.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/display-360-work.png",
+      "bytes": 78133,
+      "sha256": "fba531dfe055df6809b09682ed13f204a002024f28bcf385fbbe37ac7ef44204"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-390-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/display-390-top.png",
+      "bytes": 75340,
+      "sha256": "5e2e64a0ad38df6e87bca7582043a2b206a9a52f881cbbaa8163f1d44bca88f1"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-390-work.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/display-390-work.png",
+      "bytes": 79660,
+      "sha256": "1b79868384acf5af211eeb77c244394a046d76ef0f812f32c85e69dde641679e"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/donations-1440-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/donations-1440-top.png",
+      "bytes": 402788,
+      "sha256": "c13272fe6957d17c418520e45744b2cac6a380258a322f6d4a5b3bb079cea0ce"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/donations-360-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/donations-360-top.png",
+      "bytes": 67741,
+      "sha256": "8d292c5fd9544f55eb9636f5f5fecf311ba3b892451ad5243575ee94d2638168"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/donations-390-bottom.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/donations-390-bottom.png",
+      "bytes": 61476,
+      "sha256": "365a5fab6dddb52e2f1caa3af8cc99a56572b00881aa3ad292ffbd52c20e0758"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/donations-390-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/donations-390-top.png",
+      "bytes": 68217,
+      "sha256": "48b00bb9d4e22f86628664b4b6a8ebcfa3c679d1e477e6b219ce7ed432dfc4b2"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/event-1440-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/event-1440-top.png",
+      "bytes": 332432,
+      "sha256": "6de3bf72d4a07aa1209beba894f6cca7b614d441072c290b7592450f4db22a2d"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/event-360-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/event-360-top.png",
+      "bytes": 99749,
+      "sha256": "b14863b179256c1fdfb59e45a2912419626dae4753f08fd97cfe9299deaa1cd0"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/event-390-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/event-390-top.png",
+      "bytes": 102540,
+      "sha256": "b1bf12aee6fed3b43b476ced51a7bd46d9f0048bd9c017ecac0d127e480da122"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/failure.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/failure.png",
+      "bytes": 75936,
+      "sha256": "22bd05f8f4161cfa02fa3c2cde08d812a07cd09deac87e8df0637191f907dcdc"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/keyboard-focus-390-work.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/keyboard-focus-390-work.png",
+      "bytes": 80714,
+      "sha256": "dfdc9e961d42b79a9fd27f07fba1aa7b5cf0f911cebd980104f168d367c969dc"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/lots-1440-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/lots-1440-top.png",
+      "bytes": 425867,
+      "sha256": "c1d010acc34bb3147a957a2da380c7c9086672fb341fbe56e3210a9a70d19b1c"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/lots-360-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/lots-360-top.png",
+      "bytes": 63173,
+      "sha256": "5a9fcb3c28b028ab7cdb4467fd9b8e841498f8a2d264fb3554ddff28272de6f3"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/lots-390-bottom.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/lots-390-bottom.png",
+      "bytes": 59396,
+      "sha256": "4e2db6df77ce87f65d1b4d70421d224c54cafb441d0fbd2bb1731c9ed7ac496d"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/lots-390-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/lots-390-top.png",
+      "bytes": 63077,
+      "sha256": "42adde3ba06eea00cd0a6f7aac7c893057c841721ce769ecdc6369211a4597d5"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-1440-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/results-1440-top.png",
+      "bytes": 162549,
+      "sha256": "e7fe701c13f1c28407172d7293c60ef42b6177f6ed8da8c7a412e09fcdf30701"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-360-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/results-360-top.png",
+      "bytes": 71738,
+      "sha256": "1d8793355e8e4af02c17d850822aa5f1ceba5c8dba009e88bf970bd3082ecf00"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-360-work.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/results-360-work.png",
+      "bytes": 73039,
+      "sha256": "fb19b64b39f3a3f6531b06ef0e10ffbc9c9109f592247ade46a61a590320e634"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-390-top.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/results-390-top.png",
+      "bytes": 74990,
+      "sha256": "88157bcee317ebfd5990839bf9cc42296dbf259e557300832339fd0cbcb982bb"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-390-work.png",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/deployed/results-390-work.png",
+      "bytes": 81219,
+      "sha256": "e6b1e0a122f018024590acc3877e08e98599ec11e1ff932bfe08067fc7e65236"
+    },
+    {
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/read-only-render.mjs",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/read-only-render.mjs",
+      "bytes": 16930,
+      "sha256": "82eeeed1d0fec3c7c0a6a88816cbee569ab37fee772a611b721679a55e1fe6fb"
+    },
+    {
+      "originalCommit": "b89bf13867c1d546cd5094854a353f43574075c1",
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/read-only-render.mjs",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/probe-partial-b89bf13.mjs",
+      "bytes": 16647,
+      "sha256": "2f05e2c231dbae0670742ebc937c29ee86f0f0b265fabb73d65859dd1ae92ca3"
+    },
+    {
+      "originalCommit": "c3a6beea83293ae84589fc8243ecd7249112c9c6",
+      "originalPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/read-only-render.mjs",
+      "preservedPath": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/worker-hosted-readback-b869d3d/probe-focused-c3a6bee.mjs",
+      "bytes": 16930,
+      "sha256": "82eeeed1d0fec3c7c0a6a88816cbee569ab37fee772a611b721679a55e1fe6fb"
+    }
+  ]
+}
