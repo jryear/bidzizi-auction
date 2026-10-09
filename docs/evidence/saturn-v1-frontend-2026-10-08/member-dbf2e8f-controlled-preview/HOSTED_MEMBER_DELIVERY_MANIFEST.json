@@ -1,0 +1,327 @@
+{
+  "kind": "OWNED_MEMBER_IMPLEMENTATION_AND_REAL_HOSTED_DEMO_EVIDENCE_NOT_KERNEL_OR_PRODUCTION_ACCEPTANCE",
+  "ownedSource": "dbf2e8fcbc31cfea79087cf8d8d67748965d6f12",
+  "initialCleanSource": "b209d392ad8c3c65d154d90dc66068d955f419d9",
+  "hostedSource": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "hostedDeployment": "dpl_GNwQHvqibmQMCtxPv38wik9XcUZA",
+  "origin": "https://staging.bidzizi.com",
+  "filesModified": [
+    "public/staging-bidder-preview/src/data.js",
+    "public/staging-bidder-preview/src/ui.js",
+    "public/staging-bidder-preview/src/views.js",
+    "public/staging-bidder-preview/styles.css",
+    "public/staging-catalog/app.js",
+    "public/staging-catalog/bidding.js",
+    "public/staging-catalog/collections.js",
+    "public/staging-catalog/data.js",
+    "public/staging-catalog/donations.js",
+    "public/staging-catalog/store.js",
+    "public/staging-catalog/styles.css",
+    "public/staging-catalog/ui.js",
+    "public/staging-catalog/views.js",
+    "src/app/events/[id]/event-access.tsx"
+  ],
+  "sourceHashes": {
+    "public/staging-bidder-preview/src/data.js": "777c2033ee94213129048ec4cccf522aa88502a3bd2bd166db3e0af21156e7e9",
+    "public/staging-bidder-preview/src/ui.js": "24511ca1d438f4b6637aa6f502506f9208afa2f08fed5df6243e017044a3ea76",
+    "public/staging-bidder-preview/src/views.js": "dfa0d2c1e25215a1d8e53378fa39d2d5241a2433673aedc32db5a1cd4b6bc5b4",
+    "public/staging-bidder-preview/styles.css": "779ce573f2d26c47bea51278ddf5c2f57bd834f8855bd3e841dc399728ee2fb0",
+    "public/staging-catalog/app.js": "d767371d7747fde142bef22cd063b2e09beb157b408e052b2bdee60f96c6d76c",
+    "public/staging-catalog/bidding.js": "467d74e5150fafeba758c7142c7b3ecd7b0f403ca239b0054f259c302cdf5727",
+    "public/staging-catalog/collections.js": "5bc7aaf7cea9972b5750440843f37690aec1559ba982966a5f628acbef64a283",
+    "public/staging-catalog/data.js": "5d295b071dab66d37c92c9909faa8ffaae775fa0c4782a8b036fbd85a6ddce64",
+    "public/staging-catalog/donations.js": "c848496b37d4f62e3c368f2b3ba066efe6afc181937d6bbd77ef17a3de3b75c7",
+    "public/staging-catalog/store.js": "73be5b5e097d8dd59436b9b4634c23cec1fa2a71c3988d3a57820ca9fd2e71ce",
+    "public/staging-catalog/styles.css": "750076efd6a3970f29f3ac25545260a1024631ee8e49aa6f5db8cb540d666292",
+    "public/staging-catalog/ui.js": "90c04f94cb85fcbf003aa04b0f1ac4e6b49877225929dba3e7cbef06927fb170",
+    "public/staging-catalog/views.js": "057650c3c8024ffd71805a625622a124761037177edee5500bcc0823868a1334",
+    "src/app/events/[id]/event-access.tsx": "8db4a40d2be063f6fb14811cc2e46c29c688eb3a6074bda55a364fbca83c25e5"
+  },
+  "records": {
+    "hosted-primary-5b4bb79-202610090559": {
+      "path": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/CONNECTED_MEMBER_RECEIPT.json",
+      "sha256": "0a425b8fcba5d312ffb5d12cdcb879f5c4c8203b59a1e4ddf1b2c7974012ba70",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "captures": 22,
+      "harnessErrors": [
+        {
+          "action": "{\"action\":\"preopen\"}",
+          "name": "TypeError",
+          "message": "Cannot read properties of undefined (reading 'availability')"
+        }
+      ],
+      "browserExceptions": [],
+      "checks": [
+        {
+          "name": "source-bound-runtime",
+          "detail": {
+            "origin": "https://staging.bidzizi.com",
+            "source": "5b4bb79b662ec3b151b860bc22f96034e496bbc8",
+            "eventId": "990280fa-51db-47cd-aabe-5d15bf776002"
+          }
+        },
+        {
+          "name": "hosted-frozen-event",
+          "detail": {
+            "name": "Holiday Trade Show \u00b7 Saturn V1 Demo",
+            "schedule": {
+              "opensAt": "2026-10-09T06:07:00.000Z",
+              "closesAt": "2026-10-09T19:00:00.000Z",
+              "timezone": "America/Los_Angeles"
+            },
+            "phase": "scheduled",
+            "releaseId": "6473508e-6d74-4579-8ca0-4dc21de32e84"
+          }
+        },
+        {
+          "name": "poll-keeps-original-search-caret-photo",
+          "detail": true
+        },
+        {
+          "name": "native-back-reload-search-categories-layout-restored",
+          "detail": true
+        },
+        {
+          "name": "deployment-source-rebind",
+          "detail": {
+            "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+            "reason": "Backend root-only successor VERIFIED READY dpl_GNwQHvqibmQMCtxPv38wik9XcUZA; own anonymous actual root redirect Entry3603901440 and six byte matches in ROOT_FE13009_READBACK.json; earlier5b captures remain source-bound"
+          }
+        },
+        {
+          "name": "server-open",
+          "detail": "2026-10-09T06:07:39.276Z"
+        },
+        {
+          "name": "three-manual-bids-from-authoritative-minimum",
+          "detail": {
+            "amount0": "25.01",
+            "amount1": "37.35",
+            "amount2": "49.69",
+            "standing": {
+              "releaseId": "6473508e-6d74-4579-8ca0-4dc21de32e84",
+              "lotId": "a39d4288-c1d1-4613-be22-8258a529ab3b",
+              "rulesetId": "saturn-trade-tiered-v1",
+              "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+              "incrementMinor": 1234,
+              "amountCapMinor": 1000000000,
+              "phase": "open",
+              "currentAmountMinor": 4969,
+              "minimumAmountMinor": 6203,
+              "acceptedBidCount": 3,
+              "version": 3,
+              "leadingBusiness": {
+                "id": "5a300e74-439c-46ef-9547-48abcc06e21b",
+                "name": "Juniper Hosted Synthetic"
+              },
+              "serverNow": "2026-10-09T06:08:07.290Z",
+              "updatedAt": "2026-10-09T06:08:05.110Z",
+              "canBid": false
+            }
+          }
+        },
+        {
+          "name": "failed-original-request-exact-retry",
+          "detail": true
+        },
+        {
+          "name": "watch-durable-reload-and-private-my-bids",
+          "detail": true
+        },
+        {
+          "name": "donation-original-request-recovery-exact-cents",
+          "detail": true
+        }
+      ]
+    },
+    "hosted-short-fe13009-202610090602": {
+      "path": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/CONNECTED_MEMBER_RECEIPT.json",
+      "sha256": "7bb475701bee104736c5221dbc3509db6ef3ef7fd0d00d5d64456b1b13b866d2",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "captures": 25,
+      "harnessErrors": [
+        {
+          "action": "{\"action\":\"closed\"}",
+          "name": "TypeError",
+          "message": "Cannot read properties of undefined (reading 'evaluate')"
+        }
+      ],
+      "browserExceptions": [],
+      "checks": [
+        {
+          "name": "source-bound-runtime",
+          "detail": {
+            "origin": "https://staging.bidzizi.com",
+            "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+            "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6"
+          }
+        },
+        {
+          "name": "hosted-frozen-event",
+          "detail": {
+            "name": "Holiday Trade Show \u00b7 Saturn V1 Short Rehearsal",
+            "schedule": {
+              "opensAt": "2026-10-09T06:06:00.000Z",
+              "closesAt": "2026-10-09T06:16:00.000Z",
+              "timezone": "America/Los_Angeles"
+            },
+            "phase": "scheduled",
+            "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c"
+          }
+        },
+        {
+          "name": "poll-keeps-original-search-caret-photo",
+          "detail": true
+        },
+        {
+          "name": "native-back-reload-search-categories-layout-restored",
+          "detail": true
+        },
+        {
+          "name": "preopen-browse-only-donor-frozen-window",
+          "detail": true
+        },
+        {
+          "name": "server-open",
+          "detail": "2026-10-09T06:06:16.436Z"
+        },
+        {
+          "name": "three-manual-bids-from-authoritative-minimum",
+          "detail": {
+            "amount0": "25.01",
+            "amount1": "37.35",
+            "amount2": "49.69",
+            "standing": {
+              "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+              "lotId": "50c652d2-d3a8-499e-bc6d-8d25fa6dbaf8",
+              "rulesetId": "saturn-trade-tiered-v1",
+              "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+              "incrementMinor": 1234,
+              "amountCapMinor": 1000000000,
+              "phase": "open",
+              "currentAmountMinor": 4969,
+              "minimumAmountMinor": 6203,
+              "acceptedBidCount": 3,
+              "version": 3,
+              "leadingBusiness": {
+                "id": "5a20f7fd-8a50-4738-aa6c-df06cfc7073b",
+                "name": "Willow Hosted Closing Synthetic"
+              },
+              "serverNow": "2026-10-09T06:06:44.162Z",
+              "updatedAt": "2026-10-09T06:06:42.109Z",
+              "canBid": false
+            }
+          }
+        },
+        {
+          "name": "failed-original-request-exact-retry",
+          "detail": true
+        },
+        {
+          "name": "watch-durable-reload-and-private-my-bids",
+          "detail": true
+        },
+        {
+          "name": "donation-original-request-recovery-exact-cents",
+          "detail": true
+        },
+        {
+          "name": "server-closed",
+          "detail": "2026-10-09T06:16:13.893Z"
+        }
+      ]
+    },
+    "hosted-challenge-fe13009-202610090608": {
+      "path": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-challenge-fe13009-202610090608/CONNECTED_MEMBER_RECEIPT.json",
+      "sha256": "80f82fe4dd687c1b200464ed620b4177580cf67189138cd803b1ed1c95cb11cf",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "captures": 3,
+      "harnessErrors": [],
+      "browserExceptions": [],
+      "checks": [
+        {
+          "name": "source-bound-runtime",
+          "detail": {
+            "origin": "https://staging.bidzizi.com",
+            "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+            "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6"
+          }
+        },
+        {
+          "name": "hosted-frozen-event",
+          "detail": {
+            "name": "Holiday Trade Show \u00b7 Saturn V1 Short Rehearsal",
+            "schedule": {
+              "opensAt": "2026-10-09T06:06:00.000Z",
+              "closesAt": "2026-10-09T06:16:00.000Z",
+              "timezone": "America/Los_Angeles"
+            },
+            "phase": "open",
+            "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c"
+          }
+        },
+        {
+          "name": "HELD_ORIGINAL_RECEIPT_READY_FOR_STAFF_VIEW",
+          "detail": {
+            "actorId": "8e2a0f98-924a-4742-ab44-19147af0e0ad",
+            "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+            "requestId": "d27910e7-5e39-436b-a5f1-4753810142ea",
+            "amountMinor": 6203
+          }
+        },
+        {
+          "name": "real-held-bid-to-view-exact-my-bids-recovery",
+          "detail": {
+            "flags": {
+              "checking": false,
+              "intent": "d27910e7-5e39-436b-a5f1-4753810142ea",
+              "receipt": "d27910e7-5e39-436b-a5f1-4753810142ea",
+              "canBid": false
+            },
+            "grantGetCount": 2
+          }
+        },
+        {
+          "name": "staff-restored-bid-authority-original-owned-receipt",
+          "detail": true
+        }
+      ]
+    }
+  },
+  "rootReadback": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/ROOT_FE13009_READBACK.json",
+  "closedFullReadback": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/CLOSED_FULL_READBACK.json",
+  "originalActorClosedDom": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/ORIGINAL_ACTOR_CLOSED_DOM_READBACK.json",
+  "scope": "Only new staff-authored synthetic hosted fixtures; original member interactions and backend routes; no member server/API/admin/migration edits or push/merge/deploy",
+  "cleanup": "All own browser contexts/controllers closed; no own app/PG process or staff session; no fixture reset or old record edits",
+  "remainingBoundary": "No member-owned work remains; parent/backend owns actual saved340 successor hosted readback, final combined acceptance and release decisions; operational donor activation and production holds remain",
+  "checks": {
+    "runtime": "Node24.4.1",
+    "packageManager": "pnpm12.4.2",
+    "exactOwnedSource": "dbf2e8fcbc31cfea79087cf8d8d67748965d6f12",
+    "pnpmTypecheck": "PASS exit0 final preview repair source",
+    "pnpmBuild": "PASS exit0 final preview repair source Next16.3.8 Turbopack",
+    "ownedHostedProbeProcessScan": [],
+    "kernelClaim": false,
+    "independentReviewClaim": false,
+    "ownedHostedAndControlledProbeProcessScan": []
+  },
+  "priorMemberCoreSource": "d2184db997af914a9d91275b2a1d0d5f1a361077",
+  "previewWidthRepair": {
+    "source": "dbf2e8fcbc31cfea79087cf8d8d67748965d6f12",
+    "scope": "Parent msg_ad359a961da9 explicitly authorizes shared preview styles.css; V2 preview-only selectors, classes, amount/date containment; no API/state/authority or catalogselector change",
+    "controlledPreviewRender": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/preview-width-repair/PREVIEW_WIDTH_RECEIPT.json",
+    "previewRenderChecks": 9,
+    "memberRegressionChecks": 8,
+    "memberRegression": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/preview-width-repair/MEMBER_CSS_REGRESSION_CONTROLS_RECEIPT.json",
+    "hostedReadback": "NOT_YET_HOSTED in worker evidence; parent explicitly owns backend successor integration/deploy and actual normal340 saved-preview readback per msg_a232472139c6",
+    "parentReview": {
+      "message": "msg_a232472139c6",
+      "source": "dbf2e8fcbc31cfea79087cf8d8d67748965d6f12",
+      "scope": "Parent inspected exact two-file diff, executable9-render/8-control receipts and actual340normal/fullcap/member360cap PNGs; bounded V2 preview repair accepted for routing"
+    }
+  },
+  "workerOutcome": "SUCCEEDED_OWNED_IMPLEMENTATION_HOSTED_CORE_AND_CONTROLLED_PREVIEW_TAIL_WITH_ACKNOWLEDGED_PARENT_REMAINDER"
+}

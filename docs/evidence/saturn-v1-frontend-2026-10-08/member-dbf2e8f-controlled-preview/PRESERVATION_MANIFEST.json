@@ -1,0 +1,46 @@
+{
+  "source": "dbf2e8fcbc31cfea79087cf8d8d67748965d6f12",
+  "kind": "CONTROLLED_PRESENTATION_AND_MOCKED_MEMBER_CONTROLS_NOT_HOSTED_OR_SERVER_EVIDENCE",
+  "files": [
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/preview-width-repair/PREVIEW_WIDTH_RECEIPT.json",
+      "name": "PREVIEW_WIDTH_RECEIPT.json",
+      "sha256": "e6b15b7358159b083dcbe6447b49f1074e8e9c17f9afc2e7eb7bfb6a2bbbaa6c"
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/preview-width-repair/MEMBER_CSS_REGRESSION_CONTROLS_RECEIPT.json",
+      "name": "MEMBER_CSS_REGRESSION_CONTROLS_RECEIPT.json",
+      "sha256": "3858f829e0a158d67e99b8d3c260482ce32db361ba2cdc6fc02cc9ae2c2126b6"
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/preview-width-repair/render-preview.mjs",
+      "name": "render-preview.mjs",
+      "sha256": "d6a8a47f9d0ccae34e0bebbe19f4f1b005d752c9cddfefcc15662b17b7b617d5"
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/preview-width-repair/member-regression.mjs",
+      "name": "member-regression.mjs",
+      "sha256": "cdf7332f15951f812483a4b897956db99ffcc3fb8aef2f85f87b0ea7d2deb8b6"
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/preview-width-repair/PREVIEW_340_2501.png",
+      "name": "PREVIEW_340_2501.png",
+      "sha256": "20bbec7050c77f8dc1022e6e309e5c7c606f1fe311ee9e083b5f51e7ac2bbce4"
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/preview-width-repair/PREVIEW_340_1000000000.png",
+      "name": "PREVIEW_340_1000000000.png",
+      "sha256": "109c8333b63872315b0c83dda7b02cee51930dab242f9f95962674551fe1d52f"
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/preview-width-repair/PREVIEW_390_2501.png",
+      "name": "PREVIEW_390_2501.png",
+      "sha256": "5393da6832b0dade348be4664a944ecd74a17aad3066506067875dfc8acef465"
+    },
+    {
+      "sourcePath": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/preview-width-repair/MEMBER_CSS_REGRESSION_360_BID_CAP_REVIEW.png",
+      "name": "MEMBER_CSS_REGRESSION_360_BID_CAP_REVIEW.png",
+      "sha256": "4baf5cb0cc32e0f7a8e63afa62e4aecb3683844111bf7204d021a7d8f6621b3e"
+    }
+  ]
+}

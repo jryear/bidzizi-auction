@@ -1,0 +1,69 @@
+{
+  "run": "run_d99a4ddeab94",
+  "counts": {
+    "retained": 3,
+    "released": 2
+  },
+  "workers": [
+    {
+      "dispatchId": "ctx_0adab7da242d",
+      "taskId": "task_9c60f9bb23c0",
+      "workerState": "succeeded",
+      "dispatchStatus": "completed",
+      "terminalState": "released",
+      "resourceState": "released",
+      "resourceReason": null,
+      "nextAction": "none",
+      "releaseState": "released",
+      "archiveStatus": "captured"
+    },
+    {
+      "dispatchId": "ctx_968cc92a47bd",
+      "taskId": "task_bf155e66685b",
+      "workerState": "succeeded",
+      "dispatchStatus": "completed",
+      "terminalState": "released",
+      "resourceState": "released",
+      "resourceReason": null,
+      "nextAction": "none",
+      "releaseState": "released",
+      "archiveStatus": "captured"
+    },
+    {
+      "dispatchId": "ctx_7484aa7d4aaf",
+      "taskId": "task_9c60f9bb23c0",
+      "workerState": "failed",
+      "dispatchStatus": "failed",
+      "terminalState": "retained",
+      "resourceState": "absent",
+      "resourceReason": "not_materialized",
+      "nextAction": "none",
+      "releaseState": null,
+      "archiveStatus": null
+    },
+    {
+      "dispatchId": "ctx_4131dcd973c4",
+      "taskId": "task_55965fe50b32",
+      "workerState": "succeeded",
+      "dispatchStatus": "completed",
+      "terminalState": "retained",
+      "resourceState": "absent",
+      "resourceReason": "not_materialized",
+      "nextAction": "none",
+      "releaseState": null,
+      "archiveStatus": null
+    },
+    {
+      "dispatchId": "ctx_1610cbafca88",
+      "taskId": "task_55965fe50b32",
+      "workerState": "failed",
+      "dispatchStatus": "failed",
+      "terminalState": "retained",
+      "resourceState": "absent",
+      "resourceReason": "not_materialized",
+      "nextAction": "none",
+      "releaseState": null,
+      "archiveStatus": null
+    }
+  ]
+}

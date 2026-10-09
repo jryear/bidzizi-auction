@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-10-09T07:12:05.709938+00:00",
+  "sourceCommit": "b2631c188f1a758dd1bbedcab1c3d3747a0afb06",
+  "deploymentId": "dpl_8LHWwG9ybhdRNu1P17ciB4X7ikxB",
+  "originalExit": 1,
+  "originalOutput": "Observed demo release binding/byte/path mismatch; private inputs withheld.",
+  "scope": "Original initial automated readback failure retained; not a successful deployed receipt",
+  "diagnostic": "Independent follow-up verifies correct alias and exact changed public bytes; compiled results bytes exactly match local build SHA256 f82bfab65e21410e1bc0022d244fd82b5c4adad60dffadf72300b3615d06764d, although Vercel immutable stylesheet pathname differs from local output filename",
+  "correction": "Successor helper matches exact compiled file content across local build assets, instead of assuming deployment and local asset filenames are equal; exact byte/source checks remain required"
+}

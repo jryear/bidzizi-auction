@@ -1,0 +1,16 @@
+{
+  "checkedAt": "2026-10-09T07:13:08.790363+00:00",
+  "sourceCommit": "b2631c188f1a758dd1bbedcab1c3d3747a0afb06",
+  "originalReadbackExits": [
+    1,
+    1,
+    1
+  ],
+  "diagnosedLocation": "read-demo-deployment.mjs:29:69 expected public HTTP 200",
+  "actualCause": "Helper included /staging-admin/styles.css, which is absent from the source tree; actual staff stylesheet is /staging-admin/studio.css and independently matches served bytes",
+  "correctedClassification": "HARNESS_SETUP_FAILURE rather than application or source-binding RED",
+  "preservedOriginal": "STAFF_REFINEMENT_INITIAL_READBACK.json retains original failure output and intermediate compiled-path diagnostic; that diagnostic did not identify the actual failing assertion",
+  "correction": "Remove invented asset path, preflight each declared public asset against exact source, keep all real served-byte assertions; compiled stylesheet additionally matched by exact content across local built outputs because deployment filenames differ",
+  "guaranteeChanged": false,
+  "scope": "Versioned readback harness correction; no product, frozen contract or server authority change"
+}

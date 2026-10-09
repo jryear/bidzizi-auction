@@ -1,0 +1,97 @@
+{
+  "checkedAt": "2026-10-09T06:45:05.469Z",
+  "readOnly": true,
+  "canonicalMain": "e026ce6bd5a72b63de38cabd0cada94ba26e8443",
+  "sourceCommit": "e026ce6bd5a72b63de38cabd0cada94ba26e8443",
+  "deploymentId": "dpl_Am1Bt3PGemkUnWwDdp2GVnay7Dj9",
+  "projectId": "prj_fy9oxz1zTFpwqLRDJONdgvjI2KNP",
+  "origin": "https://staging.bidzizi.com",
+  "target": "production",
+  "regions": [
+    "pdx1"
+  ],
+  "generatedUrl": "bidzizi-clean-staging-hiimpmehy-saturn-ea53.vercel.app",
+  "readyState": "READY",
+  "aliasBound": true,
+  "root": {
+    "status": 307,
+    "location": "/events/990280fa-51db-47cd-aabe-5d15bf776002"
+  },
+  "assets": [
+    {
+      "path": "/staging-catalog/bidding.js",
+      "sha256": "467d74e5150fafeba758c7142c7b3ecd7b0f403ca239b0054f259c302cdf5727",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-catalog/collections.js",
+      "sha256": "5bc7aaf7cea9972b5750440843f37690aec1559ba982966a5f628acbef64a283",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-catalog/donations.js",
+      "sha256": "c848496b37d4f62e3c368f2b3ba066efe6afc181937d6bbd77ef17a3de3b75c7",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-catalog/views.js",
+      "sha256": "057650c3c8024ffd71805a625622a124761037177edee5500bcc0823868a1334",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-catalog/styles.css",
+      "sha256": "750076efd6a3970f29f3ac25545260a1024631ee8e49aa6f5db8cb540d666292",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-admin/staff-operations.js",
+      "sha256": "fd41248982c9632c4da7754eeb9353ba0cb6cdb42a40c283beec9d15842435dd",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-bidder-preview/styles.css",
+      "sha256": "779ce573f2d26c47bea51278ddf5c2f57bd834f8855bd3e841dc399728ee2fb0",
+      "sourceMatches": true
+    },
+    {
+      "path": "/staging-bidder-preview/src/views.js",
+      "sha256": "dfa0d2c1e25215a1d8e53378fa39d2d5241a2433673aedc32db5a1cd4b6bc5b4",
+      "sourceMatches": true
+    }
+  ],
+  "routes": [
+    {
+      "path": "/admin",
+      "status": 200
+    },
+    {
+      "path": "/events/990280fa-51db-47cd-aabe-5d15bf776002",
+      "status": 200
+    },
+    {
+      "path": "/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "status": 200
+    },
+    {
+      "path": "/api/demo/events/990280fa-51db-47cd-aabe-5d15bf776002/entry",
+      "status": 200,
+      "demoEntry": true
+    },
+    {
+      "path": "/api/demo/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/entry",
+      "status": 200,
+      "demoEntry": true
+    },
+    {
+      "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/results",
+      "status": 401,
+      "anonymousPrivateDenial": true
+    },
+    {
+      "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/donations",
+      "status": 401,
+      "anonymousPrivateDenial": true
+    }
+  ],
+  "scope": "Exact existing synthetic demo deployment, actual alias/source/served bytes and anonymous real paths; no sign-in or data writes. Rendered successor verification is separately owned by frontend."
+}

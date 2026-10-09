@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-10-09T07:16:03.955796+00:00",
+  "sourceCommit": "b2631c188f1a758dd1bbedcab1c3d3747a0afb06",
+  "checks": [
+    {
+      "base": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+      "paths": [
+        "tasks"
+      ],
+      "unchanged": true
+    },
+    {
+      "base": "b07c535c39b55e3c1b10082c224aa70799dd3eb8",
+      "paths": [
+        "migrations/016_staging_staff_assets.sql",
+        "tests/development/asset-authority.mjs"
+      ],
+      "unchanged": true
+    },
+    {
+      "base": "e026ce6bd5a72b63de38cabd0cada94ba26e8443",
+      "paths": [
+        "src/server",
+        "src/app/api",
+        "src/lib/database.ts",
+        "migrations",
+        "package.json",
+        "pnpm-lock.yaml"
+      ],
+      "unchanged": true
+    }
+  ],
+  "retainedP2Limitation": "Original 016 queued raw-revoker priority is retained with unrelated-organization/zero-row global-lock availability limitation; 017 remains held and is not installed",
+  "scope": "Exact source comparisons; not a new behavioral/frozen-contract or model-review claim"
+}

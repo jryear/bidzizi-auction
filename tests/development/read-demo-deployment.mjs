@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
-import {readFile,writeFile} from 'node:fs/promises';
+import {readFile,readdir,writeFile} from 'node:fs/promises';
 const [source,deploymentId,filename]=process.argv.slice(2);
 const origin='https://staging.bidzizi.com';
 const projectId='prj_fy9oxz1zTFpwqLRDJONdgvjI2KNP';
@@ -21,14 +21,15 @@ try{
  assert.equal(deployment.meta.githubRepo,'bidzizi-auction');assert.equal(deployment.meta.githubCommitOrg,'jryear');
  assert.equal(alias.alias,'staging.bidzizi.com');assert.equal(alias.projectId,projectId);assert.equal(alias.deploymentId,deploymentId);
  const paths=['/staging-catalog/bidding.js','/staging-catalog/collections.js','/staging-catalog/donations.js',
-  '/staging-catalog/views.js','/staging-catalog/styles.css','/staging-admin/staff-operations.js','/staging-admin/styles.css',
+  '/staging-catalog/views.js','/staging-catalog/styles.css','/staging-admin/staff-operations.js',
   '/staging-admin/studio.css','/staging-admin/studio.js',
   '/staging-bidder-preview/styles.css','/staging-bidder-preview/src/views.js'];
  const assets=[];
  for(const path of paths){
+  const expected=execFileSync('git',['show',source+':public'+path]);
   const response=await fetch(origin+path,{cache:'no-store'});assert.equal(response.status,200);
   const bytes=Buffer.from(await response.arrayBuffer());
-  const expected=execFileSync('git',['show',source+':public'+path]);assert.ok(bytes.equals(expected));
+  assert.ok(bytes.equals(expected));
   assets.push({path,sha256:createHash('sha256').update(bytes).digest('hex'),sourceMatches:true});
  }
  const root=await fetch(origin+'/',{redirect:'manual',cache:'no-store'});
@@ -50,15 +51,21 @@ try{
  assert.equal(resultsResponse.status,200);
  const resultsHTML=await resultsResponse.text();
  const cssPaths=[...new Set([...resultsHTML.matchAll(/href="([^" ]+\.css(?:\?[^" ]*)?)"/g)].map(match=>new URL(match[1],origin).pathname))];
+ const localCSS=[];
+ for(const path of await readdir('.next/static',{recursive:true})){
+  if(path.endsWith('.css'))localCSS.push({path:'.next/static/'+path,bytes:await readFile('.next/static/'+path)});
+ }
  const compiledStyles=[];
  for(const path of cssPaths){
   if(!path.startsWith('/_next/static/'))continue;
   const response=await fetch(origin+path,{cache:'no-store'});assert.equal(response.status,200);
   const bytes=Buffer.from(await response.arrayBuffer());
   if(!bytes.toString().includes('display-results'))continue;
-  const expected=await readFile('.next/'+path.slice('/_next/'.length));assert.ok(bytes.equals(expected));
+  // Vercel gives immutable compiled assets deployment-specific paths. Exact
+  // content, rather than equal local/deployed filenames, binds the build.
+  const expected=localCSS.find(local=>bytes.equals(local.bytes));assert.ok(expected);
   assert.match(bytes.toString(),/font-size:32px/);
-  compiledStyles.push({path,sha256:createHash('sha256').update(bytes).digest('hex'),localBuiltSourceMatches:true});
+  compiledStyles.push({path,sha256:createHash('sha256').update(bytes).digest('hex'),localBuiltAsset:expected.path,localBuiltSourceMatches:true});
  }
  assert.ok(compiledStyles.length>0);
  for(const path of ['/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/results','/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/donations']){
@@ -72,5 +79,6 @@ try{
  await writeFile(path,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({path,source,deploymentId,readyState:report.readyState,aliasBound:true,servedAssets:assets.length,compiledStyles:compiledStyles.length,realRoutes:routes.length}));
 }catch(error){
  console.error(error instanceof assert.AssertionError?'Observed demo release binding/byte/path mismatch; private inputs withheld.':'Demo readback harness/provider setup failed; private inputs withheld.');
+ if(error instanceof assert.AssertionError)console.error(error.stack.split('\n').find(line=>line.includes('read-demo-deployment.mjs:'))?.trim());
  process.exitCode=error instanceof assert.AssertionError?1:99;
 }

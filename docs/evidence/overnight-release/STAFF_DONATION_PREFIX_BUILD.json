@@ -1,0 +1,15 @@
+{
+  "checkedAt": "2026-10-09T07:18:30.870154+00:00",
+  "sourceCommit": "8eebbd38b0633851a5ab6b45090bf48a07f6f613",
+  "previousHostedSource": "b2631c188f1a758dd1bbedcab1c3d3747a0afb06",
+  "file": "public/staging-admin/staff-operations.js",
+  "change": "Formatter display prefix $ to T$ for server-validated trade-dollar pledge amounts and minimum; all integer arithmetic/data/state/authority unchanged",
+  "trigger": "Independent review of real hosted candidate donation lower screenshot showed bare $ beside Saturn trade-dollar label",
+  "node": "24.21.0",
+  "pnpm": "12.4.2",
+  "syntaxExit": 0,
+  "typecheckExit": 0,
+  "productionBuildExit": 0,
+  "scope": "Contained existing-currency presentation consistency repair; not a new unit/rule or operational donor activation",
+  "remaining": "Existing demo exact-source successor readback and real staff pledge phone/desktop display"
+}
