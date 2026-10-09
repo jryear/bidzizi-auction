@@ -6,7 +6,7 @@ const {handle}=await import('../../src/server/http.ts');
 const {emptyTradeEvent,TRADE_DENOMINATION,TRADE_RULESET,tradeDraft}=await import('../../src/server/timing.ts');
 const files=['src/server/staff-operations.ts','src/server/catalog.ts','src/server/timing.ts','src/server/staff-assets.ts','tests/development/staff-operations.mjs','tests/development/local-fixture.mjs'];
 const before=Object.fromEntries(files.map(file=>[file,sourceHash(file)]));
-const f=await localFixture('bz_test_staff_ops',['001_staging_staff.sql','002_staging_catalog.sql','003_staging_manual_bid.sql','009_demo_attendee_entry.sql','015_staff_event_entry.sql','016_staging_staff_assets.sql','019_staff_bidder_operations.sql']);
+const f=await localFixture('bz_test_staff_ops',['001_staging_staff.sql','002_staging_catalog.sql','003_staging_manual_bid.sql','009_demo_attendee_entry.sql','015_staff_event_entry.sql','016_staging_staff_assets.sql','018_attendee_activity_donations.sql','019_staff_bidder_operations.sql']);
 const ids=Object.fromEntries(['org','otherOrg','staff','coworker','foreignStaff','member','business','event','otherEvent','release','lot','bid'].map(name=>[name,randomUUID()]));
 const tokens={staff:'a'.repeat(43),coworker:'b'.repeat(43),foreignStaff:'c'.repeat(43),member:'d'.repeat(43)};
 const read=token=>request(token),post=(token,data)=>request(token,data);
@@ -112,6 +112,21 @@ try {
     assert.equal((await f.admin.query('SELECT revision FROM bz_staff_bidder_controls WHERE event_id=$1 AND person_id=$2',[ids.event,ids.member])).rows[0].revision,2);
     assert.equal((await f.admin.query('SELECT active FROM bz_event_view_grants WHERE event_id=$1 AND person_id=$2',[ids.event,ids.member])).rows[0].active,true);
     await f.admin.query("UPDATE bz_sessions SET expires_at=clock_timestamp()+interval '1 hour' WHERE token_hash=$1",[sha(tokens.staff)]);
+  });
+  await test('approved-gate-order-raw-revoker-precedes-bidder-mutation',async()=>{
+    const revoker=await f.client();await revoker.query('BEGIN');
+    // An actual zero-row authority UPDATE enters 016's statement mutation gate.
+    await revoker.query("UPDATE bz_sessions SET revoked_at=clock_timestamp() WHERE false");
+    const key=randomUUID();
+    const pending=status(()=>ops.setStaffBidder(post(tokens.staff,{...intent,requestId:key,expectedRevision:2}),ids.event),401);
+    await waitOn(f.admin,'bz_staff_bidder_set');
+    try{
+      await revoker.query('UPDATE bz_sessions SET revoked_at=clock_timestamp() WHERE token_hash=$1',[sha(tokens.staff)]);
+      await revoker.query('COMMIT');await pending;
+      assert.equal((await f.admin.query('SELECT count(*)::integer AS n FROM bz_requests WHERE request_id=$1',[key])).rows[0].n,0);
+      assert.equal((await f.admin.query('SELECT revision FROM bz_staff_bidder_controls WHERE event_id=$1 AND person_id=$2',[ids.event,ids.member])).rows[0].revision,2);
+    }finally{await revoker.query('ROLLBACK');await pending.catch(()=>{});}
+    await f.admin.query('UPDATE bz_sessions SET revoked_at=NULL WHERE token_hash=$1',[sha(tokens.staff)]);
   });
   await test('minimal-runtime-and-committed-staff-revocation',async()=>{
     const acl=(await f.admin.query("SELECT has_table_privilege('fixture_runtime','bz_staff_bidder_controls','UPDATE') AS can_update,has_table_privilege('fixture_runtime','bz_event_view_grants','UPDATE') AS can_mutate_view,has_table_privilege('fixture_runtime','bz_demo_entry_slots','SELECT') AS can_read_slots")).rows[0];assert.deepEqual(acl,{can_update:false,can_mutate_view:false,can_read_slots:false});

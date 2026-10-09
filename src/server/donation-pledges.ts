@@ -91,7 +91,7 @@ type Receipt = { id: string; requestId: string; eventId: string; actorName: stri
   status: string; recordedAt: string };
 function cell(value: string | number) {
   let text = String(value);
-  if (/^[=+\-@\t\r]/.test(text)) text = "'" + text;
+  if (/^[\s\u0000-\u001f]*[=+\-@]/.test(text) || /^[\t\r\n]/.test(text)) text = "'" + text;
   return '"' + text.replaceAll('"', '""') + '"';
 }
 export async function exportDonations(request: Request, eventId: string): Promise<Response> {

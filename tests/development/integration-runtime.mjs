@@ -1,13 +1,17 @@
 // Owned, persistent rehearsal runtime. Source and database are disposable;
 // credentials never leave process environment and no provider is contacted.
 import { execFileSync, spawn } from 'node:child_process';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { randomUUID } from 'node:crypto';
-import { localFixture,repo,sleep } from './local-fixture.mjs';
+import { localFixture,repo,sha,sleep } from './local-fixture.mjs';
 
 const head=execFileSync('git',['rev-parse','HEAD'],{cwd:repo,encoding:'utf8'}).trim();
+const restorePath=process.argv[2];
+const previous=restorePath?JSON.parse(await readFile(restorePath,'utf8')):null;
+if(previous&&(previous.scope!=='disposable local synthetic event rehearsal'||previous.origin!=='http://127.0.0.1:43981'||
+  dirname(previous.sourceRoot)!==dirname(restorePath)||!previous.preservedTables))throw Error('Owned rehearsal restore descriptor required');
 const migrations=['001_staging_staff.sql','002_staging_catalog.sql','003_staging_manual_bid.sql','009_demo_attendee_entry.sql','015_staff_event_entry.sql','016_staging_staff_assets.sql'];
 if(existsSync(join(repo,'migrations/017_asset_authority_scope.sql')))migrations.push('017_asset_authority_scope.sql');
 if(existsSync(join(repo,'migrations/018_attendee_activity_donations.sql')))migrations.push('018_attendee_activity_donations.sql');
@@ -29,10 +33,23 @@ try {
   if(migrations.includes('018_attendee_activity_donations.sql'))await f.admin.query(`GRANT EXECUTE ON FUNCTION
     bz_attendee_activity(text,uuid,text,jsonb),bz_donation_member(text,uuid,text,jsonb),
     bz_donation_staff(text,uuid,text,jsonb) TO fixture_runtime`);
-  const organizationId=randomUUID(),otherOrganizationId=randomUUID(),staffId=randomUUID(),otherStaffId=randomUUID();
-  await f.admin.query("INSERT INTO bz_orgs(id,name,initials) VALUES($1,'Saturn Barter','SA'),($2,'Other synthetic organization','OT')",[organizationId,otherOrganizationId]);
-  await f.admin.query("INSERT INTO bz_people(id,alias,name,is_test) VALUES($1,'staff-saturn','Saturn staff',true),($2,'staff-pine','Other staff',true)",[staffId,otherStaffId]);
-  await f.admin.query('INSERT INTO bz_staff_grants(person_id,org_id) VALUES($1,$3),($2,$4)',[staffId,otherStaffId,organizationId,otherOrganizationId]);
+  const organizationId=previous?.organizationId??randomUUID(),otherOrganizationId=previous?.otherOrganizationId??randomUUID(),staffId=randomUUID(),otherStaffId=randomUUID();
+  if(previous){
+    const dump=join(dirname(restorePath),'REHEARSAL_DATA.dump');
+    if(sha(await readFile(dump))!==previous.dumpSha256)throw Error('Owned rehearsal dump changed');
+    execFileSync('/opt/homebrew/opt/postgresql@18/bin/pg_restore',['--data-only','--disable-triggers','--no-owner','--no-privileges',
+      '--host','127.0.0.1','--port',String(f.port),'--dbname','bz_test_integrated_v1',dump],{stdio:'pipe'});
+    for(const [table,expected] of Object.entries(previous.preservedTables)){
+      if(!/^bz_[a-z_]+$/.test(table))throw Error('Unexpected preserved table');
+      const row=(await f.admin.query(`SELECT count(*)::int AS count,COALESCE(jsonb_agg(to_jsonb(t) ORDER BY to_jsonb(t)::text),'[]'::jsonb)::text AS bytes FROM ${table} t`)).rows[0];
+      if(row.count!==expected.count||sha(row.bytes)!==expected.sha256)throw Error('Owned rehearsal records did not restore exactly');
+    }
+    f.report.restored={previousSourceCommit:previous.sourceCommit,recordsVerified:true,tables:previous.preservedTables};
+  }else{
+    await f.admin.query("INSERT INTO bz_orgs(id,name,initials) VALUES($1,'Saturn Barter','SA'),($2,'Other synthetic organization','OT')",[organizationId,otherOrganizationId]);
+    await f.admin.query("INSERT INTO bz_people(id,alias,name,is_test) VALUES($1,'staff-saturn','Saturn staff',true),($2,'staff-pine','Other staff',true)",[staffId,otherStaffId]);
+    await f.admin.query('INSERT INTO bz_staff_grants(person_id,org_id) VALUES($1,$3),($2,$4)',[staffId,otherStaffId,organizationId,otherOrganizationId]);
+  }
   // App bytes are a committed snapshot, so unrelated integration work cannot
   // silently alter public scripts while another owner is taking UI evidence.
   await mkdir(appRoot);

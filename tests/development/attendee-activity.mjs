@@ -258,7 +258,7 @@ try{
  let bootstrap=new pg.Client({...connection,database:'postgres'});await bootstrap.connect();await bootstrap.query('CREATE DATABASE bz_test_attendee_activity');await bootstrap.end();admin=await connect();
  receipt.postgresVersion=(await admin.query('SELECT version() AS version')).rows[0].version;
  await admin.query("CREATE ROLE activity_runtime LOGIN PASSWORD 'disposable-only'");
- for(const name of ['001_staging_staff.sql','002_staging_catalog.sql','003_staging_manual_bid.sql','018_attendee_activity_donations.sql']){
+ for(const name of ['001_staging_staff.sql','002_staging_catalog.sql','003_staging_manual_bid.sql','009_demo_attendee_entry.sql','015_staff_event_entry.sql','016_staging_staff_assets.sql','018_attendee_activity_donations.sql','019_staff_bidder_operations.sql']){
   if(name.startsWith('018'))await admin.query('ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO activity_runtime; ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT EXECUTE ON FUNCTIONS TO activity_runtime');
   const source=await readFile(join(repo,'migrations',name));loaded.set('migrations/'+name,sha(source));await admin.query(source.toString());
  }

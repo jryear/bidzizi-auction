@@ -1,6 +1,6 @@
 BEGIN;
 -- Event-scoped access controls. No new identity, business, network or BID
--- spending grant is created. Apply with the reviewed authority successor 017.
+-- spending grant is created. The currently approved 016 authority gate remains.
 CREATE TABLE public.bz_staff_bidder_controls (
  event_id uuid NOT NULL REFERENCES public.bz_events(id),
  person_id uuid NOT NULL REFERENCES public.bz_people(id),
@@ -65,6 +65,12 @@ BEGIN
  IF p_hash IS NULL OR p_hash !~ '^[a-f0-9]{64}$' OR p_event IS NULL OR p_request IS NULL OR p_person IS NULL
   OR p_expected IS NULL OR p_expected<0 OR p_expected>=2147483647 OR p_access IS NULL OR p_access NOT IN ('VIEW','BID') OR p_active IS NULL
  THEN RETURN jsonb_build_object('error','VALIDATION'); END IF;
+ -- This function mutates VIEW authority. With 016 installed it must enter the
+ -- exclusive mutation tier before holding session/person/organization tuples;
+ -- otherwise a raw revoker can hold that gate while waiting on this reader.
+ IF to_regprocedure('public.bz_asset_authority_mutation_gate()') IS NOT NULL THEN
+  PERFORM pg_advisory_xact_lock(hashtextextended('bz-asset-authority:v1',0));
+ END IF;
  SELECT p.id INTO actor FROM public.bz_sessions s JOIN public.bz_people p ON p.id=s.person_id
   WHERE s.token_hash=p_hash AND s.revoked_at IS NULL AND s.expires_at>clock_timestamp() AND p.active AND p.is_test FOR SHARE OF s,p;
  IF actor IS NULL THEN RETURN jsonb_build_object('error','UNAUTHENTICATED'); END IF;
@@ -73,8 +79,8 @@ BEGIN
  PERFORM 1 FROM public.bz_staff_grants g JOIN public.bz_orgs o ON o.id=g.org_id
   WHERE g.person_id=actor AND g.org_id=org AND g.active FOR SHARE OF g,o;
  IF NOT FOUND THEN RETURN jsonb_build_object('error','FORBIDDEN'); END IF;
- -- Per-actor intent precedes the selected event's mutation lock. Independent
- -- organizations do not enter a global mutation queue.
+ -- Per-actor intent precedes the selected event's mutation lock. Under the
+ -- approved 016 protocol, authority mutations retain its global queue.
  PERFORM pg_advisory_xact_lock(hashtextextended(actor||':staff-bidder:'||p_request,0));
  PERFORM 1 FROM public.bz_events e WHERE e.id=p_event AND e.org_id=org FOR UPDATE;
  IF NOT FOUND THEN RETURN jsonb_build_object('error','NOT_FOUND'); END IF;
