@@ -1,0 +1,73 @@
+{
+  "checkedAt": "2026-10-09T06:17:00.345Z",
+  "auditSource": "c18a2929c3a8e7198dc972cfd6799b06c9ce7590",
+  "deployedSource": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "projectId": "prj_fy9oxz1zTFpwqLRDJONdgvjI2KNP",
+  "origin": "https://staging.bidzizi.com",
+  "readOnly": true,
+  "verifiedTLS": true,
+  "database": "bz_staging_e2e",
+  "scope": "Current new owned hosted fixtures; durable aggregates and actual database-clock state, separate from UI acceptance",
+  "fixtures": [
+    {
+      "event_id": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "release_id": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+      "database_now": "2026-10-09T06:17:00.333Z",
+      "phase": "closed",
+      "opens_at": "2026-10-09T06:06:00.000Z",
+      "closes_at": "2026-10-09T06:16:00.000Z",
+      "published_lots": 2,
+      "accepted_bids": 5,
+      "distinct_accepted_actors": 3,
+      "accepted_currencies": [
+        "SATURN_TRADE_DOLLAR_SYNTHETIC_V1"
+      ],
+      "owned_receipts": 5,
+      "current_watches": 1,
+      "manual_pledges": 1,
+      "pledged_minor": "12345",
+      "pledge_statuses": [
+        "pending_staff_settlement"
+      ],
+      "donor_fixture_setting": {
+        "enabled": true,
+        "availability": {
+          "mode": "window",
+          "opensAt": "2026-10-09T06:06:00.000Z",
+          "closesAt": "2026-10-09T06:16:00.000Z"
+        },
+        "amountCapMinor": "100000"
+      }
+    },
+    {
+      "event_id": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "release_id": "6473508e-6d74-4579-8ca0-4dc21de32e84",
+      "database_now": "2026-10-09T06:17:00.333Z",
+      "phase": "open",
+      "opens_at": "2026-10-09T06:07:00.000Z",
+      "closes_at": "2026-10-09T19:00:00.000Z",
+      "published_lots": 2,
+      "accepted_bids": 4,
+      "distinct_accepted_actors": 2,
+      "accepted_currencies": [
+        "SATURN_TRADE_DOLLAR_SYNTHETIC_V1"
+      ],
+      "owned_receipts": 4,
+      "current_watches": 1,
+      "manual_pledges": 1,
+      "pledged_minor": "12345",
+      "pledge_statuses": [
+        "pending_staff_settlement"
+      ],
+      "donor_fixture_setting": {
+        "enabled": true,
+        "availability": {
+          "mode": "window",
+          "opensAt": "2026-10-09T06:07:00.000Z",
+          "closesAt": "2026-10-09T19:00:00.000Z"
+        },
+        "amountCapMinor": "100000"
+      }
+    }
+  ]
+}
