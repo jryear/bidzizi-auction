@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "7b920d36d2bd776c6638db3ffa36c07bbe211047",
+  "cleanup": {
+    "stopped": true,
+    "pid": 46710,
+    "processAbsent": true,
+    "clusterRemoved": true,
+    "runtimePidAbsent": true,
+    "appPidAbsent": true,
+    "appPortClosed": true,
+    "databasePortClosed": true
+  },
+  "privateFinalSnapshotRetained": true,
+  "scope": "Owned loopback app/PG only; no provider stopped or reset"
+}
