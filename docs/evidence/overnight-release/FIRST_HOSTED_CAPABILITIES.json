@@ -1,0 +1,62 @@
+{
+  "checkedAt": "2026-10-09T05:54:13.035Z",
+  "sourceCommit": "5b4bb79b662ec3b151b860bc22f96034e496bbc8",
+  "deploymentId": "dpl_4qotoD8ENe37gPRWePY9Afjc7NF1",
+  "projectId": "prj_fy9oxz1zTFpwqLRDJONdgvjI2KNP",
+  "origin": "https://staging.bidzizi.com",
+  "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+  "identity": {
+    "database": "bz_staging_e2e",
+    "role": "staging_e2e_app"
+  },
+  "verifiedTLS": true,
+  "freshHostedSessionObservedInRetainedRuntimeDatabase": true,
+  "diagnosticSessionRevoked": true,
+  "results": [
+    {
+      "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/results",
+      "status": 200,
+      "published": true,
+      "phase": "scheduled",
+      "finalized": false,
+      "bidders": null,
+      "entryEnabled": null,
+      "donorEnabled": null,
+      "donorPolicyReady": null
+    },
+    {
+      "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/bidders",
+      "status": 200,
+      "published": null,
+      "phase": null,
+      "finalized": null,
+      "bidders": 0,
+      "entryEnabled": null,
+      "donorEnabled": null,
+      "donorPolicyReady": null
+    },
+    {
+      "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/entry",
+      "status": 200,
+      "published": null,
+      "phase": null,
+      "finalized": null,
+      "bidders": null,
+      "entryEnabled": true,
+      "donorEnabled": null,
+      "donorPolicyReady": null
+    },
+    {
+      "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/donations",
+      "status": 200,
+      "published": null,
+      "phase": null,
+      "finalized": null,
+      "bidders": null,
+      "entryEnabled": null,
+      "donorEnabled": false,
+      "donorPolicyReady": false
+    }
+  ],
+  "scope": "Read-only staff capability checks and bounded revoked diagnostic session; staff/member own whole-event mutations."
+}

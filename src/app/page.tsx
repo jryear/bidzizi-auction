@@ -18,7 +18,7 @@ export default async function Home({
   const query = await searchParams;
   if (process.env.BIDZIZI_APP_MODE === "public-staging" &&
       mode?.origin === "https://staging.bidzizi.com" && query.health !== "1") {
-    redirect("/events/72216e01-08c8-40ce-83c7-13a4c16a996f");
+    redirect("/events/990280fa-51db-47cd-aabe-5d15bf776002");
   }
   const database = await checkDatabase();
   return (
