@@ -49,7 +49,8 @@ function compact(packet){
  return {event,lots};
 }
 function adopt(packet,preserveUi=false){
- if(confirmed?.event.id!==packet.event.id){resetCatalog();resetEntry();restoreEntryAttempt(packet.event.id);}
+ if(confirmed?.event.id!==packet.event.id){resetCatalog();resetEntry();restoreEntryAttempt(packet.event.id);recoveredUpload=null;}
+ uploadNotice='';
  confirmed=clone(packet);d=clone(packet);dirty=false;saveState='saved';attempt=null;notice='';amountErrors.clear();nextFieldFocus=null;
  picked=d.lots.some(l=>l.id===picked)?picked:d.lots[0]?.id;selected=preserveUi?new Set([...selected].filter(id=>d.lots.some(l=>l.id===id))):new Set();if(!preserveUi)search='';loadedOrgId=d.org.id;
  const current=eventList.find(x=>x.id===d.event.id);
