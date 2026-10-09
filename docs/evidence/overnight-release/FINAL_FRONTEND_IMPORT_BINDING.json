@@ -1,0 +1,231 @@
+{
+  "checkedAt": "2026-10-09T08:06:27.702775+00:00",
+  "kind": "BOUNDED_FINAL_FRONTEND_PROOF_AND_RESOURCE_INTEGRATION",
+  "sourceEvidenceCommit": "6d0b64bd17a978b318b77747b7f0c14bff99438d",
+  "authReceiptPredecessor": "4ca4b21b0d5f56015cfa569dbe1c5134fa254bd7",
+  "receivedThroughNativeMessages": [
+    "msg_5f18c4e29bf3",
+    "msg_3e3eb1bf8649"
+  ],
+  "precedingCanonicalMain": "e8712ee52a1cafebf593347284e8700c685780b9",
+  "functionalSourceUnchanged": "786b5103303a0990b0a3ef3e45d5c5ea12371389",
+  "originalBaselineAncestor": "375d301c345bc47298dd2945a29bf9583c96fbc9",
+  "imports": [
+    {
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/FRONTEND_WORKER_ACCOUNTING_FINAL.json",
+      "bytes": 3291,
+      "sha256": "983ef7797d434e49eab77cfc8717a611affab77050e20175e1acbfe68b1dd8b2"
+    },
+    {
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/final-hosted-staff-786b510/BACKEND_FINAL_RELEASE_e8712ee.json",
+      "bytes": 9856,
+      "sha256": "25173bac2581eb505af3bf012383b439fd3538284fea9e179dbd7493ea516838"
+    },
+    {
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/final-hosted-staff-786b510/BACKEND_READBACK_786b510.json",
+      "bytes": 9921,
+      "sha256": "44da78e7da1608555c8ca23d7ff0870774f56fd3ef5e683a6d14c123c0728524"
+    },
+    {
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/final-hosted-staff-786b510/PARENT_FINAL_READBACK.json",
+      "bytes": 18612,
+      "sha256": "4bd47b85d2dc0540275e749efb267c50802a1259c2d982f33b4687704574fee2"
+    },
+    {
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/final-hosted-staff-786b510/WORKER_READBACK_786b510.json",
+      "bytes": 15974,
+      "sha256": "0434e4ea35d2ae47f43a957896bff10e4539798be3b56881277d6eaf5e383806"
+    },
+    {
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/final-hosted-staff-786b510/display-1440-top.png",
+      "bytes": 218051,
+      "sha256": "d930026e5a99bd1b7e04802b01951070e5497b30f42d751be93dd8b8235670d8"
+    },
+    {
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/final-hosted-staff-786b510/donations-390-bottom.png",
+      "bytes": 61476,
+      "sha256": "365a5fab6dddb52e2f1caa3af8cc99a56572b00881aa3ad292ffbd52c20e0758"
+    },
+    {
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/final-hosted-staff-786b510/lots-1440-top.png",
+      "bytes": 425867,
+      "sha256": "c1d010acc34bb3147a957a2da380c7c9086672fb341fbe56e3210a9a70d19b1c"
+    },
+    {
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/final-hosted-staff-786b510/lots-360-top.png",
+      "bytes": 63173,
+      "sha256": "5a9fcb3c28b028ab7cdb4467fd9b8e841498f8a2d264fb3554ddff28272de6f3"
+    },
+    {
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/final-hosted-staff-786b510/results-390-work.png",
+      "bytes": 81219,
+      "sha256": "e6b1e0a122f018024590acc3877e08e98599ec11e1ff932bfe08067fc7e65236"
+    },
+    {
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/parent-final-readback.py",
+      "bytes": 6849,
+      "sha256": "287a196400927d7a0d0f196dbe7bab8bc8e4b3d9b9378062fb16ddb02661a15c"
+    },
+    {
+      "path": "docs/plans/SATURN_V1_FRONTEND_DELIVERY_2026-10-08.md",
+      "bytes": 57955,
+      "sha256": "a548ce06d14a41e884a1cde77d60361d757c745d372d0d7ab48d9462e697fa3b"
+    },
+    {
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/CLAUDE_AUTH_BLOCKED_NATIVE_READ.json",
+      "bytes": 279,
+      "sha256": "b8682df860ea89c1950df6e9f79a9083606d1296a7323a3da86b26a881deb9ba"
+    },
+    {
+      "path": "docs/evidence/saturn-v1-frontend-2026-10-08/CLAUDE_AUTH_FAILURE_OBSERVED.json",
+      "bytes": 2573,
+      "sha256": "75bab58b94f47b093bcb5cc262d35dc32fb6720a2b54e5eee66da9ee5ef4f3dc"
+    }
+  ],
+  "independentlyRevalidatedFiles": {
+    "worker": 32,
+    "backend": 29,
+    "parentCopies": 8
+  },
+  "nativeResourceReadback": {
+    "scope": "Only backend/frontend nested child dispatches; current integration dispatch and outer coordinator are excluded. Read-only worker-show; no mailbox consumption or lifecycle mutation.",
+    "released": 6,
+    "historicalAbsent": 6,
+    "activeOrReclaimable": 0,
+    "workers": [
+      {
+        "dispatchId": "ctx_c1af1ec59aa8",
+        "taskId": "task_db26413db046",
+        "workerState": "stopped",
+        "dispatchState": "failed",
+        "resourceState": "released",
+        "nextAction": "none",
+        "releaseCompletedAt": "2026-10-09 06:58:58",
+        "archiveStatus": "unavailable"
+      },
+      {
+        "dispatchId": "ctx_600df2f1ad33",
+        "taskId": "task_4f5dd1644773",
+        "workerState": "succeeded",
+        "dispatchState": "completed",
+        "resourceState": "released",
+        "nextAction": "none",
+        "releaseCompletedAt": "2026-10-09 07:54:03",
+        "archiveStatus": "captured"
+      },
+      {
+        "dispatchId": "ctx_cb1390c6d2cc",
+        "taskId": "task_4f5dd1644773",
+        "workerState": "failed",
+        "dispatchState": "failed",
+        "resourceState": "absent",
+        "nextAction": "none",
+        "releaseCompletedAt": null,
+        "archiveStatus": null
+      },
+      {
+        "dispatchId": "ctx_4f0f4caf2722",
+        "taskId": "task_be16d07e1032",
+        "workerState": "succeeded",
+        "dispatchState": "completed",
+        "resourceState": "released",
+        "nextAction": "none",
+        "releaseCompletedAt": "2026-10-09 06:39:53",
+        "archiveStatus": "captured"
+      },
+      {
+        "dispatchId": "ctx_6b1935df6b40",
+        "taskId": "task_be16d07e1032",
+        "workerState": "failed",
+        "dispatchState": "failed",
+        "resourceState": "absent",
+        "nextAction": "none",
+        "releaseCompletedAt": null,
+        "archiveStatus": null
+      },
+      {
+        "dispatchId": "ctx_074450776556",
+        "taskId": "task_2dd6b98958dd",
+        "workerState": "succeeded",
+        "dispatchState": "completed",
+        "resourceState": "released",
+        "nextAction": "none",
+        "releaseCompletedAt": "2026-10-09 06:27:42",
+        "archiveStatus": "captured"
+      },
+      {
+        "dispatchId": "ctx_722c3f3eac35",
+        "taskId": "task_2dd6b98958dd",
+        "workerState": "failed",
+        "dispatchState": "failed",
+        "resourceState": "absent",
+        "nextAction": "none",
+        "releaseCompletedAt": null,
+        "archiveStatus": null
+      },
+      {
+        "dispatchId": "ctx_0adab7da242d",
+        "taskId": "task_9c60f9bb23c0",
+        "workerState": "succeeded",
+        "dispatchState": "completed",
+        "resourceState": "released",
+        "nextAction": "none",
+        "releaseCompletedAt": "2026-10-09 04:37:58",
+        "archiveStatus": "captured"
+      },
+      {
+        "dispatchId": "ctx_968cc92a47bd",
+        "taskId": "task_bf155e66685b",
+        "workerState": "succeeded",
+        "dispatchState": "completed",
+        "resourceState": "released",
+        "nextAction": "none",
+        "releaseCompletedAt": "2026-10-09 04:52:22",
+        "archiveStatus": "captured"
+      },
+      {
+        "dispatchId": "ctx_7484aa7d4aaf",
+        "taskId": "task_9c60f9bb23c0",
+        "workerState": "failed",
+        "dispatchState": "failed",
+        "resourceState": "absent",
+        "nextAction": "none",
+        "releaseCompletedAt": null,
+        "archiveStatus": null
+      },
+      {
+        "dispatchId": "ctx_4131dcd973c4",
+        "taskId": "task_55965fe50b32",
+        "workerState": "succeeded",
+        "dispatchState": "completed",
+        "resourceState": "absent",
+        "nextAction": "none",
+        "releaseCompletedAt": null,
+        "archiveStatus": null
+      },
+      {
+        "dispatchId": "ctx_1610cbafca88",
+        "taskId": "task_55965fe50b32",
+        "workerState": "failed",
+        "dispatchState": "failed",
+        "resourceState": "absent",
+        "nextAction": "none",
+        "releaseCompletedAt": null,
+        "archiveStatus": null
+      }
+    ]
+  },
+  "accountingHarnessCorrection": "Initial local collector assumed terminalResource was an object for historical absent startups and raised AttributeError on null; no receipt or state mutation occurred. This collector explicitly handles absent terminalResource. Not a product failure.",
+  "preservedScopes": {
+    "backendFullHostedCaptures": 27,
+    "workerPartialCaptures": 25,
+    "workerPartialFailureRetained": true,
+    "workerFocusedSuccessorCaptures": 3,
+    "claudeReviewPerformed": false,
+    "claudeAuthenticationGapHeld": true,
+    "held017Installed": false,
+    "operationalDonorHoldsUnchanged": true,
+    "newOwnerVisualAcceptanceClaimed": false
+  },
+  "scope": "Documentation/evidence-only import from accepted exact frontend ref; older success/failure evidence and release-time snapshots retained. No product rebuild, new browser run, credential/provider changes, migration or data write. Final canonical GitHub/existing-demo source/alias readback follows landing in a separate immutable receipt."
+}

@@ -1,0 +1,315 @@
+{
+  "checkedAt": "2026-10-09T07:22:41.302860+00:00",
+  "sourceCommit": "786b5103303a0990b0a3ef3e45d5c5ea12371389",
+  "deploymentId": "dpl_7tSse2oR3tpYL49hjDrHT86pFvJ6",
+  "origin": "https://staging.bidzizi.com",
+  "kind": "REAL_HOSTED_READ_ONLY_RENDER_NO_CSS_INTERCEPTION",
+  "startedAt": "2026-10-09T07:21:23.293Z",
+  "completedAt": "2026-10-09T07:21:40.186Z",
+  "captureRows": 27,
+  "viewports": [
+    "1440x1120",
+    "390x844",
+    "360x844"
+  ],
+  "donationDisplays": [
+    {
+      "width": 1440,
+      "position": "top",
+      "amounts": [
+        "T$123.45",
+        "T$50.00"
+      ]
+    },
+    {
+      "width": 390,
+      "position": "top",
+      "amounts": [
+        "T$123.45",
+        "T$50.00"
+      ]
+    },
+    {
+      "width": 390,
+      "position": "bottom",
+      "amounts": [
+        "T$123.45",
+        "T$50.00"
+      ]
+    },
+    {
+      "width": 360,
+      "position": "top",
+      "amounts": [
+        "T$123.45",
+        "T$50.00"
+      ]
+    }
+  ],
+  "phoneEnabledTouchTargetsAtLeast44px": true,
+  "browserErrors": [],
+  "blockedWrites": [],
+  "cssInterceptions": [],
+  "logoutStatus": 200,
+  "cleanup": "Owned context and browser closed; no app/database/harness started",
+  "scope": "Actual served primary Studio/Event/entry/bidders/pledges, real closed results/private display, keyboard/filter/native scrolling, Back/reload, fresh authoritative open amounts, injected GET-failure dated stale/export locking/retry, real anonymous denial. Owned new synthetic staff session only; no fixture/grant/event/bid/pledge writes. Transport challenge is not a claimed server outage or grant revocation. No new owner visual acceptance or second-provider review.",
+  "files": [
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/RENDER_RECEIPT.json",
+      "bytes": 89560,
+      "sha256": "fb86fed75eacc6f2e3eab69901aa29054a0b1f12c8ee223f912925a602e8e594"
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/bidders-1440-top.png",
+      "bytes": 382645,
+      "sha256": "3344ba0fb1467edfda067c1b4aae09be4bf0f123b49e39a807aea3371f03c354",
+      "png": {
+        "width": 1440,
+        "height": 1120
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/bidders-360-top.png",
+      "bytes": 67439,
+      "sha256": "0f8bf7602ce754e1e0093acf0d4a3a010db65b13757ef65dd1545bcc039f3e1c",
+      "png": {
+        "width": 360,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/bidders-390-top.png",
+      "bytes": 67364,
+      "sha256": "35615dc179cb33398b4c1a6cdf3e4dd16ce2b2c08a91585d04f3778a88bac9d1",
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/denied-display-390.png",
+      "bytes": 44800,
+      "sha256": "b7ef501d4b57b23f9f4a88853324ba85fe10caacfc472bba1ef210528111b363",
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-1440-top.png",
+      "bytes": 217878,
+      "sha256": "950b0b33c59bc34d637448784b1af809abc24736e34be7d0c3926231063fc523",
+      "png": {
+        "width": 1440,
+        "height": 1120
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-360-top.png",
+      "bytes": 71618,
+      "sha256": "dc65ef41a36f5d87b3d9ac7df4a5791b4259cdd6b14c1819f1f4609cf7b6aa54",
+      "png": {
+        "width": 360,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-360-work.png",
+      "bytes": 78080,
+      "sha256": "b20666cd1c348db0aa3bcdaa7672114697d9c7ca3ecae1519bcc59506c19cbea",
+      "png": {
+        "width": 360,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-390-top.png",
+      "bytes": 75153,
+      "sha256": "0e7df9091189d2e7fe371742dbeda737af6129fffa6af222d712fb362c883291",
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-390-work.png",
+      "bytes": 79480,
+      "sha256": "8b4530edb7190fa1c1b014ccec01514516aff949caa2181e5c9e4c2eb62a4e24",
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/donations-1440-top.png",
+      "bytes": 402272,
+      "sha256": "3f7dc32dd74bbd24e9fdf59f9ed2e2a73c0ab915418ee3041fd26c5e870ee9b9",
+      "png": {
+        "width": 1440,
+        "height": 1120
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/donations-360-top.png",
+      "bytes": 67572,
+      "sha256": "53d984429b9f78043180772fb68f5b402140116341a2a54e9ee5ae2935ef0d1f",
+      "png": {
+        "width": 360,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/donations-390-bottom.png",
+      "bytes": 61476,
+      "sha256": "365a5fab6dddb52e2f1caa3af8cc99a56572b00881aa3ad292ffbd52c20e0758",
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/donations-390-top.png",
+      "bytes": 68047,
+      "sha256": "324eefb18789149cd6243794c9605059e93841a8682a807bb4c61c4da02f5a0e",
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/event-1440-top.png",
+      "bytes": 324178,
+      "sha256": "15df9a9a9ff72217cdb95341f1b45a50c8a01eaa12854e8862274b129014617e",
+      "png": {
+        "width": 1440,
+        "height": 1120
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/event-360-top.png",
+      "bytes": 99744,
+      "sha256": "ec22f11c536cb73b5c8eee1f862439e335242addf3f2405f4a3d5069ddcb9a0c",
+      "png": {
+        "width": 360,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/event-390-top.png",
+      "bytes": 102540,
+      "sha256": "b1bf12aee6fed3b43b476ced51a7bd46d9f0048bd9c017ecac0d127e480da122",
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/keyboard-focus-390-work.png",
+      "bytes": 80548,
+      "sha256": "a082c3f2577c852677cb9418b8915080ef4a453ac022375c8be1992fe49673ca",
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/lots-1440-top.png",
+      "bytes": 197959,
+      "sha256": "7798964afd2a488a8b12f09da96a9735ea29b5fba22c2c6007028fb34c675d5b",
+      "png": {
+        "width": 1440,
+        "height": 1120
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/lots-360-top.png",
+      "bytes": 74769,
+      "sha256": "325efbc8355d32bf55ce94e4320c6adf2615b47a2e55ac829b2ff414902666e4",
+      "png": {
+        "width": 360,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/lots-390-bottom.png",
+      "bytes": 59396,
+      "sha256": "4e2db6df77ce87f65d1b4d70421d224c54cafb441d0fbd2bb1731c9ed7ac496d",
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/lots-390-top.png",
+      "bytes": 63077,
+      "sha256": "42adde3ba06eea00cd0a6f7aac7c893057c841721ce769ecdc6369211a4597d5",
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/primary-open-results-390-top.png",
+      "bytes": 75063,
+      "sha256": "f1d2045b36785a185586bef2dd0e04cd57243164d6c25ac1d0002b14e562e070",
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-1440-top.png",
+      "bytes": 162381,
+      "sha256": "47f7ecc81968351f6bc673c6a9044f9ebc1969ed1c597988e45e70eb92219eca",
+      "png": {
+        "width": 1440,
+        "height": 1120
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-360-top.png",
+      "bytes": 71692,
+      "sha256": "550220f56b69fd10c614ae8d76cd603bf0a1edbaadb3c7970d8bf3ec0b02219c",
+      "png": {
+        "width": 360,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-360-work.png",
+      "bytes": 72998,
+      "sha256": "e315656b86644f5b051e858e915fd76e0ce08b0cc96e12f2a46f195dcddb7a83",
+      "png": {
+        "width": 360,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-390-top.png",
+      "bytes": 74791,
+      "sha256": "b77b63e7c2d232432dcc846bd3417ad3e699c56924f7c5bd1758b3fc0dc58258",
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-390-work.png",
+      "bytes": 81020,
+      "sha256": "efe07478f9ac21b3c5710e7be5347aab87d21337908136c68fa31254bf35410b",
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "path": "docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/stale-results-390-work.png",
+      "bytes": 80181,
+      "sha256": "691f2bfc2de1e9686f00f05f28bb80927282fe4cc8203ffa3f7849a240836270",
+      "png": {
+        "width": 390,
+        "height": 844
+      }
+    }
+  ]
+}
