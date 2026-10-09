@@ -1,4 +1,4 @@
-import { clone, esc, money, cents, eventIssues, lotIssues, releaseIssues, windowFor, dateText, timeText, shortZone } from './model.js';
+import { clone, esc, money, tradeMoney, tradeRulesText, cents, eventIssues, lotIssues, releaseIssues, windowFor, dateText, timeText, shortZone } from './model.js';
 import { qrcodegen } from './vendor/qr-code.js';
 
 // All drafts and staff grants come from authenticated APIs. Browser memory holds
@@ -25,6 +25,7 @@ const chosen=()=>d?.lots.find(l=>l.id===picked);
 const assigned=()=>d.lots.filter(l=>l.windowId);
 const rawAmount=(v,raw)=>raw ?? (v===null?'':String(v/100));
 const activeTab=()=>location.hash.startsWith('#/lots')?'lots':'event';
+const eventMoney=n=>d?.version===2?tradeMoney(n,d.event.rules):money(n);
 const img=path=>path?.startsWith('asset:')&&d?
  (uploadRefs.get(path)||'/api/admin/events/'+encodeURIComponent(d.event.id)+'/assets/'+path.slice(6)):
  '/staging-bidder-preview/'+path;
@@ -62,9 +63,9 @@ async function saveDraft(){
  const ticket=contextEpoch;
  if(!dirty&&!attempt)return true;
  if(!attempt){
-  const fields=[{raw:d.event.incrementText,label:'Bid increment',key:'increment',tab:'event',field:'increment'},...d.lots.map(l=>({raw:l.openingText,label:`Lot ${l.number} opening bid`,key:l.id,tab:'lots',field:'opening',id:l.id}))];
-  const invalid=fields.find(f=>f.raw!==undefined&&String(f.raw).trim()&&(cents(f.raw)===null||cents(f.raw)>1_000_000_000));
-  if(invalid){notice=invalid.label+': enter an amount with at most two decimal places, or clear it.';amountErrors.set(invalid.key,notice);saveState='dirty';navigate(invalid.tab,invalid.id,`[data-${invalid.tab==='event'?'event':'lot'}="${invalid.field}"]`);refreshChrome();renderNotice();refreshAmountFields();return false;}
+  const fields=[{raw:d.event.incrementText,label:'Bid increment',key:'increment',tab:'event',field:'increment'},...d.lots.map(l=>({raw:l.openingText,label:`Lot ${l.number} opening bid`,key:l.id,tab:'lots',field:'opening',id:l.id})),...d.lots.map(l=>({raw:l.fixedRaiseText,label:`Lot ${l.number} fixed raise`,key:l.id+':raise',tab:'lots',field:'fixedRaiseMinor',id:l.id}))];
+  const invalid=fields.find(f=>f.raw!==undefined&&String(f.raw).trim()&&(cents(f.raw)===null||cents(f.raw)>1_000_000_000||(f.field==='fixedRaiseMinor'&&cents(f.raw)===0)));
+  if(invalid){notice=invalid.label+': enter '+(invalid.field==='fixedRaiseMinor'?'a positive amount':'an amount')+' with at most two decimal places, or clear it.';amountErrors.set(invalid.key,notice);saveState='dirty';navigate(invalid.tab,invalid.id,`[data-${invalid.tab==='event'?'event':'lot'}="${invalid.field}"]`);refreshChrome();renderNotice();refreshAmountFields();return false;}
  }
  if(!attempt)attempt={requestId:crypto.randomUUID(),expectedRevision:confirmed.revision,draft:compact(d)};
  saving=true;saveState='saving';refreshChrome();
@@ -99,7 +100,7 @@ function refreshChrome(){
  document.querySelectorAll('[data-action="preview-lot"]').forEach(el=>el.disabled=loadingDraft||!canPreviewLot());
  const previewHelp=$('#lot-preview-help');if(previewHelp){const unsaved=previewMode==='saved'&&chosen()&&!confirmed.lots.some(l=>l.id===picked);previewHelp.hidden=!unsaved;previewHelp.textContent=unsaved?'Save this lot to see it in Saved draft preview, or switch the preview to Working draft.':'';}
  const locked=loadingDraft||approving||!!approvalAttempt||['saving','uncertain','blocked'].includes(saveState)||(d.version===2&&!!catalogApproval);
- document.querySelectorAll('[data-event],[data-lot],[data-sponsor]').forEach(el=>el.disabled=locked);
+ document.querySelectorAll('[data-event],[data-lot],[data-sponsor],[data-sponsor-alt],[data-upload]').forEach(el=>el.disabled=locked||uploading);
  document.querySelectorAll('[data-action="add-lot"],[data-action="duplicate-lot"],[data-action="move-up"],[data-action="move-down"],[data-action="image"],[data-action="clear-image"],[data-action="assign-window"],[data-action="apply-window"],[data-action="add-sponsor"],[data-action="remove-sponsor"]').forEach(el=>el.disabled=locked);
  document.querySelectorAll('[data-action="events"],[data-action="events-home"],[data-action="new-event"],[data-action="reload-draft"],[data-action="confirm-reload"]').forEach(el=>el.disabled=loadingDraft||approving||!!approvalAttempt);
  refreshCatalogControls();
@@ -129,7 +130,7 @@ function navigate(tab,id,field){
  else nextFieldFocus=field||null;
 }
 function refreshAmountFields(){
- for(const [selector,key,errorId] of [['[data-event="increment"]','increment','increment-error'],['[data-lot="opening"]',picked,'opening-error']]){
+ for(const [selector,key,errorId] of [['[data-event="increment"]','increment','increment-error'],['[data-lot="opening"]',picked,'opening-error'],['[data-lot="fixedRaiseMinor"]',picked+':raise','raise-error']]){
   const field=$(selector),error=$('#'+errorId);if(!field||!error)continue;
   const message=amountErrors.get(key)||'';error.textContent=message;
   if(message)field.setAttribute('aria-invalid','true');else field.removeAttribute('aria-invalid');
@@ -200,8 +201,8 @@ function tradeEventView(){
  <label>Closing date<input type="date" data-event="timing.endDate" value="${esc(t.endDate)}"></label>
  <label>Closing time<input type="time" data-event="timing.end" value="${esc(t.end)}"></label></div>
  <label>Time zone<select data-event="timing.timezone">${zones(t.timezone)}</select></label>
- <div data-bid-policy><strong>Synthetic Saturn trade dollars · no payment or settlement</strong><p>Minimum raise uses the current highest accepted bid: below $500, $25; $500 to below $1,000, $50; $1,000 to below $2,500, $100; from $2,500, $250. A positive item override may replace the raise. First bid starts at the opening amount. Any amount above the minimum is accepted up to $10,000,000.</p></div>
- <div id="event-errors"></div></section>${entryView()}<div id="studio-setup">${setupView()}</div>`;
+ <div data-bid-policy><strong>Synthetic Saturn trade dollars · no payment or settlement</strong><p>${esc(tradeRulesText(e.rules))}</p></div>
+ <div id="event-errors"></div></section>${sponsorsView()}${entryView()}<div id="studio-setup">${setupView()}</div>`;
 }
 function eventView(){
  if(d.version===2)return tradeEventView();
@@ -211,9 +212,10 @@ function eventView(){
  <section class="sheet"><div class="sheet-head"><h3>Bidding schedule</h3><span class="section-label">Timing</span></div><div class="schedule-band"><div><strong>${timeText(e.start)} <span class="muted">→</span> ${timeText(e.end)} ${shortZone(e)}</strong><p>${w} ${w===1?'lot uses':'lots use'} this window. ${w?'Changing it updates all of them in this draft.':'Assign lots together from Items.'}</p></div><span class="tick" aria-hidden="true">◷</span></div><div class="field-grid three"><label>Event date<input type="date" data-event="date" value="${esc(e.date)}"></label><label>Bidding opens<input type="time" data-event="start" value="${esc(e.start)}"></label><label>Bidding closes<input type="time" data-event="end" value="${esc(e.end)}"></label></div><div class="field-grid" style="margin-top:16px"><label>Event time zone<select aria-label="Event time zone" data-event="timezone">${zones(e.timezone)}</select></label><label>Bid increment · example USD<input inputmode="decimal" data-event="increment" aria-describedby="increment-error" value="${esc(rawAmount(e.increment,e.incrementText))}"><span id="increment-error" class="field-error" role="alert"></span></label></div><p class="note">The approved catalog appears at its opening time. Saving draft changes does not change an approved window. Test bidding requires separate bidder access.</p><div id="event-errors"></div></section>
  <section class="sheet"><div class="sheet-head"><h3>Event sponsors</h3><span class="section-label">Optional</span></div><label class="switch-label"><input type="checkbox" data-event="sponsorsEnabled" ${e.sponsorsEnabled?'checked':''}>Show event sponsors</label><p class="help">Separate from the organization providing auction items.</p><div id="sponsor-fields">${sponsorFields()}</div></section>${entryView()}<div id="studio-setup">${setupView()}</div>`;
 }
+function sponsorsView(){return `<section class="sheet"><div class="sheet-head"><h3>Event sponsors</h3><span class="section-label">Optional</span></div><label class="switch-label"><input type="checkbox" data-event="sponsorsEnabled" ${d.event.sponsorsEnabled?'checked':''}>Show event sponsors</label><p class="help">Separate from the organization providing auction items.</p><div id="sponsor-fields">${sponsorFields()}</div></section>`;}
 function zones(current){const choices=[['UTC','UTC'],['America/Los_Angeles','Pacific · Los Angeles'],['America/Denver','Mountain · Denver'],['America/Chicago','Central · Chicago'],['America/New_York','Eastern · New York']];if(current&&!choices.some(([v])=>v===current))choices.unshift([current,current]);return choices.map(([v,t])=>`<option value="${esc(v)}" ${v===current?'selected':''}>${esc(t)}</option>`).join('');}
 function sponsorFields(){return d.event.sponsorsEnabled?`${d.event.sponsors.map((s,i)=>`<label class="sponsor-row">Sponsor ${i+1}<input data-sponsor="${i}" maxlength="200" value="${esc(s.name)}" placeholder="Organization or business name"><button class="btn small" data-action="remove-sponsor" data-index="${i}" aria-label="Remove sponsor ${i+1}">×</button></label><label>Upload sponsor ${i+1} logo<input type="file" accept="image/jpeg,image/png,image/webp" data-upload="sponsor" data-index="${i}" aria-label="Upload sponsor ${i+1} logo"></label><label>Sponsor ${i+1} logo description<input data-sponsor-alt="${i}" value="${esc(s.alt||'')}"></label>`).join('')}<button class="link-btn" data-action="add-sponsor">+ Add event sponsor</button>`:'';}
-function selectionBar(){return selected.size?`<div class="selection"><strong>${selected.size} ${selected.size===1?'lot':'lots'} selected</strong><div class="flex"><button data-action="clear-selection" style="color:inherit;font-size:12px">Clear</button><button class="btn small" data-action="assign-window">Assign auction window →</button></div></div>`:'';}
+function selectionBar(){return selected.size?`<div class="selection"><strong>${selected.size} ${selected.size===1?'lot':'lots'} selected</strong><div class="flex"><button data-action="clear-selection" style="color:inherit;font-size:12px">Clear</button>${d.version===2?'<span>Uses the shared event window</span>':'<button class="btn small" data-action="assign-window">Assign auction window →</button>'}</div></div>`:'';}
 function lotsView(){
  if(!d.lots.length)return `${draftNotice()}${catalogSummary()}<div class="intro"><div><h2>Items</h2><p>Your auction catalog starts here.</p></div></div><div class="empty-state"><h3>No items yet</h3><p>Add the title, details and starting amount for your first item.</p><button class="btn primary" data-action="add-lot">Add item</button></div><div id="studio-setup">${setupView()}</div>`;
  return `${draftNotice()}${catalogSummary()}<div class="intro"><div><h2>Items</h2><p>${d.lots.length} ${d.lots.length===1?'item':'items'} · working catalog</p></div><button class="btn primary" data-action="add-lot">+ Add item</button></div><div id="selection-bar">${selectionBar()}</div><div class="lot-work"><section class="inventory" aria-label="Catalog lots"><div class="inventory-search"><label class="sr" for="lot-search">Search your lots</label><input id="lot-search" type="search" placeholder="Search items…" value="${esc(search)}"></div><div class="inventory-head"><label class="flex"><input id="select-all" type="checkbox" data-action="select-all" ${selected.size===d.lots.length?'checked':''}><span>Item</span><span class="sr">Select all</span></label><span>Starting amount · bidding window</span></div><div id="lot-list"></div></section><div class="editor" id="editor">${editorView()}</div></div><div id="studio-setup">${setupView()}</div>`;
@@ -224,7 +226,7 @@ function renderInventory(){
  const matches=d.lots.filter(l=>`${l.title} ${l.number} ${l.category}`.toLowerCase().includes(search.toLowerCase()));
  list.innerHTML=matches.length?matches.map(l=>{
   const issues=d.version===2?[]:lotIssues(l,d.event);const label=d.version===2?'Shared event window':issues.length?`Needs ${issues[0]}`:l.windowId?'Draft window assigned':'Ready · no window';
-  return `<div class="lot-row ${l.id===picked?'active':''}" data-id="${esc(l.id)}"><label class="sr" for="pick-${esc(l.id)}">Select lot ${l.number}</label><input id="pick-${esc(l.id)}" type="checkbox" data-lot-select="${esc(l.id)}" ${selected.has(l.id)?'checked':''}><button data-action="edit-lot" data-id="${esc(l.id)}" aria-current="${l.id===picked}" aria-label="Edit lot ${l.number}: ${esc(l.title||'Untitled lot')}">${l.image?`<img class="lot-thumb" src="${esc(img(l.image))}" alt="">`:`<span class="lot-thumb empty" aria-hidden="true">+</span>`}<span class="lot-copy"><span class="lot-number">${esc(l.number)}</span><span class="title">${esc(l.title||'Untitled item')}</span><span class="meta">${esc(l.category||'Add a category')}</span></span><span class="lot-context"><strong class="lot-amount">${Number.isSafeInteger(l.opening)&&l.opening>0?money(l.opening):'Set amount'}</strong><span class="meta ${issues.length?'warn':''}">${esc(label)}${l.windowId?`<span class="lot-time">${timeText(d.event.end)} close · ${esc(shortZone(d.event))}</span>`:''}</span></span></button></div>`;
+  return `<div class="lot-row ${l.id===picked?'active':''}" data-id="${esc(l.id)}"><label class="sr" for="pick-${esc(l.id)}">Select lot ${l.number}</label><input id="pick-${esc(l.id)}" type="checkbox" data-lot-select="${esc(l.id)}" ${selected.has(l.id)?'checked':''}><button data-action="edit-lot" data-id="${esc(l.id)}" aria-current="${l.id===picked}" aria-label="Edit lot ${l.number}: ${esc(l.title||'Untitled lot')}">${l.image?`<img class="lot-thumb" src="${esc(img(l.image))}" alt="">`:`<span class="lot-thumb empty" aria-hidden="true">+</span>`}<span class="lot-copy"><span class="lot-number">${esc(l.number)}</span><span class="title">${esc(l.title||'Untitled item')}</span><span class="meta">${esc(l.category||'Add a category')}</span></span><span class="lot-context"><strong class="lot-amount">${Number.isSafeInteger(l.opening)&&l.opening>0?eventMoney(l.opening):'Set amount'}</strong><span class="meta ${issues.length?'warn':''}">${esc(label)}${l.windowId?`<span class="lot-time">${timeText(d.event.end)} close · ${esc(shortZone(d.event))}</span>`:''}</span></span></button></div>`;
  }).join(''):'<p class="help" style="padding:18px">No matching lots. Try another search.</p>';
  $('#selection-bar').innerHTML=selectionBar();
  $('#select-all').checked=selected.size===d.lots.length;
@@ -239,8 +241,8 @@ function editorView(){
  <label>Short description<input data-lot="short" value="${esc(l.short)}"></label>
  <label>Description<textarea data-lot="description">${esc(l.description)}</textarea></label>
  <label>Category<input data-lot="category" value="${esc(l.category)}"></label>
- <label>Opening amount · synthetic trade dollars<input inputmode="decimal" data-lot="opening" value="${esc(rawAmount(l.opening,l.openingText))}"></label>
- <label>Fixed raise override · optional<input inputmode="decimal" data-lot="fixedRaiseMinor" value="${esc(rawAmount(l.fixedRaiseMinor,l.fixedRaiseText))}"></label></div>
+ <label>Opening amount · synthetic trade dollars<input inputmode="decimal" data-lot="opening" aria-describedby="opening-error" value="${esc(rawAmount(l.opening,l.openingText))}"><span id="opening-error" class="field-error" role="alert"></span></label>
+ <label>Fixed raise override · optional<input inputmode="decimal" data-lot="fixedRaiseMinor" aria-describedby="raise-error" value="${esc(rawAmount(l.fixedRaiseMinor,l.fixedRaiseText))}"><span id="raise-error" class="field-error" role="alert"></span></label></div>
  <details class="disclosure" open><summary>Photo and item details</summary><label>Photo description<input data-lot="alt" value="${esc(l.alt)}"></label>
  <label>Included<textarea data-lot="includes">${esc(l.includes.join('\n'))}</textarea></label><label>Important details<textarea data-lot="fine">${esc(l.fine)}</textarea></label></details></section>`;
  const cats=[...new Set([...d.lots.map(x=>x.category),'Getaways','Food & drink','For the team','Good things'])];
@@ -450,7 +452,7 @@ function refreshCatalogControls(){
  renderSetup();
 }
 function catalogSummary(){
- if(catalogApproval){const a=catalogApproval;return `<section class="catalog-summary" aria-label="Approved catalog"><div><strong>Approved catalog</strong><p>${esc(a.snapshot.event.name)} · saved revision ${a.sourceRevision} · ${a.snapshot.lots.length} lots</p><p>${esc(a.local.date)} · ${timeText(a.local.start)}–${timeText(a.local.end)} ${esc(a.local.timezone)}</p></div><details><summary>View approved lots</summary><ol>${a.snapshot.lots.map(l=>`<li>Lot ${esc(l.number)} · ${esc(l.title)}</li>`).join('')}</ol><p>This saved copy and window are fixed.</p></details></section>`;}
+ if(catalogApproval){const a=catalogApproval,t=a.snapshot.event.timing;return `<section class="catalog-summary" aria-label="Approved catalog"><div><strong>Approved catalog</strong><p>${esc(a.snapshot.event.name)} · saved revision ${a.sourceRevision} · ${a.snapshot.lots.length} lots</p><p>${t?`${dateText(t.startDate)} · ${timeText(t.start)} to ${dateText(t.endDate)} · ${timeText(t.end)} ${esc(t.timezone)}`:`${esc(a.local.date)} · ${timeText(a.local.start)}–${timeText(a.local.end)} ${esc(a.local.timezone)}`}</p></div><details><summary>View approved lots</summary><ol>${a.snapshot.lots.map(l=>`<li>Lot ${esc(l.number)} · ${esc(l.title)}</li>`).join('')}</ol><p>This saved copy and window are fixed.</p></details></section>`;}
  if(approvalState==='uncertain')return `<section class="catalog-summary error" role="alert"><div><strong>Approval not confirmed</strong><p>The server may have approved it. Retry the same request to check its result.</p></div><button class="btn" data-action="retry-approval" ${approving?'disabled':''}>Retry approval</button></section>`;
  if(approvalNotice)return `<section class="catalog-summary error" role="alert"><p>${esc(approvalNotice)}</p>${approvalState==='conflict'?'<button class="btn small" data-action="reload-draft">Reload saved draft</button>':approvalState==='unavailable'?'<button class="btn small" data-action="refresh-approval">Retry approval status</button>':''}</section>`;
  return '';
@@ -543,7 +545,7 @@ function imagePicker(target){
 function applyImage(path){if(imageTarget==='event')d.event.cover=path;else{chosen().image=path;chosen().alt=chosen().alt||'Auction item photo';}markDirty();closeModal();renderMain();refresh();}
 function renumber(){d.lots.forEach((l,i)=>l.number=String(i+1).padStart(2,'0'));}
 function move(delta){if(!editable())return;const i=d.lots.findIndex(l=>l.id===picked),to=i+delta;if(to<0||to>=d.lots.length)return;[d.lots[i],d.lots[to]]=[d.lots[to],d.lots[i]];renumber();markDirty();renderMain();refresh();}
-const editable=()=>!loadingDraft&&!approving&&!approvalAttempt&&!['saving','uncertain','blocked'].includes(saveState);
+const editable=()=>!loadingDraft&&!uploading&&!approving&&!approvalAttempt&&!['saving','uncertain','blocked'].includes(saveState)&&!(d?.version===2&&catalogApproval);
 function duplicateLot(){
  if(!editable()||!chosen())return;
  if(d.lots.length>=100){toast('This event already has 100 lots. A duplicate cannot be added.');return;}
@@ -657,7 +659,7 @@ document.addEventListener('input',ev=>{
  if(el.dataset.lot){const l=chosen(),name=el.dataset.lot;if(!l)return;
   l[name]=['opening','fixedRaiseMinor'].includes(name)?(el.value.trim()?cents(el.value):null):name==='includes'?el.value.split('\n').filter(x=>x.trim()):el.value;
   if(name==='opening'){l.openingText=el.value;if(!String(el.value).trim()||(cents(el.value)!==null&&cents(el.value)<=1_000_000_000))amountErrors.delete(l.id);}
-  if(name==='fixedRaiseMinor')l.fixedRaiseText=el.value;
+  if(name==='fixedRaiseMinor'){l.fixedRaiseText=el.value;if(!String(el.value).trim()||(cents(el.value)!==null&&cents(el.value)>0&&cents(el.value)<=1_000_000_000))amountErrors.delete(l.id+':raise');}
   markDirty();renderInventory();}
 });
 document.addEventListener('change',ev=>{
