@@ -1,11 +1,11 @@
-import { LOGOS, assumptions } from './data.js';
+import { LOGOS, assumptions, currencySymbol } from './data.js';
 import { state } from './store.js';
 
 export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 export const money = (cents) => {
   if(!Number.isSafeInteger(cents))return 'Not set';
   const d = cents / 100;
-  return '$' + (Number.isInteger(d) ? d.toLocaleString('en-US') : d.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+  return currencySymbol() + (Number.isInteger(d) ? d.toLocaleString('en-US') : d.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
 };
 
 const PATHS = {
