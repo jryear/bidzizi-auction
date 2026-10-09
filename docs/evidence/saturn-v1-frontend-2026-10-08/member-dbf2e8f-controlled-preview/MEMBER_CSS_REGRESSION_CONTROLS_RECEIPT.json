@@ -1,0 +1,45 @@
+{
+  "kind": "mocked-wire-client-development-controls-no-server-durability",
+  "rows": [
+    {
+      "width": 360,
+      "check": "watch-pending-no-optimistic-save",
+      "pass": true
+    },
+    {
+      "width": 360,
+      "check": "unconfigured-donor-disabled",
+      "pass": true
+    },
+    {
+      "width": 360,
+      "check": "exact-review-no-write-pending-receipt-only",
+      "pass": true
+    },
+    {
+      "width": 360,
+      "check": "full-cap-current-minimum-review-fit",
+      "pass": true
+    },
+    {
+      "width": 390,
+      "check": "watch-pending-no-optimistic-save",
+      "pass": true
+    },
+    {
+      "width": 390,
+      "check": "unconfigured-donor-disabled",
+      "pass": true
+    },
+    {
+      "width": 390,
+      "check": "exact-review-no-write-pending-receipt-only",
+      "pass": true
+    },
+    {
+      "width": 390,
+      "check": "full-cap-current-minimum-review-fit",
+      "pass": true
+    }
+  ]
+}
