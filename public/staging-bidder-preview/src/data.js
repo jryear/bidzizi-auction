@@ -21,12 +21,13 @@ export let previewPhase = 'scheduled';
 LOGOS.saturn = { bg:'#1A1814', g:'<ellipse cx="20" cy="20" rx="16" ry="6" transform="rotate(-25 20 20)" fill="none" stroke="#F2B632" stroke-width="2.2"/><circle cx="20" cy="20" r="8" fill="#F2B632"/>' };
 export function applyAdminDraft(payload) {
   const e=payload.event;
+  Object.keys(event).forEach(key=>delete event[key]);
   const asset=ref=>typeof ref==='string'&&ref.startsWith('asset:')?
     '/api/admin/events/'+encodeURIComponent(e.id)+'/assets/'+ref.slice(6):ref;
   if(e.version===2){
     const t=e.timing;
     Object.assign(event,e,{host:payload.org.name,date:t.startDate||'Date not set',
-      opens:labelTime(t.start),closes:labelTime(t.end),timezone:t.timezone,
+      opens:labelTime(t.start),closes:labelTime(t.end),timezone:t.timezone,closeDate:t.endDate,
       cover:asset(e.cover),increment:2500});
     lots.splice(0,lots.length,...payload.lots.map(l=>({...structuredClone(l),
       image:asset(l.image),sponsor:l.provider||payload.org.name,logo:'saturn',opening:Number.isSafeInteger(l.opening)?l.opening:null})));
