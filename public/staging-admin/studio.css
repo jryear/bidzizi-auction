@@ -253,3 +253,8 @@ button,a,input,select,textarea{touch-action:manipulation}
  .catalog-summary{align-items:start;flex-direction:column}
  .catalog-summary details{max-width:100%}
 }
+
+/* Exact amounts remain whole and readable at the supported cap. */
+.studio-body .lot-context{grid-template-columns:max-content minmax(0,120px)}
+.studio-body .lot-amount{white-space:nowrap}
+@media(max-width:760px){.studio-body .lot-context{grid-template-columns:max-content minmax(0,1fr)}}
