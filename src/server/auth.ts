@@ -81,12 +81,14 @@ export async function login(request: Request): Promise<Response> {
   const token = randomBytes(32).toString("base64url");
   const hash = createHash("sha256").update(token).digest("hex");
   const result = await transaction(async client => {
+    // Old-cookie login enters the exclusive mutation gate before locking a
+    // person. A failed login rolls this revocation back with the transaction.
+    const previous = sessionHash(request);
+    if (previous) await client.query("UPDATE bz_sessions SET revoked_at=now() WHERE token_hash=$1 AND revoked_at IS NULL", [previous]);
     const found = await client.query<{ id: string; name: string }>(
       "SELECT id,name FROM bz_people WHERE alias=$1 AND active AND is_test FOR SHARE", [account]);
     const person = found.rows[0];
     if (!person) throw forbidden();
-    const previous = sessionHash(request);
-    if (previous) await client.query("UPDATE bz_sessions SET revoked_at=now() WHERE token_hash=$1 AND revoked_at IS NULL", [previous]);
     await client.query("INSERT INTO bz_sessions(token_hash,person_id,expires_at) VALUES($1,$2,now()+interval '8 hours')", [hash,person.id]);
     return sessionJSON({ person, organizations: await organizations(client, person.id) });
   });

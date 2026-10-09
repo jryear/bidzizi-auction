@@ -235,6 +235,82 @@ async function loginAndOtherEvents() {
       'Same-person login with old cookie must finish without session/person inversion');
   } finally {await blocker.query('ROLLBACK');await Promise.allSettled([saving,relogin]);}
 }
+async function oldCookiePersonMutation(kind) {
+  const revoker=await connect();await revoker.query('BEGIN');const rp=await pid(revoker);
+  // Pause the actual application's SELECT after PostgreSQL acquired its person
+  // SHARE lock. The competitor uses ordinary raw SQL with no cooperative gate.
+  const originalQuery=pg.Client.prototype.query;
+  let release, reached;
+  const held=new Promise(r=>{release=r;});
+  const selected=new Promise(r=>{reached=r;});
+  pg.Client.prototype.query=function(...args) {
+    const pending=originalQuery.apply(this,args);
+    if(typeof args[0]==='string'&&args[0].startsWith('SELECT id,name FROM bz_people WHERE alias=')&&args[1]?.[0]==='staff-saturn') {
+      return pending.then(async result=>{
+        const lp=(await originalQuery.call(this,'SELECT pg_backend_pid() AS pid')).rows[0].pid;
+        reached(lp);await held;return result;
+      });
+    }
+    return pending;
+  };
+  const loggingIn=auth.login(request({account:'staff-saturn'},token,'POST'))
+    .then(response=>({response}),error=>({state:error.code,message:error.message}));
+  let mutating;
+  try {
+    const lp=await Promise.race([selected,pause(2500).then(()=>assert.fail('Actual login never acquired the person lock'))]);
+    const sql=kind==='update'?'UPDATE bz_people SET active=false WHERE id=$1':'DELETE FROM bz_people WHERE id=$1';
+    mutating=revoker.query(sql,[person]).then(result=>({rowCount:result.rowCount}),error=>({state:error.code,message:error.message}))
+      .then(async result=>{await revoker.query('ROLLBACK');return result;});
+    const wait=await waitFor(rp,kind==='update'?'UPDATE bz_people':'DELETE FROM bz_people');
+    assert.ok(wait.blockers.includes(lp),'Raw mutation must be blocked by the actual login transaction');
+    release();
+    const [loginResult,mutationResult]=await Promise.all([loggingIn,mutating]);
+    receipt.witnesses.push({stage:'old-cookie-login-person-'+kind,loginPid:lp,revokerPid:rp,
+      login:{status:loginResult.response?.status,state:loginResult.state,message:loginResult.message},mutation:mutationResult});
+    assert.ok(![loginResult.state,mutationResult.state].includes('40P01'),
+      'Actual old-cookie login/person '+kind+' deadlocked: '+JSON.stringify({login:loginResult.state,mutation:mutationResult.state}));
+    assert.equal(loginResult.response?.status,200,JSON.stringify(loginResult));
+    // Existing session/event FKs reject person DELETE; that is not a deadlock.
+    if(kind==='delete')assert.equal(mutationResult.state,'23503',JSON.stringify(mutationResult));
+    else assert.equal(mutationResult.rowCount,1,JSON.stringify(mutationResult));
+    assertGateWait(wait,'ExclusiveLock');
+    assert.ok(!wait.locks.some(l=>l.locktype==='tuple'||(l.locktype==='transactionid'&&!l.granted)),
+      'Raw person mutation must wait at the exclusive gate before tuple acquisition');
+    const body=await loginResult.response.json();
+    assert.equal(body.authenticated,true);assert.equal(body.person.id,person);
+    assert.deepEqual(body.staffOrganizations.map(o=>o.id),[org,org2]);
+    const cookie=loginResult.response.headers.get('set-cookie');
+    assert.match(cookie,/; Path=\/; HttpOnly; SameSite=Lax; Max-Age=28800$/);
+    const newHash=auth.sessionHash(new Request('http://127.0.0.1:43871/test',{headers:{cookie}}));
+    assert.ok(newHash&&newHash!==hash);
+    assert.notEqual((await admin.query('SELECT revoked_at FROM bz_sessions WHERE token_hash=$1',[hash])).rows[0].revoked_at,null);
+    const session=(await admin.query('SELECT person_id,revoked_at,expires_at>clock_timestamp() AS current FROM bz_sessions WHERE token_hash=$1',[newHash])).rows[0];
+    assert.deepEqual(session,{person_id:person,revoked_at:null,current:true});
+    assert.equal((await admin.query('SELECT active FROM bz_people WHERE id=$1',[person])).rows[0].active,true);
+  } finally {
+    release();pg.Client.prototype.query=originalQuery;
+    await Promise.allSettled([loggingIn,mutating]);await revoker.query('ROLLBACK');
+  }
+}
+async function failedLoginRollback() {
+  const variants=[{name:'invalid-account',account:'not-an-account',status:400},
+    {name:'missing-person',account:'bidder-unlisted',status:403},
+    {name:'inactive-person',account:'staff-pine',status:403,column:'active'},
+    {name:'non-test-person',account:'staff-pine',status:403,column:'is_test'}];
+  for(const {name,account,status,column} of variants) {
+    if(column)await admin.query('UPDATE bz_people SET '+column+'=false WHERE id=$1',[person2]);
+    try {
+      const before=(await admin.query('SELECT * FROM bz_sessions ORDER BY token_hash')).rows;
+      await assert.rejects(auth.login(request({account},token,'POST')),error=>error.status===status,
+        name+' must preserve its existing rejection');
+      assert.deepEqual((await admin.query('SELECT * FROM bz_sessions ORDER BY token_hash')).rows,before,
+        name+' must roll back old-session revocation and create no new session');
+      const current=await auth.getSession(request());
+      assert.equal(current.status,200);assert.equal((await current.json()).person.id,person);
+      receipt.witnesses.push({stage:'failed-login-'+name,status,sessionsUnchanged:true});
+    } finally {if(column)await admin.query('UPDATE bz_people SET '+column+'=true WHERE id=$1',[person2]);}
+  }
+}
 async function expiryWaits() {
   for(const stage of ['event','request','quota','image','recovery','save']) {
     await reset();const blocker=await connect(),runtime=await connect(true),key=randomUUID();
@@ -496,6 +572,8 @@ async function repeatableReadRevocation() {
 const cases={'queued-grant':()=>queued('grant'),'queued-logout':()=>queued('logout'),
   'queued-grant-legacy-holder':()=>queued('grant',true),'queued-logout-legacy-holder':()=>queued('logout',true),
   'late-put':latePut,'denied-reentry':denialReentry,'denial-http-status':denialHttpStatus,'login-and-unrelated-events':loginAndOtherEvents,
+  'old-cookie-login-person-update':()=>oldCookiePersonMutation('update'),
+  'old-cookie-login-person-delete':()=>oldCookiePersonMutation('delete'),'failed-login-rollback':failedLoginRollback,
   'post-wait-expiry':expiryWaits,'replay-and-image-boundaries':replayAndBoundaries,
   'legacy-identity-and-entry':legacyEntryAndIdentity,'mutation-before-tuple-coverage':mutationCoverage,
   'gate-installation-permissions':gatePermissions,'publication-expiry':()=>publication('expiry'),
