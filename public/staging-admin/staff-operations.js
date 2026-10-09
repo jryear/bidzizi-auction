@@ -61,5 +61,9 @@ export function createStaffOperations(){
   if(op==='add-recipient'){const name=document.querySelector('#new-recipient-name').value.trim(),description=document.querySelector('#new-recipient-description').value.trim();if(!name){message='Enter the recipient name.';status();document.querySelector('#new-recipient-name').focus();return;}return mutate('recipient-create',{requestId:crypto.randomUUID(),name,description});}
   if(op==='save-recipient'){const n=packet.nonprofits.find(v=>v.id===input.dataset.id);if(!n)return;return mutate('recipient-update',{expectedVersion:n.version,name:document.querySelector(`[data-recipient-name="${n.id}"]`).value.trim(),description:document.querySelector(`[data-recipient-description="${n.id}"]`).value.trim(),active:document.querySelector(`[data-recipient-active="${n.id}"]`).checked},n.id);}
  }
- return {mount(next){generation++;controller?.abort();context=next;packet=null;pending=null;busy=false;stale=false;message='';restore();return read();},stop(){generation++;controller?.abort();context=null;packet=null;pending=null;busy=false;},handle};
+ function suspend(){if(!context)return;generation++;controller?.abort();busy=false;stale=true;message=navigator.onLine?'Staff view paused. Refresh to confirm current access and data.':'Offline. Any pending staff update remains unconfirmed; check it when the connection returns.';status();}
+ const visible=()=>{if(context){if(document.visibilityState==='visible')read();else suspend();}};
+ const resume=()=>{if(context)read();};
+ function listeners(add){const method=add?'addEventListener':'removeEventListener';document[method]('visibilitychange',visible);window[method]('online',resume);window[method]('offline',suspend);window[method]('pageshow',resume);window[method]('pagehide',suspend);}
+ return {mount(next){listeners(false);generation++;controller?.abort();context=next;packet=null;pending=null;busy=false;stale=false;message='';restore();listeners(true);return read();},stop(){listeners(false);generation++;controller?.abort();context=null;packet=null;pending=null;busy=false;},handle};
 }
