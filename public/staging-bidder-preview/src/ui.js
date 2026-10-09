@@ -26,9 +26,10 @@ export const icon = (name, cls = '') =>
   `<svg class="ic ${cls}" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${name === 'spinner' ? '<path d="M21 12a9 9 0 11-6.2-8.56" class="spin"/>' : `<path d="${PATHS[name]}"/>`}</svg>`;
 
 /** Sponsors are squares. */
-export function sponsorMark(id, px = 28) {
+export function sponsorMark(id, px = 28, name = '') {
   if(typeof id==='string'&&id.startsWith('/api/admin/events/'))return `<span class="mark sq" style="--s:${px}px"><img src="${esc(id)}" alt="" width="${px}" height="${px}"></span>`;
   const l = LOGOS[id];
+  if(!l)return `<span class="mark sq" style="--s:${px}px;background:var(--ink);color:var(--paper);font:650 12px var(--sans)" aria-hidden="true">${esc(name.split(/\s+/).filter(Boolean).map(w=>w[0]).slice(0,2).join('').toUpperCase()||'·')}</span>`;
   return `<span class="mark sq" style="--s:${px}px" aria-hidden="true"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="9" fill="${l.bg}"/>${l.g}</svg></span>`;
 }
 const TONES = [['#DCE3F7', '#233A9B'], ['#F6D9CF', '#8F3015'], ['#D8EBDD', '#175C3A'], ['#EADDF3', '#5B2C86'], ['#F1E7C8', '#6D5413'], ['#D7ECEF', '#14585F']];
