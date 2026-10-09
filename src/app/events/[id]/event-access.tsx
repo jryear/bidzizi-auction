@@ -133,23 +133,23 @@ export default function EventAccess({ eventId }: { eventId: string }) {
     finally { if (epoch.current === ticket) setBusy(false); }
   }
   const entryEpoch=epoch.current;
-  const controlStyle = { padding: "8px 12px", border: "1px solid #d8cebd", borderRadius: 12, background: "#fffaf0", color: "#1a1814", cursor: "pointer" };
-  return <div style={{ minHeight: "100dvh", background: "#f5f0e6", color: "#1a1814", fontFamily: "Arial, sans-serif" }}>
-    <div style={{ padding: "10px 14px", display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap", borderBottom: "1px solid #d8cebd", fontSize: 12 }}>
+  const controlStyle = { minHeight: 40, padding: "8px 10px", border: "1px solid #d8cebd", borderRadius: 12, background: "#fffaf0", color: "#1a1814", cursor: "pointer" };
+  return <div style={{ height: packet ? "100dvh" : undefined, minHeight: "100dvh", display: "flex", flexDirection: "column", background: "#f5f0e6", color: "#1a1814", fontFamily: "Arial, sans-serif" }}>
+    <div style={{ padding: "6px 10px", display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap", borderBottom: "1px solid #d8cebd", fontSize: 12, flexShrink: 0 }}>
       <span style={{ border: "1px dashed #8a8171", borderRadius: 20, padding: "6px 10px" }}>Staging test</span>
-      {session?.authenticated && <><span>{session.person?.name}</span><button type="button" style={controlStyle} disabled={entryRecovery} onClick={() => void load(epoch.current)}>Refresh event</button><button type="button" style={controlStyle} disabled={busy} onClick={() => void signOut()}>Sign out</button></>}
+      {session?.authenticated && <><span style={{ flex: "1 1 auto", minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 180 }}>{session.person?.name}</span><button type="button" style={controlStyle} disabled={entryRecovery} onClick={() => void load(epoch.current)}>Refresh event</button><button type="button" style={controlStyle} disabled={busy} onClick={() => void signOut()}>Sign out</button></>}
     </div>
     {(entryRecovery||(demoEntry&&!session?.authenticated))?<DemoEntryForm key={`${eventId}:${entryEpoch}`} eventId={eventId} initialSession={session} onReady={s=>entryReady(s,entryEpoch)}/>:!session?.authenticated ? <main style={{ maxWidth: 420, margin: "50px auto", padding: "0 20px" }}>
-      <h1>Choose a test account</h1><p>These accounts use synthetic data. No phone verification or live auction is running.</p>
+      <h1>Choose a test account</h1><p>These accounts use synthetic data. The server checks this account’s event access separately. No phone verification or payment occurs.</p>
       <label htmlFor="event-test-account">Test account</label>
       <select id="event-test-account" value={account} onChange={e => setAccount(e.target.value)} disabled={busy || !session || session.testMode === false} style={{ ...controlStyle, display: "block", margin: "8px 0 18px", width: "100%" }}>
         <option value="bidder-juniper">Juniper viewer</option><option value="bidder-harbor">Harbor viewer</option><option value="bidder-juniper-coworker">Juniper coworker</option><option value="bidder-viewer">View-only member</option><option value="bidder-member">Member without admission</option><option value="bidder-bid-only">BID without VIEW</option><option value="bidder-unlisted">Unlisted person</option><option value="bidder-pine">Pine bidder</option><option value="staff-saturn">Saturn staff</option><option value="staff-pine">Pine staff</option>
       </select>
       <button type="button" style={controlStyle} disabled={busy || !session || session.testMode === false} onClick={() => void signIn()}>Sign in</button>
       {error && <p role="alert">{error}</p>}{session?.testMode === false && <p>Test sign-in is unavailable here.</p>}
-    </main> : packet ? <div data-catalog-phase={packet.phase} data-bidder-person={bidder?.person.id} style={{ maxWidth: 480, margin: "0 auto" }}>
+    </main> : packet ? <div data-catalog-phase={packet.phase} data-bidder-person={bidder?.person.id} style={{ maxWidth: 480, width: "100%", margin: "0 auto", flex: "1 1 auto", minHeight: 0, display: "flex", flexDirection: "column" }}>
       {error && <p role="status" style={{ padding: "8px 14px", fontSize: 12 }}>{error}</p>}
-      <iframe ref={frame} title="BidZizi event" src="/staging-catalog/index.html" onLoad={send} style={{ display: "block", width: "100%", height: "calc(100dvh - 72px)", minHeight: 700, border: 0 }} />
+      <iframe ref={frame} title="BidZizi event" src="/staging-catalog/index.html" onLoad={send} style={{ display: "block", width: "100%", height: "100%", flex: "1 1 auto", minHeight: 0, border: 0 }} />
     </div> : <main style={{ maxWidth: 420, margin: "50px auto", padding: "0 20px" }}>
       {error ? <><h1>Event access unavailable</h1><p role="alert">{error}</p></> : <p>Loading event…</p>}
     </main>}

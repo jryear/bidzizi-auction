@@ -1,6 +1,6 @@
 // A's manual-bid interaction, using current server context and durable receipts.
 // Storage keeps an operation intent only. Acceptance is always read from the server.
-import {catalog,event,lotById} from './data.js';
+import {catalog,event,lotById,timestamp,currencyLabel,currencySymbol} from './data.js';
 import {state} from './store.js';
 import {esc,money,icon,monogram} from './ui.js';
 import {reconcileHTML} from './reconcile.js';
@@ -93,7 +93,7 @@ export async function refreshLot(id,{fresh=false}={}){
  if(e.intent&&!e.receipt&&!e.checking&&!e.recoveryAttempted)void recover(id,false);
  if(sheet?.lot===id)renderSheet();
 }
-function allowed(id){const e=entryFor(id),b=currentBusiness();return !!(b?.canBid&&e.standing?.canBid&&e.standing.phase==='open'&&e.standing.leadingBusiness?.id!==b.id&&!e.loading&&!e.stale&&!e.checking&&!(e.intent&&!e.receipt&&!e.recoveryAttempted)&&!bidder.stale&&navigator.onLine);}
+function allowed(id){const e=entryFor(id),b=currentBusiness();return !!(b?.canBid&&e.standing?.canBid&&e.standing.phase==='open'&&e.standing.leadingBusiness?.id!==b.id&&!e.loading&&!e.stale&&!e.checking&&!(e.intent&&!e.receipt)&&!bidder.stale&&navigator.onLine);}
 export function standingMarkup(lot){
  if(!bidder.context)return '';
  const e=entryFor(lot.id),s=e.standing;
@@ -101,10 +101,10 @@ export function standingMarkup(lot){
  if(!s)return `<section class="standing catalog-standing" role="status"><b>${esc(e.error||'Checking bidding access…')}</b></section>`;
  const own=e.receipt?.status==='accepted'?e.receipt:null;
  const ownLeading=own&&s.leadingBusiness?.id===own.businessId;
- const title=own?(ownLeading?"You're leading":'Outbid'):s.leadingBusiness?`${s.leadingBusiness.name} is leading`:'No bids yet';
+ const title=s.phase==='closed'?(own?(ownLeading?'Closed · your business led':'Closed · outbid'):s.leadingBusiness?`Closed · ${s.leadingBusiness.name} led`:'Closed · no bids recorded'):own?(ownLeading?"You're leading":'Outbid'):s.leadingBusiness?`${s.leadingBusiness.name} is leading`:'No bids yet';
  const tone=own?(ownLeading?'green':'red'):'grey';
  const stale=e.stale||bidder.stale||!navigator.onLine;
- return `<section class="standing catalog-standing t-${tone}" role="status"><div><span class="lbl">${stale?'Last confirmed standing':'Current standing'}</span><b>${esc(title)}</b>${s.currentAmountMinor!==null?`<span class="amt">${money(s.currentAmountMinor)}</span>`:''}</div>${s.leadingBusiness?`<p>${esc(s.leadingBusiness.name)}</p>`:''}${own?`<p data-owned-request="${esc(own.requestId)}">Your ${money(own.amountMinor)} bid was recorded for ${esc(bidder.context.businesses.find(b=>b.id===own.businessId)?.name||'your business')}.</p>`:''}<p class="catalog-asof" data-standing-as-of="${esc(s.serverNow)}">${stale?'Offline or out of date · ':''}As of ${esc(new Date(s.serverNow).toLocaleString('en-US',{timeZone:'UTC'}))} UTC</p>${s.phase==='closed'?'<p>Bidding closed. This standing is read-only.</p>':''}</section>`;
+ return `<section class="standing catalog-standing t-${tone}" role="status"><div><span class="lbl">${stale?'Last confirmed standing':s.phase==='closed'?'Final recorded standing':'Current standing'}</span><b>${esc(title)}</b>${s.currentAmountMinor!==null?`<span class="amt">${money(s.currentAmountMinor)}</span>`:''}</div>${s.leadingBusiness?`<p>${esc(s.leadingBusiness.name)}</p>`:''}${own?`<p data-owned-request="${esc(own.requestId)}">Your ${money(own.amountMinor)} bid was recorded for ${esc(bidder.context.businesses.find(b=>b.id===own.businessId)?.name||'your business')}.</p>`:''}<p class="catalog-asof" data-standing-as-of="${esc(s.serverNow)}">${stale?'Offline or out of date · ':''}As of ${esc(timestamp(s.serverNow))}</p>${s.phase==='closed'?'<p>Bidding closed. This recorded standing is not an award or settlement.</p>':''}</section>`;
 }
 export function bidderStub(lot){
  const e=entryFor(lot.id),s=e.standing;
@@ -113,8 +113,8 @@ export function bidderStub(lot){
 }
 export function bidFooter(lot){
  const e=entryFor(lot.id),s=e.standing,b=currentBusiness();
- const label=!bidder.context||!b?.canBid?'Bidding is not enabled':s?.phase==='closed'?'Bidding closed':e.stale||bidder.stale||!navigator.onLine?'Reconnect to bid':s?.leadingBusiness?.id===b.id?'Your business is leading':s?.minimumAmountMinor===null?'No further bid available':'Place a bid';
- return `<div class="catalog-footer">${bidder.context&&b?`<span>Bidding for <b>${esc(b.name)}</b> · ${esc(bidder.context.person.name)}</span>`:'Read-only catalog'}<button class="btn primary" data-action="bid" ${allowed(lot.id)?'':'disabled'}>${esc(label)}</button>${e.intent&&e.mode==='unconfirmed'?'<button class="btn quiet" data-action="recover-open">Check your unconfirmed bid</button>':''}</div>`;
+ const label=!bidder.context||!b?.canBid?'Bidding is not enabled':s?.phase==='closed'?'Bidding closed':s?.phase==='scheduled'?'Bidding opens '+event.opens:e.intent&&!e.receipt?'Check your original bid':e.stale||bidder.stale||!navigator.onLine?'Reconnect to bid':s?.leadingBusiness?.id===b.id?'Your business is leading':s?.minimumAmountMinor===null?'No further bid available':'Place a bid';
+ return `<div class="catalog-footer">${bidder.context&&b?`<span>Bidding for <b>${esc(b.name)}</b> · ${esc(bidder.context.person.name)}</span>`:'Read-only catalog'}<button class="btn primary" data-action="bid" ${allowed(lot.id)?'':'disabled'}>${esc(label)}</button>${e.intent&&!e.receipt&&e.mode!=='pending'?'<button class="btn quiet" data-action="recover-open">Check your original bid</button>':''}</div>`;
 }
 const head=title=>`<div class="grab" aria-hidden="true"></div><div class="sheet-head"><h2 id="sheet-title" tabindex="-1">${esc(title)}</h2><button class="x" data-action="close-sheet" aria-label="Close">${icon('close')}</button></div>`;
 function lotMini(l){return `<div class="lotmini"><div class="thumb sm">${l.image?`<img src="${esc(l.image)}" alt="" width="1000" height="667">`:'<span>No photo</span>'}</div><div><span class="lbl">Lot ${esc(l.number)} · ${esc(l.category)}</span><p>${esc(l.title)}</p></div></div>`;}
@@ -133,7 +133,7 @@ function reviewValidity(){
 }
 function updateAmount(){
  const d=$('#sheet'),v=reviewValidity(),c=amountMinor(sheet.amount),button=d.querySelector('[data-action="place"]');
- if(!button)return;button.disabled=!v.ok;button.textContent=`Place ${c===null?'$—':money(c)} bid`;
+ if(!button)return;button.disabled=!v.ok;button.textContent=`Place ${c===null?currencySymbol()+'—':money(c)} bid`;
  d.querySelector('#amt-err').textContent=v.text;
  d.querySelector('#amt').setAttribute('aria-invalid',String(!v.ok));
  d.querySelector('#review-amount').textContent=c===null?'—':money(c);
@@ -145,7 +145,7 @@ export function openBid(id,recovery=false){
  sheetReturn={lot:id,action:recovery?'recover-open':'bid'};
  sheet={lot:id,mode:recovery?'unconfirmed':'review',amount:String((e.standing?.minimumAmountMinor??lotById(id).opening)/100),minimum:e.standing?.minimumAmountMinor??lotById(id).opening,increment:e.standing?.incrementMinor??2500};
  if(recovery&&e.intent)sheet.mode=e.mode||'unconfirmed';
- renderSheet();const d=$('#sheet');if(!d.open)d.showModal();d.querySelector('#sheet-title')?.focus({preventScroll:true});
+ renderSheet();const d=$('#sheet');if(!d.open){history.pushState({bidSheet:true},'','#'+(location.hash.slice(1).split('?')[0]||'/lots')+'?sheet=bid');d.showModal();}d.querySelector('#sheet-title')?.focus({preventScroll:true});
 }
 // Keep keyboard context inside the native dialog when an outcome changes mode
 // and the submitting control no longer exists. Same-mode polling retains nodes.
@@ -168,14 +168,14 @@ function renderSheet(){
  const focus=captureSheetFocus(d);
  if(sheet.mode==='review'){
   const b=currentBusiness();d.dataset.bidState='review';d.dataset.lot=l.id;
-  reconcileHTML(d,`<div class="sheet-in">${head('Place a bid')}<div class="sheet-scroll">${lotMini(l)}${businessBlock({businessId:b?.id})}<div class="amount"><label class="lbl" for="amt">Your bid <span class="lbl-min">· minimum ${money(sheet.minimum)}</span></label><div class="stepper"><button class="step" data-action="step" data-d="-1" aria-label="Decrease by ${money(sheet.increment)}">${icon('minus')}</button><div class="amt-field"><span class="cur" aria-hidden="true">$</span><input id="amt" inputmode="decimal" autocomplete="off" maxlength="12" value="${esc(sheet.amount)}" aria-describedby="amt-err"></div><button class="step" data-action="step" data-d="1" aria-label="Increase by ${money(sheet.increment)}">${icon('plus')}</button></div><p id="amt-err" class="err" role="alert"></p><div class="quick">${[0,1,2].map(i=>sheet.minimum+i*sheet.increment).filter(c=>c<=1_000_000_000).map(c=>`<button class="chip" data-action="quick" data-v="${c}">${money(c)}</button>`).join('')}</div></div><section class="commit-box"><h3>Review your bid</h3><ul><li>Bid <b id="review-amount"></b> on <b>Lot ${esc(l.number)}</b> for <b>${esc(b?.name)}</b>.</li><li>Placed by <b>${esc(bidder.context.person.name)}</b>.</li><li>Acceptance appears after the server records this bid.</li><li class="note">Synthetic test bidding. No payment is taken.</li></ul></section></div><div class="sheet-foot"><button class="btn primary block lg" data-action="place">Place bid</button><button class="btn-link center" data-action="close-sheet">Not now</button></div></div>`);
+  reconcileHTML(d,`<div class="sheet-in">${head('Place a bid')}<div class="sheet-scroll">${lotMini(l)}${businessBlock({businessId:b?.id})}<div class="amount"><label class="lbl" for="amt">Your bid <span class="lbl-min">· minimum ${money(sheet.minimum)}</span></label><div class="stepper"><button class="step" data-action="step" data-d="-1" aria-label="Decrease by ${money(sheet.increment)}">${icon('minus')}</button><div class="amt-field"><span class="cur" aria-hidden="true">${currencySymbol()}</span><input id="amt" inputmode="decimal" autocomplete="off" maxlength="12" value="${esc(sheet.amount)}" aria-describedby="amt-err"></div><button class="step" data-action="step" data-d="1" aria-label="Increase by ${money(sheet.increment)}">${icon('plus')}</button></div><p id="amt-err" class="err" role="alert"></p><div class="quick">${[0,1,2].map(i=>sheet.minimum+i*sheet.increment).filter(c=>c<=1_000_000_000).map(c=>`<button class="chip" data-action="quick" data-v="${c}">${money(c)}</button>`).join('')}</div></div><section class="commit-box"><h3>Review your bid</h3><ul><li>Bid <b id="review-amount"></b> on <b>Lot ${esc(l.number)}</b> for <b>${esc(b?.name)}</b>.</li><li>Placed by <b>${esc(bidder.context.person.name)}</b>.</li><li>Acceptance appears after the server records this bid. Standing may change before confirmation.</li><li class="note">${currencyLabel()}. No payment or settlement occurs.</li></ul></section></div><div class="sheet-foot"><button class="btn primary block lg" data-action="place">Place bid</button><button class="btn-link center" data-action="close-sheet">Not now</button></div></div>`);
   updateAmount();restoreSheetFocus(d,focus);return;
  }
  const mode=e.mode||sheet.mode,receipt=e.receipt,body=e.intent;
  sheet.mode=mode;d.dataset.bidState=mode==='not-recorded'?'rejected':mode;d.dataset.lot=l.id;
  let title='Bid not confirmed',tone='hatch',symbol='question',text="We couldn't confirm this bid. It may or may not have been recorded.",footer='<button class="btn primary block lg" data-action="check">Check status</button>',extra='';
- if(mode==='pending'){title='Sending your bid';tone='amber';symbol='spinner';text='Not placed yet. Waiting for the server to confirm it.';footer='<button class="btn quiet block lg" data-action="close-sheet">Browse while bid is pending</button>';}
- else if(mode==='accepted'&&receipt){title='Bid placed';tone='green';symbol='check';text=`Your ${money(receipt.amountMinor)} bid was recorded for ${esc(bidder.context.businesses.find(b=>b.id===receipt.businessId)?.name||'your business')}.`;extra=`<p data-owned-request="${esc(receipt.requestId)}">Confirmed ${esc(new Date(receipt.decidedAt).toLocaleString('en-US',{timeZone:'UTC'}))} UTC</p>`;footer='<button class="btn primary block lg" data-action="close-sheet">Keep browsing</button>';}
+ if(mode==='pending'){title='Sending your bid';tone='amber';symbol='spinner';text='Waiting for the server receipt. This bid may already be recorded; check its status before trying again.';footer='<button class="btn quiet block lg" data-action="close-sheet">Browse while bid is pending</button>';}
+ else if(mode==='accepted'&&receipt){title='Bid placed';tone='green';symbol='check';text=`Your ${money(receipt.amountMinor)} bid was recorded for ${esc(bidder.context.businesses.find(b=>b.id===receipt.businessId)?.name||'your business')}.`;extra=`<p data-owned-request="${esc(receipt.requestId)}">Confirmed ${esc(timestamp(receipt.decidedAt))}</p>`;footer='<button class="btn primary block lg" data-action="close-sheet">Keep browsing</button>';}
  else if(mode==='rejected'){title='Bid not placed';tone='dashed';symbol='x';text=({BELOW_MINIMUM:'Another bid changed the minimum. Your bid was not placed.',CLOSED:'Bidding closed before this bid could be placed.',NOT_OPEN:'Bidding has not opened. Your bid was not placed.',UNSUPPORTED_SELF_RAISE:'Your business is already leading. Raising its own bid is unavailable in this test.',AMOUNT_LIMIT:'No further bid fits within this test limit.'})[receipt?.reason]||'This bid was not placed.';footer='<button class="btn quiet block lg" data-action="close-sheet">Keep browsing</button>';}
  else if(mode==='not-recorded'){title='Bid not recorded';tone='dashed';symbol='x';text=`We checked: this request is not recorded. Try again sends your original ${money(body.amountMinor)} bid using the same request.`;footer='<button class="btn primary block lg" data-action="retry">Try again</button><button class="btn-link center" data-action="close-sheet">Close</button>';}
  if(e.checking)extra+='<p class="r-note" role="status">Checking the original request…</p>';
@@ -231,7 +231,7 @@ export function bidAction(button){
 }
 document.addEventListener('input',ev=>{if(ev.target.id==='amt'&&sheet?.mode==='review'){sheet.amount=ev.target.value;updateAmount();}});
 $('#sheet')?.addEventListener('close',()=>{
- const target=sheetReturn;sheet=null;sheetReturn=null;
+ const target=sheetReturn;sheet=null;sheetReturn=null;if(location.hash.includes('?sheet=bid'))history.back();
  if(!target||target.lot!==bidder.activeLot)return;
  queueMicrotask(()=>{
   const button=$(`.catalog-footer [data-action="${target.action}"]`);
@@ -241,3 +241,5 @@ $('#sheet')?.addEventListener('close',()=>{
 });
 window.addEventListener('offline',()=>{bidder.stale=true;for(const e of bidder.entries.values())e.stale=true;changed();if(sheet)renderSheet();});
 window.addEventListener('online',()=>{changed();});
+
+window.addEventListener('popstate',()=>{if(!location.hash.includes('?sheet=bid')&&$('#sheet')?.open&&sheet){$('#sheet').close();}});

@@ -12,3 +12,6 @@
 @media(max-width:360px){.catalog-standing b{font-size:19px}.sheet-head h2{font-size:23px}.sheet-scroll{padding-left:16px;padding-right:16px}}
 
 .welcome-connected .welcome-footer .catalog-asof{flex-basis:100%;text-align:left;margin-top:0}
+
+/* Keep A's pass and phone reading column usable with real long business names. */
+.pass-badge{min-width:0;flex:1}.pass-text{min-width:0;flex:1}.pass-text b{max-width:none}.topbar .chip-pass>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.topbar .chip-pass{min-width:0}.stub-main{min-width:0}.stub .amt.xl{font-size:clamp(32px,10vw,54px);overflow-wrap:anywhere}.stub-side .tl{font-size:10px;overflow-wrap:anywhere;max-width:110px}.row-end .count{max-width:100px;white-space:normal;line-height:1.25}.catalog-footer .btn{min-height:48px}.card-numbers .leaderrow{font-size:11px;line-height:1.4}.sheet-in .amt-field .cur{font-size:24px}.welcome-facts dd{overflow-wrap:anywhere}
