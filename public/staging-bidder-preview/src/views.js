@@ -86,11 +86,11 @@ export function entryView() {
           <p class="venue">${esc(event.venue)}</p>
           <dl class="facts">
             <div><dt>When</dt><dd>${esc(event.date)}</dd></div>
-            <div><dt>Draft close</dt><dd>${esc(event.closes)} ${esc(event.timezone)}</dd></div>
+            <div><dt>Draft close</dt><dd>${esc(event.version===2&&event.closeDate!==event.date?event.closeDate+' · ':'')}${esc(event.closes)} ${esc(event.timezone)}</dd></div>
             <div><dt>Lots</dt><dd>${event.lotCount}</dd></div>
             ${event.version===2&&lots.length?`<div><dt>First item</dt><dd>${esc(lots[0].title)}</dd></div>`:''}
           </dl>
-          <p class="fine">Staff draft preview. Bidding is disabled.</p>
+          <p class="fine">Staff draft preview. Bidding is disabled. ${event.version===2?'Synthetic Saturn trade dollars; no payment or settlement.':'Synthetic USD.'}</p>
         </aside>
       </div>
       ${sponsors.length ? `<section class="welcome-sponsors" aria-labelledby="sponsor-title">
@@ -202,7 +202,7 @@ export function lotView(id) {
       <p class="d-short">${esc(lot.short)}</p>
       <section class="stub" aria-label="Bid status">
         <div class="stub-main"><span class="lbl">${t ? curLabel() : 'Opening bid'}</span><span class="amt xl${state.online ? '' : ' stale'}">${money(t ? t.amount : lot.opening)}</span><span class="leaderrow">${t ? `<span class="lbl">Top bid</span>` : ''}${leaderLine(lot, 28)}${t ? `<span class="who-p">${esc(t.person)}</span>` : ''}</span></div>
-        <div class="stub-side"><div><span class="lbl">Bids</span><span class="n">${n}</span></div><div><span class="lbl">${state.snap.closed ? 'Closed' : 'Closes'}</span><span class="n sm">${esc(event.closes)}</span>${state.snap.closed ? '' : `<span class="tl">${esc(timeLeft())}</span>`} ${assume('A6')}</div></div>
+        <div class="stub-side"><div><span class="lbl">Bids</span><span class="n">${n}</span></div><div><span class="lbl">${state.snap.closed ? 'Closed' : 'Closes'}</span><span class="n sm">${esc(event.closes)}</span>${event.version===2?`<span class="tl">${esc(event.closeDate)} · ${esc(event.timezone)}</span>`:state.snap.closed ? '' : `<span class="tl">${esc(timeLeft())}</span>`} ${assume('A6')}</div></div>
       </section>
       ${standing}${maxCard(lot)}
       <section class="prose"><h2>About this lot</h2><p>${esc(lot.description)}</p></section>
@@ -248,7 +248,7 @@ export function bidsView() {
 
 // ---- event / how it works ---------------------------------------------------------------------
 export function eventView() {
- return {name:'event',title:'Event',chrome:'tabs',tab:'event',html:`${pass()}<main id="main" class="eventinfo"><div class="page-head"><h1 tabindex="-1" data-key="h1">${esc(event.name)}</h1><p>${esc(event.host)} · ${esc(event.date)}</p></div><section class="prose"><h2>Event details</h2><p>${esc(event.welcome)}</p><p class="fine-print">${esc(event.venue)}</p></section><section class="prose"><h2>Draft schedule</h2><dl class="facts onpage"><div><dt>Opens</dt><dd>${esc(event.opens)} ${esc(event.timezone)}</dd></div><div><dt>Closes</dt><dd>${esc(event.closes)} ${esc(event.timezone)}</dd></div><div><dt>Lots</dt><dd>${lots.length}</dd></div></dl><p class="fine-print">This is staff draft content. The catalog is not published and bidding is disabled.</p></section>${sponsors.length?`<section class="prose"><h2>Event sponsors</h2><ul class="sponsors">${sponsors.map(s=>`<li>${sponsorMark(s.logo,40)}<span>${esc(s.name)}</span></li>`).join('')}</ul></section>`:''}</main>`};
+ return {name:'event',title:'Event',chrome:'tabs',tab:'event',html:`${pass()}<main id="main" class="eventinfo"><div class="page-head"><h1 tabindex="-1" data-key="h1">${esc(event.name)}</h1><p>${esc(event.host)} · ${esc(event.date)}</p></div><section class="prose"><h2>Event details</h2><p>${esc(event.welcome)}</p><p class="fine-print">${esc(event.venue)}</p></section><section class="prose"><h2>Draft schedule</h2><dl class="facts onpage"><div><dt>Opens</dt><dd>${esc(event.opens)} ${esc(event.timezone)}</dd></div><div><dt>Closes</dt><dd>${esc(event.version===2&&event.closeDate!==event.date?event.closeDate+' · ':'')}${esc(event.closes)} ${esc(event.timezone)}</dd></div><div><dt>Lots</dt><dd>${lots.length}</dd></div></dl><p class="fine-print">This is staff draft content. The catalog is not published and bidding is disabled.</p></section>${sponsors.length?`<section class="prose"><h2>Event sponsors</h2><ul class="sponsors">${sponsors.map(s=>`<li>${sponsorMark(s.logo,40)}<span>${esc(s.name)}</span></li>`).join('')}</ul></section>`:''}</main>`};
 }
 
 export const views = { entry: entryView, lots: lotsView, watching: watchingView, bids: bidsView, event: eventView };
