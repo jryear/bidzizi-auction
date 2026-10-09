@@ -1,0 +1,2050 @@
+{
+  "mode": "deployed",
+  "source": "b89bf13867c1d546cd5094854a353f43574075c1",
+  "runtime": "v24.4.1",
+  "origin": "https://staging.bidzizi.com",
+  "startedAt": "2026-10-09T07:29:55.326Z",
+  "probeSHA256": "2f05e2c231dbae0670742ebc937c29ee86f0f0b265fabb73d65859dd1ae92ca3",
+  "ownHead": "b89bf13867c1d546cd5094854a353f43574075c1",
+  "productCandidate": "34b0932741231841b3007c5656680e575797ee0a",
+  "deployedSource": "786b5103303a0990b0a3ef3e45d5c5ea12371389",
+  "sourceFields": "source and ownHead identify this evidence checkout; deployedSource is the separately announced actual release",
+  "kind": "REAL_HOSTED_READ_ONLY_RENDER",
+  "cssHash": "b3b768378ae368bc0093c70924357a82d2091088780fedbaa2445524de08682b",
+  "moduleHash": "2c19bcad5cc23a2d2d2747f4c8a86dfa0a70544325195ed76e0bb6977198c927",
+  "served": [
+    {
+      "path": "/staging-admin/studio.css",
+      "sha256": "b3b768378ae368bc0093c70924357a82d2091088780fedbaa2445524de08682b"
+    },
+    {
+      "path": "/staging-admin/studio.js",
+      "sha256": "1d4bcfd19f17c785aec57feff43b1ffc9cf8e3f71593fbbcdfa14f7b41b8bfa0"
+    }
+  ],
+  "compiledCSS": [
+    {
+      "path": "/_next/static/immutable/chunks/0x2l8mmbydeop.css",
+      "status": 200,
+      "sha256": "f82bfab65e21410e1bc0022d244fd82b5c4adad60dffadf72300b3615d06764d"
+    },
+    {
+      "path": "/_next/static/immutable/chunks/0x2l8mmbydeop.css",
+      "status": 200,
+      "sha256": "f82bfab65e21410e1bc0022d244fd82b5c4adad60dffadf72300b3615d06764d"
+    },
+    {
+      "path": "/_next/static/immutable/chunks/0x2l8mmbydeop.css",
+      "status": 200,
+      "sha256": "f82bfab65e21410e1bc0022d244fd82b5c4adad60dffadf72300b3615d06764d"
+    },
+    {
+      "path": "/_next/static/immutable/chunks/0x2l8mmbydeop.css",
+      "status": 200,
+      "sha256": "f82bfab65e21410e1bc0022d244fd82b5c4adad60dffadf72300b3615d06764d"
+    },
+    {
+      "path": "/_next/static/immutable/chunks/0x2l8mmbydeop.css",
+      "status": 200,
+      "sha256": "f82bfab65e21410e1bc0022d244fd82b5c4adad60dffadf72300b3615d06764d"
+    },
+    {
+      "path": "/_next/static/immutable/chunks/0x2l8mmbydeop.css",
+      "status": 200,
+      "sha256": "f82bfab65e21410e1bc0022d244fd82b5c4adad60dffadf72300b3615d06764d"
+    },
+    {
+      "path": "/_next/static/immutable/chunks/0x2l8mmbydeop.css",
+      "status": 200,
+      "sha256": "f82bfab65e21410e1bc0022d244fd82b5c4adad60dffadf72300b3615d06764d"
+    }
+  ],
+  "rows": [
+    {
+      "view": "lots",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "position": "top",
+      "metrics": {
+        "width": 1440,
+        "height": 1120,
+        "dpr": 1,
+        "documentWidth": 1440,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 216,
+          "y": 167.8125,
+          "width": 802,
+          "height": 898.1875,
+          "scrollTop": 0,
+          "scrollHeight": 2117,
+          "clientHeight": 898,
+          "scrollWidth": 802,
+          "clientWidth": 802
+        },
+        "chrome": {
+          "sidebar": {
+            "x": 0,
+            "y": 0,
+            "width": 180,
+            "height": 1120
+          },
+          "top": {
+            "x": 180,
+            "y": 0,
+            "width": 1260,
+            "height": 46
+          },
+          "bar": {
+            "x": 180,
+            "y": 46,
+            "width": 1260,
+            "height": 111.8125
+          },
+          "hero": null,
+          "notice": {
+            "x": 216,
+            "y": 167.8125,
+            "width": 799,
+            "height": 20
+          }
+        },
+        "firstWork": {
+          "x": 216,
+          "y": 507.921875,
+          "width": 799,
+          "height": 102
+        },
+        "amounts": [
+          "T$25.01",
+          "T$250.00",
+          "T$35.00"
+        ],
+        "text": "Published terms are fixed.\n\nApproved catalog\n\nHoliday Trade Show · Saturn V1 Demo · saved revision 2 · 2 lots\n\nOctober 8, 2026 · 11:07 PM to October 9, 2026 · 12:00 PM America/Los_Angeles\n\nView approved lots\nItems\n\n3 items · working catalog\n\n+ Add item\nSearch your lots\nITEM\nSELECT ALL\nSTARTING AMOUNT · BIDDING WINDOW\nSelect lot 01\n01\nCabin weekend\nGetaways\nT$25.01\nShared event window\nSelect lot 02\n02\nCoffee ritual kit\nHome\nT$250.00\nShared event window\nSelect lot 03\n03\nSpring flowers\nGarden\nT$35.00\nShared event window\nEditing item 01\nView in preview\nUpload item photo\nItem title\nShort description\nDescription\nCategory\nOpening amount · synthetic trade dollars\nFixed raise override · optional\nPhoto and item details\nPhoto description\nIncluded\nImportant details\nDuplicate lot\n↑\n↓\nCatalog order · 1 of 3\nEvent setup\n\nSaved revision 2. One explicit window and tiered synthetic trade-dollar rules.\n\nWelcome and timing\n3 saved items\nPublished catalog\n✓\nNew bidder entry\n\nEntry enabled · revision 1. New synthetic attendees can create their own private demo profile.",
+        "title": "Holiday Trade Show · Saturn V1 Demo",
+        "images": [
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "width": 1000,
+            "height": 667
+          },
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+            "width": 1000,
+            "height": 667
+          },
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+            "width": 1000,
+            "height": 667
+          },
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "width": 1000,
+            "height": 667
+          }
+        ],
+        "classes": [
+          "top",
+          "",
+          "workspace"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/lots-1440-top.png",
+      "png": {
+        "width": 1440,
+        "height": 1120,
+        "sha256": "c1d010acc34bb3147a957a2da380c7c9086672fb341fbe56e3210a9a70d19b1c"
+      }
+    },
+    {
+      "view": "event",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "position": "top",
+      "metrics": {
+        "width": 1440,
+        "height": 1120,
+        "dpr": 1,
+        "documentWidth": 1440,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 216,
+          "y": 167.8125,
+          "width": 802,
+          "height": 898.1875,
+          "scrollTop": 0,
+          "scrollHeight": 2324,
+          "clientHeight": 898,
+          "scrollWidth": 802,
+          "clientWidth": 802
+        },
+        "chrome": {
+          "sidebar": {
+            "x": 0,
+            "y": 0,
+            "width": 180,
+            "height": 1120
+          },
+          "top": {
+            "x": 180,
+            "y": 0,
+            "width": 1260,
+            "height": 46
+          },
+          "bar": {
+            "x": 180,
+            "y": 46,
+            "width": 1260,
+            "height": 111.8125
+          },
+          "hero": null,
+          "notice": {
+            "x": 216,
+            "y": 167.8125,
+            "width": 799,
+            "height": 20
+          }
+        },
+        "firstWork": null,
+        "amounts": [],
+        "text": "Published terms are fixed.\n\nApproved catalog\n\nHoliday Trade Show · Saturn V1 Demo · saved revision 2 · 2 lots\n\nOctober 8, 2026 · 11:07 PM to October 9, 2026 · 12:00 PM America/Los_Angeles\n\nView approved lots\nEvent welcome\nSYNTHETIC SATURN TRADE DOLLARS\nUpload event photo\nEvent name\nWelcome line\nVenue\nEvent photo description\nWelcome message\nOne bidding window\nTIME\nOpening date\nOpening time\nClosing date\nClosing time\nTime zone\nUTC\nPacific · Los Angeles\nMountain · Denver\nCentral · Chicago\nEastern · New York\nSynthetic Saturn trade dollars · no payment or settlement\n\nMinimum raise uses the current highest accepted bid: below T$500.00: T$25.00; T$500.00 to below T$1,000.00: T$50.00; T$1,000.00 to below T$2,500.00: T$100.00; from T$2,500.00: T$250.00. A positive item override replaces the raise. The first bid starts at the opening amount. Any amount at or above the applicable minimum is allowed, up to T$10,000,000.00.\n\nOne shared window. Opening is inclusive and closing is exclusive.\nEvent sponsors\nOPTIONAL\nShow event sponsors\n\nSeparate from the organization providing auction items.\n\nSponsor 1\n×\nUpload sponsor 1 logo\nSponsor 1 logo description\n+ Add event sponsor\nEvent entry\nSHARE\n\nEntry enabled · revision 1\n\nEach attendee creates a separate synthetic demo profile. Entry is independent of draft saving and catalog approval.\n\nEnable event entry\nDisable event entry\nEvent link\nCopy event link\n\nUse this link or QR code to open the attendee profile form.\n\nEvent setup\n\nSaved revision 2. One explicit window and tiered synthetic trade-dollar rules.\n\nWelcome and timing\n3 saved items\nPublished catalog\n✓\nNew bidder entry\n\nEntry enabled · revision 1. New synthetic attendees can create their own private demo profile.",
+        "title": "Holiday Trade Show · Saturn V1 Demo",
+        "images": [
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+            "width": 1000,
+            "height": 667
+          }
+        ],
+        "classes": [
+          "top",
+          "",
+          "workspace"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/event-1440-top.png",
+      "png": {
+        "width": 1440,
+        "height": 1120,
+        "sha256": "6de3bf72d4a07aa1209beba894f6cca7b614d441072c290b7592450f4db22a2d"
+      }
+    },
+    {
+      "view": "bidders",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "position": "top",
+      "metrics": {
+        "width": 1440,
+        "height": 1120,
+        "dpr": 1,
+        "documentWidth": 1440,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 216,
+          "y": 167.8125,
+          "width": 802,
+          "height": 898.1875,
+          "scrollTop": 0,
+          "scrollHeight": 898,
+          "clientHeight": 898,
+          "scrollWidth": 802,
+          "clientWidth": 802
+        },
+        "chrome": {
+          "sidebar": {
+            "x": 0,
+            "y": 0,
+            "width": 180,
+            "height": 1120
+          },
+          "top": {
+            "x": 180,
+            "y": 0,
+            "width": 1260,
+            "height": 46
+          },
+          "bar": {
+            "x": 180,
+            "y": 46,
+            "width": 1260,
+            "height": 111.8125
+          },
+          "hero": null,
+          "notice": null
+        },
+        "firstWork": {
+          "x": 241,
+          "y": 320.640625,
+          "width": 749,
+          "height": 201.140625
+        },
+        "amounts": [],
+        "text": "Bidders\n\nCurrent event access for existing synthetic attendees. Business authority stays independently server-derived.\n\nRefresh\n\nConfirmed staff read · Oct 9, 2026, 12:30 AM\n\nCasey Hosted Synthetic\n\nJuniper Hosted Synthetic · business bidding eligible\n\nClaimed member ID: Casey Hosted Synthetic-synthetic · unverified\n\nSaved revision 0\n\nEvent access\nBrowse only\nBid access\nEvent access active\nSave attendee access\nRiley Hosted Synthetic\n\nHarbor Hosted Synthetic · business bidding eligible\n\nClaimed member ID: Riley Hosted Synthetic-synthetic · unverified\n\nSaved revision 0\n\nEvent access\nBrowse only\nBid access\nEvent access active\nSave attendee access\nZack\n\nJ · business bidding eligible\n\nClaimed member ID: 1234 · unverified\n\nSaved revision 0\n\nEvent access\nBrowse only\nBid access\nEvent access active\nSave attendee access",
+        "title": "Holiday Trade Show · Saturn V1 Demo",
+        "images": [],
+        "classes": [
+          "top",
+          "",
+          "workspace"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/bidders-1440-top.png",
+      "png": {
+        "width": 1440,
+        "height": 1120,
+        "sha256": "54506d7d42b749f128fee5132717b6bdc8371794a9ebf661d8540e99f7fa1fac"
+      }
+    },
+    {
+      "view": "donations",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "position": "top",
+      "metrics": {
+        "width": 1440,
+        "height": 1120,
+        "dpr": 1,
+        "documentWidth": 1440,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 216,
+          "y": 167.8125,
+          "width": 802,
+          "height": 898.1875,
+          "scrollTop": 0,
+          "scrollHeight": 1492,
+          "clientHeight": 898,
+          "scrollWidth": 802,
+          "clientWidth": 802
+        },
+        "chrome": {
+          "sidebar": {
+            "x": 0,
+            "y": 0,
+            "width": 180,
+            "height": 1120
+          },
+          "top": {
+            "x": 180,
+            "y": 0,
+            "width": 1260,
+            "height": 46
+          },
+          "bar": {
+            "x": 180,
+            "y": 46,
+            "width": 1260,
+            "height": 111.8125
+          },
+          "hero": null,
+          "notice": null
+        },
+        "firstWork": {
+          "x": 241,
+          "y": 1287.890625,
+          "width": 749,
+          "height": 149.421875
+        },
+        "amounts": [
+          "T$123.45",
+          "T$50.00"
+        ],
+        "text": "Donation pledges\n\nSaturn staff process recorded pledges manually. Amounts are Saturn trade dollars; this screen does not charge an account or post to a ledger.\n\nRefresh\n\nConfirmed staff read · Oct 9, 2026, 12:30 AM\n\nDonation enablement\nSave availability\nRequested donation enablement\n\nSaved enablement intent: enabled. Effective availability: Open at the last server read · attendee eligibility checked separately. Status as of Oct 9, 2026, 12:30 AM.\n\nDonation amount cap · trade dollars\nWhen donations are available\nNot configured\nAny time for this event\nExplicit donation window\nDonations open · UTC\nDonations close · UTC\n\nMinimum: T$0.01. Configure a positive cap and availability before enabling donations. Disable donations before clearing either setting. No rule is selected automatically.\n\nEvent recipients\nRecipient name\nDescription\nActive recipient\n\nSaved version 1\n\nSave recipient\nAdd a recipient\nRecorded donation pledges\nDownload CSV\nSynthetic Holiday Trade Show Recipient\n\nJuniper Hosted Synthetic · Casey Hosted Synthetic\n\nRecorded Oct 8, 2026, 11:08 PM\n\nRecipient snapshot · version 1\n\nT$123.45\n\nSaturn trade dollars\n\nPending manual staff processing\n\nSynthetic Holiday Trade Show Recipient\n\nJ · Zack\n\nRecorded Oct 8, 2026, 11:40 PM\n\nRecipient snapshot · version 1\n\nT$50.00\n\nSaturn trade dollars\n\nPending manual staff processing",
+        "title": "Holiday Trade Show · Saturn V1 Demo",
+        "images": [],
+        "classes": [
+          "top",
+          "",
+          "workspace",
+          "staff-row",
+          "staff-row"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/donations-1440-top.png",
+      "png": {
+        "width": 1440,
+        "height": 1120,
+        "sha256": "c13272fe6957d17c418520e45744b2cac6a380258a322f6d4a5b3bb079cea0ce"
+      }
+    },
+    {
+      "view": "results",
+      "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "position": "top",
+      "metrics": {
+        "width": 1440,
+        "height": 1120,
+        "dpr": 1,
+        "documentWidth": 1440,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1120,
+          "scrollTop": 0,
+          "scrollHeight": 1120,
+          "clientHeight": 1120,
+          "scrollWidth": 1440,
+          "clientWidth": 1440
+        },
+        "chrome": {
+          "sidebar": null,
+          "top": null,
+          "bar": null,
+          "hero": null,
+          "notice": {
+            "x": 57.59375,
+            "y": 432.890625,
+            "width": 1324.8125,
+            "height": 78.75
+          }
+        },
+        "firstWork": {
+          "x": 57.59375,
+          "y": 645.390625,
+          "width": 1324.8125,
+          "height": 117
+        },
+        "state": "current",
+        "amounts": [
+          "T$62.03",
+          "T$250.00"
+        ],
+        "text": "BidZizi\nPRIVATE STAFF STANDING\nEvent Studio\nPrivate display\n\nSATURN BARTER\n\nHoliday Trade Show · Saturn V1 Short Rehearsal\n\nBrowse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\n\nHoliday Trade Show · synthetic rehearsal\n\nFROZEN OPENING\nOct 8, 2026, 11:06:00 PM PDT\nFROZEN CLOSING\nOct 8, 2026, 11:16:00 PM PDT\nTIME ZONE\nAmerica/Los_Angeles\nClosed · recorded standing\n\nAs of Oct 9, 2026, 12:30:01 AM PDT\n\nRefresh standing\nRecorded lot standing\nDownload CSV\n\nLOT\tPUBLISHED ITEM\tACCEPTED AMOUNT\tSTANDING AND BUSINESS\n01\t\nCabin weekend\nGetaways\n\t\nT$62.03\n\t\nClosed recorded standing\n\nSpruce Hosted Recovery Synthetic\n\n4 accepted bids · version 4\n\nLast accepted change: Oct 8, 2026, 11:08:57 PM PDT\n\n\n02\t\nCoffee ritual kit\nHome\n\t\nT$250.00\n\t\nClosed recorded standing\n\nWillow Hosted Closing Synthetic\n\n1 accepted bid · version 1\n\nLast accepted change: Oct 8, 2026, 11:06:45 PM PDT\n\nPrivate staff access · Published catalog is separate from draft preview.\n\nSynthetic Saturn trade dollars · Recorded amounts are for this published catalog.\n\nRecorded standing is not an award or finalization. No payment or settlement occurs here.",
+        "title": "Holiday Trade Show · Saturn V1 Short Rehearsal",
+        "images": [],
+        "classes": [
+          "display-results-module__uP49Nq__board",
+          "display-results-module__uP49Nq__topbar",
+          "",
+          "display-results-module__uP49Nq__schedule"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-1440-top.png",
+      "png": {
+        "width": 1440,
+        "height": 1120,
+        "sha256": "e7fe701c13f1c28407172d7293c60ef42b6177f6ed8da8c7a412e09fcdf30701"
+      }
+    },
+    {
+      "view": "display",
+      "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "position": "top",
+      "metrics": {
+        "width": 1440,
+        "height": 1120,
+        "dpr": 1,
+        "documentWidth": 1440,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1120,
+          "scrollTop": 0,
+          "scrollHeight": 1120,
+          "clientHeight": 1120,
+          "scrollWidth": 1440,
+          "clientWidth": 1440
+        },
+        "chrome": {
+          "sidebar": null,
+          "top": null,
+          "bar": null,
+          "hero": null,
+          "notice": {
+            "x": 57.59375,
+            "y": 432.890625,
+            "width": 1324.8125,
+            "height": 78.75
+          }
+        },
+        "firstWork": {
+          "x": 57.59375,
+          "y": 539.640625,
+          "width": 1324.8125,
+          "height": 205.234375
+        },
+        "state": "current",
+        "amounts": [
+          "T$62.03",
+          "T$250.00"
+        ],
+        "text": "BidZizi\nPRIVATE STAFF DISPLAY\nEvent Studio\nRecorded standing\n\nSATURN BARTER\n\nHoliday Trade Show · Saturn V1 Short Rehearsal\n\nBrowse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\n\nHoliday Trade Show · synthetic rehearsal\n\nFROZEN OPENING\nOct 8, 2026, 11:06:00 PM PDT\nFROZEN CLOSING\nOct 8, 2026, 11:16:00 PM PDT\nTIME ZONE\nAmerica/Los_Angeles\nClosed · recorded standing\n\nAs of Oct 9, 2026, 12:30:01 AM PDT\n\nRefresh display\n01\n\nGETAWAYS\n\nCabin weekend\n\nTwo quiet nights among the trees\n\nCLOSED RECORDED AMOUNT\n\nT$62.03\nClosed recorded standing\n\nSpruce Hosted Recovery Synthetic\n\n4 accepted bids · version 4\n\nLast accepted change: Oct 8, 2026, 11:08:57 PM PDT\n\n02\n\nHOME\n\nCoffee ritual kit\n\nStart the morning slowly\n\nCLOSED RECORDED AMOUNT\n\nT$250.00\nClosed recorded standing\n\nWillow Hosted Closing Synthetic\n\n1 accepted bid · version 1\n\nLast accepted change: Oct 8, 2026, 11:06:45 PM PDT\n\nPrivate staff access · Published catalog is separate from draft preview.\n\nSynthetic Saturn trade dollars · Recorded amounts are for this published catalog.\n\nRecorded standing is not an award or finalization. No payment or settlement occurs here.",
+        "title": "Holiday Trade Show · Saturn V1 Short Rehearsal",
+        "images": [
+          {
+            "path": "/api/admin/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/catalog-approval/33dec28e-1e6e-4096-b4d7-68b16ed8221c/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "width": 1000,
+            "height": 667
+          },
+          {
+            "path": "/api/admin/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/catalog-approval/33dec28e-1e6e-4096-b4d7-68b16ed8221c/assets/4a4f4a4a-6aac-41b4-8d84-bcfab4e30c56",
+            "width": 1000,
+            "height": 667
+          }
+        ],
+        "classes": [
+          "display-results-module__uP49Nq__board",
+          "display-results-module__uP49Nq__topbar",
+          "",
+          "display-results-module__uP49Nq__schedule",
+          "display-results-module__uP49Nq__lot",
+          "display-results-module__uP49Nq__lot"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-1440-top.png",
+      "png": {
+        "width": 1440,
+        "height": 1120,
+        "sha256": "d930026e5a99bd1b7e04802b01951070e5497b30f42d751be93dd8b8235670d8"
+      }
+    },
+    {
+      "view": "lots",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "position": "top",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 16,
+          "y": 423.75,
+          "width": 358,
+          "height": 379.203125,
+          "scrollTop": 0,
+          "scrollHeight": 2251,
+          "clientHeight": 379,
+          "scrollWidth": 358,
+          "clientWidth": 358
+        },
+        "chrome": {
+          "sidebar": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 188
+          },
+          "top": {
+            "x": 0,
+            "y": 188,
+            "width": 390,
+            "height": 34
+          },
+          "bar": {
+            "x": 0,
+            "y": 222,
+            "width": 390,
+            "height": 193.75
+          },
+          "hero": null,
+          "notice": {
+            "x": 16,
+            "y": 423.75,
+            "width": 355,
+            "height": 20
+          }
+        },
+        "firstWork": {
+          "x": 16,
+          "y": 823.359375,
+          "width": 355,
+          "height": 118
+        },
+        "amounts": [
+          "T$25.01",
+          "T$250.00",
+          "T$35.00"
+        ],
+        "text": "Published terms are fixed.\n\nApproved catalog\n\nHoliday Trade Show · Saturn V1 Demo · saved revision 2 · 2 lots\n\nOctober 8, 2026 · 11:07 PM to October 9, 2026 · 12:00 PM America/Los_Angeles\n\nView approved lots\nItems\n\n3 items · working catalog\n\n+ Add item\nSearch your lots\nITEM\nSELECT ALL\nSelect lot 01\n01\nCabin weekend\nGetaways\nT$25.01\nShared event window\nSelect lot 02\n02\nCoffee ritual kit\nHome\nT$250.00\nShared event window\nSelect lot 03\n03\nSpring flowers\nGarden\nT$35.00\nShared event window\nEditing item 01\nView in preview\nUpload item photo\nItem title\nShort description\nDescription\nCategory\nOpening amount · synthetic trade dollars\nFixed raise override · optional\nPhoto and item details\nPhoto description\nIncluded\nImportant details\nDuplicate lot\n↑\n↓\nCatalog order · 1 of 3\nEvent setup\n\nSaved revision 2. One explicit window and tiered synthetic trade-dollar rules.\n\nWelcome and timing\n3 saved items\nPublished catalog\n✓\nNew bidder entry\n\nEntry enabled · revision 1. New synthetic attendees can create their own private demo profile.",
+        "title": "Holiday Trade Show · Saturn V1 Demo",
+        "images": [
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "width": 1000,
+            "height": 667
+          }
+        ],
+        "classes": [
+          "top",
+          "",
+          "workspace no-preview"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/lots-390-top.png",
+      "png": {
+        "width": 390,
+        "height": 844,
+        "sha256": "42adde3ba06eea00cd0a6f7aac7c893057c841721ce769ecdc6369211a4597d5"
+      }
+    },
+    {
+      "view": "lots",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "position": "bottom",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 16,
+          "y": 423.75,
+          "width": 358,
+          "height": 379.203125,
+          "scrollTop": 1872,
+          "scrollHeight": 2251,
+          "clientHeight": 379,
+          "scrollWidth": 358,
+          "clientWidth": 358
+        },
+        "chrome": {
+          "sidebar": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 188
+          },
+          "top": {
+            "x": 0,
+            "y": 188,
+            "width": 390,
+            "height": 34
+          },
+          "bar": {
+            "x": 0,
+            "y": 222,
+            "width": 390,
+            "height": 193.75
+          },
+          "hero": null,
+          "notice": {
+            "x": 16,
+            "y": -1448.25,
+            "width": 355,
+            "height": 20
+          }
+        },
+        "firstWork": {
+          "x": 16,
+          "y": -1048.640625,
+          "width": 355,
+          "height": 118
+        },
+        "amounts": [
+          "T$25.01",
+          "T$250.00",
+          "T$35.00"
+        ],
+        "text": "Published terms are fixed.\n\nApproved catalog\n\nHoliday Trade Show · Saturn V1 Demo · saved revision 2 · 2 lots\n\nOctober 8, 2026 · 11:07 PM to October 9, 2026 · 12:00 PM America/Los_Angeles\n\nView approved lots\nItems\n\n3 items · working catalog\n\n+ Add item\nSearch your lots\nITEM\nSELECT ALL\nSelect lot 01\n01\nCabin weekend\nGetaways\nT$25.01\nShared event window\nSelect lot 02\n02\nCoffee ritual kit\nHome\nT$250.00\nShared event window\nSelect lot 03\n03\nSpring flowers\nGarden\nT$35.00\nShared event window\nEditing item 01\nView in preview\nUpload item photo\nItem title\nShort description\nDescription\nCategory\nOpening amount · synthetic trade dollars\nFixed raise override · optional\nPhoto and item details\nPhoto description\nIncluded\nImportant details\nDuplicate lot\n↑\n↓\nCatalog order · 1 of 3\nEvent setup\n\nSaved revision 2. One explicit window and tiered synthetic trade-dollar rules.\n\nWelcome and timing\n3 saved items\nPublished catalog\n✓\nNew bidder entry\n\nEntry enabled · revision 1. New synthetic attendees can create their own private demo profile.",
+        "title": "Holiday Trade Show · Saturn V1 Demo",
+        "images": [],
+        "classes": [
+          "top",
+          "",
+          "workspace no-preview"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/lots-390-bottom.png",
+      "png": {
+        "width": 390,
+        "height": 844,
+        "sha256": "4e2db6df77ce87f65d1b4d70421d224c54cafb441d0fbd2bb1731c9ed7ac496d"
+      }
+    },
+    {
+      "view": "event",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "position": "top",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 16,
+          "y": 423.75,
+          "width": 358,
+          "height": 379.203125,
+          "scrollTop": 0,
+          "scrollHeight": 3044,
+          "clientHeight": 379,
+          "scrollWidth": 358,
+          "clientWidth": 358
+        },
+        "chrome": {
+          "sidebar": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 188
+          },
+          "top": {
+            "x": 0,
+            "y": 188,
+            "width": 390,
+            "height": 34
+          },
+          "bar": {
+            "x": 0,
+            "y": 222,
+            "width": 390,
+            "height": 193.75
+          },
+          "hero": null,
+          "notice": {
+            "x": 16,
+            "y": 423.75,
+            "width": 355,
+            "height": 20
+          }
+        },
+        "firstWork": null,
+        "amounts": [],
+        "text": "Published terms are fixed.\n\nApproved catalog\n\nHoliday Trade Show · Saturn V1 Demo · saved revision 2 · 2 lots\n\nOctober 8, 2026 · 11:07 PM to October 9, 2026 · 12:00 PM America/Los_Angeles\n\nView approved lots\nEvent welcome\nSYNTHETIC SATURN TRADE DOLLARS\nUpload event photo\nEvent name\nWelcome line\nVenue\nEvent photo description\nWelcome message\nOne bidding window\nTIME\nOpening date\nOpening time\nClosing date\nClosing time\nTime zone\nUTC\nPacific · Los Angeles\nMountain · Denver\nCentral · Chicago\nEastern · New York\nSynthetic Saturn trade dollars · no payment or settlement\n\nMinimum raise uses the current highest accepted bid: below T$500.00: T$25.00; T$500.00 to below T$1,000.00: T$50.00; T$1,000.00 to below T$2,500.00: T$100.00; from T$2,500.00: T$250.00. A positive item override replaces the raise. The first bid starts at the opening amount. Any amount at or above the applicable minimum is allowed, up to T$10,000,000.00.\n\nOne shared window. Opening is inclusive and closing is exclusive.\nEvent sponsors\nOPTIONAL\nShow event sponsors\n\nSeparate from the organization providing auction items.\n\nSponsor 1\n×\nUpload sponsor 1 logo\nSponsor 1 logo description\n+ Add event sponsor\nEvent entry\nSHARE\n\nEntry enabled · revision 1\n\nEach attendee creates a separate synthetic demo profile. Entry is independent of draft saving and catalog approval.\n\nEnable event entry\nDisable event entry\nEvent link\nCopy event link\n\nUse this link or QR code to open the attendee profile form.\n\nEvent setup\n\nSaved revision 2. One explicit window and tiered synthetic trade-dollar rules.\n\nWelcome and timing\n3 saved items\nPublished catalog\n✓\nNew bidder entry\n\nEntry enabled · revision 1. New synthetic attendees can create their own private demo profile.",
+        "title": "Holiday Trade Show · Saturn V1 Demo",
+        "images": [
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+            "width": 1000,
+            "height": 667
+          }
+        ],
+        "classes": [
+          "top",
+          "",
+          "workspace no-preview"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/event-390-top.png",
+      "png": {
+        "width": 390,
+        "height": 844,
+        "sha256": "b1bf12aee6fed3b43b476ced51a7bd46d9f0048bd9c017ecac0d127e480da122"
+      }
+    },
+    {
+      "view": "bidders",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "position": "top",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 16,
+          "y": 423.75,
+          "width": 358,
+          "height": 379.203125,
+          "scrollTop": 0,
+          "scrollHeight": 1237,
+          "clientHeight": 379,
+          "scrollWidth": 358,
+          "clientWidth": 358
+        },
+        "chrome": {
+          "sidebar": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 188
+          },
+          "top": {
+            "x": 0,
+            "y": 188,
+            "width": 390,
+            "height": 34
+          },
+          "bar": {
+            "x": 0,
+            "y": 222,
+            "width": 390,
+            "height": 193.75
+          },
+          "hero": null,
+          "notice": null
+        },
+        "firstWork": {
+          "x": 35,
+          "y": 634.625,
+          "width": 317,
+          "height": 333.453125
+        },
+        "amounts": [],
+        "text": "Bidders\n\nCurrent event access for existing synthetic attendees. Business authority stays independently server-derived.\n\nRefresh\n\nConfirmed staff read · Oct 9, 2026, 12:30 AM\n\nCasey Hosted Synthetic\n\nJuniper Hosted Synthetic · business bidding eligible\n\nClaimed member ID: Casey Hosted Synthetic-synthetic · unverified\n\nSaved revision 0\n\nEvent access\nBrowse only\nBid access\nEvent access active\nSave attendee access\nRiley Hosted Synthetic\n\nHarbor Hosted Synthetic · business bidding eligible\n\nClaimed member ID: Riley Hosted Synthetic-synthetic · unverified\n\nSaved revision 0\n\nEvent access\nBrowse only\nBid access\nEvent access active\nSave attendee access\nZack\n\nJ · business bidding eligible\n\nClaimed member ID: 1234 · unverified\n\nSaved revision 0\n\nEvent access\nBrowse only\nBid access\nEvent access active\nSave attendee access",
+        "title": "Holiday Trade Show · Saturn V1 Demo",
+        "images": [],
+        "classes": [
+          "top",
+          "",
+          "workspace no-preview"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/bidders-390-top.png",
+      "png": {
+        "width": 390,
+        "height": 844,
+        "sha256": "d46568a276af3043af1138fb25bd7f54a85459668848a2a261389fe57da0f50a"
+      }
+    },
+    {
+      "view": "donations",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "position": "top",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 16,
+          "y": 423.75,
+          "width": 358,
+          "height": 379.203125,
+          "scrollTop": 0,
+          "scrollHeight": 2097,
+          "clientHeight": 379,
+          "scrollWidth": 358,
+          "clientWidth": 358
+        },
+        "chrome": {
+          "sidebar": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 188
+          },
+          "top": {
+            "x": 0,
+            "y": 188,
+            "width": 390,
+            "height": 34
+          },
+          "bar": {
+            "x": 0,
+            "y": 222,
+            "width": 390,
+            "height": 193.75
+          },
+          "hero": null,
+          "notice": null
+        },
+        "firstWork": {
+          "x": 35,
+          "y": 1877.34375,
+          "width": 317,
+          "height": 299.1875
+        },
+        "amounts": [
+          "T$123.45",
+          "T$50.00"
+        ],
+        "text": "Donation pledges\n\nSaturn staff process recorded pledges manually. Amounts are Saturn trade dollars; this screen does not charge an account or post to a ledger.\n\nRefresh\n\nConfirmed staff read · Oct 9, 2026, 12:30 AM\n\nDonation enablement\nSave availability\nRequested donation enablement\n\nSaved enablement intent: enabled. Effective availability: Open at the last server read · attendee eligibility checked separately. Status as of Oct 9, 2026, 12:30 AM.\n\nDonation amount cap · trade dollars\nWhen donations are available\nNot configured\nAny time for this event\nExplicit donation window\nDonations open · UTC\nDonations close · UTC\n\nMinimum: T$0.01. Configure a positive cap and availability before enabling donations. Disable donations before clearing either setting. No rule is selected automatically.\n\nEvent recipients\nRecipient name\nDescription\nActive recipient\n\nSaved version 1\n\nSave recipient\nAdd a recipient\nRecorded donation pledges\nDownload CSV\nSynthetic Holiday Trade Show Recipient\n\nJuniper Hosted Synthetic · Casey Hosted Synthetic\n\nRecorded Oct 8, 2026, 11:08 PM\n\nRecipient snapshot · version 1\n\nT$123.45\n\nSaturn trade dollars\n\nPending manual staff processing\n\nSynthetic Holiday Trade Show Recipient\n\nJ · Zack\n\nRecorded Oct 8, 2026, 11:40 PM\n\nRecipient snapshot · version 1\n\nT$50.00\n\nSaturn trade dollars\n\nPending manual staff processing",
+        "title": "Holiday Trade Show · Saturn V1 Demo",
+        "images": [],
+        "classes": [
+          "top",
+          "",
+          "workspace no-preview",
+          "staff-row",
+          "staff-row"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/donations-390-top.png",
+      "png": {
+        "width": 390,
+        "height": 844,
+        "sha256": "48b00bb9d4e22f86628664b4b6a8ebcfa3c679d1e477e6b219ce7ed432dfc4b2"
+      }
+    },
+    {
+      "view": "donations",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "position": "bottom",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 16,
+          "y": 423.75,
+          "width": 358,
+          "height": 379.203125,
+          "scrollTop": 1718,
+          "scrollHeight": 2097,
+          "clientHeight": 379,
+          "scrollWidth": 358,
+          "clientWidth": 358
+        },
+        "chrome": {
+          "sidebar": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 188
+          },
+          "top": {
+            "x": 0,
+            "y": 188,
+            "width": 390,
+            "height": 34
+          },
+          "bar": {
+            "x": 0,
+            "y": 222,
+            "width": 390,
+            "height": 193.75
+          },
+          "hero": null,
+          "notice": null
+        },
+        "firstWork": {
+          "x": 35,
+          "y": 159.34375,
+          "width": 317,
+          "height": 299.1875
+        },
+        "amounts": [
+          "T$123.45",
+          "T$50.00"
+        ],
+        "text": "Donation pledges\n\nSaturn staff process recorded pledges manually. Amounts are Saturn trade dollars; this screen does not charge an account or post to a ledger.\n\nRefresh\n\nConfirmed staff read · Oct 9, 2026, 12:30 AM\n\nDonation enablement\nSave availability\nRequested donation enablement\n\nSaved enablement intent: enabled. Effective availability: Open at the last server read · attendee eligibility checked separately. Status as of Oct 9, 2026, 12:30 AM.\n\nDonation amount cap · trade dollars\nWhen donations are available\nNot configured\nAny time for this event\nExplicit donation window\nDonations open · UTC\nDonations close · UTC\n\nMinimum: T$0.01. Configure a positive cap and availability before enabling donations. Disable donations before clearing either setting. No rule is selected automatically.\n\nEvent recipients\nRecipient name\nDescription\nActive recipient\n\nSaved version 1\n\nSave recipient\nAdd a recipient\nRecorded donation pledges\nDownload CSV\nSynthetic Holiday Trade Show Recipient\n\nJuniper Hosted Synthetic · Casey Hosted Synthetic\n\nRecorded Oct 8, 2026, 11:08 PM\n\nRecipient snapshot · version 1\n\nT$123.45\n\nSaturn trade dollars\n\nPending manual staff processing\n\nSynthetic Holiday Trade Show Recipient\n\nJ · Zack\n\nRecorded Oct 8, 2026, 11:40 PM\n\nRecipient snapshot · version 1\n\nT$50.00\n\nSaturn trade dollars\n\nPending manual staff processing",
+        "title": "Holiday Trade Show · Saturn V1 Demo",
+        "images": [],
+        "classes": [
+          "top",
+          "",
+          "workspace no-preview",
+          "staff-row",
+          "staff-row"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/donations-390-bottom.png",
+      "png": {
+        "width": 390,
+        "height": 844,
+        "sha256": "365a5fab6dddb52e2f1caa3af8cc99a56572b00881aa3ad292ffbd52c20e0758"
+      }
+    },
+    {
+      "view": "results",
+      "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "position": "top",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 1432.625,
+          "scrollTop": 0,
+          "scrollHeight": 1433,
+          "clientHeight": 1433,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "chrome": {
+          "sidebar": null,
+          "top": null,
+          "bar": null,
+          "hero": null,
+          "notice": {
+            "x": 20,
+            "y": 503.53125,
+            "width": 350,
+            "height": 124.25
+          }
+        },
+        "firstWork": {
+          "x": 20,
+          "y": 754.125,
+          "width": 350,
+          "height": 247.1875
+        },
+        "state": "current",
+        "amounts": [
+          "T$62.03",
+          "T$250.00"
+        ],
+        "text": "BidZizi\nPRIVATE STAFF STANDING\nEvent Studio\nPrivate display\n\nSATURN BARTER\n\nHoliday Trade Show · Saturn V1 Short Rehearsal\n\nBrowse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\n\nHoliday Trade Show · synthetic rehearsal\n\nFROZEN OPENING\nOct 8, 2026, 11:06:00 PM PDT\nFROZEN CLOSING\nOct 8, 2026, 11:16:00 PM PDT\nTIME ZONE\nAmerica/Los_Angeles\nClosed · recorded standing\n\nAs of Oct 9, 2026, 12:30:05 AM PDT\n\nRefresh standing\nRecorded lot standing\nDownload CSV\n\nLOT\nPUBLISHED ITEM\nACCEPTED AMOUNT\nSTANDING AND BUSINESS\n01\nCabin weekend\nGetaways\nT$62.03\nClosed recorded standing\n\nSpruce Hosted Recovery Synthetic\n\n4 accepted bids · version 4\n\nLast accepted change: Oct 8, 2026, 11:08:57 PM PDT\n\n02\nCoffee ritual kit\nHome\nT$250.00\nClosed recorded standing\n\nWillow Hosted Closing Synthetic\n\n1 accepted bid · version 1\n\nLast accepted change: Oct 8, 2026, 11:06:45 PM PDT\n\nPrivate staff access · Published catalog is separate from draft preview.\n\nSynthetic Saturn trade dollars · Recorded amounts are for this published catalog.\n\nRecorded standing is not an award or finalization. No payment or settlement occurs here.",
+        "title": "Holiday Trade Show · Saturn V1 Short Rehearsal",
+        "images": [],
+        "classes": [
+          "display-results-module__uP49Nq__board",
+          "display-results-module__uP49Nq__topbar",
+          "",
+          "display-results-module__uP49Nq__schedule"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-390-top.png",
+      "png": {
+        "width": 390,
+        "height": 844,
+        "sha256": "88157bcee317ebfd5990839bf9cc42296dbf259e557300832339fd0cbcb982bb"
+      }
+    },
+    {
+      "view": "results",
+      "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "position": "work",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 157,
+        "main": {
+          "x": 0,
+          "y": -157,
+          "width": 390,
+          "height": 1432.625,
+          "scrollTop": 0,
+          "scrollHeight": 1433,
+          "clientHeight": 1433,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "chrome": {
+          "sidebar": null,
+          "top": null,
+          "bar": null,
+          "hero": null,
+          "notice": {
+            "x": 20,
+            "y": 346.53125,
+            "width": 350,
+            "height": 124.25
+          }
+        },
+        "firstWork": {
+          "x": 20,
+          "y": 597.125,
+          "width": 350,
+          "height": 247.1875
+        },
+        "state": "current",
+        "amounts": [
+          "T$62.03",
+          "T$250.00"
+        ],
+        "text": "BidZizi\nPRIVATE STAFF STANDING\nEvent Studio\nPrivate display\n\nSATURN BARTER\n\nHoliday Trade Show · Saturn V1 Short Rehearsal\n\nBrowse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\n\nHoliday Trade Show · synthetic rehearsal\n\nFROZEN OPENING\nOct 8, 2026, 11:06:00 PM PDT\nFROZEN CLOSING\nOct 8, 2026, 11:16:00 PM PDT\nTIME ZONE\nAmerica/Los_Angeles\nClosed · recorded standing\n\nAs of Oct 9, 2026, 12:30:05 AM PDT\n\nRefresh standing\nRecorded lot standing\nDownload CSV\n\nLOT\nPUBLISHED ITEM\nACCEPTED AMOUNT\nSTANDING AND BUSINESS\n01\nCabin weekend\nGetaways\nT$62.03\nClosed recorded standing\n\nSpruce Hosted Recovery Synthetic\n\n4 accepted bids · version 4\n\nLast accepted change: Oct 8, 2026, 11:08:57 PM PDT\n\n02\nCoffee ritual kit\nHome\nT$250.00\nClosed recorded standing\n\nWillow Hosted Closing Synthetic\n\n1 accepted bid · version 1\n\nLast accepted change: Oct 8, 2026, 11:06:45 PM PDT\n\nPrivate staff access · Published catalog is separate from draft preview.\n\nSynthetic Saturn trade dollars · Recorded amounts are for this published catalog.\n\nRecorded standing is not an award or finalization. No payment or settlement occurs here.",
+        "title": "Holiday Trade Show · Saturn V1 Short Rehearsal",
+        "images": [],
+        "classes": [
+          "display-results-module__uP49Nq__board",
+          "display-results-module__uP49Nq__topbar",
+          "",
+          "display-results-module__uP49Nq__schedule"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-390-work.png",
+      "png": {
+        "width": 390,
+        "height": 844,
+        "sha256": "e6b1e0a122f018024590acc3877e08e98599ec11e1ff932bfe08067fc7e65236"
+      }
+    },
+    {
+      "view": "display",
+      "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "position": "top",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 1399.34375,
+          "scrollTop": 0,
+          "scrollHeight": 1399,
+          "clientHeight": 1399,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "chrome": {
+          "sidebar": null,
+          "top": null,
+          "bar": null,
+          "hero": null,
+          "notice": {
+            "x": 20,
+            "y": 503.53125,
+            "width": 350,
+            "height": 124.25
+          }
+        },
+        "firstWork": {
+          "x": 20,
+          "y": 647.78125,
+          "width": 350,
+          "height": 283.71875
+        },
+        "state": "current",
+        "amounts": [
+          "T$62.03",
+          "T$250.00"
+        ],
+        "text": "BidZizi\nPRIVATE STAFF DISPLAY\nEvent Studio\nRecorded standing\n\nSATURN BARTER\n\nHoliday Trade Show · Saturn V1 Short Rehearsal\n\nBrowse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\n\nHoliday Trade Show · synthetic rehearsal\n\nFROZEN OPENING\nOct 8, 2026, 11:06:00 PM PDT\nFROZEN CLOSING\nOct 8, 2026, 11:16:00 PM PDT\nTIME ZONE\nAmerica/Los_Angeles\nClosed · recorded standing\n\nAs of Oct 9, 2026, 12:30:05 AM PDT\n\nRefresh display\n01\n\nGETAWAYS\n\nCabin weekend\n\nTwo quiet nights among the trees\n\nCLOSED RECORDED AMOUNT\n\nT$62.03\nClosed recorded standing\n\nSpruce Hosted Recovery Synthetic\n\n4 accepted bids · version 4\n\nLast accepted change: Oct 8, 2026, 11:08:57 PM PDT\n\n02\n\nHOME\n\nCoffee ritual kit\n\nStart the morning slowly\n\nCLOSED RECORDED AMOUNT\n\nT$250.00\nClosed recorded standing\n\nWillow Hosted Closing Synthetic\n\n1 accepted bid · version 1\n\nLast accepted change: Oct 8, 2026, 11:06:45 PM PDT\n\nPrivate staff access · Published catalog is separate from draft preview.\n\nSynthetic Saturn trade dollars · Recorded amounts are for this published catalog.\n\nRecorded standing is not an award or finalization. No payment or settlement occurs here.",
+        "title": "Holiday Trade Show · Saturn V1 Short Rehearsal",
+        "images": [],
+        "classes": [
+          "display-results-module__uP49Nq__board",
+          "display-results-module__uP49Nq__topbar",
+          "",
+          "display-results-module__uP49Nq__schedule",
+          "display-results-module__uP49Nq__lot",
+          "display-results-module__uP49Nq__lot"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-390-top.png",
+      "png": {
+        "width": 390,
+        "height": 844,
+        "sha256": "5e2e64a0ad38df6e87bca7582043a2b206a9a52f881cbbaa8163f1d44bca88f1"
+      }
+    },
+    {
+      "view": "display",
+      "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "position": "work",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 88,
+        "main": {
+          "x": 0,
+          "y": -88,
+          "width": 390,
+          "height": 1399.34375,
+          "scrollTop": 0,
+          "scrollHeight": 1399,
+          "clientHeight": 1399,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "chrome": {
+          "sidebar": null,
+          "top": null,
+          "bar": null,
+          "hero": null,
+          "notice": {
+            "x": 20,
+            "y": 415.53125,
+            "width": 350,
+            "height": 124.25
+          }
+        },
+        "firstWork": {
+          "x": 20,
+          "y": 559.78125,
+          "width": 350,
+          "height": 283.71875
+        },
+        "state": "current",
+        "amounts": [
+          "T$62.03",
+          "T$250.00"
+        ],
+        "text": "BidZizi\nPRIVATE STAFF DISPLAY\nEvent Studio\nRecorded standing\n\nSATURN BARTER\n\nHoliday Trade Show · Saturn V1 Short Rehearsal\n\nBrowse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\n\nHoliday Trade Show · synthetic rehearsal\n\nFROZEN OPENING\nOct 8, 2026, 11:06:00 PM PDT\nFROZEN CLOSING\nOct 8, 2026, 11:16:00 PM PDT\nTIME ZONE\nAmerica/Los_Angeles\nClosed · recorded standing\n\nAs of Oct 9, 2026, 12:30:05 AM PDT\n\nRefresh display\n01\n\nGETAWAYS\n\nCabin weekend\n\nTwo quiet nights among the trees\n\nCLOSED RECORDED AMOUNT\n\nT$62.03\nClosed recorded standing\n\nSpruce Hosted Recovery Synthetic\n\n4 accepted bids · version 4\n\nLast accepted change: Oct 8, 2026, 11:08:57 PM PDT\n\n02\n\nHOME\n\nCoffee ritual kit\n\nStart the morning slowly\n\nCLOSED RECORDED AMOUNT\n\nT$250.00\nClosed recorded standing\n\nWillow Hosted Closing Synthetic\n\n1 accepted bid · version 1\n\nLast accepted change: Oct 8, 2026, 11:06:45 PM PDT\n\nPrivate staff access · Published catalog is separate from draft preview.\n\nSynthetic Saturn trade dollars · Recorded amounts are for this published catalog.\n\nRecorded standing is not an award or finalization. No payment or settlement occurs here.",
+        "title": "Holiday Trade Show · Saturn V1 Short Rehearsal",
+        "images": [],
+        "classes": [
+          "display-results-module__uP49Nq__board",
+          "display-results-module__uP49Nq__topbar",
+          "",
+          "display-results-module__uP49Nq__schedule",
+          "display-results-module__uP49Nq__lot",
+          "display-results-module__uP49Nq__lot"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-390-work.png",
+      "png": {
+        "width": 390,
+        "height": 844,
+        "sha256": "1b79868384acf5af211eeb77c244394a046d76ef0f812f32c85e69dde641679e"
+      }
+    },
+    {
+      "view": "lots",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "position": "top",
+      "metrics": {
+        "width": 360,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 360,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 16,
+          "y": 423.75,
+          "width": 328,
+          "height": 379.203125,
+          "scrollTop": 0,
+          "scrollHeight": 2277,
+          "clientHeight": 379,
+          "scrollWidth": 328,
+          "clientWidth": 328
+        },
+        "chrome": {
+          "sidebar": {
+            "x": 0,
+            "y": 0,
+            "width": 360,
+            "height": 188
+          },
+          "top": {
+            "x": 0,
+            "y": 188,
+            "width": 360,
+            "height": 34
+          },
+          "bar": {
+            "x": 0,
+            "y": 222,
+            "width": 360,
+            "height": 193.75
+          },
+          "hero": null,
+          "notice": {
+            "x": 16,
+            "y": 423.75,
+            "width": 325,
+            "height": 20
+          }
+        },
+        "firstWork": {
+          "x": 16,
+          "y": 823.359375,
+          "width": 325,
+          "height": 118
+        },
+        "amounts": [
+          "T$25.01",
+          "T$250.00",
+          "T$35.00"
+        ],
+        "text": "Published terms are fixed.\n\nApproved catalog\n\nHoliday Trade Show · Saturn V1 Demo · saved revision 2 · 2 lots\n\nOctober 8, 2026 · 11:07 PM to October 9, 2026 · 12:00 PM America/Los_Angeles\n\nView approved lots\nItems\n\n3 items · working catalog\n\n+ Add item\nSearch your lots\nITEM\nSELECT ALL\nSelect lot 01\n01\nCabin weekend\nGetaways\nT$25.01\nShared event window\nSelect lot 02\n02\nCoffee ritual kit\nHome\nT$250.00\nShared event window\nSelect lot 03\n03\nSpring flowers\nGarden\nT$35.00\nShared event window\nEditing item 01\nView in preview\nUpload item photo\nItem title\nShort description\nDescription\nCategory\nOpening amount · synthetic trade dollars\nFixed raise override · optional\nPhoto and item details\nPhoto description\nIncluded\nImportant details\nDuplicate lot\n↑\n↓\nCatalog order · 1 of 3\nEvent setup\n\nSaved revision 2. One explicit window and tiered synthetic trade-dollar rules.\n\nWelcome and timing\n3 saved items\nPublished catalog\n✓\nNew bidder entry\n\nEntry enabled · revision 1. New synthetic attendees can create their own private demo profile.",
+        "title": "Holiday Trade Show · Saturn V1 Demo",
+        "images": [
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "width": 1000,
+            "height": 667
+          }
+        ],
+        "classes": [
+          "top",
+          "",
+          "workspace no-preview"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/lots-360-top.png",
+      "png": {
+        "width": 360,
+        "height": 844,
+        "sha256": "5a9fcb3c28b028ab7cdb4467fd9b8e841498f8a2d264fb3554ddff28272de6f3"
+      }
+    },
+    {
+      "view": "event",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "position": "top",
+      "metrics": {
+        "width": 360,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 360,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 16,
+          "y": 423.75,
+          "width": 328,
+          "height": 379.203125,
+          "scrollTop": 0,
+          "scrollHeight": 3118,
+          "clientHeight": 379,
+          "scrollWidth": 328,
+          "clientWidth": 328
+        },
+        "chrome": {
+          "sidebar": {
+            "x": 0,
+            "y": 0,
+            "width": 360,
+            "height": 188
+          },
+          "top": {
+            "x": 0,
+            "y": 188,
+            "width": 360,
+            "height": 34
+          },
+          "bar": {
+            "x": 0,
+            "y": 222,
+            "width": 360,
+            "height": 193.75
+          },
+          "hero": null,
+          "notice": {
+            "x": 16,
+            "y": 423.75,
+            "width": 325,
+            "height": 20
+          }
+        },
+        "firstWork": null,
+        "amounts": [],
+        "text": "Published terms are fixed.\n\nApproved catalog\n\nHoliday Trade Show · Saturn V1 Demo · saved revision 2 · 2 lots\n\nOctober 8, 2026 · 11:07 PM to October 9, 2026 · 12:00 PM America/Los_Angeles\n\nView approved lots\nEvent welcome\nSYNTHETIC SATURN TRADE DOLLARS\nUpload event photo\nEvent name\nWelcome line\nVenue\nEvent photo description\nWelcome message\nOne bidding window\nTIME\nOpening date\nOpening time\nClosing date\nClosing time\nTime zone\nUTC\nPacific · Los Angeles\nMountain · Denver\nCentral · Chicago\nEastern · New York\nSynthetic Saturn trade dollars · no payment or settlement\n\nMinimum raise uses the current highest accepted bid: below T$500.00: T$25.00; T$500.00 to below T$1,000.00: T$50.00; T$1,000.00 to below T$2,500.00: T$100.00; from T$2,500.00: T$250.00. A positive item override replaces the raise. The first bid starts at the opening amount. Any amount at or above the applicable minimum is allowed, up to T$10,000,000.00.\n\nOne shared window. Opening is inclusive and closing is exclusive.\nEvent sponsors\nOPTIONAL\nShow event sponsors\n\nSeparate from the organization providing auction items.\n\nSponsor 1\n×\nUpload sponsor 1 logo\nSponsor 1 logo description\n+ Add event sponsor\nEvent entry\nSHARE\n\nEntry enabled · revision 1\n\nEach attendee creates a separate synthetic demo profile. Entry is independent of draft saving and catalog approval.\n\nEnable event entry\nDisable event entry\nEvent link\nCopy event link\n\nUse this link or QR code to open the attendee profile form.\n\nEvent setup\n\nSaved revision 2. One explicit window and tiered synthetic trade-dollar rules.\n\nWelcome and timing\n3 saved items\nPublished catalog\n✓\nNew bidder entry\n\nEntry enabled · revision 1. New synthetic attendees can create their own private demo profile.",
+        "title": "Holiday Trade Show · Saturn V1 Demo",
+        "images": [
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+            "width": 1000,
+            "height": 667
+          }
+        ],
+        "classes": [
+          "top",
+          "",
+          "workspace no-preview"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/event-360-top.png",
+      "png": {
+        "width": 360,
+        "height": 844,
+        "sha256": "b14863b179256c1fdfb59e45a2912419626dae4753f08fd97cfe9299deaa1cd0"
+      }
+    },
+    {
+      "view": "bidders",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "position": "top",
+      "metrics": {
+        "width": 360,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 360,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 16,
+          "y": 423.75,
+          "width": 328,
+          "height": 379.203125,
+          "scrollTop": 0,
+          "scrollHeight": 1254,
+          "clientHeight": 379,
+          "scrollWidth": 328,
+          "clientWidth": 328
+        },
+        "chrome": {
+          "sidebar": {
+            "x": 0,
+            "y": 0,
+            "width": 360,
+            "height": 188
+          },
+          "top": {
+            "x": 0,
+            "y": 188,
+            "width": 360,
+            "height": 34
+          },
+          "bar": {
+            "x": 0,
+            "y": 222,
+            "width": 360,
+            "height": 193.75
+          },
+          "hero": null,
+          "notice": null
+        },
+        "firstWork": {
+          "x": 35,
+          "y": 652.015625,
+          "width": 287,
+          "height": 333.453125
+        },
+        "amounts": [],
+        "text": "Bidders\n\nCurrent event access for existing synthetic attendees. Business authority stays independently server-derived.\n\nRefresh\n\nConfirmed staff read · Oct 9, 2026, 12:30 AM\n\nCasey Hosted Synthetic\n\nJuniper Hosted Synthetic · business bidding eligible\n\nClaimed member ID: Casey Hosted Synthetic-synthetic · unverified\n\nSaved revision 0\n\nEvent access\nBrowse only\nBid access\nEvent access active\nSave attendee access\nRiley Hosted Synthetic\n\nHarbor Hosted Synthetic · business bidding eligible\n\nClaimed member ID: Riley Hosted Synthetic-synthetic · unverified\n\nSaved revision 0\n\nEvent access\nBrowse only\nBid access\nEvent access active\nSave attendee access\nZack\n\nJ · business bidding eligible\n\nClaimed member ID: 1234 · unverified\n\nSaved revision 0\n\nEvent access\nBrowse only\nBid access\nEvent access active\nSave attendee access",
+        "title": "Holiday Trade Show · Saturn V1 Demo",
+        "images": [],
+        "classes": [
+          "top",
+          "",
+          "workspace no-preview"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/bidders-360-top.png",
+      "png": {
+        "width": 360,
+        "height": 844,
+        "sha256": "0bf1848a78f5db4fced9f7a7c7db7623bc176e9cdc67b25431444f372dd98e54"
+      }
+    },
+    {
+      "view": "donations",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "position": "top",
+      "metrics": {
+        "width": 360,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 360,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 16,
+          "y": 423.75,
+          "width": 328,
+          "height": 379.203125,
+          "scrollTop": 0,
+          "scrollHeight": 2132,
+          "clientHeight": 379,
+          "scrollWidth": 328,
+          "clientWidth": 328
+        },
+        "chrome": {
+          "sidebar": {
+            "x": 0,
+            "y": 0,
+            "width": 360,
+            "height": 188
+          },
+          "top": {
+            "x": 0,
+            "y": 188,
+            "width": 360,
+            "height": 34
+          },
+          "bar": {
+            "x": 0,
+            "y": 222,
+            "width": 360,
+            "height": 193.75
+          },
+          "hero": null,
+          "notice": null
+        },
+        "firstWork": {
+          "x": 35,
+          "y": 1912.125,
+          "width": 287,
+          "height": 299.1875
+        },
+        "amounts": [
+          "T$123.45",
+          "T$50.00"
+        ],
+        "text": "Donation pledges\n\nSaturn staff process recorded pledges manually. Amounts are Saturn trade dollars; this screen does not charge an account or post to a ledger.\n\nRefresh\n\nConfirmed staff read · Oct 9, 2026, 12:30 AM\n\nDonation enablement\nSave availability\nRequested donation enablement\n\nSaved enablement intent: enabled. Effective availability: Open at the last server read · attendee eligibility checked separately. Status as of Oct 9, 2026, 12:30 AM.\n\nDonation amount cap · trade dollars\nWhen donations are available\nNot configured\nAny time for this event\nExplicit donation window\nDonations open · UTC\nDonations close · UTC\n\nMinimum: T$0.01. Configure a positive cap and availability before enabling donations. Disable donations before clearing either setting. No rule is selected automatically.\n\nEvent recipients\nRecipient name\nDescription\nActive recipient\n\nSaved version 1\n\nSave recipient\nAdd a recipient\nRecorded donation pledges\nDownload CSV\nSynthetic Holiday Trade Show Recipient\n\nJuniper Hosted Synthetic · Casey Hosted Synthetic\n\nRecorded Oct 8, 2026, 11:08 PM\n\nRecipient snapshot · version 1\n\nT$123.45\n\nSaturn trade dollars\n\nPending manual staff processing\n\nSynthetic Holiday Trade Show Recipient\n\nJ · Zack\n\nRecorded Oct 8, 2026, 11:40 PM\n\nRecipient snapshot · version 1\n\nT$50.00\n\nSaturn trade dollars\n\nPending manual staff processing",
+        "title": "Holiday Trade Show · Saturn V1 Demo",
+        "images": [],
+        "classes": [
+          "top",
+          "",
+          "workspace no-preview",
+          "staff-row",
+          "staff-row"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/donations-360-top.png",
+      "png": {
+        "width": 360,
+        "height": 844,
+        "sha256": "8d292c5fd9544f55eb9636f5f5fecf311ba3b892451ad5243575ee94d2638168"
+      }
+    },
+    {
+      "view": "results",
+      "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "position": "top",
+      "metrics": {
+        "width": 360,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 360,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 1479.34375,
+          "scrollTop": 0,
+          "scrollHeight": 1479,
+          "clientHeight": 1479,
+          "scrollWidth": 360,
+          "clientWidth": 360
+        },
+        "chrome": {
+          "sidebar": null,
+          "top": null,
+          "bar": null,
+          "hero": null,
+          "notice": {
+            "x": 20,
+            "y": 555.03125,
+            "width": 320,
+            "height": 124.25
+          }
+        },
+        "firstWork": {
+          "x": 20,
+          "y": 805.625,
+          "width": 320,
+          "height": 244.796875
+        },
+        "state": "current",
+        "amounts": [
+          "T$62.03",
+          "T$250.00"
+        ],
+        "text": "BidZizi\nPRIVATE STAFF STANDING\nEvent Studio\nPrivate display\n\nSATURN BARTER\n\nHoliday Trade Show · Saturn V1 Short Rehearsal\n\nBrowse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\n\nHoliday Trade Show · synthetic rehearsal\n\nFROZEN OPENING\nOct 8, 2026, 11:06:00 PM PDT\nFROZEN CLOSING\nOct 8, 2026, 11:16:00 PM PDT\nTIME ZONE\nAmerica/Los_Angeles\nClosed · recorded standing\n\nAs of Oct 9, 2026, 12:30:09 AM PDT\n\nRefresh standing\nRecorded lot standing\nDownload CSV\n\nLOT\nPUBLISHED ITEM\nACCEPTED AMOUNT\nSTANDING AND BUSINESS\n01\nCabin weekend\nGetaways\nT$62.03\nClosed recorded standing\n\nSpruce Hosted Recovery Synthetic\n\n4 accepted bids · version 4\n\nLast accepted change: Oct 8, 2026, 11:08:57 PM PDT\n\n02\nCoffee ritual kit\nHome\nT$250.00\nClosed recorded standing\n\nWillow Hosted Closing Synthetic\n\n1 accepted bid · version 1\n\nLast accepted change: Oct 8, 2026, 11:06:45 PM PDT\n\nPrivate staff access · Published catalog is separate from draft preview.\n\nSynthetic Saturn trade dollars · Recorded amounts are for this published catalog.\n\nRecorded standing is not an award or finalization. No payment or settlement occurs here.",
+        "title": "Holiday Trade Show · Saturn V1 Short Rehearsal",
+        "images": [],
+        "classes": [
+          "display-results-module__uP49Nq__board",
+          "display-results-module__uP49Nq__topbar",
+          "",
+          "display-results-module__uP49Nq__schedule"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-360-top.png",
+      "png": {
+        "width": 360,
+        "height": 844,
+        "sha256": "1d8793355e8e4af02c17d850822aa5f1ceba5c8dba009e88bf970bd3082ecf00"
+      }
+    },
+    {
+      "view": "results",
+      "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "position": "work",
+      "metrics": {
+        "width": 360,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 360,
+        "documentScrollTop": 206,
+        "main": {
+          "x": 0,
+          "y": -206,
+          "width": 360,
+          "height": 1479.34375,
+          "scrollTop": 0,
+          "scrollHeight": 1479,
+          "clientHeight": 1479,
+          "scrollWidth": 360,
+          "clientWidth": 360
+        },
+        "chrome": {
+          "sidebar": null,
+          "top": null,
+          "bar": null,
+          "hero": null,
+          "notice": {
+            "x": 20,
+            "y": 349.03125,
+            "width": 320,
+            "height": 124.25
+          }
+        },
+        "firstWork": {
+          "x": 20,
+          "y": 599.625,
+          "width": 320,
+          "height": 244.796875
+        },
+        "state": "current",
+        "amounts": [
+          "T$62.03",
+          "T$250.00"
+        ],
+        "text": "BidZizi\nPRIVATE STAFF STANDING\nEvent Studio\nPrivate display\n\nSATURN BARTER\n\nHoliday Trade Show · Saturn V1 Short Rehearsal\n\nBrowse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\n\nHoliday Trade Show · synthetic rehearsal\n\nFROZEN OPENING\nOct 8, 2026, 11:06:00 PM PDT\nFROZEN CLOSING\nOct 8, 2026, 11:16:00 PM PDT\nTIME ZONE\nAmerica/Los_Angeles\nClosed · recorded standing\n\nAs of Oct 9, 2026, 12:30:09 AM PDT\n\nRefresh standing\nRecorded lot standing\nDownload CSV\n\nLOT\nPUBLISHED ITEM\nACCEPTED AMOUNT\nSTANDING AND BUSINESS\n01\nCabin weekend\nGetaways\nT$62.03\nClosed recorded standing\n\nSpruce Hosted Recovery Synthetic\n\n4 accepted bids · version 4\n\nLast accepted change: Oct 8, 2026, 11:08:57 PM PDT\n\n02\nCoffee ritual kit\nHome\nT$250.00\nClosed recorded standing\n\nWillow Hosted Closing Synthetic\n\n1 accepted bid · version 1\n\nLast accepted change: Oct 8, 2026, 11:06:45 PM PDT\n\nPrivate staff access · Published catalog is separate from draft preview.\n\nSynthetic Saturn trade dollars · Recorded amounts are for this published catalog.\n\nRecorded standing is not an award or finalization. No payment or settlement occurs here.",
+        "title": "Holiday Trade Show · Saturn V1 Short Rehearsal",
+        "images": [],
+        "classes": [
+          "display-results-module__uP49Nq__board",
+          "display-results-module__uP49Nq__topbar",
+          "",
+          "display-results-module__uP49Nq__schedule"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/results-360-work.png",
+      "png": {
+        "width": 360,
+        "height": 844,
+        "sha256": "fb19b64b39f3a3f6531b06ef0e10ffbc9c9109f592247ade46a61a590320e634"
+      }
+    },
+    {
+      "view": "display",
+      "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "position": "top",
+      "metrics": {
+        "width": 360,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 360,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 1446.0625,
+          "scrollTop": 0,
+          "scrollHeight": 1446,
+          "clientHeight": 1446,
+          "scrollWidth": 360,
+          "clientWidth": 360
+        },
+        "chrome": {
+          "sidebar": null,
+          "top": null,
+          "bar": null,
+          "hero": null,
+          "notice": {
+            "x": 20,
+            "y": 555.03125,
+            "width": 320,
+            "height": 124.25
+          }
+        },
+        "firstWork": {
+          "x": 20,
+          "y": 699.28125,
+          "width": 320,
+          "height": 281.328125
+        },
+        "state": "current",
+        "amounts": [
+          "T$62.03",
+          "T$250.00"
+        ],
+        "text": "BidZizi\nPRIVATE STAFF DISPLAY\nEvent Studio\nRecorded standing\n\nSATURN BARTER\n\nHoliday Trade Show · Saturn V1 Short Rehearsal\n\nBrowse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\n\nHoliday Trade Show · synthetic rehearsal\n\nFROZEN OPENING\nOct 8, 2026, 11:06:00 PM PDT\nFROZEN CLOSING\nOct 8, 2026, 11:16:00 PM PDT\nTIME ZONE\nAmerica/Los_Angeles\nClosed · recorded standing\n\nAs of Oct 9, 2026, 12:30:09 AM PDT\n\nRefresh display\n01\n\nGETAWAYS\n\nCabin weekend\n\nTwo quiet nights among the trees\n\nCLOSED RECORDED AMOUNT\n\nT$62.03\nClosed recorded standing\n\nSpruce Hosted Recovery Synthetic\n\n4 accepted bids · version 4\n\nLast accepted change: Oct 8, 2026, 11:08:57 PM PDT\n\n02\n\nHOME\n\nCoffee ritual kit\n\nStart the morning slowly\n\nCLOSED RECORDED AMOUNT\n\nT$250.00\nClosed recorded standing\n\nWillow Hosted Closing Synthetic\n\n1 accepted bid · version 1\n\nLast accepted change: Oct 8, 2026, 11:06:45 PM PDT\n\nPrivate staff access · Published catalog is separate from draft preview.\n\nSynthetic Saturn trade dollars · Recorded amounts are for this published catalog.\n\nRecorded standing is not an award or finalization. No payment or settlement occurs here.",
+        "title": "Holiday Trade Show · Saturn V1 Short Rehearsal",
+        "images": [],
+        "classes": [
+          "display-results-module__uP49Nq__board",
+          "display-results-module__uP49Nq__topbar",
+          "",
+          "display-results-module__uP49Nq__schedule",
+          "display-results-module__uP49Nq__lot",
+          "display-results-module__uP49Nq__lot"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-360-top.png",
+      "png": {
+        "width": 360,
+        "height": 844,
+        "sha256": "bb1cf4193ffe3a147fce3e28218c66def0048dcb639619214560b3be46fe0829"
+      }
+    },
+    {
+      "view": "display",
+      "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "position": "work",
+      "metrics": {
+        "width": 360,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 360,
+        "documentScrollTop": 137,
+        "main": {
+          "x": 0,
+          "y": -137,
+          "width": 360,
+          "height": 1446.0625,
+          "scrollTop": 0,
+          "scrollHeight": 1446,
+          "clientHeight": 1446,
+          "scrollWidth": 360,
+          "clientWidth": 360
+        },
+        "chrome": {
+          "sidebar": null,
+          "top": null,
+          "bar": null,
+          "hero": null,
+          "notice": {
+            "x": 20,
+            "y": 418.03125,
+            "width": 320,
+            "height": 124.25
+          }
+        },
+        "firstWork": {
+          "x": 20,
+          "y": 562.28125,
+          "width": 320,
+          "height": 281.328125
+        },
+        "state": "current",
+        "amounts": [
+          "T$62.03",
+          "T$250.00"
+        ],
+        "text": "BidZizi\nPRIVATE STAFF DISPLAY\nEvent Studio\nRecorded standing\n\nSATURN BARTER\n\nHoliday Trade Show · Saturn V1 Short Rehearsal\n\nBrowse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\n\nHoliday Trade Show · synthetic rehearsal\n\nFROZEN OPENING\nOct 8, 2026, 11:06:00 PM PDT\nFROZEN CLOSING\nOct 8, 2026, 11:16:00 PM PDT\nTIME ZONE\nAmerica/Los_Angeles\nClosed · recorded standing\n\nAs of Oct 9, 2026, 12:30:09 AM PDT\n\nRefresh display\n01\n\nGETAWAYS\n\nCabin weekend\n\nTwo quiet nights among the trees\n\nCLOSED RECORDED AMOUNT\n\nT$62.03\nClosed recorded standing\n\nSpruce Hosted Recovery Synthetic\n\n4 accepted bids · version 4\n\nLast accepted change: Oct 8, 2026, 11:08:57 PM PDT\n\n02\n\nHOME\n\nCoffee ritual kit\n\nStart the morning slowly\n\nCLOSED RECORDED AMOUNT\n\nT$250.00\nClosed recorded standing\n\nWillow Hosted Closing Synthetic\n\n1 accepted bid · version 1\n\nLast accepted change: Oct 8, 2026, 11:06:45 PM PDT\n\nPrivate staff access · Published catalog is separate from draft preview.\n\nSynthetic Saturn trade dollars · Recorded amounts are for this published catalog.\n\nRecorded standing is not an award or finalization. No payment or settlement occurs here.",
+        "title": "Holiday Trade Show · Saturn V1 Short Rehearsal",
+        "images": [],
+        "classes": [
+          "display-results-module__uP49Nq__board",
+          "display-results-module__uP49Nq__topbar",
+          "",
+          "display-results-module__uP49Nq__schedule",
+          "display-results-module__uP49Nq__lot",
+          "display-results-module__uP49Nq__lot"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/display-360-work.png",
+      "png": {
+        "width": 360,
+        "height": 844,
+        "sha256": "fba531dfe055df6809b09682ed13f204a002024f28bcf385fbbe37ac7ef44204"
+      }
+    },
+    {
+      "view": "keyboard-focus",
+      "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "position": "work",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 0,
+        "main": {
+          "x": 16,
+          "y": 423.75,
+          "width": 358,
+          "height": 379.203125,
+          "scrollTop": 141,
+          "scrollHeight": 2051,
+          "clientHeight": 379,
+          "scrollWidth": 358,
+          "clientWidth": 358
+        },
+        "chrome": {
+          "sidebar": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 188
+          },
+          "top": {
+            "x": 0,
+            "y": 188,
+            "width": 390,
+            "height": 34
+          },
+          "bar": {
+            "x": 0,
+            "y": 222,
+            "width": 390,
+            "height": 193.75
+          },
+          "hero": null,
+          "notice": {
+            "x": 16,
+            "y": 282.75,
+            "width": 355,
+            "height": 20
+          }
+        },
+        "firstWork": {
+          "x": 16,
+          "y": 482.140625,
+          "width": 355,
+          "height": 118
+        },
+        "amounts": [
+          "T$25.01",
+          "T$250.00",
+          "T$35.00"
+        ],
+        "text": "Working draft. Save changes before approving a catalog.\n\nItems\n\n3 items · working catalog\n\n+ Add item\nSearch your lots\nITEM\nSELECT ALL\nSelect lot 01\n01\nCabin weekend\nGetaways\nT$25.01\nShared event window\nSelect lot 02\n02\nCoffee ritual kit\nHome\nT$250.00\nShared event window\nSelect lot 03\n03\nSpring flowers\nGarden\nT$35.00\nShared event window\nEditing item 01\nView in preview\nUpload item photo\nItem title\nShort description\nDescription\nCategory\nOpening amount · synthetic trade dollars\nFixed raise override · optional\nPhoto and item details\nPhoto description\nIncluded\nImportant details\nDuplicate lot\n↑\n↓\nCatalog order · 1 of 3\nEvent setup\n\nSaved revision 2. One explicit window and tiered synthetic trade-dollar rules.\n\nWelcome and timing\n3 saved items\nPublish selected items\n✓\nNew bidder entry\n\nEntry enabled · revision 1. New synthetic attendees can create their own private demo profile.",
+        "title": "Holiday Trade Show · Saturn V1 Demo",
+        "images": [
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "width": 1000,
+            "height": 667
+          },
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+            "width": 1000,
+            "height": 667
+          },
+          {
+            "path": "/api/admin/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/10d243c3-9d0c-4195-b322-83b1b3329bdb",
+            "width": 1000,
+            "height": 667
+          }
+        ],
+        "classes": [
+          "top",
+          "",
+          "workspace no-preview"
+        ]
+      },
+      "path": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/saturn-v1-staff-refinement-2026-10-09/deployed/keyboard-focus-390-work.png",
+      "png": {
+        "width": 390,
+        "height": 844,
+        "sha256": "dfdc9e961d42b79a9fd27f07fba1aa7b5cf0f911cebd980104f168d367c969dc"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "view": "lots",
+      "width": 1440,
+      "nativeMainScroll": {
+        "scrollTop": 1219,
+        "scrollHeight": 2117,
+        "clientHeight": 898
+      }
+    },
+    {
+      "view": "event",
+      "width": 1440,
+      "nativeMainScroll": {
+        "scrollTop": 1426,
+        "scrollHeight": 2324,
+        "clientHeight": 898
+      }
+    },
+    {
+      "view": "bidders",
+      "width": 1440,
+      "nativeMainScroll": {
+        "scrollTop": 0,
+        "scrollHeight": 898,
+        "clientHeight": 898
+      }
+    },
+    {
+      "view": "donations",
+      "width": 1440,
+      "nativeMainScroll": {
+        "scrollTop": 594,
+        "scrollHeight": 1492,
+        "clientHeight": 898
+      }
+    },
+    {
+      "view": "results",
+      "width": 1440,
+      "closedExactAmounts": [
+        "T$62.03",
+        "T$250.00"
+      ]
+    },
+    {
+      "view": "display",
+      "width": 1440,
+      "closedExactAmounts": [
+        "T$62.03",
+        "T$250.00"
+      ]
+    },
+    {
+      "view": "lots",
+      "width": 390,
+      "nativeMainScroll": {
+        "scrollTop": 1872,
+        "scrollHeight": 2251,
+        "clientHeight": 379
+      }
+    },
+    {
+      "view": "event",
+      "width": 390,
+      "nativeMainScroll": {
+        "scrollTop": 2665,
+        "scrollHeight": 3044,
+        "clientHeight": 379
+      }
+    },
+    {
+      "view": "bidders",
+      "width": 390,
+      "nativeMainScroll": {
+        "scrollTop": 858,
+        "scrollHeight": 1237,
+        "clientHeight": 379
+      }
+    },
+    {
+      "view": "donations",
+      "width": 390,
+      "nativeMainScroll": {
+        "scrollTop": 1718,
+        "scrollHeight": 2097,
+        "clientHeight": 379
+      }
+    },
+    {
+      "view": "results",
+      "width": 390,
+      "closedExactAmounts": [
+        "T$62.03",
+        "T$250.00"
+      ]
+    },
+    {
+      "view": "display",
+      "width": 390,
+      "closedExactAmounts": [
+        "T$62.03",
+        "T$250.00"
+      ]
+    },
+    {
+      "view": "lots",
+      "width": 360,
+      "nativeMainScroll": {
+        "scrollTop": 1898,
+        "scrollHeight": 2277,
+        "clientHeight": 379
+      }
+    },
+    {
+      "view": "event",
+      "width": 360,
+      "nativeMainScroll": {
+        "scrollTop": 2739,
+        "scrollHeight": 3118,
+        "clientHeight": 379
+      }
+    },
+    {
+      "view": "bidders",
+      "width": 360,
+      "nativeMainScroll": {
+        "scrollTop": 875,
+        "scrollHeight": 1254,
+        "clientHeight": 379
+      }
+    },
+    {
+      "view": "donations",
+      "width": 360,
+      "nativeMainScroll": {
+        "scrollTop": 1753,
+        "scrollHeight": 2132,
+        "clientHeight": 379
+      }
+    },
+    {
+      "view": "results",
+      "width": 360,
+      "closedExactAmounts": [
+        "T$62.03",
+        "T$250.00"
+      ]
+    },
+    {
+      "view": "display",
+      "width": 360,
+      "closedExactAmounts": [
+        "T$62.03",
+        "T$250.00"
+      ]
+    },
+    {
+      "keyboardFocusBeforeScroll": {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "outline": "rgb(35, 56, 199)",
+        "outlineWidth": "3px",
+        "visible": true,
+        "scrollTop": 0
+      }
+    },
+    {
+      "keyboardFocus": {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "outline": "rgb(35, 56, 199)",
+        "outlineWidth": "3px",
+        "visible": true,
+        "scrollTop": 0
+      },
+      "pageDownMainScroll": 13,
+      "filter": "Cabin local filter restored without save"
+    },
+    {
+      "touchTargets": [
+        {
+          "text": "Items 3",
+          "height": 44
+        },
+        {
+          "text": "Event & entry",
+          "height": 44
+        },
+        {
+          "text": "Bidders",
+          "height": 44
+        },
+        {
+          "text": "Donation pledges",
+          "height": 44
+        },
+        {
+          "text": "Recorded standing",
+          "height": 44
+        },
+        {
+          "text": "Private display",
+          "height": 44
+        },
+        {
+          "text": "Bidder preview",
+          "height": 44
+        }
+      ]
+    },
+    {
+      "primaryOpenRead": {
+        "serverNow": "2026-10-09T07:30:11.263Z",
+        "phase": "open",
+        "amountsMinor": [
+          8000,
+          25000
+        ],
+        "amounts": [
+          "T$80.00",
+          "T$250.00"
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "blockedWrites": [],
+  "interceptions": [],
+  "failure": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /open · confirmed staff read/. Input:\n\n'BidZizi\\n' +\n  'PRIVATE STAFF STANDING\\n' +\n  'Event Studio\\n' +\n  'Private display\\n' +\n  '\\n' +\n  'SATURN BARTER\\n' +\n  '\\n' +\n  'Holiday Trade Show · Saturn V1 Demo\\n' +\n  '\\n' +\n  'Browse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.\\n' +\n  '\\n' +\n  'Holiday Trade Show · synthetic rehearsal\\n' +\n  '\\n' +\n  'FROZEN OPENING\\n' +\n  'Oct 8, 2026, 11:07:00 PM PDT\\n' +\n  'FROZEN CLOSING\\n' +\n  'Oct 9, 2026, 12:00:00 PM PDT\\n' +\n  'TIME ZONE\\n' +\n  'America/Los_Angeles\\n' +\n  'Refreshing staff view…\\n' +\n  '\\n' +\n  'As of Oct 9, 2026, 12:30:11 AM PDT\\n' +\n  '\\n' +\n  'Refreshing · showing the last confirmed staff read.\\n' +\n  '\\n' +\n  'Refresh standing\\n' +\n  'Recorded lot standing\\n' +\n  'Download CSV\\n' +\n  '\\n' +\n  'LOT\\n' +\n  'PUBLISHED ITEM\\n' +\n  'ACCEPTED AMOUNT\\n' +\n  'STANDING AND BUSINESS\\n' +\n  '01\\n' +\n  'Cabin weekend\\n' +\n  'Getaways\\n' +\n  'T$80.00\\n' +\n  'Current recorded standing\\n' +\n  '\\n' +\n  'J\\n' +\n  '\\n' +\n  '4 accepted bids · version 4\\n' +\n  '\\n' +\n  'Last accepted change: Oct 8, 2026, 11:40:59 PM PDT\\n' +\n  '\\n' +\n  '02\\n' +\n  'Coffee ritual kit\\n' +\n  'Home\\n' +\n  'T$250.00\\n' +\n  'Current recorded standing\\n' +\n  '\\n' +\n  'Juniper Hosted Synthetic\\n' +\n  '\\n' +\n  '1 accepted bid · version 1\\n' +\n  '\\n' +\n  'Last accepted change: Oct 8, 2026, 11:08:09 PM PDT\\n' +\n  '\\n' +\n  'Private staff access · Published catalog is separate from draft preview.\\n' +\n  '\\n' +\n  'Synthetic Saturn trade dollars · Recorded amounts are for this published catalog.\\n' +\n  '\\n' +\n  'Recorded standing is not an award or finalization. No payment or settlement occurs here.'\n",
+  "logoutStatus": 200,
+  "cleanup": "Owned context and browser closed; no app/database/harness started",
+  "completedAt": "2026-10-09T07:30:11.414Z"
+}
