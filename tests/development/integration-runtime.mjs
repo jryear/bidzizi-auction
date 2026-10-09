@@ -20,11 +20,12 @@ const stop=()=>{if(stopping)return;stopping=true;resolveStop();};
 process.on('SIGINT',stop);process.on('SIGTERM',stop);
 try {
   await f.admin.query(`GRANT EXECUTE ON FUNCTION bz_demo_begin(uuid,uuid,text),bz_demo_enroll(uuid,uuid,text,text,text,text,text,text),
-    bz_demo_acknowledge(uuid,uuid,text),bz_demo_entry_read(uuid),
+    bz_demo_acknowledge(uuid,uuid,text),
     bz_staff_event_entry_read(text,uuid),bz_staff_event_entry_set(text,uuid,integer,boolean,uuid),
     bz_staff_asset_put(text,uuid,uuid,text,integer,text,bytea,integer,integer),bz_staff_asset_recover(text,uuid,uuid),
     bz_staff_asset_validate(text,uuid,uuid[]),bz_staff_asset_read(text,uuid,uuid,text,uuid),
     bz_staff_bidder_list(text,uuid),bz_staff_bidder_set(text,uuid,uuid,uuid,integer,text,boolean) TO fixture_runtime`);
+  await f.admin.query('GRANT SELECT ON bz_demo_event_entries TO fixture_runtime');
   const organizationId=randomUUID(),otherOrganizationId=randomUUID(),staffId=randomUUID(),otherStaffId=randomUUID();
   await f.admin.query("INSERT INTO bz_orgs(id,name,initials) VALUES($1,'Saturn Barter','SA'),($2,'Other synthetic organization','OT')",[organizationId,otherOrganizationId]);
   await f.admin.query("INSERT INTO bz_people(id,alias,name,is_test) VALUES($1,'staff-saturn','Saturn staff',true),($2,'staff-pine','Other staff',true)",[staffId,otherStaffId]);
