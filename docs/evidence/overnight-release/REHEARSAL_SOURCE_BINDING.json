@@ -1,0 +1,15 @@
+{
+  "revision": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+  "product": {
+    "src": "b67574c4635a5af40f77a83a42d2f4f836b04a39",
+    "public": "a1d6f96be5411ac6e8020d8792944592cf33f6ed",
+    "migrations": "e5bc922bd6d2f3f077ef57a800fc14f117bea545",
+    "package.json": "ee90abed7414b70efa61be1b2e880b99fa87f2de",
+    "pnpm-lock.yaml": "dab1a6f7cef22de1edd25c532b6c1814ebe823ba",
+    "next.config.ts": "64f7cd636516f729dc5c93df62addf85bbec6209"
+  },
+  "origin": "http://127.0.0.1:43981",
+  "descriptor": "/var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz_test_integrated_v1-uFhQbs/RUNTIME.json",
+  "scope": "local source-pinned all-feature runtime; functional UI evidence pending",
+  "authority": "016 retained; 017 held"
+}

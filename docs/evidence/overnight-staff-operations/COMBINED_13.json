@@ -1,0 +1,82 @@
+{
+  "name": "bz_test_staff_ops",
+  "root": "/var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz_test_staff_ops-wYY4yw",
+  "node": "v24.21.0",
+  "cases": [
+    {
+      "name": "staff-only-and-org-private",
+      "result": "PASS"
+    },
+    {
+      "name": "nullable-sponsor-validated",
+      "result": "PASS"
+    },
+    {
+      "name": "closed-no-bids-is-read-only",
+      "result": "PASS"
+    },
+    {
+      "name": "exact-cap-and-recorded-standing-without-bid-authority",
+      "result": "PASS"
+    },
+    {
+      "name": "private-formula-safe-snapshot-csv",
+      "result": "PASS"
+    },
+    {
+      "name": "event-bidder-list-claims-and-no-secrets",
+      "result": "PASS"
+    },
+    {
+      "name": "scoped-durable-disable",
+      "result": "PASS"
+    },
+    {
+      "name": "exact-replay-recovery-and-private-receipt",
+      "result": "PASS"
+    },
+    {
+      "name": "optimistic-access-revision-and-reenable",
+      "result": "PASS"
+    },
+    {
+      "name": "expiry-after-event-wait-no-write",
+      "result": "PASS"
+    },
+    {
+      "name": "late-function-denial-rolls-back-under-direct-caller",
+      "result": "PASS"
+    },
+    {
+      "name": "approved-gate-order-raw-revoker-precedes-bidder-mutation",
+      "result": "PASS"
+    },
+    {
+      "name": "minimal-runtime-and-committed-staff-revocation",
+      "result": "PASS"
+    }
+  ],
+  "source": {
+    "migrations/001_staging_staff.sql": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a",
+    "migrations/002_staging_catalog.sql": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3",
+    "migrations/003_staging_manual_bid.sql": "e8e985e67aa5f47df7cd9f9baf56c19fb30915fa99662b3a4e469a9a98e36cf8",
+    "migrations/009_demo_attendee_entry.sql": "c4e87a9bb9b591228a62d4557865de76f7b391354b468c7876ba06bd305e4b4e",
+    "migrations/015_staff_event_entry.sql": "726e1a22f2c8c756798866a04e98ef458f12d2e1ff9b3e5dd10acd5f923fb38f",
+    "migrations/016_staging_staff_assets.sql": "93b3475d2c10d80985abf7e6192d67195ffa02c0ac744168064898ed7ffa0506",
+    "migrations/018_attendee_activity_donations.sql": "e3c8b7882202b888cf6d9d8fd29fdfd75eb6e559a0230e399ecdb401672d3385",
+    "migrations/019_staff_bidder_operations.sql": "81ecb3c3f5a828e9e78bdf86aa0d841ed7550d9b81f2c9392123a2ed88569e2d",
+    "src/server/staff-operations.ts": "6406d13b8bb168f3e487fae4125f0192c787177cd770ed9a8d186451600b1aba",
+    "src/server/catalog.ts": "bfc43cdf9dd1c033326588591b78456d4f676d565761d64cd20cf8df4ee73993",
+    "src/server/timing.ts": "dc75cb16a5e0910c2bc68252402337326eeece7bf33554e7bea612ee9ff4f798",
+    "src/server/staff-assets.ts": "b5da6fbee8d81438b95818e837991961b046b40cd0136e2ff178d0d5958da8af",
+    "tests/development/staff-operations.mjs": "6ed584ec2083bd46c505a99f3db39122a6908f87c0e363c5bba43e8b9bdd1b61",
+    "tests/development/local-fixture.mjs": "c1ae3a358d1adc83b254201b6645d387291fd93afb76fa870493a9a5c1305e0a"
+  },
+  "cleanup": {
+    "stopped": true,
+    "pid": 3425,
+    "processAbsent": true,
+    "clusterRemoved": true
+  },
+  "postgres": "PostgreSQL 18.6 (Homebrew) on aarch64-apple-darwin27.0.0, compiled by Apple clang version 21.0.0 (clang-2100.3.34.2), 64-bit"
+}
