@@ -607,7 +607,7 @@ const actions={
  'reload-draft':()=>{openModal('Reload saved draft?','<p>Your current edits will be replaced with the latest saved version.</p>','<button class="btn" data-action="close-modal">Keep editing</button><button class="btn primary" data-action="confirm-reload">Reload saved draft</button>');},
  'confirm-reload':async()=>{const id=d.event.id,ticket=++contextEpoch;try{await loadEvent(id,ticket);if(current(ticket))closeModal();}catch{if(current(ticket))toast('Could not reload the saved draft. Your edits are still here.');}},
  'duplicate-lot':duplicateLot,
- 'add-lot':()=>{if(!editable())return;const id=crypto.randomUUID();d.lots.push({id,number:String(d.lots.length+1).padStart(2,'0'),title:'',short:'',category:'',provider:d.org.name,logo:'saturn',image:null,alt:'',opening:null,fixedRaiseMinor:null,count:0,current:0,history:[],description:'',includes:[],fine:'',windowId:null});markDirty();navigate('lots',id);refresh();requestAnimationFrame(()=>$('[data-lot="title"]')?.focus());},
+ 'add-lot':()=>{if(!editable())return;const id=crypto.randomUUID();d.lots.push({id,number:String(d.lots.length+1).padStart(2,'0'),title:'',short:'',category:'',provider:d.org.name,logo:'saturn',image:null,alt:'',opening:null,fixedRaiseMinor:null,count:0,current:0,history:[],description:'',includes:[],fine:'',windowId:null});markDirty();navigate('lots',id,'[data-lot="title"]');refresh();},
  'move-up':()=>move(-1),'move-down':()=>move(1),
  'image':el=>{if(editable())imagePicker(el.dataset.target);},
  'choose-image':el=>{if(editable())applyImage(el.dataset.image);},
