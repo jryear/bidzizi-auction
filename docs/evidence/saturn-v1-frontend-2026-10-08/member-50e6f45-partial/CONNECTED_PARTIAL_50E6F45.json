@@ -1,0 +1,70 @@
+{
+  "source": "50e6f457f22733e0057489384563f8e03bf1e5f0",
+  "kind": "real-http-owned-disposable-development-evidence",
+  "observations": [
+    {
+      "name": "published-before-opening",
+      "detail": {
+        "eventId": "4d48e496-c2a0-4eac-916d-7e87da38f95f",
+        "approvalId": "9d22661b-ff8e-4ae8-a46e-4117d2deb418",
+        "opensAt": "2026-10-09T04:31:00.000Z",
+        "closesAt": "2026-10-09T04:33:00.000Z"
+      }
+    },
+    {
+      "name": "polling-keeps-search-caret-photo",
+      "detail": true
+    },
+    {
+      "name": "back-reload-search-restored",
+      "detail": true
+    },
+    {
+      "name": "held-bid-response",
+      "detail": {
+        "status": 201,
+        "body": {
+          "receipt": {
+            "requestId": "cbcef01d-3e45-4f21-aa5b-e4012a62ae15",
+            "eventId": "4d48e496-c2a0-4eac-916d-7e87da38f95f",
+            "releaseId": "9d22661b-ff8e-4ae8-a46e-4117d2deb418",
+            "lotId": "c087db21-0156-4c74-89e3-f63d04d3ff6f",
+            "actorId": "a81188fc-315a-4d11-891b-653731f44208",
+            "businessId": "150cbbe3-9da4-4a32-be2c-0a5da2c1029a",
+            "amountMinor": 2500,
+            "rulesetId": "saturn-trade-tiered-v1",
+            "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+            "status": "accepted",
+            "reason": null,
+            "bidId": "54bde4ad-ca77-45d3-a89b-267e13d17cf1",
+            "decidedAt": "2026-10-09T04:31:06.294Z"
+          },
+          "standing": {
+            "releaseId": "9d22661b-ff8e-4ae8-a46e-4117d2deb418",
+            "lotId": "c087db21-0156-4c74-89e3-f63d04d3ff6f",
+            "rulesetId": "saturn-trade-tiered-v1",
+            "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+            "incrementMinor": 2500,
+            "amountCapMinor": 1000000000,
+            "phase": "open",
+            "currentAmountMinor": 2500,
+            "minimumAmountMinor": 5000,
+            "acceptedBidCount": 1,
+            "version": 1,
+            "leadingBusiness": {
+              "id": "150cbbe3-9da4-4a32-be2c-0a5da2c1029a",
+              "name": "Juniper Synthetic"
+            },
+            "serverNow": "2026-10-09T04:31:06.294Z",
+            "updatedAt": "2026-10-09T04:31:06.294Z",
+            "canBid": false
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "name": "Error",
+    "message": "locator.click: Error: strict mode violation: locator('[data-action=\"close-sheet\"]') resolved to 2 elements:\n    1) <button class=\"x\" aria-label=\"Close\" data-action=\"close-sheet\">…</button> aka getByRole('button', { name: 'Close' })\n    2) <button data-action=\"close-sheet\" class=\"btn primary block lg\">Keep browsing</button> aka getByRole('button', { name: 'Keep browsing' })\n\nCall log:\n\u001b[2m  - waiting for locator('iframe').contentFrame().locator('[data-action=\"close-sheet\"]')\u001b[22m\n"
+  }
+}
