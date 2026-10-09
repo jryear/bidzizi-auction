@@ -23,7 +23,7 @@ const key=lot=>`bz:manual-intent:v${catalog.version===2?2:1}:${bidder.context?.p
 const uuid=v=>typeof v==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v);
 function validIntent(v){return v&&Object.keys(v).sort().join(',')==='amountMinor,businessId,requestId,rulesetId'&&uuid(v.requestId)&&uuid(v.businessId)&&Number.isSafeInteger(v.amountMinor)&&v.amountMinor>=0&&v.amountMinor<=1_000_000_000&&v.rulesetId===ruleset();}
 function storedIntent(lot){
- try{const raw=localStorage.getItem(key(lot));if(!raw||raw.length>1000)return null;const v=JSON.parse(raw);return validIntent(v)&&bidder.context.businesses.some(b=>b.id===v.businessId)?v:null;}catch{return null;}
+ try{const raw=localStorage.getItem(key(lot));if(!raw||raw.length>1000)return null;const v=JSON.parse(raw);return validIntent(v)&&(catalog.version===2||bidder.context.businesses.some(b=>b.id===v.businessId))?v:null;}catch{return null;}
 }
 function saveIntent(lot,intent){try{localStorage.setItem(key(lot),JSON.stringify(intent));}catch{/* Server recovery remains available while this page stays open. */}}
 async function request(path,body){
@@ -32,6 +32,7 @@ async function request(path,body){
   const response=await fetch(path,{signal:controller.signal,credentials:'same-origin',cache:'no-store',...(body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})}),data=await response.json();
   const sessionResponse=await fetch('/api/session',{signal:controller.signal,credentials:'same-origin',cache:'no-store'}),session=await sessionResponse.json();
   if(!sessionResponse.ok||session.authenticated!==true||session.person?.id!==expected.person){window.dispatchEvent(new Event('member-session-changed'));throw new Error('The private session changed. The original bid remains with its owner.');}
+  if(catalog.version===2){const viewResponse=await fetch(`/api/v2/bidder/events/${encodeURIComponent(expected.event)}/context`,{signal:controller.signal,credentials:'same-origin',cache:'no-store'}),view=await viewResponse.json();if([401,403,404].includes(viewResponse.status)||viewResponse.ok&&view.person?.id!==expected.person){window.dispatchEvent(new Event('member-session-changed'));throw new Error('Current private event access changed.');}if(!viewResponse.ok||view.testMode!==true)throw new Error('Current private event access could not be confirmed.');}
   if(!current(expected)||expectedEpoch!==bidder.epoch)throw new Error('The member view changed before this response could be used.');
   return {status:response.status,data};
  }finally{clearTimeout(timer);}
@@ -85,7 +86,7 @@ export async function refreshLot(id,{fresh=false}={}){
    const s=r.data.standing;
    if(!e.standing||Date.parse(s.serverNow)>=Date.parse(e.standing.serverNow)){e.standing=structuredClone(s);e.stale=false;e.error='';}
   }else if([401,403,404].includes(r.status)){
-   e.standing=null;e.receipt=null;e.error='Bidding is not available to this account.';e.stale=false;
+   e.standing=null;if(catalog.version!==2)e.receipt=null;e.error='Bidding is not available to this account.';e.stale=false;
   }else if(r.status===409){e.standing=null;e.error=r.data.error?.code==='UNSUPPORTED_RULESET'?'This catalog uses a different bidding ruleset.':'Bidding has not opened.';e.stale=false;}
   else{e.stale=true;e.error='Standing could not be refreshed.';}
  }catch{if(!current(g)||e.sequence!==sequence)return;e.stale=true;e.error='No connection. The last confirmed standing is shown.';}
@@ -105,7 +106,7 @@ export function standingMarkup(lot){
  if(!bidder.context)return '';
  const e=entryFor(lot.id),s=e.standing;
  if(e.loading)return '<section class="standing catalog-standing" role="status"><b>Checking standing…</b><p>Waiting for the current server result.</p></section>';
- if(!s)return `<section class="standing catalog-standing" role="status"><b>${esc(e.error||'Checking bidding access…')}</b></section>`;
+ if(!s)return `<section class="standing catalog-standing" role="status"><b>${esc(e.error||'Checking bidding access…')}</b>${e.receipt?`<p data-owned-request="${esc(e.receipt.requestId)}">${e.receipt.status==='accepted'?`Your original ${money(e.receipt.amountMinor)} bid was recorded. Current lot standing could not be confirmed.`:'Your original request was rejected; no bid was placed.'}</p><a href="#/bids" data-nav>View your bid receipts</a>`:''}</section>`;
  const own=e.receipt?.status==='accepted'?e.receipt:null;
  const ownLeading=own&&s.leadingBusiness?.id===own.businessId;
  const title=s.phase==='closed'?(own?(ownLeading?'Closed · your business led':'Closed · outbid'):s.leadingBusiness?`Closed · ${s.leadingBusiness.name} led`:'Closed · no bids recorded'):own?(ownLeading?"You're leading":'Outbid'):s.leadingBusiness?`${s.leadingBusiness.name} is leading`:'No bids yet';
@@ -126,8 +127,8 @@ export function bidFooter(lot){
 const head=title=>`<div class="grab" aria-hidden="true"></div><div class="sheet-head"><h2 id="sheet-title" tabindex="-1">${esc(title)}</h2><button class="x" data-action="close-sheet" aria-label="Close">${icon('close')}</button></div>`;
 function lotMini(l){return `<div class="lotmini"><div class="thumb sm">${l.image?`<img src="${esc(l.image)}" alt="" width="1000" height="667">`:'<span>No photo</span>'}</div><div><span class="lbl">Lot ${esc(l.number)} · ${esc(l.category)}</span><p>${esc(l.title)}</p></div></div>`;}
 function businessBlock(body){
- const b=bidder.context?.businesses.find(b=>b.id===body?.businessId)||currentBusiness();
- return b?`<div class="forbiz">${monogram(b.name,44,true)}<div><span class="lbl">Bidding for</span><b>${esc(b.name)}</b><small>Placed by ${esc(bidder.context.person.name)}</small></div></div>`:'';
+ const b=body?.businessId?bidder.context?.businesses.find(b=>b.id===body.businessId):currentBusiness();
+ return b?`<div class="forbiz">${monogram(b.name,44,true)}<div><span class="lbl">Bidding for</span><b>${esc(b.name)}</b><small>Placed by ${esc(bidder.context.person.name)}</small></div></div>`:body?.businessId?`<div class="forbiz"><div><span class="lbl">Original bid business</span><b>The business selected in this request</b><small>Placed by ${esc(bidder.context.person.name)}</small></div></div>`:'';
 }
 function amountMinor(text){if(!/^\d+(?:\.\d{0,2})?$/.test(String(text)))return null;const [whole,fraction='']=String(text).split('.');const value=Number(whole)*100+Number(fraction.padEnd(2,'0'));return Number.isSafeInteger(value)?value:null;}
 function reviewValidity(){
@@ -183,7 +184,7 @@ function renderSheet(){
  sheet.mode=mode;d.dataset.bidState=mode==='not-recorded'?'rejected':mode;d.dataset.lot=l.id;
  let title='Bid not confirmed',tone='hatch',symbol='question',text="We couldn't confirm this bid. It may or may not have been recorded.",footer='<button class="btn primary block lg" data-action="check">Check status</button>',extra='';
  if(mode==='pending'){title='Sending your bid';tone='amber';symbol='spinner';text='Waiting for the server receipt. This bid may already be recorded; check its status before trying again.';footer='<button class="btn quiet block lg" data-action="close-sheet">Browse while bid is pending</button>';}
- else if(mode==='accepted'&&receipt){title='Bid placed';tone='green';symbol='check';text=`Your ${money(receipt.amountMinor)} bid was recorded for ${esc(bidder.context.businesses.find(b=>b.id===receipt.businessId)?.name||'your business')}.`;extra=`<p data-owned-request="${esc(receipt.requestId)}">Confirmed ${esc(timestamp(receipt.decidedAt))}</p>`;footer='<button class="btn primary block lg" data-action="close-sheet">Keep browsing</button>';}
+ else if(mode==='accepted'&&receipt){title='Bid placed';tone='green';symbol='check';text=`Your ${money(receipt.amountMinor)} bid was recorded for ${esc(bidder.context.businesses.find(b=>b.id===receipt.businessId)?.name||'the original business')}.`;extra=`<p data-owned-request="${esc(receipt.requestId)}">Confirmed ${esc(timestamp(receipt.decidedAt))}</p>`;footer='<button class="btn primary block lg" data-action="close-sheet">Keep browsing</button>';}
  else if(mode==='rejected'){title='Bid not placed';tone='dashed';symbol='x';text=({BELOW_MINIMUM:'Another bid changed the minimum. Your bid was not placed.',CLOSED:'Bidding closed before this bid could be placed.',NOT_OPEN:'Bidding has not opened. Your bid was not placed.',UNSUPPORTED_SELF_RAISE:'Your business is already leading. Raising its own bid is unavailable in this test.',AMOUNT_LIMIT:'No further bid fits within this test limit.'})[receipt?.reason]||'This bid was not placed.';footer='<button class="btn quiet block lg" data-action="close-sheet">Keep browsing</button>';}
  else if(mode==='not-recorded'){title='Bid not recorded';tone='dashed';symbol='x';text=`We checked: this request is not recorded. Try again sends your original ${money(body.amountMinor)} bid using the same request.`;footer='<button class="btn primary block lg" data-action="retry">Try again</button><button class="btn-link center" data-action="close-sheet">Close</button>';}
  if(e.checking)extra+='<p class="r-note" role="status">Checking the original request…</p>';
@@ -217,6 +218,12 @@ async function recover(id,show=true){
   const r=await request(root(id)+'/bid-receipts/'+encodeURIComponent(intent.requestId));
   if(!current(g)||e.intent?.requestId!==intent.requestId)return;
   if(r.status===200&&adoptReceipt(e,r.data.receipt,id)){}
+  else if(r.status===403&&catalog.version===2){
+   const h=await request(`/api/bidder/events/${encodeURIComponent(bidder.eventId)}/my-bids`);if(!current(g)||e.intent?.requestId!==intent.requestId)return;
+   const p=h.data,valid=h.status===200&&p.eventId===bidder.eventId&&p.releaseId===catalog.approvalId&&p.person?.id===bidder.context.person.id&&p.currency===denomination()&&p.rulesetId===ruleset()&&p.scale===100&&['scheduled','open','closed'].includes(p.phase)&&Number.isFinite(Date.parse(p.serverNow))&&Array.isArray(p.bids);
+   const owned=valid?p.bids.find(b=>receiptMatches(b.receipt,intent,id))?.receipt:null;
+   if(!owned||!adoptReceipt(e,owned,id)){e.mode='unconfirmed';e.stale=true;e.error='The original receipt could not be confirmed with current event access.';}
+  }
   else if(r.status===404){e.mode='not-recorded';e.receipt=null;}
   else{e.mode='unconfirmed';if([401,403].includes(r.status)){e.stale=true;e.error='Bidding access could not be confirmed.';}}
  }catch{if(!current(g)||e.intent?.requestId!==intent.requestId)return;e.mode='unconfirmed';}
