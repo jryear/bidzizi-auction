@@ -1,0 +1,50 @@
+{
+  "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "origin": "https://staging.bidzizi.com",
+  "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+  "checks": [
+    "anonymous private denial 990280fa-51db-47cd-aabe-5d15bf776002/results",
+    "anonymous private denial results/export",
+    "anonymous private denial assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+    "anonymous private denial 990280fa-51db-47cd-aabe-5d15bf776002/donations",
+    "anonymous private denial donations/export",
+    "transport failure retains dated stale rows and disables export",
+    "explicit retry revalidates current standing",
+    "session loss during actual held read clears prior and new private display",
+    "session loss after actual CSV fetch blocks download and clears private rows",
+    "session loss after pledge CSV fetch blocks download and clears private donor controls",
+    "no browser exceptions"
+  ],
+  "captures": [
+    {
+      "name": "phone-stale-standing.png",
+      "state": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "scrollWidth": 390
+      }
+    },
+    {
+      "name": "phone-denied-display.png",
+      "state": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "scrollWidth": 390
+      }
+    },
+    {
+      "name": "phone-denied-export.png",
+      "state": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "scrollWidth": 390
+      }
+    }
+  ],
+  "errors": [],
+  "kind": "HOSTED_REAL_HTTP_UI",
+  "scope": "Read-only private/CSV denial and browser transport/session challenge; no server settings or memberships changed"
+}

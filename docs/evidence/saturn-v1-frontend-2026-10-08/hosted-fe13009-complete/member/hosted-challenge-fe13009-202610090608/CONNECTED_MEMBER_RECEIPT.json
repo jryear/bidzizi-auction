@@ -1,0 +1,353 @@
+{
+  "kind": "REAL_HOSTED_DEMO_UI_SYNTHETIC_FIXTURE_NOT_PRODUCTION_ACCEPTANCE",
+  "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "origin": "https://staging.bidzizi.com",
+  "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+  "rows": [
+    {
+      "name": "source-bound-runtime",
+      "detail": {
+        "origin": "https://staging.bidzizi.com",
+        "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+        "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6"
+      }
+    },
+    {
+      "name": "served-source-binding",
+      "detail": {
+        "file": "/staging-catalog/app.js",
+        "sha256": "d767371d7747fde142bef22cd063b2e09beb157b408e052b2bdee60f96c6d76c",
+        "matchesOwnedSource": true
+      }
+    },
+    {
+      "name": "served-source-binding",
+      "detail": {
+        "file": "/staging-catalog/bidding.js",
+        "sha256": "467d74e5150fafeba758c7142c7b3ecd7b0f403ca239b0054f259c302cdf5727",
+        "matchesOwnedSource": true
+      }
+    },
+    {
+      "name": "served-source-binding",
+      "detail": {
+        "file": "/staging-catalog/donations.js",
+        "sha256": "c848496b37d4f62e3c368f2b3ba066efe6afc181937d6bbd77ef17a3de3b75c7",
+        "matchesOwnedSource": true
+      }
+    },
+    {
+      "name": "served-source-binding",
+      "detail": {
+        "file": "/staging-catalog/collections.js",
+        "sha256": "5bc7aaf7cea9972b5750440843f37690aec1559ba982966a5f628acbef64a283",
+        "matchesOwnedSource": true
+      }
+    },
+    {
+      "name": "served-source-binding",
+      "detail": {
+        "file": "/staging-catalog/views.js",
+        "sha256": "057650c3c8024ffd71805a625622a124761037177edee5500bcc0823868a1334",
+        "matchesOwnedSource": true
+      }
+    },
+    {
+      "name": "served-source-binding",
+      "detail": {
+        "file": "/staging-catalog/styles.css",
+        "sha256": "750076efd6a3970f29f3ac25545260a1024631ee8e49aa6f5db8cb540d666292",
+        "matchesOwnedSource": true
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/288a2572-1b08-4a80-a089-19cecc36a841",
+        "status": 200
+      }
+    },
+    {
+      "name": "distinct-native-attendee",
+      "detail": {
+        "person": {
+          "id": "8e2a0f98-924a-4742-ab44-19147af0e0ad",
+          "name": "Jordan Hosted Recovery Synthetic"
+        },
+        "businesses": [
+          {
+            "id": "6eded205-c3ff-4643-8432-cc74bc596cd4",
+            "name": "Spruce Hosted Recovery Synthetic",
+            "canBid": true
+          }
+        ],
+        "width": 390
+      }
+    },
+    {
+      "name": "hosted-frozen-event",
+      "detail": {
+        "name": "Holiday Trade Show · Saturn V1 Short Rehearsal",
+        "schedule": {
+          "opensAt": "2026-10-09T06:06:00.000Z",
+          "closesAt": "2026-10-09T06:16:00.000Z",
+          "timezone": "America/Los_Angeles"
+        },
+        "phase": "open",
+        "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c"
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/fe08b76f-0e15-4b08-a73e-c8c90e84f05e",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+        "status": 200
+      }
+    },
+    {
+      "name": "HELD_ORIGINAL_RECEIPT_READY_FOR_STAFF_VIEW",
+      "detail": {
+        "actorId": "8e2a0f98-924a-4742-ab44-19147af0e0ad",
+        "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+        "requestId": "d27910e7-5e39-436b-a5f1-4753810142ea",
+        "amountMinor": 6203
+      }
+    },
+    {
+      "name": "real-held-bid-to-view-exact-my-bids-recovery",
+      "detail": {
+        "flags": {
+          "checking": false,
+          "intent": "d27910e7-5e39-436b-a5f1-4753810142ea",
+          "receipt": "d27910e7-5e39-436b-a5f1-4753810142ea",
+          "canBid": false
+        },
+        "grantGetCount": 2
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+        "status": 200
+      }
+    },
+    {
+      "name": "staff-restored-bid-authority-original-owned-receipt",
+      "detail": true
+    }
+  ],
+  "captures": [
+    {
+      "name": "PHONE_WELCOME",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-challenge-fe13009-202610090608/PHONE_WELCOME.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1127,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/fe08b76f-0e15-4b08-a73e-c8c90e84f05e",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/288a2572-1b08-4a80-a089-19cecc36a841",
+            "complete": true,
+            "naturalWidth": 64,
+            "naturalHeight": 64
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_VIEW_AUTHORIZED_ORIGINAL_RECEIPT",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-challenge-fe13009-202610090608/PHONE_VIEW_AUTHORIZED_ORIGINAL_RECEIPT.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1160,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_BID_RESTORED_RELOAD",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-challenge-fe13009-202610090608/PHONE_BID_RESTORED_RELOAD.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1253,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    }
+  ],
+  "receipts": [
+    {
+      "kind": "grant-recovery-original-durable-bid",
+      "status": 201,
+      "data": {
+        "receipt": {
+          "requestId": "d27910e7-5e39-436b-a5f1-4753810142ea",
+          "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+          "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+          "lotId": "50c652d2-d3a8-499e-bc6d-8d25fa6dbaf8",
+          "actorId": "8e2a0f98-924a-4742-ab44-19147af0e0ad",
+          "businessId": "6eded205-c3ff-4643-8432-cc74bc596cd4",
+          "amountMinor": 6203,
+          "rulesetId": "saturn-trade-tiered-v1",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "status": "accepted",
+          "reason": null,
+          "bidId": "7e77db88-ba3b-435b-8c2c-3692bb3b17db",
+          "decidedAt": "2026-10-09T06:08:57.557Z"
+        },
+        "standing": {
+          "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+          "lotId": "50c652d2-d3a8-499e-bc6d-8d25fa6dbaf8",
+          "rulesetId": "saturn-trade-tiered-v1",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "incrementMinor": 1234,
+          "amountCapMinor": 1000000000,
+          "phase": "open",
+          "currentAmountMinor": 6203,
+          "minimumAmountMinor": 7437,
+          "acceptedBidCount": 4,
+          "version": 4,
+          "leadingBusiness": {
+            "id": "6eded205-c3ff-4643-8432-cc74bc596cd4",
+            "name": "Spruce Hosted Recovery Synthetic"
+          },
+          "serverNow": "2026-10-09T06:08:57.557Z",
+          "updatedAt": "2026-10-09T06:08:57.557Z",
+          "canBid": false
+        }
+      }
+    },
+    {
+      "kind": "view-authorized-owned-history",
+      "data": {
+        "bids": [
+          {
+            "lot": {
+              "id": "50c652d2-d3a8-499e-bc6d-8d25fa6dbaf8",
+              "title": "Cabin weekend",
+              "number": "01"
+            },
+            "receipt": {
+              "bidId": "7e77db88-ba3b-435b-8c2c-3692bb3b17db",
+              "lotId": "50c652d2-d3a8-499e-bc6d-8d25fa6dbaf8",
+              "reason": null,
+              "status": "accepted",
+              "actorId": "8e2a0f98-924a-4742-ab44-19147af0e0ad",
+              "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+              "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+              "decidedAt": "2026-10-09T06:08:57.557Z",
+              "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+              "requestId": "d27910e7-5e39-436b-a5f1-4753810142ea",
+              "rulesetId": "saturn-trade-tiered-v1",
+              "businessId": "6eded205-c3ff-4643-8432-cc74bc596cd4",
+              "amountMinor": 6203
+            },
+            "standing": {
+              "version": 4,
+              "updatedAt": "2026-10-09T06:08:57.557+00:00",
+              "leadingBusiness": {
+                "id": "6eded205-c3ff-4643-8432-cc74bc596cd4",
+                "name": "Spruce Hosted Recovery Synthetic"
+              },
+              "acceptedBidCount": 4,
+              "currentAmountMinor": 6203
+            },
+            "recordedState": "leading"
+          }
+        ],
+        "phase": "open",
+        "scale": 100,
+        "person": {
+          "id": "8e2a0f98-924a-4742-ab44-19147af0e0ad",
+          "name": "Jordan Hosted Recovery Synthetic"
+        },
+        "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+        "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+        "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+        "rulesetId": "saturn-trade-tiered-v1",
+        "serverNow": "2026-10-09T06:11:49.752048+00:00"
+      }
+    }
+  ],
+  "errors": []
+}

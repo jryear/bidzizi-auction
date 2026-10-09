@@ -1,0 +1,1265 @@
+{
+  "kind": "REAL_HOSTED_DEMO_UI_SYNTHETIC_FIXTURE_NOT_PRODUCTION_ACCEPTANCE",
+  "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "origin": "https://staging.bidzizi.com",
+  "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+  "rows": [
+    {
+      "name": "source-bound-runtime",
+      "detail": {
+        "origin": "https://staging.bidzizi.com",
+        "source": "5b4bb79b662ec3b151b860bc22f96034e496bbc8",
+        "eventId": "990280fa-51db-47cd-aabe-5d15bf776002"
+      }
+    },
+    {
+      "name": "served-source-binding",
+      "detail": {
+        "file": "/staging-catalog/app.js",
+        "sha256": "d767371d7747fde142bef22cd063b2e09beb157b408e052b2bdee60f96c6d76c",
+        "matchesOwnedSource": true
+      }
+    },
+    {
+      "name": "served-source-binding",
+      "detail": {
+        "file": "/staging-catalog/bidding.js",
+        "sha256": "467d74e5150fafeba758c7142c7b3ecd7b0f403ca239b0054f259c302cdf5727",
+        "matchesOwnedSource": true
+      }
+    },
+    {
+      "name": "served-source-binding",
+      "detail": {
+        "file": "/staging-catalog/donations.js",
+        "sha256": "c848496b37d4f62e3c368f2b3ba066efe6afc181937d6bbd77ef17a3de3b75c7",
+        "matchesOwnedSource": true
+      }
+    },
+    {
+      "name": "served-source-binding",
+      "detail": {
+        "file": "/staging-catalog/collections.js",
+        "sha256": "5bc7aaf7cea9972b5750440843f37690aec1559ba982966a5f628acbef64a283",
+        "matchesOwnedSource": true
+      }
+    },
+    {
+      "name": "served-source-binding",
+      "detail": {
+        "file": "/staging-catalog/views.js",
+        "sha256": "057650c3c8024ffd71805a625622a124761037177edee5500bcc0823868a1334",
+        "matchesOwnedSource": true
+      }
+    },
+    {
+      "name": "served-source-binding",
+      "detail": {
+        "file": "/staging-catalog/styles.css",
+        "sha256": "750076efd6a3970f29f3ac25545260a1024631ee8e49aa6f5db8cb540d666292",
+        "matchesOwnedSource": true
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/3c36c2d7-4468-48a7-b7f6-77b854c0b54c",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+        "status": 200
+      }
+    },
+    {
+      "name": "distinct-native-attendee",
+      "detail": {
+        "person": {
+          "id": "f7283a0c-0583-416e-954d-929da619347e",
+          "name": "Casey Hosted Synthetic"
+        },
+        "businesses": [
+          {
+            "id": "5a300e74-439c-46ef-9547-48abcc06e21b",
+            "name": "Juniper Hosted Synthetic",
+            "canBid": false
+          }
+        ],
+        "width": 390
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/3c36c2d7-4468-48a7-b7f6-77b854c0b54c",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+        "status": 200
+      }
+    },
+    {
+      "name": "distinct-native-attendee",
+      "detail": {
+        "person": {
+          "id": "ea221ddf-de05-4dcb-8658-f0af4441674f",
+          "name": "Riley Hosted Synthetic"
+        },
+        "businesses": [
+          {
+            "id": "d3784810-6f1e-4d51-a76c-a03b7d9c15ae",
+            "name": "Harbor Hosted Synthetic",
+            "canBid": false
+          }
+        ],
+        "width": 1440
+      }
+    },
+    {
+      "name": "hosted-frozen-event",
+      "detail": {
+        "name": "Holiday Trade Show · Saturn V1 Demo",
+        "schedule": {
+          "opensAt": "2026-10-09T06:07:00.000Z",
+          "closesAt": "2026-10-09T19:00:00.000Z",
+          "timezone": "America/Los_Angeles"
+        },
+        "phase": "scheduled",
+        "releaseId": "6473508e-6d74-4579-8ca0-4dc21de32e84"
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+        "status": 200
+      }
+    },
+    {
+      "name": "poll-keeps-original-search-caret-photo",
+      "detail": true
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+        "status": 200
+      }
+    },
+    {
+      "name": "native-back-reload-search-categories-layout-restored",
+      "detail": true
+    },
+    {
+      "name": "deployment-source-rebind",
+      "detail": {
+        "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+        "reason": "Backend root-only successor VERIFIED READY dpl_GNwQHvqibmQMCtxPv38wik9XcUZA; own anonymous actual root redirect Entry3603901440 and six byte matches in ROOT_FE13009_READBACK.json; earlier5b captures remain source-bound"
+      }
+    },
+    {
+      "name": "server-open",
+      "detail": "2026-10-09T06:07:39.276Z"
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+        "status": 200
+      }
+    },
+    {
+      "name": "three-manual-bids-from-authoritative-minimum",
+      "detail": {
+        "amount0": "25.01",
+        "amount1": "37.35",
+        "amount2": "49.69",
+        "standing": {
+          "releaseId": "6473508e-6d74-4579-8ca0-4dc21de32e84",
+          "lotId": "a39d4288-c1d1-4613-be22-8258a529ab3b",
+          "rulesetId": "saturn-trade-tiered-v1",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "incrementMinor": 1234,
+          "amountCapMinor": 1000000000,
+          "phase": "open",
+          "currentAmountMinor": 4969,
+          "minimumAmountMinor": 6203,
+          "acceptedBidCount": 3,
+          "version": 3,
+          "leadingBusiness": {
+            "id": "5a300e74-439c-46ef-9547-48abcc06e21b",
+            "name": "Juniper Hosted Synthetic"
+          },
+          "serverNow": "2026-10-09T06:08:07.290Z",
+          "updatedAt": "2026-10-09T06:08:05.110Z",
+          "canBid": false
+        }
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+        "status": 200
+      }
+    },
+    {
+      "name": "failed-original-request-exact-retry",
+      "detail": true
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+        "status": 200
+      }
+    },
+    {
+      "name": "watch-durable-reload-and-private-my-bids",
+      "detail": true
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/3c36c2d7-4468-48a7-b7f6-77b854c0b54c",
+        "status": 200
+      }
+    },
+    {
+      "name": "donation-original-request-recovery-exact-cents",
+      "detail": true
+    }
+  ],
+  "captures": [
+    {
+      "name": "PHONE_WELCOME",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_WELCOME.png",
+      "source": "5b4bb79b662ec3b151b860bc22f96034e496bbc8",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1229,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/3c36c2d7-4468-48a7-b7f6-77b854c0b54c",
+            "complete": true,
+            "naturalWidth": 64,
+            "naturalHeight": 64
+          }
+        ]
+      }
+    },
+    {
+      "name": "DESKTOP_WELCOME",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/DESKTOP_WELCOME.png",
+      "source": "5b4bb79b662ec3b151b860bc22f96034e496bbc8",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "png": {
+        "width": 1440,
+        "height": 1000
+      },
+      "frame": {
+        "innerWidth": 480,
+        "innerHeight": 947,
+        "dpr": 1,
+        "documentWidth": 480,
+        "scrollY": 0,
+        "scrollHeight": 1188,
+        "mainWidth": 480,
+        "images": [
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/3c36c2d7-4468-48a7-b7f6-77b854c0b54c",
+            "complete": true,
+            "naturalWidth": 64,
+            "naturalHeight": 64
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_CATALOG_PREOPEN",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_CATALOG_PREOPEN.png",
+      "source": "5b4bb79b662ec3b151b860bc22f96034e496bbc8",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1495,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "DESKTOP_CATALOG_PREOPEN",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/DESKTOP_CATALOG_PREOPEN.png",
+      "source": "5b4bb79b662ec3b151b860bc22f96034e496bbc8",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "png": {
+        "width": 1440,
+        "height": 1000
+      },
+      "frame": {
+        "innerWidth": 480,
+        "innerHeight": 947,
+        "dpr": 1,
+        "documentWidth": 480,
+        "scrollY": 0,
+        "scrollHeight": 1615,
+        "mainWidth": 480,
+        "images": [
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_LOT_PREOPEN",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_LOT_PREOPEN.png",
+      "source": "5b4bb79b662ec3b151b860bc22f96034e496bbc8",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1195,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_360_LOT_PREOPEN",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_360_LOT_PREOPEN.png",
+      "source": "5b4bb79b662ec3b151b860bc22f96034e496bbc8",
+      "viewport": {
+        "width": 360,
+        "height": 844
+      },
+      "png": {
+        "width": 360,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 360,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 360,
+        "scrollY": 0,
+        "scrollHeight": 1187,
+        "mainWidth": 360,
+        "images": [
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_NATIVE_BID_REVIEW",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_NATIVE_BID_REVIEW.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1129,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_NATIVE_BID_PENDING",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_NATIVE_BID_PENDING.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1129,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_BOUNDED_BID_UNCERTAIN",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_BOUNDED_BID_UNCERTAIN.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1273,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_ACCEPTED_ORIGINAL_RECEIPT",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_ACCEPTED_ORIGINAL_RECEIPT.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1235,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_OUTBID",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_OUTBID.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1235,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_LOST_REBID_UNCERTAIN",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_LOST_REBID_UNCERTAIN.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1273,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_RELOAD_ORIGINAL_REBID_RECOVERED",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_RELOAD_ORIGINAL_REBID_RECOVERED.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1235,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_FAILED_NOT_RECORDED",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_FAILED_NOT_RECORDED.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1187,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/884ed405-17ca-45ff-9ced-6cee34fb22da",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_WATCHING_CONFIRMED",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_WATCHING_CONFIRMED.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 760,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/990280fa-51db-47cd-aabe-5d15bf776002/assets/0a625a16-fae8-4721-93d0-237cb3b5fab2",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_MY_BIDS_DURABLE",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_MY_BIDS_DURABLE.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 903,
+        "mainWidth": 390,
+        "images": []
+      }
+    },
+    {
+      "name": "PHONE_DONATION_CHOICES",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_DONATION_CHOICES.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1073,
+        "mainWidth": 390,
+        "images": []
+      }
+    },
+    {
+      "name": "PHONE_NATIVE_DONATION_REVIEW",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_NATIVE_DONATION_REVIEW.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 277,
+        "scrollHeight": 1073,
+        "mainWidth": 390,
+        "images": []
+      }
+    },
+    {
+      "name": "PHONE_DONATION_PENDING",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_DONATION_PENDING.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 1,
+        "scrollHeight": 746,
+        "mainWidth": 390,
+        "images": []
+      }
+    },
+    {
+      "name": "PHONE_DONATION_UNCERTAIN",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_DONATION_UNCERTAIN.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 1,
+        "scrollHeight": 761,
+        "mainWidth": 390,
+        "images": []
+      }
+    },
+    {
+      "name": "PHONE_DONATION_RELOADED_RECORDED",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_DONATION_RELOADED_RECORDED.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 1,
+        "scrollHeight": 886,
+        "mainWidth": 390,
+        "images": []
+      }
+    },
+    {
+      "name": "PHONE_360_DONATION_RECORDED",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-primary-5b4bb79-202610090559/PHONE_360_DONATION_RECORDED.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 360,
+        "height": 844
+      },
+      "png": {
+        "width": 360,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 360,
+        "innerHeight": 745,
+        "dpr": 1,
+        "documentWidth": 360,
+        "scrollY": 1,
+        "scrollHeight": 906,
+        "mainWidth": 360,
+        "images": []
+      }
+    }
+  ],
+  "receipts": [
+    {
+      "kind": "held-committed-bid",
+      "status": 201,
+      "data": {
+        "receipt": {
+          "requestId": "5ae988d2-9d7c-4543-902e-9092815116ff",
+          "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+          "releaseId": "6473508e-6d74-4579-8ca0-4dc21de32e84",
+          "lotId": "a39d4288-c1d1-4613-be22-8258a529ab3b",
+          "actorId": "f7283a0c-0583-416e-954d-929da619347e",
+          "businessId": "5a300e74-439c-46ef-9547-48abcc06e21b",
+          "amountMinor": 2501,
+          "rulesetId": "saturn-trade-tiered-v1",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "status": "accepted",
+          "reason": null,
+          "bidId": "70cdd928-6f34-430d-9277-f926c33925d5",
+          "decidedAt": "2026-10-09T06:07:46.895Z"
+        },
+        "standing": {
+          "releaseId": "6473508e-6d74-4579-8ca0-4dc21de32e84",
+          "lotId": "a39d4288-c1d1-4613-be22-8258a529ab3b",
+          "rulesetId": "saturn-trade-tiered-v1",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "incrementMinor": 1234,
+          "amountCapMinor": 1000000000,
+          "phase": "open",
+          "currentAmountMinor": 2501,
+          "minimumAmountMinor": 3735,
+          "acceptedBidCount": 1,
+          "version": 1,
+          "leadingBusiness": {
+            "id": "5a300e74-439c-46ef-9547-48abcc06e21b",
+            "name": "Juniper Hosted Synthetic"
+          },
+          "serverNow": "2026-10-09T06:07:46.895Z",
+          "updatedAt": "2026-10-09T06:07:46.895Z",
+          "canBid": false
+        }
+      }
+    },
+    {
+      "kind": "lost-committed-rebid",
+      "status": 201,
+      "data": {
+        "receipt": {
+          "requestId": "7e748151-685a-48fe-a852-b08a00fd8819",
+          "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+          "releaseId": "6473508e-6d74-4579-8ca0-4dc21de32e84",
+          "lotId": "a39d4288-c1d1-4613-be22-8258a529ab3b",
+          "actorId": "f7283a0c-0583-416e-954d-929da619347e",
+          "businessId": "5a300e74-439c-46ef-9547-48abcc06e21b",
+          "amountMinor": 4969,
+          "rulesetId": "saturn-trade-tiered-v1",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "status": "accepted",
+          "reason": null,
+          "bidId": "ddfdce3c-b11c-4cd7-86ff-8c92df3d0c05",
+          "decidedAt": "2026-10-09T06:08:05.110Z"
+        },
+        "standing": {
+          "releaseId": "6473508e-6d74-4579-8ca0-4dc21de32e84",
+          "lotId": "a39d4288-c1d1-4613-be22-8258a529ab3b",
+          "rulesetId": "saturn-trade-tiered-v1",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "incrementMinor": 1234,
+          "amountCapMinor": 1000000000,
+          "phase": "open",
+          "currentAmountMinor": 4969,
+          "minimumAmountMinor": 6203,
+          "acceptedBidCount": 3,
+          "version": 3,
+          "leadingBusiness": {
+            "id": "5a300e74-439c-46ef-9547-48abcc06e21b",
+            "name": "Juniper Hosted Synthetic"
+          },
+          "serverNow": "2026-10-09T06:08:05.110Z",
+          "updatedAt": "2026-10-09T06:08:05.110Z",
+          "canBid": false
+        }
+      }
+    },
+    {
+      "kind": "held-watch",
+      "status": 200,
+      "data": {
+        "watch": {
+          "lotId": "a39d4288-c1d1-4613-be22-8258a529ab3b",
+          "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+          "watching": true,
+          "releaseId": "6473508e-6d74-4579-8ca0-4dc21de32e84",
+          "updatedAt": "2026-10-09T06:08:10.78757+00:00"
+        },
+        "replayed": false,
+        "operation": {
+          "requestId": "0188e958-e90b-417a-ae0e-8178c93611c8"
+        },
+        "serverNow": "2026-10-09T06:08:10.788141+00:00"
+      }
+    },
+    {
+      "kind": "owned-my-bids",
+      "data": {
+        "bids": [
+          {
+            "lot": {
+              "id": "a39d4288-c1d1-4613-be22-8258a529ab3b",
+              "title": "Cabin weekend",
+              "number": "01"
+            },
+            "receipt": {
+              "bidId": "70cdd928-6f34-430d-9277-f926c33925d5",
+              "lotId": "a39d4288-c1d1-4613-be22-8258a529ab3b",
+              "reason": null,
+              "status": "accepted",
+              "actorId": "f7283a0c-0583-416e-954d-929da619347e",
+              "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+              "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+              "decidedAt": "2026-10-09T06:07:46.895Z",
+              "releaseId": "6473508e-6d74-4579-8ca0-4dc21de32e84",
+              "requestId": "5ae988d2-9d7c-4543-902e-9092815116ff",
+              "rulesetId": "saturn-trade-tiered-v1",
+              "businessId": "5a300e74-439c-46ef-9547-48abcc06e21b",
+              "amountMinor": 2501
+            },
+            "standing": {
+              "version": 3,
+              "updatedAt": "2026-10-09T06:08:05.11+00:00",
+              "leadingBusiness": {
+                "id": "5a300e74-439c-46ef-9547-48abcc06e21b",
+                "name": "Juniper Hosted Synthetic"
+              },
+              "acceptedBidCount": 3,
+              "currentAmountMinor": 4969
+            },
+            "recordedState": "leading"
+          },
+          {
+            "lot": {
+              "id": "a39d4288-c1d1-4613-be22-8258a529ab3b",
+              "title": "Cabin weekend",
+              "number": "01"
+            },
+            "receipt": {
+              "bidId": "ddfdce3c-b11c-4cd7-86ff-8c92df3d0c05",
+              "lotId": "a39d4288-c1d1-4613-be22-8258a529ab3b",
+              "reason": null,
+              "status": "accepted",
+              "actorId": "f7283a0c-0583-416e-954d-929da619347e",
+              "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+              "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+              "decidedAt": "2026-10-09T06:08:05.110Z",
+              "releaseId": "6473508e-6d74-4579-8ca0-4dc21de32e84",
+              "requestId": "7e748151-685a-48fe-a852-b08a00fd8819",
+              "rulesetId": "saturn-trade-tiered-v1",
+              "businessId": "5a300e74-439c-46ef-9547-48abcc06e21b",
+              "amountMinor": 4969
+            },
+            "standing": {
+              "version": 3,
+              "updatedAt": "2026-10-09T06:08:05.11+00:00",
+              "leadingBusiness": {
+                "id": "5a300e74-439c-46ef-9547-48abcc06e21b",
+                "name": "Juniper Hosted Synthetic"
+              },
+              "acceptedBidCount": 3,
+              "currentAmountMinor": 4969
+            },
+            "recordedState": "leading"
+          },
+          {
+            "lot": {
+              "id": "c468ee4e-ab08-4a32-8579-893ad47b5219",
+              "title": "Coffee ritual kit",
+              "number": "02"
+            },
+            "receipt": {
+              "bidId": "f0e2e41b-ddca-4e18-b7fa-e80536fd9456",
+              "lotId": "c468ee4e-ab08-4a32-8579-893ad47b5219",
+              "reason": null,
+              "status": "accepted",
+              "actorId": "f7283a0c-0583-416e-954d-929da619347e",
+              "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+              "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+              "decidedAt": "2026-10-09T06:08:09.448Z",
+              "releaseId": "6473508e-6d74-4579-8ca0-4dc21de32e84",
+              "requestId": "97190691-5795-4262-965a-222fa1dde7d3",
+              "rulesetId": "saturn-trade-tiered-v1",
+              "businessId": "5a300e74-439c-46ef-9547-48abcc06e21b",
+              "amountMinor": 25000
+            },
+            "standing": {
+              "version": 1,
+              "updatedAt": "2026-10-09T06:08:09.448+00:00",
+              "leadingBusiness": {
+                "id": "5a300e74-439c-46ef-9547-48abcc06e21b",
+                "name": "Juniper Hosted Synthetic"
+              },
+              "acceptedBidCount": 1,
+              "currentAmountMinor": 25000
+            },
+            "recordedState": "leading"
+          }
+        ],
+        "phase": "open",
+        "scale": 100,
+        "person": {
+          "id": "f7283a0c-0583-416e-954d-929da619347e",
+          "name": "Casey Hosted Synthetic"
+        },
+        "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+        "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+        "releaseId": "6473508e-6d74-4579-8ca0-4dc21de32e84",
+        "rulesetId": "saturn-trade-tiered-v1",
+        "serverNow": "2026-10-09T06:08:26.078753+00:00"
+      }
+    },
+    {
+      "kind": "rival-my-bids",
+      "data": {
+        "bids": [
+          {
+            "lot": {
+              "id": "a39d4288-c1d1-4613-be22-8258a529ab3b",
+              "title": "Cabin weekend",
+              "number": "01"
+            },
+            "receipt": {
+              "bidId": "98ba6e71-2e10-4b1b-b740-ffe1e3b8aa52",
+              "lotId": "a39d4288-c1d1-4613-be22-8258a529ab3b",
+              "reason": null,
+              "status": "accepted",
+              "actorId": "ea221ddf-de05-4dcb-8658-f0af4441674f",
+              "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+              "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+              "decidedAt": "2026-10-09T06:08:02.680Z",
+              "releaseId": "6473508e-6d74-4579-8ca0-4dc21de32e84",
+              "requestId": "04a039c3-617e-41a4-954e-9653611a803c",
+              "rulesetId": "saturn-trade-tiered-v1",
+              "businessId": "d3784810-6f1e-4d51-a76c-a03b7d9c15ae",
+              "amountMinor": 3735
+            },
+            "standing": {
+              "version": 3,
+              "updatedAt": "2026-10-09T06:08:05.11+00:00",
+              "leadingBusiness": {
+                "id": "5a300e74-439c-46ef-9547-48abcc06e21b",
+                "name": "Juniper Hosted Synthetic"
+              },
+              "acceptedBidCount": 3,
+              "currentAmountMinor": 4969
+            },
+            "recordedState": "outbid"
+          }
+        ],
+        "phase": "open",
+        "scale": 100,
+        "person": {
+          "id": "ea221ddf-de05-4dcb-8658-f0af4441674f",
+          "name": "Riley Hosted Synthetic"
+        },
+        "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+        "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+        "releaseId": "6473508e-6d74-4579-8ca0-4dc21de32e84",
+        "rulesetId": "saturn-trade-tiered-v1",
+        "serverNow": "2026-10-09T06:08:26.129673+00:00"
+      }
+    },
+    {
+      "kind": "lost-durable-donation",
+      "status": 201,
+      "data": {
+        "receipt": {
+          "id": "c102f2b7-bc8d-4c18-ab22-005357a6122c",
+          "unit": "trade-dollar",
+          "scale": 100,
+          "status": "pending_staff_settlement",
+          "actorId": "f7283a0c-0583-416e-954d-929da619347e",
+          "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+          "actorName": "Casey Hosted Synthetic",
+          "nonprofit": {
+            "id": "f2f9be40-5a90-41d3-9dde-eafdbb7fb6de",
+            "name": "Synthetic Holiday Trade Show Recipient",
+            "version": 1,
+            "description": "Synthetic rehearsal only: this fixture cap is 1,000.00 Saturn trade dollars, with donations available only during its frozen auction window. Staff process recorded pledges manually."
+          },
+          "requestId": "c716d7fd-2c0a-43af-a05d-604d507c2987",
+          "businessId": "5a300e74-439c-46ef-9547-48abcc06e21b",
+          "recordedAt": "2026-10-09T06:08:27.916378+00:00",
+          "amountMinor": 12345,
+          "businessName": "Juniper Hosted Synthetic",
+          "organizationId": "10000000-0000-4000-8000-000000000001"
+        }
+      }
+    }
+  ],
+  "errors": [
+    {
+      "action": "{\"action\":\"preopen\"}",
+      "name": "TypeError",
+      "message": "Cannot read properties of undefined (reading 'availability')"
+    }
+  ]
+}

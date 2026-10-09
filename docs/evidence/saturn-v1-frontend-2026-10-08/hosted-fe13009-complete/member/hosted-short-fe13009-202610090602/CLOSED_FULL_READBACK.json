@@ -1,0 +1,152 @@
+{
+  "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+  "origin": "https://staging.bidzizi.com",
+  "photos": [
+    {
+      "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/fe08b76f-0e15-4b08-a73e-c8c90e84f05e",
+      "status": 200
+    },
+    {
+      "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/288a2572-1b08-4a80-a089-19cecc36a841",
+      "status": 200
+    },
+    {
+      "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+      "status": 200
+    },
+    {
+      "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/4a4f4a4a-6aac-41b4-8d84-bcfab4e30c56",
+      "status": 200
+    }
+  ],
+  "kind": "REAL_HOSTED_FRESH_NATIVE_VIEWER_CLOSED_PANEL_READBACK_NOT_ORIGINAL_ACTOR_RECOVERY",
+  "rows": [
+    {
+      "width": 360,
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "kind": "fresh-native-viewer-current-closed-standing-readback",
+      "viewport": {
+        "width": 360,
+        "height": 844
+      },
+      "png": {
+        "width": 360,
+        "height": 844
+      },
+      "metrics": {
+        "innerWidth": 360,
+        "innerHeight": 757,
+        "documentWidth": 360,
+        "scrollY": 373,
+        "scrollHeight": 1317,
+        "mainScroll": {
+          "top": 0,
+          "clientHeight": 1115,
+          "scrollHeight": 1115
+        },
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ],
+        "panel": {
+          "top": 300.640625,
+          "bottom": 531.828125,
+          "height": 231.1875
+        },
+        "footerTop": 560,
+        "text": "FINAL RECORDED STANDING\nClosed · Spruce Hosted Recovery Synthetic led\nT$62.03\n\nSpruce Hosted Recovery Synthetic\n\nAs of Oct 8, 11:16:51 PM PDT\n\nBidding closed. This recorded standing is not an award or settlement."
+      },
+      "path": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/CLOSED_STANDING_FULL_360.png"
+    },
+    {
+      "width": 390,
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "kind": "fresh-native-viewer-current-closed-standing-readback",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "metrics": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "documentWidth": 390,
+        "scrollY": 401,
+        "scrollHeight": 1345,
+        "mainScroll": {
+          "top": 0,
+          "clientHeight": 1143,
+          "scrollHeight": 1143
+        },
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ],
+        "panel": {
+          "top": 295.78125,
+          "bottom": 531.96875,
+          "height": 236.1875
+        },
+        "footerTop": 560,
+        "text": "FINAL RECORDED STANDING\nClosed · Spruce Hosted Recovery Synthetic led\nT$62.03\n\nSpruce Hosted Recovery Synthetic\n\nAs of Oct 8, 11:16:51 PM PDT\n\nBidding closed. This recorded standing is not an award or settlement."
+      },
+      "path": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/CLOSED_STANDING_FULL_390.png"
+    },
+    {
+      "width": 1440,
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "kind": "fresh-native-viewer-current-closed-standing-readback",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "png": {
+        "width": 1440,
+        "height": 1000
+      },
+      "metrics": {
+        "innerWidth": 480,
+        "innerHeight": 947,
+        "documentWidth": 480,
+        "scrollY": 357,
+        "scrollHeight": 1379,
+        "mainScroll": {
+          "top": 0,
+          "clientHeight": 1177,
+          "scrollHeight": 1177
+        },
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ],
+        "panel": {
+          "top": 393.296875,
+          "bottom": 609.984375,
+          "height": 216.6875
+        },
+        "footerTop": 750,
+        "text": "FINAL RECORDED STANDING\nClosed · Spruce Hosted Recovery Synthetic led\nT$62.03\n\nSpruce Hosted Recovery Synthetic\n\nAs of Oct 8, 11:16:51 PM PDT\n\nBidding closed. This recorded standing is not an award or settlement."
+      },
+      "path": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/CLOSED_STANDING_FULL_1440.png"
+    }
+  ]
+}

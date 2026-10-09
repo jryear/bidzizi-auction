@@ -1,0 +1,373 @@
+{
+  "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "origin": "https://staging.bidzizi.com",
+  "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+  "packet": {
+    "schemaVersion": 1,
+    "testMode": true,
+    "published": true,
+    "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+    "releaseId": "6473508e-6d74-4579-8ca0-4dc21de32e84",
+    "event": {
+      "name": "Holiday Trade Show · Saturn V1 Demo",
+      "cover": "asset:e41ae23e-663a-4b0b-8545-8ee1c2a1e067",
+      "rules": {
+        "scale": 100,
+        "tiers": [
+          {
+            "belowMinor": 50000,
+            "raiseMinor": 2500
+          },
+          {
+            "belowMinor": 100000,
+            "raiseMinor": 5000
+          },
+          {
+            "belowMinor": 250000,
+            "raiseMinor": 10000
+          },
+          {
+            "belowMinor": null,
+            "raiseMinor": 25000
+          }
+        ],
+        "rulesetId": "saturn-trade-tiered-v1",
+        "denomination": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+        "amountCapMinor": 1000000000
+      },
+      "venue": "Holiday Trade Show · synthetic rehearsal",
+      "timing": {
+        "end": "12:00",
+        "start": "23:07",
+        "endDate": "2026-10-09",
+        "timezone": "America/Los_Angeles",
+        "startDate": "2026-10-08"
+      },
+      "eyebrow": "Member auction",
+      "version": 2,
+      "welcome": "Browse the auction items and place synthetic Saturn trade-dollar bids. Staff handle recorded standing manually.",
+      "coverAlt": "Cabin among trees",
+      "sponsors": [
+        {
+          "alt": "Synthetic sponsor mark",
+          "logo": "asset:3c36c2d7-4468-48a7-b7f6-77b854c0b54c",
+          "name": "Synthetic Holiday Trade Show Sponsor"
+        }
+      ],
+      "sponsorsEnabled": true,
+      "id": "990280fa-51db-47cd-aabe-5d15bf776002"
+    },
+    "organization": {
+      "id": "10000000-0000-4000-8000-000000000001",
+      "name": "Saturn Barter",
+      "initials": "SB"
+    },
+    "schedule": {
+      "opensAt": "2026-10-09T06:07:00.000Z",
+      "closesAt": "2026-10-09T19:00:00.000Z",
+      "timezone": "America/Los_Angeles"
+    },
+    "phase": "open",
+    "serverNow": "2026-10-09T06:11:29.742Z",
+    "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+    "rulesetId": "saturn-trade-tiered-v1",
+    "scale": 100,
+    "finalized": false,
+    "assetContext": {
+      "version": 1,
+      "approvalId": "6473508e-6d74-4579-8ca0-4dc21de32e84"
+    },
+    "lots": [
+      {
+        "lot": {
+          "id": "a39d4288-c1d1-4613-be22-8258a529ab3b",
+          "alt": "Cabin among trees",
+          "fine": "",
+          "image": "asset:0a625a16-fae8-4721-93d0-237cb3b5fab2",
+          "short": "Two quiet nights among the trees",
+          "title": "Cabin weekend",
+          "number": "01",
+          "timing": {
+            "opensAt": "2026-10-09T06:07:00.000Z",
+            "closesAt": "2026-10-09T19:00:00.000Z"
+          },
+          "opening": 2501,
+          "category": "Getaways",
+          "includes": [],
+          "provider": {
+            "id": "10000000-0000-4000-8000-000000000001",
+            "name": "Saturn Barter",
+            "initials": "SB"
+          },
+          "description": "Recognizable uploaded item in a synthetic trade-dollar rehearsal.",
+          "fixedRaiseMinor": 1234,
+          "effectiveRaiseMinor": 1234
+        },
+        "standing": {
+          "currentAmountMinor": 4969,
+          "leadingBusiness": {
+            "id": "5a300e74-439c-46ef-9547-48abcc06e21b",
+            "name": "Juniper Hosted Synthetic"
+          },
+          "acceptedBidCount": 3,
+          "version": 3,
+          "updatedAt": "2026-10-09T06:08:05.110Z"
+        },
+        "recordedState": "recorded-standing"
+      },
+      {
+        "lot": {
+          "id": "c468ee4e-ab08-4a32-8579-893ad47b5219",
+          "alt": "Coffee and a cup",
+          "fine": "",
+          "image": "asset:884ed405-17ca-45ff-9ced-6cee34fb22da",
+          "short": "Start the morning slowly",
+          "title": "Coffee ritual kit",
+          "number": "02",
+          "timing": {
+            "opensAt": "2026-10-09T06:07:00.000Z",
+            "closesAt": "2026-10-09T19:00:00.000Z"
+          },
+          "opening": 25000,
+          "category": "Home",
+          "includes": [],
+          "provider": {
+            "id": "10000000-0000-4000-8000-000000000001",
+            "name": "Saturn Barter",
+            "initials": "SB"
+          },
+          "description": "Recognizable uploaded item in a synthetic trade-dollar rehearsal.",
+          "fixedRaiseMinor": null,
+          "effectiveRaiseMinor": null
+        },
+        "standing": {
+          "currentAmountMinor": 25000,
+          "leadingBusiness": {
+            "id": "5a300e74-439c-46ef-9547-48abcc06e21b",
+            "name": "Juniper Hosted Synthetic"
+          },
+          "acceptedBidCount": 1,
+          "version": 1,
+          "updatedAt": "2026-10-09T06:08:09.448Z"
+        },
+        "recordedState": "recorded-standing"
+      }
+    ]
+  },
+  "pledges": {
+    "event": {
+      "id": "990280fa-51db-47cd-aabe-5d15bf776002",
+      "name": "Holiday Trade Show · Saturn V1 Demo"
+    },
+    "enabled": true,
+    "pledges": [
+      {
+        "id": "c102f2b7-bc8d-4c18-ab22-005357a6122c",
+        "unit": "trade-dollar",
+        "scale": 100,
+        "status": "pending_staff_settlement",
+        "actorId": "f7283a0c-0583-416e-954d-929da619347e",
+        "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+        "actorName": "Casey Hosted Synthetic",
+        "nonprofit": {
+          "id": "f2f9be40-5a90-41d3-9dde-eafdbb7fb6de",
+          "name": "Synthetic Holiday Trade Show Recipient",
+          "version": 1,
+          "description": "Synthetic rehearsal only: this fixture cap is 1,000.00 Saturn trade dollars, with donations available only during its frozen auction window. Staff process recorded pledges manually."
+        },
+        "requestId": "c716d7fd-2c0a-43af-a05d-604d507c2987",
+        "businessId": "5a300e74-439c-46ef-9547-48abcc06e21b",
+        "recordedAt": "2026-10-09T06:08:27.916378+00:00",
+        "amountMinor": 12345,
+        "businessName": "Juniper Hosted Synthetic",
+        "organizationId": "10000000-0000-4000-8000-000000000001"
+      }
+    ],
+    "serverNow": "2026-10-09T06:11:34.130632+00:00",
+    "nonprofits": [
+      {
+        "id": "f2f9be40-5a90-41d3-9dde-eafdbb7fb6de",
+        "name": "Synthetic Holiday Trade Show Recipient",
+        "active": true,
+        "version": 1,
+        "description": "Synthetic rehearsal only: this fixture cap is 1,000.00 Saturn trade dollars, with donations available only during its frozen auction window. Staff process recorded pledges manually."
+      }
+    ],
+    "policyReady": true,
+    "availability": {
+      "mode": "window",
+      "opensAt": "2026-10-09T06:07:00.000Z",
+      "closesAt": "2026-10-09T19:00:00.000Z"
+    },
+    "minimumMinor": 1,
+    "amountCapMinor": 100000
+  },
+  "checks": [
+    "actual open server standing exact to shared accepted receipts",
+    "staff table renders exact accepted amounts",
+    "standing explicitly remains unawarded",
+    "actual standing CSV downloaded",
+    "phone recorded standing no page overflow",
+    "reload renders same actual standing",
+    "native recorded standing link reaches same private display",
+    "phone private display photos and amounts retained",
+    "native private display link returns to same Studio",
+    "native Back restores private display with current authority",
+    "staff read contains immutable12345-minor manual pledge snapshot",
+    "ordinary dollar pledge display with explicit Saturn trade dollars and manualprocessing truth",
+    "actual pledge CSV downloaded",
+    "phone actual pledge amount and processing copy no overflow",
+    "no browser exceptions"
+  ],
+  "captures": [
+    {
+      "name": "desktop-shared-open-standing.png",
+      "state": {
+        "innerWidth": 1440,
+        "innerHeight": 1120,
+        "dpr": 1,
+        "documentWidth": 1440,
+        "documentScrollTop": 0
+      },
+      "frames": []
+    },
+    {
+      "name": "mobile-shared-open-standing.png",
+      "state": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 739
+      },
+      "frames": []
+    },
+    {
+      "name": "mobile-shared-open-display.png",
+      "state": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 258
+      },
+      "frames": []
+    },
+    {
+      "name": "desktop-shared-open-display.png",
+      "state": {
+        "innerWidth": 1440,
+        "innerHeight": 1120,
+        "dpr": 1,
+        "documentWidth": 1440,
+        "documentScrollTop": 0
+      },
+      "frames": []
+    },
+    {
+      "name": "desktop-shared-open-pledge.png",
+      "state": {
+        "innerWidth": 1440,
+        "innerHeight": 1120,
+        "dpr": 1,
+        "documentWidth": 1440,
+        "documentScrollTop": 0
+      },
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/donations",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "documentWidth": 1440,
+            "main": {
+              "scrollTop": 392,
+              "scrollWidth": 1120,
+              "clientWidth": 1120
+            }
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "scrollWidth": 0,
+              "clientWidth": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mobile-shared-open-pledge.png",
+      "state": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "dpr": 1,
+        "documentWidth": 390,
+        "documentScrollTop": 0
+      },
+      "frames": [
+        {
+          "url": "https://staging.bidzizi.com/staging-admin/index.html#/donations",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "documentWidth": 390,
+            "main": {
+              "scrollTop": 1523,
+              "scrollWidth": 358,
+              "clientWidth": 358
+            }
+          }
+        },
+        {
+          "url": "https://staging.bidzizi.com/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "scrollWidth": 0,
+              "clientWidth": 0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "kind": "HOSTED_REAL_HTTP_UI",
+  "expected": {
+    "eventId": "990280fa-51db-47cd-aabe-5d15bf776002",
+    "memberMessage": "msg_6b1e09f9aeee",
+    "cabin": {
+      "amountMinor": 4969,
+      "count": 3,
+      "requestId": "7e748151-685a-48fe-a852-b08a00fd8819",
+      "businessName": "Juniper Hosted Synthetic"
+    },
+    "coffee": {
+      "amountMinor": 25000,
+      "count": 1,
+      "requestId": "97190691-5795-4262-965a-222fa1dde7d3"
+    },
+    "pledge": {
+      "id": "c102f2b7-bc8d-4c18-ab22-005357a6122c",
+      "requestId": "c716d7fd-2c0a-43af-a05d-604d507c2987",
+      "amountMinor": 12345,
+      "actorName": "Casey Hosted Synthetic",
+      "businessName": "Juniper Hosted Synthetic"
+    },
+    "recipientName": "Synthetic Holiday Trade Show Recipient"
+  }
+}

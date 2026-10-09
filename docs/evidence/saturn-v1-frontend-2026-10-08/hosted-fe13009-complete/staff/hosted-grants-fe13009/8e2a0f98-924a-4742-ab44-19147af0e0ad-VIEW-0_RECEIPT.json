@@ -1,0 +1,159 @@
+{
+  "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "origin": "https://staging.bidzizi.com",
+  "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+  "personId": "8e2a0f98-924a-4742-ab44-19147af0e0ad",
+  "authority": "msg_80fde462f203",
+  "mode": "drop-recover",
+  "before": {
+    "bidders": [
+      {
+        "access": "BID",
+        "active": true,
+        "person": {
+          "id": "60e4bbd7-225f-488f-b4cd-546da71f3e62",
+          "name": "Devon Hosted Closing Synthetic"
+        },
+        "revision": 0,
+        "businesses": [
+          {
+            "id": "5a20f7fd-8a50-4738-aa6c-df06cfc7073b",
+            "name": "Willow Hosted Closing Synthetic",
+            "canBid": true
+          }
+        ],
+        "claimedMemberId": "Devon Hosted Closing Synthetic-synthetic"
+      },
+      {
+        "access": "BID",
+        "active": true,
+        "person": {
+          "id": "8e2a0f98-924a-4742-ab44-19147af0e0ad",
+          "name": "Jordan Hosted Recovery Synthetic"
+        },
+        "revision": 0,
+        "businesses": [
+          {
+            "id": "6eded205-c3ff-4643-8432-cc74bc596cd4",
+            "name": "Spruce Hosted Recovery Synthetic",
+            "canBid": true
+          }
+        ],
+        "claimedMemberId": "Jordan Hosted Recovery Synthetic-synthetic"
+      },
+      {
+        "access": "BID",
+        "active": true,
+        "person": {
+          "id": "c73286bd-2c21-4853-9682-008b7a26d208",
+          "name": "Morgan Hosted Closing Synthetic"
+        },
+        "revision": 0,
+        "businesses": [
+          {
+            "id": "3eff7f74-33b6-4158-b6e4-8b70a588973b",
+            "name": "Cedar Hosted Closing Synthetic",
+            "canBid": true
+          }
+        ],
+        "claimedMemberId": "Morgan Hosted Closing Synthetic-synthetic"
+      }
+    ],
+    "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+    "serverNow": "2026-10-09T06:10:32.484443+00:00"
+  },
+  "after": {
+    "bidders": [
+      {
+        "access": "BID",
+        "active": true,
+        "person": {
+          "id": "60e4bbd7-225f-488f-b4cd-546da71f3e62",
+          "name": "Devon Hosted Closing Synthetic"
+        },
+        "revision": 0,
+        "businesses": [
+          {
+            "id": "5a20f7fd-8a50-4738-aa6c-df06cfc7073b",
+            "name": "Willow Hosted Closing Synthetic",
+            "canBid": true
+          }
+        ],
+        "claimedMemberId": "Devon Hosted Closing Synthetic-synthetic"
+      },
+      {
+        "access": "VIEW",
+        "active": true,
+        "person": {
+          "id": "8e2a0f98-924a-4742-ab44-19147af0e0ad",
+          "name": "Jordan Hosted Recovery Synthetic"
+        },
+        "revision": 1,
+        "businesses": [
+          {
+            "id": "6eded205-c3ff-4643-8432-cc74bc596cd4",
+            "name": "Spruce Hosted Recovery Synthetic",
+            "canBid": true
+          }
+        ],
+        "claimedMemberId": "Jordan Hosted Recovery Synthetic-synthetic"
+      },
+      {
+        "access": "BID",
+        "active": true,
+        "person": {
+          "id": "c73286bd-2c21-4853-9682-008b7a26d208",
+          "name": "Morgan Hosted Closing Synthetic"
+        },
+        "revision": 0,
+        "businesses": [
+          {
+            "id": "3eff7f74-33b6-4158-b6e4-8b70a588973b",
+            "name": "Cedar Hosted Closing Synthetic",
+            "canBid": true
+          }
+        ],
+        "claimedMemberId": "Morgan Hosted Closing Synthetic-synthetic"
+      }
+    ],
+    "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+    "serverNow": "2026-10-09T06:10:35.456195+00:00"
+  },
+  "intent": {
+    "requestId": "61344016-84c1-4c0b-ac4b-5c0260b38896",
+    "personId": "8e2a0f98-924a-4742-ab44-19147af0e0ad",
+    "expectedRevision": 0,
+    "access": "VIEW",
+    "active": true
+  },
+  "receipt": {
+    "replayed": true,
+    "operation": {
+      "access": "VIEW",
+      "active": true,
+      "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "personId": "8e2a0f98-924a-4742-ab44-19147af0e0ad",
+      "revision": 1,
+      "appliedAt": "2026-10-09T06:10:33.851272+00:00",
+      "requestId": "61344016-84c1-4c0b-ac4b-5c0260b38896"
+    },
+    "serverNow": "2026-10-09T06:10:33.851272+00:00"
+  },
+  "checks": [
+    "exact requested event/person/revision/access precondition confirmed",
+    "normal Bidders projection shows exact current revision",
+    "phone native access control remains focused",
+    "applied response loss remains uncertain and recoverable",
+    "reload recovers exact original mutation without new request key",
+    "durable returned operation matches requested scoped change",
+    "only requested event attendee changed",
+    "phone exact controls no horizontal overflow",
+    "no browser exceptions"
+  ],
+  "captures": [
+    "8e2a0f98-924a-4742-ab44-19147af0e0ad-VIEW-uncertain.png",
+    "8e2a0f98-924a-4742-ab44-19147af0e0ad-VIEW-confirmed.png"
+  ],
+  "errors": [],
+  "kind": "HOSTED_REAL_HTTP_UI"
+}

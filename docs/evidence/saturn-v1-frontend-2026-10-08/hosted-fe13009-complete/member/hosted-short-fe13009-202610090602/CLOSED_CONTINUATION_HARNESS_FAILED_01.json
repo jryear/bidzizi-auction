@@ -1,0 +1,1415 @@
+{
+  "kind": "REAL_HOSTED_DEMO_UI_SYNTHETIC_FIXTURE_NOT_PRODUCTION_ACCEPTANCE",
+  "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "origin": "https://staging.bidzizi.com",
+  "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+  "rows": [
+    {
+      "name": "source-bound-runtime",
+      "detail": {
+        "origin": "https://staging.bidzizi.com",
+        "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+        "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6"
+      }
+    },
+    {
+      "name": "served-source-binding",
+      "detail": {
+        "file": "/staging-catalog/app.js",
+        "sha256": "d767371d7747fde142bef22cd063b2e09beb157b408e052b2bdee60f96c6d76c",
+        "matchesOwnedSource": true
+      }
+    },
+    {
+      "name": "served-source-binding",
+      "detail": {
+        "file": "/staging-catalog/bidding.js",
+        "sha256": "467d74e5150fafeba758c7142c7b3ecd7b0f403ca239b0054f259c302cdf5727",
+        "matchesOwnedSource": true
+      }
+    },
+    {
+      "name": "served-source-binding",
+      "detail": {
+        "file": "/staging-catalog/donations.js",
+        "sha256": "c848496b37d4f62e3c368f2b3ba066efe6afc181937d6bbd77ef17a3de3b75c7",
+        "matchesOwnedSource": true
+      }
+    },
+    {
+      "name": "served-source-binding",
+      "detail": {
+        "file": "/staging-catalog/collections.js",
+        "sha256": "5bc7aaf7cea9972b5750440843f37690aec1559ba982966a5f628acbef64a283",
+        "matchesOwnedSource": true
+      }
+    },
+    {
+      "name": "served-source-binding",
+      "detail": {
+        "file": "/staging-catalog/views.js",
+        "sha256": "057650c3c8024ffd71805a625622a124761037177edee5500bcc0823868a1334",
+        "matchesOwnedSource": true
+      }
+    },
+    {
+      "name": "served-source-binding",
+      "detail": {
+        "file": "/staging-catalog/styles.css",
+        "sha256": "750076efd6a3970f29f3ac25545260a1024631ee8e49aa6f5db8cb540d666292",
+        "matchesOwnedSource": true
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/fe08b76f-0e15-4b08-a73e-c8c90e84f05e",
+        "status": 200
+      }
+    },
+    {
+      "name": "distinct-native-attendee",
+      "detail": {
+        "person": {
+          "id": "60e4bbd7-225f-488f-b4cd-546da71f3e62",
+          "name": "Devon Hosted Closing Synthetic"
+        },
+        "businesses": [
+          {
+            "id": "5a20f7fd-8a50-4738-aa6c-df06cfc7073b",
+            "name": "Willow Hosted Closing Synthetic",
+            "canBid": false
+          }
+        ],
+        "width": 390
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/288a2572-1b08-4a80-a089-19cecc36a841",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/288a2572-1b08-4a80-a089-19cecc36a841",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/fe08b76f-0e15-4b08-a73e-c8c90e84f05e",
+        "status": 200
+      }
+    },
+    {
+      "name": "distinct-native-attendee",
+      "detail": {
+        "person": {
+          "id": "c73286bd-2c21-4853-9682-008b7a26d208",
+          "name": "Morgan Hosted Closing Synthetic"
+        },
+        "businesses": [
+          {
+            "id": "3eff7f74-33b6-4158-b6e4-8b70a588973b",
+            "name": "Cedar Hosted Closing Synthetic",
+            "canBid": false
+          }
+        ],
+        "width": 1440
+      }
+    },
+    {
+      "name": "hosted-frozen-event",
+      "detail": {
+        "name": "Holiday Trade Show · Saturn V1 Short Rehearsal",
+        "schedule": {
+          "opensAt": "2026-10-09T06:06:00.000Z",
+          "closesAt": "2026-10-09T06:16:00.000Z",
+          "timezone": "America/Los_Angeles"
+        },
+        "phase": "scheduled",
+        "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c"
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/4a4f4a4a-6aac-41b4-8d84-bcfab4e30c56",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/4a4f4a4a-6aac-41b4-8d84-bcfab4e30c56",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+        "status": 200
+      }
+    },
+    {
+      "name": "poll-keeps-original-search-caret-photo",
+      "detail": true
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+        "status": 200
+      }
+    },
+    {
+      "name": "native-back-reload-search-categories-layout-restored",
+      "detail": true
+    },
+    {
+      "name": "preopen-browse-only-donor-frozen-window",
+      "detail": true
+    },
+    {
+      "name": "server-open",
+      "detail": "2026-10-09T06:06:16.436Z"
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+        "status": 200
+      }
+    },
+    {
+      "name": "three-manual-bids-from-authoritative-minimum",
+      "detail": {
+        "amount0": "25.01",
+        "amount1": "37.35",
+        "amount2": "49.69",
+        "standing": {
+          "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+          "lotId": "50c652d2-d3a8-499e-bc6d-8d25fa6dbaf8",
+          "rulesetId": "saturn-trade-tiered-v1",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "incrementMinor": 1234,
+          "amountCapMinor": 1000000000,
+          "phase": "open",
+          "currentAmountMinor": 4969,
+          "minimumAmountMinor": 6203,
+          "acceptedBidCount": 3,
+          "version": 3,
+          "leadingBusiness": {
+            "id": "5a20f7fd-8a50-4738-aa6c-df06cfc7073b",
+            "name": "Willow Hosted Closing Synthetic"
+          },
+          "serverNow": "2026-10-09T06:06:44.162Z",
+          "updatedAt": "2026-10-09T06:06:42.109Z",
+          "canBid": false
+        }
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/4a4f4a4a-6aac-41b4-8d84-bcfab4e30c56",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/4a4f4a4a-6aac-41b4-8d84-bcfab4e30c56",
+        "status": 200
+      }
+    },
+    {
+      "name": "failed-original-request-exact-retry",
+      "detail": true
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+        "status": 200
+      }
+    },
+    {
+      "name": "watch-durable-reload-and-private-my-bids",
+      "detail": true
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/288a2572-1b08-4a80-a089-19cecc36a841",
+        "status": 200
+      }
+    },
+    {
+      "name": "donation-original-request-recovery-exact-cents",
+      "detail": true
+    },
+    {
+      "name": "server-closed",
+      "detail": "2026-10-09T06:16:13.893Z"
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+        "status": 200
+      }
+    },
+    {
+      "name": "actual-scoped-photo-http",
+      "detail": {
+        "path": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+        "status": 200
+      }
+    }
+  ],
+  "captures": [
+    {
+      "name": "PHONE_WELCOME",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_WELCOME.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1193,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/fe08b76f-0e15-4b08-a73e-c8c90e84f05e",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/288a2572-1b08-4a80-a089-19cecc36a841",
+            "complete": true,
+            "naturalWidth": 64,
+            "naturalHeight": 64
+          }
+        ]
+      }
+    },
+    {
+      "name": "DESKTOP_WELCOME",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/DESKTOP_WELCOME.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "png": {
+        "width": 1440,
+        "height": 1000
+      },
+      "frame": {
+        "innerWidth": 480,
+        "innerHeight": 947,
+        "dpr": 1,
+        "documentWidth": 480,
+        "scrollY": 0,
+        "scrollHeight": 1170,
+        "mainWidth": 480,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/fe08b76f-0e15-4b08-a73e-c8c90e84f05e",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/288a2572-1b08-4a80-a089-19cecc36a841",
+            "complete": true,
+            "naturalWidth": 64,
+            "naturalHeight": 64
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_CATALOG_PREOPEN",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_CATALOG_PREOPEN.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1495,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/4a4f4a4a-6aac-41b4-8d84-bcfab4e30c56",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "DESKTOP_CATALOG_PREOPEN",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/DESKTOP_CATALOG_PREOPEN.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "png": {
+        "width": 1440,
+        "height": 1000
+      },
+      "frame": {
+        "innerWidth": 480,
+        "innerHeight": 947,
+        "dpr": 1,
+        "documentWidth": 480,
+        "scrollY": 0,
+        "scrollHeight": 1615,
+        "mainWidth": 480,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/4a4f4a4a-6aac-41b4-8d84-bcfab4e30c56",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_LOT_PREOPEN",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_LOT_PREOPEN.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1213,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_360_LOT_PREOPEN",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_360_LOT_PREOPEN.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 360,
+        "height": 844
+      },
+      "png": {
+        "width": 360,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 360,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 360,
+        "scrollY": 0,
+        "scrollHeight": 1187,
+        "mainWidth": 360,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_NATIVE_BID_REVIEW",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_NATIVE_BID_REVIEW.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1147,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_NATIVE_BID_PENDING",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_NATIVE_BID_PENDING.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1147,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_BOUNDED_BID_UNCERTAIN",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_BOUNDED_BID_UNCERTAIN.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1291,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_ACCEPTED_ORIGINAL_RECEIPT",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_ACCEPTED_ORIGINAL_RECEIPT.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1253,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_OUTBID",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_OUTBID.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1253,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_LOST_REBID_UNCERTAIN",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_LOST_REBID_UNCERTAIN.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1291,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_RELOAD_ORIGINAL_REBID_RECOVERED",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_RELOAD_ORIGINAL_REBID_RECOVERED.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1253,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_FAILED_NOT_RECORDED",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_FAILED_NOT_RECORDED.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1205,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/4a4f4a4a-6aac-41b4-8d84-bcfab4e30c56",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          },
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/4a4f4a4a-6aac-41b4-8d84-bcfab4e30c56",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_WATCHING_CONFIRMED",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_WATCHING_CONFIRMED.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 760,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_MY_BIDS_DURABLE",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_MY_BIDS_DURABLE.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 903,
+        "mainWidth": 390,
+        "images": []
+      }
+    },
+    {
+      "name": "PHONE_DONATION_CHOICES",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_DONATION_CHOICES.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 1073,
+        "mainWidth": 390,
+        "images": []
+      }
+    },
+    {
+      "name": "PHONE_NATIVE_DONATION_REVIEW",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_NATIVE_DONATION_REVIEW.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 271,
+        "scrollHeight": 1073,
+        "mainWidth": 390,
+        "images": []
+      }
+    },
+    {
+      "name": "PHONE_DONATION_PENDING",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_DONATION_PENDING.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 1,
+        "scrollHeight": 758,
+        "mainWidth": 390,
+        "images": []
+      }
+    },
+    {
+      "name": "PHONE_DONATION_UNCERTAIN",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_DONATION_UNCERTAIN.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 1,
+        "scrollHeight": 761,
+        "mainWidth": 390,
+        "images": []
+      }
+    },
+    {
+      "name": "PHONE_DONATION_RELOADED_RECORDED",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_DONATION_RELOADED_RECORDED.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 1,
+        "scrollHeight": 910,
+        "mainWidth": 390,
+        "images": []
+      }
+    },
+    {
+      "name": "PHONE_360_DONATION_RECORDED",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_360_DONATION_RECORDED.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 360,
+        "height": 844
+      },
+      "png": {
+        "width": 360,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 360,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 360,
+        "scrollY": 1,
+        "scrollHeight": 928,
+        "mainWidth": 360,
+        "images": []
+      }
+    },
+    {
+      "name": "PHONE_CLOSED_RECORDED_STANDING",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_CLOSED_RECORDED_STANDING.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 408,
+        "scrollHeight": 1365,
+        "mainWidth": 390,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_360_CLOSED_RECORDED_STANDING",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_360_CLOSED_RECORDED_STANDING.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 360,
+        "height": 844
+      },
+      "png": {
+        "width": 360,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 360,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 360,
+        "scrollY": 384,
+        "scrollHeight": 1339,
+        "mainWidth": 360,
+        "images": [
+          {
+            "src": "/api/catalog/events/9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6/assets/cefaeebb-a748-462c-9ee6-d73f5f733ba1",
+            "complete": true,
+            "naturalWidth": 1000,
+            "naturalHeight": 667
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHONE_CLOSED_MY_BIDS",
+      "file": "/Users/jryear/.hermes/projects/bidzizi-20261008/member-ui-delivery/hosted-short-fe13009-202610090602/PHONE_CLOSED_MY_BIDS.png",
+      "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "png": {
+        "width": 390,
+        "height": 844
+      },
+      "frame": {
+        "innerWidth": 390,
+        "innerHeight": 757,
+        "dpr": 1,
+        "documentWidth": 390,
+        "scrollY": 0,
+        "scrollHeight": 968,
+        "mainWidth": 390,
+        "images": []
+      }
+    }
+  ],
+  "receipts": [
+    {
+      "kind": "preopening-donor-server-policy",
+      "data": {
+        "unit": "trade-dollar",
+        "event": {
+          "id": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+          "name": "Holiday Trade Show · Saturn V1 Short Rehearsal"
+        },
+        "scale": 100,
+        "person": {
+          "id": "60e4bbd7-225f-488f-b4cd-546da71f3e62",
+          "name": "Devon Hosted Closing Synthetic"
+        },
+        "enabled": true,
+        "serverNow": "2026-10-09T06:01:46.985791+00:00",
+        "businesses": [
+          {
+            "id": "5a20f7fd-8a50-4738-aa6c-df06cfc7073b",
+            "name": "Willow Hosted Closing Synthetic",
+            "canPledge": false
+          }
+        ],
+        "nonprofits": [
+          {
+            "id": "eeb9a0d2-5cd9-42ae-be2c-14eff73b2b9f",
+            "name": "Synthetic Holiday Trade Show Recipient",
+            "version": 1,
+            "description": "Synthetic rehearsal only: this fixture cap is 1,000.00 Saturn trade dollars, with donations available only during its frozen auction window. Staff process recorded pledges manually."
+          }
+        ],
+        "policyReady": true,
+        "availability": {
+          "mode": "window",
+          "opensAt": "2026-10-09T06:06:00.000Z",
+          "closesAt": "2026-10-09T06:16:00.000Z"
+        },
+        "availableNow": false,
+        "minimumMinor": 1,
+        "organization": {
+          "id": "10000000-0000-4000-8000-000000000001",
+          "name": "Saturn Barter"
+        },
+        "amountCapMinor": 100000
+      }
+    },
+    {
+      "kind": "held-committed-bid",
+      "status": 201,
+      "data": {
+        "receipt": {
+          "requestId": "69f58d09-d397-4e55-8340-fbb595648363",
+          "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+          "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+          "lotId": "50c652d2-d3a8-499e-bc6d-8d25fa6dbaf8",
+          "actorId": "60e4bbd7-225f-488f-b4cd-546da71f3e62",
+          "businessId": "5a20f7fd-8a50-4738-aa6c-df06cfc7073b",
+          "amountMinor": 2501,
+          "rulesetId": "saturn-trade-tiered-v1",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "status": "accepted",
+          "reason": null,
+          "bidId": "5eaa232a-4483-4e85-9562-d202ded9502a",
+          "decidedAt": "2026-10-09T06:06:24.199Z"
+        },
+        "standing": {
+          "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+          "lotId": "50c652d2-d3a8-499e-bc6d-8d25fa6dbaf8",
+          "rulesetId": "saturn-trade-tiered-v1",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "incrementMinor": 1234,
+          "amountCapMinor": 1000000000,
+          "phase": "open",
+          "currentAmountMinor": 2501,
+          "minimumAmountMinor": 3735,
+          "acceptedBidCount": 1,
+          "version": 1,
+          "leadingBusiness": {
+            "id": "5a20f7fd-8a50-4738-aa6c-df06cfc7073b",
+            "name": "Willow Hosted Closing Synthetic"
+          },
+          "serverNow": "2026-10-09T06:06:24.199Z",
+          "updatedAt": "2026-10-09T06:06:24.199Z",
+          "canBid": false
+        }
+      }
+    },
+    {
+      "kind": "lost-committed-rebid",
+      "status": 201,
+      "data": {
+        "receipt": {
+          "requestId": "e294b6ef-58f8-445d-a83d-a572362fd195",
+          "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+          "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+          "lotId": "50c652d2-d3a8-499e-bc6d-8d25fa6dbaf8",
+          "actorId": "60e4bbd7-225f-488f-b4cd-546da71f3e62",
+          "businessId": "5a20f7fd-8a50-4738-aa6c-df06cfc7073b",
+          "amountMinor": 4969,
+          "rulesetId": "saturn-trade-tiered-v1",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "status": "accepted",
+          "reason": null,
+          "bidId": "02d24849-0c3a-4aee-9418-e0bf375acf78",
+          "decidedAt": "2026-10-09T06:06:42.109Z"
+        },
+        "standing": {
+          "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+          "lotId": "50c652d2-d3a8-499e-bc6d-8d25fa6dbaf8",
+          "rulesetId": "saturn-trade-tiered-v1",
+          "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+          "incrementMinor": 1234,
+          "amountCapMinor": 1000000000,
+          "phase": "open",
+          "currentAmountMinor": 4969,
+          "minimumAmountMinor": 6203,
+          "acceptedBidCount": 3,
+          "version": 3,
+          "leadingBusiness": {
+            "id": "5a20f7fd-8a50-4738-aa6c-df06cfc7073b",
+            "name": "Willow Hosted Closing Synthetic"
+          },
+          "serverNow": "2026-10-09T06:06:42.109Z",
+          "updatedAt": "2026-10-09T06:06:42.109Z",
+          "canBid": false
+        }
+      }
+    },
+    {
+      "kind": "held-watch",
+      "status": 200,
+      "data": {
+        "watch": {
+          "lotId": "50c652d2-d3a8-499e-bc6d-8d25fa6dbaf8",
+          "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+          "watching": true,
+          "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+          "updatedAt": "2026-10-09T06:07:41.346815+00:00"
+        },
+        "replayed": false,
+        "operation": {
+          "requestId": "46493ac9-9b85-49a1-b190-7773c9d191fe"
+        },
+        "serverNow": "2026-10-09T06:07:41.351299+00:00"
+      }
+    },
+    {
+      "kind": "owned-my-bids",
+      "data": {
+        "bids": [
+          {
+            "lot": {
+              "id": "50c652d2-d3a8-499e-bc6d-8d25fa6dbaf8",
+              "title": "Cabin weekend",
+              "number": "01"
+            },
+            "receipt": {
+              "bidId": "5eaa232a-4483-4e85-9562-d202ded9502a",
+              "lotId": "50c652d2-d3a8-499e-bc6d-8d25fa6dbaf8",
+              "reason": null,
+              "status": "accepted",
+              "actorId": "60e4bbd7-225f-488f-b4cd-546da71f3e62",
+              "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+              "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+              "decidedAt": "2026-10-09T06:06:24.199Z",
+              "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+              "requestId": "69f58d09-d397-4e55-8340-fbb595648363",
+              "rulesetId": "saturn-trade-tiered-v1",
+              "businessId": "5a20f7fd-8a50-4738-aa6c-df06cfc7073b",
+              "amountMinor": 2501
+            },
+            "standing": {
+              "version": 3,
+              "updatedAt": "2026-10-09T06:06:42.109+00:00",
+              "leadingBusiness": {
+                "id": "5a20f7fd-8a50-4738-aa6c-df06cfc7073b",
+                "name": "Willow Hosted Closing Synthetic"
+              },
+              "acceptedBidCount": 3,
+              "currentAmountMinor": 4969
+            },
+            "recordedState": "leading"
+          },
+          {
+            "lot": {
+              "id": "50c652d2-d3a8-499e-bc6d-8d25fa6dbaf8",
+              "title": "Cabin weekend",
+              "number": "01"
+            },
+            "receipt": {
+              "bidId": "02d24849-0c3a-4aee-9418-e0bf375acf78",
+              "lotId": "50c652d2-d3a8-499e-bc6d-8d25fa6dbaf8",
+              "reason": null,
+              "status": "accepted",
+              "actorId": "60e4bbd7-225f-488f-b4cd-546da71f3e62",
+              "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+              "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+              "decidedAt": "2026-10-09T06:06:42.109Z",
+              "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+              "requestId": "e294b6ef-58f8-445d-a83d-a572362fd195",
+              "rulesetId": "saturn-trade-tiered-v1",
+              "businessId": "5a20f7fd-8a50-4738-aa6c-df06cfc7073b",
+              "amountMinor": 4969
+            },
+            "standing": {
+              "version": 3,
+              "updatedAt": "2026-10-09T06:06:42.109+00:00",
+              "leadingBusiness": {
+                "id": "5a20f7fd-8a50-4738-aa6c-df06cfc7073b",
+                "name": "Willow Hosted Closing Synthetic"
+              },
+              "acceptedBidCount": 3,
+              "currentAmountMinor": 4969
+            },
+            "recordedState": "leading"
+          },
+          {
+            "lot": {
+              "id": "fd8b184d-b410-4c1e-899f-8ef7158e00ff",
+              "title": "Coffee ritual kit",
+              "number": "02"
+            },
+            "receipt": {
+              "bidId": "986e3891-2940-4e29-a5f6-946db74101dc",
+              "lotId": "fd8b184d-b410-4c1e-899f-8ef7158e00ff",
+              "reason": null,
+              "status": "accepted",
+              "actorId": "60e4bbd7-225f-488f-b4cd-546da71f3e62",
+              "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+              "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+              "decidedAt": "2026-10-09T06:06:45.790Z",
+              "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+              "requestId": "8433ccc4-d07c-49de-816c-0e39810a5d89",
+              "rulesetId": "saturn-trade-tiered-v1",
+              "businessId": "5a20f7fd-8a50-4738-aa6c-df06cfc7073b",
+              "amountMinor": 25000
+            },
+            "standing": {
+              "version": 1,
+              "updatedAt": "2026-10-09T06:06:45.79+00:00",
+              "leadingBusiness": {
+                "id": "5a20f7fd-8a50-4738-aa6c-df06cfc7073b",
+                "name": "Willow Hosted Closing Synthetic"
+              },
+              "acceptedBidCount": 1,
+              "currentAmountMinor": 25000
+            },
+            "recordedState": "leading"
+          }
+        ],
+        "phase": "open",
+        "scale": 100,
+        "person": {
+          "id": "60e4bbd7-225f-488f-b4cd-546da71f3e62",
+          "name": "Devon Hosted Closing Synthetic"
+        },
+        "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+        "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+        "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+        "rulesetId": "saturn-trade-tiered-v1",
+        "serverNow": "2026-10-09T06:07:56.6058+00:00"
+      }
+    },
+    {
+      "kind": "rival-my-bids",
+      "data": {
+        "bids": [
+          {
+            "lot": {
+              "id": "50c652d2-d3a8-499e-bc6d-8d25fa6dbaf8",
+              "title": "Cabin weekend",
+              "number": "01"
+            },
+            "receipt": {
+              "bidId": "c464b9c8-e1ba-4cee-9bd2-d573ce9f31e2",
+              "lotId": "50c652d2-d3a8-499e-bc6d-8d25fa6dbaf8",
+              "reason": null,
+              "status": "accepted",
+              "actorId": "c73286bd-2c21-4853-9682-008b7a26d208",
+              "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+              "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+              "decidedAt": "2026-10-09T06:06:40.004Z",
+              "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+              "requestId": "f555091d-4ac6-43b3-9182-fc015cea7128",
+              "rulesetId": "saturn-trade-tiered-v1",
+              "businessId": "3eff7f74-33b6-4158-b6e4-8b70a588973b",
+              "amountMinor": 3735
+            },
+            "standing": {
+              "version": 3,
+              "updatedAt": "2026-10-09T06:06:42.109+00:00",
+              "leadingBusiness": {
+                "id": "5a20f7fd-8a50-4738-aa6c-df06cfc7073b",
+                "name": "Willow Hosted Closing Synthetic"
+              },
+              "acceptedBidCount": 3,
+              "currentAmountMinor": 4969
+            },
+            "recordedState": "outbid"
+          }
+        ],
+        "phase": "open",
+        "scale": 100,
+        "person": {
+          "id": "c73286bd-2c21-4853-9682-008b7a26d208",
+          "name": "Morgan Hosted Closing Synthetic"
+        },
+        "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+        "currency": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+        "releaseId": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+        "rulesetId": "saturn-trade-tiered-v1",
+        "serverNow": "2026-10-09T06:07:56.754819+00:00"
+      }
+    },
+    {
+      "kind": "lost-durable-donation",
+      "status": 201,
+      "data": {
+        "receipt": {
+          "id": "312f458d-d6e6-4185-aff4-eb04ea0992f1",
+          "unit": "trade-dollar",
+          "scale": 100,
+          "status": "pending_staff_settlement",
+          "actorId": "60e4bbd7-225f-488f-b4cd-546da71f3e62",
+          "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+          "actorName": "Devon Hosted Closing Synthetic",
+          "nonprofit": {
+            "id": "eeb9a0d2-5cd9-42ae-be2c-14eff73b2b9f",
+            "name": "Synthetic Holiday Trade Show Recipient",
+            "version": 1,
+            "description": "Synthetic rehearsal only: this fixture cap is 1,000.00 Saturn trade dollars, with donations available only during its frozen auction window. Staff process recorded pledges manually."
+          },
+          "requestId": "9cc324a5-df6f-44be-b9a6-7ee425b4ca83",
+          "businessId": "5a20f7fd-8a50-4738-aa6c-df06cfc7073b",
+          "recordedAt": "2026-10-09T06:07:58.429012+00:00",
+          "amountMinor": 12345,
+          "businessName": "Willow Hosted Closing Synthetic",
+          "organizationId": "10000000-0000-4000-8000-000000000001"
+        }
+      }
+    }
+  ],
+  "errors": [
+    {
+      "action": "{\"action\":\"closed\"}",
+      "name": "TypeError",
+      "message": "Cannot read properties of undefined (reading 'evaluate')"
+    }
+  ]
+}

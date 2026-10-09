@@ -1,0 +1,85 @@
+{
+  "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "expected": {
+    "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+    "memberMessage": "msg_80fde462f203",
+    "cabin": {
+      "amountMinor": 6203,
+      "count": 4,
+      "requestId": "d27910e7-5e39-436b-a5f1-4753810142ea",
+      "businessName": "Spruce Hosted Recovery Synthetic"
+    },
+    "coffee": {
+      "amountMinor": 25000,
+      "count": 1,
+      "requestId": "8433ccc4-d07c-49de-816c-0e39810a5d89"
+    },
+    "pledge": {
+      "id": "312f458d-d6e6-4185-aff4-eb04ea0992f1",
+      "requestId": "9cc324a5-df6f-44be-b9a6-7ee425b4ca83",
+      "amountMinor": 12345,
+      "actorName": "Devon Hosted Closing Synthetic",
+      "businessName": "Willow Hosted Closing Synthetic"
+    },
+    "recipientName": "Synthetic Holiday Trade Show Recipient"
+  },
+  "standing": [
+    {
+      "Event": "Holiday Trade Show \u00b7 Saturn V1 Short Rehearsal",
+      "Event ID": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "Release ID": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+      "Lot": "01",
+      "Title": "Cabin weekend",
+      "Denomination": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+      "Rules": "saturn-trade-tiered-v1",
+      "Opens at": "2026-10-09T06:06:00.000Z",
+      "Closes at": "2026-10-09T06:16:00.000Z",
+      "Timezone": "America/Los_Angeles",
+      "Amount minor units": "6203",
+      "Leading business": "Spruce Hosted Recovery Synthetic",
+      "Bid count": "4",
+      "Recorded state": "recorded-standing",
+      "Observed at": "2026-10-09T06:16:24.044Z"
+    },
+    {
+      "Event": "Holiday Trade Show \u00b7 Saturn V1 Short Rehearsal",
+      "Event ID": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "Release ID": "33dec28e-1e6e-4096-b4d7-68b16ed8221c",
+      "Lot": "02",
+      "Title": "Coffee ritual kit",
+      "Denomination": "SATURN_TRADE_DOLLAR_SYNTHETIC_V1",
+      "Rules": "saturn-trade-tiered-v1",
+      "Opens at": "2026-10-09T06:06:00.000Z",
+      "Closes at": "2026-10-09T06:16:00.000Z",
+      "Timezone": "America/Los_Angeles",
+      "Amount minor units": "25000",
+      "Leading business": "Willow Hosted Closing Synthetic",
+      "Bid count": "1",
+      "Recorded state": "recorded-standing",
+      "Observed at": "2026-10-09T06:16:24.044Z"
+    }
+  ],
+  "pledges": [
+    {
+      "id": "312f458d-d6e6-4185-aff4-eb04ea0992f1",
+      "request_id": "9cc324a5-df6f-44be-b9a6-7ee425b4ca83",
+      "event_id": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+      "actor_name": "Devon Hosted Closing Synthetic",
+      "business_name": "Willow Hosted Closing Synthetic",
+      "nonprofit_id": "eeb9a0d2-5cd9-42ae-be2c-14eff73b2b9f",
+      "nonprofit_name": "Synthetic Holiday Trade Show Recipient",
+      "nonprofit_version": "1",
+      "amount_minor": "12345",
+      "amount": "123.45",
+      "unit": "trade-dollar",
+      "scale": "100",
+      "status": "pending_staff_settlement",
+      "recorded_at": "2026-10-09T06:07:58.429012+00:00"
+    }
+  ],
+  "checks": [
+    "Exactclosedlot standingminor/count/rules/zone/recordedstate fields",
+    "Exactimmutable manualpledge ID/request/actor/business/unit/scale/version/amount"
+  ],
+  "kind": "HOSTED_ACTUAL_UI_DOWNLOADED_CSV"
+}

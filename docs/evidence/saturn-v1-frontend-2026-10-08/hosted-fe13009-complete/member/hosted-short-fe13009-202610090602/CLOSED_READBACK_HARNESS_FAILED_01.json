@@ -1,0 +1,11 @@
+{
+  "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "eventId": "9c32e7e7-cf56-4c6b-a1fb-3e31a5d009c6",
+  "kind": "HARNESS_ENTRY_READINESS_FAILURE_NOT_PRODUCT_RED",
+  "command": "Node24 hosted-closed-readback.mjs",
+  "actual": 401,
+  "expected": 200,
+  "failedAssertion": "catalog read immediately after native Entry click, before iframe/native browse ready",
+  "observation": "No authenticated frame or failed UI DOM captured; browser closed in finally; timing diagnosis to be verified by targeted successor",
+  "stack": "AssertionError401!==200 at hosted-closed-readback.mjs:3:690"
+}

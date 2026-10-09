@@ -1,0 +1,8 @@
+{
+  "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "runtime": "v24.4.1",
+  "kind": "HARNESS_CLEANUP_ENDPOINT_ERROR",
+  "error": "Cleanup assertion: POST /api/test-auth/logout returned404; original4render captures preserved; no result JSON was emitted",
+  "scope": "All browser contexts closed in finally; wrong endpoint did not revoke this ephemeral session; no fixture/grant writes",
+  "sourceProbe": "parent-hosted-readback-attempt-1.mjs"
+}

@@ -1,0 +1,9 @@
+{
+  "source": "fe1300920351ba398673d4ca4f25ce2aea6b9f80",
+  "runtime": "v24.4.1",
+  "kind": "HARNESS_CLEANUP_PAYLOAD_ERROR",
+  "error": "Cleanup assertion: POST /api/session/logout without JSON body returned400; four rendered readbacks completed before assertion",
+  "scope": "Browser closed in finally; incomplete signout left only an expiring synthetic session record, no fixture/grant changes",
+  "sourceProbe": "parent-hosted-readback-attempt-2.mjs",
+  "correction": "Current server auth requires empty JSON object; corrected to data:{} after reading actual source"
+}
