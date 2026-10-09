@@ -15,6 +15,7 @@ export async function memberRequest(path,body){
   const r=await fetch(path,{signal:controller.signal,credentials:'same-origin',cache:'no-store',...(body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})});const data=await r.json();
   const sessionResponse=await fetch('/api/session',{signal:controller.signal,credentials:'same-origin',cache:'no-store'}),session=await sessionResponse.json();
   if(!sessionResponse.ok||session.authenticated!==true||session.person?.id!==expectedActor){window.dispatchEvent(new Event('member-session-changed'));throw new Error('The private session changed. The original request is retained for its owner.');}
+  if(catalog.version===2){const viewResponse=await fetch(`/api/v2/bidder/events/${encodeURIComponent(expectedEvent)}/context`,{signal:controller.signal,credentials:'same-origin',cache:'no-store'}),view=await viewResponse.json();if([401,403,404].includes(viewResponse.status)||viewResponse.ok&&view.person?.id!==expectedActor){window.dispatchEvent(new Event('member-session-changed'));throw new Error('Current private event access changed.');}if(!viewResponse.ok||view.testMode!==true)throw new Error('Current private event access could not be confirmed.');}
   if(expectedActor!==actor()||expectedEpoch!==bidder.epoch||expectedEvent!==event.id)throw new Error('The member view changed before this response could be used.');
   return {status:r.status,data};
  }finally{clearTimeout(timer);}
