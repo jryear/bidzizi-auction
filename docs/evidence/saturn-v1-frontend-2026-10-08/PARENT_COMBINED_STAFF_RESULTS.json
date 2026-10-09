@@ -1,0 +1,16 @@
+{
+  "kind": "PARENT_COMBINED_LOCAL_REAL_HTTP_READ_ONLY_UI",
+  "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+  "sourceBinding": "backend-owned pinned runtime descriptor; member served-source hashes independently recorded",
+  "measurement": {
+    "url": "http://127.0.0.1:43981/events/b307252b-888b-4740-9785-994ee914da52/results",
+    "width": 390,
+    "height": 844,
+    "dpr": 1,
+    "documentWidth": 390,
+    "scrollY": 0,
+    "text": "BidZizi\nPRIVATE STAFF STANDING\nEvent Studio\nPrivate display\n\nSATURN BARTER\n\nSaturn Synthetic Staff Rehearsal \u00b7 Original Studio\n\nSynthetic Saturn trade-dollar rehearsal. Closed standing is recorded; staff handle follow-up manually.\n\nLocal combined rehearsal\n\nFROZEN OPENING\nOct 9, 2026, 5:01:00 AM UTC\nFROZEN CLOSING\nOct 9, 2026, 5:13:00 AM UTC\nTIME ZONE\nUTC\nopen \u00b7 confirmed staff read\n\nAs of Oct 9, 2026, 5:06:06 AM UTC\n\nRefresh standing\nRecorded lot standing\nDownload CSV\n\nLOT\nPUBLISHED ITEM\nACCEPTED AMOUNT\nSTANDING AND BUSINESS\n01\nCabin weekend\nGetaways\nT$49.69\nCurrent recorded standing\n\nJuniper Synthetic\n\n3 accepted bids \u00b7 version 3\n\nLast accepted change: Oct 9, 2026, 5:01:46 AM UTC\n\n02\nCoffee ritual kit\nHome\nT$250.00\nCurrent recorded standing\n\nJuniper Synthetic\n\n1 accepted bid \u00b7 version 1\n\nLast accepted change: Oct 9, 2026, 5:01:48 AM UTC\n\nPrivate staff access \u00b7 Published catalog is separate from draft preview.\n\nSynthetic Saturn trade dollars \u00b7 Recorded amounts are for this published catalog.\n\nRecorded standing is not an award or finalization. No payment or settlement occurs here."
+  },
+  "capturedAt": "2026-10-09T05:06:09.802835+00:00",
+  "screenshot": "combined-e43f059-staff-results-phone.png"
+}

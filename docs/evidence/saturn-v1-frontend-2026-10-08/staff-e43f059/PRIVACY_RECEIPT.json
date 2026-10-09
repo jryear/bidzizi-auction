@@ -1,0 +1,23 @@
+{
+  "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+  "origin": "http://127.0.0.1:43981",
+  "eventId": "b8078be1-eb02-4f33-8f76-cd9019a111ae",
+  "sharedEventId": "b307252b-888b-4740-9785-994ee914da52",
+  "memberId": "92472429-21b1-42ce-92d3-f7a6690de4d0",
+  "checks": [
+    "different server-issued attendee during held read clears private display",
+    "attendee switch after actual CSV fetch prevents download and clears results",
+    "attendee switch during applied access mutation clears private rows and retains uncertainty",
+    "returning same authorized staff resolves original mutation rather than new key",
+    "phone bidder control is reachable and keeps input focus",
+    "attendee switch after pledge CSV fetch clears private staff configuration and blocks download",
+    "no browser exceptions"
+  ],
+  "captures": [
+    "desktop-private-read-denied.png",
+    "mobile-bidders-controls-confirmed.png"
+  ],
+  "errors": [],
+  "kind": "COMBINED_LOCAL_REAL_HTTP_UI",
+  "sessionMethod": "Current server-issued attendee session; token stays in browser process"
+}

@@ -1,0 +1,162 @@
+{
+  "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+  "origin": "http://127.0.0.1:43981",
+  "eventId": "b307252b-888b-4740-9785-994ee914da52",
+  "policy": {
+    "enabled": true,
+    "policyReady": true,
+    "availability": {
+      "mode": "any-time"
+    },
+    "minimumMinor": 1,
+    "amountCapMinor": 100000
+  },
+  "recipient": {
+    "id": "d7d7d7fc-f6fa-481e-a167-bd78cf6909e3",
+    "name": "Synthetic Saturn Community Recipient",
+    "version": 1,
+    "description": "Synthetic rehearsal only. Staff process recorded pledges manually."
+  },
+  "checks": [
+    "donation policy initial intent and effective readiness returned",
+    "explicit synthetic cap100000 minor and any-time availability confirmed",
+    "synthetic recipient creation durably confirmed",
+    "phone donation controls no horizontal overflow",
+    "reload retains policy controls and donor tab",
+    "no browser exceptions"
+  ],
+  "captures": [
+    {
+      "name": "desktop-donation-policy.png",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:43981/admin?event=b307252b-888b-4740-9785-994ee914da52&tab=donations",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "documentWidth": 1440,
+            "main": null
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-admin/index.html#/donations",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "documentWidth": 1440,
+            "main": {
+              "scrollTop": 0,
+              "scrollWidth": 1120,
+              "clientWidth": 1120
+            }
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "scrollWidth": 0,
+              "clientWidth": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mobile-donation-policy-initial.png",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:43981/admin?event=b307252b-888b-4740-9785-994ee914da52&tab=donations",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "documentWidth": 390,
+            "main": null
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-admin/index.html#/donations",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "documentWidth": 390,
+            "main": {
+              "scrollTop": 0,
+              "scrollWidth": 358,
+              "clientWidth": 358
+            }
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "scrollWidth": 0,
+              "clientWidth": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mobile-donation-recipient.png",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:43981/admin?event=b307252b-888b-4740-9785-994ee914da52&tab=donations",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "documentWidth": 390,
+            "main": null
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-admin/index.html#/donations",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "documentWidth": 390,
+            "main": {
+              "scrollTop": 756,
+              "scrollWidth": 358,
+              "clientWidth": 358
+            }
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "documentWidth": 340,
+            "main": {
+              "scrollTop": 0,
+              "scrollWidth": 0,
+              "clientWidth": 0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "kind": "COMBINED_LOCAL_REAL_HTTP_UI",
+  "fixtureAuthority": "Member lane requested explicit synthetic cap100000 minor and any-time availability; no universal policy"
+}

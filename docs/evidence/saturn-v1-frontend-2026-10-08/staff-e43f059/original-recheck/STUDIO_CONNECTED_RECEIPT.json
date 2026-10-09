@@ -1,0 +1,362 @@
+{
+  "source": "e43f05949aa3c9fa8d6225474d9ebba668905ae3",
+  "eventId": "fd2919ff-44ec-4439-b2eb-81b877848a5d",
+  "origin": "http://127.0.0.1:43981",
+  "kind": "LOCAL_REAL_HTTP_UI",
+  "checks": [
+    "sponsor input retains focus/caret",
+    "real normalized sponsor upload",
+    "invalid raise retains raw input and focused correction",
+    "uncertain durable save stays explicit",
+    "save retry reuses original identity",
+    "sponsors + exact minor units persisted",
+    "trade-dollar amount visible",
+    "lost upload recovers exact original asset on reload",
+    "explicit recovered target saves same durable asset",
+    "original duplication retained",
+    "original reorder retained",
+    "single shared window has no invalid legacy assign UI",
+    "published controls lock including uploads/raises",
+    "cross-date published summary",
+    "published sponsor controls lock",
+    "Entry shares actual same-origin URL",
+    "mobile items no overflow",
+    "reload retains item route",
+    "mobile event no overflow",
+    "no browser exceptions"
+  ],
+  "captureStates": [
+    {
+      "name": "desktop-sponsors.png",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:43981/admin?event=fd2919ff-44ec-4439-b2eb-81b877848a5d",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "hash": "",
+            "documentScrollTop": 0,
+            "main": null
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-admin/index.html#/event",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "hash": "#/event",
+            "documentScrollTop": 0,
+            "main": {
+              "scrollTop": 456,
+              "clientHeight": 898,
+              "scrollHeight": 2126
+            }
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "hash": "#/",
+            "documentScrollTop": 0,
+            "main": {
+              "scrollTop": 0,
+              "clientHeight": 804,
+              "scrollHeight": 804
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "desktop-items-preview.png",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:43981/admin?event=fd2919ff-44ec-4439-b2eb-81b877848a5d&tab=lots&lot=4c2634d4-064f-41ab-916f-dbf019298074",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "hash": "",
+            "documentScrollTop": 0,
+            "main": null
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-admin/index.html#/lots/4c2634d4-064f-41ab-916f-dbf019298074",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "hash": "#/lots/4c2634d4-064f-41ab-916f-dbf019298074",
+            "documentScrollTop": 0,
+            "main": {
+              "scrollTop": 0,
+              "clientHeight": 898,
+              "scrollHeight": 1792
+            }
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "hash": "#/",
+            "documentScrollTop": 0,
+            "main": {
+              "scrollTop": 0,
+              "clientHeight": 1076,
+              "scrollHeight": 1076
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "desktop-published-entry.png",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:43981/admin?event=fd2919ff-44ec-4439-b2eb-81b877848a5d",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "hash": "",
+            "documentScrollTop": 0,
+            "main": null
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-admin/index.html#/event",
+          "state": {
+            "innerWidth": 1440,
+            "innerHeight": 1120,
+            "dpr": 1,
+            "hash": "#/event",
+            "documentScrollTop": 0,
+            "main": {
+              "scrollTop": 1305,
+              "clientHeight": 898,
+              "scrollHeight": 2324
+            }
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "hash": "#/",
+            "documentScrollTop": 0,
+            "main": {
+              "scrollTop": 0,
+              "clientHeight": 1076,
+              "scrollHeight": 1076
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mobile-event.png",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:43981/admin?event=fd2919ff-44ec-4439-b2eb-81b877848a5d",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "hash": "",
+            "documentScrollTop": 0,
+            "main": null
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-admin/index.html#/event",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "hash": "#/event",
+            "documentScrollTop": 0,
+            "main": {
+              "scrollTop": 1643,
+              "clientHeight": 316,
+              "scrollHeight": 3028
+            }
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "hash": "#/",
+            "documentScrollTop": 0,
+            "main": {
+              "scrollTop": 0,
+              "clientHeight": 0,
+              "scrollHeight": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mobile-items-initial.png",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:43981/admin?event=fd2919ff-44ec-4439-b2eb-81b877848a5d&tab=lots&lot=0159be31-3db7-4668-aee7-394d610f93c2",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "hash": "",
+            "documentScrollTop": 0,
+            "main": null
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-admin/index.html#/lots",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "hash": "#/lots",
+            "documentScrollTop": 0,
+            "main": {
+              "scrollTop": 0,
+              "clientHeight": 316,
+              "scrollHeight": 2193
+            }
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "hash": "#/",
+            "documentScrollTop": 0,
+            "main": {
+              "scrollTop": 0,
+              "clientHeight": 0,
+              "scrollHeight": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mobile-items.png",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:43981/admin?event=fd2919ff-44ec-4439-b2eb-81b877848a5d&tab=lots&lot=0159be31-3db7-4668-aee7-394d610f93c2",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "hash": "",
+            "documentScrollTop": 0,
+            "main": null
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-admin/index.html#/lots",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "hash": "#/lots",
+            "documentScrollTop": 0,
+            "main": {
+              "scrollTop": 366,
+              "clientHeight": 316,
+              "scrollHeight": 2193
+            }
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "hash": "#/",
+            "documentScrollTop": 0,
+            "main": {
+              "scrollTop": 0,
+              "clientHeight": 0,
+              "scrollHeight": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mobile-editor-controls.png",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:43981/admin?event=fd2919ff-44ec-4439-b2eb-81b877848a5d&tab=lots&lot=0159be31-3db7-4668-aee7-394d610f93c2",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "hash": "",
+            "documentScrollTop": 0,
+            "main": null
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-admin/index.html#/lots",
+          "state": {
+            "innerWidth": 390,
+            "innerHeight": 844,
+            "dpr": 1,
+            "hash": "#/lots",
+            "documentScrollTop": 0,
+            "main": {
+              "scrollTop": 1640,
+              "clientHeight": 316,
+              "scrollHeight": 2193
+            }
+          }
+        },
+        {
+          "url": "http://127.0.0.1:43981/staging-bidder-preview/index.html#/",
+          "state": {
+            "innerWidth": 340,
+            "innerHeight": 714,
+            "dpr": 1,
+            "hash": "#/",
+            "documentScrollTop": 0,
+            "main": {
+              "scrollTop": 0,
+              "clientHeight": 0,
+              "scrollHeight": 0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    "desktop-sponsors.png",
+    "desktop-items-preview.png",
+    "desktop-published-entry.png",
+    "mobile-event.png",
+    "mobile-items-initial.png",
+    "mobile-items.png",
+    "mobile-editor-controls.png"
+  ],
+  "errors": []
+}
