@@ -2,10 +2,10 @@ import {event,catalog,applyAudience} from './data.js';
 import {state,restoreBrowse,saveBrowse} from './store.js';
 import {views,lotView,tabbar,lotsList,lotsCount} from './views.js';
 import {esc} from './ui.js';
-import {setContext,activateLot,bidAction} from './bidding.js';
+import {bidder,setContext,activateLot,bidAction} from './bidding.js';
 import {reconcileHTML} from './reconcile.js';
 import {setCollectionContext,toggleWatch,recoverWatch,retryWatch,refreshCollections} from './collections.js';
-import {donation,setDonationContext,refreshDonation,reviewDonation,editDonation,submitDonation,checkDonation,anotherDonation,donationValidity} from './donations.js';
+import {donation,setDonationContext,refreshDonation,reviewDonation,editDonation,submitDonation,checkDonation,anotherDonation,editRefusedDonation,donationValidity} from './donations.js';
 const $=s=>document.querySelector(s);
 let ready=false,scope='',path='/',restoreScroll=false;
 let renderedHash=null,renderedView=null;
@@ -58,6 +58,7 @@ document.addEventListener('click',ev=>{
  if(a==='donation-check')return checkDonation();
  if(a==='donation-retry')return submitDonation(true);
  if(a==='donation-again')return anotherDonation();
+ if(a==='donation-edit-current')return editRefusedDonation();
  if(a==='donation-preset'){donation.amount=button.dataset.amount;donation.error='';render();return;}
  if(a==='donation-custom'){donation.amount='';donation.error='';render();$('#donation-amount')?.focus();return;}
  if(a==='back')return navigate(['/lots','/watching','/bids'].includes(state.from)?state.from:'/lots');
@@ -77,3 +78,5 @@ window.addEventListener('member-change',()=>{const active=document.activeElement
 if(parent!==window)parent.postMessage({type:'audience-ready'},location.origin);
 
 $('#sheet').addEventListener('close',()=>{if($('#sheet').dataset.donationState&&donation.mode==='review')editDonation();});
+
+window.addEventListener('member-session-changed',()=>{setContext({eventId:event.id,epoch:bidder.epoch,context:null,stale:true});setCollectionContext();setDonationContext();if(parent!==window)parent.postMessage({type:'member-session-changed',eventId:event.id},location.origin);});

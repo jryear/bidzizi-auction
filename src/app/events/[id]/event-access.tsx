@@ -89,10 +89,15 @@ export default function EventAccess({ eventId }: { eventId: string }) {
   },[clear,load]);
   useEffect(() => {
     const ready = (event: MessageEvent) => {
-      if (event.origin === location.origin && event.source === frame.current?.contentWindow && event.data?.type === "audience-ready") send();
+      if (event.origin !== location.origin || event.source !== frame.current?.contentWindow) return;
+      if (event.data?.type === "audience-ready") send();
+      if (event.data?.type === "member-session-changed" && event.data.eventId === eventId) {
+        const ticket = ++epoch.current; ++sequence.current; clear(); setError("");
+        void api("/api/session").then(s => { if (epoch.current !== ticket) return; setSession(s); if (s.authenticated) void load(ticket); }).catch(() => { if (epoch.current === ticket) { setSession(null); setError("The current private session could not be confirmed. Reload to continue."); } });
+      }
     };
     window.addEventListener("message", ready); return () => window.removeEventListener("message", ready);
-  }, [send]);
+  }, [send, load, clear, eventId]);
   useEffect(() => {
     if (!session?.authenticated||entryRecovery) return;
     let stopped = false, checking = false;

@@ -137,6 +137,7 @@ function updateAmount(){
  if(!button)return;button.disabled=!v.ok;button.textContent=`Place ${c===null?currencySymbol()+'—':money(c)} bid`;
  d.querySelector('#amt-err').textContent=v.text;
  d.querySelector('#amt').setAttribute('aria-invalid',String(!v.ok));
+ d.querySelector('.stepper')?.classList.toggle('is-long',String(sheet.amount).length>7);
  d.querySelector('#review-amount').textContent=c===null?'—':money(c);
  const lower=d.querySelector('[data-action="step"][data-d="-1"]');if(lower)lower.disabled=c===null||c-sheet.increment<sheet.minimum;
 }
