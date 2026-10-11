@@ -240,7 +240,7 @@ export function bidsView() {
   <main id="main" class="bids">
     <div class="page-head"><h1 tabindex="-1" data-key="h1">My bids</h1><p>${state.identity ? esc(state.identity.business) : 'Guest'}${state.online ? '' : ' · as of ' + esc(state.snap.asOf)}</p></div>
     ${none ? `<div class="empty big"><p><b>${state.identity ? 'No bids in draft preview.' : "You haven't bid yet."}</b> Bids you place show up here with their standing, and you can come back to them any time. ${assume('A12')}</p><a class="btn primary" href="#/lots" data-nav>Browse the lots</a></div>` : ''}
-    ${sec('Needs your attention', 'Outbid, or a bid that didn't go through.', attn)}
+    ${sec('Needs your attention', "Outbid, or a bid that didn't go through.", attn)}
     ${sec('In play', 'Sending now, or leading.', active)}
     ${sec('Closed', 'Final standings.', ended)}
   </main>` };
