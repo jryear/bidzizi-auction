@@ -90,7 +90,7 @@ export function entryView() {
             <div><dt>Lots</dt><dd>${event.lotCount}</dd></div>
             ${event.version===2&&lots.length?`<div><dt>First item</dt><dd>${esc(lots[0].title)}</dd></div>`:''}
           </dl>
-          <p class="fine">Staff draft preview. Bidding is disabled. ${event.version===2?'Synthetic Saturn trade dollars; no payment or settlement.':'Synthetic USD.'}</p>
+          <p class="fine">Staff preview. Bidding is off. ${event.version===2?'Saturn trade dollars; no payment is taken.':'US dollars (test).'}</p>
         </aside>
       </div>
       ${sponsors.length ? `<section class="welcome-sponsors" aria-labelledby="sponsor-title">
@@ -185,7 +185,7 @@ export function lotView(id) {
   if (!lot) return { name: 'lot', title: 'Lot not found', chrome: 'tabs', tab: 'lots', html: `${pass()}<main id="main" class="lots"><div class="empty big"><h1 tabindex="-1" data-key="h1">That lot isn't in this event</h1><a class="btn primary" href="#/lots" data-nav>Back to lots</a></div></main>` };
   const st = lotStatus(lot), t = topBid(lot.id), n = totalBids(lot), cta = ctaFor(lot), min = minNext(lot);
   const idn = state.identity;
-  const forLine = idn ? `<p class="for">${monogram(idn.business, 22, true)}<span>Bidding for <b>${esc(idn.business)}</b></span></p>` : `<p class="for">${icon('lock', 'sm')}<span>Staff draft preview · bidding is disabled</span></p>`;
+  const forLine = idn ? `<p class="for">${monogram(idn.business, 22, true)}<span>Bidding for <b>${esc(idn.business)}</b></span></p>` : `<p class="for">${icon('lock', 'sm')}<span>Staff preview · bidding is off</span></p>`;
   let left;
   if (['none', 'outbid'].includes(st.kind) || (st.kind === 'notplaced' && st.entry.status === 'rejected')) left = `<div class="ab-amt"><span class="lbl">Next bid</span><span class="amt">${money(min)}</span></div>`;
   else if (st.kind === 'leading') left = `<div class="ab-amt">${badge(st)}<span class="amt sm">${money(t.amount)}</span></div>`;
@@ -240,7 +240,7 @@ export function bidsView() {
   <main id="main" class="bids">
     <div class="page-head"><h1 tabindex="-1" data-key="h1">My bids</h1><p>${state.identity ? esc(state.identity.business) : 'Guest'}${state.online ? '' : ' · as of ' + esc(state.snap.asOf)}</p></div>
     ${none ? `<div class="empty big"><p><b>${state.identity ? 'No bids in draft preview.' : "You haven't bid yet."}</b> Bids you place show up here with their standing, and you can come back to them any time. ${assume('A12')}</p><a class="btn primary" href="#/lots" data-nav>Browse the lots</a></div>` : ''}
-    ${sec('Needs your attention', 'Outbid, or something we could not finish.', attn)}
+    ${sec('Needs your attention', 'Outbid, or a bid that didn't go through.', attn)}
     ${sec('In play', 'Sending now, or leading.', active)}
     ${sec('Closed', 'Final standings.', ended)}
   </main>` };
@@ -248,7 +248,7 @@ export function bidsView() {
 
 // ---- event / how it works ---------------------------------------------------------------------
 export function eventView() {
- return {name:'event',title:'Event',chrome:'tabs',tab:'event',html:`${pass()}<main id="main" class="eventinfo"><div class="page-head"><h1 tabindex="-1" data-key="h1">${esc(event.name)}</h1><p>${esc(event.host)} · ${esc(event.date)}</p></div><section class="prose"><h2>Event details</h2><p>${esc(event.welcome)}</p><p class="fine-print">${esc(event.venue)}</p></section><section class="prose"><h2>Draft schedule</h2><dl class="facts onpage"><div><dt>Opens</dt><dd>${esc(event.opens)} ${esc(event.timezone)}</dd></div><div><dt>Closes</dt><dd>${esc(event.version===2&&event.closeDate!==event.date?event.closeDate+' · ':'')}${esc(event.closes)} ${esc(event.timezone)}</dd></div><div><dt>Lots</dt><dd>${lots.length}</dd></div></dl><p class="fine-print">This is staff draft content. The catalog is not published and bidding is disabled.</p></section>${sponsors.length?`<section class="prose"><h2>Event sponsors</h2><ul class="sponsors">${sponsors.map(s=>`<li>${sponsorMark(s.logo,40,s.name)}<span>${esc(s.name)}</span></li>`).join('')}</ul></section>`:''}</main>`};
+ return {name:'event',title:'Event',chrome:'tabs',tab:'event',html:`${pass()}<main id="main" class="eventinfo"><div class="page-head"><h1 tabindex="-1" data-key="h1">${esc(event.name)}</h1><p>${esc(event.host)} · ${esc(event.date)}</p></div><section class="prose"><h2>Event details</h2><p>${esc(event.welcome)}</p><p class="fine-print">${esc(event.venue)}</p></section><section class="prose"><h2>Draft schedule</h2><dl class="facts onpage"><div><dt>Opens</dt><dd>${esc(event.opens)} ${esc(event.timezone)}</dd></div><div><dt>Closes</dt><dd>${esc(event.version===2&&event.closeDate!==event.date?event.closeDate+' · ':'')}${esc(event.closes)} ${esc(event.timezone)}</dd></div><div><dt>Lots</dt><dd>${lots.length}</dd></div></dl><p class="fine-print">This is draft content. The catalog isn't published and bidding is off.</p></section>${sponsors.length?`<section class="prose"><h2>Event sponsors</h2><ul class="sponsors">${sponsors.map(s=>`<li>${sponsorMark(s.logo,40,s.name)}<span>${esc(s.name)}</span></li>`).join('')}</ul></section>`:''}</main>`};
 }
 
 export const views = { entry: entryView, lots: lotsView, watching: watchingView, bids: bidsView, event: eventView };

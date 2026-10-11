@@ -15,7 +15,7 @@ function resolvedPhoto(ref,p){
 export function timeText(value){return new Intl.DateTimeFormat('en-US',{timeZone:event.timezone||'UTC',hour:'numeric',minute:'2-digit'}).format(new Date(value));}
 export function dateText(value){return new Intl.DateTimeFormat('en-US',{timeZone:event.timezone||'UTC',month:'long',day:'numeric',year:'numeric'}).format(new Date(value));}
 export function timestamp(value){return new Intl.DateTimeFormat('en-US',{timeZone:event.timezone||'UTC',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',second:'2-digit',timeZoneName:'short'}).format(new Date(value));}
-export const currencyLabel=()=>catalog.version===2?'Synthetic Saturn trade dollars':'Synthetic USD';
+export const currencyLabel=()=>catalog.version===2?'Saturn trade dollars':'US dollars (test)';
 export const currencySymbol=()=>catalog.version===2?'T$':'$';
 function timezone(p){const zone=p.schedule.timezone||p.event.timing?.timezone||p.event.timezone||'UTC';try{new Intl.DateTimeFormat('en-US',{timeZone:zone});return zone;}catch{return 'UTC';}}
 export function applyAudience(p){

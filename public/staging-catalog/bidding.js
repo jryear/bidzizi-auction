@@ -127,7 +127,7 @@ export function standingMarkup(lot){
 export function bidderStub(lot){
  const e=entryFor(lot.id),s=e.standing;
  if(!bidder.context||!s||e.loading)return '';
- return `<span class="catalog-amount-note">${s.phase==='closed'?'Bidding closed':s.minimumAmountMinor===null?'No further amount available':`Next minimum ${money(s.minimumAmountMinor)}`} · synthetic ${catalog.version===2?'Saturn trade dollars':'USD'}</span>`;
+ return `<span class="catalog-amount-note">${s.phase==='closed'?'Bidding closed':s.minimumAmountMinor===null?'No further amount available':`Next minimum ${money(s.minimumAmountMinor)}`} · ${catalog.version===2?'Saturn trade dollars':'USD'}</span>`;
 }
 export function bidFooter(lot){
  const e=entryFor(lot.id),s=e.standing,b=currentBusiness();

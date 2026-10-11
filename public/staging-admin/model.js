@@ -13,11 +13,11 @@ export function tradeRulesText(rules) {
   for (const [index,tier] of rules.tiers.entries()) {
     if (!Number.isSafeInteger(tier.raiseMinor) || tier.raiseMinor <= 0 || tier.raiseMinor > rules.amountCapMinor ||
         (tier.belowMinor === null ? index !== rules.tiers.length-1 : !Number.isSafeInteger(tier.belowMinor) || tier.belowMinor <= lower || tier.belowMinor > rules.amountCapMinor)) return 'Bid rules are unavailable. Reload the saved event to check them.';
-    const range=tier.belowMinor===null?`from ${tradeMoney(lower,rules)}`:lower===0?`below ${tradeMoney(tier.belowMinor,rules)}`:`${tradeMoney(lower,rules)} to below ${tradeMoney(tier.belowMinor,rules)}`;
-    ranges.push(`${range}: ${tradeMoney(tier.raiseMinor,rules)}`);lower=tier.belowMinor;
+    const range=tier.belowMinor===null?`${tradeMoney(lower,rules)} and up`:lower===0?`Under ${tradeMoney(tier.belowMinor,rules)}`:`${tradeMoney(lower,rules)} to under ${tradeMoney(tier.belowMinor,rules)}`;
+    ranges.push(`${range}: raise by ${tradeMoney(tier.raiseMinor,rules)}`);lower=tier.belowMinor;
   }
   if (lower !== null) return 'Bid rules are unavailable. Reload the saved event to check them.';
-  return `Minimum raise uses the current highest accepted bid: ${ranges.join('; ')}. A positive item override replaces the raise. The first bid starts at the opening amount. Any amount at or above the applicable minimum is allowed, up to ${tradeMoney(rules.amountCapMinor,rules)}.`;
+  return `The first bid must be at least the opening amount. After that, each bid must beat the highest bid by at least the minimum raise, based on that bid: ${ranges.join('; ')}. Any amount that meets the minimum is allowed. A lot can set its own fixed raise instead. Bids can go up to ${tradeMoney(rules.amountCapMinor,rules)}.`;
 }
 export function cents(text) {
   if (!/^\d+(?:\.\d{1,2})?$/.test(String(text))) return null;
