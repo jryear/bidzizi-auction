@@ -1,11 +1,11 @@
 import "server-only";
 import { randomInt } from "node:crypto";
-import { normalizeAsset } from "../staff-asset-codec";
+import { normalizeAsset } from "./asset-codec";
 import { now, tx, type Db } from "./db";
 import { staffFrom, type Staff } from "./auth";
-import { ApiError, cents, conflict, id, invalid, json, notFound, readJson, sameOrigin, sha256, str, when } from "./http";
+import { cents, conflict, id, invalid, json, notFound, readJson, sameOrigin, sha256, str, when } from "./http";
 import { assetUrl, closesOf, eventPhase, opensOf, phaseOf, rulesOf, type EventRow, type ItemRow } from "./engine";
-import { DEFAULT_TIERS, formatMoney, minimumNext, PLEDGE_CAP, validTiers } from "./money";
+import { DEFAULT_TIERS, formatMoney, minimumNext, PLEDGE_CAP, validTiers } from "../../lib/money";
 
 const CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const code = (length: number) => Array.from({ length }, () => CODE_ALPHABET[randomInt(CODE_ALPHABET.length)]).join("");
@@ -514,13 +514,7 @@ export async function exportCsv(request: Request, eventId: string, kind: string)
 export async function uploadAsset(request: Request): Promise<Response> {
   sameOrigin(request);
   const staff = await tx(async db => staffFrom(db, request));
-  let asset;
-  try { asset = await normalizeAsset(request); }
-  catch (error) {
-    const e = error as { status?: number; code?: string; message?: string };
-    if (e && typeof e.status === "number" && e.code) throw new ApiError(e.status, e.code, e.message ?? "This image can't be used.");
-    throw error;
-  }
+  const asset = await normalizeAsset(request);
   const row = await tx(async db => (await db.query<{ id: string }>(
     "INSERT INTO assets (org_id, mime, bytes, width, height, sha256, created_by) VALUES ($1, 'image/webp', $2, $3, $4, $5, $6) RETURNING id",
     [staff.orgId, asset.bytes, asset.width, asset.height, asset.sourceSha256, staff.id])).rows[0]);

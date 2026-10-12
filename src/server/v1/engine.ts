@@ -3,7 +3,7 @@ import { randomBytes, randomUUID } from "node:crypto";
 import { now, tx, type Db } from "./db";
 import { ApiError, cents, conflict, id, invalid, json, notFound, readJson, sha256, str } from "./http";
 import { participantCookieHeader, participantFrom, requireParticipant, type Participant } from "./auth";
-import { BID_CAP, increment, minimumNext, PLEDGE_CAP, type Rules, type Tier } from "./money";
+import { BID_CAP, increment, minimumNext, PLEDGE_CAP, type Rules, type Tier } from "../../lib/money";
 
 export type EventRow = {
   id: string; org_id: string; join_code: string; name: string; welcome: string; venue: string; winner_instructions: string;
