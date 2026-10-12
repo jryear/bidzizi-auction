@@ -5,3 +5,5 @@ node_modules/
 .next/
 out/
 *.tsbuildinfo
+.bzpg-dir
+.next-dev.log
