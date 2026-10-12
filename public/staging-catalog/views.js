@@ -100,8 +100,12 @@ function bidHistory(requests){
 }
 function bidTicket({lot,record:b,requests,pending}){
  const accepted=b?.receipt.status==='accepted',tone=pending?'amber':b?.recordedState.includes('outbid')?'red':accepted?'green':'dashed';
- const amount=b?.receipt.amountMinor??pending.intent.amountMinor,top=b?.standing.currentAmountMinor;
- const long=money(amount).length>9||money(top).length>9;
+ const top=b?.standing.currentAmountMinor,hasTop=Number.isSafeInteger(top);
+ const closed=b?.recordedState.startsWith('closed-')||catalog.phase==='closed';
+ const stale=!!pending||collections.stale||bidder.stale||!!collections.historyError;
+ const amount=hasTop?top:b?.receipt.amountMinor??pending.intent.amountMinor;
+ const amountLabel=hasTop?(closed?'Recorded top':stale?'Last confirmed bid':'Current bid'):accepted?'Accepted bid':'Attempted';
+ const long=money(amount).length>9;
  const latest=requests[0],rejected=accepted&&latest.receipt.status==='rejected';
  let attempt='';
  if(pending){
@@ -112,8 +116,10 @@ function bidTicket({lot,record:b,requests,pending}){
   attempt=`<div class="bid-attempt"><strong>Latest request not placed</strong><p>Not placed · ${money(latest.receipt.amountMinor)}. Your accepted bid is unchanged.</p></div>`;
  }
  const label=b?recordLabel(b.recordedState):pending.mode==='not-recorded'?'No recorded bid':'Awaiting confirmation';
- const note=accepted?(b.recordedState.startsWith('closed-')?'Latest accepted bid. Closed standing is not an award.':'Latest accepted bid. Standing can change.'):b?'This request was rejected; no bid was placed.':'No accepted bid confirmed for this request.';
- return `<article class="ticket${long?' money-long':''} t-${tone}" data-anchor="${esc(lot.id)}" data-bid-lot="${esc(lot.id)}"><div class="tk-main"><div class="tk-t"><a class="bid-lot-link" href="#/lot/${esc(lot.id)}" data-nav><span class="lbl">Lot ${esc(lot.number)}</span><h3>${esc(lot.title)}</h3></a><b class="bid-standing">${esc(label)}</b><p>${note}</p>${b?`<small>${esc(timestamp(b.receipt.decidedAt))}</small>`:''}${attempt}${requests.length?bidHistory(requests):''}</div></div><div class="tk-stub"><span class="lbl">${accepted?'Your bid':'Attempted'}</span><span class="amt">${money(amount)}</span>${top!==null&&top!==undefined?`<span class="tk-cur">Recorded top ${money(top)}</span>`:''}</div></article>`;
+ const note=accepted?(closed?'Closed standing is not an award.':b.recordedState==='outbid'?`${esc(b.standing.leadingBusiness?.name||'Another business')} is leading.`:'Standing can change until bidding closes.'):b?'This request was rejected; no bid was placed.':'No accepted bid confirmed for this request.';
+ const bidAgain=!pending&&!closed&&!stale&&b?.recordedState==='outbid'&&hasManualAccess();
+ const next=pending?'':`<div class="tk-act"><a class="btn ${bidAgain?'primary':'quiet'}" href="#/lot/${esc(lot.id)}" data-nav>${bidAgain?'Bid again':closed?'View standing':'View lot'}</a></div>`;
+ return `<article class="ticket${long?' money-long':''} t-${tone}" data-anchor="${esc(lot.id)}" data-bid-lot="${esc(lot.id)}"><div class="tk-main"><div class="tk-t"><a class="bid-lot-link" href="#/lot/${esc(lot.id)}" data-nav><span class="lbl">Lot ${esc(lot.number)}</span><h3>${esc(lot.title)}</h3></a><b class="bid-standing">${esc(label)}</b><p>${note}</p>${b?.standing.updatedAt?`<small>Last change ${esc(timestamp(b.standing.updatedAt))}</small>`:''}${attempt}${requests.length?bidHistory(requests):''}</div></div><div class="tk-stub"><span class="lbl">${amountLabel}</span><span class="amt">${money(amount)}</span></div>${next}</article>`;
 }
 export function bidsView(){
  // A context change dispatches a render before the collections reset completes.
@@ -122,7 +128,7 @@ export function bidsView(){
  const unresolved=collections.historyDenied||!bidder.context?[]:[...bidder.entries].filter(([,e])=>e.intent&&!e.receipt);
  const tickets=bidTickets(rows,unresolved);
  const section=(title,match)=>{const items=tickets.filter(match);return items.length?`<section class="b-sec"><h2>${title}</h2><div class="tickets">${items.map(bidTicket).join('')}</div></section>`:'';};
- return {title:'My bids',chrome:'tabs',tab:'bids',html:`${pass()}${banners()}<main id="main" class="bids"><div class="page-head"><h1 tabindex="-1">My bids</h1><p>One ticket per lot · your requests, shared business standing.</p></div>${featureNote(collections.historyError,collections.stale)}${section('Needs confirmation',t=>!!t.pending)}${section('Needs your attention',t=>!t.pending&&['outbid','rejected'].includes(t.record.recordedState))}${section('In play',t=>!t.pending&&t.record.recordedState==='leading')}${section('Closed recorded standing',t=>!t.pending&&t.record.recordedState.startsWith('closed-'))}${h&&!tickets.length?'<div class="empty big"><p>You have no recorded bids for this event.</p><a class="btn primary" href="#/lots" data-nav>Browse the lots</a></div>':''}${!h&&!collections.historyError?'<p class="catalog-note" role="status">Checking your server receipts…</p>':''}<p class="catalog-note">${currencyLabel()}. Closed standing is not an award or settlement.</p>${asOf()}</main>`};
+ return {title:'My bids',chrome:'tabs',tab:'bids',html:`${pass()}${banners()}<main id="main" class="bids"><div class="page-head"><h1 tabindex="-1">My bids</h1><p>Where your business stands, and what to do next.</p></div>${featureNote(collections.historyError,collections.stale)}${section('Needs confirmation',t=>!!t.pending)}${section('Outbid',t=>!t.pending&&t.record.recordedState==='outbid')}${section('Leading',t=>!t.pending&&t.record.recordedState==='leading')}${section('Not placed',t=>!t.pending&&t.record.recordedState==='rejected')}${section('Closed recorded standing',t=>!t.pending&&t.record.recordedState.startsWith('closed-'))}${h&&!tickets.length?'<div class="empty big"><p>You have no recorded bids for this event.</p><a class="btn primary" href="#/lots" data-nav>Browse the lots</a></div>':''}${!h&&!collections.historyError?'<p class="catalog-note" role="status">Checking your server receipts…</p>':''}<p class="catalog-note">${currencyLabel()}. Closed standing is not an award or settlement.</p>${asOf()}</main>`};
 }
 let donationEntryHTML='';
 export function donateView(){

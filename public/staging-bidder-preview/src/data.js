@@ -1,4 +1,5 @@
 // The same content shape drives A's earned renderers. No seed identities or bid authority.
+import {wallTime,zoneAbbr} from '../../staging-admin/model.js';
 export const event={};
 export const lots=[];
 export const categories=['All'];
@@ -27,7 +28,7 @@ export function applyAdminDraft(payload) {
   if(e.version===2){
     const t=e.timing;
     Object.assign(event,e,{host:payload.org.name,date:t.startDate||'Date not set',
-      opens:labelTime(t.start),closes:labelTime(t.end),timezone:t.timezone,closeDate:t.endDate,
+      opens:labelTime(t.start),closes:labelTime(t.end),timezone:t.timezone,zone:previewZone(t.startDate,t.start,t.timezone),closeZone:previewZone(t.endDate,t.end,t.timezone),closeDate:t.endDate,
       cover:asset(e.cover),increment:2500});
     lots.splice(0,lots.length,...payload.lots.map(l=>({...structuredClone(l),
       image:asset(l.image),sponsor:l.provider||payload.org.name,logo:'saturn',opening:Number.isSafeInteger(l.opening)?l.opening:null})));
@@ -36,7 +37,7 @@ export function applyAdminDraft(payload) {
     event.lotCount=lots.length;previewPhase=payload.phase;network.name=payload.org.name;
     CLOSE_MIN=0;CLOCK0_MIN=0;return;
   }
-  Object.assign(event,e,{ host:payload.org.name,cover:asset(e.cover), date:e.date?new Date(e.date+'T12:00:00Z').toLocaleDateString('en-US',{month:'long',day:'numeric',timeZone:'UTC'}):'Date not set', closes:labelTime(e.end), opens:labelTime(e.start), timezone:zoneLabel(e), increment:Number.isSafeInteger(e.increment)&&e.increment>0?e.increment:2500 });
+  Object.assign(event,e,{ host:payload.org.name,cover:asset(e.cover), date:e.date?new Date(e.date+'T12:00:00Z').toLocaleDateString('en-US',{month:'long',day:'numeric',timeZone:'UTC'}):'Date not set', closes:labelTime(e.end), opens:labelTime(e.start), timezone:e.timezone,zone:previewZone(e.date,e.start,e.timezone),closeZone:previewZone(e.date,e.end,e.timezone), increment:Number.isSafeInteger(e.increment)&&e.increment>0?e.increment:2500 });
   lots.splice(0,lots.length,...payload.lots.map(l=>({...structuredClone(l),image:asset(l.image),sponsor:l.provider||payload.org.name,logo:'saturn',opening:Number.isSafeInteger(l.opening)?l.opening:null})));
   categories.splice(0,categories.length,'All',...new Set(lots.map(l=>l.category)));
   sponsors.splice(0,sponsors.length,...(e.sponsorsEnabled?e.sponsors.filter(s=>s.name.trim()).map(s=>({...s,logo:asset(s.logo)})):[]));
@@ -45,5 +46,10 @@ export function applyAdminDraft(payload) {
   try { const parts=new Intl.DateTimeFormat('en-US',{timeZone:e.timezone,hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(payload.now);CLOCK0_MIN=Number(parts.find(x=>x.type==='hour').value)*60+Number(parts.find(x=>x.type==='minute').value); } catch { CLOCK0_MIN=18*60; }
   previewPhase=payload.phase;network.name=payload.org.name;
 }
-function zoneLabel(e) { try{return new Intl.DateTimeFormat('en-US',{timeZone:e.timezone,timeZoneName:'short'}).formatToParts(new Date(e.date+'T12:00:00Z')).find(p=>p.type==='timeZoneName').value;}catch{return e.timezone;} }
+function previewZone(date,time,zone) {
+ const instant=wallTime(date,time,zone);
+ if(instant!==null)return zoneAbbr(zone,new Date(instant).toISOString());
+ // Unset/ambiguous wall times have no definite daylight-saving abbreviation.
+ try{return new Intl.DateTimeFormat('en-US',{timeZone:zone,timeZoneName:'shortGeneric'}).formatToParts(new Date('2000-01-01T12:00:00Z')).find(p=>p.type==='timeZoneName').value;}catch{return 'Time zone unavailable';}
+}
 function labelTime(t) { if(!/^\d{2}:\d{2}$/.test(t))return 'Not set'; const [h,m]=t.split(':').map(Number);return `${h%12||12}:${String(m).padStart(2,'0')} ${h>=12?'PM':'AM'}`; }

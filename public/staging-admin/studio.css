@@ -51,8 +51,13 @@ button,a,input,select,textarea{touch-action:manipulation}
 .studio-sidebar [data-action="events-home"][aria-current="page"]{background:var(--card);color:var(--ink)}
 .studio-sidebar .sidebar-event{padding-top:8px}
 .studio-sidebar .event-heading{font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;margin:0 12px 10px;color:var(--muted)}
-.studio-sidebar .event-picker{width:100%;padding:8px 12px;min-height:36px;justify-content:space-between;gap:8px;font-size:12px;line-height:1.4;text-align:left}
-.studio-sidebar .sidebar-event-name{display:block;padding:4px 12px 0;color:var(--muted);font-size:11px;line-height:1.5;overflow-wrap:anywhere}
+.studio-sidebar .event-picker{display:flex;width:100%;padding:11px 12px;min-height:52px;justify-content:space-between;align-items:center;gap:10px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:9px}
+.studio-sidebar .event-picker-context{display:block;min-width:0;flex:1}
+.studio-sidebar .event-picker .sidebar-event-name{display:block;padding:0;color:var(--ink);font-size:13px;font-weight:650;line-height:1.4;overflow-wrap:anywhere}
+.studio-sidebar .event-picker small{display:block;font-size:10px;font-weight:500;margin-top:4px;color:var(--muted)}
+.event-picker-chevron{flex:none;font-size:18px;color:var(--muted)}
+.modal-choice.current-event{background:var(--paper2);border-radius:8px;padding-inline:12px}
+.event-choice-mark{color:var(--green);font-size:20px;flex:none}
 .studio-sidebar .tabs{display:flex;flex-direction:column;align-items:stretch;padding:0;border:0;gap:5px}
 .studio-sidebar .tabs a{padding:10px 12px;border-radius:7px;min-height:40px;font-size:12px;display:flex;align-items:center;gap:8px}
 .studio-sidebar .tabs a.active{background:var(--card);color:var(--ink);border-color:transparent}
@@ -206,7 +211,10 @@ button,a,input,select,textarea{touch-action:manipulation}
  .studio-sidebar [data-action="events-home"]{width:auto;min-height:32px;padding:6px 10px;font-size:12px;grid-column:1;grid-row:2}
  .studio-sidebar .sidebar-event{grid-column:2;grid-row:2;padding:0}
  .studio-sidebar .event-heading,.studio-sidebar .sidebar-event-name{display:none}
- .studio-sidebar .event-picker{width:auto;min-height:32px;padding:6px 8px;font-size:11px}
+ .studio-sidebar .sidebar-event{min-width:0}
+ .studio-sidebar{grid-template-columns:92px minmax(0,1fr)}
+ .studio-sidebar .event-picker{width:100%;min-height:48px;padding:8px 10px}
+ .studio-sidebar .event-picker .sidebar-event-name{display:block;font-size:12px}
  .studio-sidebar .tabs{grid-column:1/-1;flex-direction:row;gap:6px;padding:0}
  .studio-sidebar .tabs a{width:auto;padding:8px 13px;min-height:34px;font-size:12px}
  .studio-body{flex:1;min-height:0;height:auto}

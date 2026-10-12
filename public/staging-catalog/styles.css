@@ -43,3 +43,7 @@
 .bid-attempt strong{font:650 12px/1.5 var(--sans)}
 .bid-attempt p{font-size:12px}
 .bid-recovery{display:inline-block;min-height:44px;align-content:center;font:600 12px/1.4 var(--sans);color:var(--ink);text-underline-offset:3px}
+.bids .tk-act{padding:10px 12px 12px;border-top:1px solid var(--line)}
+.bids .tk-act .btn{min-height:44px;font-size:13px}
+.bids .tk-stub .amt{font-size:20px;font-weight:650}
+.bids .ticket.money-long .tk-stub .amt{font-size:22px}
