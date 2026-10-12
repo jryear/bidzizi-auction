@@ -1,5 +1,18 @@
 # Repository Operating Notes
 
+## Real V1 operating mode (Zack, 2026-10-12) — read first
+
+This section overrides the conflicting process rules below for Real V1 work (`real-v1/*` branches).
+
+- **Product:** [docs/plans/REAL_V1_PRODUCT.md](docs/plans/REAL_V1_PRODUCT.md). It's a host/join event product, modelled on Kahoot and jackbox.tv. The participant is an event identity remembered on the device; staff host. Do not reintroduce business verification, membership or admission workflows, authority-grant management or catalog-publication ceremony.
+- **The implementation owner builds and delivers.**
+  - Frozen `tasks/*.toml` contracts and `verify.py` kernel runs are **not required** for Real V1.
+  - Write real automated tests for bidding correctness (idempotency, concurrency, timing) and run them against a disposable local database.
+  - Review findings are tasks for the owner, not approval gates. Escalate only real product decisions.
+- **Still Zack's explicit go:** production deploys, creating paid or provider resources, pointing a domain, and pushing to or merging into `main`.
+- **Still always true:** credentials stay server-side and out of Git; production requires verified TLS; bids and pledges are recorded idempotently, with server time deciding.
+- The staging demo (`migrations/001–019`, `staging.bidzizi.com`) is frozen history. Real V1 uses `migrations/prod/`.
+
 ## Product and context
 
 BidZizi is a rebuild for company-hosted auctions. The current priority is a native-feeling mobile bidder experience. The staging application includes the original read-only Neon connectivity check and a gated synthetic staff-drafts slice: test sessions, server-held organization grants, durable event/lot draft saves, recovery, and an A bidder preview. A separate synthetic catalog slice adds immutable saved approval, explicit event VIEW grants and database-clock scheduled/open/closed catalog reads. A bounded synthetic manual slice adds separate current person/business/network/VIEW/BID authority, durable owned receipts and competing standing through A. Real phone/member admission, live auction rules, payments and PWA behavior are not implemented. The complete bidder journey remains the isolated simulated prototype (`prototypes/lanyard`). See [the staff handoff](docs/STAGING_STAFF_HANDOFF.md) and [gate receipts](docs/STAGING_GATE_RECEIPTS.txt); deterministic frozen checks decide local completion; model reviews propose cases, and deployed release checks are separate.

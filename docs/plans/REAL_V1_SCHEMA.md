@@ -1,6 +1,7 @@
 # Real V1 production schema — design for review (revision 2)
 
 **Status: NOT APPROVED.**
+- Product clarification (2026-10-12, after revision-2 review): the organization sets attendee access end per event; this replaces the fixed 30-day session proposal. The independent technical findings remain open.
 - Revision 1 (`10c36fa`): the independent Codex review ([REAL_V1_SCHEMA_REVIEW.md](REAL_V1_SCHEMA_REVIEW.md)) found **changes required** (R1–R8). An earlier line in revision 1 claimed "accepted after revision"; that overstated the reviewer's position and is withdrawn.
 - Revision 2 (this document) answers each finding; see [§ Finding resolutions](#finding-resolutions).
 - The design gate passes only after Zack accepts it and a re-review finds no remaining blocking finding.
@@ -35,8 +36,10 @@ All `id` columns are `uuid`. "(org)" marks a denormalized `org_id` that is kept 
 | `people` | `id`, `org_id`, `name`, `email citext NULL`, `active`, `created_at` | `UNIQUE(org_id, email)`. Staff have an email. Attendees created by QR entry have none. `id` and `org_id` are immutable (trigger). |
 | `staff_credentials` | `person_id PK`, `org_id`, `password_hash`, `password_updated_at`, `failed_count`, `locked_until` | scrypt (N=2^15, r=8, p=1, 16-byte salt, 64-byte key), encoded `scrypt$N$r$p$salt$hash`. Access only through functions. |
 | `staff_grants` | `(person_id, org_id) PK`, `role IN ('owner','staff')`, `active`, `revision` | V1 provisions one `owner`. |
-| `sessions` | `token_hash PK`, `person_id`, `org_id`, `kind IN ('staff','attendee')`, `event_id NULL`, `created_at`, `expires_at`, `revoked_at` | Stores only the sha256 of a 32-byte random token; the raw token is never logged. `CHECK((kind='staff' AND event_id IS NULL) OR (kind='attendee' AND event_id IS NOT NULL))`. Staff sessions last 12h. Attendee sessions last a fixed 30 days with no sliding renewal. A session never extends bidding or donation availability. Immutable except `revoked_at`. |
+| `sessions` | `token_hash PK`, `person_id`, `org_id`, `kind IN ('staff','attendee')`, `event_id NULL`, `created_at`, `expires_at`, `revoked_at` | Stores only the sha256 of a 32-byte random token; the raw token is never logged. `CHECK((kind='staff' AND event_id IS NULL) OR (kind='attendee' AND event_id IS NOT NULL))`. Staff sessions last 12h. Attendee sessions are issued with `expires_at` no later than the event’s org-configured `attendee_access_ends_at`; there is no fixed 30-day policy or sliding renewal. Every attendee request also checks the current event access end, so shortening it affects existing sessions. A session never extends bidding or donation availability. Immutable except `revoked_at`. |
 | `login_attempts` | `id`, `org_id`, `email_hash`, `ip_hash`, `at`, `succeeded` | Rate limit: 5 failures per email per 15 minutes, 20 per IP. Append-only and pruned by age. |
+
+**Attendee event access (org-configured).** Staff choose `events.attendee_access_ends_at` when setting up the event. It must be set before attendee entry is enabled. This controls return access to the catalog, results and owned receipts, separately from item bidding windows and the donation deadline. All attendee requests, including entry, recovery and receipt replay, require the current database time to be before this access end; authenticated requests also require an unexpired current session. Staff can change the access end through an authorized access-change function. Extending it does not revive an expired or revoked session; existing entry/recovery paths issue a new session where authorized. Ending attendee access preserves bids, receipts, awards and staff access. Staff accounts keep their separate session policy and do not expire with the attendee event window.
 
 **Staff login.** V1 has one organization, and the deployment is configured with its slug. Later organizations sign in through a slug-scoped path. The login flow:
 1. The server calls `bz_staff_login_begin(org, email_hash)`. It returns the stored hash, or a fixed dummy hash for an unknown email, so timing and response look the same either way.
@@ -59,7 +62,7 @@ Every failure returns the same generic error.
 
 | Table | Key columns | Notes |
 |---|---|---|
-| `events` | `id`, `org_id`, `name`, `welcome`, `venue`, `cover_asset_id NULL`, `timezone`, `unit`, `entry_enabled`, `donations_enabled`, `donation_deadline NULL`, `revision`, `updated_at`, `updated_by` | Uses optimistic concurrency: a save with a stale `revision` gets 409. `CHECK(NOT donations_enabled OR donation_deadline IS NOT NULL)`. |
+| `events` | `id`, `org_id`, `name`, `welcome`, `venue`, `cover_asset_id NULL`, `timezone`, `unit`, `entry_enabled`, `attendee_access_ends_at NULL`, `donations_enabled`, `donation_deadline NULL`, `revision`, `updated_at`, `updated_by` | Uses optimistic concurrency: a save with a stale `revision` gets 409. `CHECK(NOT donations_enabled OR donation_deadline IS NOT NULL)`. |
 | `event_sponsors` | `id`, `event_id`, `org_id`, `position`, `name`, `logo_asset_id NULL`, `alt` | `UNIQUE(event_id, position)`. |
 | `bid_rules` | `event_id PK`, `org_id`, `mode IN ('tiered','fixed')`, `tiers jsonb NULL`, `fixed_raise_minor NULL`, `revision` | `CHECK(bz_valid_rules(mode, tiers, fixed_raise_minor))` requires: in tiered mode, 1–10 tiers, strictly ascending `below_minor`, every `raise_minor` > 0, and only the last tier has `below_minor = null`; in fixed mode, `fixed_raise_minor` > 0 and no tiers. Default: $25 below $500, $50 below $1,000, $100 below $2,500, then $250. |
 | `windows` | `id`, `event_id`, `org_id`, `name`, `opens_at`, `closes_at`, `revision` | `CHECK(opens_at < closes_at)`. Edits go only through `bz_window_edit` (R3). |
@@ -111,7 +114,7 @@ Earlier versions, their items, bids and receipts are never touched.
 1. Take the shared org gate, then lock the authority rows `FOR SHARE`: session, person, `event_attendees`, `business_members` and the business. The session's `org_id` and `event_id` must match the target.
 2. Take the advisory lock `bid:<actor>:<request_id>`.
 3. Lock the item's window `FOR SHARE`, then its `standings` row `FOR UPDATE`.
-4. **Read the clock now, after every wait.** Then require `session.expires_at > clock` (R2). Expiry is the only authority fact that can change while the gate is held, because a revocation needs the exclusive gate.
+4. **Read the clock now, after every wait.** Then require both `session.expires_at > clock` and `events.attendee_access_ends_at > clock` (R2). Session and event-access expiry can occur while locks are held; authorized changes to the access end require the exclusive org gate.
 5. **Replay:** if a receipt exists for `(actor, request_id)`:
    - a different `payload_hash`, or a different event, item or business, returns 409 `IDEMPOTENCY_CONFLICT`;
    - otherwise return the **stored** receipt unchanged. An accepted replay also returns fresh standing.
@@ -148,7 +151,7 @@ An award also requires its window `FOR SHARE` and, from the clock read after the
 3. **Replay or recovery first.** If a pledge exists for `(actor, request_id)`, its payload must match exactly or the request gets 409 `IDEMPOTENCY_CONFLICT`. Otherwise the stored receipt is returned. Recovery needs only the current session plus active attendance. It works after donations are disabled, after the nonprofit changes and after the deadline.
 4. **New pledge.** Lock the event `FOR SHARE` (toggle and deadline), the `event_nonprofits` row and the nonprofit `FOR SHARE`, then the business membership.
 5. Read the clock. Then require all of:
-   - the session hasn't expired;
+   - neither the session nor the org-configured attendee event access has expired;
    - `donations_enabled`;
    - at least one catalog version is published (availability starts at the first publication);
    - `clock < donation_deadline`;
@@ -171,9 +174,11 @@ Every transaction acquires locks in this order. It may skip levels, but never go
 | L5 | `items` rows (`FOR UPDATE`, ascending `id`) | Publication, item edits |
 | L6 | `windows` row (`FOR SHARE`, or `FOR UPDATE` for edits) | Bids, awards, publication, window edits |
 | L7 | Parent row `FOR UPDATE`: `standings`, `award_decisions` head, pledge | Bids, awards, fulfillment, processing |
-| — | Read `clock_timestamp()` and check session expiry | Every decision, after its last lock |
+| — | Read `clock_timestamp()` and check session expiry plus attendee event access end where applicable | Every decision, after its last lock |
 
-**Authority mutations** are separate `SECURITY DEFINER` functions: logout, revoke a session, deactivate a person, change a grant, change attendee access, issue or redeem a re-entry code, and staff login (which creates a session). They:
+**Authorized access changes and session logout.** These are actions by authorized staff or by the session holder, not automatic removal of operators or staff accounts.
+
+**Authority mutations** are separate `SECURITY DEFINER` functions: logout, revoke a session, deactivate a person, change a grant, change attendee access or the event access end, issue or redeem a re-entry code, and staff login (which creates a session). They:
 - take L1 exclusive first and then only lock rows of that same organization;
 - are never called from inside a decision transaction, so no lock is ever upgraded.
 
@@ -204,10 +209,10 @@ Exempt from the guard: decision inserts that don't change authority (bids, recei
 
 | Object group | `bz_app` may |
 |---|---|
-| `staff_credentials`, `sessions`, `login_attempts`, `entry_slots`, `reentry_codes`, `people`, `staff_grants`, `event_attendees`, `business_members`, `businesses` | **Nothing directly.** Access is only through `EXECUTE` on: `bz_staff_login_begin/finish`, `bz_session_resolve` (returns person, org, kind, event, expiry and grants for a token hash, and locks them L1/L2), `bz_logout`, `bz_entry_begin/enroll/acknowledge`, `bz_reentry_issue/redeem`, `bz_attendee_set`, `bz_grant_set`. |
+| `staff_credentials`, `sessions`, `login_attempts`, `entry_slots`, `reentry_codes`, `people`, `staff_grants`, `event_attendees`, `business_members`, `businesses` | **Nothing directly.** Access is only through `EXECUTE` on: `bz_staff_login_begin/finish`, `bz_session_resolve` (returns person, org, kind, event, expiry and grants for a token hash, and locks them L1/L2), `bz_logout`, `bz_entry_begin/enroll/acknowledge`, `bz_reentry_issue/redeem`, `bz_attendee_set`, `bz_event_access_set`, `bz_grant_set`. |
 | `assets` | Nothing directly. `bz_asset_put`, `bz_asset_read` (checks current authority at read time) and `bz_asset_list`. |
 | `nonprofits`, `nonprofit_revisions`, `event_nonprofits`, `donation_pledges`, `donation_processing` | Nothing directly. `bz_donation_member` (context, submit, receipt), `bz_donation_staff` (nonprofit edits, settings, list, export) and `bz_donation_process`. |
-| `events`, `event_sponsors`, `bid_rules`, `windows`, `items` | `SELECT`, `INSERT`, `UPDATE` (immutability enforced by triggers). Window updates only through `bz_window_edit`; there is no `UPDATE` on `windows`. No `DELETE` except draft `items` and `event_sponsors`. |
+| `events`, `event_sponsors`, `bid_rules`, `windows`, `items` | `SELECT`, `INSERT`, `UPDATE` (immutability enforced by triggers). Window updates only through `bz_window_edit`; there is no `UPDATE` on `windows`. Event access end changes only through `bz_event_access_set`, which takes L1 exclusive before the event row lock and validates the staff grant and expected event revision. Use column-scoped event UPDATE grants excluding `attendee_access_ends_at`; an event guard requires the exclusive org gate for access-end changes, including its initial value. No `DELETE` except draft `items` and `event_sponsors`. |
 | `window_revisions`, `catalog_versions`, `published_items`, `bids`, `bid_receipts`, `award_decisions`, `fulfillment_events` | `SELECT`, `INSERT` only. |
 | `standings` | `SELECT`, `INSERT`, `UPDATE`. A trigger allows only a version+1 transition that matches an inserted bid. |
 | `watches`, `requests` | `SELECT`, `INSERT`, `DELETE` (watches only). |
@@ -311,5 +316,7 @@ These cases are taken from the review. Each runs against a disposable `bz_test_*
 - private asset read denial;
 - cross-organization and cross-event foreign-key violations;
 - reassignment after fulfillment;
+- org-configured attendee access end enforced for entry, bidding, donations, reads, replay and recovery;
+- shortening access affects existing sessions; extension does not revive expired/revoked sessions; staff access and durable records survive attendee access end;
 - raw-SQL authority update rejected;
 - `bz_app` denied direct reads of credentials, sessions and pledges.

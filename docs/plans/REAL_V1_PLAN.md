@@ -18,6 +18,7 @@ BidZizi today is a connected, durable **synthetic** Saturn demo. The code shows 
 | First user | Saturn staff only, first. Bidders are whoever attends the real event. |
 | Staff auth | One real Saturn staff account, email + password (scrypt hash), created by a provisioning script. No invite UI in V1. |
 | Bidder admission | Anyone who scans the event QR or link may join and bid. Self-entered name and business; no verification in V1. |
+| Attendee access (2026-10-12 clarification) | The organization sets attendee access end per event. It is separate from bidding windows and the donation deadline; attendee sessions cannot outlast it. Access ending preserves records and does not end staff access. No fixed 30-day policy. |
 | After close | Staff confirm awards per item (confirm leader, choose another bidder, or no award, with a reason). Winners see "You won" only after confirmation. Staff mark items fulfilled. |
 | Money display | Drop "T$". Show plain `$`; everyone knows it's trade. Keep integer minor units internally. Model the settlement method per org (`manual_trade` now) so a payment processor can be connected later without rewriting. Do not build a processor now. |
 | Bidding rules | Per-event, editable. Default is tiered: $25 below $500, $50 below $1,000, $100 below $2,500, then $250. Staff can edit the tiers or pick another mode (fixed increment). The per-item fixed override is kept. |
@@ -77,7 +78,7 @@ Each tranche gets a frozen contract in `tasks/*.toml` with acceptance and advers
    - **Windows** (create, edit, see what is in each, live status);
    - **Bidding rules** (tier editor or fixed mode);
    - **Catalog** (publish, add more items later, see published versions);
-   - **Entry/QR & Bidders**;
+   - **Entry/QR & Bidders** (including org-configured attendee access end);
    - **Donations** (nonprofits, settings, pledges, mark processed);
    - **Results** (confirm awards, mark fulfilled, export).
    - Include the hard states: a window closing mid-edit, a publish conflict and an empty event.

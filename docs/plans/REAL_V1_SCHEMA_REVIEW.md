@@ -104,7 +104,7 @@ Award sequence, `supersedes_id`, and deriving recipient/amount from the chosen b
 | Point | Recommendation | Current revision assessment |
 |---|---|---|
 | Per-org gate plus guard | Prefer database mutation entry points plus guards over app-only conventions. Approval remains conditional on R1. | Org-bound sessions and restricted authority writes are improvements. Shared-person set stability, full lock ordering, raw-SQL semantics, and re-entry revocation remain unresolved. **Not approved as written.** |
-| Attendee session lifetime | Keep a fixed 30 days, event-bound, with no sliding renewal and no effect on auction/donation availability. | Incorporated. This is a retention choice, not a claim that every event lasts 30 days. Added recovery codes need their own security/concurrency specification. |
+| Attendee session lifetime | Historical recommendation at the reviewed revision: fixed 30 days. **Superseded by Zack’s 2026-10-12 decision below: org-configured attendee access end.** | The historical technical review remains applicable; the fixed-duration recommendation does not. |
 | Award reassignment | Allow any accepted bid on the item, with mandatory reason, staff identity, immutable history, and conflict detection. Derive business and amount from the bid. | Incorporated in principle. Do not impose an unrequested next-highest-only restriction. Complete R3/R7. |
 | Donations after bidding | Use an independent explicit donation deadline plus staff toggle; default to final bidding close and allow deliberate extension. Preserve receipt recovery. | Incorporated in principle. No implicit “event day ends” rule. Complete R4's start/default/recovery semantics. |
 
@@ -125,3 +125,90 @@ Award sequence, `supersedes_id`, and deriving recipient/amount from the chosen b
 Before implementation acceptance, freeze executable cases for: queued revocation versus later readers; shared-person mutation versus new-org grants/sessions; unrelated-org progress; old-cookie login/logout and re-entry lock ordering; expiry during request/standing waits; exact accepted/rejected replay and changed-payload conflict across items/events; concurrent first bids; window edits racing bids/publication/awards; additive publication preserving prior receipts; stale nonprofit consent; donation replay after disable/close/destination change; private asset/read denial; cross-org/event foreign-key violations; and reassignment after fulfillment. Validate with actual runtime privileges. These cases were not executed during this review and do not authorize database work.
 
 **Decision:** record the four recommendations above, correct the schema's premature acceptance attribution, and resolve the blocking findings before treating the schema design gate as passed. Implementation and database activity remain outside this review.
+
+## Re-review — 2026-10-12 — revision 2
+
+**Reviewed commit:** `9dac01921020808e925046497554ba62b0ce6794`, branch `real-v1/t1-foundation`. The worktree was clean before this append. Compared the complete revision-2 schema and revised plan against R1–R8, and rechecked the current bid replay and migration 018 donation paths. References below are to schema line numbers at this commit. No code, migrations, commits, database access, or executable concurrency tests were performed.
+
+**Verdict: CHANGES REQUIRED.** Revision 2 materially improves the design and correctly withdraws the premature approval attribution. The organization-scoped identity model is a sound simplification for V1. The remaining issues are concrete authorization, relational, operation-interface, and concurrency gaps; this is not a request to reconsider the fresh-schema direction.
+
+“Resolved” below means resolved at the architectural specification level, not implemented or tested.
+
+### R1–R8 disposition
+
+| Finding | Status | Assessment and remaining action |
+|---|---|---|
+| **R1 — Revocation scope/order** | **Partially resolved** | Organization-scoped people with immutable identity/org keys eliminate discovery of a changing multi-org set. One gate, exclusive-first mutations, no upgrades, event-scoped re-entry revocation, and same-org old-cookie handling address the original design problem. Raw-SQL semantics are now stated accurately. However, the enumerated foreign keys do not yet enforce organization containment for all authority relationships (R6), and the donation sequence reacquires business membership after L4 despite L2 ordering. Complete those relationships and make each operation conform to the declared lock protocol. |
+| **R2 — Bid replay freshness** | **Partially resolved** | Bid steps 3–5 now lock window/standing and check expiry before replay: the original timing defect is resolved. But line 119 newly permits replay with VIEW alone. The current `placeTradeBid()` and `tradeBidReceipt()` require current BID and applicable business bidding authority. Restore that requirement for those endpoints, or explicitly obtain approval for a changed disclosure policy and distinguish it from the existing VIEW-authorized My Bids read. This is not unchanged engine behavior. |
+| **R3 — Window races** | **Resolved** | Shared window locks, exclusive edits, standing locks for awards, clock-after-locks, recorded window revisions, and publication-created standings address the identified races. Old-value edit eligibility is explicitly retained in the finding-resolution table; the plan retains the open/close edit limits. Implement those limits in `bz_window_edit`. For batch publication, specify ascending window IDs as well as ascending item IDs; this is a lock-order clarification, not a new architecture. R7 still concerns a separate fulfillment/reassignment race. |
+| **R4 — Donations** | **Partially resolved** | Single pledge idempotency record, reviewed nonprofit revision, publication start, independent stored deadline, and recovery before availability are good corrections. The concrete sequence still omits a fresh expiry check before replay, a `nonprofits.active` check, and the current post-insert expiry/deadline check with rollback. It also conflates submit and receipt lookup payloads. Corrections are specified below. |
+| **R5 — Runtime boundary** | **Partially resolved** | The explicit trust split and function-mediated identity/asset/donation tables resolve much of the concern. However, the grant list does not expose enough functions/results to execute the described TypeScript operations with those privileges. Define the missing authorized interfaces rather than restoring broad private-table access. Also state the Node password verifier's trust role honestly. |
+| **R6 — Relational/money invariants** | **Partially resolved** | Unit freeze, publication marker, event-wide positions, receipt columns, standing transition rule, and several composite foreign keys improve the contract. The enumerated relationships still permit mismatched person/business/org and item/event ownership unless additional constraints are supplied. Published fixed-rule selection also needs the fixed-event mode explicitly included. See the concrete examples below. |
+| **R7 — Awards/fulfillment** | **Partially resolved** | Award-bound fulfillment and sequence/expected-current fields fix inherited fulfillment and ambiguous timestamp ordering. Fulfillment locks the old award row while reassignment locks standing, so their current-award checks are not serialized with each other. Staff transition idempotency is also asserted without a replay-before-stale algorithm or payload conflict binding. |
+| **R8 — Clarifications** | **Resolved** | Entry binding/expiry/acknowledgement, hashed and serialized event-scoped recovery codes, phase gaps, fixed catalog identity, explicit API translation, and the main plan reconciliation are present. The plan's remaining “test person under production mode and reverse” check should be rewritten for separate production/staging resources because production has no `is_test`; this is editorial cleanup, not a schema blocker. |
+
+### Organization-scoped people and raw SQL
+
+**Organization-scoped people: recommend acceptance as the V1 identity boundary.** Separate person rows, credentials and sessions per organization remove the original multi-gate shared-person problem instead of attempting to synchronize a changing organization set. The product consequence is deliberate: the same human signs in separately for each organization; deactivation or recovery in one organization has no effect in another. This must be backed by composite relationships on both sides of every authority association, not merely by `people.org_id` and a session check. Do not carry forward the earlier shared-person test as though that feature still exists; replace it with tests rejecting cross-org associations and confirming independent progress.
+
+**Raw SQL: recommend acceptance of “rejected, not queued” as an explicit operator-interface change.** Revision 2 now correctly says a row trigger can wait before rejecting, cannot prove transaction-scoped acquisition, and does not constrain a trigger-bypassing owner/superuser. Supported revocation functions still queue before row acquisition. Unprepared direct SQL has no revocation-priority promise. Record this distinction in the frozen contract and operator instructions; it is an intentional replacement of 016's raw-writer behavior, not identical preservation.
+
+Neither choice by itself is a new blocker. Do not strengthen “rejected” into “rejected immediately,” or claim that `pg_locks` proves only a definer function could have acquired the gate. The guard verifies possession; privilege policy and trusted entry points establish the supported acquisition protocol.
+
+### Remaining blocking corrections
+
+**B1 — Newly introduced: bid replay authorization is broadened (R2; lines 110–120).** A bidder downgraded to VIEW, or removed from a bidding business, can replay through the newly specified policy when the current bid endpoints would refuse it. Actor ownership still protects against another person's receipt access, so this is a specific change in revocation/disclosure semantics, not a claim of arbitrary receipt exposure. Recommend retaining current BID/business authorization on bid submission replay and direct bid receipt recovery. Keep VIEW access to the separate actor-private activity history as today. If broader recovery is desired, record it as a deliberate product/security decision and test both interfaces separately.
+
+**B2 — Unresolved donation parity (R4; lines 145–157).**
+
+- Step 3 returns replay before step 5's fresh clock check. The general L1–L7 rule promises freshness, but the actual algorithm contradicts it. Require a fresh session check immediately after the request-lock wait, before replay. Migration 018 does this before returning an owned receipt.
+- A `receipt` lookup must take only its request identifier plus server-resolved actor/event context; it must not require the original submit payload. Exact payload comparison applies to submit replay. Bind lookup to the requested event, returning NOT_FOUND for another event's receipt, as 018 does.
+- New pledges must require both `event_nonprofits.active` and `nonprofits.active`, plus an active business and membership, BID access, and the reviewed revision. The current list only explicitly checks the event association's active flag and revision; an inactive org nonprofit must not remain eligible merely because its event association is active.
+- The shared gate prevents authority mutation, **not expiry or passage of the deadline**. Preserve 018's post-insert fresh expiry/deadline check and rollback on failure. The proposed pre-insert-only sequence weakens the current behavior if an insert waits across either boundary.
+- Acquire required membership/business locks at L2; do not introduce a fresh L2 acquisition after the event/nonprofit locks. Define the order for nonprofit and event-association locks too.
+
+These are surviving R4 gaps, not newly discovered requirements unrelated to the original review.
+
+**B3 — Newly explicit: operation/privilege interfaces do not line up (R5; lines 201–215).** `bz_app` cannot read attendee/membership/business rows, yet TypeScript bidding is instructed to lock and evaluate them. `bz_session_resolve` is described as returning person/org/kind/event/expiry/grants, not the target business membership, business state, and attendance needed for that decision. `watches` is writable directly and no activity function is listed, despite the stated port of the stronger 018 activity boundary. `bz_window_edit` is required but absent from the explicit executable grant list. Person deactivation and business/member authority mutations are discussed without corresponding listed entry points.
+
+Specify a token- and target-bound resolver or private operation function that returns and locks the exact attendee/business authority needed, retaining L1/L2 semantics. Add explicit EXECUTE grants for supported window/authority operations, and retain function-mediated activity/watches or explicitly justify that trust-boundary change. Resolve the prose saying window edits are TypeScript operations while direct window UPDATE is forbidden: TypeScript should call the authorized database function.
+
+The split password flow also needs an explicit trust statement: Node verifies the password, so a finish function accepting its verdict cannot independently establish password correctness. Bind finish to the begin attempt, org/person and credential version; atomically enforce rate limits and current person/grant state, with no session created from stale verification. Do not assert that database mediation alone makes session issuance unforgeable by a compromised trusted runtime. This is specification work, not a recommendation to move scrypt into PostgreSQL.
+
+**B4 — Unresolved containment constraints (R6; lines 217–235).** Examples of missing counterparts in the enumerated list:
+
+- `business_members` binds its person to its org, but not its business to that same org.
+- `staff_grants`, `event_attendees`, credentials, and re-entry records need person-to-org binding; attendee/re-entry records also need their event-to-org binding.
+- Bids, standings, receipts, watches and awards need item-to-event/org binding. A child foreign key to `events` and a same-item accepted-bid foreign key do not establish that the item belongs to that event.
+- Pledges need business/actor-to-org binding; event nonprofit associations need both event and nonprofit org binding. Published items need their underlying draft item bound to the same event/org.
+
+Add these relationships, their referenced unique keys, and immutable ownership columns. This closes the proof behind the one-org gate; it does not require changing that design. Also define minimum selection as **item override → event fixed raise when fixed → tier lookup when tiered**. The current wording falls directly from item override to a tier even though fixed mode has no tiers. Preserve the fixed override explicitly in the immutable published representation used by the decision.
+
+**B5 — Unresolved fulfillment concurrency and staff recovery (R7; lines 135–141).** A fulfillment transaction can lock old award A and observe it as current; a simultaneous reassignment locks standing and appends B without conflicting with A's row lock; fulfillment can then append against an award that has ceased to be current. Binding history to A prevents inheritance by B but does not enforce “allowed only when current.” Require fulfillment and reassignment to serialize on the same item standing row first; then check current award and lock any subordinate history parent in a defined order.
+
+For award/fulfillment/processing requests, look up an actor/operation/request receipt under serialization before applying expected-current validation. A retry after a committed response was lost must return its original result, not STALE merely because its own first execution advanced the head. Store or reconstruct a stable original payload binding and reject changed payloads. State the actual actor-column uniqueness for each table (`by` versus `decided_by`); uniqueness alone is not the replay algorithm. This completes the original R7 idempotency requirement.
+
+### New blockers versus carried findings
+
+Revision 2 newly **broadens bid replay authorization (B1)** and introduces a concrete **privilege/interface mismatch (B3)** while claiming an exhaustive grant list. The split login contract in B3 also needs its trusted-server assumption made explicit. B2, B4, and B5 are remaining defects within previously identified donation, relational, and transition guarantees. The organization-scoped identity simplification and raw-SQL rejection policy are acceptable directions, not regressions requiring redesign.
+
+### What Zack can review now
+
+The following product/operating choices are concrete enough for review independently of the remaining backend corrections:
+
+1. **Separate identity per organization:** the same human has separate accounts/sign-ins and recovery in each organization.
+2. **Authorized access changes and session logout through supported functions:** unprepared direct authority SQL is rejected; automatic queuing of arbitrary raw SQL is intentionally retired.
+3. **Org-configured attendee access end and staff-assisted event-specific recovery**, separate from bidding and donation availability. This supersedes the fixed 30-day recommendation after Zack’s clarification.
+4. **Any accepted bid may be selected for reassignment**, with reason and history; fulfillment belongs to the specific award.
+5. **An independent donation deadline**, defaulted once and edited explicitly, with old receipts recoverable after closure.
+
+Recommend retaining the current bid-replay authority policy (B1) rather than introducing an additional product decision by accident. Zack can accept the five choices above without treating the whole schema as implementation-ready. The next engineering action is a bounded document correction for B1–B5, followed by review of that delta; no broader redesign, implementation, or database work is authorized by this report.
+
+
+## Product clarification — 2026-10-12 — org-configured attendee access
+
+Zack confirmed that a one-off event should have an organization-configured attendee access end, rather than a fixed 30-day access policy. The plan and schema now record this decision. Staff set the event access end separately from bidding windows and the donation deadline. Sessions cannot outlast it; current access end is checked on attendee requests, including receipt recovery. Shortening access affects existing sessions; extending access does not revive an expired or revoked session. Historical records remain durable, and staff accounts retain their separate access/session policy.
+
+“Operator revocations” was confusing wording. The intended behavior is **authorized access changes and session logout**: staff may disable an attendee, and a user may end a session or replace a lost-device session. Operators are not automatically removed when an event ends. The technical distinction between supported function calls and rejected unprepared raw SQL remains unchanged.
+
+This product decision supersedes the 30-day recommendation in earlier review text; it does not resolve B1–B5 or approve the schema for implementation. The new mutable event access end must participate in the exclusive-first access-change protocol, be checked on the database clock after waits, and be tested for shortening, extension, expiry, recovery and unaffected staff access.
