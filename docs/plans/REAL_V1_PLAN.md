@@ -37,12 +37,8 @@ BidZizi today is a connected, durable **synthetic** Saturn demo. The code shows 
 
 ## Architecture
 
-- **Keep the durable engine.** That means PostgreSQL authority functions, receipts, idempotent requests, database-clock phases, actor-private history and shared business standing. Extend it with **additive migrations (020+)**. Never rewrite installed ones.
-- **Real mode alongside test mode.** Add `BIDZIZI_APP_MODE=production`:
-  - `config.ts` accepts a production database on a production origin, with Neon pooled endpoint and verified TLS still required.
-  - Authentication gets a credential path for non-test people.
-  - Existing `testMode()` staging behavior stays intact for the demo and acceptance suites.
-  - Replace `is_test` gates with a mode check: production mode accepts only `is_test = false` and test mode only `is_test = true`. This means data never crosses between modes.
+- **Port the durable engine onto a fresh production schema.** Every guarantee is carried over: server time and acceptance, idempotency and original-request recovery, atomic receipts, actor-private history vs. shared business standing, integer amounts, immutable published terms. The authoritative design is [REAL_V1_SCHEMA.md](REAL_V1_SCHEMA.md): its tables, lock order, runtime privileges and guarantee map. The new series is `migrations/prod/001…`. The staging series `migrations/001–019` is never edited or applied to production.
+- **Production mode in the app.** `BIDZIZI_APP_MODE=production` selects the production database (Neon pooled endpoint, verified TLS) and the real-auth code path. The frozen staging deployment keeps its own revision, and `main` no longer carries test-auth paths.
 - **Separate production resources.** Use a new Neon database or project and a new Vercel project or production domain. Never reuse `bz_staging_e2e` or the staging alias.
 - **Studio is rebuilt as React under `src/app/studio/`.** Use the same Next.js app and server modules as the bidder pages, replacing `public/staging-admin/*`, which stays in place until the new Studio is accepted. Follow the frontend-design workflow: an isolated prototype first, then Zack's visual decision, then connect it.
 - **The bidder app keeps the selected Design A language.** It gets copy changes (`$`, "items"), the windows display, "You won", and the simplified donation page.
@@ -54,38 +50,25 @@ Each tranche gets a frozen contract in `tasks/*.toml` with acceptance and advers
 ### T0 — Land the current UI v1 (prerequisite)
 - Zack reviews the isolated preview of `3d70109` and gives visual acceptance (or doesn't). On acceptance, merge `ui/v1-skin` to `main`. Nothing is pushed or promoted without his go-ahead.
 
-### T1 — Fresh production schema + ported engine (backend; blocks everything real)
+### T1 — Fresh production schema + identity, entry and bidding (backend; blocks everything real)
+- The schema design gate: [REAL_V1_SCHEMA.md](REAL_V1_SCHEMA.md), accepted by Zack and re-reviewed with no blocking findings, before any code.
+- `migrations/prod/` covering organizations, people, credentials, sessions, attendees, entry and re-entry, assets, events, items, windows, rules, catalog versions, standings, bids, receipts, watches and requests. This includes the definer functions, guards and runtime privileges.
+- Server modules:
+  - `config.ts` production mode;
+  - `auth.ts`, with login through `bz_staff_login_begin/finish`, scrypt in Node and a generic error;
+  - entry and re-entry;
+  - the bid decision as specified (lock order, recheck expiry after waits, replay).
+- `scripts/provision-staff.mjs` creates the Saturn organization and its one owner. An engineer runs it once.
+- One amount formatter, producing `$1,234`, used everywhere.
 
-> Superseded detail below: where T1/T2/T3 mention "migration 020/021/022" or "mode-aware versions of is_test checks", read instead: new schema series `migrations/prod/001…` designed from scratch (no is_test), covering T1–T3 tables. Step 1 is `docs/plans/REAL_V1_SCHEMA.md` (tables, authority rules, old-guarantee → new-mechanism map), reviewed before code.
+### T2 — Windows, additive publication and bidding rules (backend)
+- Window create and edit (`bz_window_edit`, edit rules, revisions); additive publication (event lock, append-only versions, standings created at publication); per-event `bid_rules` with `bz_valid_rules`.
+- Staff API under `/api/studio/events/:id/…` with request idempotency.
 
-- `src/server/config.ts`: production mode and its origin/database selection rules.
-- `src/server/auth.ts`:
-  - email + password login using `crypto.scrypt` (no new dependency), constant-time comparison, rate limit per email and IP, and generic error copy;
-  - `identity()` and `sessionIsCurrent()` become mode-aware;
-  - Secure, HttpOnly, SameSite=Lax cookie.
-- Migration 020:
-  - `bz_people.email` (unique, citext), a `bz_person_credentials` table, an org `settlement_mode` column, and a real denomination `SATURN_TRADE` alongside the synthetic one;
-  - mode-aware versions of the `is_test` checks in the SQL functions, added as new functions so the installed ones are untouched.
-- `scripts/provision-staff.mjs`: creates the Saturn org and one staff person with a grant and a password. It is run once by an engineer against production.
-- Real attendee entry: a non-test version of `bz_demo_enroll` (`demo-entry.ts`, migration 009 pattern). It creates a real person and business with BID access when entry is enabled. The QR flow and the "Member ID not verified" honesty stay.
-- Amount display: one formatter producing `$1,234` (cents only when non-zero), used by bidder, Studio, CSVs and display.
-
-### T2 — Event model: windows, additive publication, bidding rules (backend)
-- Migration 021:
-  - `bz_event_windows` (named, open/close, revisioned) and an item → window assignment;
-  - catalog versions (append-only snapshots referencing their prior version);
-  - per-event `bid_rules` (mode `tiered | fixed`, editable tier table, default as recorded).
-- `bz_catalog_phase()` and the manual-bid close checks read the **item's window** on the database clock. Window edits follow the defaults above. Leave `timing.ts` `TRADE_TIERS` as the seeded default only.
-- Server API for window CRUD and edits, add-items publication, and rule editing (`src/app/api/admin/events/[id]/…`). Every call checks staff grants and request idempotency.
-
-### T3 — After close: awards, fulfillment, donations (backend)
-- Migration 022:
-  - `bz_lot_awards` is an append-only decision log: confirm, reassign, none, with reason, actor and time. The current award is the latest decision.
-  - Fulfillment state per awarded item: awarded → fulfilled.
-  - `bz_donation_processing` is a separate append-only table (pending → processed), so the immutable pledge receipt and its CHECK stay untouched.
-  - Donation settings: no window coupling, a $10,000 per-pledge cap, and staff-curated nonprofits.
-- The results read model exposes `finalized` per item. CSV exports add award and fulfillment columns, and donations add a processed column.
-- Bidder read: "You won" only from a confirmed award. Closed-leading still reads "Bidding closed — awaiting confirmation".
+### T3 — After close: awards, fulfillment and donations (backend)
+- `award_decisions`, plus `fulfillment_events` bound to the award decision. All transitions use expected-current and sequence numbers.
+- Organization-level nonprofits with revisions; `bz_donation_member` ported from migration 018; the explicit donation deadline; $10,000 cap; `donation_processing`.
+- Results and CSV exports with award, fulfillment and processed columns. "You won" appears only from a current confirm or reassign decision.
 
 ### T4 — Studio refresh (frontend-design workflow)
 1. **Prototype phase.** Build an isolated prototype in `prototypes/studio-v2` with no `src/` imports and synthetic fixtures labeled as such. Desktop-first, with a usable phone view. Cover one continuous journey:
@@ -111,7 +94,7 @@ Each tranche gets a frozen contract in `tasks/*.toml` with acceptance and advers
 
 ### T6 — Production pilot (external effects; each step needs Zack's explicit go)
 1. Create the production Neon database and Vercel project or domain, and set env vars, all server-side.
-2. Apply migrations 001–022 to the fresh production database. Production has no synthetic seed.
+2. Apply `migrations/prod/*` to the fresh production database. Production has no synthetic seed.
 3. Run `provision-staff.mjs` for the one Saturn staff account.
 4. Zack (as staff) runs a full rehearsal on production with two phones: set up the event, two windows, publish, add an item, bid and outbid, donate, close, confirm awards, mark fulfilled and processed, and export. Then delete or archive the rehearsal event, or keep it clearly named.
 5. Hand the account to Saturn staff for the first real event.
@@ -123,7 +106,7 @@ T1 → (T2 ∥ T3 backend) → T4 connected phase. The T4 prototype phase and th
 ## Critical files
 
 - `src/server/config.ts`, `auth.ts`, `demo-entry.ts`, `staff.ts`, `timing.ts`, `manual-bids.ts`, `staff-operations.ts`, `read-model.ts`, `donation-pledges.ts`
-- `migrations/` (new 020–022; installed 001–019 are untouched)
+- `migrations/prod/` (new series; the staging `migrations/001–019` are untouched)
 - `src/app/events/[id]/*` (bidder), new `src/app/studio/*`, `src/app/api/admin/events/[id]/*`
 - `tests/acceptance/<new-task>/run.mjs` + seeds; `tasks/<new-task>.toml`
 - `prototypes/studio-v2/` (new), `prototypes/lanyard/` (donation study)
@@ -154,6 +137,6 @@ Approving the plan authorizes local implementation on branches or worktrees, com
 
 ## Known risks
 
-- The held migration 016 authorization-protocol limitation (an unrelated org can block on zero-row locks) is acceptable for Saturn-only. It must be resolved before a second organization.
+- Migration 016's global-gate limitation doesn't apply to production: the fresh schema uses per-organization gates and organization-scoped people (REAL_V1_SCHEMA.md, R1). It remains a property of the frozen staging demo only.
 - The Neon preview branch `br-plain-scene-arz0x256` expires Oct 17, but production doesn't depend on it.
 - The Studio refresh is the largest piece and sits on the critical path. The prototype should start first.
