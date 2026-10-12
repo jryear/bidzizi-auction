@@ -6,18 +6,27 @@ export function tradeMoney(minor, rules) {
       !Number.isSafeInteger(minor) || minor < 0 || !Number.isSafeInteger(rules.amountCapMinor) || minor > rules.amountCapMinor) return 'Amount unavailable';
   return `T$${Math.floor(minor / 100).toLocaleString('en-US')}.${String(minor % 100).padStart(2,'0')}`;
 }
-export function tradeRulesText(rules) {
-  if (!Array.isArray(rules?.tiers) || !rules.tiers.length || tradeMoney(0,rules) === 'Amount unavailable') return 'Bid rules are unavailable. Reload the saved event to check them.';
+export function tradeRulesParts(rules) {
+  const unavailable = 'Bid rules are unavailable. Reload the saved event to check them.';
+  if (!Array.isArray(rules?.tiers) || !rules.tiers.length || tradeMoney(0,rules) === 'Amount unavailable') return { error: unavailable };
   let lower=0;
-  const ranges=[];
+  const tiers=[];
   for (const [index,tier] of rules.tiers.entries()) {
     if (!Number.isSafeInteger(tier.raiseMinor) || tier.raiseMinor <= 0 || tier.raiseMinor > rules.amountCapMinor ||
-        (tier.belowMinor === null ? index !== rules.tiers.length-1 : !Number.isSafeInteger(tier.belowMinor) || tier.belowMinor <= lower || tier.belowMinor > rules.amountCapMinor)) return 'Bid rules are unavailable. Reload the saved event to check them.';
-    const range=tier.belowMinor===null?`${tradeMoney(lower,rules)} and up`:lower===0?`Under ${tradeMoney(tier.belowMinor,rules)}`:`${tradeMoney(lower,rules)} to under ${tradeMoney(tier.belowMinor,rules)}`;
-    ranges.push(`${range}: raise by ${tradeMoney(tier.raiseMinor,rules)}`);lower=tier.belowMinor;
+        (tier.belowMinor === null ? index !== rules.tiers.length-1 : !Number.isSafeInteger(tier.belowMinor) || tier.belowMinor <= lower || tier.belowMinor > rules.amountCapMinor)) return { error: unavailable };
+    const range=tier.belowMinor===null?`${tradeMoney(lower,rules)} and up`:lower===0?`under ${tradeMoney(tier.belowMinor,rules)}`:`${tradeMoney(lower,rules)} to under ${tradeMoney(tier.belowMinor,rules)}`;
+    tiers.push({ range, raise: tradeMoney(tier.raiseMinor,rules) });lower=tier.belowMinor;
   }
-  if (lower !== null) return 'Bid rules are unavailable. Reload the saved event to check them.';
-  return `The first bid must be at least the opening amount. After that, each bid must beat the highest bid by at least the minimum raise, based on that bid: ${ranges.join('; ')}. Any amount that meets the minimum is allowed. A lot can set its own fixed raise instead. Bids can go up to ${tradeMoney(rules.amountCapMinor,rules)}.`;
+  if (lower !== null) return { error: unavailable };
+  return {
+    intro: 'The first bid must be at least the opening amount. After that, each bid must beat the highest bid by at least the minimum raise, which depends on the highest bid:',
+    tiers,
+    outro: `Any amount that meets the minimum is allowed. A lot can set its own fixed raise instead. Bids can go up to ${tradeMoney(rules.amountCapMinor,rules)}.`
+  };
+}
+export function tradeRulesText(rules) {
+  const p = tradeRulesParts(rules);
+  return p.error || `${p.intro} ${p.tiers.map((t) => `highest bid ${t.range}: raise by ${t.raise}`).join('; ')}. ${p.outro}`;
 }
 export function cents(text) {
   if (!/^\d+(?:\.\d{1,2})?$/.test(String(text))) return null;
@@ -73,3 +82,22 @@ export function releaseIssues(d) {
 export const timeText = (t) => { if(!/^\d{2}:\d{2}$/.test(t))return 'Set time'; const [h,m]=t.split(':').map(Number); return `${h%12||12}:${String(m).padStart(2,'0')} ${h>=12?'PM':'AM'}`; };
 export const dateText = (s) => s ? new Date(s+'T12:00:00Z').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric',timeZone:'UTC'}) : 'Set date';
 export const shortZone = (e) => { try{return new Intl.DateTimeFormat('en-US',{timeZone:e.timezone,timeZoneName:'short'}).formatToParts(new Date(e.date+'T12:00:00Z')).find(p=>p.type==='timeZoneName').value;}catch{return e.timezone;} };
+
+export const zoneAbbr = (zone, iso) => { try { return new Intl.DateTimeFormat('en-US',{timeZone:zone,timeZoneName:'short'}).formatToParts(new Date(iso||Date.now())).find(p=>p.type==='timeZoneName').value; } catch { return zone || ''; } };
+const dayText = (d, withYear) => new Date(d+'T12:00:00Z').toLocaleDateString('en-US',{month:'short',day:'numeric',...(withYear?{year:'numeric'}:{}),timeZone:'UTC'});
+export function rangeText(startDate, start, endDate, end, zone) {
+  const okD = (d) => /^\d{4}-\d{2}-\d{2}$/.test(d||''), okT = (t) => /^\d{2}:\d{2}$/.test(t||'');
+  const at = (d,t,y) => (okD(d) ? dayText(d,y) : 'Date not set') + (okT(t) ? ', ' + timeText(t) : ', time not set');
+  const zoneAt = (d,t) => {
+    if (!okD(d) || !okT(t)) return zone || '';
+    const instant = wallTime(d,t,zone);
+    return instant === null ? (zone || '') : zoneAbbr(zone,new Date(instant).toISOString());
+  };
+  const startZone = zoneAt(startDate,start), endZone = zoneAt(endDate,end);
+  const sameZone = startZone === endZone;
+  const sameYear = okD(startDate) && okD(endDate) && startDate.slice(0,4) === endDate.slice(0,4);
+  if (okD(startDate) && startDate === endDate && okT(start) && okT(end)) {
+    return `${dayText(startDate,true)}, ${timeText(start)}${sameZone?'':' '+startZone} – ${timeText(end)} ${endZone}`.trim();
+  }
+  return `${at(startDate,start,!sameYear)}${sameZone?'':' '+startZone} – ${at(endDate,end,true)} ${endZone}`.trim();
+}

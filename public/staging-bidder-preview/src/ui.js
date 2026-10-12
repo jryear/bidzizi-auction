@@ -5,7 +5,7 @@ export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&a
 export const money = (cents) => {
   if(!Number.isSafeInteger(cents))return 'Not set';
   const d = cents / 100;
-  return (event.version===2?'T$':'$') + (Number.isInteger(d) ? d.toLocaleString('en-US') : d.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+  return (event.version===2?'T$':'$') + (Number.isInteger(d) && event.version!==2 ? d.toLocaleString('en-US') : d.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
 };
 
 const PATHS = {

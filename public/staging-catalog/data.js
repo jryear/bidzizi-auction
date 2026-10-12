@@ -14,14 +14,16 @@ function resolvedPhoto(ref,p){
 }
 export function timeText(value){return new Intl.DateTimeFormat('en-US',{timeZone:event.timezone||'UTC',hour:'numeric',minute:'2-digit'}).format(new Date(value));}
 export function dateText(value){return new Intl.DateTimeFormat('en-US',{timeZone:event.timezone||'UTC',month:'long',day:'numeric',year:'numeric'}).format(new Date(value));}
+export function stamp(value){return new Intl.DateTimeFormat('en-US',{timeZone:event.timezone||'UTC',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'}).format(new Date(value));}
 export function timestamp(value){return new Intl.DateTimeFormat('en-US',{timeZone:event.timezone||'UTC',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',second:'2-digit',timeZoneName:'short'}).format(new Date(value));}
 export const currencyLabel=()=>catalog.version===2?'Saturn trade dollars':'US dollars (test)';
 export const currencySymbol=()=>catalog.version===2?'T$':'$';
+function zoneShort(zone,at){try{return new Intl.DateTimeFormat('en-US',{timeZone:zone,timeZoneName:'short'}).formatToParts(new Date(at)).find(x=>x.type==='timeZoneName').value;}catch{return zone;}}
 function timezone(p){const zone=p.schedule.timezone||p.event.timing?.timezone||p.event.timezone||'UTC';try{new Intl.DateTimeFormat('en-US',{timeZone:zone});return zone;}catch{return 'UTC';}}
 export function applyAudience(p){
  Object.keys(event).forEach(k=>delete event[k]);
  Object.assign(catalog,{version:p.version===2?2:1,phase:p.phase,serverNow:p.serverNow,schedule:structuredClone(p.schedule),organization:structuredClone(p.organization),approvalId:p.catalog?.approvalId||null});
- Object.assign(event,structuredClone(p.event),{host:p.organization.name,cover:resolvedPhoto(p.event.cover,p),timezone:timezone(p)});
+ Object.assign(event,structuredClone(p.event),{host:p.organization.name,cover:resolvedPhoto(p.event.cover,p),timezone:timezone(p),zone:zoneShort(timezone(p),p.schedule.opensAt),closeZone:zoneShort(timezone(p),p.schedule.closesAt)});
  Object.assign(event,{date:dateText(p.schedule.opensAt),closeDate:dateText(p.schedule.closesAt),opens:timeText(p.schedule.opensAt),closes:timeText(p.schedule.closesAt)});
  const visible=(p.version===2||p.phase!=='scheduled')&&p.catalog!==null;
  lots.splice(0,lots.length,...(visible?p.catalog.lots.map(l=>({...structuredClone(l),image:resolvedPhoto(l.image,p),sponsor:l.provider.name})):[]));

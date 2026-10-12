@@ -1,4 +1,4 @@
-import { clone, esc, money, tradeMoney, tradeRulesText, cents, eventIssues, lotIssues, releaseIssues, windowFor, dateText, timeText, shortZone } from './model.js';
+import { clone, esc, money, tradeMoney, tradeRulesParts, cents, rangeText, zoneAbbr, eventIssues, lotIssues, releaseIssues, windowFor, dateText, timeText, shortZone } from './model.js';
 import {operationsShell,createStaffOperations} from './staff-operations.js';
 import { qrcodegen } from './vendor/qr-code.js';
 
@@ -92,7 +92,7 @@ function refreshChrome(){
  const sidebarName=$('.sidebar-event-name');if(sidebarName)sidebarName.textContent=d.event.name||'Untitled event';
  $('#release-status').innerHTML='<i></i>Working draft';
  $('#event-meta').textContent=d.version===2?
-  `${d.event.timing.startDate||'Date not set'} · ${d.event.timing.start||'--:--'}–${d.event.timing.endDate||'Date not set'} ${d.event.timing.end||'--:--'} ${d.event.timing.timezone}`:
+  rangeText(d.event.timing.startDate,d.event.timing.start,d.event.timing.endDate,d.event.timing.end,d.event.timing.timezone):
   `${dateText(d.event.date)} · ${timeText(d.event.start)}–${timeText(d.event.end)} ${shortZone(d.event)}`;
  const status={saved:'Saved',dirty:'Unsaved edits',saving:'Saving…',uncertain:'Save not confirmed',conflict:'Save conflict',blocked:'Save blocked'};
  $('#saved').textContent=loadingDraft?'Loading draft…':status[saveState];$('#saved').classList.toggle('error',['uncertain','conflict','blocked'].includes(saveState));
@@ -180,6 +180,7 @@ function staffSidebar(){
  const org=d?.org||session.staffOrganizations.find(o=>o.id===loadedOrgId);
  return `<aside class="studio-sidebar"><span class="brand">BidZizi</span><div class="studio-organization org-btn"><span class="org-mark" id="org-mark">${esc(org?.initials||'')}</span><span class="org-name" id="org-name">${esc(org?.name||'')}</span></div><button class="sidebar-home ${d?'':'active'}" data-action="events-home" ${d?'':'aria-current="page"'}>Events</button>${d?`<div class="sidebar-event"><p class="event-heading">This event</p><button class="event-picker" data-action="events">Choose event <span aria-hidden="true">⌄</span></button><span class="sidebar-event-name">${esc(d.event.name||'Untitled event')}</span></div><nav class="tabs" aria-label="Event Studio"><a href="#/lots" data-tab="lots">Lots <span class="count" id="lot-count"></span></a><a href="#/event" data-tab="event">Event & entry</a><a href="#/bidders" data-tab="bidders">Bidders</a><a href="#/donations" data-tab="donations">Donations</a><a href="/events/${encodeURIComponent(d.event.id)}/results" target="_top">Standings</a><a href="/events/${encodeURIComponent(d.event.id)}/display" target="_top">Display</a></nav>`:''}</aside>`;
 }
+function rulesView(rules){const p=tradeRulesParts(rules);if(p.error)return `<p>${esc(p.error)}</p>`;return `<p>${esc(p.intro)}</p><ul class="rule-tiers">${p.tiers.map(t=>`<li><span>Highest bid ${esc(t.range)}</span> · raise by <strong>${esc(t.raise)}</strong></li>`).join('')}</ul><p>${esc(p.outro)}</p>`;}
 function staffFooter(){return '<footer class="simulation"><span>Test event · staff view</span></footer>';}
 function shell(){
  $('#app').innerHTML=`<div class="studio-shell">${staffSidebar()}<div class="studio-body">${staffHeader()}
@@ -205,7 +206,7 @@ function tradeEventView(){
  <label>Closing date<input type="date" data-event="timing.endDate" value="${esc(t.endDate)}"></label>
  <label>Closing time<input type="time" data-event="timing.end" value="${esc(t.end)}"></label></div>
  <label>Time zone<select data-event="timing.timezone">${zones(t.timezone)}</select></label>
- <div data-bid-policy><strong>Saturn trade dollars. No payment is taken.</strong><p>${esc(tradeRulesText(e.rules))}</p></div>
+ <div data-bid-policy><strong>Saturn trade dollars. No payment is taken.</strong>${rulesView(e.rules)}</div>
  <div id="event-errors"></div></section>${sponsorsView()}${entryView()}<div id="studio-setup">${setupView()}</div>`;
 }
 function eventView(){
@@ -458,7 +459,7 @@ function refreshCatalogControls(){
  renderSetup();
 }
 function catalogSummary(){
- if(catalogApproval){const a=catalogApproval,t=a.snapshot.event.timing;return `<section class="catalog-summary" aria-label="Approved catalog"><div><strong>Approved catalog</strong><p>${esc(a.snapshot.event.name)} · saved revision ${a.sourceRevision} · ${a.snapshot.lots.length} lots</p><p>${t?`${dateText(t.startDate)} · ${timeText(t.start)} to ${dateText(t.endDate)} · ${timeText(t.end)} ${esc(t.timezone)}`:`${esc(a.local.date)} · ${timeText(a.local.start)}–${timeText(a.local.end)} ${esc(a.local.timezone)}`}</p></div><details><summary>View approved lots</summary><ol>${a.snapshot.lots.map(l=>`<li>Lot ${esc(l.number)} · ${esc(l.title)}</li>`).join('')}</ol><p>This saved copy and window are fixed.</p></details></section>`;}
+ if(catalogApproval){const a=catalogApproval,t=a.snapshot.event.timing;return `<section class="catalog-summary" aria-label="Approved catalog"><div><strong>Approved catalog</strong><p>${esc(a.snapshot.event.name)} · saved revision ${a.sourceRevision} · ${a.snapshot.lots.length} lots</p><p>${t?esc(rangeText(t.startDate,t.start,t.endDate,t.end,t.timezone)):esc(rangeText(a.local.date,a.local.start,a.local.date,a.local.end,a.local.timezone))}</p></div><details><summary>View approved lots</summary><ol>${a.snapshot.lots.map(l=>`<li>Lot ${esc(l.number)} · ${esc(l.title)}</li>`).join('')}</ol><p>This saved copy and window are fixed.</p></details></section>`;}
  if(approvalState==='uncertain')return `<section class="catalog-summary error" role="alert"><div><strong>Approval not confirmed</strong><p>The server may have approved it. Retry the same request to check its result.</p></div><button class="btn" data-action="retry-approval" ${approving?'disabled':''}>Retry approval</button></section>`;
  if(approvalNotice)return `<section class="catalog-summary error" role="alert"><p>${esc(approvalNotice)}</p>${approvalState==='conflict'?'<button class="btn small" data-action="reload-draft">Reload saved draft</button>':approvalState==='unavailable'?'<button class="btn small" data-action="refresh-approval">Retry approval status</button>':''}</section>`;
  return '';
@@ -480,12 +481,12 @@ function review(){
   if(!packet.event.name.trim()||!packet.event.welcome.trim()||!t.startDate||!t.start||!t.endDate||!t.end)issues.push('Complete the event and shared window.');
   for(const l of lots)if(!l.title.trim()||!l.description.trim()||!l.category.trim()||!Number.isSafeInteger(l.opening)||l.opening<=0)issues.push('Complete item '+l.number+'.');
   reviewedCatalog={eventId:packet.event.id,revision:packet.revision,lotIds:lots.map(l=>l.id)};
-  openModal('Review catalog',`<div class="review-summary"><strong>${lots.length} selected saved items</strong><p>${esc(t.startDate)} ${esc(t.start)} to ${esc(t.endDate)} ${esc(t.end)} ${esc(t.timezone)}</p><p>Saturn trade dollars. Minimum raises step up as bids rise. No payment is taken.</p></div><ul class="catalog-review-lots">${lots.map(l=>`<li><span>Lot ${esc(l.number)}</span><strong>${esc(l.title)}</strong></li>`).join('')}</ul>${issues.map(x=>`<p class="note error">${esc(x)}</p>`).join('')}`,
+  openModal('Review catalog',`<div class="review-summary"><strong>${lots.length} selected saved items</strong><p>${esc(rangeText(t.startDate,t.start,t.endDate,t.end,t.timezone))}</p><p>Saturn trade dollars. Minimum raises step up as bids rise. No payment is taken.</p></div><ul class="catalog-review-lots">${lots.map(l=>`<li><span>Lot ${esc(l.number)}</span><strong>${esc(l.title)}</strong></li>`).join('')}</ul>${issues.map(x=>`<p class="note error">${esc(x)}</p>`).join('')}`,
    '<button class="btn" data-action="close-modal">Keep editing</button><button class="btn primary" data-action="approve-catalog" '+(issues.length?'disabled':'')+'>Approve catalog</button>');return;
  }
  const issues=[...eventIssues(packet.event),...lots.flatMap(l=>[...lotIssues(l,packet.event).map(x=>`Lot ${l.number}: add ${x}.`),...(l.windowId!=='main'?[`Lot ${l.number}: assign the auction window.`]:[])])];
  reviewedCatalog={eventId:packet.event.id,revision:packet.revision,lotIds:lots.map(l=>l.id)};
- openModal('Review catalog',`<div class="review-summary"><strong>${lots.length} selected saved ${lots.length===1?'lot':'lots'}</strong><p>Revision ${packet.revision} · ${dateText(packet.event.date)}</p><p>${timeText(packet.event.start)}–${timeText(packet.event.end)} ${esc(packet.event.timezone)}</p></div><ul class="catalog-review-lots">${lots.map(l=>`<li><span>Lot ${esc(l.number)}</span><strong>${esc(l.title)}</strong></li>`).join('')}</ul>${issues.length?`<ul class="checks">${issues.map(x=>`<li><span class="bad">!</span><span>${esc(x)}</span></li>`).join('')}</ul>`:''}<p class="note">Approval fixes this saved copy and shared window. The catalog appears at opening and stays read-only after closing. Bidder access is separate from catalog approval.</p>`,'<button class="btn" data-action="close-modal">Keep editing</button><button class="btn primary" data-action="approve-catalog" '+(issues.length?'disabled':'')+'>Approve catalog</button>');
+ openModal('Review catalog',`<div class="review-summary"><strong>${lots.length} selected saved ${lots.length===1?'lot':'lots'}</strong><p>Revision ${packet.revision} · ${dateText(packet.event.date)}</p><p>${timeText(packet.event.start)}–${timeText(packet.event.end)} ${esc(zoneAbbr(packet.event.timezone,packet.event.date+'T12:00:00Z'))}</p></div><ul class="catalog-review-lots">${lots.map(l=>`<li><span>Lot ${esc(l.number)}</span><strong>${esc(l.title)}</strong></li>`).join('')}</ul>${issues.length?`<ul class="checks">${issues.map(x=>`<li><span class="bad">!</span><span>${esc(x)}</span></li>`).join('')}</ul>`:''}<p class="note">Approval fixes this saved copy and shared window. The catalog appears at opening and stays read-only after closing. Bidder access is separate from catalog approval.</p>`,'<button class="btn" data-action="close-modal">Keep editing</button><button class="btn primary" data-action="approve-catalog" '+(issues.length?'disabled':'')+'>Approve catalog</button>');
 }
 async function approveCatalog(){
  if(approving||loadingDraft||!d||catalogApproval)return;
