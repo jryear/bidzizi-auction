@@ -33,7 +33,7 @@ BidZizi today is a connected, durable **synthetic** Saturn demo. The code shows 
   - Every change is a recorded revision, and bidders see the new time.
   - A closed window is frozen.
 - Additive publication appends a new immutable catalog version. Previously published items, their terms and their bids are never altered. New items can go into any window that has not closed.
-- Donation availability: from catalog publication until the last window closes, plus a staff on/off toggle.
+- Donation availability: an explicit donation deadline (defaults to the final window close; staff may extend it) plus a staff on/off toggle. Receipts stay recoverable after the deadline. (Revised after review.)
 
 ## Architecture
 

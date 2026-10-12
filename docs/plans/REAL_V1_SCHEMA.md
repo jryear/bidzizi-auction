@@ -1,6 +1,6 @@
 # Real V1 production schema — design for review
 
-Status: **draft for Zack + independent review.** No code or migration is written until this is accepted.
+Status: **revised after independent Codex review (2026-10-12); awaiting Zack's acceptance.** No code or migration is written until this is accepted.
 Plan: [REAL_V1_PLAN.md](REAL_V1_PLAN.md). Covers tables for T1 (identity, entry, bidding), T2 (windows, catalog versions, rules) and T3 (awards, fulfillment, donations).
 
 ## Ground rules
@@ -28,7 +28,7 @@ Plan: [REAL_V1_PLAN.md](REAL_V1_PLAN.md). Covers tables for T1 (identity, entry,
 | `people` | `id`, `name`, `email citext UNIQUE NULL`, `active`, `created_at` | Staff have an email. Attendees created by QR entry have none. |
 | `staff_credentials` | `person_id PK`, `password_hash`, `password_updated_at`, `failed_count`, `locked_until` | scrypt (N=2^15, r=8, p=1, 16-byte salt, 64-byte key), encoded `scrypt$N$r$p$salt$hash`. The app role can read it, and update only the counters. |
 | `staff_grants` | `(person_id, org_id)`, `role IN ('owner','staff')`, `active` | V1 provisions one `owner`. |
-| `sessions` | `token_hash PK`, `person_id`, `kind IN ('staff','attendee')`, `expires_at`, `revoked_at` | Only the sha256 of a 32-byte random token is stored. Staff sessions last 12h; attendee sessions last 30 days, the length of an event. |
+| `sessions` | `token_hash PK`, `person_id`, `org_id NOT NULL`, `kind IN ('staff','attendee')`, `event_id NULL`, `expires_at`, `revoked_at` | Only the sha256 of a 32-byte random token is stored. **Every session is bound to exactly one org.** A staff session for another org is a new sign-in. An attendee session is also bound to its admitted `event_id` (`CHECK(kind='staff' OR event_id IS NOT NULL)`). Staff sessions last 12h. Attendee sessions have a fixed 30-day lifetime with no sliding renewal. A session never extends bidding or donation availability; those come only from windows and the donation deadline. |
 | `login_attempts` | `(email_hash, ip_hash, at)` | Rate limit: 5 failures per email per 15 minutes, and 20 per IP. The table is append-only and pruned by age. |
 
 ### Businesses and attendees
@@ -39,12 +39,13 @@ Plan: [REAL_V1_PLAN.md](REAL_V1_PLAN.md). Covers tables for T1 (identity, entry,
 | `business_members` | `(person_id, business_id)`, `can_bid`, `active` | Shared business standing comes from this table. |
 | `event_attendees` | `(person_id, event_id)`, `access IN ('VIEW','BID')`, `active`, `revision` | Replaces view grants plus bidder admissions. Open QR entry inserts `BID`. Staff can lower an attendee to VIEW or deactivate them from the roster. |
 | `entry_slots` | as in 009: `id`, `event_id`, `token_hash`, `expires_at`, `consumed_at`, `payload_hash` … | Keeps the begin → enroll → acknowledge flow, with its idempotent retry and its 15-minute slot. |
+| `reentry_codes` | `id`, `person_id`, `event_id`, `code_hash`, `issued_by`, `issued_at`, `expires_at`, `consumed_at` | **Recovery for a lost session** (new phone, cleared cookies). Staff issue a one-time link/QR from the roster for an *existing* attendee. It expires in 24h, is single-use, revokes that person's other sessions on use, and creates a new attendee session for the **same** person, so receipts, My Bids and awards stay reachable. Re-scanning the public QR instead still creates a new person, by design. |
 
 ### Events, items, windows
 
 | Table | Key columns | Notes |
 |---|---|---|
-| `events` | `id`, `org_id`, `name`, `welcome`, `venue`, `cover_asset`, `timezone`, `unit`, `entry_enabled`, `donations_enabled`, `revision`, `updated_at/by` | Editable details. `revision` is used for optimistic concurrency: a save that sends a stale revision gets a 409 conflict. |
+| `events` | `id`, `org_id`, `name`, `welcome`, `venue`, `cover_asset`, `timezone`, `unit`, `entry_enabled`, `donations_enabled`, `donation_deadline NULL`, `revision`, `updated_at/by` | Editable details. `revision` is used for optimistic concurrency: a save that sends a stale revision gets a 409 conflict. |
 | `event_sponsors` | `id`, `event_id`, `position`, `name`, `logo_asset`, `alt` | |
 | `bid_rules` | `event_id PK`, `mode IN ('tiered','fixed')`, `tiers jsonb`, `fixed_raise_minor`, `revision` | Default tiers: $25 below $500, $50 below $1,000, $100 below $2,500, then $250. A `CHECK` requires the tiers to be strictly ascending, every raise > 0, and the final `below` to be null. Edits apply only to items published **afterwards**: published items keep a snapshot. |
 | `windows` | `id`, `event_id`, `name`, `opens_at`, `closes_at`, `revision`, `created_at` | `CHECK(opens_at < closes_at)`. Edits go through one function enforcing the edit rules below. |
@@ -100,30 +101,43 @@ The minimum next bid comes from `rules_snapshot`: a per-item fixed raise wins; o
 
 | Table | Key columns | Notes |
 |---|---|---|
-| `award_decisions` | `id`, `item_id`, `decision IN ('confirm','reassign','none')`, `business_id NULL`, `bid_id NULL`, `reason`, `decided_by`, `decided_at` | Append-only. The current award is the latest row per item. Allowed only when the item's phase is `closed` (checked on the database clock). `confirm` must reference the standing's accepted bid. `reassign` must reference another accepted bid on the item, with a required reason. `none` requires a reason. |
+| `award_decisions` | `id`, `item_id`, `sequence`, `supersedes_id NULL`, `decision IN ('confirm','reassign','none')`, `bid_id NULL`, `reason`, `decided_by`, `decided_at` | Append-only. The current award is the highest `sequence` per item, with `UNIQUE(item_id, sequence)`. Allowed only when the item's phase is `closed` (checked on the database clock). `confirm` references the standing's accepted bid. `reassign` may reference **any** accepted bid on the item, with a required reason. `none` requires a reason. The winning business and amount are always **derived from the referenced bid**, never typed in. Concurrency: the request carries the `supersedes_id` the staff member saw. If it isn't the current decision, the request fails with 409, so two staff members can't silently overwrite each other. |
 | `fulfillment_events` | `id`, `item_id`, `state IN ('fulfilled','reopened')`, `by`, `at`, `note` | Append-only. Allowed only while a current award exists. |
 | `nonprofits` | `id`, `org_id`, `name`, `description`, `logo_asset`, `active`, `revision` | **Org-level** ("Saturn's nonprofits"), curated by staff. |
 | `event_nonprofits` | `(event_id, nonprofit_id)`, `active` | The nonprofits shown at this event. |
-| `donation_pledges` | `id`, `actor_id`, `request_id`, `event_id`, `business_id`, `nonprofit_id`, `nonprofit_snapshot jsonb`, `amount_minor CHECK(amount_minor BETWEEN 1 AND 1000000)`, `receipt`, `recorded_at` | $10,000 cap per pledge. Append-only; the receipt never changes. Allowed while `donations_enabled` and the event isn't fully closed. |
+| `donation_pledges` | `id`, `actor_id`, `request_id`, `event_id`, `business_id`, `nonprofit_id`, `nonprofit_snapshot jsonb`, `amount_minor CHECK(amount_minor BETWEEN 1 AND 1000000)`, `receipt`, `recorded_at` | $10,000 cap per pledge. Append-only; the receipt never changes. **New pledges** are allowed only while `donations_enabled` and `clock_timestamp() < events.donation_deadline`. Receipt recovery and replay of an already-recorded request still work after the deadline. |
 | `donation_processing` | `id`, `pledge_id`, `state IN ('processed','reopened')`, `by`, `at`, `note` | Append-only. The current state is the latest row, or `pending` when there is none. |
 
 Bidder rule: "You won" shows only when the current award decision is `confirm` or `reassign` naming one of the actor's businesses. A closed leader with no decision reads "Bidding closed — awaiting confirmation".
 
 ## Authority and revocation
 
-Every attendee or staff decision first takes `pg_advisory_xact_lock_shared(org_gate(org_id))`. It then reads its authority rows `FOR SHARE`:
+**Every authority row belongs to exactly one org:**
+- `sessions.org_id`;
+- `staff_grants.org_id`;
+- `event_attendees` through its event;
+- `businesses.org_id`;
+- `business_members` through its business.
+
+`people` is the one shared row; see the ordering rule below.
+
+**Decisions** (bids, pledges, watches, staff reads and writes) take exactly **one** shared gate, `pg_advisory_xact_lock_shared(org_gate(org_id))`, for the org of the session, which must equal the target event's org. They then read their authority rows `FOR SHARE`:
 - session;
 - person;
 - `staff_grants`, or the attendee path: `event_attendees`, `business_members` and `businesses`.
 
-Every authority change (logout, revoke session, deactivate person, change a grant or attendee access) takes `pg_advisory_xact_lock(org_gate(org_id))` exclusively, **before** it updates anything.
+A decision never takes a second gate.
+
+**Authority changes go through database entry points only.** Logout, revoke session, deactivate person, change a grant or attendee access, and redeem a re-entry code are each a `SECURITY DEFINER` function. The function takes `pg_advisory_xact_lock(org_gate(org_id))` exclusively **before** updating anything. `bz_app` has `EXECUTE` on these functions and **no** `UPDATE`/`DELETE` privilege on authority tables.
+
+**Ordering rule.** Changing the shared `people` row (deactivating a person) affects every org that person belongs to. That function computes those orgs and takes their exclusive gates in **ascending `org_id` order**, the only multi-gate path. Decisions hold one shared gate and multi-gate holders always ascend, so there is no lock cycle and no deadlock.
 
 - **Guarantee kept from 016:**
   - A queued revocation gets priority: PostgreSQL's lock queue makes new shared requests wait behind a waiting exclusive request.
   - Once the revocation commits, no later decision can use the revoked authority.
   - A decision already holding the shared gate finishes first.
 - **What changes from 016:** the gate is keyed **per organization**, not global, so one organization's staff changes never stall another organization. This designs out the held 016 limitation.
-- **Raw SQL is covered too.** A `BEFORE UPDATE OR DELETE … FOR EACH ROW` trigger on each authority table checks `pg_locks` to confirm the current backend holds that row's org gate exclusively, and raises otherwise. An operator's manual `UPDATE` therefore fails loudly instead of slipping past the queue. Sessions map to an org through the person's grants or attendance; logout of an attendee session takes the gate of the session's event org. **Review point:** confirm the trigger approach versus documenting "authority changes only through the app".
+- **Raw SQL is covered too.** A `BEFORE UPDATE OR DELETE … FOR EACH ROW` guard trigger on each authority table confirms through `pg_locks` that the current backend holds the exclusive gate for the row's org (for `people`, every affected org), and raises otherwise. An owner's or operator's manual `UPDATE` therefore fails loudly instead of slipping past the queue. The supported operator path is to call the entry-point function. Accepted in review: the entry points plus the guard, over an app-only convention.
 
 ## Guarantee map (old → new)
 
@@ -151,9 +165,16 @@ Bidder endpoints keep today's response shapes where the meaning is unchanged (`s
 
 Staff endpoints are new and resource-shaped (`/api/studio/events/:id/items`, `/windows`, `/rules`, `/catalog/versions`, `/attendees`, `/results`, `/donations`), designed for the new Studio.
 
-## Open review points
+## Review resolutions (Codex independent review, 2026-10-12)
 
-1. Is the per-org gate plus `pg_locks` guard trigger acceptable as the revocation design (the alternative is "app-only authority changes")?
-2. Attendee session length of 30 days is proposed. Is a shorter length preferable?
-3. `reassign` lets staff award an item to a lower accepted bid (e.g. the winner withdrew). Should it be limited to the next-highest bid?
-4. Should donations stay open after bidding closes (e.g. until the event day ends)? The current proposal closes them with the last window.
+1. **Revocation design:** accepted after revision. The changes:
+   - org-bound sessions;
+   - one shared gate per decision;
+   - authority changes only through `SECURITY DEFINER` entry points (no direct `UPDATE` for `bz_app`);
+   - guard triggers for raw SQL;
+   - ascending-org order for the one multi-gate path.
+2. **Attendee sessions:** fixed 30 days, bound to the admitted event, with no sliding renewal and no effect on availability. Lost-session recovery is added (`reentry_codes`), because re-scanning creates a new identity.
+3. **Reassignment:** any accepted bid on the item, with a mandatory reason, staff identity, append-only history and `supersedes_id` concurrency. The recipient and amount are derived from the bid.
+4. **Donations:** an explicit `events.donation_deadline` plus the staff toggle. The deadline defaults to the final window close and staff may extend it. There is no implicit "event day" rule. Receipt recovery works after the deadline.
+
+The full written review file was not produced; these resolutions come from the review summary Zack relayed.
