@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { api, errorText, Offline } from "../../lib/api";
 
 export function StageChip({ stage }: { stage: string }) {
   const label = { draft: "Draft", upcoming: "Live · not started", running: "Running now", ended: "Ended", open: "Bidding open", closed: "Bidding closed", scheduled: "Not open yet" }[stage] ?? stage;
@@ -50,3 +51,30 @@ export function PhotoPicker({ url, onChange, label = "Photo" }: { url: string | 
     </div>
   );
 }
+
+export function Login({ onIn }: { onIn: () => void }) {
+  const [email, setEmail] = useState(""), [password, setPassword] = useState(""), [error, setError] = useState(""), [busy, setBusy] = useState(false);
+  async function submit(event: React.FormEvent) {
+    event.preventDefault(); setBusy(true); setError("");
+    try {
+      const r = await api("POST", "/api/v1/host/login", { email, password });
+      if (r.ok) onIn(); else setError(errorText(r));
+    } catch (e) { setError(e instanceof Offline ? e.message : "Something went wrong."); }
+    finally { setBusy(false); }
+  }
+  return (
+    <main className="phone">
+      <div className="screen" style={{ justifyContent: "center" }}>
+        <div className="join-hero"><span className="brand">Bid<i>Zizi</i></span><h1>Host sign in</h1></div>
+        <form className="card pad stack" onSubmit={submit}>
+          <label className="field"><span>Email</span><input type="email" value={email} onChange={e => setEmail(e.target.value)} autoComplete="username" required /></label>
+          <label className="field"><span>Password</span><input type="password" value={password} onChange={e => setPassword(e.target.value)} autoComplete="current-password" required /></label>
+          {error && <p className="notice error" role="alert">{error}</p>}
+          <button className="btn primary block" disabled={busy}>{busy ? "Signing in…" : "Sign in"}</button>
+        </form>
+        <p className="small faint" style={{ textAlign: "center" }}>Joining an event? <a href="/join">Enter a code</a></p>
+      </div>
+    </main>
+  );
+}
+

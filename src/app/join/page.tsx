@@ -35,7 +35,7 @@ export default function JoinByCode() {
           {error && <p className="notice error" role="alert">{error}</p>}
           <button className="btn primary block" disabled={busy}>{busy ? "Finding event…" : "Join"}</button>
         </form>
-        <p className="small faint" style={{ textAlign: "center", marginTop: 24 }}>Hosting an event? <a href="/host">Staff sign in</a></p>
+        <p className="small faint" style={{ textAlign: "center", marginTop: 24 }}>Hosting an event? <a href="/studio">Staff sign in</a></p>
       </div>
     </main>
   );

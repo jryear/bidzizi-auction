@@ -7,3 +7,4 @@ out/
 *.tsbuildinfo
 .bzpg-dir
 .next-dev.log
+.shots/

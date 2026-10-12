@@ -3,12 +3,18 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { api, errorText, fmtTime, fromLocalInput, newId, Offline } from "../../lib/api";
-import { StageChip } from "./ui";
+import { Login, StageChip } from "./ui";
 
 type EventCard = { id: string; name: string; code: string; status: string; stage: "draft" | "upcoming" | "running" | "ended"; startsAt: string; endsAt: string;
   coverUrl: string | null; itemCount: number; participantCount: number; bidCount: number };
 
 export default function HostHome() {
+  // The Studio is the host home; this route stays for old links.
+  useEffect(() => { location.replace("/studio"); }, []);
+  return <main className="host"><div className="host-main"><p className="muted">Opening Studio…</p></div></main>;
+}
+
+function ClassicHostHome() {
   const [state, setState] = useState<"loading" | "signedout" | "ready">("loading");
   const [staff, setStaff] = useState<{ name: string; orgName: string } | null>(null);
   const [events, setEvents] = useState<EventCard[]>([]);
@@ -55,32 +61,6 @@ export default function HostHome() {
             </a>
           ))}
         </div>
-      </div>
-    </main>
-  );
-}
-
-function Login({ onIn }: { onIn: () => void }) {
-  const [email, setEmail] = useState(""), [password, setPassword] = useState(""), [error, setError] = useState(""), [busy, setBusy] = useState(false);
-  async function submit(event: React.FormEvent) {
-    event.preventDefault(); setBusy(true); setError("");
-    try {
-      const r = await api("POST", "/api/v1/host/login", { email, password });
-      if (r.ok) onIn(); else setError(errorText(r));
-    } catch (e) { setError(e instanceof Offline ? e.message : "Something went wrong."); }
-    finally { setBusy(false); }
-  }
-  return (
-    <main className="phone">
-      <div className="screen" style={{ justifyContent: "center" }}>
-        <div className="join-hero"><span className="brand">Bid<i>Zizi</i></span><h1>Host sign in</h1></div>
-        <form className="card pad stack" onSubmit={submit}>
-          <label className="field"><span>Email</span><input type="email" value={email} onChange={e => setEmail(e.target.value)} autoComplete="username" required /></label>
-          <label className="field"><span>Password</span><input type="password" value={password} onChange={e => setPassword(e.target.value)} autoComplete="current-password" required /></label>
-          {error && <p className="notice error" role="alert">{error}</p>}
-          <button className="btn primary block" disabled={busy}>{busy ? "Signing in…" : "Sign in"}</button>
-        </form>
-        <p className="small faint" style={{ textAlign: "center" }}>Joining an event? <a href="/join">Enter a code</a></p>
       </div>
     </main>
   );

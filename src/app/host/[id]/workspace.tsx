@@ -8,17 +8,17 @@ import { PhotoPicker, StageChip } from "../ui";
 
 type Bid = { id: string; amountMinor: number; at: string; participantId: string; name: string; business: string };
 type Award = { status: "assigned" | "fulfilled" | "no_winner"; bidId: string | null; participantId: string | null; amountMinor: number | null; notes: string; revision: number; updatedAt: string };
-type Item = {
+export type Item = {
   id: string; position: number; title: string; short: string; description: string; category: string; donor: string; imageAssetId: string | null; imageUrl: string | null;
   openingMinor: number; incrementOverrideMinor: number | null; opensAt: string | null; closesAt: string | null; effectiveOpensAt: string; effectiveClosesAt: string;
   ready: boolean; revision: number; phase: "scheduled" | "open" | "closed"; currentMinor: number | null; bidCount: number; minimumNextMinor: number | null;
   leader: { id: string; name: string; business: string } | null; bids: Bid[]; award: Award | null;
 };
 type Tier = { belowMinor: number | null; raiseMinor: number };
-type Data = {
+export type Data = {
   serverNow: string;
   event: { id: string; code: string; name: string; welcome: string; venue: string; winnerInstructions: string; coverAssetId: string | null; coverUrl: string | null; timezone: string;
-    startsAt: string; endsAt: string; accessEndsAt: string; status: "draft" | "live"; entryOpen: boolean; bidMode: "tiered" | "fixed"; tiers: Tier[]; fixedIncrementMinor: number | null;
+    startsAt: string; endsAt: string; accessEndsAt: string; status: "draft" | "live"; entryOpen: boolean; theme: string; bidMode: "tiered" | "fixed"; tiers: Tier[]; fixedIncrementMinor: number | null;
     donationsEnabled: boolean; donationDeadline: string | null; revision: number; phase: string; hasBids: boolean };
   items: Item[];
   participants: { id: string; name: string; business: string; canBid: boolean; joinedAt: string; bidCount: number; leadingCount: number; pledgedMinor: number }[];
@@ -28,7 +28,7 @@ type Data = {
   sponsors: { id: string; name: string; logoAssetId: string | null; logoUrl: string | null }[];
 };
 type Section = "overview" | "items" | "details" | "bidding" | "donations" | "people" | "results" | "share";
-type Ctx = { data: Data; reload: () => Promise<void>; flash: (text: string) => void; patchEvent: (fields: Record<string, unknown>) => Promise<boolean> };
+export type Ctx = { data: Data; reload: () => Promise<void>; flash: (text: string) => void; patchEvent: (fields: Record<string, unknown>) => Promise<boolean> };
 
 export default function Workspace({ eventId }: { eventId: string }) {
   const [data, setData] = useState<Data | null>(null);
@@ -40,7 +40,7 @@ export default function Workspace({ eventId }: { eventId: string }) {
   const reload = useCallback(async () => {
     try {
       const r = await api<Data>("GET", `/api/v1/host/events/${eventId}`);
-      if (r.status === 401) { location.href = "/host"; return; }
+      if (r.status === 401) { location.href = "/studio"; return; }
       if (r.ok) { setData(r.data); setError(""); } else setError(errorText(r));
     } catch { setError("Connection lost. Retrying…"); }
   }, [eventId]);
@@ -72,7 +72,7 @@ export default function Workspace({ eventId }: { eventId: string }) {
   return (
     <main className="host">
       <header className="host-top">
-        <a className="brand" href="/host">Bid<i>Zizi</i></a>
+        <a className="brand" href="/studio">Bid<i>Zizi</i></a>
         <span className="muted">/</span>
         <h1 style={{ fontSize: 20 }}>{e.name}</h1>
         <StageChip stage={e.status === "draft" ? "draft" : e.phase} />
@@ -107,7 +107,7 @@ export default function Workspace({ eventId }: { eventId: string }) {
   );
 }
 
-function DuplicateButton({ eventId }: { eventId: string }) {
+export function DuplicateButton({ eventId }: { eventId: string }) {
   const [busy, setBusy] = useState(false);
   const request = useRef(newId());
   return <button className="btn small" disabled={busy} onClick={async () => {
@@ -141,7 +141,7 @@ function Overview({ ctx, go }: { ctx: Ctx; go: (s: Section) => void }) {
         <div><h2>{e.status === "draft" ? "Getting ready" : e.phase === "open" ? "Happening now" : e.phase === "closed" ? "Wrap-up" : "Live, starting soon"}</h2>
           <p className="muted small">{fmtTime(e.startsAt, e.timezone)} – {fmtTime(e.endsAt, e.timezone)}{e.phase === "open" ? ` · ends in ${untilText(e.endsAt, now)}` : ""}</p></div>
       </div>
-      <div className="grid3" style={{ gridTemplateColumns: "repeat(4, 1fr)" }}>
+      <div className="stats4">
         <div className="card stat"><span className="small faint">Joined</span><b>{data.participants.length}</b></div>
         <div className="card stat"><span className="small faint">Bids</span><b>{data.items.reduce((s, i) => s + i.bidCount, 0)}</b></div>
         <div className="card stat"><span className="small faint">High bids total</span><b>{formatMoney(high)}</b></div>
@@ -341,7 +341,7 @@ function Details({ ctx }: { ctx: Ctx }) {
   );
 }
 
-function Sponsors({ ctx }: { ctx: Ctx }) {
+export function Sponsors({ ctx }: { ctx: Ctx }) {
   const { data, reload, flash } = ctx;
   const [list, setList] = useState(data.sponsors.map(s => ({ name: s.name, logoAssetId: s.logoAssetId, logoUrl: s.logoUrl })));
   async function save(next = list) {
@@ -366,7 +366,7 @@ function Sponsors({ ctx }: { ctx: Ctx }) {
 
 // ---------------------------------------------------------------- bidding rules
 
-function Bidding({ ctx }: { ctx: Ctx }) {
+export function Bidding({ ctx }: { ctx: Ctx }) {
   const { data, patchEvent, flash } = ctx, e = data.event, locked = e.hasBids;
   const [mode, setMode] = useState(e.bidMode);
   const [tiers, setTiers] = useState(e.tiers.map(t => ({ below: t.belowMinor === null ? "" : dollarsInput(t.belowMinor), raise: dollarsInput(t.raiseMinor) })));
@@ -412,7 +412,7 @@ function Bidding({ ctx }: { ctx: Ctx }) {
 
 // ---------------------------------------------------------------- donations
 
-function Donations({ ctx }: { ctx: Ctx }) {
+export function Donations({ ctx }: { ctx: Ctx }) {
   const { data, patchEvent, reload, flash } = ctx, e = data.event;
   const [deadline, setDeadline] = useState(toLocalInput(e.donationDeadline ?? e.endsAt, e.timezone));
   const [name, setName] = useState(""), [description, setDescription] = useState("");
@@ -473,35 +473,53 @@ function Donations({ ctx }: { ctx: Ctx }) {
 
 // ---------------------------------------------------------------- participants
 
-function People({ ctx }: { ctx: Ctx }) {
+export function People({ ctx, compact = false }: { ctx: Ctx; compact?: boolean }) {
   const { data, reload, flash } = ctx, e = data.event;
   const [query, setQuery] = useState(""), [code, setCode] = useState<{ name: string; code: string } | null>(null);
   const q = query.trim().toLowerCase();
   const shown = data.participants.filter(p => !q || `${p.name} ${p.business}`.toLowerCase().includes(q));
+  const setCanBid = async (id: string, canBid: boolean) => {
+    const r = await api("PATCH", `/api/v1/host/events/${e.id}/participants/${id}`, { canBid }).catch(() => null);
+    if (r && !r.ok) flash(errorText(r)); reload();
+  };
+  const rejoin = async (id: string, name: string) => {
+    const r = await api("POST", `/api/v1/host/events/${e.id}/participants/${id}/rejoin`).catch(() => null);
+    if (r?.ok) setCode({ name, code: r.data.code }); else flash(r ? errorText(r) : "Connection lost.");
+  };
   return (
-    <>
-      <div className="row between wrap"><h2>Participants · {data.participants.length}</h2>
+    <div className="stack">
+      <div className="row between wrap"><h3>Participants · {data.participants.length}</h3>
         <a className="btn small" href={`/api/v1/host/events/${e.id}/export/participants`}>Export CSV</a></div>
       {code && <div className="notice info stack"><span>Rejoin code for <b>{code.name}</b> (valid 30 minutes, one use):</span><span className="joincode" style={{ fontSize: 32 }}>{code.code}</span>
         <span className="small">On the new phone: open the event, tap “Already joined on another phone?”, and enter this code.</span></div>}
-      <input className="input" type="search" placeholder="Search by name or business" value={query} onChange={x => setQuery(x.target.value)} />
-      {!data.participants.length ? <p className="muted">No one has joined yet. Share the code from “Share & entry”.</p> : (
+      {data.participants.length > 6 && <input className="input" type="search" placeholder="Search by name or business" value={query} onChange={x => setQuery(x.target.value)} />}
+      {!data.participants.length ? <p className="muted small">No one has joined yet. Share your code to get started.</p> : compact ? (
+        <div className="people">
+          {shown.map(p => (
+            <div key={p.id} className="person">
+              <div className="grow"><b>{p.name}</b><div className="small muted">{p.business} · {p.bidCount} bids{p.leadingCount ? ` · leading ${p.leadingCount}` : ""}</div></div>
+              <details className="menu"><summary aria-label={`Options for ${p.name}`}>⋯</summary>
+                <div className="menu-pop">
+                  <label className="check"><input type="checkbox" checked={p.canBid} onChange={x => setCanBid(p.id, x.target.checked)} /> Can bid</label>
+                  <button className="btn small" onClick={() => rejoin(p.id, p.name)}>Rejoin code</button>
+                </div>
+              </details>
+            </div>
+          ))}
+        </div>
+      ) : (
         <div className="card scroll-x"><table className="table">
           <thead><tr><th>Name</th><th>Business</th><th>Joined</th><th>Bids</th><th>Leading</th><th>Donated</th><th>Can bid</th><th /></tr></thead>
           <tbody>{shown.map(p => (
             <tr key={p.id}>
               <td><b>{p.name}</b></td><td>{p.business}</td><td className="small">{fmtClock(p.joinedAt, e.timezone)}</td><td>{p.bidCount}</td><td>{p.leadingCount}</td>
               <td className="money">{p.pledgedMinor ? formatMoney(p.pledgedMinor) : "—"}</td>
-              <td><input type="checkbox" aria-label={`${p.name} can bid`} checked={p.canBid} onChange={async x => {
-                const r = await api("PATCH", `/api/v1/host/events/${e.id}/participants/${p.id}`, { canBid: x.target.checked }).catch(() => null);
-                if (r && !r.ok) flash(errorText(r)); reload(); }} /></td>
-              <td><button className="btn small ghost" onClick={async () => {
-                const r = await api("POST", `/api/v1/host/events/${e.id}/participants/${p.id}/rejoin`).catch(() => null);
-                if (r?.ok) setCode({ name: p.name, code: r.data.code }); else flash(r ? errorText(r) : "Connection lost."); }}>Rejoin code</button></td>
+              <td><input type="checkbox" aria-label={`${p.name} can bid`} checked={p.canBid} onChange={x => setCanBid(p.id, x.target.checked)} /></td>
+              <td><button className="btn small ghost" onClick={() => rejoin(p.id, p.name)}>Rejoin code</button></td>
             </tr>))}</tbody>
         </table></div>
       )}
-    </>
+    </div>
   );
 }
 
@@ -519,7 +537,7 @@ function Results({ ctx }: { ctx: Ctx }) {
   );
 }
 
-function ResultRow({ ctx, item }: { ctx: Ctx; item: Item }) {
+export function ResultRow({ ctx, item }: { ctx: Ctx; item: Item }) {
   const { data, reload, flash } = ctx, tz = data.event.timezone, a = item.award;
   const [choosing, setChoosing] = useState(false), [notes, setNotes] = useState(a?.notes ?? ""), [busy, setBusy] = useState(false);
   useEffect(() => { setNotes(a?.notes ?? ""); }, [a?.revision, a?.notes]);
@@ -581,7 +599,7 @@ function ResultRow({ ctx, item }: { ctx: Ctx; item: Item }) {
 
 // ---------------------------------------------------------------- share
 
-function Share({ ctx }: { ctx: Ctx }) {
+export function Share({ ctx }: { ctx: Ctx }) {
   const { data, patchEvent } = ctx, e = data.event;
   const [origin, setOrigin] = useState(""), [copied, setCopied] = useState(false);
   useEffect(() => setOrigin(location.origin), []);

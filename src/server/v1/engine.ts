@@ -2,14 +2,14 @@ import "server-only";
 import { randomBytes, randomUUID } from "node:crypto";
 import { now, tx, type Db } from "./db";
 import { ApiError, cents, conflict, id, invalid, json, notFound, readJson, sha256, str } from "./http";
-import { participantCookieHeader, participantFrom, requireParticipant, type Participant } from "./auth";
+import { participantCookieHeader, participantFrom, requireParticipant, staffFrom, type Participant } from "./auth";
 import { BID_CAP, increment, minimumNext, PLEDGE_CAP, type Rules, type Tier } from "../../lib/money";
 
 export type EventRow = {
   id: string; org_id: string; join_code: string; name: string; welcome: string; venue: string; winner_instructions: string;
   cover_asset_id: string | null; timezone: string; starts_at: Date; ends_at: Date; access_ends_at: Date;
   status: "draft" | "live"; entry_open: boolean; bid_mode: "tiered" | "fixed"; tiers: Tier[]; fixed_increment_minor: string | null;
-  donations_enabled: boolean; donation_deadline: Date | null; revision: number;
+  donations_enabled: boolean; donation_deadline: Date | null; revision: number; theme: string;
 };
 export type ItemRow = {
   id: string; event_id: string; position: number; title: string; short: string; description: string; category: string; donor: string;
@@ -34,6 +34,17 @@ export async function eventByCode(db: Db, code: string, lock = ""): Promise<Even
   return row;
 }
 
+/** Live events for everyone; drafts only for signed-in staff of the same organization (read-only preview). */
+async function viewableEvent(db: Db, request: Request, code: string): Promise<{ e: EventRow; preview: boolean }> {
+  const normalized = code.toUpperCase();
+  if (!/^[A-HJ-NP-Z2-9]{6}$/.test(normalized)) throw notFound("This event");
+  const e = (await db.query<EventRow>("SELECT * FROM events WHERE join_code = $1", [normalized])).rows[0];
+  if (!e) throw notFound("This event");
+  if (e.status === "live") return { e, preview: false };
+  try { const staff = await staffFrom(db, request); if (staff.orgId === e.org_id) return { e, preview: true }; } catch { /* not staff */ }
+  throw notFound("This event");
+}
+
 /** Display-only rollup. Each item's own phase is what decides bidding. */
 export function eventPhase(e: EventRow, items: ItemRow[], at: Date): "upcoming" | "open" | "closed" {
   const live = items.filter(i => i.ready);
@@ -49,8 +60,8 @@ type AwardJoin = { item_id: string; status: string; participant_id: string | nul
 
 export async function snapshot(request: Request, code: string): Promise<Response> {
   return json(await tx(async db => {
-    const e = await eventByCode(db, code), at = await now(db);
-    const me = await participantFrom(db, request, e.id);
+    const { e, preview } = await viewableEvent(db, request, code), at = await now(db);
+    const me = preview ? null : await participantFrom(db, request, e.id);
     const items = (await db.query<ItemRow>("SELECT * FROM items WHERE event_id = $1 AND ready ORDER BY position, created_at", [e.id])).rows;
     const standings = new Map((await db.query<StandingJoin>(
       `SELECT s.item_id, s.current_minor, s.bid_count, s.leader_id, p.display_name AS leader_name, p.business_name AS leader_business
@@ -77,9 +88,9 @@ export async function snapshot(request: Request, code: string): Promise<Response
     const rules = rulesOf(e);
     const donationsOpen = e.donations_enabled && e.donation_deadline !== null && at < e.donation_deadline;
     return {
-      serverNow: at,
+      serverNow: at, preview,
       event: {
-        id: e.id, code: e.join_code, name: e.name, welcome: e.welcome, venue: e.venue, timezone: e.timezone,
+        id: e.id, code: e.join_code, name: e.name, welcome: e.welcome, venue: e.venue, timezone: e.timezone, theme: e.theme,
         coverUrl: assetUrl(e.cover_asset_id), startsAt: e.starts_at, endsAt: e.ends_at, accessEndsAt: e.access_ends_at,
         entryOpen: e.entry_open && at < e.ends_at, phase: eventPhase(e, items, at),
         sponsors: sponsors.map(s => ({ name: s.name, logoUrl: assetUrl(s.logo_asset_id) })),

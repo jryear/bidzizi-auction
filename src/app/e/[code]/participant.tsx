@@ -12,8 +12,8 @@ type Item = {
   award: { status: string; winner: { name: string; business: string } | null; amountMinor: number | null; isMe: boolean } | null;
 };
 type Snapshot = {
-  serverNow: string;
-  event: { id: string; code: string; name: string; welcome: string; venue: string; timezone: string; coverUrl: string | null; startsAt: string; endsAt: string;
+  serverNow: string; preview?: boolean;
+  event: { id: string; code: string; name: string; welcome: string; venue: string; timezone: string; theme?: string; coverUrl: string | null; startsAt: string; endsAt: string;
     entryOpen: boolean; phase: "upcoming" | "open" | "closed"; sponsors: { name: string; logoUrl: string | null }[];
     donations: { enabled: boolean; open: boolean; deadline: string | null; capMinor: number; recipients: { id: string; name: string; description: string; logoUrl: string | null }[] } };
   items: Item[];
@@ -92,7 +92,7 @@ export default function Participant({ code }: { code: string }) {
   const serverNow = nowMs + offsetMs;
 
   if (missing) return (
-    <main className="phone"><div className="screen" style={{ justifyContent: "center", textAlign: "center" }}>
+    <main className="phone" data-theme={snap?.event.theme}><div className="screen" style={{ justifyContent: "center", textAlign: "center" }}>
       <h1>Event not found</h1><p className="muted">This event isn't available. Check the code with the host.</p>
       <a className="btn primary" href="/join">Enter a code</a></div></main>
   );
@@ -105,7 +105,7 @@ export default function Participant({ code }: { code: string }) {
   const attention = snap.items.some(i => i.phase === "open" && i.myBidCount > 0 && !i.leader?.isMe) || snap.items.some(i => i.award?.isMe);
 
   return (
-    <main className="phone">
+    <main className="phone" data-theme={snap?.event.theme}>
       <header className="pass">
         <span className="mono" aria-hidden="true">{initials(me.businessName)}</span>
         <div className="who"><b>{me.businessName}</b><span>{me.displayName}</span></div>
@@ -148,6 +148,7 @@ export default function Participant({ code }: { code: string }) {
 // ---------------------------------------------------------------- join
 
 function JoinForm({ snap, code, onJoined }: { snap: Snapshot; code: string; onJoined: () => void }) {
+  if (snap.preview) return <PreviewCatalog snap={snap} />;
   const key = `bz_join_${code}`;
   const [name, setName] = useState(""), [business, setBusiness] = useState("");
   const [error, setError] = useState(""), [busy, setBusy] = useState(false), [rejoin, setRejoin] = useState(false), [rejoinCode, setRejoinCode] = useState("");
@@ -175,7 +176,7 @@ function JoinForm({ snap, code, onJoined }: { snap: Snapshot; code: string; onJo
   }
   const e = snap.event;
   return (
-    <main className="phone">
+    <main className="phone" data-theme={snap?.event.theme}>
       <div className="screen">
         {e.coverUrl && <div className="cover"><img src={e.coverUrl} alt="" /></div>}
         <div className="stack" style={{ gap: 6 }}>
@@ -209,6 +210,19 @@ function JoinForm({ snap, code, onJoined }: { snap: Snapshot; code: string; onJo
   );
 }
 
+/** Staff preview of a draft: the real catalog, with joining off until the event goes live. */
+function PreviewCatalog({ snap }: { snap: Snapshot }) {
+  return (
+    <main className="phone" data-theme={snap.event.theme}>
+      <p className="notice info" style={{ borderRadius: 0 }}>Preview — only you can see this. People can join once you go live.</p>
+      <div className="screen">
+        {snap.event.coverUrl && <div className="cover"><img src={snap.event.coverUrl} alt="" /></div>}
+        <Catalog snap={snap} serverNow={new Date(snap.serverNow).getTime()} onOpen={() => {}} />
+      </div>
+    </main>
+  );
+}
+
 // ---------------------------------------------------------------- lists
 
 function Catalog({ snap, serverNow, onOpen }: { snap: Snapshot; serverNow: number; onOpen: (id: string) => void }) {
@@ -226,7 +240,7 @@ function Catalog({ snap, serverNow, onOpen }: { snap: Snapshot; serverNow: numbe
       {snap.items.some(i => i.award?.isMe) && <WonBanner snap={snap} />}
       {snap.items.length > 4 && <input className="input" type="search" placeholder="Search items" value={query} onChange={x => setQuery(x.target.value)} aria-label="Search items" />}
       {categories.length > 1 && (
-        <div className="picks" role="group" aria-label="Category">
+        <div className="chips" role="group" aria-label="Category">
           <button aria-pressed={!category} onClick={() => setCategory("")}>All</button>
           {categories.map(c => <button key={c} aria-pressed={category === c} onClick={() => setCategory(c)}>{c}</button>)}
         </div>

@@ -5,7 +5,10 @@ import { now, tx, type Db } from "./db";
 import { staffFrom, type Staff } from "./auth";
 import { cents, conflict, id, invalid, json, notFound, readJson, sameOrigin, sha256, str, when } from "./http";
 import { assetUrl, closesOf, eventPhase, opensOf, phaseOf, rulesOf, type EventRow, type ItemRow } from "./engine";
-import { DEFAULT_TIERS, formatMoney, minimumNext, PLEDGE_CAP, validTiers } from "../../lib/money";
+import { DEFAULT_TIERS, formatMoney, minimumNext, validTiers } from "../../lib/money";
+import { TEMPLATES, THEMES } from "../../lib/templates";
+
+const THEME_IDS: string[] = THEMES.map(t => t.id);
 
 const CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const code = (length: number) => Array.from({ length }, () => CODE_ALPHABET[randomInt(CODE_ALPHABET.length)]).join("");
@@ -75,11 +78,24 @@ export async function createEvent(request: Request): Promise<Response> {
   const timezone = str(input.timezone ?? "America/Los_Angeles", 100);
   try { new Intl.DateTimeFormat("en-US", { timeZone: timezone }); } catch { throw invalid("Choose a valid time zone."); }
   if (endsAt <= startsAt) throw invalid("The end must be after the start.");
+  const template = input.template === undefined ? TEMPLATES.find(t => t.id === "blank")! : TEMPLATES.find(t => t.id === input.template);
+  if (!template) throw invalid();
+  // One transaction: an event never appears half-built.
   return json(await staffTx(request, (db, staff) => once(db, staff, requestId, "create-event", async () => {
     const row = (await db.query<{ id: string }>(
-      `INSERT INTO events (org_id, join_code, name, timezone, starts_at, ends_at, access_ends_at, tiers, created_by)
-       VALUES ($1, $2, $3, $4, $5, $6, $6::timestamptz + interval '7 days', $7, $8) RETURNING id`,
-      [staff.orgId, await newJoinCode(db), name, timezone, startsAt, endsAt, JSON.stringify(DEFAULT_TIERS), staff.id])).rows[0];
+      `INSERT INTO events (org_id, join_code, name, timezone, starts_at, ends_at, access_ends_at, tiers, created_by, theme, welcome, winner_instructions,
+                           donations_enabled, donation_deadline)
+       VALUES ($1, $2, $3, $4, $5, $6, $6::timestamptz + interval '7 days', $7, $8, $9, $10, $11, $12, CASE WHEN $12 THEN $6::timestamptz END) RETURNING id`,
+      [staff.orgId, await newJoinCode(db), name, timezone, startsAt, endsAt, JSON.stringify(DEFAULT_TIERS), staff.id, template.theme, template.welcome,
+       template.winnerInstructions, template.donations])).rows[0];
+    for (const [position, item] of template.items.entries()) {
+      const created = (await db.query<{ id: string }>(
+        "INSERT INTO items (event_id, org_id, position, title, short, category, opening_minor, ready) VALUES ($1, $2, $3, $4, $5, $6, $7, true) RETURNING id",
+        [row.id, staff.orgId, position, item.title, item.short, item.category, item.openingMinor])).rows[0];
+      await db.query("INSERT INTO standings (item_id, event_id) VALUES ($1, $2)", [created.id, row.id]);
+    }
+    for (const [position, recipient] of template.recipients.entries())
+      await db.query("INSERT INTO recipients (event_id, org_id, position, name) VALUES ($1, $2, $3, $4)", [row.id, staff.orgId, position, recipient]);
     return { id: row.id };
   })), 201);
 }
@@ -96,9 +112,9 @@ export async function duplicateEvent(request: Request, eventId: string): Promise
     const moved = (d: Date | null) => d === null ? null : new Date(d.getTime() + shift);
     const copy = (await db.query<{ id: string }>(
       `INSERT INTO events (org_id, join_code, name, welcome, venue, winner_instructions, cover_asset_id, timezone, starts_at, ends_at, access_ends_at,
-                           entry_open, bid_mode, tiers, fixed_increment_minor, donations_enabled, donation_deadline, created_by)
+                           entry_open, bid_mode, tiers, fixed_increment_minor, donations_enabled, donation_deadline, created_by, theme)
        SELECT org_id, $2, $3, welcome, venue, winner_instructions, cover_asset_id, timezone, $4, $5, $6,
-              true, bid_mode, tiers, fixed_increment_minor, donations_enabled, $7, $8 FROM events WHERE id = $1 RETURNING id`,
+              true, bid_mode, tiers, fixed_increment_minor, donations_enabled, $7, $8, theme FROM events WHERE id = $1 RETURNING id`,
       [source.id, await newJoinCode(db), name, startsAt, moved(source.ends_at), moved(source.access_ends_at), moved(source.donation_deadline), staff.id])).rows[0];
     const items = (await db.query<ItemRow>("SELECT * FROM items WHERE event_id = $1 ORDER BY position", [source.id])).rows;
     for (const i of items) {
@@ -145,7 +161,7 @@ export async function workspace(request: Request, eventId: string): Promise<Resp
         coverAssetId: e.cover_asset_id, coverUrl: assetUrl(e.cover_asset_id), timezone: e.timezone,
         startsAt: e.starts_at, endsAt: e.ends_at, accessEndsAt: e.access_ends_at, status: e.status, entryOpen: e.entry_open,
         bidMode: e.bid_mode, tiers: e.tiers, fixedIncrementMinor: num(e.fixed_increment_minor),
-        donationsEnabled: e.donations_enabled, donationDeadline: e.donation_deadline, revision: e.revision,
+        donationsEnabled: e.donations_enabled, donationDeadline: e.donation_deadline, revision: e.revision, theme: e.theme,
         phase: e.status === "draft" ? "draft" : eventPhase(e, items, at), hasBids: bids.length > 0,
       },
       items: items.map(i => {
@@ -217,6 +233,7 @@ export async function updateEvent(request: Request, eventId: string): Promise<Re
       next.status = input.status;
     }
     if ("entryOpen" in input) next.entry_open = input.entryOpen === true;
+    if ("theme" in input) { if (!THEME_IDS.includes(input.theme as string)) throw invalid(); next.theme = input.theme as string; }
     if ("bidMode" in input || "tiers" in input || "fixedIncrementMinor" in input) {
       if (hasBids) throw conflict("Bid increments can't change after bidding has begun.");
       if ("bidMode" in input) { if (input.bidMode !== "tiered" && input.bidMode !== "fixed") throw invalid(); next.bid_mode = input.bidMode; }
@@ -230,10 +247,10 @@ export async function updateEvent(request: Request, eventId: string): Promise<Re
     await db.query(
       `UPDATE events SET name=$2, welcome=$3, venue=$4, winner_instructions=$5, cover_asset_id=$6, timezone=$7, starts_at=$8, ends_at=$9,
               access_ends_at=$10, status=$11, entry_open=$12, bid_mode=$13, tiers=$14, fixed_increment_minor=$15, donations_enabled=$16,
-              donation_deadline=$17, revision = revision + 1, updated_at = now() WHERE id = $1`,
+              donation_deadline=$17, theme=$18, revision = revision + 1, updated_at = now() WHERE id = $1`,
       [e.id, next.name, next.welcome, next.venue, next.winner_instructions, next.cover_asset_id, next.timezone, next.starts_at, next.ends_at,
        next.access_ends_at, next.status, next.entry_open, next.bid_mode, JSON.stringify(next.tiers), next.fixed_increment_minor,
-       next.donations_enabled, next.donation_deadline]);
+       next.donations_enabled, next.donation_deadline, next.theme]);
     return { ok: true, revision: e.revision + 1 };
   }));
 }
