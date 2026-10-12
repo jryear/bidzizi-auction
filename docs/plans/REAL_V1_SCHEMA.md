@@ -1,6 +1,6 @@
 # Real V1 production schema — design for review (revision 2)
 
-**Status: NOT APPROVED.**
+**Status: SUPERSEDED (2026-10-12) by [REAL_V1_PRODUCT.md](REAL_V1_PRODUCT.md) and `migrations/prod/`.** Kept as history. The simplified host/join model removes the organization-gate, guard, business-membership and catalog-version machinery below. The bid engine guarantees in its guarantee map still hold.
 - Product clarification (2026-10-12, after revision-2 review): the organization sets attendee access end per event; this replaces the fixed 30-day session proposal. The independent technical findings remain open.
 - Revision 1 (`10c36fa`): the independent Codex review ([REAL_V1_SCHEMA_REVIEW.md](REAL_V1_SCHEMA_REVIEW.md)) found **changes required** (R1–R8). An earlier line in revision 1 claimed "accepted after revision"; that overstated the reviewer's position and is withdrawn.
 - Revision 2 (this document) answers each finding; see [§ Finding resolutions](#finding-resolutions).
