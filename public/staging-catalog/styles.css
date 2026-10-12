@@ -26,3 +26,20 @@
 .bids .tk-main{grid-template-columns:1fr}.bids .tk-t{min-width:0}
 
 .donation-total .donation-unit{display:block;font:500 13px/1.4 var(--sans);margin-top:6px;white-space:normal}
+
+/* One lot ticket, with owned receipt history and unresolved attempts kept separate. */
+.bid-lot-link{display:block;color:inherit;text-decoration:none;border-radius:4px}
+.bid-lot-link:hover h3{text-decoration:underline;text-underline-offset:3px}
+.bid-lot-link:focus-visible,.bid-history summary:focus-visible,.bid-recovery:focus-visible{outline:2px solid var(--cobalt);outline-offset:4px}
+.bid-standing{display:block;margin-top:8px;font:650 13px/1.4 var(--sans)}
+.bid-history{margin-top:12px;border-top:1px solid var(--line)}
+.bid-history summary{min-height:44px;align-content:center;cursor:pointer;font:600 12px/1.4 var(--sans);color:var(--ink-2)}
+.bid-history summary::marker{color:var(--cobalt)}
+.bid-history ol{list-style:none;padding:0;margin:0}
+.bid-history li{padding:9px 0;border-top:1px solid var(--line);overflow-wrap:anywhere}
+.bid-history li strong{display:block;font:600 12px/1.5 var(--sans);font-variant-numeric:tabular-nums}
+.bid-history li small{display:block;margin-top:3px}
+.bid-attempt{margin-top:12px;padding:10px;border:1px solid var(--amber);border-radius:10px;background:var(--amber-bg);overflow-wrap:anywhere}
+.bid-attempt strong{font:650 12px/1.5 var(--sans)}
+.bid-attempt p{font-size:12px}
+.bid-recovery{display:inline-block;min-height:44px;align-content:center;font:600 12px/1.4 var(--sans);color:var(--ink);text-underline-offset:3px}

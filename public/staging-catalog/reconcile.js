@@ -4,7 +4,7 @@ const key=node=>node.nodeType===1?(node.id?`id:${node.id}`:node.hasAttribute('da
 const compatible=(node,next)=>node&&node.nodeType===next.nodeType&&(node.nodeType!==1||(node.localName===next.localName&&node.namespaceURI===next.namespaceURI&&key(node)===key(next)));
 function patch(node,next){
  if(node.nodeType!==1){if(node.nodeValue!==next.nodeValue)node.nodeValue=next.nodeValue;return;}
- for(const attr of [...node.attributes])if(!next.hasAttribute(attr.name))node.removeAttribute(attr.name);
+ for(const attr of [...node.attributes])if(!next.hasAttribute(attr.name)&&!(attr.name==='open'&&node.localName==='details'&&node.classList.contains('bid-history')))node.removeAttribute(attr.name);
  for(const attr of next.attributes)if(node.getAttribute(attr.name)!==attr.value)node.setAttribute(attr.name,attr.value);
  children(node,next);
  // Setting an already matching value resets the caret on some mobile browsers.

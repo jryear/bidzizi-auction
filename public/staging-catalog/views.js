@@ -74,8 +74,56 @@ export function eventView(){return {title:'Event',chrome:'tabs',tab:'event',html
 const featureNote=(error,stale)=>error?`<div class="catalog-message" role="status"><p>${esc(error)}</p><button class="btn quiet" data-action="refresh-collections">Check current server view</button></div>`:stale?'<p class="catalog-note" role="status">This is the last confirmed view. Reconnect to refresh.</p>':'';
 function watchRecovery(){return [...collections.intents.values()].map(p=>`<div class="catalog-message watch-recovery" role="status"><b>Lot ${esc(lotById(p.lotId)?.number||'')} · watching ${collections.pending.has(p.lotId)?'pending':'unconfirmed'}</b><p>${esc(p.error||'Waiting for the original server request. Watching does not place a bid.')}</p><button class="btn quiet" data-action="watch-check" data-watch="${esc(p.lotId)}" ${collections.pending.has(p.lotId)?'disabled':''}>Check original request</button>${p.notFound?`<button class="btn quiet" data-action="watch-retry" data-watch="${esc(p.lotId)}">Retry original request</button>`:''}</div>`).join('');}
 export function watchingView(){const list=lots.filter(l=>isWatched(l.id));return {title:'Watching',chrome:'tabs',tab:'watching',html:`${pass()}${banners()}<main id="main" class="lots watching"><div class="page-head"><h1 tabindex="-1">Watching</h1><p>Lots you've saved. Saving a lot doesn't place a bid.</p></div>${featureNote(collections.watchError,collections.stale)}${collections.watchDenied?'':watchRecovery()}${collections.watch?list.length?`<div class="cards">${list.map(card).join('')}</div>`:'<div class="empty big"><p>No lots saved yet.</p><a class="btn primary" href="#/lots" data-nav>Browse the lots</a></div>':!collections.watchError?'<p class="catalog-note" role="status">Checking your saved lots…</p>':''}${asOf()}</main>`};}
-const recordLabel=s=>({leading:"You're leading",outbid:'Outbid',rejected:'Bid not placed','closed-leading':'Closed · your business led','closed-outbid':'Closed · outbid'})[s];
-export function bidsView(){const h=collections.history,rows=h?.bids||[],unresolved=collections.historyDenied?[]:[...bidder.entries].filter(([,e])=>e.intent&&!e.receipt);const pending=unresolved.map(([id,e])=>`<article class="ticket${money(e.intent.amountMinor).length>9?' money-long':''}" data-anchor="${esc(id)}"><a class="tk-main" href="#/lot/${esc(id)}" data-nav><div class="tk-t"><span class="lbl">Lot ${esc(lotById(id)?.number||'')}</span><h3>${esc(lotById(id)?.title||'Original bid')}</h3><p>${e.mode==='pending'?'Sending · waiting for receipt':'Unconfirmed · check the original request'}</p></div></a><div class="tk-stub"><span class="amt">${money(e.intent.amountMinor)}</span></div></article>`).join('');const section=(title,states)=>{const items=rows.filter(b=>states.includes(b.recordedState));return items.length?`<section class="b-sec"><h2>${title}</h2><div class="tickets">${items.map(b=>`<article class="ticket${money(b.receipt.amountMinor).length>9||money(b.standing.currentAmountMinor).length>9?' money-long':''} t-${b.recordedState.includes('outbid')?'red':b.recordedState==='rejected'?'dashed':'green'}" data-anchor="${esc(b.receipt.requestId)}"><a class="tk-main" href="#/lot/${esc(b.lot.id)}" data-nav><div class="tk-t"><span class="lbl">Lot ${esc(b.lot.number)}</span><h3>${esc(b.lot.title)}</h3><b>${esc(recordLabel(b.recordedState))}</b><p>${b.receipt.status==='accepted'?(b.recordedState.startsWith('closed-')?'Your bid was durably recorded. This is closed recorded standing.':'Your bid was durably recorded. Standing can change.'):'This request was rejected; no bid was placed.'}</p><small>${esc(timestamp(b.receipt.decidedAt))}</small></div></a><div class="tk-stub"><span class="lbl">${b.receipt.status==='accepted'?'Your bid':'Attempted'}</span><span class="amt">${money(b.receipt.amountMinor)}</span>${b.standing.currentAmountMinor!==null?`<span class="tk-cur">Recorded top ${money(b.standing.currentAmountMinor)}</span>`:''}</div></article>`).join('')}</div></section>`:'';};return {title:'My bids',chrome:'tabs',tab:'bids',html:`${pass()}${banners()}<main id="main" class="bids"><div class="page-head"><h1 tabindex="-1">My bids</h1><p>Your requests · business standing is shared.</p></div>${featureNote(collections.historyError,collections.stale)}${pending?`<section class="b-sec"><h2>Needs confirmation</h2><div class="tickets">${pending}</div></section>`:''}${section('Needs your attention',['outbid','rejected'])}${section('In play',['leading'])}${section('Closed recorded standing',['closed-leading','closed-outbid'])}${h&&!rows.length&&!pending?'<div class="empty big"><p>You have no recorded bids for this event.</p><a class="btn primary" href="#/lots" data-nav>Browse the lots</a></div>':''}${!h&&!collections.historyError?'<p class="catalog-note" role="status">Checking your server receipts…</p>':''}<p class="catalog-note">${currencyLabel()}. Closed standing is not an award or settlement.</p>${asOf()}</main>`};}
+const recordLabel=s=>({leading:'Your business is leading',outbid:'Outbid',rejected:'Bid not placed','closed-leading':'Closed · your business led','closed-outbid':'Closed · outbid'})[s];
+// Group only the already-authorized owned history. Never turn an attempt into a bid.
+function bidTickets(rows,unresolved){
+ const groups=new Map();
+ for(const row of rows){
+  if(!groups.has(row.lot.id))groups.set(row.lot.id,{lot:row.lot,requests:[],pending:null});
+  groups.get(row.lot.id).requests.push(row);
+ }
+ for(const [id,entry] of unresolved){
+  if(!groups.has(id))groups.set(id,{lot:lotById(id)||{id,number:'',title:'Original bid'},requests:[],pending:null});
+  const group=groups.get(id),p=entry.intent;
+  // History can confirm the original request before the detail receipt read returns.
+  const known=group.requests.some(({receipt:r})=>r.requestId===p.requestId&&r.businessId===p.businessId&&r.amountMinor===p.amountMinor&&r.rulesetId===p.rulesetId);
+  if(!known)group.pending=entry;
+ }
+ return [...groups.values()].map(group=>{
+  group.requests.sort((a,b)=>Date.parse(b.receipt.decidedAt)-Date.parse(a.receipt.decidedAt)||b.receipt.amountMinor-a.receipt.amountMinor||a.receipt.requestId.localeCompare(b.receipt.requestId));
+  group.record=group.requests.find(row=>row.receipt.status==='accepted')||group.requests[0];
+  return group;
+ });
+}
+function bidHistory(requests){
+ return `<details class="bid-history" data-key="bid-history:${esc(bidder.context?.person.id)}:${esc(event.id)}:${esc(requests[0].lot.id)}"><summary>Request history (${requests.length})</summary><ol>${requests.map(({receipt:r})=>`<li data-owned-request="${esc(r.requestId)}"><strong>${r.status==='accepted'?'Recorded':'Not placed'} · ${money(r.amountMinor)}</strong><small>${esc(bidder.context?.businesses.find(b=>b.id===r.businessId)?.name||'Original business')} · ${esc(timestamp(r.decidedAt))}</small></li>`).join('')}</ol></details>`;
+}
+function bidTicket({lot,record:b,requests,pending}){
+ const accepted=b?.receipt.status==='accepted',tone=pending?'amber':b?.recordedState.includes('outbid')?'red':accepted?'green':'dashed';
+ const amount=b?.receipt.amountMinor??pending.intent.amountMinor,top=b?.standing.currentAmountMinor;
+ const long=money(amount).length>9||money(top).length>9;
+ const latest=requests[0],rejected=accepted&&latest.receipt.status==='rejected';
+ let attempt='';
+ if(pending){
+  const label=pending.mode==='pending'?'Sending':pending.mode==='not-recorded'?'Not recorded':'Unconfirmed';
+  const note=pending.mode==='not-recorded'?'No receipt found. Check the original bid before trying again.':'It may or may not have been recorded. Check the original bid before trying again.';
+  attempt=`<div class="bid-attempt" role="status" data-key="attempt-${esc(pending.intent.requestId)}"><strong>${label} · attempted ${money(pending.intent.amountMinor)}</strong><p>${note}</p><a class="bid-recovery" href="#/lot/${esc(lot.id)}" data-nav>Open lot to check original bid</a></div>`;
+ }else if(rejected){
+  attempt=`<div class="bid-attempt"><strong>Latest request not placed</strong><p>Not placed · ${money(latest.receipt.amountMinor)}. Your accepted bid is unchanged.</p></div>`;
+ }
+ const label=b?recordLabel(b.recordedState):pending.mode==='not-recorded'?'No recorded bid':'Awaiting confirmation';
+ const note=accepted?(b.recordedState.startsWith('closed-')?'Latest accepted bid. Closed standing is not an award.':'Latest accepted bid. Standing can change.'):b?'This request was rejected; no bid was placed.':'No accepted bid confirmed for this request.';
+ return `<article class="ticket${long?' money-long':''} t-${tone}" data-anchor="${esc(lot.id)}" data-bid-lot="${esc(lot.id)}"><div class="tk-main"><div class="tk-t"><a class="bid-lot-link" href="#/lot/${esc(lot.id)}" data-nav><span class="lbl">Lot ${esc(lot.number)}</span><h3>${esc(lot.title)}</h3></a><b class="bid-standing">${esc(label)}</b><p>${note}</p>${b?`<small>${esc(timestamp(b.receipt.decidedAt))}</small>`:''}${attempt}${requests.length?bidHistory(requests):''}</div></div><div class="tk-stub"><span class="lbl">${accepted?'Your bid':'Attempted'}</span><span class="amt">${money(amount)}</span>${top!==null&&top!==undefined?`<span class="tk-cur">Recorded top ${money(top)}</span>`:''}</div></article>`;
+}
+export function bidsView(){
+ // A context change dispatches a render before the collections reset completes.
+ // Never render the previous actor's receipt packet in that intermediate frame.
+ const h=collections.history?.person.id===bidder.context?.person.id?collections.history:null,rows=h?.bids||[];
+ const unresolved=collections.historyDenied||!bidder.context?[]:[...bidder.entries].filter(([,e])=>e.intent&&!e.receipt);
+ const tickets=bidTickets(rows,unresolved);
+ const section=(title,match)=>{const items=tickets.filter(match);return items.length?`<section class="b-sec"><h2>${title}</h2><div class="tickets">${items.map(bidTicket).join('')}</div></section>`:'';};
+ return {title:'My bids',chrome:'tabs',tab:'bids',html:`${pass()}${banners()}<main id="main" class="bids"><div class="page-head"><h1 tabindex="-1">My bids</h1><p>One ticket per lot · your requests, shared business standing.</p></div>${featureNote(collections.historyError,collections.stale)}${section('Needs confirmation',t=>!!t.pending)}${section('Needs your attention',t=>!t.pending&&['outbid','rejected'].includes(t.record.recordedState))}${section('In play',t=>!t.pending&&t.record.recordedState==='leading')}${section('Closed recorded standing',t=>!t.pending&&t.record.recordedState.startsWith('closed-'))}${h&&!tickets.length?'<div class="empty big"><p>You have no recorded bids for this event.</p><a class="btn primary" href="#/lots" data-nav>Browse the lots</a></div>':''}${!h&&!collections.historyError?'<p class="catalog-note" role="status">Checking your server receipts…</p>':''}<p class="catalog-note">${currencyLabel()}. Closed standing is not an award or settlement.</p>${asOf()}</main>`};
+}
 let donationEntryHTML='';
 export function donateView(){
  const d=donation,c=d.context,receipt=d.receipt,review=d.review;
