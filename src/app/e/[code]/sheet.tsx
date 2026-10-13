@@ -79,7 +79,7 @@ export function BidSheet({ item, me, code, pendingKey, initialAmount, offline, o
       if (!r.ok) { setState("unconfirmed"); return; }
       if (r.data.receipt) settle(r.data.receipt);
       else submit(true); // Never recorded: safe to resend the same request.
-    } catch { setState("unconfirmed"); notify({ tone: "ink", title: "Still offline", body: "We'll check again when you tap Check status." }); }
+    } catch { setState("unconfirmed"); notify({ tone: "ink", title: "Still offline", body: "Tap Check status once you're connected." }); }
   }
 
   const onPointerDown = (e: React.PointerEvent) => { if (busy || state === "landed") return; dragStart.current = e.clientY; (e.target as HTMLElement).setPointerCapture?.(e.pointerId); };
@@ -98,20 +98,19 @@ export function BidSheet({ item, me, code, pendingKey, initialAmount, offline, o
           </div>
         </div>
 
-        {state === "landed" && landed ? <Landed receipt={landed} item={item} business={me.businessName} onDone={finish} /> : (
+        {state === "landed" && landed ? <Landed receipt={landed} item={item} onDone={finish} /> : (
           <>
             <div className="sheet-scroll">
               <div className="lotmini">
                 <span className="lm-thumb">{item.imageUrl ? <img src={item.imageUrl} alt="" /> : <ItemArt item={item} size="sm" />}</span>
-                <div><span className="lbl">Item {String(item.position + 1).padStart(2, "0")}</span><p>{item.title}</p></div>
+                <div><p>{item.title}</p><span className="lm-for"><Mark name={me.businessName} you size={18} />Bidding as <b>{me.businessName}</b></span></div>
               </div>
-              <div className="forbiz"><Mark name={me.businessName} you size={44} /><div><span className="lbl">Bidding for</span><b>{me.businessName}</b><small>{me.displayName}</small></div></div>
 
               {state === "unconfirmed" ? (
                 <div className="result t-dashed" role="status">
                   <span className="r-ic"><IAlert size={22} /></span>
                   <h3>We couldn&rsquo;t confirm your {formatMoney(request.current?.amountMinor ?? amount)} bid</h3>
-                  <p>The connection dropped before the answer arrived. It may or may not have been placed. Checking asks the server about this exact bid; it can&rsquo;t place a second one.</p>
+                  <p>The connection dropped before we heard back. Checking won&rsquo;t place a second bid.</p>
                   {offline && <p className="r-note"><IWifiOff size={16} /> You&rsquo;re offline. Check again once you&rsquo;re connected.</p>}
                 </div>
               ) : (
@@ -138,14 +137,7 @@ export function BidSheet({ item, me, code, pendingKey, initialAmount, offline, o
                       <h3>Not placed</h3><p>{message} {item.minimumNextMinor ? <>The minimum is now <b>{formatMoney(item.minimumNextMinor)}</b>.</> : null}</p>
                     </div>
                   ) : (
-                    <div className="commit-box">
-                      <h3>What this does</h3>
-                      <ul>
-                        <li>Bids <b className="amt">{valid ? formatMoney(amount) : "—"}</b> for <b>{me.businessName}</b>.</li>
-                        <li>{item.currentMinor === null ? <>No bids yet; yours would be the first.</> : <>The top bid is <b className="amt">{formatMoney(item.currentMinor)}</b>{item.leader ? ` by ${item.leader.business}` : ""}.</>}</li>
-                        <li className="note">You lead only once the server confirms it. If someone bids first, nothing is placed and you&rsquo;ll see the new minimum.</li>
-                      </ul>
-                    </div>
+                    <p className="sheet-note">{item.currentMinor === null ? "No bids yet." : <>Top bid <b className="amt">{formatMoney(item.currentMinor)}</b>{item.leader ? <> by {item.leader.business}</> : null}.</>} You&rsquo;re leading once it&rsquo;s confirmed.</p>
                   )}
                 </>
               )}
@@ -154,7 +146,7 @@ export function BidSheet({ item, me, code, pendingKey, initialAmount, offline, o
               {state === "unconfirmed"
                 ? <button type="button" className="btn primary block lg" onClick={check}>Check status</button>
                 : <button type="button" className={`btn primary block lg${busy ? " sending" : ""}`} disabled={!valid || busy || offline} onClick={() => submit()}>
-                    {busy ? <><span className="spinner" aria-hidden="true" />Sending your bid…</> : offline ? "Offline — reconnecting" : `Bid ${valid ? formatMoney(amount) : ""}`}
+                    {busy ? <><span className="spinner" aria-hidden="true" />Sending…</> : offline ? "Offline — reconnecting" : `Bid ${valid ? formatMoney(amount) : ""}`}
                   </button>}
             </div>
           </>
@@ -165,14 +157,14 @@ export function BidSheet({ item, me, code, pendingKey, initialAmount, offline, o
 }
 
 /** The moment a bid lands: confirmed by the server, so it is allowed to feel good. */
-function Landed({ receipt, item, business, onDone }: { receipt: Receipt; item: Item; business: string; onDone: () => void }) {
+function Landed({ receipt, item, onDone }: { receipt: Receipt; item: Item; onDone: () => void }) {
   return (
     <div className="landed" role="status" aria-live="assertive">
       <div className="burst" aria-hidden="true">{Array.from({ length: 14 }, (_, i) => <i key={i} style={{ "--a": `${i * (360 / 14)}deg`, "--d": `${60 + (i % 3) * 18}px` } as CSSProperties} />)}</div>
       <span className="landed-check"><ICheck size={44} /></span>
       <h3>You&rsquo;re leading</h3>
       <b className="amt landed-amt">{formatMoney(receipt.amountMinor)}</b>
-      <p>On <b>{item.title}</b> for {business}. Recorded {fmtClock(receipt.decidedAt ?? new Date())}.</p>
+      <p>{item.title} · {fmtClock(receipt.decidedAt ?? new Date())}</p>
       <button type="button" className="btn quiet" onClick={onDone}>Done</button>
     </div>
   );
@@ -192,8 +184,8 @@ export function ResumePending({ code, pendingKey, onResolved }: { code: string; 
       if (!r.ok) return;
       localStorage.removeItem(pendingKey);
       if (r.data.receipt?.accepted) { appendLog(code, pending.itemId, { amountMinor: pending.amountMinor, at: r.data.receipt.decidedAt ?? new Date().toISOString(), kind: "mine" }); report.current(`Your ${formatMoney(pending.amountMinor)} bid went through`, true); }
-      else if (r.data.receipt) report.current("Your last bid wasn't placed", false);
-      else report.current("Your last bid didn't reach us. Nothing was placed.", false);
+      else if (r.data.receipt) report.current(`Your ${formatMoney(pending.amountMinor)} bid wasn’t placed`, false);
+      else report.current(`Your ${formatMoney(pending.amountMinor)} bid didn’t reach us. Nothing was placed.`, false);
     }).catch(() => {});
   }, [code, pendingKey]);
   return null;

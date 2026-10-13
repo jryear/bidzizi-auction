@@ -39,21 +39,28 @@ export function useSteps(ctx: SetupCtx, select: (s: Sel, screen?: Screen) => voi
   ];
 }
 
-export function Checklist({ steps }: { steps: Step[] }) {
+export function Checklist({ steps, startOpen = false }: { steps: Step[]; startOpen?: boolean }) {
   const done = steps.filter(s => s.done).length;
   const next = steps.find(s => !s.done);
+  const [open, setOpen] = useState(startOpen);
   return (
-    <section className="ck">
-      <div className="ck-head"><Ring done={done} total={steps.length} size={48} /><div><b>{done === steps.length ? "Ready for the show" : "Getting ready"}</b><small>{done === steps.length ? "Everything's set." : next ? `Next: ${next.label.toLowerCase()}` : ""}</small></div></div>
-      <ol>
-        {steps.map(s => (
-          <li key={s.key}><button type="button" className={`ck-step${s.done ? " done" : ""}${s === next ? " next" : ""}`} onClick={s.go}>
-            <span className="tick" aria-hidden="true">{s.done && <ICheck size={14} />}</span>
-            <span className="ck-t"><b>{s.label}</b>{s.detail && !s.done && <small>{s.detail}</small>}</span>
-            <IChevR size={16} />
-          </button></li>
-        ))}
-      </ol>
+    <section className={`ck${open ? " open" : ""}`}>
+      <div className="ck-head">
+        <Ring done={done} total={steps.length} size={40} />
+        {next ? <button type="button" className="ck-next" onClick={next.go}><small>Next step</small><b>{next.label}</b></button>
+          : <div className="ck-next"><small>All set</small><b>Ready for the show</b></div>}
+        <button type="button" className="sx-icon-btn sm" aria-expanded={open} aria-label={open ? "Hide all steps" : "Show all steps"} onClick={() => setOpen(!open)}><IChevD size={18} /></button>
+      </div>
+      {open && (
+        <ol>
+          {steps.map(s => (
+            <li key={s.key}><button type="button" className={`ck-step${s.done ? " done" : ""}${s === next ? " next" : ""}`} onClick={s.go}>
+              <span className="tick" aria-hidden="true">{s.done && <ICheck size={14} />}</span>
+              <span className="ck-t"><b>{s.label}</b>{s.detail && !s.done && <small>{s.detail}</small>}</span>
+            </button></li>
+          ))}
+        </ol>
+      )}
     </section>
   );
 }
@@ -80,7 +87,7 @@ export function Outline({ ctx, sel, select, addItem }: { ctx: SetupCtx; sel: Sel
           return (
             <li key={i.id}><button type="button" className={`ol-item${on ? " on" : ""}${i.ready ? "" : " hidden"}`} onClick={() => select({ kind: "item", id: i.id }, "item")}>
               <span className="oi-thumb">{i.imageUrl ? <img src={i.imageUrl} alt="" /> : <span>{String(i.position + 1).padStart(2, "0")}</span>}</span>
-              <span className="oi-t"><b>{i.title}</b><small>{i.ready ? (i.bidCount ? `${formatMoney(i.currentMinor!)} · ${i.bidCount} bids` : `Starts ${formatMoney(i.openingMinor)}`) : "Hidden"}</small></span>
+              <span className="oi-t"><b>{i.title}</b><small>{i.ready ? (i.bidCount ? `${formatMoney(i.currentMinor!)} · ${i.bidCount} bid${i.bidCount === 1 ? "" : "s"}` : `Starts ${formatMoney(i.openingMinor)}`) : "Hidden"}</small></span>
               {!i.imageUrl && <span className="oi-warn" title="No photo yet" />}
             </button></li>
           );
@@ -140,7 +147,6 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
     <section className="cv" aria-label="Your event as guests see it">
       <div className="cv-bar">
         <Seg label="Screen" value={screen} onChange={setScreen} options={[{ id: "welcome", label: "Welcome" }, { id: "items", label: "Items" }, { id: "item", label: "Item page" }]} />
-        <span className="cv-live"><IPhone size={16} />Exactly what guests see</span>
       </div>
       <div className="cv-stage">
         <div className="device">
@@ -169,7 +175,7 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
                 {screen === "items" && (
                   <div className="cv-items">
                     <div className="pa-pass static"><div className="pass-badge"><span className="mark ci you" style={{ "--s": "40px" } as React.CSSProperties}>YB</span><span className="pass-text"><b>Your Business</b><small>A guest</small></span></div><div className="pass-event"><span className="pass-ev-name">{data.event.name}</span><span className="pass-ev-code">{data.event.code}</span></div></div>
-                    <section className="page-head"><span className="eyebrow">{data.event.name}</span><h1>Items</h1><p className="sub"><span className="count-pill">{snap.items.filter((_, n) => data.items[n].ready).length} items</span><EventClock snap={snap} now={now} /></p></section>
+                    <section className="page-head"><h1>Items</h1><p className="sub"><EventClock snap={snap} now={now} /></p></section>
                     <div className="cards">
                       {snap.items.map((pi, n) => {
                         const wi = data.items[n];
@@ -193,7 +199,7 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
                           </div>
                         );
                       })}
-                      <button type="button" className="cv-add-card" onClick={addItem}><span><IPlus size={22} /></span><b>Add an item</b><small>Title, photo and a starting bid. That&rsquo;s it.</small></button>
+                      <button type="button" className="cv-add-card" onClick={addItem}><span><IPlus size={22} /></span><b>Add an item</b><small>Title, photo and a starting bid</small></button>
                     </div>
                   </div>
                 )}
@@ -206,9 +212,9 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
             </EditCtx.Provider>
           </div>
         </div>
-        {screen === "item" && wsItem && <p className="cv-note">{wsItem.bidCount > 0 ? `${wsItem.bidCount} bids so far. The starting bid and increments are locked; text and photos can still change.` : "Bidding is switched off in the editor. Use Preview to try a bid."}</p>}
+        {screen === "item" && wsItem && <p className="cv-note">{wsItem.bidCount > 0 ? `${wsItem.bidCount} bid${wsItem.bidCount === 1 ? "" : "s"} so far. Text and photos can still change.` : "Bidding is off while you edit. Use Preview to try it."}</p>}
       </div>
-      <p className="cv-hint">Click any text on the phone to edit it · drop photos straight onto it · drag items by the handle to reorder</p>
+      <p className="cv-hint">Click text to edit · drop photos onto the phone · drag the handle to reorder</p>
     </section>
   );
 }
@@ -227,13 +233,12 @@ function Panel({ title, icon, children, sub }: { title: string; icon: ReactNode;
 function EventPanel({ ctx }: { ctx: SetupCtx }) {
   const { data, patchEvent } = ctx, e = data.event;
   return (
-    <Panel title="Welcome & details" icon={<IInfo size={20} />} sub="Shown on the welcome screen and the Event tab.">
-      <PhotoField label="Cover photo" url={e.coverUrl} onChange={a => patchEvent({ coverAssetId: a?.id ?? null })} />
-      <TextField label="Event name" value={e.name} max={200} onSave={v => v && patchEvent({ name: v })} />
+    <Panel title="Details" icon={<IInfo size={20} />}>
+      <p className="on-phone"><IPhone size={16} />Edit the name, welcome and cover photo on the phone.</p>
+      {e.coverUrl && <button type="button" className="sx-btn ghost sm" onClick={() => patchEvent({ coverAssetId: null })}><ITrash size={16} />Remove cover photo</button>}
       <TextField label="Venue" value={e.venue} max={300} placeholder="Saturn Hall, Pasadena" onSave={v => patchEvent({ venue: v })} />
-      <TextField label="Welcome" value={e.welcome} multiline placeholder="Welcome! Browse the items and bid from your phone." onSave={v => patchEvent({ welcome: v })} />
       <TextField label="Message to winners" value={e.winnerInstructions} multiline rows={3} placeholder="Congratulations! Pick up your item at the front desk before 8 PM."
-        hint="Only confirmed winners see this, on their phone." onSave={v => patchEvent({ winnerInstructions: v })} />
+        hint="Only confirmed winners see this." onSave={v => patchEvent({ winnerInstructions: v })} />
     </Panel>
   );
 }
@@ -244,16 +249,15 @@ function SchedulePanel({ ctx }: { ctx: SetupCtx }) {
   const ok = isConfirmed(e.id, "schedule");
   const setWhen = (field: "startsAt" | "endsAt" | "accessEndsAt", local: string) => { const v = fromLocalInput(local, tz); if (v && new Date(v).getTime() !== new Date(e[field]).getTime()) patchEvent({ [field]: v }); };
   return (
-    <Panel title="Schedule" icon={<ICalendar size={20} />} sub={`Times are in ${tz.replace(/_/g, " ")}. The event's server clock decides, never a phone's.`}>
+    <Panel title="Schedule" icon={<ICalendar size={20} />} sub={tz.replace(/_/g, " ")}>
       <div className="when-card">
         <label className="sx-field"><span className="sx-label">Bidding opens</span><input type="datetime-local" defaultValue={toLocalInput(e.startsAt, tz)} key={`s${e.revision}`} disabled={e.hasBids} onBlur={x => setWhen("startsAt", x.target.value)} /></label>
         <label className="sx-field"><span className="sx-label">Bidding closes</span><input type="datetime-local" defaultValue={toLocalInput(e.endsAt, tz)} key={`e${e.revision}`} onBlur={x => setWhen("endsAt", x.target.value)} /></label>
-        {e.hasBids && <p className="sx-hint">Bidding has started, so the opening time is locked. Closing can move later, or earlier to no sooner than 5 minutes from now.</p>}
+        {e.hasBids && <p className="sx-hint">Opening is locked once bidding starts. Closing can move, but not to within 5 minutes from now.</p>}
       </div>
       <div className="quick-shift">
-        <span className="sx-label">Running long or short?</span>
+        <span className="sx-label">Move the close</span>
         <div className="qs-btns">{[-15, 15, 30, 60].map(m => <button type="button" key={m} className="sx-chip" onClick={() => patchEvent({ endsAt: new Date(new Date(e.endsAt).getTime() + m * 60_000).toISOString() })}>{m > 0 ? `+${m}` : m} min</button>)}</div>
-        <span className="sx-hint">Moves the close for every item that uses the event close.</span>
       </div>
       {e.status === "draft" && <button type="button" className={`sx-btn ${ok ? "" : "primary"} block`} onClick={() => { confirm(e.id, "schedule"); force(x => x + 1); ctx.flash("Schedule confirmed", "green"); }}>{ok ? <><ICheck size={18} />Times confirmed</> : "These times are right"}</button>}
       <details className="sx-adv"><summary>Advanced<IChevD size={16} /></summary>
@@ -268,7 +272,7 @@ function SchedulePanel({ ctx }: { ctx: SetupCtx }) {
 function ThemePanel({ ctx }: { ctx: SetupCtx }) {
   const e = ctx.data.event;
   return (
-    <Panel title="Look" icon={<IPalette size={20} />} sub="Colours for the guest app. Status colours (leading, outbid) never change, so they always read the same.">
+    <Panel title="Look" icon={<IPalette size={20} />} sub="Status colours stay the same in every look.">
       <div className="themes">
         {THEMES.map(t => (
           <button type="button" key={t.id} className={`theme${e.theme === t.id ? " on" : ""}`} aria-pressed={e.theme === t.id} onClick={() => ctx.patchEvent({ theme: t.id })}>
@@ -287,18 +291,16 @@ function ItemPanel({ ctx, item, onDeleted }: { ctx: SetupCtx; item: Item; onDele
   const [confirmDelete, setConfirmDelete] = useState(false);
   const p = (f: Record<string, unknown>) => patchItem(item, f);
   return (
-    <Panel title={`Item ${String(item.position + 1).padStart(2, "0")}`} icon={<IGift size={20} />} sub={locked ? `${item.bidCount} bids · high ${formatMoney(item.currentMinor!)} by ${item.leader?.business}` : item.ready ? "Visible to guests" : "Hidden from guests"}>
-      <PhotoField label="Photo" url={item.imageUrl} onChange={a => p({ imageAssetId: a?.id ?? null })} />
-      <TextField label="Title" value={item.title} max={200} autoFocus={item.title === "New item"} onSave={v => v ? p({ title: v }) : flash("An item needs a title.", "red")} />
+    <Panel title={`Item ${String(item.position + 1).padStart(2, "0")}`} icon={<IGift size={20} />} sub={locked ? `${item.bidCount} bid${item.bidCount === 1 ? "" : "s"} · top ${formatMoney(item.currentMinor!)}` : undefined}>
+      <p className="on-phone"><IPhone size={16} />Edit the title, photo and text on the phone.</p>
+      {item.imageUrl && <button type="button" className="sx-btn ghost sm" onClick={() => p({ imageAssetId: null })}><ITrash size={16} />Remove photo</button>}
       <MoneyField label="Starting bid" minor={item.openingMinor} disabled={locked} onSave={v => v && p({ openingMinor: v })} hint={locked ? "Locked once someone bids." : undefined} />
-      <TextField label="One-line summary" value={item.short} max={500} placeholder="Two nights for four, hot tub included" onSave={v => p({ short: v })} />
       <div className="sx-field">
         <TextField label="Category" value={item.category} max={100} placeholder="Travel" onSave={v => p({ category: v })} />
         {cats.length > 0 && <div className="cat-chips">{cats.filter(c => c !== item.category).slice(0, 6).map(c => <button type="button" key={c} className="sx-chip" onClick={() => p({ category: c })}>{c}</button>)}</div>}
       </div>
       <TextField label="Provided by" value={item.donor} max={200} placeholder="Business that donated it" onSave={v => p({ donor: v })} />
-      <TextField label="Description" value={item.description} multiline max={10_000} placeholder="What's included, dates, limits." onSave={v => p({ description: v })} />
-      <Switch on={item.ready} disabled={locked && item.ready} onChange={v => p({ ready: v })} label="Show to guests" sub={locked ? "An item with bids stays visible." : "Hidden items stay in your list."} />
+      <Switch on={item.ready} disabled={locked && item.ready} onChange={v => p({ ready: v })} label="Show to guests" sub={locked ? "Items with bids stay visible." : undefined} />
       <details className="sx-adv"><summary>Advanced<IChevD size={16} /></summary>
         <MoneyField label="Raise each bid by" minor={item.incrementOverrideMinor} allowEmpty disabled={locked} placeholder="Event default" onSave={v => p({ incrementOverrideMinor: v })} hint="Leave empty to use the event's increments." />
         <label className="sx-field"><span className="sx-label">Opens (empty = event start)</span><input type="datetime-local" key={`o${item.revision}`} disabled={locked} defaultValue={toLocalInput(item.opensAt, tz)} onBlur={x => { const v = fromLocalInput(x.target.value, tz); if ((v ?? null) !== (item.opensAt ? new Date(item.opensAt).toISOString() : null)) p({ opensAt: v }); }} /></label>

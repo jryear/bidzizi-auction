@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { api, errorText, fmtClock } from "../../../lib/api";
 import { formatMoney } from "../../../lib/money";
-import { IAlert, IArrowUp, IClock, IMonitor, ISearch, IUsers, IMore, IExternal } from "../../../lib/icons";
+import { IAlert, IArrowUp, IClock, ISearch, IUsers, IMore } from "../../../lib/icons";
 import { countdown } from "../../e/[code]/model";
 import { Amount, ItemArt } from "../../e/[code]/ui";
 import type { Data, Item, Participant } from "../data";
@@ -35,31 +35,27 @@ export function LiveBoard({ ctx }: { ctx: Ctx }) {
         <div className="ls"><span>Raised so far</span><Amount minor={raised} className="ls-amt" /></div>
         <div className="ls"><span><IUsers size={16} />Joined</span><b>{data.participants.length}</b></div>
         <div className="ls"><span><IArrowUp size={16} />Bids</span><b>{bids}</b></div>
-        <div className="ls-acts">
-          <a className="sx-btn dark lg" href={`/studio/${e.id}/stage`} target="_blank"><IMonitor size={18} />Open stage display<IExternal size={15} /></a>
-          <span className="sx-fine">Put it on a projector or TV. It updates by itself.</span>
-        </div>
       </div>
 
       <div className="live-grid">
         <div className="live-main">
           {(soon.length > 0 || quiet.length > 0) && (
             <div className="attn">
-              {soon.length > 0 && <div className="attn-card hot"><IClock size={20} /><div><b>{soon.length} closing within 15 minutes</b><span>{soon.slice(0, 3).map(i => `${i.title} (${countdown(i.effectiveClosesAt, now)})`).join(" · ")}</span></div></div>}
-              {quiet.length > 0 && <div className="attn-card"><IAlert size={20} /><div><b>{quiet.length} with no bids yet</b><span>Worth a mention from the stage: {quiet.slice(0, 3).map(i => i.title).join(", ")}</span></div></div>}
+              {soon.length > 0 && <div className="attn-card hot"><IClock size={18} /><div><b>Closing soon</b><span>{soon.slice(0, 3).map(i => `${i.title} ${countdown(i.effectiveClosesAt, now)}`).join(" · ")}</span></div></div>}
+              {quiet.length > 0 && <div className="attn-card"><IAlert size={18} /><div><b>No bids yet</b><span>{quiet.slice(0, 3).map(i => i.title).join(" · ")}{quiet.length > 3 ? ` +${quiet.length - 3}` : ""}</span></div></div>}
             </div>
           )}
-          <div className="board-head"><h2>Items</h2><span className="sx-muted">Sorted by what closes next</span></div>
+          <div className="board-head"><h2>Items</h2></div>
           <div className="tiles">
             {order.map(i => <Tile key={i.id} item={i} now={now} on={focus === i.id} onClick={() => setFocus(focus === i.id ? null : i.id)} />)}
-            {!order.length && <div className="sx-empty-card"><b>No items are visible yet</b><span>Add items in Set up, and they&rsquo;ll show here as bids land.</span></div>}
+            {!order.length && <div className="sx-empty-card"><b>No items are visible yet</b><span>Add items in Set up.</span></div>}
           </div>
         </div>
         <aside className="live-side">
           {focused ? <BidsFor item={focused} tz={e.timezone} onClose={() => setFocus(null)} /> : (
             <section className="feed-card">
               <div className="fc-head"><h3>Latest bids</h3>{e.phase === "open" && <span className="live-dot">Live</span>}</div>
-              {!data.activity.length && <p className="sx-muted">Bids appear here the moment they land.</p>}
+              {!data.activity.length && <p className="sx-muted">No bids yet.</p>}
               <ol className="feed">
                 {data.activity.slice(0, 14).map(a => (
                   <li key={a.id}>
@@ -89,7 +85,7 @@ function Tile({ item, now, on, onClick }: { item: Item; now: number; on: boolean
         <b className="tile-t">{item.title}</b>
         <Amount minor={item.currentMinor ?? item.openingMinor} className="tile-amt" />
         <span className="tile-lead">{item.leader ? <><b>{item.leader.business}</b> · {item.bidCount} bid{item.bidCount === 1 ? "" : "s"}</> : item.phase === "scheduled" ? "Not open yet" : "No bids yet"}</span>
-        <span className="tile-foot"><Status stage={item.phase} />{item.phase === "open" && <span className={`tile-left${left < 10 * 60_000 ? " hot" : ""}`}>{countdown(item.effectiveClosesAt, now)}</span>}</span>
+        {(item.phase !== "open" || left < 10 * 60_000) && <span className="tile-foot">{item.phase !== "open" ? <Status stage={item.phase} /> : <span className="tile-left hot">{countdown(item.effectiveClosesAt, now)}</span>}</span>}
       </span>
     </button>
   );
@@ -134,12 +130,12 @@ export function People({ ctx }: { ctx: Ctx }) {
         <div className="rejoin">
           <span>Rejoin code for <b>{code.name}</b></span>
           <b className="rj-code">{code.code}</b>
-          <small>One use, valid 30 minutes. On the new phone: open the event, tap &ldquo;Already joined on another phone?&rdquo; and enter it.</small>
+          <small>Valid once, for 30 minutes. On the new phone, open the event and tap &ldquo;Joined on another phone?&rdquo;</small>
           <button type="button" className="sx-btn ghost sm" onClick={() => setCode(null)}>Done</button>
         </div>
       )}
       {data.participants.length > 5 && <label className="sx-search"><ISearch size={17} /><input type="search" value={q} onChange={x => setQ(x.target.value)} placeholder="Find by name or business" aria-label="Find a participant" /></label>}
-      {!data.participants.length ? <p className="sx-muted">Nobody has joined yet. Share the code to get started.</p> : (
+      {!data.participants.length ? <p className="sx-muted">Nobody has joined yet.</p> : (
         <ul className="people">
           {shown.slice(0, 40).map(p => (
             <li key={p.id} className={p.canBid ? "" : "paused"}>

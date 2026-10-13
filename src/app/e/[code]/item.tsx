@@ -41,7 +41,7 @@ export function ItemPage({ snap, now, nav, code, stale, pending, item }: Props) 
             <Amount minor={item.currentMinor ?? item.openingMinor} className="xl" stale={stale} />
             <span className="stub-leader">
               {item.leader ? <><Mark name={item.leader.isMe ? "You" : item.leader.business} you={item.leader.isMe} size={24} /><span><b>{item.leader.isMe ? "You" : item.leader.business}</b> · {item.bidCount} bid{item.bidCount === 1 ? "" : "s"}</span></>
-                : <span className="muted">{item.phase === "open" ? "No bids yet. Be the first." : item.phase === "scheduled" ? "Opens soon" : "No bids"}</span>}
+                : <span className="muted">{item.phase === "open" ? "No bids yet" : item.phase === "scheduled" ? "Opens soon" : "No bids"}</span>}
             </span>
           </div>
           <div className="stub-side">
@@ -64,10 +64,10 @@ export function ItemPage({ snap, now, nav, code, stale, pending, item }: Props) 
         <details className="howto">
           <summary>How bidding works</summary>
           <ul>
-            <li>Each bid must be at least the minimum shown. It goes up by {formatMoney(item.incrementMinor)} right now.</li>
-            <li>Your bid counts once the event&rsquo;s server records it. You&rsquo;ll see &ldquo;You&rsquo;re leading&rdquo; only then.</li>
-            <li>The leader can&rsquo;t outbid themselves. If someone bids at the same moment, one bid wins and the other sees the new minimum.</li>
-            <li>When bidding closes, staff confirm the winner. Winners see a message here with what to do next.</li>
+            <li>Bid at least the amount shown. Bids go up by {formatMoney(item.incrementMinor)}.</li>
+            <li>You&rsquo;re leading only once your bid is recorded.</li>
+            <li>If two people bid at once, the first one counts and the other sees the new minimum.</li>
+            <li>When bidding closes, staff confirm the winner here.</li>
           </ul>
         </details>
       </div>
@@ -78,22 +78,21 @@ export function ItemPage({ snap, now, nav, code, stale, pending, item }: Props) 
 
 function StandingCard({ item, now, nav, instructions, unconfirmed, paused }: { item: Item; now: number; nav: Nav; instructions: string; unconfirmed: boolean; paused: boolean }) {
   const s = standing(item, unconfirmed);
-  if (paused && item.phase === "open") return <div className="standing t-grey"><IAlert size={26} /><div><b>Your bidding is paused</b><p>Talk to the event staff to continue.</p></div></div>;
+  if (paused && item.phase === "open") return <div className="standing t-grey"><IAlert size={26} /><div><b>Your bidding is paused</b><p>Talk to event staff to continue.</p></div></div>;
   switch (s.key) {
-    case "leading": return <div className="standing t-green" key="leading"><span className="st-ic"><ICheck size={24} /></span><div><b>You&rsquo;re leading</b><p>Your {formatMoney(item.currentMinor!)} bid is the top bid{closingSoon(item, now) ? `, with ${countdown(item.closesAt, now)} to go` : ""}. We&rsquo;ll tell you if someone outbids you.</p></div></div>;
+    case "leading": return <div className="standing t-green" key="leading"><span className="st-ic"><ICheck size={24} /></span><div><b>You&rsquo;re leading</b><p>We&rsquo;ll tell you if someone outbids you.</p></div></div>;
     case "outbid": return (
       <div className="standing t-red pulse-once" key="outbid">
         <span className="st-ic"><IAlert size={24} /></span>
-        <div><b>You&rsquo;ve been outbid</b><p>{item.leader?.business} leads at {formatMoney(item.currentMinor!)}. Your highest was {formatMoney(item.myHighestMinor ?? 0)}.{item.minimumNextMinor !== null ? ` Bid ${formatMoney(item.minimumNextMinor)} to take the lead back.` : ""}</p></div>
+        <div><b>You&rsquo;ve been outbid</b><p>Your {formatMoney(item.myHighestMinor ?? 0)} is no longer the top bid.</p></div>
       </div>
     );
     case "won": return <div className="standing t-marigold" key="won"><span className="st-ic"><ITrophy size={24} /></span><div><b>You won this item</b><p>{instructions || "The event staff will be in touch about collecting it."}</p></div></div>;
-    case "awaiting": return <div className="standing t-hatch"><span className="st-ic"><IClock size={24} /></span><div><b>You had the top bid</b><p>Bidding has closed. Staff confirm winners; you&rsquo;ll see it here when they do.</p></div></div>;
-    case "lost": return <div className="standing t-grey"><div><b>{s.label}</b><p>Your highest bid was {formatMoney(item.myHighestMinor ?? 0)}. Thanks for bidding.</p></div></div>;
-    case "unconfirmed": return <div className="standing t-dashed"><span className="st-ic"><IAlert size={24} /></span><div><b>Your last bid is unconfirmed</b><p>It may or may not have gone through. Check its status before bidding again.</p></div></div>;
+    case "awaiting": return <div className="standing t-hatch"><span className="st-ic"><IClock size={24} /></span><div><b>You had the top bid</b><p>Staff are confirming the winner. You&rsquo;ll see it here.</p></div></div>;
+    case "lost": return <div className="standing t-grey"><div><b>{s.label}</b><p>Your highest was {formatMoney(item.myHighestMinor ?? 0)}. Thanks for bidding.</p></div></div>;
+    case "unconfirmed": return <div className="standing t-dashed"><span className="st-ic"><IAlert size={24} /></span><div><b>We couldn&rsquo;t confirm your last bid</b><p>Check its status before bidding again.</p></div></div>;
     default:
-      if (closingSoon(item, now)) return <div className="standing t-amber"><span className="st-ic"><IClock size={24} /></span><div><b>Closing soon</b><p><TimeLeft item={item} now={now} /> · last chance to bid.</p></div></div>;
-      return null;
+      return null; // closing soon is carried by the ticket's countdown and the action bar
   }
 }
 
@@ -106,20 +105,20 @@ function Activity({ item, log, tz }: { item: Item; log: LogEntry[]; tz: string }
         {item.currentMinor !== null && item.leader && (
           <li className={`top${item.leader.isMe ? " mine" : ""}`}>
             <Mark name={item.leader.isMe ? "You" : item.leader.business} you={item.leader.isMe} size={34} />
-            <span className="h-who"><b>{item.leader.isMe ? "You" : item.leader.business}</b><span>{item.phase === "closed" ? "Top bid when bidding closed" : "Top bid now"}{topMine ? ` · ${fmtClock(topMine.at, tz)}` : ""}</span></span>
-            <span className="h-amt"><b className="amt">{formatMoney(item.currentMinor)}</b><span className="top">Top</span></span>
+            <span className="h-who"><b>{item.leader.isMe ? "You" : item.leader.business}</b><span>{item.phase === "closed" ? "Final bid" : "Top bid"}{topMine ? ` · ${fmtClock(topMine.at, tz)}` : ""}</span></span>
+            <span className="h-amt"><b className="amt">{formatMoney(item.currentMinor)}</b></span>
           </li>
         )}
         {rows.filter(e => !(e.kind === "mine" && e.amountMinor === item.currentMinor && item.leader?.isMe)).map(e => (
           <li key={`${e.kind}-${e.amountMinor}`} className={e.kind === "mine" ? "mine" : ""}>
             <Mark name={e.kind === "mine" ? "You" : e.business ?? "?"} you={e.kind === "mine"} size={34} />
-            <span className="h-who"><b>{e.kind === "mine" ? "Your bid" : e.business}</b><span>{e.kind === "mine" ? `Recorded ${fmtClock(e.at, tz)}` : `Seen ${fmtClock(e.at, tz)}`}</span></span>
+            <span className="h-who"><b>{e.kind === "mine" ? "Your bid" : e.business}</b><span>{fmtClock(e.at, tz)}</span></span>
             <span className="h-amt"><b className="amt">{formatMoney(e.amountMinor)}</b></span>
           </li>
         ))}
-        <li className="opening"><span className="h-dot" aria-hidden="true" /><span className="h-who"><b>Starting bid</b><span>Set by the host</span></span><span className="h-amt"><b className="amt">{formatMoney(item.openingMinor)}</b></span></li>
+        <li className="opening"><span className="h-dot" aria-hidden="true" /><span className="h-who"><b>Starting bid</b></span><span className="h-amt"><b className="amt">{formatMoney(item.openingMinor)}</b></span></li>
       </ol>
-      <p className="fine">{item.bidCount} bid{item.bidCount === 1 ? "" : "s"} placed in total{item.myBidCount ? `, ${item.myBidCount} by you` : ""}. Times show when your bids were recorded, or when this phone first saw a new top bid.</p>
+      <p className="fine">{item.bidCount} bid{item.bidCount === 1 ? "" : "s"} in total. This list shows your bids and the top bids this phone has seen.</p>
     </>
   );
 }
@@ -127,28 +126,17 @@ function Activity({ item, log, tz }: { item: Item; log: LogEntry[]; tz: string }
 export function ActionBar({ item, snap, nav, now, unconfirmed, inline = false }: { item: Item; snap: Snapshot; nav: Nav; now: number; unconfirmed: boolean; inline?: boolean }) {
   const me = snap.me!, s = standing(item, unconfirmed);
   const cls = `pa-actionbar${inline ? " inline" : ""} tone-${s.tone}`;
-  const forLine = <p className="for">Bidding as <Mark name={me.businessName} you size={20} /><b>{me.businessName}</b></p>;
   if (item.phase === "scheduled") return <div className={cls}><div className="ab-row"><div className="ab-amt"><span className="lbl">Opens</span><b className="ab-big">{fmtTime(item.opensAt, snap.event.timezone)}</b></div><button type="button" className="btn primary lg" disabled>Not open yet</button></div></div>;
-  if (item.phase === "closed") return (
-    <div className={cls}><div className="ab-row">
-      <div className="ab-amt"><Pill s={s} /><span className="ab-note">Final {formatMoney(item.currentMinor ?? item.openingMinor)}</span></div>
-      <button type="button" className="btn quiet lg" onClick={() => nav.tab("mine")}>My bids</button>
-    </div></div>
-  );
-  if (unconfirmed) return <div className={cls}>{forLine}<div className="ab-row"><div className="ab-amt"><Pill s={s} /></div><button type="button" className="btn primary lg" onClick={() => nav.openSheet(item)}>Check bid status</button></div></div>;
-  if (item.leader?.isMe) return (
-    <div className={cls}>{forLine}<div className="ab-row">
-      <div className="ab-amt"><span className="ab-lead"><ICheck size={20} />You&rsquo;re leading</span><Amount minor={item.currentMinor!} className="ab-big" /></div>
-      <button type="button" className="btn quiet lg" disabled>Top bid is yours</button>
-    </div></div>
-  );
+  if (item.phase === "closed") return null; // the standing card and the ticket already say it's closed and what it sold for
+  if (unconfirmed) return <div className={cls}><button type="button" className="btn primary lg block" onClick={() => nav.openSheet(item)}>Check bid status</button></div>;
+  if (item.leader?.isMe) return null; // nothing to do; the standing card and the ticket already say you lead
   const outbid = s.key === "outbid", min = item.minimumNextMinor;
   return (
-    <div className={cls}>{forLine}<div className="ab-row">
-      <div className="ab-amt"><span className="lbl">{outbid ? "Outbid · next bid" : "Next bid at least"}</span>{min !== null ? <Amount minor={min} className="ab-big" /> : <b className="ab-big">—</b>}</div>
-      <button type="button" className={`btn primary lg${outbid ? " urgent" : ""}`} disabled={min === null || !me.canBid} onClick={() => nav.openSheet(item, outbid && min !== null ? min : undefined)}>
-        {outbid && min !== null ? `Bid ${formatMoney(min)}` : "Place a bid"}
+    <div className={cls}>
+      {closingSoon(item, now) && <span className="ab-soon"><TimeLeft item={item} now={now} /></span>}
+      <button type="button" className="btn primary lg block" disabled={min === null || !me.canBid} onClick={() => nav.openSheet(item, outbid && min !== null ? min : undefined)}>
+        {min !== null ? <span>Bid <Amount minor={min} /></span> : "Bid"}
       </button>
-    </div>{closingSoon(item, now) && !inline && <span className="ab-soon"><TimeLeft item={item} now={now} /></span>}</div>
+    </div>
   );
 }

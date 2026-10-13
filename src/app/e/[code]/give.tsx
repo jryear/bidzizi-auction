@@ -28,16 +28,15 @@ export function Give({ snap, code, nav, onDone }: Props) {
     try {
       const r = await api("POST", `/api/v1/e/${code}/pledge`, { requestId: request.current, recipientId: recipient, amountMinor: value });
       if (r.ok) { request.current = null; setLast({ amountMinor: value!, recipientName: chosen!.name }); setStep("done"); onDone(); return; }
-      if (r.status >= 500) { setStep("review"); setError("We couldn't confirm it. Tap Confirm again. It won't be recorded twice."); return; }
+      if (r.status >= 500) { setStep("review"); setError("We couldn\u2019t confirm it. Tap Confirm again \u2014 it won\u2019t be recorded twice."); return; }
       request.current = null; setStep("review"); setError(errorText(r));
-    } catch { setStep("review"); setError("Connection lost. Tap Confirm again. It won't be recorded twice."); }
+    } catch { setStep("review"); setError("Connection lost. Tap Confirm again \u2014 it won\u2019t be recorded twice."); }
   }
 
   const head = (
     <section className="page-head give-head">
-      <span className="eyebrow">{snap.event.name}</span>
       <h1>Donate</h1>
-      <p className="sub">{given ? <>You&rsquo;ve given <b className="amt">{formatMoney(given)}</b> tonight. Thank you.</> : "Give to a nonprofit at this event. Any amount helps."}</p>
+      <p className="sub">{given ? <>You&rsquo;ve given <b className="amt">{formatMoney(given)}</b> tonight. Thank you.</> : "Any amount helps."}</p>
     </section>
   );
 
@@ -50,7 +49,7 @@ export function Give({ snap, code, nav, onDone }: Props) {
         <div className="hearts" aria-hidden="true">{Array.from({ length: 10 }, (_, i) => <i key={i} style={{ "--x": `${(i * 37) % 100}%`, "--t": `${(i % 5) * 0.12}s` } as CSSProperties}><IHeart size={16} filled /></i>)}</div>
         <span className="thanks-ic"><IHeart size={40} filled /></span>
         <h2>Thank you, {me.displayName.split(" ")[0]}</h2>
-        <p><b className="amt">{formatMoney(last.amountMinor)}</b> to <b>{last.recipientName}</b> is recorded for {me.businessName}. Event staff will process it after the event.</p>
+        <p><b className="amt">{formatMoney(last.amountMinor)}</b> to <b>{last.recipientName}</b> is recorded. Staff process donations after the event.</p>
         <div className="row-btns"><button type="button" className="btn quiet" onClick={() => { setStep("pick"); setLast(null); }}>Give again</button><button type="button" className="btn primary" onClick={() => nav.tab("items")}>Back to items</button></div>
       </div>
     </div>

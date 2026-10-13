@@ -90,7 +90,7 @@ export default function Studio({ eventId }: { eventId: string }) {
             onBlur={x => { const v = x.target.value.trim(); if (v && v !== e.name) patchEvent({ name: v }); else x.target.value = e.name; }} />
           <div className="title-meta">
             <Status stage={e.status === "draft" ? "draft" : e.phase === "open" ? "running" : e.phase === "closed" ? "ended" : "upcoming"} />
-            <span className={`save s-${offline ? "error" : save}`} aria-live="polite">{offline ? <><IWifiOff size={14} />Offline. Changes won&rsquo;t save</> : save === "saving" ? "Saving…" : save === "saved" ? <><ICheck size={14} />Saved</> : save === "error" ? "Not saved" : "Autosaves"}</span>
+            <span className={`save s-${offline ? "error" : save}`} aria-live="polite">{offline ? <><IWifiOff size={14} />Offline. Changes won&rsquo;t save</> : save === "saving" ? "Saving…" : save === "saved" ? <><ICheck size={14} />Saved</> : save === "error" ? "Not saved" : <span className="save-idle">Autosaves</span>}</span>
           </div>
         </div>
         <Seg label="Mode" size="lg" value={mode} onChange={pickMode} options={[
@@ -127,14 +127,14 @@ export default function Studio({ eventId }: { eventId: string }) {
 function SetupMode({ ctx, sel, select, screen, setScreen, pane, setPane }: {
   ctx: SetupCtx; sel: Sel; select: (s: Sel, sc?: Screen) => void; screen: Screen; setScreen: (s: Screen) => void; pane: "steps" | "canvas" | "edit"; setPane: (p: "steps" | "canvas" | "edit") => void;
 }) {
-  const addItem = useAddItem(ctx, id => { select({ kind: "item", id }, "item"); setPane("edit"); });
+  const addItem = useAddItem(ctx, id => { select({ kind: "item", id }, "item"); setPane("canvas"); });
   const steps = useSteps(ctx, (s, sc) => { select(s, sc); setPane(s.kind === "item" || sc ? "canvas" : "edit"); }, addItem);
   return (
     <>
       <div className="pane-tabs"><Seg label="Panel" value={pane} onChange={setPane} options={[{ id: "steps", label: `Steps ${steps.filter(s => s.done).length}/${steps.length}` }, { id: "canvas", label: "Phone" }, { id: "edit", label: "Edit" }]} /></div>
       <div className={`setup p-${pane}`}>
         <aside className="rail-l" aria-label="Checklist and outline">
-          <Checklist steps={steps} />
+          <Checklist key={pane === "steps" ? "open" : "closed"} steps={steps} startOpen={pane === "steps"} />
           <Outline ctx={ctx} sel={sel} select={(s, sc) => { select(s, sc); setPane("edit"); }} addItem={addItem} />
         </aside>
         <Canvas ctx={ctx} sel={sel} select={select} screen={screen} setScreen={setScreen} addItem={addItem} />

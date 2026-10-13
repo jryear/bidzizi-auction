@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, type CSSProperties } from "react";
 import { formatMoney } from "../../../lib/money";
-import { IAlert, ICheck, IClose, ITrophy } from "../../../lib/icons";
+import { IAlert, ICheck, IClose, IInfo, ITrophy } from "../../../lib/icons";
 import { lotNo, seenOnce, type Item } from "./model";
 import { ItemArt } from "./ui";
 
@@ -21,7 +21,7 @@ function AlertCard({ a, onDismiss, onAct }: { a: Alert; onDismiss: (id: string) 
   useEffect(() => { const t = setTimeout(() => onDismiss(a.id), life); return () => clearTimeout(t); }, [a.id, life, onDismiss]);
   return (
     <div className={`alert t-${a.tone}`} role={a.tone === "red" ? "alert" : "status"} style={{ "--life": `${life}ms` } as CSSProperties}>
-      <span className="al-ic">{a.tone === "red" ? <IAlert size={20} /> : <ICheck size={20} />}</span>
+      <span className="al-ic">{a.tone === "red" ? <IAlert size={20} /> : a.tone === "green" ? <ICheck size={20} /> : <IInfo size={20} />}</span>
       <div className="al-t"><b>{a.title}</b>{a.body && <span>{a.body}</span>}</div>
       {a.action && <button type="button" className="al-act" onClick={() => onAct(a)}>{a.action.label}</button>}
       <button type="button" className="al-x" aria-label="Dismiss" onClick={() => onDismiss(a.id)}><IClose size={18} /></button>

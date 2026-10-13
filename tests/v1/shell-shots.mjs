@@ -105,17 +105,17 @@ await a.getByRole("button", { name: "Large cards" }).click();
 // Item page, sheet, landing
 await a.locator(".lc", { hasText: "Weekend cabin" }).locator(".lc-hit").click(); await a.waitForSelector(".ip");
 await shot(a, "p06-item-390", { wait: 900 });
-await a.getByRole("button", { name: "Place a bid" }).last().click(); await a.waitForSelector(".pa-sheet[open]");
+await a.getByRole("button", { name: /^Bid \$/ }).last().click(); await a.waitForSelector(".pa-sheet[open]");
 await shot(a, "p07-sheet-390");
-await a.getByRole("button", { name: /^Bid \$/ }).click();
+await a.locator(".pa-sheet").getByRole("button", { name: /^Bid \$/ }).click();
 await a.waitForSelector(".landed"); await shot(a, "p08-landed-390", { wait: 650 });
 await a.waitForTimeout(2200); await shot(a, "p09-item-leading-390");
 
-// Outbid, live, while looking at it
+// Outbid, live, while browsing; then the item page (where the alert would only repeat the page, so it isn't shown)
 await a.goBack(); await a.waitForSelector(".cards");
-await a.locator(".lc", { hasText: "Coffee for a year" }).locator(".lc-hit").click(); await a.waitForSelector(".ip");
 await bid(bob, ids[2], 20_000);
 await a.waitForSelector(".alert", { timeout: 15000 }); await shot(a, "p10-outbid-alert-390", { wait: 500 });
+await a.locator(".lc", { hasText: "Coffee for a year" }).locator(".lc-hit").click(); await a.waitForSelector(".ip");
 await a.waitForTimeout(1500); await shot(a, "p11-item-outbid-390");
 await a.locator(".ip-body").evaluate(el => el.querySelector(".activity")?.scrollIntoView({ block: "center" }));
 await shot(a, "p12-item-activity-390");

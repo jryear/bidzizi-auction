@@ -93,7 +93,7 @@ export function NewEvent({ events, onClose, onCreated, startWith }: { events: Ev
                 {past.map(e => (
                   <button type="button" key={e.id} className="past" onClick={() => pickPast(e)}>
                     <span className="past-thumb">{e.coverUrl ? <img src={e.coverUrl} alt="" /> : <span>{e.name.slice(0, 1)}</span>}</span>
-                    <span className="past-t"><b>{e.name}</b><small>{fmtTime(e.startsAt)} · {e.itemCount} items</small></span>
+                    <span className="past-t"><b>{e.name}</b><small>{fmtTime(e.startsAt)} · {e.itemCount} item{e.itemCount === 1 ? "" : "s"}</small></span>
                     <ICopy size={18} />
                   </button>
                 ))}
@@ -127,7 +127,7 @@ export function NewEvent({ events, onClose, onCreated, startWith }: { events: Ev
             </div>
             <div className="ne-preview">
               {template ? <TemplatePreview t={template} /> : source && (
-                <div className="past-card">{source.coverUrl ? <img src={source.coverUrl} alt="" /> : null}<div><Status stage={source.stage} /><b>{source.name}</b><small>{source.itemCount} items copied · {source.participantCount} participants stay behind</small></div></div>
+                <div className="past-card">{source.coverUrl ? <img src={source.coverUrl} alt="" /> : null}<div><Status stage={source.stage} /><b>{source.name}</b><small>{source.itemCount} item{source.itemCount === 1 ? "" : "s"} copied. Guests and bids aren’t copied.</small></div></div>
               )}
               {template && template.items.length > 0 && <ul className="ne-items">{template.items.map(i => <li key={i.title}><span>{i.title}</span><b>{formatMoney(i.openingMinor)}</b></li>)}</ul>}
             </div>

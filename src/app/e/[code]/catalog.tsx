@@ -38,9 +38,8 @@ export function Catalog({ snap, now, nav, stale, pending, cameFrom, watching = f
     <div className="cat-layout">
       <div className="cat-main">
         <section className="page-head">
-          <span className="eyebrow">{watching ? "Your watchlist" : e.name}</span>
           <h1>{watching ? "Watching" : "Items"}</h1>
-          <p className="sub"><span className="count-pill">{base.length} item{base.length === 1 ? "" : "s"}</span><EventClock snap={snap} now={now} /></p>
+          <p className="sub"><EventClock snap={snap} now={now} /></p>
         </section>
         {!watching && <StandingStrip snap={snap} nav={nav} />}
 
@@ -59,12 +58,13 @@ export function Catalog({ snap, now, nav, stale, pending, cameFrom, watching = f
               </div>
             )}
             <div className="toolbar">
+              <span className="tb-count">{list.length === base.length ? `${base.length} item${base.length === 1 ? "" : "s"}` : `${list.length} of ${base.length}`}</span>
               <label className="sort">
                 <span className="sr">Sort</span>
                 <select value={sort} onChange={x => setSort(x.target.value as Sort)}>
                   <option value="order">Item order</option>
+                  <option value="ending">Ending soonest</option>
                   <option value="low">Lowest price</option>
-                  <option value="ending">Ending soon</option>
                 </select>
                 <IChevD size={18} />
               </label>
@@ -78,8 +78,8 @@ export function Catalog({ snap, now, nav, stale, pending, cameFrom, watching = f
 
         {!base.length ? (
           watching
-            ? <EmptyState icon={<IBookmark size={28} />} title="Nothing watched yet"><p>Tap the bookmark on any item to keep an eye on it here. Watching never places a bid.</p><button type="button" className="btn quiet" onClick={() => nav.tab("items")}>Browse items</button></EmptyState>
-            : <EmptyState title="Items are on their way"><p>The host is still setting up. Items appear here the moment they&rsquo;re ready.</p></EmptyState>
+            ? <EmptyState icon={<IBookmark size={28} />} title="Nothing watched yet"><p>Tap the bookmark on an item to follow it here.</p><button type="button" className="btn quiet" onClick={() => nav.tab("items")}>Browse items</button></EmptyState>
+            : <EmptyState title="No items yet"><p>They&rsquo;ll appear here as soon as the host adds them.</p></EmptyState>
         ) : !list.length ? (
           <EmptyState icon={<ISearch size={28} />} title="No matches"><p>Nothing matches &ldquo;{query || category}&rdquo;.</p><button type="button" className="btn quiet" onClick={() => { setQuery(""); setCategory(""); }}>Clear search</button></EmptyState>
         ) : (
@@ -90,7 +90,6 @@ export function Catalog({ snap, now, nav, stale, pending, cameFrom, watching = f
             ))}
           </div>
         )}
-        {list.length > 2 && <p className="end-note">That&rsquo;s everything{category ? ` in ${category}` : ""}. {e.phase === "open" ? "Good luck!" : ""}</p>}
       </div>
       <Rail snap={snap} now={now} nav={nav} />
     </div>
@@ -113,20 +112,9 @@ export function StandingStrip({ snap, nav }: { snap: Snapshot; nav: Nav }) {
 }
 
 function Rail({ snap, now, nav }: { snap: Snapshot; now: number; nav: Nav }) {
-  const me = snap.me!;
   const soon = snap.items.filter(i => i.phase === "open").sort((a, b) => new Date(a.closesAt).getTime() - new Date(b.closesAt).getTime()).slice(0, 4);
-  const leading = snap.items.filter(i => i.phase === "open" && i.leader?.isMe);
-  const committed = leading.reduce((s, i) => s + (i.currentMinor ?? 0), 0);
   return (
     <aside className="rail" aria-label="Your event">
-      <div className="rail-pass">
-        <span className="lbl">Bidding as</span>
-        <div className="rp-id"><Mark name={me.businessName} you size={48} /><div><b>{me.businessName}</b><small>{me.displayName}</small></div></div>
-        <div className="rp-stats">
-          <div><span>Leading</span><b>{leading.length}</b></div>
-          <div><span>At stake</span><b className="amt">{formatMoney(committed)}</b></div>
-        </div>
-      </div>
       {soon.length > 0 && (
         <div className="rail-card">
           <span className="lbl">Ending soonest</span>

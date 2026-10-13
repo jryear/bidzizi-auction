@@ -32,9 +32,8 @@ export function ResultsBoard({ ctx }: { ctx: Ctx }) {
       <section className={`wrap-hero${celebrate ? " all" : ""}`}>
         <Ring done={finished} total={total} size={92} stroke={8} />
         <div className="wh-t">
-          <span className="sx-eyebrow">Wrap-up</span>
           <h2>{allDone && !open.length ? "Everything's wrapped up" : total - finished > 0 ? `${total - finished} thing${total - finished === 1 ? "" : "s"} to wrap up` : open.length ? "Bidding is still going" : "Nothing to wrap up yet"}</h2>
-          <p>{allDone && !open.length ? "Every winner is confirmed and handed over, and every donation is processed. Nice work." : allDone && open.length ? `All caught up. ${open.length} item${open.length === 1 ? " is" : "s are"} still open and will appear here as they close.` : "Confirm each winner, mark items as handed over, then process donations. Confirmed winners see “You won” and your message on their phone."}</p>
+          {allDone && !open.length ? <p>Winners confirmed, items handed over, donations processed.</p> : open.length ? <p>{open.length} item{open.length === 1 ? " is" : "s are"} still open. They appear here as they close.</p> : null}
         </div>
         <div className="wh-nums">
           <div><span>Items sold</span><b>{formatMoney(sold)}</b></div>
@@ -45,7 +44,7 @@ export function ResultsBoard({ ctx }: { ctx: Ctx }) {
 
       <div className="wrap-cols">
         <div className="wrap-main">
-          <Section n={1} title="Confirm winners" count={decide.length} doneText={items.some(i => i.phase === "closed") ? "All closed items have a decision." : "Items appear here as they close."}>
+          <Section n={1} title="Confirm winners" count={decide.length} doneText={items.some(i => i.phase === "closed") ? "Every closed item has a decision." : "Items appear here as they close."}>
             {decide.map(i => <DecideCard key={i.id} ctx={ctx} item={i} />)}
           </Section>
           <Section n={2} title="Hand over" count={handover.length} doneText="Nothing waiting to be handed over.">
@@ -75,14 +74,13 @@ export function ResultsBoard({ ctx }: { ctx: Ctx }) {
           </section>
           <section className="side-card">
             <h3><IDownload size={18} />Exports</h3>
-            <p className="sx-muted">Spreadsheets for your records and follow-up.</p>
             <div className="exports">
-              <a className="sx-btn block" href={`/api/v1/host/events/${e.id}/export/results`}><IDownload size={16} />Results &amp; winners</a>
+              <a className="sx-btn block" href={`/api/v1/host/events/${e.id}/export/results`}><IDownload size={16} />Winners</a>
               <a className="sx-btn block" href={`/api/v1/host/events/${e.id}/export/participants`}><IDownload size={16} />Participants</a>
               <a className="sx-btn block" href={`/api/v1/host/events/${e.id}/export/donations`}><IDownload size={16} />Donations</a>
             </div>
           </section>
-          <p className="sx-fine">Guests can look back at their results until {fmtTime(e.accessEndsAt, e.timezone)}.</p>
+          <p className="sx-fine">Guests can see their results until {fmtTime(e.accessEndsAt, e.timezone)}.</p>
         </aside>
       </div>
     </div>
@@ -92,7 +90,7 @@ export function ResultsBoard({ ctx }: { ctx: Ctx }) {
 function Section({ n, title, count, doneText, children }: { n: number; title: string; count: number; doneText: string; children: React.ReactNode }) {
   return (
     <section className={`wrap-sec${count ? "" : " clear"}`}>
-      <h3><span className={`ws-n${count ? "" : " ok"}`}>{count ? n : <ICheck size={14} />}</span>{title}{count > 0 && <em>{count}</em>}</h3>
+      <h3><span className={`ws-n${count ? "" : " ok"}`}>{count ? n : <ICheck size={14} />}</span>{title}{count > 1 && <em>{count}</em>}</h3>
       {count ? <div className="cards-col">{children}</div> : <p className="ws-clear">{doneText}</p>}
     </section>
   );
@@ -124,12 +122,12 @@ function DecideCard({ ctx, item }: { ctx: Ctx; item: Item }) {
     <article className="rc decide">
       <div className="rc-row">
         <Thumb item={item} />
-        <div className="rc-t"><span className="rc-no">Item {String(item.position + 1).padStart(2, "0")}</span><b>{item.title}</b>
-          {top ? <span className="rc-win"><ITrophy size={15} />Top bid <b>{formatMoney(top.amountMinor)}</b> by <b>{top.business}</b> ({top.name})</span> : <span className="rc-win none">No bids</span>}</div>
+        <div className="rc-t"><b>{item.title}</b>
+          {top ? <span className="rc-win"><ITrophy size={15} /><b>{top.business}</b> · {top.name} · <b>{formatMoney(top.amountMinor)}</b></span> : <span className="rc-win none">No bids</span>}</div>
         <div className="rc-acts">
           {top ? <>
             <button type="button" className="sx-btn primary" disabled={busy} onClick={() => act("assign")}><ICheck size={16} />Confirm winner</button>
-            <button type="button" className="sx-btn ghost sm" onClick={() => setChoosing(!choosing)}>Someone else</button>
+            <button type="button" className="sx-btn ghost sm" onClick={() => setChoosing(!choosing)}>Pick another bid</button>
           </> : <button type="button" className="sx-btn" disabled={busy} onClick={() => act("no_winner")}>Mark no winner</button>}
         </div>
       </div>
@@ -141,7 +139,7 @@ function DecideCard({ ctx, item }: { ctx: Ctx; item: Item }) {
 function ChooseBid({ item, busy, act, onCancel }: { ctx: Ctx; item: Item; busy: boolean; act: (a: string, x?: Record<string, unknown>) => void; onCancel: () => void }) {
   return (
     <div className="choose">
-      <p>Pick the bid to award instead, for example if the top bidder can’t take the item.</p>
+      <p>Award a different bid, for example if the top bidder can’t take the item.</p>
       <ol>{item.bids.map(b => (
         <li key={b.id}><span><b>{b.business}</b> · {b.name}</span><span className="amt">{formatMoney(b.amountMinor)}</span>
           <button type="button" className="sx-btn sm" disabled={busy || b.id === item.award?.bidId} onClick={() => act("assign", { bidId: b.id })}>{b.id === item.award?.bidId ? "Current" : "Award"}</button></li>
@@ -160,13 +158,13 @@ function HandoverCard({ ctx, item }: { ctx: Ctx; item: Item }) {
     <article className="rc handover">
       <div className="rc-row">
         <Thumb item={item} />
-        <div className="rc-t"><span className="rc-no">Item {String(item.position + 1).padStart(2, "0")}</span><b>{item.title}</b>
-          {w && <span className="rc-win yours"><ITrophy size={15} /><b>{w.business}</b> ({w.name}) · <b>{formatMoney(w.amountMinor)}</b></span>}</div>
+        <div className="rc-t"><b>{item.title}</b>
+          {w && <span className="rc-win yours"><ITrophy size={15} /><b>{w.business}</b> · {w.name} · <b>{formatMoney(w.amountMinor)}</b></span>}</div>
         <div className="rc-acts"><button type="button" className="sx-btn primary" disabled={busy} onClick={() => act("fulfilled")}><ICheck size={16} />Handed over</button>
           <button type="button" className="sx-btn ghost sm" onClick={() => setChoosing(!choosing)}>Change winner</button></div>
       </div>
       <div className="rc-notes">
-        <input value={notes} onChange={x => setNotes(x.target.value)} placeholder="Follow-up notes: picked up Saturday, invoiced in trade…" aria-label={`Notes for ${item.title}`} />
+        <input value={notes} onChange={x => setNotes(x.target.value)} placeholder="Add a note (optional)" aria-label={`Notes for ${item.title}`} />
         <button type="button" className="sx-btn sm" disabled={busy || notes === (item.award?.notes ?? "")} onClick={() => act("notes", { notes })}>Save note</button>
       </div>
       {choosing && <ChooseBid ctx={ctx} item={item} busy={busy} act={act} onCancel={() => setChoosing(false)} />}

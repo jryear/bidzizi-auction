@@ -13,7 +13,7 @@ const watch = (page, tag) => { page.on("pageerror", e => errors.push(`${tag}: ${
 const shot = async (page, name, wait = 700) => { await page.waitForTimeout(wait); await page.screenshot({ path: `${OUT}/${name}.png` }); console.log("shot", name); };
 async function signIn(page) {
   await page.goto(BASE + "/studio");
-  await page.getByLabel("Email").fill(process.env.HOST_EMAIL); await page.getByLabel("Password").fill(process.env.HOST_PASSWORD);
+  await page.getByLabel("Email").fill(process.env.HOST_EMAIL); await page.getByLabel("Password", { exact: true }).fill(process.env.HOST_PASSWORD);
   await page.getByRole("button", { name: "Sign in" }).click(); await page.locator(".home-wrap").waitFor();
 }
 

@@ -163,6 +163,7 @@ export BASE=http://127.0.0.1:3420 HOST_EMAIL=host@example.com HOST_PASSWORD=clau
 node tests/v1/shell-shots.mjs .shots/guest            # prints {"eventId": ...}
 node tests/v1/studio-shell-shots.mjs .shots/studio <eventId>
 node tests/v1/journey.mjs                             # 29/29
+node tests/v1/hard-states.mjs .shots/hard            # sign-in error, bad code, rejoin, entry closed, empty, closing soon, unconfirmed, closed
 ```
 
 The seed covers leading, outbid (with a live alert), closing soon, won (with the celebration), staff confirming, no photo, a very long title, sponsors, donations, watching and offline. `tests/v1/compose-compare.mjs` builds the side-by-side images. The old `shots.mjs` and `studio-shots.mjs` now forward to the new scripts.
@@ -184,3 +185,158 @@ Accept, redirect or reject the direction: the attendee app and the Studio are se
 1. a real device pass (iOS Safari, Android Chrome) and VoiceOver;
 2. folding the Codex agent's no-developer operations (void bid, withdraw item, staff invite, practice reset/delete) into the Studio's Live and Results surfaces;
 3. a per-item bid history endpoint, to replace the device-local activity log.
+
+## Tightening pass (2026-10-13)
+
+Zack asked for subtraction and precision, not features. Same constraints as before: frontend only against the existing v1 API, local commits, no push or deploy.
+
+**Process.**
+1. I captured the full set at 390px and 1440px before changing anything: 33 attendee shots, 23 Studio shots, and 12 new hard-state shots (`tests/v1/hard-states.mjs`).
+2. I worked through the screens, then captured and critiqued two full rounds.
+3. A final round produced the "after" set.
+
+Things the rounds caught:
+- Round 1:
+  - the action bar's red label;
+  - a clipped "Next step";
+  - "1 bids";
+  - phone Studio stats wrapping;
+  - squeezed archive rows.
+- Round 2:
+  - the amount shown twice on the Bid button row;
+  - "leading $0" in My bids;
+  - a 6 PM–midnight event reading as two days;
+  - long titles still huge on desktop.
+- Final round:
+  - a double space in "Bid $225";
+  - "You're leading" said three times;
+  - a redundant card around the desktop button.
+
+Gates: `tsc` is clean, `next build` succeeds, and `tests/v1/journey.mjs` passes 29/29.
+
+### Sign-in
+
+I found a likely cause for Zack's sign-in trouble: **five wrong passwords pause that email for up to 15 minutes**. The old screen only said "Too many attempts. Wait a few minutes", in the same red line as every other error.
+
+The staff sign-in screen now gives each failure its own title and next step:
+
+| What happened | What the screen says |
+|---|---|
+| Wrong email or password | "Email or password is wrong". Your password stays in the field, selected, so typing replaces it. |
+| The pause | "Sign-in is paused for up to 15 minutes" |
+| Offline | "Can't reach BidZizi" |
+| An out-of-date page, which the server rejects as 403 | "This page is out of date", with a **Reload** button |
+
+Other sign-in changes:
+- The button reads "Try again" after an error.
+- There is a show-password toggle.
+- The page explains how to get a password reset.
+- The heading is now "Staff sign in" instead of "Host sign in".
+
+The attendee code screen names the code that failed ("No event uses ZZZZZ9") and selects it for retyping. The join form now marks the field that's missing, and the rejoin form shows "Try again" after a bad code.
+
+**Test hygiene:** the hard-states script uses a made-up email for its wrong-password shot, so captures never pause the real host account. My earlier runs had paused it once; I cleared those failed attempts in `bz_test_claude`.
+
+![](claude-shell/tight-10-login-1440.jpg)
+![](claude-shell/tight-11-login-390.jpg)
+
+### Before and after
+
+![](claude-shell/tight-01-item-outbid-390.jpg)
+![](claude-shell/tight-02-outbid-alert-390.jpg)
+![](claude-shell/tight-03-item-leading-390.jpg)
+![](claude-shell/tight-04-sheet-390.jpg)
+![](claude-shell/tight-05-items-390.jpg)
+![](claude-shell/tight-06-mybids-390.jpg)
+![](claude-shell/tight-07-event-390.jpg)
+![](claude-shell/tight-08-item-1440.jpg)
+![](claude-shell/tight-09-items-1440.jpg)
+![](claude-shell/tight-12-closed-390.jpg)
+![](claude-shell/tight-13-unconfirmed-390.jpg)
+![](claude-shell/tight-14-empty-390.jpg)
+![](claude-shell/tight-15-home-1440.jpg)
+![](claude-shell/tight-16-home-390.jpg)
+![](claude-shell/tight-17-setup-1440.jpg)
+![](claude-shell/tight-18-live-1440.jpg)
+![](claude-shell/tight-19-results-1440.jpg)
+
+### What I removed or changed
+
+**Duplicated messages (attendee)**
+- **Outbid alert:** it no longer appears on that item's page or on My bids, where the page already says it. The phone still vibrates.
+- **Outbid card:** it says only what's new ("Your $175 is no longer the top bid"). The ticket below already shows who leads and at what.
+- **Item page action bar:**
+  - The red "OUTBID · NEXT BID" label, the red border and "Bidding as…" are gone.
+  - It is now one full-width **Bid $X** button, with a countdown above it only when the item is closing.
+  - Leading, closed, and the amber "Closing soon" card no longer get a bar; the standing card and ticket already say it.
+  - An unconfirmed bid gets just **Check bid status**.
+- **Item card:** it no longer says "You're leading" twice (leader line and band), and the green band no longer repeats the price. "Ends in 2h 59m", which was identical on every card, now appears only when an item differs. The category eyebrow is gone (the chips cover it), and the bid count joins the price label.
+- **Bid sheet:**
+  - The large "Bidding for" card is now a line under the item.
+  - The four-line "What this does" box is now one sentence: "Top bid $200 by Harbor Logistics. You're leading once it's confirmed."
+  - The landed moment is shorter.
+- **Resume-pending toast:** it appeared twice and used a check mark for bad news. It now shows once with an info icon and names the amount: "Your $115 bid didn't reach us. Nothing was placed."
+
+**Redundant labels and badges (attendee)**
+- The event-name eyebrow is gone from Items, Watching, My bids and Donate; the header already shows it.
+- The "9 items" pill is gone. The count sits on a quiet toolbar line with a borderless sort that sizes to its text.
+- The "That's everything. Good luck!" end note is gone.
+- The desktop rail no longer has an identity card repeating the header.
+- **My bids:**
+  - Section subtitles are gone, and "Needs your attention" is now "Outbid".
+  - Tickets lose the status pill (the heading says it), the lot label and the "1 bid from you" expander.
+  - The action row appears only when there's something to do.
+  - It no longer says "leading $0".
+- **Event page:** the second date list, "Hottest right now", the extra My bids button, the "All items" link and the "Welcome" heading are gone. "How winning works" is now three short lines, and the "joined as" card is calmer.
+
+**Copy (attendee)**
+- "Unconfirmed" is now "We couldn't confirm your last bid".
+- The activity footnote is one sentence.
+- "How bidding works" is plainer.
+- "Items are on their way" is now "No items yet".
+- Join and rejoin hints are shorter.
+
+**Hard-state fixes (attendee)**
+- An event ending at midnight shows as one day.
+- The Facts row no longer wraps the bidding times.
+- Long item titles have their own smaller size on phone and desktop.
+
+**Studio home**
+- The greeting, the "Happening now" eyebrow, the Items stat box and the third button are gone.
+- The stats are a calm divided row with only the countdown in marigold.
+- The extra "Start a new event" card is gone (New event is in the top bar).
+- "Start from this" appears on row hover, and as an icon on phones.
+- Plurals are fixed.
+- On phones, the stats no longer wrap and archive rows no longer get crushed.
+
+**Set up**
+- The checklist folds to one **Next step** row with the ring; all eight steps are a tap away, and the phone's Steps tab opens them expanded.
+- The inspector shows only what the phone can't: venue, winner message, starting bid, category, provider, visibility and advanced settings. Everything else is labelled "Edit on the phone". I kept a **Remove photo** button, since only the inspector could do that.
+- "Exactly what guests see" is gone and the tips are shorter.
+- New items open on the phone, where their title is edited.
+- The "Autosaves" label is hidden on phones, where it hit the Share button.
+
+**Live**
+- The second "Open stage display" button is gone; Stage is in the top bar.
+- The attention cards are one line each ("Closing soon", "No bids yet"), clamped to two lines.
+- Tiles show a status only when it isn't "open", and a countdown only inside the last 10 minutes.
+- The rejoin instructions quote the current link text, "Joined on another phone?". I also updated that string in the classic workspace.
+
+**Results**
+- The eyebrow is gone, and the paragraph only appears when it adds something.
+- The lot labels are gone.
+- "Someone else" is now "Pick another bid".
+- The note placeholder is "Add a note (optional)".
+- The exports description is gone.
+- A section count shows only when there's more than one.
+
+**Accessibility**
+- The show-password button had sat inside the field's label, which muddled the field's accessible name; it now sits outside.
+- Archive buttons keep their visible text in their accessible names.
+
+### Not done in this pass
+
+- **No strict spacing-scale refactor.** I tightened rhythm where the screenshots showed problems (stats, toolbar, cards, joined card, checklist) rather than rewriting every value, to avoid regressions without a visual-diff harness.
+- **Studio top bar unchanged.** It is still four controls on desktop.
+- **Template gallery and stage display unchanged.**
+- **Still no real-device or screen-reader testing.**

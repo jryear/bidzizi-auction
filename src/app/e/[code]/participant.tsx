@@ -160,6 +160,9 @@ export default function Participant({ code }: { code: string }) {
       load();
     },
   }), [code, go, load, notify]);
+  // An outbid alert repeats what the page already says on that item's page and on My bids, so it isn't shown there.
+  const redundant = useCallback((a: Alert, r: Route) => Boolean(a.itemId && a.tone === "red" && (r.i === a.itemId || (!r.i && r.s === "mine"))), []);
+  useEffect(() => { setAlerts(list => { const keep = list.filter(a => !redundant(a, route)); return keep.length === list.length ? list : keep; }); }, [alerts, route, redundant]);
   const closeSheet = useCallback(() => { if ((history.state as { sheet?: string } | null)?.sheet) history.back(); else setSheet(null); }, []);
 
   // ------------------------------------------------------------ render
@@ -242,8 +245,8 @@ export default function Participant({ code }: { code: string }) {
 
       {sheetItem && <BidSheet key={sheetItem.id} item={sheetItem} me={me} code={code} pendingKey={pendingKey} initialAmount={sheet?.amount} offline={offline}
         onPending={setPending} onClose={closeSheet} onSettled={load} notify={notify} />}
-      <ResumePending code={code} pendingKey={pendingKey} onResolved={(text, ok) => { setPending(null); notify({ tone: ok ? "green" : "ink", title: text }); load(); }} />
-      <Alerts alerts={alerts} onDismiss={dismiss} onAct={a => { dismiss(a.id); const it = snap.items.find(i => i.id === a.itemId); if (it) nav.openSheet(it, a.action?.amount); }} />
+      <ResumePending code={code} pendingKey={pendingKey} onResolved={(text, ok) => { setPending(null); notify({ key: "resume", tone: ok ? "green" : "ink", title: text }); load(); }} />
+      <Alerts alerts={alerts.filter(a => !redundant(a, route))} onDismiss={dismiss} onAct={a => { dismiss(a.id); const it = snap.items.find(i => i.id === a.itemId); if (it) nav.openSheet(it, a.action?.amount); }} />
       {celebrate && <Celebration item={celebrate} code={code} instructions={me.winnerInstructions} onClose={target => {
         setCelebrate(null);
         if (target === "mine") nav.tab("mine");

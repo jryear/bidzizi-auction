@@ -491,7 +491,7 @@ export function People({ ctx, compact = false }: { ctx: Ctx; compact?: boolean }
       <div className="row between wrap"><h3>Participants · {data.participants.length}</h3>
         <a className="btn small" href={`/api/v1/host/events/${e.id}/export/participants`}>Export CSV</a></div>
       {code && <div className="notice info stack"><span>Rejoin code for <b>{code.name}</b> (valid 30 minutes, one use):</span><span className="joincode" style={{ fontSize: 32 }}>{code.code}</span>
-        <span className="small">On the new phone: open the event, tap “Already joined on another phone?”, and enter this code.</span></div>}
+        <span className="small">On the new phone: open the event, tap “Joined on another phone?” and enter this code.</span></div>}
       {data.participants.length > 6 && <input className="input" type="search" placeholder="Search by name or business" value={query} onChange={x => setQuery(x.target.value)} />}
       {!data.participants.length ? <p className="muted small">No one has joined yet. Share your code to get started.</p> : compact ? (
         <div className="people">

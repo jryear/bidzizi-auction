@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { api, dollarsInput, errorText, Offline, parseDollars } from "../../lib/api";
 import { qrcodegen } from "../../lib/qr-code.js";
-import { ICheck, IMore, IUpload, ITrash } from "../../lib/icons";
+import { IAlert, ICheck, IEye, IEyeOff, IMore, IUpload, ITrash } from "../../lib/icons";
 import { uploadPhoto } from "./data";
 
 export function Brand({ href = "/studio" }: { href?: string }) {
@@ -163,15 +163,28 @@ export function Toast({ text, tone = "ink" }: { text: string; tone?: "ink" | "re
   return text ? <div className={`sx-toast t-${tone}`} role="status">{text}</div> : null;
 }
 
+type LoginError = { title: string; body: string; action?: "reload" };
+function loginError(r: { status: number; data: any } | null): LoginError {
+  if (!r) return { title: "Can’t reach BidZizi", body: "Check your connection, then try again." };
+  const code = r.data?.error?.code;
+  if (code === "LOGIN_FAILED") return { title: "Email or password is wrong", body: "Check for a typo or caps lock, then try again." };
+  if (code === "TOO_MANY_ATTEMPTS") return { title: "Sign-in is paused for up to 15 minutes", body: "Too many wrong passwords in a row. For safety, wait out the pause, then try again." };
+  if (r.status === 403) return { title: "This page is out of date", body: "Reload it, then sign in again.", action: "reload" };
+  return { title: "Sign-in didn’t work", body: "Something went wrong on our side. Try again in a moment." };
+}
+
 export function Login({ onIn }: { onIn: () => void }) {
-  const [email, setEmail] = useState(""), [password, setPassword] = useState(""), [error, setError] = useState(""), [busy, setBusy] = useState(false);
+  const [email, setEmail] = useState(""), [password, setPassword] = useState(""), [error, setError] = useState<LoginError | null>(null), [busy, setBusy] = useState(false);
+  const [show, setShow] = useState(false);
+  const pw = useRef<HTMLInputElement>(null);
   async function submit(event: React.FormEvent) {
-    event.preventDefault(); setBusy(true); setError("");
-    try {
-      const r = await api("POST", "/api/v1/host/login", { email, password });
-      if (r.ok) onIn(); else setError(errorText(r));
-    } catch (e) { setError(e instanceof Offline ? e.message : "Something went wrong."); }
-    finally { setBusy(false); }
+    event.preventDefault(); setBusy(true); setError(null);
+    let r: Awaited<ReturnType<typeof api<any>>> | null = null;
+    try { r = await api("POST", "/api/v1/host/login", { email: email.trim(), password }); } catch (e) { if (!(e instanceof Offline)) throw e; }
+    setBusy(false);
+    if (r?.ok) { onIn(); return; }
+    const err = loginError(r); setError(err);
+    if (r?.data?.error?.code === "LOGIN_FAILED") requestAnimationFrame(() => pw.current?.select());
   }
   return (
     <main className="sx sx-login">
@@ -181,18 +194,29 @@ export function Login({ onIn }: { onIn: () => void }) {
           <span className="la-card c2"><i>02</i><b>Chef&rsquo;s table</b><em>$325</em></span>
           <span className="la-card c3"><i>03</i><b>Coffee for a year</b><em>$200</em></span>
         </div>
-        <p className="la-quote">Run the room.<br /><span>Your auction, on every phone.</span></p>
+        <p className="la-quote">Run the room.</p>
       </section>
       <section className="login-panel">
-        <form className="login-form" onSubmit={submit}>
+        <form className="login-form" onSubmit={submit} noValidate={false}>
           <Brand />
-          <h1>Host sign in</h1>
-          <p className="sx-muted">Set up your event, run it live and wrap it up, all from here.</p>
-          <label className="sx-field"><span className="sx-label">Email</span><input type="email" value={email} onChange={e => setEmail(e.target.value)} autoComplete="username" required /></label>
-          <label className="sx-field"><span className="sx-label">Password</span><input type="password" value={password} onChange={e => setPassword(e.target.value)} autoComplete="current-password" required /></label>
-          {error && <p className="sx-error" role="alert">{error}</p>}
-          <button className="sx-btn primary lg block" disabled={busy}>{busy ? "Signing in…" : "Sign in"}</button>
-          <p className="sx-fine">Joining an event as a guest? <a href="/join">Enter a code</a></p>
+          <h1>Staff sign in</h1>
+          {error && (
+            <div className="login-err" role="alert">
+              <IAlert size={20} />
+              <div><b>{error.title}</b><span>{error.body}</span></div>
+              {error.action === "reload" && <button type="button" className="sx-btn sm" onClick={() => location.reload()}>Reload</button>}
+            </div>
+          )}
+          <label className="sx-field"><span className="sx-label">Email</span>
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} autoComplete="username" autoFocus required aria-invalid={error?.title.startsWith("Email") || undefined} /></label>
+          <div className="sx-field"><label className="sx-label" htmlFor="login-pw">Password</label>
+            <span className="pw-wrap">
+              <input id="login-pw" ref={pw} type={show ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} autoComplete="current-password" required aria-invalid={error?.title.startsWith("Email") || undefined} />
+              <button type="button" className="pw-eye" onClick={() => setShow(!show)} aria-label={show ? "Hide password" : "Show password"} aria-pressed={show}>{show ? <IEyeOff size={18} /> : <IEye size={18} />}</button>
+            </span></div>
+          <button className="sx-btn primary lg block" disabled={busy || !email || !password}>{busy ? "Signing in…" : error ? "Try again" : "Sign in"}</button>
+          <p className="sx-fine">Forgot your password? Ask the person who set up your account.</p>
+          <p className="sx-fine login-guest">Here to bid? <a href="/join">Enter an event code</a></p>
         </form>
       </section>
     </main>

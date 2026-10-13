@@ -17,17 +17,18 @@ export default function JoinByCode() {
     setBusy(true); setError("");
     try {
       const r = await api("GET", `/api/v1/e/${value}`);
-      if (r.ok) router.push(`/e/${value}`);
-      else setError(r.status === 404 ? "We couldn't find that event. Check the code with your host." : "Something went wrong. Try again.");
-    } catch (e) { setError(e instanceof Offline ? "You're offline. Connect and try again." : "Something went wrong."); }
-    finally { setBusy(false); }
+      if (r.ok) { router.push(`/e/${value}`); return; }
+      setError(r.status === 404 ? `No event uses ${value}. Check the code and try again.` : "Something went wrong on our side. Try again.");
+    } catch (e) { setError(e instanceof Offline ? "You’re offline. Connect to Wi‑Fi or data, then try again." : "Something went wrong. Try again."); }
+    setBusy(false);
+    requestAnimationFrame(() => input.current?.select());
   }
   return (
     <main className="pa pa-center join-code">
       <form className="jc" onSubmit={go}>
         <span className="pa-brand">Bid<i>Zizi</i></span>
         <h1>Join an event</h1>
-        <p className="muted">Scan the QR code at the event, or type the code your host shows.</p>
+        <p className="muted">Type the 6-character code shown at the event.</p>
         <label className={`cells${focused ? " focus" : ""}${error ? " bad" : ""}`} onClick={() => input.current?.focus()}>
           <span className="sr">Event code</span>
           <input ref={input} value={code} aria-label="Event code" inputMode="text" autoCapitalize="characters" autoComplete="one-time-code" spellCheck={false} autoFocus
@@ -36,7 +37,7 @@ export default function JoinByCode() {
           {Array.from({ length: 6 }, (_, i) => <span key={i} className={`cell${i === code.length && focused ? " cur" : ""}${code[i] ? " on" : ""}`} aria-hidden="true">{code[i] ?? ""}</span>)}
         </label>
         {error && <p className="notice-err" role="alert">{error}</p>}
-        <button className="btn primary block lg" disabled={busy || code.length !== 6}>{busy ? <><span className="spinner" aria-hidden="true" />Finding your event…</> : "Join"}</button>
+        <button className="btn primary block lg" disabled={busy || code.length !== 6}>{busy ? <><span className="spinner" aria-hidden="true" />Finding your event…</> : error ? "Try again" : "Join"}</button>
         <p className="fine center">Hosting an event? <a href="/studio">Staff sign in</a></p>
       </form>
     </main>
