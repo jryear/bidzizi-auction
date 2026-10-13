@@ -52,6 +52,11 @@ if (SEEDED) {
   await p.goto(`${BASE}/studio/${SEEDED}?mode=setup`); await p.locator(".device-screen").waitFor(); await shot(p, "s13-editor-live-event-1440", 1400);
   await p.locator("details.housekeeping").evaluate(d => { d.open = true; d.scrollIntoView(); }); await shot(p, "s13b-housekeeping-1440", 600);
   await p.locator(".top-acts").getByRole("button", { name: /Share/ }).click(); await p.locator(".share").waitFor(); await shot(p, "s14-share-live-1440", 900);
+  await p.keyboard.press("Escape");
+  for (const layout of ["card", "page"]) {
+    await p.goto(`${BASE}/studio/${SEEDED}/print?layout=${layout}`); await p.locator(".pv-sheet").waitFor(); await shot(p, `s14${layout === "card" ? "b" : "c"}-print-${layout}-1440`, 700);
+    await p.emulateMedia({ media: "print" }); await p.pdf({ path: `${OUT}/print-${layout}.pdf`, preferCSSPageSize: true, printBackground: true }); await p.emulateMedia({ media: "screen" });
+  }
   const stage = await desk.newPage(); watch(stage, "stage");
   await stage.goto(`${BASE}/studio/${SEEDED}/stage`); await stage.locator(".st-main, .finale").first().waitFor(); await shot(stage, "s15-stage-1440", 2200);
   await stage.setViewportSize({ width: 1920, height: 1080 }); await shot(stage, "s16-stage-1920", 1500);
