@@ -513,7 +513,6 @@ function AddRow({ ctx, row, live, categories, counts, titleRef, nav, defaultCate
           <input ref={titleRef} className="cell-in" data-cell={`${row}:title`} value={d.title} maxLength={200} aria-label="New item title" placeholder={first ? "Type your first item’s title" : "Add an item: type a title"}
             onChange={ev => put({ ...d, title: ev.target.value })} onKeyDown={keys("title")}
             onPaste={ev => { const text = ev.clipboardData.getData("text/plain"); if (looksLikeRows(text)) { ev.preventDefault(); onPasteRows(text); } }} />
-          <span className="add-note">{hint ? <b className="add-hint" role="alert">{hint}</b> : <small>{live ? "Enter adds it. New items start hidden; show each one when it’s ready." : "Enter adds it, then starts the next. Paste spreadsheet rows here too."}</small>}</span>
         </span>
         <span role="cell" className="c-cat">
           <CategoryInput value={d.category} categories={categories} counts={counts} label="New item category" placeholder="Category"
@@ -525,6 +524,7 @@ function AddRow({ ctx, row, live, categories, counts, titleRef, nav, defaultCate
         <span role="cell" className="c-vis"><button type="button" className="sx-btn primary sm add-go" onClick={submit} disabled={!d.title.trim()}>Add</button></span>
         <span role="cell" className="c-status" />
         <span role="cell" className="c-open" />
+        <span role="cell" className="add-note">{hint ? <b className="add-hint" role="alert">{hint}</b> : <small>{live ? "Enter adds it. New items start hidden; show each one when it’s ready." : "Enter adds it, then starts the next. Paste spreadsheet rows here too."}</small>}</span>
       </div>
     </>
   );

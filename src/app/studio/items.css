@@ -273,11 +273,12 @@
 .iw-add { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 10px; padding: 14px 16px; }
 .iw-add > [role="cell"] { grid-area: auto; align-self: auto; }
 .iw-add > .c-sel, .iw-add > .c-grip, .iw-add > .c-no, .iw-add > .c-photo, .iw-add > .c-status, .iw-add > .c-open { display: none; }
-.iw-add > .c-title { display: grid; flex: 2 1 260px; padding: 0; }
+.iw-add > .c-title { display: block; flex: 2 1 260px; padding: 0; }
 .iw-add > .c-cat { display: block; flex: 1 1 128px; }
 .iw-add > .c-donor { display: block; flex: 1 1 160px; }
 .iw-add > .c-start { display: block; flex: 0 1 104px; }
 .iw-add > .c-vis { display: block; flex: 0 0 80px; margin-left: auto; }
+.iw-add > .add-note { flex: 1 0 100%; order: 3; }
 .iw-add .cell-in, .iw-add .c-donor .cell-in { min-height: 42px; margin: 0; font-size: 14.5px; }
 .iw-add .c-donor .cell-in { padding: 7px 9px; }
 @media (max-width: 640px) {

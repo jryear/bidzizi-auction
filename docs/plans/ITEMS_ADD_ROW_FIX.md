@@ -16,3 +16,7 @@ Metrics and regression output are in the same evidence directory. Captures use a
 ## Staging delivery
 
 Live at **https://staging.bidzizi.com/studio**, source `9b255db`, deployment `dpl_AaZBntgxAR4Pu5UNvRktzMbJHKVU`. Hosted checks repeat the eight widths and verify Add saves a $125 item through the server. The separate practice fixture was deleted and the temporary smoke staff disabled afterward. [Hosted phone](../evidence/items-add-row-20261013/hosted-390.png) · [hosted desktop](../evidence/items-add-row-20261013/hosted-1268.png). Production remains on `dpl_CqZBiNowAAHiXFE8kXtmue27nrRq` / source `3f6c3e2`. No migrations or production changes in this layout follow-up.
+
+## Helper text placement
+
+Zack requested that the helper belong to the horizontal card, beneath all its fields. The helper/error text is now a full-width sibling after the controls, with an explicit final flex order on mobile. Chromium and WebKit compiled-layout checks pass at all eight widths; production build/typecheck pass. [Phone](../evidence/items-add-row-20261013/helper-390.png) · [desktop](../evidence/items-add-row-20261013/helper-1268.png).
