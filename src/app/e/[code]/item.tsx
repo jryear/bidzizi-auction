@@ -5,7 +5,7 @@ import { formatMoney } from "../../../lib/money";
 import { IAlert, ICheck, IClock, IHistory, ITrophy } from "../../../lib/icons";
 import { closingSoon, countdown, itemLog, standing, type Item, type LogEntry, type PendingBid, type Snapshot } from "./model";
 import type { Nav } from "./participant";
-import { Amount, ItemArt, LotTab, Mark, Photo, Pill, TimeLeft, Watch } from "./ui";
+import { Amount, Ed, ItemArt, LotTab, Mark, Photo, Pill, TimeLeft, useEdit, Watch } from "./ui";
 
 type Props = { snap: Snapshot; now: number; nav: Nav; code: string; stale: boolean; pending: PendingBid | null; item: Item };
 
@@ -16,11 +16,12 @@ export function ItemPage({ snap, now, nav, code, stale, pending, item }: Props) 
   const [log, setLog] = useState<LogEntry[]>([]);
   useEffect(() => { setLog(itemLog(code, item.id)); }, [code, item.id, item.currentMinor, item.myBidCount]);
   const tz = snap.event.timezone;
+  const edit = useEdit();
 
   return (
     <article className={`ip tone-${s.tone}`}>
       <div className="ip-media">
-        <Photo url={item.imageUrl} className="hero" vt={`photo-${item.id}`} alt={item.title}><ItemArt item={item} /></Photo>
+        <Photo k={`item:${item.id}`} url={item.imageUrl} className="hero" vt={`photo-${item.id}`} alt={item.title}><ItemArt item={item} /></Photo>
         <LotTab item={item} size="lg" />
         <Watch on={item.watching} size="lg" onToggle={() => nav.watch(item, !item.watching)} />
       </div>
@@ -29,8 +30,8 @@ export function ItemPage({ snap, now, nav, code, stale, pending, item }: Props) 
           {item.donor ? <span className="provided"><Mark name={item.donor} kind="sponsor" size={36} /><span><small>Provided by</small><b>{item.donor}</b></span></span> : <span />}
           {item.category && <span className="eyebrow">{item.category}</span>}
         </div>
-        <h1 className="ip-title">{item.title}</h1>
-        {item.short && <p className="ip-short">{item.short}</p>}
+        <Ed k={`item:${item.id}`} field="title" value={item.title} as="h1" className="ip-title" placeholder="Item title" max={200} />
+        <Ed k={`item:${item.id}`} field="short" value={item.short} as="p" className="ip-short" placeholder="One-line summary" max={500} />
 
         <StandingCard item={item} now={now} nav={nav} instructions={me.winnerInstructions} unconfirmed={unconfirmed} paused={!me.canBid} />
 
@@ -53,7 +54,7 @@ export function ItemPage({ snap, now, nav, code, stale, pending, item }: Props) 
 
         <ActionBar item={item} snap={snap} nav={nav} now={now} unconfirmed={unconfirmed} inline />
 
-        {item.description && <section className="prose"><h2>About this item</h2><p>{item.description}</p></section>}
+        {(item.description || edit) && <section className="prose"><h2>About this item</h2><Ed k={`item:${item.id}`} field="description" value={item.description} as="p" multiline placeholder="Describe the item: what it includes, any dates or limits." max={10000} /></section>}
 
         <section className="prose activity">
           <h2><IHistory size={20} />Bid activity</h2>

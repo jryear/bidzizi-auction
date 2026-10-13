@@ -61,7 +61,7 @@ export function Photo({ k, url, alt = "", className, children, vt }: { k?: strin
   const [over, setOver] = useState(false);
   const img = url ? <img src={url} alt={alt} loading="lazy" draggable={false} /> : null;
   const body = <div className={className}>{img ?? children}{edit && k ? (
-    <button type="button" className={`ph-drop${url ? "" : " pa-empty"}${over ? " over" : ""}`} onClick={e => { e.stopPropagation(); edit.select(k); input.current?.click(); }}
+    <button type="button" className={`ph-drop${url ? "" : " ph-none"}${over ? " over" : ""}`} onClick={e => { e.stopPropagation(); edit.select(k); input.current?.click(); }}
       onDragOver={e => { e.preventDefault(); setOver(true); }} onDragLeave={() => setOver(false)}
       onDrop={e => { e.preventDefault(); setOver(false); const f = e.dataTransfer.files?.[0]; if (f) edit.photo(k, f); }}>
       <span><IUpload size={18} />{edit.uploading === k ? "Uploading…" : url ? "Replace photo" : "Add a photo"}</span>
