@@ -5,7 +5,7 @@ import { headline } from "../../../lib/display";
 import { createContext, useContext, useEffect, useRef, useState, ViewTransition, type CSSProperties, type ReactNode } from "react";
 import { fmtClock, fmtTime, initials } from "../../../lib/api";
 import { formatMoney } from "../../../lib/money";
-import { IBookmark, IChevR, IClock, IPhoto, IUpload } from "../../../lib/icons";
+import { IBookmark, IChevR, IClock, IExternal, IPhoto, IUpload } from "../../../lib/icons";
 import { closingSoon, countdown, lotNo, shown, standing, type EventInfo, type Item, type Standing } from "./model";
 
 // ---------------------------------------------------------------- edit context (Studio canvas only)
@@ -195,20 +195,25 @@ export function ItemCard({ item, now, onOpen, onWatch, onRebid, unconfirmed, sta
   );
 }
 
+/** Compact view: a catalogue index. One line of title, one line of what matters, the amount that leads. */
 export function ItemRow({ item, now, onOpen, onWatch, unconfirmed, stale, canWatch = true, here }: CardProps) {
   const s = standing(item, unconfirmed);
   const head = headline(item, unconfirmed);
+  const soon = item.phase === "open" && closingSoon(item, now);
+  const status = s.mine || s.key === "withdrawn" || s.key === "scheduled" || s.key === "closed" || s.key === "sold" ? s.label
+    : item.bidCount ? `${item.bidCount} bid${item.bidCount === 1 ? "" : "s"}` : "No bids yet";
   return (
     <article className={`lr tone-${s.tone}${here ? " was-here" : ""}`} data-item={item.id}>
-      <Tap className="lr-hit" onOpen={onOpen} k={`item:${item.id}`} label={`${item.title}, ${formatMoney(headline(item, unconfirmed).amountMinor)}`} />
-      <div className="lr-thumb">{item.imageUrl ? <img src={item.imageUrl} alt="" loading="lazy" /> : <ItemArt item={item} size="sm" />}<span className="lr-no">{lotNo(item)}</span></div>
+      <Tap className="lr-hit" onOpen={onOpen} k={`item:${item.id}`} label={`${item.title}, ${head.label} ${formatMoney(head.amountMinor)}`} />
+      <span className="lr-no" aria-hidden="true">{lotNo(item)}</span>
+      <div className="lr-thumb">{item.imageUrl ? <img src={item.imageUrl} alt="" loading="lazy" /> : <ItemArt item={item} size="sm" />}</div>
       <div className="lr-main">
         <h3>{item.title}</h3>
-        <div className="lr-meta"><Pill s={s} small />{s.tone === "none" && <TimeLeft item={item} now={now} />}{s.tone !== "none" && item.phase === "open" && closingSoon(item, now) && <TimeLeft item={item} now={now} prefix={false} />}</div>
+        <p className="lr-meta"><span className={`lr-status s-${s.key}`}>{status}</span>{soon && <span className="lr-soon"><IClock size={13} />{countdown(item.closesAt, now)}</span>}</p>
       </div>
       <div className="lr-end">
         <Amount minor={head.amountMinor} stale={stale} />
-        <span className="pa-count">{item.bidCount ? `${item.bidCount} bid${item.bidCount === 1 ? "" : "s"}` : "starting"}</span>
+        <small>{head.yours ? "yours" : head.label === "Starting bid" ? "start" : head.label === "Final bid" ? "final" : "top bid"}</small>
       </div>
       {canWatch && <Watch on={item.watching} onToggle={() => onWatch?.(!item.watching)} />}
     </article>
@@ -248,7 +253,9 @@ export function SponsorGrid({ sponsors, title = "Thanks to our sponsors" }: { sp
   return (
     <section className="pa-sponsors">
       <span className="lbl">{title}</span>
-      <ul>{sponsors.map(s => <li key={s.name}><Mark name={s.name} kind="sponsor" url={s.logoUrl} size={40} /><span>{s.name}</span></li>)}</ul>
+      <ul>{sponsors.map(s => <li key={s.name}>{s.url
+        ? <a className="sp-link" href={s.url} target="_blank" rel="noopener noreferrer"><Mark name={s.name} kind="sponsor" url={s.logoUrl} size={40} /><span>{s.name}</span><IExternal size={14} /></a>
+        : <><Mark name={s.name} kind="sponsor" url={s.logoUrl} size={40} /><span>{s.name}</span></>}</li>)}</ul>
     </section>
   );
 }

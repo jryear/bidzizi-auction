@@ -39,8 +39,11 @@ await shot(p, "s07-inline-edit-1440", 300);
 await p.keyboard.press("Enter"); await p.waitForTimeout(1200);
 await p.locator(".cv-card").nth(1).locator(".cv-tools").getByRole("button", { name: "Open item page" }).click({ force: true });
 await shot(p, "s08-editor-itempage-1440", 1200);
-await p.locator(".ol").getByRole("button", { name: /Look/ }).click(); await p.getByRole("button", { name: /Midnight/ }).click(); await shot(p, "s09-theme-1440", 1500);
+await p.locator(".ol").getByRole("button", { name: /Look/ }).click(); await p.getByRole("radio", { name: /Midnight/ }).click(); await shot(p, "s09-theme-1440", 1500);
 await p.locator(".ol").getByRole("button", { name: /Schedule/ }).click(); await shot(p, "s09b-schedule-1440", 700);
+await p.locator(".ol").getByRole("button", { name: /Bidding rules/ }).click(); await shot(p, "s09c-rules-1440", 700);
+await p.locator(".ol").getByRole("button", { name: /Sponsors/ }).click(); await p.getByRole("button", { name: "Add a sponsor" }).click();
+await p.getByLabel("Sponsor name").fill("Saturn Barter"); await p.getByLabel("Saturn Barter website").fill("saturnbarter.com"); await p.getByLabel("Sponsor name").blur(); await shot(p, "s09d-sponsors-1440", 1200);
 await p.locator(".top-acts").getByRole("button", { name: /Share/ }).click(); await p.locator(".share").waitFor(); await shot(p, "s10-share-draft-1440", 900);
 await p.keyboard.press("Escape");
 

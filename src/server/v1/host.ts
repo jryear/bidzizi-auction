@@ -140,7 +140,7 @@ export async function duplicateEvent(request: Request, eventId: string): Promise
          i.increment_override_minor, moved(i.opens_at), moved(i.closes_at), i.ready])).rows[0];
       await db.query("INSERT INTO standings (item_id, event_id) VALUES ($1, $2)", [created.id, copy.id]);
     }
-    await db.query(`INSERT INTO sponsors (event_id, org_id, position, name, logo_asset_id) SELECT $2, org_id, position, name, logo_asset_id FROM sponsors WHERE event_id = $1`, [source.id, copy.id]);
+    await db.query(`INSERT INTO sponsors (event_id, org_id, position, name, logo_asset_id, url) SELECT $2, org_id, position, name, logo_asset_id, url FROM sponsors WHERE event_id = $1`, [source.id, copy.id]);
     await db.query(`INSERT INTO recipients (event_id, org_id, position, name, description, logo_asset_id) SELECT $2, org_id, position, name, description, logo_asset_id FROM recipients WHERE event_id = $1 AND NOT removed`, [source.id, copy.id]);
     await syncDonations(db, copy.id);
     return { id: copy.id };
@@ -230,7 +230,7 @@ export async function workspace(request: Request, eventId: string): Promise<Resp
       "SELECT id, participant_id, recipient_name, amount_minor::text, recorded_at, processed_at, note FROM pledges WHERE event_id = $1 ORDER BY recorded_at DESC", [e.id])).rows;
     const recipients = (await db.query<{ id: string; name: string; description: string; logo_asset_id: string | null; position: number }>(
       "SELECT id, name, description, logo_asset_id, position FROM recipients WHERE event_id = $1 AND NOT removed ORDER BY position", [e.id])).rows;
-    const sponsors = (await db.query<{ id: string; name: string; logo_asset_id: string | null }>("SELECT id, name, logo_asset_id FROM sponsors WHERE event_id = $1 ORDER BY position", [e.id])).rows;
+    const sponsors = (await db.query<{ id: string; name: string; logo_asset_id: string | null; url: string }>("SELECT id, name, logo_asset_id, url FROM sponsors WHERE event_id = $1 ORDER BY position", [e.id])).rows;
     const byParticipant = new Map(participants.map(p => [p.id, p]));
     const rules = rulesOf(e);
     return {
@@ -242,7 +242,7 @@ export async function workspace(request: Request, eventId: string): Promise<Resp
         bidMode: e.bid_mode, tiers: e.tiers, fixedIncrementMinor: num(e.fixed_increment_minor),
         donationsEnabled: e.donations_enabled, donationDeadline: e.donation_deadline, revision: e.revision, theme: e.theme,
         phase: e.status === "draft" ? "draft" : eventPhase(e, items, at), hasBids: bids.length > 0,
-        isPractice: e.is_practice, archivedAt: e.archived_at, bidderDisplay: e.bidder_display,
+        isPractice: e.is_practice, archivedAt: e.archived_at, bidderDisplay: e.bidder_display, accentColor: e.accent_color,
       },
       items: items.map(i => {
         const a = awards.get(i.id), leader = i.leader_id ? byParticipant.get(i.leader_id) : undefined;
@@ -273,7 +273,7 @@ export async function workspace(request: Request, eventId: string): Promise<Resp
         id: p.id, recipientName: p.recipient_name, amountMinor: Number(p.amount_minor), recordedAt: p.recorded_at,
         processedAt: p.processed_at, note: p.note, name: who?.display_name ?? "", business: who?.business_name ?? "" }; }),
       recipients: recipients.map(r => ({ id: r.id, name: r.name, description: r.description, logoAssetId: r.logo_asset_id, logoUrl: assetUrl(r.logo_asset_id) })),
-      sponsors: sponsors.map(s => ({ id: s.id, name: s.name, logoAssetId: s.logo_asset_id, logoUrl: assetUrl(s.logo_asset_id) })),
+      sponsors: sponsors.map(s => ({ id: s.id, name: s.name, logoAssetId: s.logo_asset_id, logoUrl: assetUrl(s.logo_asset_id), url: s.url })),
     };
   }));
 }
@@ -297,7 +297,7 @@ export async function stageView(request: Request, eventId: string): Promise<Resp
     return {
       serverNow: at,
       event: { id: e.id, name: e.name, code: e.join_code, theme: e.theme, status: e.status, startsAt: e.starts_at, endsAt: e.ends_at,
-        phase: e.status === "draft" ? "draft" : eventPhase(e, items, at), bidderDisplay: e.bidder_display },
+        phase: e.status === "draft" ? "draft" : eventPhase(e, items, at), bidderDisplay: e.bidder_display, accentColor: e.accent_color },
       items: items.map(i => ({
         id: i.id, position: i.position, title: i.title, donor: i.donor, category: i.category, imageUrl: assetUrl(i.image_asset_id),
         openingMinor: Number(i.opening_minor), currentMinor: i.current_minor === null ? null : Number(i.current_minor), bidCount: i.bid_count,
@@ -364,6 +364,11 @@ export async function updateEvent(request: Request, eventId: string): Promise<Re
     // "donationsEnabled" is no longer settable: donations follow whether the event has a nonprofit (see syncDonations).
     if ("donationDeadline" in input) next.donation_deadline = optionalWhen(input.donationDeadline);
     if (next.donations_enabled && !next.donation_deadline) next.donation_deadline = next.ends_at;
+    if ("accentColor" in input) {
+      if (input.accentColor === null || input.accentColor === "") next.accent_color = null;
+      else if (typeof input.accentColor === "string" && /^#[0-9a-fA-F]{6}$/.test(input.accentColor)) next.accent_color = input.accentColor.toUpperCase();
+      else throw invalid("Use a colour like #2338C7.");
+    }
     if ("bidderDisplay" in input) {
       if (!["name_business", "business", "anonymous"].includes(input.bidderDisplay as string)) throw invalid();
       next.bidder_display = input.bidderDisplay as EventRow["bidder_display"];
@@ -371,10 +376,10 @@ export async function updateEvent(request: Request, eventId: string): Promise<Re
     await db.query(
       `UPDATE events SET name=$2, welcome=$3, venue=$4, winner_instructions=$5, cover_asset_id=$6, timezone=$7, starts_at=$8, ends_at=$9,
               access_ends_at=$10, status=$11, entry_open=$12, bid_mode=$13, tiers=$14, fixed_increment_minor=$15, donations_enabled=$16,
-              donation_deadline=$17, theme=$18, is_practice=$19, bidder_display=$20, revision = revision + 1, updated_at = now() WHERE id = $1`,
+              donation_deadline=$17, theme=$18, is_practice=$19, bidder_display=$20, accent_color=$21, revision = revision + 1, updated_at = now() WHERE id = $1`,
       [e.id, next.name, next.welcome, next.venue, next.winner_instructions, next.cover_asset_id, next.timezone, next.starts_at, next.ends_at,
        next.access_ends_at, next.status, next.entry_open, next.bid_mode, JSON.stringify(next.tiers), next.fixed_increment_minor,
-       next.donations_enabled, next.donation_deadline, next.theme, next.is_practice, next.bidder_display]);
+       next.donations_enabled, next.donation_deadline, next.theme, next.is_practice, next.bidder_display, next.accent_color]);
     await syncDonations(db, e.id);
     return { ok: true, revision: e.revision + 1 };
   }));
@@ -538,14 +543,25 @@ export async function reorderItems(request: Request, eventId: string): Promise<R
 
 // ---------------------------------------------------------------- sponsors and recipients
 
+/** A sponsor's optional link: blank, or a web address. A bare domain gets https:// added. */
+function sponsorUrl(value: unknown): string {
+  const raw = typeof value === "string" ? value.trim() : "";
+  if (!raw) return "";
+  const withScheme = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
+  let parsed: URL;
+  try { parsed = new URL(withScheme); } catch { throw invalid("That sponsor link isn't a web address."); }
+  if (!["http:", "https:"].includes(parsed.protocol) || !parsed.hostname.includes(".") || withScheme.length > 500 || /\s/.test(withScheme)) throw invalid("That sponsor link isn't a web address.");
+  return parsed.href;
+}
+
 export async function saveSponsors(request: Request, eventId: string): Promise<Response> {
   const input = await readJson(request);
   if (!Array.isArray(input.sponsors) || input.sponsors.length > 30) throw invalid();
-  const sponsors = input.sponsors.map(s => { const v = s as Record<string, unknown>; return { name: str(v.name, 200, { required: true }), logo: v.logoAssetId ? id(v.logoAssetId) : null }; });
+  const sponsors = input.sponsors.map(s => { const v = s as Record<string, unknown>; return { name: str(v.name, 200, { required: true }), logo: v.logoAssetId ? id(v.logoAssetId) : null, url: sponsorUrl(v.url) }; });
   return json(await staffTx(request, async (db, staff) => {
     const e = await ownEvent(db, staff, eventId, "FOR UPDATE");
     await db.query("DELETE FROM sponsors WHERE event_id = $1", [e.id]);
-    for (const [p, s] of sponsors.entries()) await db.query("INSERT INTO sponsors (event_id, org_id, position, name, logo_asset_id) VALUES ($1, $2, $3, $4, $5)", [e.id, staff.orgId, p, s.name, s.logo]);
+    for (const [p, s] of sponsors.entries()) await db.query("INSERT INTO sponsors (event_id, org_id, position, name, logo_asset_id, url) VALUES ($1, $2, $3, $4, $5, $6)", [e.id, staff.orgId, p, s.name, s.logo, s.url]);
     return { ok: true };
   }));
 }

@@ -18,7 +18,7 @@ export default function PrintCards({ eventId, layout: initial }: { eventId: stri
   const pick = (l: "card" | "page") => { setLayout(l); history.replaceState(null, "", `?layout=${l}`); };
   if (error) return <main className="sx sx-center"><div className="sx-loading"><Brand /><p>{error}</p><a className="sx-btn" href="/studio">Open Studio</a></div></main>;
   if (!data || !origin) return <main className="sx sx-center"><div className="sx-loading"><Brand /><span className="dots"><i /><i /><i /></span></div></main>;
-  const e = data.event, theme = THEMES.find(t => t.id === e.theme) ?? THEMES[0];
+  const e = data.event, base = THEMES.find(t => t.id === e.theme) ?? THEMES[0], theme = { ...base, accent: e.accentColor ?? base.accent };
   const link = `${origin}/e/${e.code}`, host = origin.replace(/^https?:\/\//, "");
   return (
     <main className={`sx print-view l-${layout}`}>

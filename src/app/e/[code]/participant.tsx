@@ -1,6 +1,7 @@
 "use client";
 // The attendee app shell: one snapshot from the server, polled; in-app navigation through the URL so Back, reload and
 // section switches behave; and the moments that matter (a bid landing, being outbid, winning) detected by comparing snapshots.
+import { accentVars } from "../../../lib/color";
 import { addTransitionType, startTransition, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, ViewTransition } from "react";
 import { api, fmtClock, initials } from "../../../lib/api";
 import { formatMoney } from "../../../lib/money";
@@ -199,7 +200,7 @@ export default function Participant({ code }: { code: string }) {
   );
 
   return (
-    <div className="pa" data-theme={e.theme} data-screen={item ? "item" : route.s}>
+    <div className="pa" data-theme={e.theme} style={accentVars(e.accentColor)} data-screen={item ? "item" : route.s}>
       <a className="skip" href="#main">Skip to content</a>
       {item ? (
         <header className="pa-topbar" style={{ viewTransitionName: "pa-head" }}>

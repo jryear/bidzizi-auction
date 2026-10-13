@@ -15,9 +15,9 @@ export type Item = {
 };
 export type Recipient = { id: string; name: string; description: string; logoUrl: string | null };
 export type EventInfo = {
-  id: string; code: string; name: string; welcome: string; venue: string; timezone: string; theme?: string; coverUrl: string | null; bidderDisplay?: "name_business" | "business" | "anonymous";
+  id: string; code: string; name: string; welcome: string; venue: string; timezone: string; theme?: string; coverUrl: string | null; bidderDisplay?: "name_business" | "business" | "anonymous"; accentColor?: string | null;
   startsAt: string; endsAt: string; accessEndsAt?: string; entryOpen: boolean; phase: "upcoming" | "open" | "closed";
-  sponsors: { name: string; logoUrl: string | null }[];
+  sponsors: { name: string; logoUrl: string | null; url?: string }[];
   donations: { enabled: boolean; open: boolean; deadline: string | null; capMinor: number; recipients: Recipient[] };
 };
 export type Pledge = { id: string; recipientName: string; amountMinor: number; recordedAt: string };

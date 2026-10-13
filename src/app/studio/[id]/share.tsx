@@ -14,7 +14,7 @@ export function ShareDialog({ data, onClose, patchEvent, onGoLive }: { data: Dat
   const [origin, setOrigin] = useState(""), [copied, setCopied] = useState<"" | "link" | "code">(""), [canShare, setCanShare] = useState(false);
   useEffect(() => { setOrigin(location.origin); setCanShare(typeof navigator.share === "function"); ref.current?.showModal(); }, []);
   const link = `${origin}/e/${e.code}`, host = origin.replace(/^https?:\/\//, "");
-  const theme = THEMES.find(t => t.id === e.theme) ?? THEMES[0];
+  const base = THEMES.find(t => t.id === e.theme) ?? THEMES[0], theme = { ...base, accent: e.accentColor ?? base.accent };
   const draft = e.status === "draft";
   const message = `Join ${e.name} and bid from your phone: ${link} (event code ${e.code})`;
   const copy = async (text: string, what: "link" | "code") => {

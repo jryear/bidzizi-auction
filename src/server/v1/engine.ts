@@ -10,7 +10,7 @@ export type EventRow = {
   cover_asset_id: string | null; timezone: string; starts_at: Date; ends_at: Date; access_ends_at: Date;
   status: "draft" | "live"; entry_open: boolean; bid_mode: "tiered" | "fixed"; tiers: Tier[]; fixed_increment_minor: string | null;
   donations_enabled: boolean; donation_deadline: Date | null; revision: number; theme: string; is_practice: boolean; archived_at: Date | null;
-  bidder_display: BidderDisplay;
+  bidder_display: BidderDisplay; accent_color: string | null;
 };
 export type BidderDisplay = "name_business" | "business" | "anonymous";
 
@@ -80,7 +80,7 @@ export async function snapshot(request: Request, code: string): Promise<Response
     const awards = new Map((await db.query<AwardJoin>(
       `SELECT a.item_id, a.status, a.participant_id, a.amount_minor, p.display_name AS winner_name, p.business_name AS winner_business, p.bidder_number AS winner_number
          FROM awards a LEFT JOIN participants p ON p.id = a.participant_id WHERE a.event_id = $1`, [e.id])).rows.map(r => [r.item_id, r]));
-    const sponsors = (await db.query<{ name: string; logo_asset_id: string | null }>("SELECT name, logo_asset_id FROM sponsors WHERE event_id = $1 ORDER BY position", [e.id])).rows;
+    const sponsors = (await db.query<{ name: string; logo_asset_id: string | null; url: string }>("SELECT name, logo_asset_id, url FROM sponsors WHERE event_id = $1 ORDER BY position", [e.id])).rows;
     const recipients = e.donations_enabled ? (await db.query<{ id: string; name: string; description: string; logo_asset_id: string | null }>(
       "SELECT id, name, description, logo_asset_id FROM recipients WHERE event_id = $1 AND NOT removed ORDER BY position", [e.id])).rows : [];
     let mine: { bids: Map<string, { highest: number; count: number }>; watching: Set<string>; pledges: unknown[] } | null = null;
@@ -104,7 +104,7 @@ export async function snapshot(request: Request, code: string): Promise<Response
         id: e.id, code: e.join_code, name: e.name, welcome: e.welcome, venue: e.venue, timezone: e.timezone, theme: e.theme, bidderDisplay: e.bidder_display,
         coverUrl: assetUrl(e.cover_asset_id), startsAt: e.starts_at, endsAt: e.ends_at, accessEndsAt: e.access_ends_at,
         entryOpen: e.entry_open && at < e.ends_at, phase: eventPhase(e, items, at),
-        sponsors: sponsors.map(s => ({ name: s.name, logoUrl: assetUrl(s.logo_asset_id) })),
+        sponsors: sponsors.map(s => ({ name: s.name, logoUrl: assetUrl(s.logo_asset_id), url: s.url })), accentColor: e.accent_color,
         donations: { enabled: e.donations_enabled, open: donationsOpen, deadline: e.donation_deadline, capMinor: PLEDGE_CAP,
           recipients: recipients.map(r => ({ id: r.id, name: r.name, description: r.description, logoUrl: assetUrl(r.logo_asset_id) })) },
       },

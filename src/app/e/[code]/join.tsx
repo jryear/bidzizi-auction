@@ -1,4 +1,5 @@
 "use client";
+import { accentVars } from "../../../lib/color";
 import { useState, type ReactNode } from "react";
 import { api, errorText, initials, newId, Offline } from "../../../lib/api";
 import { IChevL, IEye } from "../../../lib/icons";
@@ -43,7 +44,7 @@ export function Join({ snap, code, onJoined, preview }: { snap: Snapshot; code: 
 
   const photos = snap.items.filter(i => i.imageUrl).slice(0, 3);
   return (
-    <div className="pa join" data-theme={e.theme}>
+    <div className="pa join" data-theme={e.theme} style={accentVars(e.accentColor)}>
       {preview}
       <div className="join-grid">
         <div className="j-hero">

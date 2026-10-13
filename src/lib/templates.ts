@@ -4,12 +4,15 @@ export type Template = {
   id: string; name: string; blurb: string; theme: Theme; durationHours: number;
   welcome: string; winnerInstructions: string; donations: boolean; recipients: string[]; items: TemplateItem[];
 };
-export type Theme = "classic" | "midnight" | "garden" | "coral";
-export const THEMES: { id: Theme; name: string; ink: string; accent: string; paper: string }[] = [
-  { id: "classic", name: "Classic", ink: "#1A1814", accent: "#F2B632", paper: "#F5F0E6" },
-  { id: "midnight", name: "Midnight", ink: "#141B3A", accent: "#7FD1FF", paper: "#EEF1F8" },
-  { id: "garden", name: "Garden", ink: "#14352A", accent: "#E9C46A", paper: "#F1F3EA" },
-  { id: "coral", name: "Coral", ink: "#3A1820", accent: "#FF8A6B", paper: "#FBF0EC" },
+export type Theme = "classic" | "midnight" | "garden" | "coral" | "slate";
+/** Each theme is a full palette: ink (text and the dark pass), paper (page), card, and an accent for "yours". Status colours
+ *  (leading green, outbid red, closing amber) never change, so they read the same in every theme. */
+export const THEMES: { id: Theme; name: string; mood: string; ink: string; accent: string; paper: string; card: string }[] = [
+  { id: "classic", name: "Classic", mood: "Warm ink and marigold", ink: "#1A1814", accent: "#F2B632", paper: "#F5F0E6", card: "#FFFCF5" },
+  { id: "midnight", name: "Midnight", mood: "Evening navy, ice blue", ink: "#141B3A", accent: "#7FD1FF", paper: "#EEF1F8", card: "#FBFCFF" },
+  { id: "garden", name: "Garden", mood: "Deep green and gold", ink: "#14352A", accent: "#E9C46A", paper: "#F1F3EA", card: "#FCFDF8" },
+  { id: "coral", name: "Coral", mood: "Wine and coral", ink: "#3A1820", accent: "#FF8A6B", paper: "#FBF0EC", card: "#FFFAF8" },
+  { id: "slate", name: "Slate", mood: "Graphite and teal", ink: "#1E2A32", accent: "#5EEAD4", paper: "#EFF2F3", card: "#FBFCFC" },
 ];
 
 export const TEMPLATES: Template[] = [

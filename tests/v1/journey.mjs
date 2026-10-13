@@ -435,6 +435,21 @@ await check("donations appear only while the event has a nonprofit, and close at
   assert.equal((await staff("GET", `/api/v1/host/events/${ev.data.id}`)).data.pledges.length, 1, "recorded pledges are kept");
 });
 
+await check("look: one custom accent colour (validated) and sponsor links reach guests", async () => {
+  let w = await staff("GET", `/api/v1/host/events/${eventId}`);
+  assert.equal((await staff("PATCH", `/api/v1/host/events/${eventId}`, { revision: w.data.event.revision, accentColor: "red" })).status, 400);
+  w = await staff("GET", `/api/v1/host/events/${eventId}`);
+  assert.equal((await staff("PATCH", `/api/v1/host/events/${eventId}`, { revision: w.data.event.revision, accentColor: "#2ac3a2" })).status, 200);
+  assert.equal((await alice("GET", `/api/v1/e/${code}`)).data.event.accentColor, "#2AC3A2", "stored upper-case and served to guests");
+  w = await staff("GET", `/api/v1/host/events/${eventId}`);
+  await staff("PATCH", `/api/v1/host/events/${eventId}`, { revision: w.data.event.revision, accentColor: null });
+  assert.equal((await alice("GET", `/api/v1/e/${code}`)).data.event.accentColor, null, "cleared back to the theme's accent");
+  assert.equal((await staff("PUT", `/api/v1/host/events/${eventId}/sponsors`, { sponsors: [{ name: "Bad", url: "javascript:alert(1)" }] })).status, 400, "only web links");
+  assert.equal((await staff("PUT", `/api/v1/host/events/${eventId}/sponsors`, { sponsors: [{ name: "Linked Co", url: "linked.example.com" }, { name: "Plain Co" }] })).status, 200);
+  const sponsors = (await alice("GET", `/api/v1/e/${code}`)).data.event.sponsors;
+  assert.deepEqual(sponsors.map(x => [x.name, x.url]), [["Linked Co", "https://linked.example.com/"], ["Plain Co", ""]]);
+});
+
 // ---------------------------------------------------------------- bidder visibility (passthrough 1)
 let vis;
 async function visibilityEvent() {

@@ -73,6 +73,7 @@ p { margin: 0; }
 [data-theme="midnight"] { --ink: #141B3A; --marigold: #7FD1FF; --marigold-bg: #DDF2FF; --paper: #EEF1F8; --paper-2: #E1E6F2; --card: #FBFCFF; }
 [data-theme="garden"] { --ink: #14352A; --marigold: #E9C46A; --marigold-bg: #F7EDCB; --paper: #F1F3EA; --paper-2: #E4E8D8; --card: #FCFDF8; }
 [data-theme="coral"] { --ink: #3A1820; --marigold: #FF8A6B; --marigold-bg: #FFE3DA; --paper: #FBF0EC; --paper-2: #F3E1DA; --card: #FFFAF8; }
+[data-theme="slate"] { --ink: #1E2A32; --marigold: #5EEAD4; --marigold-bg: #D5F7F1; --paper: #EFF2F3; --paper-2: #E1E6E8; --card: #FBFCFC; }
 .phone { max-width: 480px; margin: 0 auto; min-height: 100svh; display: flex; flex-direction: column; background: var(--paper); }
 .pass { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--ink); color: var(--paper); }
 .pass .mono { width: 40px; height: 40px; border-radius: 50%; background: var(--marigold); color: var(--ink); display: grid; place-items: center; font-weight: 700; font-size: 15px; flex: none; }

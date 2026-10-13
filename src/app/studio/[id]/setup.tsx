@@ -1,10 +1,11 @@
 "use client";
 // Set up: a checklist that knows the event, the attendee's phone as an editable canvas, and an inspector for the selection.
-import { useMemo, useRef, useState, type ReactNode } from "react";
+import { accentVars, accentReadable, readableAccent, contrast, ACCENT_MIN } from "../../../lib/color";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { api, dollarsInput, errorText, fmtClock, fmtTime, fromLocalInput, newId, parseDollars, toLocalInput } from "../../../lib/api";
-import { formatMoney } from "../../../lib/money";
+import { formatMoney, increment } from "../../../lib/money";
 import { THEMES } from "../../../lib/templates";
-import { ICalendar, ICheck, IChevD, IChevR, IDrag, IEye, IEyeOff, IGift, IGrid, IHeart, IInfo, IPalette, IPhone, IPlus, ISliders, IStore, ITrash, IArrowUp } from "../../../lib/icons";
+import { ICalendar, ICheck, IChevD, IChevR, IDrag, IEye, IEyeOff, IGift, IGrid, IHeart, IInfo, IPalette, IPhone, IPlus, ISliders, IStore, ITrash, IArrowUp, IUpload } from "../../../lib/icons";
 import { EditCtx, EventHero, Facts, Ed, ItemCard, SponsorGrid, type EditApi } from "../../e/[code]/ui";
 import { ItemPage } from "../../e/[code]/item";
 import { EventClock } from "../../e/[code]/catalog";
@@ -154,7 +155,7 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
           <span className="device-notch" aria-hidden="true" />
           <div className="device-screen" key={screen === "item" ? `item-${item?.id}` : screen}>
             <EditCtx.Provider value={edit}>
-              <div className="pa is-canvas" data-theme={data.event.theme} data-screen={screen === "item" ? "item" : "items"}>
+              <div className="pa is-canvas" data-theme={data.event.theme} style={accentVars(data.event.accentColor)} data-screen={screen === "item" ? "item" : "items"}>
                 {screen === "welcome" && (
                   <div className="cv-welcome">
                     <EventHero event={snap.event} eyebrow={data.event.venue || "Add a venue in Details"}><p className="ehero-clock"><EventClock snap={snap} now={now} /></p></EventHero>
@@ -224,7 +225,7 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
 export function Inspector({ ctx, sel, select }: { ctx: SetupCtx; sel: Sel; select: (s: Sel, screen?: Screen) => void }) {
   if (sel.kind === "item") { const it = ctx.data.items.find(i => i.id === sel.id); return it ? <ItemPanel key={it.id} ctx={ctx} item={it} onDeleted={() => select({ kind: "event" }, "items")} /> : null; }
   return { event: <EventPanel ctx={ctx} />, schedule: <SchedulePanel ctx={ctx} />, theme: <ThemePanel ctx={ctx} />, rules: <RulesPanel ctx={ctx} key={ctx.data.event.revision} />,
-    donations: <DonationsPanel ctx={ctx} />, sponsors: <SponsorsPanel ctx={ctx} key={ctx.data.sponsors.map(s => s.id).join()} /> }[sel.kind];
+    donations: <DonationsPanel ctx={ctx} />, sponsors: <SponsorsPanel ctx={ctx} /> }[sel.kind];
 }
 
 function Panel({ title, icon, children, sub }: { title: string; icon: ReactNode; children: ReactNode; sub?: ReactNode }) {
@@ -273,16 +274,47 @@ function SchedulePanel({ ctx }: { ctx: SetupCtx }) {
 
 function ThemePanel({ ctx }: { ctx: SetupCtx }) {
   const e = ctx.data.event;
+  const base = THEMES.find(t => t.id === e.theme) ?? THEMES[0];
+  const current = e.accentColor ?? base.accent;
+  const [draft, setDraft] = useState(current);
+  useEffect(() => { setDraft(current); }, [current]);
+  const valid = /^#[0-9A-F]{6}$/.test(draft), ok = valid && accentReadable(draft, base.ink), ratio = valid ? contrast(draft, base.ink) : 0;
   return (
-    <Panel title="Look" icon={<IPalette size={20} />} sub="Status colours stay the same in every look.">
-      <div className="themes">
-        {THEMES.map(t => (
-          <button type="button" key={t.id} className={`theme${e.theme === t.id ? " on" : ""}`} aria-pressed={e.theme === t.id} onClick={() => ctx.patchEvent({ theme: t.id })}>
-            <span className="th-swatch" style={{ background: t.paper }}><span className="th-pass" style={{ background: t.ink }}><i style={{ background: t.accent }} /></span><span className="th-card" /><span className="th-card short" /></span>
-            <b>{t.name}</b>{e.theme === t.id && <ICheck size={16} />}
-          </button>
-        ))}
+    <Panel title="Look" icon={<IPalette size={20} />} sub="Pick a theme. Leading, outbid and closing colours stay the same in every theme.">
+      <div className="look-grid" role="radiogroup" aria-label="Theme">
+        {THEMES.map(t => {
+          const on = e.theme === t.id;
+          return (
+            <button type="button" key={t.id} role="radio" aria-checked={on} className={`look-card${on ? " on" : ""}`} onClick={() => ctx.patchEvent({ theme: t.id })}>
+              <span className="lk-prev" style={{ background: t.paper }} aria-hidden="true">
+                <span className="lk-pass" style={{ background: t.ink }}><i style={{ background: on && e.accentColor ? e.accentColor : t.accent }} /><em /></span>
+                <span className="lk-card" style={{ background: t.card }}><span className="lk-img" style={{ background: t.ink }} /><span className="lk-line" /><span className="lk-btn" /></span>
+              </span>
+              <span className="lk-name"><b>{t.name}</b><small>{t.mood}</small></span>
+              {on && <span className="lk-check"><ICheck size={14} /></span>}
+            </button>
+          );
+        })}
       </div>
+
+      <h4 className="panel-sub">Accent colour</h4>
+      <p className="sx-hint">Marks what&rsquo;s yours in the guest app: the pass, your bids, your wins.{e.accentColor ? "" : ` Using ${base.name}\u2019s own.`}</p>
+      <div className="accent-row">
+        <label className="accent-swatch" style={{ background: valid ? draft : "#fff" }}>
+          <input type="color" value={valid ? draft.toLowerCase() : "#000000"} onChange={x => setDraft(x.target.value.toUpperCase())} aria-label="Pick an accent colour" />
+        </label>
+        <input className="accent-hex" value={draft} maxLength={7} spellCheck={false} aria-label="Accent colour code"
+          onChange={x => { const v = x.target.value.toUpperCase(); setDraft(v.startsWith("#") ? v : `#${v}`); }} />
+        <button type="button" className="sx-btn primary sm" disabled={!ok || draft === current} onClick={() => ctx.patchEvent({ accentColor: draft })}>Use colour</button>
+      </div>
+      {valid && (
+        <div className={`contrast ${ok ? "ok" : "bad"}`} role="status">
+          <span className="ct-sample" style={{ background: draft, color: base.ink }} aria-hidden="true">Aa</span>
+          <span className="ct-t">{ok ? <><b>Easy to read</b> {ratio.toFixed(1)}:1 against the text colour</> : <><b>Hard to read</b> {ratio.toFixed(1)}:1 against the text colour; it needs {ACCENT_MIN}:1.</>}</span>
+          {!ok && <button type="button" className="sx-btn sm" onClick={() => setDraft(readableAccent(draft, base.ink))}>Fix contrast</button>}
+        </div>
+      )}
+      {e.accentColor && <button type="button" className="sx-btn ghost sm" onClick={() => ctx.patchEvent({ accentColor: null })}>Use {base.name}&rsquo;s accent</button>}
     </Panel>
   );
 }
@@ -319,39 +351,56 @@ function ItemPanel({ ctx, item, onDeleted }: { ctx: SetupCtx; item: Item; onDele
 
 function RulesPanel({ ctx }: { ctx: SetupCtx }) {
   const { data, patchEvent, flash } = ctx, e = data.event, locked = e.hasBids;
-  const [mode, setMode] = useState(e.bidMode);
-  const [tiers, setTiers] = useState(e.tiers.map(t => ({ below: t.belowMinor === null ? "" : dollarsInput(t.belowMinor), raise: dollarsInput(t.raiseMinor) })));
-  const [fixed, setFixed] = useState(e.fixedIncrementMinor ? dollarsInput(e.fixedIncrementMinor) : "25");
+  const initial = () => ({ mode: e.bidMode, tiers: e.tiers.map(t => ({ below: t.belowMinor === null ? "" : dollarsInput(t.belowMinor), raise: dollarsInput(t.raiseMinor) })),
+    fixed: e.fixedIncrementMinor ? dollarsInput(e.fixedIncrementMinor) : "25" });
+  const [form, setForm] = useState(initial);
+  const { mode, tiers, fixed } = form;
+  const dirty = JSON.stringify(form) !== JSON.stringify(initial());
+  const parsed = tiers.map((t, i) => ({ belowMinor: i === tiers.length - 1 ? null : parseDollars(t.below), raiseMinor: parseDollars(t.raise) ?? 0 }));
+  const complete = mode === "fixed" ? Boolean(parseDollars(fixed)) : parsed.every((t, i) => t.raiseMinor > 0 && (i === parsed.length - 1 || (t.belowMinor ?? 0) > 0));
+  const rules = { mode, tiers: parsed, fixedIncrementMinor: parseDollars(fixed) };
+  const example = [5_000, 25_000, 100_000].map(v => ({ at: v, next: v + (complete ? increment(v, rules, null) : 0) }));
+  const setTier = (i: number, patch: Partial<{ below: string; raise: string }>) => setForm({ ...form, tiers: tiers.map((t, j) => j === i ? { ...t, ...patch } : t) });
   async function save() {
-    const parsed = tiers.map((t, i) => ({ belowMinor: i === tiers.length - 1 ? null : parseDollars(t.below), raiseMinor: parseDollars(t.raise) }));
-    if (parsed.some((t, i) => !t.raiseMinor || (i < parsed.length - 1 && !t.belowMinor))) { flash("Fill in every step amount.", "red"); return; }
+    if (!complete) { flash("Fill in every amount first.", "red"); return; }
     const body: Record<string, unknown> = { bidMode: mode, tiers: parsed };
-    if (mode === "fixed") { const v = parseDollars(fixed); if (!v) { flash("Set the fixed raise.", "red"); return; } body.fixedIncrementMinor = v; }
-    if (await patchEvent(body)) flash("Increments saved", "green");
+    if (mode === "fixed") body.fixedIncrementMinor = parseDollars(fixed);
+    if (await patchEvent(body)) flash("Bid increments saved", "green");
   }
   return (
     <Panel title="Bidding rules" icon={<ISliders size={20} />}>
       <BidderDisplayPicker ctx={ctx} />
-      <h4 className="panel-sub">Bid increments</h4>
-      <p className="sx-hint">{locked ? "Bidding has started, so increments are locked to keep things fair." : "How much each new bid must add. Any item can override it."}</p>
-      <Seg label="Increment style" value={mode} onChange={v => !locked && setMode(v)} options={[{ id: "tiered", label: "Grows with price" }, { id: "fixed", label: "Same every time" }]} />
+      <fieldset className="choice-group" disabled={locked}>
+        <legend className="panel-sub">Bid increments</legend>
+        {locked && <p className="sx-hint">Bidding has started, so increments are locked to keep things fair.</p>}
+        {([["tiered", "Grows with price", "Small steps on small bids, bigger steps as prices climb."], ["fixed", "Same every time", "Every bid adds the same amount."]] as const).map(([id, label, sub]) => (
+          <label key={id} className={`choice${mode === id ? " on" : ""}`}>
+            <input type="radio" name="bid-mode" value={id} checked={mode === id} onChange={() => setForm({ ...form, mode: id })} />
+            <span className="ch-dot" aria-hidden="true" /><span className="ch-t"><b>{label}</b><small>{sub}</small></span>
+          </label>
+        ))}
+      </fieldset>
       {mode === "fixed" ? (
-        <label className="sx-field"><span className="sx-label">Every bid adds</span><span className="sx-money"><b>$</b><input inputMode="decimal" value={fixed} disabled={locked} onChange={x => setFixed(x.target.value)} /></span></label>
+        <label className="sx-field"><span className="sx-label">Every bid adds</span><span className="sx-money"><b>$</b><input inputMode="decimal" value={fixed} disabled={locked} onChange={x => setForm({ ...form, fixed: x.target.value })} /></span></label>
       ) : (
-        <div className="tiers">
-          {tiers.map((t, i) => (
-            <div key={i} className="tier">
-              <span className="tier-l">{i === tiers.length - 1 ? "Above that" : "Under"}</span>
-              {i === tiers.length - 1 ? <span className="tier-any">any amount</span> : <span className="sx-money sm"><b>$</b><input inputMode="decimal" value={t.below} disabled={locked} aria-label={`Step ${i + 1} up to`} onChange={x => setTiers(tiers.map((y, j) => j === i ? { ...y, below: x.target.value } : y))} /></span>}
-              <span className="tier-l">add</span>
-              <span className="sx-money sm"><b>$</b><input inputMode="decimal" value={t.raise} disabled={locked} aria-label={`Step ${i + 1} raise`} onChange={x => setTiers(tiers.map((y, j) => j === i ? { ...y, raise: x.target.value } : y))} /></span>
-              {!locked && tiers.length > 1 && i < tiers.length - 1 ? <button type="button" className="sx-icon-btn sm" aria-label="Remove step" onClick={() => setTiers(tiers.filter((_, j) => j !== i))}><ITrash size={15} /></button> : <span />}
-            </div>
-          ))}
-          {!locked && <button type="button" className="sx-btn ghost sm" onClick={() => setTiers([...tiers.slice(0, -1), { below: "", raise: "" }, tiers[tiers.length - 1]])}><IPlus size={16} />Add a step</button>}
+        <div className="steps-table" role="table" aria-label="Increment steps">
+          <div className="st-row st-head" role="row"><span role="columnheader">When the top bid is</span><span role="columnheader">Each bid adds</span><span /></div>
+          {tiers.map((t, i) => {
+            const last = i === tiers.length - 1, from = i === 0 ? "$0" : `$${tiers[i - 1].below || "…"}`;
+            return (
+              <div key={i} className="st-row" role="row">
+                <span className="st-range" role="cell">{last ? <>{from} or more</> : <>{from} to <span className="sx-money sm inline"><b>$</b><input inputMode="decimal" value={t.below} disabled={locked} aria-label={`Step ${i + 1} upper limit`} onChange={x => setTier(i, { below: x.target.value })} /></span></>}</span>
+                <span role="cell"><span className="sx-money sm"><b>$</b><input inputMode="decimal" value={t.raise} disabled={locked} aria-label={`Step ${i + 1} adds`} onChange={x => setTier(i, { raise: x.target.value })} /></span></span>
+                <span role="cell">{!locked && tiers.length > 1 && !last && <button type="button" className="sx-icon-btn sm" aria-label={`Remove step ${i + 1}`} onClick={() => setForm({ ...form, tiers: tiers.filter((_, j) => j !== i) })}><ITrash size={15} /></button>}</span>
+              </div>
+            );
+          })}
+          {!locked && tiers.length < 10 && <button type="button" className="sx-btn ghost sm st-add" onClick={() => setForm({ ...form, tiers: [...tiers.slice(0, -1), { below: "", raise: "" }, tiers[tiers.length - 1]] })}><IPlus size={16} />Add a step</button>}
         </div>
       )}
-      {!locked && <button type="button" className="sx-btn primary block" onClick={save}>Save increments</button>}
+      {complete && <p className="rule-example">For example: {example.map((x, n) => <span key={n}>{formatMoney(x.at)} → next bid <b>{formatMoney(x.next)}</b></span>)}</p>}
+      <p className="sx-hint">Any item can use its own increment, under the item&rsquo;s Advanced settings.</p>
+      {!locked && dirty && <div className="ops-acts"><button type="button" className="sx-btn primary" onClick={save} disabled={!complete}>Save increments</button><button type="button" className="sx-btn ghost" onClick={() => setForm(initial())}>Cancel</button></div>}
     </Panel>
   );
 }
@@ -409,24 +458,67 @@ function DonationsPanel({ ctx }: { ctx: SetupCtx }) {
   );
 }
 
+type SponsorRow = { k: string; name: string; url: string; logoAssetId: string | null; logoUrl: string | null };
+
 function SponsorsPanel({ ctx }: { ctx: SetupCtx }) {
   const { data, reload, flash } = ctx;
-  const [list, setList] = useState(data.sponsors.map(s => ({ name: s.name, logoAssetId: s.logoAssetId, logoUrl: s.logoUrl })));
-  async function save(next = list) {
-    const r = await api("PUT", `/api/v1/host/events/${data.event.id}/sponsors`, { sponsors: next.filter(s => s.name.trim()).map(s => ({ name: s.name, logoAssetId: s.logoAssetId })) }).catch(() => null);
-    if (r?.ok) { flash("Sponsors saved", "green"); reload(); } else flash(r ? errorText(r) : "Connection lost.", "red");
+  // The panel owns its rows: a sponsor isn't saved until it has a name, and a logo added first is never lost.
+  const [list, setList] = useState<SponsorRow[]>(() => data.sponsors.map(s => ({ k: s.id, name: s.name, url: s.url, logoAssetId: s.logoAssetId, logoUrl: s.logoUrl })));
+  async function save(next: SponsorRow[]) {
+    const r = await ctx.track(async () => {
+      const res = await api("PUT", `/api/v1/host/events/${data.event.id}/sponsors`, { sponsors: next.filter(s => s.name.trim()).map(s => ({ name: s.name.trim(), logoAssetId: s.logoAssetId, url: s.url.trim() })) });
+      return { ok: res.ok, message: res.ok ? undefined : errorText(res) };
+    }).catch(() => false);
+    if (r) reload();
+  }
+  const update = (k: string, patch: Partial<SponsorRow>, persist = false) => {
+    const next = list.map(x => x.k === k ? { ...x, ...patch } : x);
+    setList(next); if (persist) save(next);
+  };
+  return (
+    <Panel title="Sponsors" icon={<IStore size={20} />} sub="Optional. Shown on the welcome screen and the Event tab, with a link if you add one.">
+      <div className="sp-rows">
+        {list.map(s => (
+          <div key={s.k} className="sp-row">
+            <LogoTile name={s.name} url={s.logoUrl} onChange={a => update(s.k, { logoAssetId: a?.id ?? null, logoUrl: a?.url ?? null }, true)} onError={m => flash(m, "red")} />
+            <div className="sp-fields">
+              <input className="sp-name" value={s.name} placeholder="Sponsor name" aria-label="Sponsor name" maxLength={200}
+                onChange={e => update(s.k, { name: e.target.value })} onBlur={() => save(list)} />
+              <input className="sp-url" value={s.url} placeholder="Website (optional)" aria-label={`${s.name || "Sponsor"} website`} inputMode="url" maxLength={500}
+                onChange={e => update(s.k, { url: e.target.value })} onBlur={() => save(list)} />
+              {!s.name.trim() && <small className="sp-need">Add a name to save this sponsor.</small>}
+            </div>
+            <button type="button" className="sx-icon-btn sm" aria-label={`Remove ${s.name || "sponsor"}`} onClick={() => { const next = list.filter(x => x.k !== s.k); setList(next); save(next); }}><ITrash size={15} /></button>
+          </div>
+        ))}
+      </div>
+      <button type="button" className="sx-btn" onClick={() => setList([...list, { k: newId(), name: "", url: "", logoAssetId: null, logoUrl: null }])}><IPlus size={16} />Add a sponsor</button>
+    </Panel>
+  );
+}
+
+/** A square logo target: click to choose, drop a file, or paste an image. Logos keep transparency. */
+function LogoTile({ name, url, onChange, onError }: { name: string; url: string | null; onChange: (a: { id: string; url: string } | null) => void; onError: (m: string) => void }) {
+  const input = useRef<HTMLInputElement>(null);
+  const [busy, setBusy] = useState(false), [over, setOver] = useState(false);
+  async function pick(file?: File) {
+    if (!file) return;
+    setBusy(true);
+    try { const { uploadPhoto } = await import("../data"); onChange(await uploadPhoto(file, "logo")); }
+    catch (e) { onError(e instanceof Error ? e.message : "The logo didn't upload."); }
+    finally { setBusy(false); if (input.current) input.current.value = ""; }
   }
   return (
-    <Panel title="Sponsors" icon={<IStore size={20} />} sub="Optional. Shown on the welcome screen and the Event tab.">
-      {list.map((s, i) => (
-        <div key={i} className="sponsor-row">
-          <PhotoField label="Logo" shape="square" url={s.logoUrl} onChange={a => { const next = list.map((x, j) => j === i ? { ...x, logoAssetId: a?.id ?? null, logoUrl: a?.url ?? null } : x); setList(next); save(next); }} />
-          <label className="sx-field"><span className="sx-label">Name</span><input value={s.name} onChange={e => setList(list.map((x, j) => j === i ? { ...x, name: e.target.value } : x))} onBlur={() => save()} /></label>
-          <button type="button" className="sx-icon-btn sm" aria-label={`Remove ${s.name || "sponsor"}`} onClick={() => { const next = list.filter((_, j) => j !== i); setList(next); save(next); }}><ITrash size={15} /></button>
-        </div>
-      ))}
-      <button type="button" className="sx-btn" onClick={() => setList([...list, { name: "", logoAssetId: null, logoUrl: null }])}><IPlus size={16} />Add a sponsor</button>
-    </Panel>
+    <div className={`logo-tile${url ? " has" : ""}${over ? " over" : ""}${busy ? " busy" : ""}`}
+      onDragOver={e => { e.preventDefault(); setOver(true); }} onDragLeave={() => setOver(false)}
+      onDrop={e => { e.preventDefault(); setOver(false); pick(e.dataTransfer.files?.[0]); }}
+      onPaste={e => { const f = [...e.clipboardData.files].find(x => x.type.startsWith("image/")); if (f) { e.preventDefault(); pick(f); } }}>
+      <button type="button" className="lt-hit" onClick={() => input.current?.click()} aria-label={url ? `Replace ${name || "sponsor"} logo` : `Add ${name || "sponsor"} logo`}>
+        {url ? <img src={url} alt="" /> : <span className="lt-empty">{busy ? "…" : <><IUpload size={18} /><small>Logo</small></>}</span>}
+      </button>
+      {url && !busy && <button type="button" className="lt-x" aria-label="Remove logo" onClick={() => onChange(null)}>×</button>}
+      <input ref={input} type="file" accept="image/png,image/jpeg,image/webp" hidden onChange={e => pick(e.target.files?.[0])} />
+    </div>
   );
 }
 

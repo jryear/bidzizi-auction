@@ -19,7 +19,7 @@ export type EventData = {
   id: string; code: string; name: string; welcome: string; venue: string; winnerInstructions: string; coverAssetId: string | null; coverUrl: string | null; timezone: string;
   startsAt: string; endsAt: string; accessEndsAt: string; status: "draft" | "live"; entryOpen: boolean; theme: string; bidMode: "tiered" | "fixed"; tiers: Tier[];
   fixedIncrementMinor: number | null; donationsEnabled: boolean; donationDeadline: string | null; revision: number; phase: string; hasBids: boolean;
-  isPractice: boolean; archivedAt: string | null; bidderDisplay: BidderDisplay;
+  isPractice: boolean; archivedAt: string | null; bidderDisplay: BidderDisplay; accentColor: string | null;
 };
 export type BidderDisplay = "name_business" | "business" | "anonymous";
 /** The same rule the server applies to guests' phones, so the canvas previews exactly what guests will see. */
@@ -31,7 +31,7 @@ export type Data = {
   activity: { id: string; itemId: string; amountMinor: number; at: string; name: string; business: string; voided: boolean }[];
   pledges: Pledge[];
   recipients: { id: string; name: string; description: string; logoAssetId: string | null; logoUrl: string | null }[];
-  sponsors: { id: string; name: string; logoAssetId: string | null; logoUrl: string | null }[];
+  sponsors: { id: string; name: string; logoAssetId: string | null; logoUrl: string | null; url: string }[];
 };
 export type EventCard = {
   id: string; name: string; code: string; status: "draft" | "live"; stage: "draft" | "upcoming" | "running" | "ended";
@@ -50,7 +50,7 @@ export function toSnapshot(d: Data, me = { displayName: "A guest", businessName:
       id: e.id, code: e.code, name: e.name, welcome: e.welcome, venue: e.venue, timezone: e.timezone, theme: e.theme, coverUrl: e.coverUrl,
       startsAt: e.startsAt, endsAt: e.endsAt, accessEndsAt: e.accessEndsAt, entryOpen: e.entryOpen,
       phase: e.phase === "open" || e.phase === "closed" ? e.phase : "upcoming",
-      sponsors: d.sponsors.map(s => ({ name: s.name, logoUrl: s.logoUrl })),
+      sponsors: d.sponsors.map(s => ({ name: s.name, logoUrl: s.logoUrl, url: s.url })), accentColor: e.accentColor, bidderDisplay: e.bidderDisplay,
       donations: { enabled: e.donationsEnabled, open: e.donationsEnabled && now < new Date(deadline).getTime(), deadline, capMinor: PLEDGE_CAP,
         recipients: d.recipients.map(r => ({ id: r.id, name: r.name, description: r.description, logoUrl: r.logoUrl })) },
     },
@@ -68,20 +68,23 @@ export function toSnapshot(d: Data, me = { displayName: "A guest", businessName:
   };
 }
 
-/** Downscale in the browser so phone photos upload quickly and fit the server's limits. */
-async function shrink(file: File): Promise<Blob> {
+/** Downscale in the browser so phone photos upload quickly and fit the server's limits. Logos keep their transparency
+ *  (PNG); photos become JPEG. */
+async function shrink(file: File, kind: "photo" | "logo"): Promise<{ blob: Blob; type: string }> {
   const bitmap = await createImageBitmap(file);
-  const scale = Math.min(1, 1600 / Math.max(bitmap.width, bitmap.height));
+  const scale = Math.min(1, (kind === "logo" ? 800 : 1600) / Math.max(bitmap.width, bitmap.height));
   const canvas = document.createElement("canvas");
   canvas.width = Math.round(bitmap.width * scale); canvas.height = Math.round(bitmap.height * scale);
   canvas.getContext("2d")!.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
   bitmap.close();
-  return new Promise((resolve, reject) => canvas.toBlob(b => b ? resolve(b) : reject(new Error("encode")), "image/jpeg", 0.86));
+  const type = kind === "logo" ? "image/png" : "image/jpeg";
+  return new Promise((resolve, reject) => canvas.toBlob(b => b ? resolve({ blob: b, type }) : reject(new Error("encode")), type, 0.86));
 }
-export async function uploadPhoto(file: File): Promise<{ id: string; url: string }> {
-  let blob: Blob;
-  try { blob = await shrink(file); } catch { throw new Error("That image couldn't be read. Try a JPEG or PNG."); }
-  const r = await fetch("/api/v1/host/assets", { method: "POST", headers: { "Content-Type": "image/jpeg" }, body: blob, credentials: "same-origin" }).catch(() => null);
+export async function uploadPhoto(file: File, kind: "photo" | "logo" = "photo"): Promise<{ id: string; url: string }> {
+  if (!file.type.startsWith("image/")) throw new Error("That file isn't an image. Use a JPEG, PNG or WebP.");
+  let out: { blob: Blob; type: string };
+  try { out = await shrink(file, kind); } catch { throw new Error("That image couldn't be read. Try a JPEG or PNG."); }
+  const r = await fetch("/api/v1/host/assets", { method: "POST", headers: { "Content-Type": out.type }, body: out.blob, credentials: "same-origin" }).catch(() => null);
   if (!r) throw new Error("Connection lost. The photo wasn't uploaded.");
   const data = await r.json().catch(() => null);
   if (!r.ok) throw new Error(data?.error?.message ?? "Upload failed.");

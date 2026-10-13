@@ -10,7 +10,7 @@ import { Amount, ItemArt } from "../../../e/[code]/ui";
 // The stage's own endpoint: only what the room may see, with bidder names already masked by the server.
 type Item = { id: string; position: number; title: string; donor: string; category: string; imageUrl: string | null; openingMinor: number;
   currentMinor: number | null; bidCount: number; phase: "scheduled" | "open" | "closed"; effectiveClosesAt: string; leader: { name: string; business: string } | null };
-type Data = { serverNow: string; event: { id: string; name: string; code: string; theme: string; status: "draft" | "live"; startsAt: string; endsAt: string; phase: string };
+type Data = { serverNow: string; event: { id: string; name: string; code: string; theme: string; status: "draft" | "live"; startsAt: string; endsAt: string; phase: string; accentColor: string | null };
   items: Item[]; activity: { id: string; itemId: string; amountMinor: number; at: string; name: string; business: string }[]; bidders: number; givenMinor: number };
 import { Qr } from "../../kit";
 import { useTicking } from "../live";
@@ -47,7 +47,7 @@ export default function Stage({ eventId }: { eventId: string }) {
 
 function StageView({ data, origin, idle, offline }: { data: Data; origin: string; idle: boolean; offline: boolean }) {
   const e = data.event, now = useTicking(data.serverNow);
-  const theme = THEMES.find(t => t.id === e.theme) ?? THEMES[0];
+  const base = THEMES.find(t => t.id === e.theme) ?? THEMES[0], theme = { ...base, accent: e.accentColor ?? base.accent };
   const live = data.items, activity = data.activity;
   const raised = live.reduce((s, i) => s + (i.currentMinor ?? 0), 0);
   const t = (s: string) => new Date(s).getTime();
