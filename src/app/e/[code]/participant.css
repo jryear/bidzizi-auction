@@ -402,7 +402,9 @@
   animation: sheetup .42s var(--ease); }
 .pa .pa-sheet[open] { display: flex; flex-direction: column; }
 .pa .pa-sheet:not(.dragging) { transition: transform .25s var(--ease); }
-.pa .pa-sheet::backdrop { background: rgba(26, 24, 20, .55); backdrop-filter: blur(3px); animation: fade .3s; }
+.pa .pa-sheet::backdrop { background: rgba(26, 24, 20, .55); animation: fade .3s; }
+/* Older iOS Safari (before 17) paints a blurred ::backdrop over the dialog itself, hiding the sheet. Blur only where that bug is gone. */
+@supports (text-wrap: balance) { .pa .pa-sheet::backdrop { backdrop-filter: blur(3px); } }
 @keyframes sheetup { from { transform: translateY(100%); } to { transform: translateY(0); } }
 @keyframes fade { from { opacity: 0; } }
 .pa .sheet-in { display: flex; flex-direction: column; flex: 1; min-height: 0; }

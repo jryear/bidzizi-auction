@@ -304,7 +304,9 @@
 
 /* ---------------------------------------------------------------- dialogs */
 .sx-dialog { border: 0; padding: 0; color: var(--ink); background: var(--panel); border-radius: 26px; box-shadow: 0 40px 100px -30px rgba(0, 0, 0, .6); max-width: calc(100vw - 32px); max-height: calc(100dvh - 32px); animation: dlgin .35s var(--spring); }
-.sx-dialog::backdrop { background: rgba(26, 24, 20, .5); backdrop-filter: blur(4px); animation: fadein .25s; }
+.sx-dialog::backdrop { background: rgba(26, 24, 20, .5); animation: fadein .25s; }
+/* See participant.css: older iOS Safari hides the dialog under a blurred ::backdrop. */
+@supports (text-wrap: balance) { .sx-dialog::backdrop { backdrop-filter: blur(4px); } }
 @keyframes dlgin { from { opacity: 0; transform: translateY(20px) scale(.97); } }
 @keyframes fadein { from { opacity: 0; } }
 .new-event { width: min(1160px, calc(100vw - 32px)); }
