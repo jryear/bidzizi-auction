@@ -4,6 +4,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { api, dollarsInput, errorText, fmtClock, fmtTime, fromLocalInput, newId, parseDollars, toLocalInput, untilText } from "../../../lib/api";
 import { formatMoney } from "../../../lib/money";
 import { THEMES } from "../../../lib/templates";
+import "../studio-design.css";
+import { EventOperations } from "../event-operations";
 import { PhotoPicker, StageChip } from "../../host/ui";
 import { Bidding, Donations, DuplicateButton, People, ResultRow, Share, Sponsors, type Ctx, type Data, type Item } from "../../host/[id]/workspace";
 
@@ -15,14 +17,16 @@ export default function Studio({ eventId }: { eventId: string }) {
   const [data, setData] = useState<Data | null>(null);
   const [mode, setMode] = useState<Mode | null>(null);
   const [sel, setSel] = useState<Selection>({ kind: "event" });
+  const select = useCallback((s:Selection)=>{setSel(s);if(window.matchMedia("(max-width:760px)").matches)setTimeout(()=>document.querySelector(".inspector")?.scrollIntoView({behavior:"smooth",block:"start"}),0);},[]);
   const [save, setSave] = useState<SaveState>("idle");
+  const [error,setError]=useState("");
   const [toast, setToast] = useState(""), [sharing, setSharing] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const flash = useCallback((text: string) => { setToast(text); clearTimeout(timer.current); timer.current = setTimeout(() => setToast(""), 3500); }, []);
   const reload = useCallback(async () => {
     const r = await api<Data>("GET", `/api/v1/host/events/${eventId}`).catch(() => null);
     if (r?.status === 401) { location.href = "/studio"; return; }
-    if (r?.ok) setData(r.data);
+    if (r?.ok) { setData(r.data); setError(""); } else setError(r ? errorText(r) : "Connection lost. The view may be out of date. Retrying…");
   }, [eventId]);
   useEffect(() => {
     reload();
@@ -37,7 +41,7 @@ export default function Studio({ eventId }: { eventId: string }) {
 
   const track = useCallback(async (run: () => Promise<{ ok: boolean; message?: string }>) => {
     setSave("saving");
-    const result = await run().catch(() => ({ ok: false, message: "Connection lost. That change wasn't saved." }));
+    const result = await run().catch(() => ({ ok: false, message: "Connection lost. Check the latest view before retrying this change." }));
     if (result.ok) { setSave("saved"); } else { setSave("error"); flash(result.message ?? "That change wasn't saved."); }
     await reload();
     return result.ok;
@@ -51,19 +55,20 @@ export default function Studio({ eventId }: { eventId: string }) {
     return { ok: r.ok, message: r.ok ? undefined : errorText(r) };
   }), [track]);
 
-  if (!data || !mode) return <main className="studio"><p className="muted" style={{ padding: 32 }}>Opening your event…</p></main>;
+  if (!data || !mode) return <main className="studio"><p className="muted" style={{ padding: 32 }}>{error || "Opening your event…"}</p></main>;
   const ctx: Ctx = { data, reload, flash, patchEvent };
   const e = data.event;
-  const needsWinner = data.items.filter(i => i.phase === "closed" && i.ready && !i.award).length;
+  const needsWinner = data.items.filter(i => i.phase === "closed" && i.ready && !i.withdrawn && !i.award).length;
 
   return (
     <main className="studio">
       <header className="studio-top">
-        <a className="btn ghost small" href="/studio">← Events</a>
+        <a className="btn ghost small" href="/studio">← Studio</a>
         <input className="title-input" aria-label="Event name" defaultValue={e.name} key={`name-${e.revision}`}
           onBlur={x => { if (x.target.value.trim() && x.target.value !== e.name) patchEvent({ name: x.target.value }); }} />
         <StageChip stage={e.status === "draft" ? "draft" : e.phase} />
-        <span className={`save-state ${save}`}>{{ idle: "", saving: "Saving…", saved: "All changes saved", error: "Not saved" }[save]}</span>
+        {e.isPractice && <span className="chip pending">Practice</span>}
+        <span className={`save-state ${save}`}>{{ idle: "", saving: "Saving…", saved: "All changes saved", error: "Save not confirmed" }[save]}</span>
         <span className="grow" />
         <div className="modes" role="tablist" aria-label="Mode">
           {(["setup", "live", "results"] as Mode[]).map(m => (
@@ -73,15 +78,16 @@ export default function Studio({ eventId }: { eventId: string }) {
           ))}
         </div>
         <a className="btn small" href={`/e/${e.code}`} target="_blank">Preview ↗</a>
-        <DuplicateButton eventId={e.id} />
+
         <button className="btn small" onClick={() => setSharing(true)}>Share · {e.code}</button>
         {e.status === "draft" && <button className="btn primary small" onClick={async () => { if (await patchEvent({ status: "live" })) { flash("You're live! Share your code."); setSharing(true); } }}>Go live</button>}
       </header>
 
+      {error && <p className="notice warn studio-error" role="status">{error}</p>}
       {mode === "setup" && (
         <div className="studio-body">
-          <Checklist data={data} select={setSel} onShare={() => setSharing(true)} />
-          <Canvas data={data} sel={sel} select={setSel} reload={reload} flash={flash} patchEvent={patchEvent} />
+          <Checklist data={data} select={select} onShare={() => setSharing(true)} />
+          <Canvas data={data} sel={sel} select={select} reload={reload} flash={flash} patchEvent={patchEvent} />
           <aside className="inspector" aria-label="Settings for the selected element">
             {sel.kind === "event" && <EventInspector ctx={ctx} patchEvent={patchEvent} />}
             {sel.kind === "item" && (() => { const item = data.items.find(i => i.id === sel.id); return item ? <ItemInspector key={item.id + item.revision} item={item} data={data} patchItem={patchItem} reload={reload} flash={flash} onDeleted={() => setSel({ kind: "event" })} /> : null; })()}
@@ -104,13 +110,15 @@ export default function Studio({ eventId }: { eventId: string }) {
 
 function Checklist({ data, select, onShare }: { data: Data; select: (s: Selection) => void; onShare: () => void }) {
   const e = data.event;
+  const [reviewed,setReviewed]=useState("");
+  const scheduleKey=`${e.startsAt}/${e.endsAt}`;
   const firstNoPhoto = data.items.find(i => !i.imageUrl);
   const steps: { label: string; done: boolean; go: () => void }[] = [
     { label: "Add a cover photo", done: Boolean(e.coverUrl), go: () => select({ kind: "event" }) },
     { label: "Write a welcome message", done: Boolean(e.welcome.trim()), go: () => select({ kind: "event" }) },
     { label: `Add 3+ items (${data.items.length})`, done: data.items.length >= 3, go: () => document.getElementById("add-item")?.click() },
     { label: "Give every item a photo", done: data.items.length > 0 && !firstNoPhoto, go: () => firstNoPhoto && select({ kind: "item", id: firstNoPhoto.id }) },
-    { label: "Check the schedule", done: true, go: () => select({ kind: "event" }) },
+    { label: "Check the schedule", done: reviewed === scheduleKey, go: () => {select({ kind: "event" }); setReviewed(scheduleKey);} },
     { label: e.status === "live" ? "You're live — share your code" : "Go live & share your code", done: e.status === "live", go: onShare },
   ];
   const done = steps.filter(s => s.done).length;
@@ -175,7 +183,7 @@ function Canvas({ data, sel, select, reload, flash, patchEvent }: { data: Data; 
         </div>
         <div className="screen" style={{ paddingBottom: 24 }}>
           <button className={`editable cover${isSel({ kind: "event" }) ? " selected" : ""}`} onClick={() => select({ kind: "event" })} aria-label="Edit cover and event details">
-            {e.coverUrl ? <img src={e.coverUrl} alt="" /> : <span className="placeholder">+ Add a cover photo</span>}
+            {e.coverUrl ? <img src={e.coverUrl} alt="" /> : <span className="placeholder">Your event.<br />Your community.<br /><small>Add a cover photo ↗</small></span>}
           </button>
           <button className={`editable text-block${isSel({ kind: "event" }) ? " selected" : ""}`} onClick={() => select({ kind: "event" })}>
             <span className="small faint">{fmtTime(e.startsAt, e.timezone)}{e.venue ? ` · ${e.venue}` : ""}</span>
@@ -191,7 +199,7 @@ function Canvas({ data, sel, select, reload, flash, patchEvent }: { data: Data; 
             <div key={item.id} draggable onDragStart={() => setDragging(item.id)} onDragOver={x => x.preventDefault()} onDrop={() => drop(item.id)}
               className={`drag-wrap${dragging === item.id ? " dragging" : ""}`}>
               <button className={`lot editable${isSel({ kind: "item", id: item.id }) ? " selected" : ""}${!item.ready ? " hidden-item" : ""}`} onClick={() => select({ kind: "item", id: item.id })}>
-                <span className="thumb">{item.imageUrl ? <img src={item.imageUrl} alt="" /> : <span className="placeholder small">+ Photo</span>}</span>
+                <span className="thumb">{item.imageUrl ? <img src={item.imageUrl} alt="" /> : <span aria-label="No photo">{String(item.position+1).padStart(2,"0")}</span>}</span>
                 <span className="stack" style={{ gap: 4, minWidth: 0, textAlign: "left" }}>
                   <h3>{item.title}</h3>
                   <span className="price"><span className="money">{formatMoney(item.currentMinor ?? item.openingMinor)}</span><span className="small faint">{item.bidCount ? `${item.bidCount} bids` : "starting"}</span></span>
@@ -236,12 +244,15 @@ function EventInspector({ ctx, patchEvent }: { ctx: Ctx; patchEvent: (f: Record<
           {e.status === "live" && !ctx.data.participants.length && <button className="btn small" onClick={() => patchEvent({ status: "draft" })}>Move back to draft</button>}
         </div>
       </details>
+      <p className="hint">Draft preview works on devices signed in to your staff account.</p>
+      <details className="advanced"><summary>Make a copy</summary><p className="hint">Copy the setup and items into a new draft.</p><DuplicateButton eventId={e.id} /></details>
+      <EventOperations ctx={ctx} />
     </div>
   );
 }
 
 function ItemInspector({ item, data, patchItem, reload, flash, onDeleted }: { item: Item; data: Data; patchItem: (i: Item, f: Record<string, unknown>) => Promise<boolean>; reload: () => Promise<void>; flash: (t: string) => void; onDeleted: () => void }) {
-  const tz = data.event.timezone, locked = item.bidCount > 0;
+  const tz = data.event.timezone, locked = item.hasBids ?? item.bids.length > 0;
   const commit = (field: string, value: unknown, current: unknown) => { if (value !== current) patchItem(item, { [field]: value }); };
   return (
     <div className="stack">
@@ -308,9 +319,11 @@ function DonationsInspector({ ctx }: { ctx: Ctx }) {
 function LiveBoard({ ctx }: { ctx: Ctx }) {
   const { data } = ctx, e = data.event, now = new Date(data.serverNow).getTime();
   const [focus, setFocus] = useState<string | null>(null);
+  const [query,setQuery]=useState("");
+  useEffect(()=>{if(focus&&window.matchMedia("(max-width:760px)").matches)setTimeout(()=>document.querySelector(".board-side")?.scrollIntoView({behavior:"smooth",block:"start"}),0);},[focus]);
   const titles = useMemo(() => new Map(data.items.map(i => [i.id, i.title])), [data.items]);
   const focused = data.items.find(i => i.id === focus);
-  const total = data.items.reduce((s, i) => s + (i.currentMinor ?? 0), 0);
+  const total = data.items.filter(i=>!i.withdrawn).reduce((s, i) => s + (i.currentMinor ?? 0), 0);
   return (
     <div className="board">
       <div className="board-main">
@@ -320,15 +333,16 @@ function LiveBoard({ ctx }: { ctx: Ctx }) {
           <div className="card stat"><span className="small faint">Bids</span><b>{data.items.reduce((s, i) => s + i.bidCount, 0)}</b></div>
           <div className="card stat"><span className="small faint">Raised so far</span><b>{formatMoney(total)}</b></div>
         </div>
+        <label className="field"><span>Find an item</span><input type="search" value={query} onChange={x=>setQuery(x.target.value)} placeholder="Item title or number" /></label>
         <div className="tiles">
-          {data.items.filter(i => i.ready).map(i => (
+          {data.items.filter(i => i.ready && (!query || `${i.title} ${i.position+1}`.toLowerCase().includes(query.toLowerCase()))).map(i => (
             <button key={i.id} className={`tile card${focus === i.id ? " selected" : ""}`} onClick={() => setFocus(i.id)}>
-              {i.imageUrl && <span className="tile-img"><img src={i.imageUrl} alt="" /></span>}
+              <span className="tile-img">{i.imageUrl ? <img src={i.imageUrl} alt="" /> : <span>{String(i.position+1).padStart(2,"0")}</span>}</span>
               <span className="pad stack" style={{ gap: 4, textAlign: "left" }}>
                 <b>{i.title}</b>
                 <span className="money" style={{ fontSize: 22 }}>{formatMoney(i.currentMinor ?? i.openingMinor)}</span>
                 <span className="small muted">{i.leader ? `${i.leader.name} · ${i.leader.business}` : "No bids yet"}</span>
-                <span className="row between small"><StageChip stage={i.phase} />{i.phase === "open" && <span className="faint">{untilText(i.effectiveClosesAt, now)}</span>}</span>
+                <span className="row between small"><StageChip stage={i.withdrawn ? "Withdrawn" : i.phase} />{i.phase === "open" && <span className="faint">{untilText(i.effectiveClosesAt, now)}</span>}</span>
               </span>
             </button>
           ))}
@@ -338,15 +352,15 @@ function LiveBoard({ ctx }: { ctx: Ctx }) {
         {focused ? (
           <div className="card pad stack">
             <div className="row between"><h3>{focused.title}</h3><button className="btn ghost small" onClick={() => setFocus(null)}>Close</button></div>
-            <p className="small muted">Closes {fmtTime(focused.effectiveClosesAt, e.timezone)}</p>
+            <ClosingControl ctx={ctx} item={focused} />
             {!focused.bids.length && <p className="muted small">No bids yet.</p>}
-            {focused.bids.map(b => <div key={b.id} className="row between small"><span>{b.name} · <span className="muted">{b.business}</span></span><span className="money">{formatMoney(b.amountMinor)}</span></div>)}
+            <BidOperations ctx={ctx} item={focused} />
           </div>
         ) : (
           <div className="card pad stack">
             <h3>Latest bids</h3>
             {!data.activity.length && <p className="muted small">Bids appear here the moment they land.</p>}
-            <div className="feed">{data.activity.slice(0, 12).map(a => (
+            <div className="feed">{data.activity.filter(a=>!a.voided).slice(0, 12).map(a => (
               <div key={a.id}><span className="faint small">{fmtClock(a.at, e.timezone)}</span><span className="grow small"><b>{a.name}</b> on {titles.get(a.itemId)}</span><span className="money">{formatMoney(a.amountMinor)}</span></div>
             ))}</div>
           </div>
@@ -391,3 +405,14 @@ function ShareDialog({ ctx, onClose }: { ctx: Ctx; onClose: () => void }) {
   );
 }
 
+
+function ClosingControl({ctx,item}:{ctx:Ctx;item:Item}) {
+ const [value,setValue]=useState(toLocalInput(item.effectiveClosesAt,ctx.data.event.timezone));
+ useEffect(()=>setValue(toLocalInput(item.effectiveClosesAt,ctx.data.event.timezone)),[item.effectiveClosesAt,ctx.data.event.timezone]);
+ return <div className="stack"><label className="field"><span>Item closes</span><input type="datetime-local" value={value} onChange={x=>setValue(x.target.value)}/></label><p className="hint">After the first bid, closing must stay at least five minutes from now.</p><button className="btn small" onClick={async()=>{const closesAt=fromLocalInput(value,ctx.data.event.timezone);if(!closesAt)return;const r=await api("PATCH",`/api/v1/host/items/${item.id}`,{revision:item.revision,closesAt}).catch(()=>null);ctx.flash(r?.ok?"Closing time saved":r?errorText(r):"Connection lost. Check the closing time before retrying.");await ctx.reload();}}>Save closing time</button></div>;
+}
+function BidOperations({ctx,item}:{ctx:Ctx;item:Item}) {
+ const [bidId,setBidId]=useState(""),[reason,setReason]=useState(""),[withdraw,setWithdraw]=useState(false),[message,setMessage]=useState("This item has been withdrawn by the host. Bidding is no longer available."),[busy,setBusy]=useState(false),[error,setError]=useState("");
+ async function send(path:string,body:object){setBusy(true);setError("");const r=await api("POST",`/api/v1/host/items/${item.id}/${path}`,body).catch(()=>null);if(r?.ok){setBidId("");setWithdraw(false);ctx.flash(path==="void-bid"?"Bid voided. Standing recalculated.":"Item withdrawn. Participants can see your message.");await ctx.reload();}else setError(r?errorText(r):"Connection lost. Check the item before retrying.");setBusy(false);}
+ return <div className="stack operations-panel">{item.withdrawn&&<p className="notice warn">Withdrawn · {item.withdrawalMessage}</p>}{item.bids.map(b=><div className="stack" style={{gap:4,borderBottom:"1px solid var(--line)",paddingBottom:10}} key={b.id}><div className="row between small"><span><b>{b.name}</b><span className="muted"> · {b.business}</span></span><span className="money">{formatMoney(b.amountMinor)}</span></div><div className="row between"><span className="small muted">{fmtClock(b.at,ctx.data.event.timezone)}</span>{b.voided?<span className="small muted">Voided · {b.voidReason}</span>:<button className="btn ghost small" onClick={()=>{setBidId(b.id);setReason("");}}>Void bid</button>}</div></div>)}{bidId&&<form className="operation-confirm stack" onSubmit={x=>{x.preventDefault();send("void-bid",{bidId,reason});}}><b>Void this bid?</b><p className="small">The highest remaining bid becomes the leader. Any winner affected by this bid must be confirmed again.</p><label className="field"><span>Reason</span><input required maxLength={500} value={reason} onChange={x=>setReason(x.target.value)}/></label><div className="row"><button className="btn small danger" disabled={busy||!reason.trim()}>Confirm void</button><button type="button" className="btn small" onClick={()=>setBidId("")}>Cancel</button></div></form>}{!item.withdrawn&&!withdraw&&<button className="btn small danger" onClick={()=>setWithdraw(true)}>Withdraw item</button>}{withdraw&&<form className="operation-confirm stack" onSubmit={x=>{x.preventDefault();send("withdraw",{message});}}><b>Withdraw this item?</b><p className="small">Bidding stops. Bid history stays in the event, and participants see your message.</p><label className="field"><span>Message to participants</span><textarea required maxLength={500} value={message} onChange={x=>setMessage(x.target.value)}/></label><div className="row"><button className="btn small danger" disabled={busy||!message.trim()}>Confirm withdrawal</button><button type="button" className="btn small" onClick={()=>setWithdraw(false)}>Cancel</button></div></form>}{error&&<p className="notice error" role="alert">{error}</p>}</div>;
+}

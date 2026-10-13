@@ -6,12 +6,12 @@ import { formatMoney } from "../../../lib/money";
 import { qrcodegen } from "../../../lib/qr-code.js";
 import { PhotoPicker, StageChip } from "../ui";
 
-type Bid = { id: string; amountMinor: number; at: string; participantId: string; name: string; business: string };
+type Bid = { voided?: boolean; voidReason?: string; id: string; amountMinor: number; at: string; participantId: string; name: string; business: string };
 type Award = { status: "assigned" | "fulfilled" | "no_winner"; bidId: string | null; participantId: string | null; amountMinor: number | null; notes: string; revision: number; updatedAt: string };
 export type Item = {
   id: string; position: number; title: string; short: string; description: string; category: string; donor: string; imageAssetId: string | null; imageUrl: string | null;
   openingMinor: number; incrementOverrideMinor: number | null; opensAt: string | null; closesAt: string | null; effectiveOpensAt: string; effectiveClosesAt: string;
-  ready: boolean; revision: number; phase: "scheduled" | "open" | "closed"; currentMinor: number | null; bidCount: number; minimumNextMinor: number | null;
+  hasBids?: boolean; withdrawn?: boolean; withdrawalMessage?: string; ready: boolean; revision: number; phase: "scheduled" | "open" | "closed"; currentMinor: number | null; bidCount: number; minimumNextMinor: number | null;
   leader: { id: string; name: string; business: string } | null; bids: Bid[]; award: Award | null;
 };
 type Tier = { belowMinor: number | null; raiseMinor: number };
@@ -19,10 +19,10 @@ export type Data = {
   serverNow: string;
   event: { id: string; code: string; name: string; welcome: string; venue: string; winnerInstructions: string; coverAssetId: string | null; coverUrl: string | null; timezone: string;
     startsAt: string; endsAt: string; accessEndsAt: string; status: "draft" | "live"; entryOpen: boolean; theme: string; bidMode: "tiered" | "fixed"; tiers: Tier[]; fixedIncrementMinor: number | null;
-    donationsEnabled: boolean; donationDeadline: string | null; revision: number; phase: string; hasBids: boolean };
+    isPractice?: boolean; archivedAt?: string | null; donationsEnabled: boolean; donationDeadline: string | null; revision: number; phase: string; hasBids: boolean };
   items: Item[];
   participants: { id: string; name: string; business: string; canBid: boolean; joinedAt: string; bidCount: number; leadingCount: number; pledgedMinor: number }[];
-  activity: { id: string; itemId: string; amountMinor: number; at: string; name: string; business: string }[];
+  activity: { id: string; itemId: string; amountMinor: number; at: string; name: string; business: string; voided?: boolean }[];
   pledges: { id: string; recipientName: string; amountMinor: number; recordedAt: string; processedAt: string | null; note: string; name: string; business: string }[];
   recipients: { id: string; name: string; description: string; logoAssetId: string | null; logoUrl: string | null }[];
   sponsors: { id: string; name: string; logoAssetId: string | null; logoUrl: string | null }[];
@@ -55,7 +55,7 @@ export default function Workspace({ eventId }: { eventId: string }) {
   const patchEvent = useCallback(async (fields: Record<string, unknown>) => {
     if (!data) return false;
     const r = await api("PATCH", `/api/v1/host/events/${eventId}`, { revision: data.event.revision, ...fields }).catch(() => null);
-    if (!r) { flash("Connection lost. Nothing was saved."); return false; }
+    if (!r) { flash("Connection lost. Check the latest view before retrying this change."); return false; }
     if (!r.ok) { flash(errorText(r)); await reload(); return false; }
     await reload(); return true;
   }, [data, eventId, flash, reload]);
@@ -248,7 +248,7 @@ function ItemEditor({ ctx, item, onDone }: { ctx: Ctx; item: Item; onDone: () =>
     if (!locked) { body.openingMinor = openingMinor; body.incrementOverrideMinor = incrementOverrideMinor; }
     const r = await api("PATCH", `/api/v1/host/items/${item.id}`, body).catch(() => null);
     setBusy(false);
-    if (r?.ok) { flash("Saved"); await reload(); onDone(); } else { flash(r ? errorText(r) : "Connection lost. Nothing was saved."); reload(); }
+    if (r?.ok) { flash("Saved"); await reload(); onDone(); } else { flash(r ? errorText(r) : "Connection lost. Check the latest view before retrying this change."); reload(); }
   }
   async function remove() {
     if (!confirm(`Delete "${item.title}"?`)) return;
@@ -475,6 +475,8 @@ export function Donations({ ctx }: { ctx: Ctx }) {
 
 export function People({ ctx, compact = false }: { ctx: Ctx; compact?: boolean }) {
   const { data, reload, flash } = ctx, e = data.event;
+  const [editing, setEditing] = useState<{id:string;name:string;business:string} | null>(null);
+  const [editBusy,setEditBusy]=useState(false);
   const [query, setQuery] = useState(""), [code, setCode] = useState<{ name: string; code: string } | null>(null);
   const q = query.trim().toLowerCase();
   const shown = data.participants.filter(p => !q || `${p.name} ${p.business}`.toLowerCase().includes(q));
@@ -490,6 +492,7 @@ export function People({ ctx, compact = false }: { ctx: Ctx; compact?: boolean }
     <div className="stack">
       <div className="row between wrap"><h3>Participants · {data.participants.length}</h3>
         <a className="btn small" href={`/api/v1/host/events/${e.id}/export/participants`}>Export CSV</a></div>
+      {editing && <form className="card pad stack" onSubmit={async x=>{x.preventDefault();setEditBusy(true);const r=await api("PATCH",`/api/v1/host/events/${e.id}/participants/${editing.id}`,{name:editing.name,business:editing.business}).catch(()=>null);if(r?.ok){setEditing(null);await reload();}else flash(r?errorText(r):"Connection lost. Check before retrying.");setEditBusy(false);}}><h3>Edit participant</h3><label className="field"><span>Name</span><input required maxLength={60} value={editing.name} onChange={x=>setEditing({...editing,name:x.target.value})}/></label><label className="field"><span>Business</span><input required maxLength={120} value={editing.business} onChange={x=>setEditing({...editing,business:x.target.value})}/></label><div className="row"><button className="btn primary small" disabled={editBusy}>Save participant</button><button type="button" className="btn small" onClick={()=>setEditing(null)}>Cancel</button></div></form>}
       {code && <div className="notice info stack"><span>Rejoin code for <b>{code.name}</b> (valid 30 minutes, one use):</span><span className="joincode" style={{ fontSize: 32 }}>{code.code}</span>
         <span className="small">On the new phone: open the event, tap “Already joined on another phone?”, and enter this code.</span></div>}
       {data.participants.length > 6 && <input className="input" type="search" placeholder="Search by name or business" value={query} onChange={x => setQuery(x.target.value)} />}
@@ -501,6 +504,7 @@ export function People({ ctx, compact = false }: { ctx: Ctx; compact?: boolean }
               <details className="menu"><summary aria-label={`Options for ${p.name}`}>⋯</summary>
                 <div className="menu-pop">
                   <label className="check"><input type="checkbox" checked={p.canBid} onChange={x => setCanBid(p.id, x.target.checked)} /> Can bid</label>
+                  <button className="btn small" onClick={() => setEditing({id:p.id,name:p.name,business:p.business})}>Edit participant</button>
                   <button className="btn small" onClick={() => rejoin(p.id, p.name)}>Rejoin code</button>
                 </div>
               </details>
@@ -515,7 +519,7 @@ export function People({ ctx, compact = false }: { ctx: Ctx; compact?: boolean }
               <td><b>{p.name}</b></td><td>{p.business}</td><td className="small">{fmtClock(p.joinedAt, e.timezone)}</td><td>{p.bidCount}</td><td>{p.leadingCount}</td>
               <td className="money">{p.pledgedMinor ? formatMoney(p.pledgedMinor) : "—"}</td>
               <td><input type="checkbox" aria-label={`${p.name} can bid`} checked={p.canBid} onChange={x => setCanBid(p.id, x.target.checked)} /></td>
-              <td><button className="btn small ghost" onClick={() => rejoin(p.id, p.name)}>Rejoin code</button></td>
+              <td><button className="btn small ghost" onClick={() => setEditing({id:p.id,name:p.name,business:p.business})}>Edit</button><button className="btn small ghost" onClick={() => rejoin(p.id, p.name)}>Rejoin code</button></td>
             </tr>))}</tbody>
         </table></div>
       )}
@@ -557,7 +561,7 @@ export function ResultRow({ ctx, item }: { ctx: Ctx; item: Item }) {
           {a ? <span className={`chip ${a.status === "fulfilled" ? "won" : a.status === "no_winner" ? "closed" : "yours"}`}>{a.status === "fulfilled" ? "Fulfilled" : a.status === "no_winner" ? "No winner" : "Winner confirmed"}</span> : <StageChip stage={item.phase} />}
         </div>
       </div>
-      {item.phase !== "closed" ? (
+      {item.withdrawn ? <p className="notice warn">Withdrawn · {item.withdrawalMessage}</p> : item.phase !== "closed" ? (
         <p className="small muted">{item.bidCount ? <>High bid <span className="money">{formatMoney(item.currentMinor!)}</span> by {item.leader?.name} · {item.leader?.business}. </> : "No bids yet. "}Closes {fmtTime(item.effectiveClosesAt, tz)}.</p>
       ) : !a ? (
         item.bidCount ? (
@@ -587,7 +591,7 @@ export function ResultRow({ ctx, item }: { ctx: Ctx; item: Item }) {
       {choosing && (
         <div className="stack" style={{ gap: 6 }}>
           <span className="small faint">Pick the bid to award (e.g. if the top bidder withdrew):</span>
-          {item.bids.map(b => (
+          {item.bids.filter(b=>!b.voided).map(b => (
             <div key={b.id} className="row between"><span>{b.name} · {b.business} · <span className="money">{formatMoney(b.amountMinor)}</span> <span className="small faint">{fmtClock(b.at, tz)}</span></span>
               <button className="btn small" disabled={busy || b.id === a?.bidId} onClick={() => act("assign", { bidId: b.id })}>Award</button></div>
           ))}

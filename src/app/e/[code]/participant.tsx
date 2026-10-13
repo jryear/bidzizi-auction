@@ -3,12 +3,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { api, dollarsInput, errorText, fmtClock, fmtTime, initials, newId, Offline, parseDollars, untilText } from "../../../lib/api";
 import { formatMoney } from "../../../lib/money";
+import "./participant-design.css";
 
 type Item = {
   id: string; position: number; title: string; short: string; description: string; category: string; donor: string; imageUrl: string | null;
   openingMinor: number; opensAt: string; closesAt: string; phase: "scheduled" | "open" | "closed";
   currentMinor: number | null; bidCount: number; leader: { name: string; business: string; isMe: boolean } | null;
   minimumNextMinor: number | null; incrementMinor: number; watching: boolean; myHighestMinor: number | null; myBidCount: number;
+  withdrawn?: boolean; withdrawalMessage?: string; bidHistory?: { id: string; amountMinor: number; decidedAt: string; isMe: boolean; voided: boolean }[];
   award: { status: string; winner: { name: string; business: string } | null; amountMinor: number | null; isMe: boolean } | null;
 };
 type Snapshot = {
@@ -35,6 +37,8 @@ const REASONS: Record<string, string> = {
 };
 
 function status(item: Item): { label: string; tone: string } | null {
+  const myHistory = item.bidHistory?.filter(b => b.isMe) ?? [];
+  if (item.myBidCount === 0 && myHistory.length > 0 && myHistory.every(b => b.voided) && item.phase === "open") return { label: "Your bids were voided", tone: "closed" };
   if (item.phase === "scheduled") return { label: `Opens ${fmtClock(item.opensAt)}`, tone: "upcoming" };
   if (item.phase === "open") {
     if (item.leader?.isMe) return { label: "You're leading", tone: "leading" };
@@ -105,22 +109,22 @@ export default function Participant({ code }: { code: string }) {
   const attention = snap.items.some(i => i.phase === "open" && i.myBidCount > 0 && !i.leader?.isMe) || snap.items.some(i => i.award?.isMe);
 
   return (
-    <main className="phone" data-theme={snap?.event.theme}>
-      <header className="pass">
+    <main className="phone participant-app" data-theme={snap?.event.theme}>
+      {!current && <header className="pass">
         <span className="mono" aria-hidden="true">{initials(me.businessName)}</span>
         <div className="who"><b>{me.businessName}</b><span>{me.displayName}</span></div>
         <span className="event">{snap.event.name}</span>
-      </header>
-      {offline && <p className="notice warn offline" role="status">Connection lost — showing standings as of {fmtClock(new Date(serverNow - 4000))}. Reconnecting…</p>}
+      </header>}
+      {offline && <p className="notice warn offline" role="status">Connection lost — showing standings as of {fmtClock(snap.serverNow, snap.event.timezone)}. Reconnecting…</p>}
 
       {current ? (
         <ItemPage item={current} snap={snap} serverNow={serverNow} onBack={closeLayer} onBid={() => openSheet(current)}
           onWatch={async on => { await api("POST", `/api/v1/e/${code}/watch`, { itemId: current.id, on }).catch(() => {}); load(); }} />
       ) : (
         <div className="screen">
-          {tab === "items" && <Catalog snap={snap} serverNow={serverNow} onOpen={openItem} />}
-          {tab === "watching" && <ItemList title="Watching" empty="Tap the bookmark on any item to keep it here." items={snap.items.filter(i => i.watching)} serverNow={serverNow} onOpen={openItem} />}
-          {tab === "mine" && <MyBids snap={snap} serverNow={serverNow} onOpen={openItem} />}
+          {tab === "items" && <Catalog snap={snap} serverNow={serverNow} onOpen={openItem} onWatch={(item, on) => watchItem(code, item, on, load)} />}
+          {tab === "watching" && <ItemList title="Watching" empty="Tap the bookmark on any item to keep it here." items={snap.items.filter(i => i.watching)} serverNow={serverNow} onOpen={openItem} onWatch={(item, on) => watchItem(code, item, on, load)} />}
+          {tab === "mine" && <MyBids snap={snap} serverNow={serverNow} onOpen={openItem} onBid={openSheet} />}
           {tab === "event" && <EventInfo snap={snap} />}
           {tab === "give" && <Give snap={snap} code={code} onDone={(text) => { flash(text); load(); }} />}
         </div>
@@ -130,7 +134,8 @@ export default function Participant({ code }: { code: string }) {
         <nav className="tabs" aria-label="Sections">
           {(["items", "watching", "mine", ...(snap.event.donations.enabled ? ["give"] : []), "event"] as Tab[]).map(t => (
             <button key={t} aria-current={tab === t ? "page" : undefined} onClick={() => { setTab(t); window.scrollTo(0, 0); }}>
-              {{ items: "Items", watching: "Watching", mine: "My bids", event: "Event", give: "Donate" }[t]}
+              <TabIcon name={t} />
+              <span>{{ items: "Items", watching: "Watching", mine: "My bids", event: "Event", give: "Donate" }[t]}</span>
               {t === "mine" && attention && <span className="dot" aria-label="needs attention" />}
             </button>
           ))}
@@ -213,11 +218,11 @@ function JoinForm({ snap, code, onJoined }: { snap: Snapshot; code: string; onJo
 /** Staff preview of a draft: the real catalog, with joining off until the event goes live. */
 function PreviewCatalog({ snap }: { snap: Snapshot }) {
   return (
-    <main className="phone" data-theme={snap.event.theme}>
+    <main className="phone participant-app" data-theme={snap.event.theme}>
       <p className="notice info" style={{ borderRadius: 0 }}>Preview — only you can see this. People can join once you go live.</p>
       <div className="screen">
         {snap.event.coverUrl && <div className="cover"><img src={snap.event.coverUrl} alt="" /></div>}
-        <Catalog snap={snap} serverNow={new Date(snap.serverNow).getTime()} onOpen={() => {}} />
+        <Catalog snap={snap} serverNow={new Date(snap.serverNow).getTime()} onOpen={() => {}} onWatch={() => {}} />
       </div>
     </main>
   );
@@ -225,74 +230,98 @@ function PreviewCatalog({ snap }: { snap: Snapshot }) {
 
 // ---------------------------------------------------------------- lists
 
-function Catalog({ snap, serverNow, onOpen }: { snap: Snapshot; serverNow: number; onOpen: (id: string) => void }) {
-  const [query, setQuery] = useState(""), [category, setCategory] = useState("");
+function watchItem(code: string, item: Item, on: boolean, load: () => Promise<void>) {
+  return api("POST", `/api/v1/e/${code}/watch`, { itemId: item.id, on }).then(load).catch(() => {});
+}
+
+function Catalog({ snap, serverNow, onOpen, onWatch }: { snap: Snapshot; serverNow: number; onOpen: (id: string) => void; onWatch: (item: Item, on: boolean) => void }) {
+  const [query, setQuery] = useState(""), [category, setCategory] = useState(""), [sort, setSort] = useState("position"), [view, setView] = useState<"large" | "compact">("large");
   const categories = useMemo(() => [...new Set(snap.items.map(i => i.category).filter(Boolean))], [snap.items]);
   const q = query.trim().toLowerCase();
-  const shown = snap.items.filter(i => (!category || i.category === category) && (!q || `${i.title} ${i.short} ${i.donor}`.toLowerCase().includes(q)));
+  const shown = snap.items.filter(i => (!category || i.category === category) && (!q || `${i.title} ${i.short} ${i.donor} ${i.category} ${i.position + 1}`.toLowerCase().includes(q)));
+  if (sort === "price") shown.sort((a, b) => (a.currentMinor ?? a.openingMinor) - (b.currentMinor ?? b.openingMinor));
+  if (sort === "ending") shown.sort((a, b) => a.phase === "open" && b.phase === "open" ? Date.parse(a.closesAt) - Date.parse(b.closesAt) : a.phase === "open" ? -1 : b.phase === "open" ? 1 : a.position - b.position);
+  if (sort === "position") shown.sort((a, b) => a.position - b.position);
   const e = snap.event;
   return (
-    <>
-      <div className="stack" style={{ gap: 4 }}>
-        <h1>{e.name}</h1>
-        <p className="small muted">{e.phase === "open" ? `Bidding ends ${fmtTime(e.endsAt, e.timezone)}` : e.phase === "upcoming" ? `Bidding opens ${fmtTime(e.startsAt, e.timezone)}` : "Bidding has ended"}</p>
-      </div>
+    <section className="participant-catalog">
+      <div className="participant-pagehead"><p className="participant-eyebrow">{e.phase === "open" ? "Now open · browse the items" : e.phase === "upcoming" ? "Coming up · get a first look" : "The auction has ended"}</p><h1>{e.name}</h1><p>{e.phase === "open" ? `Bidding ends ${fmtTime(e.endsAt, e.timezone)}` : e.phase === "upcoming" ? `Bidding opens ${fmtTime(e.startsAt, e.timezone)}` : "Final standings are shown below."}</p></div>
       {snap.items.some(i => i.award?.isMe) && <WonBanner snap={snap} />}
-      {snap.items.length > 4 && <input className="input" type="search" placeholder="Search items" value={query} onChange={x => setQuery(x.target.value)} aria-label="Search items" />}
+      {snap.items.length > 0 && <label className="participant-search"><SearchIcon /><span className="sr">Search items</span><input type="search" placeholder="Search items, provider or category" value={query} onChange={x => setQuery(x.target.value)} aria-label="Search items" /></label>}
       {categories.length > 1 && (
-        <div className="chips" role="group" aria-label="Category">
-          <button aria-pressed={!category} onClick={() => setCategory("")}>All</button>
-          {categories.map(c => <button key={c} aria-pressed={category === c} onClick={() => setCategory(c)}>{c}</button>)}
+        <div className="participant-chips" role="group" aria-label="Filter by category">
+          <button className="participant-chip" aria-pressed={!category} onClick={() => setCategory("")}>All items</button>
+          {categories.map(c => <button className="participant-chip" key={c} aria-pressed={category === c} onClick={() => setCategory(c)}>{c}</button>)}
         </div>
       )}
-      <ItemList items={shown} serverNow={serverNow} onOpen={onOpen} empty={snap.items.length ? "No items match." : "Items will appear here soon."} />
-    </>
+      <div className="participant-toolbar"><label className="participant-sort"><span className="sr">Sort items</span><select value={sort} onChange={e => setSort(e.target.value)}><option value="position">Item order</option><option value="price">Lowest price</option><option value="ending">Ending soon</option></select><span aria-hidden="true">⌄</span></label><div className="participant-view" role="group" aria-label="Item view"><button aria-pressed={view === "large"} onClick={() => setView("large")} aria-label="Large cards"><GridIcon /></button><button aria-pressed={view === "compact"} onClick={() => setView("compact")} aria-label="Compact list"><ListIcon /></button></div></div>
+      <ItemList items={shown} serverNow={serverNow} onOpen={onOpen} onWatch={onWatch} view={view} empty={snap.items.length ? "No items match your search. Try a different category or clear the search." : "Items will appear here soon."} />
+    </section>
   );
 }
 
-function ItemList({ items, serverNow, onOpen, empty, title }: { items: Item[]; serverNow: number; onOpen: (id: string) => void; empty: string; title?: string }) {
+function ItemList({ items, serverNow, onOpen, onWatch, empty, title, view = "compact" }: { items: Item[]; serverNow: number; onOpen: (id: string) => void; onWatch?: (item: Item, on: boolean) => void; empty: string; title?: string; view?: "large" | "compact" }) {
   return (
     <>
-      {title && <h1>{title}</h1>}
-      {!items.length && <p className="muted">{empty}</p>}
+      {title && <div className="participant-pagehead participant-listhead"><p className="participant-eyebrow">Your saved items</p><h1>{title}</h1><p>{items.length} {items.length === 1 ? "item" : "items"} · watching is private to this device</p></div>}
+      {!items.length && <div className="participant-empty"><b>{empty}</b>{title === "Watching" && <span>Watching places no bid and tells no one.</span>}</div>}
+      <div className={`participant-items ${view === "large" ? "is-large" : "is-compact"}`}>
       {items.map(item => {
         const s = status(item), mine = item.leader?.isMe || item.award?.isMe;
         return (
-          <button key={item.id} className={`lot${mine ? " mine" : ""}`} onClick={() => onOpen(item.id)}>
-            <span className="thumb">{item.imageUrl ? <img src={item.imageUrl} alt="" loading="lazy" /> : <span className="num">{String(item.position + 1).padStart(2, "0")}</span>}</span>
-            <span className="stack" style={{ gap: 4, minWidth: 0 }}>
-              <h3>{item.title}</h3>
-              <span className="price">
-                <span className="money">{formatMoney(item.currentMinor ?? item.openingMinor)}</span>
-                <span className="small faint">{item.currentMinor === null ? "starting" : `${item.bidCount} bid${item.bidCount === 1 ? "" : "s"}`}</span>
-              </span>
-              <span className="row wrap" style={{ gap: 6 }}>
-                {s && <span className={`chip ${s.tone}`}>{s.label}</span>}
-                {item.phase === "open" && <span className="small faint">Ends in {untilText(item.closesAt, serverNow)}</span>}
-              </span>
-            </span>
-          </button>
+          <article key={item.id} className={`participant-item${mine ? " is-mine" : ""}${item.withdrawn ? " is-withdrawn" : ""}`}>
+            <button className="participant-item-open" onClick={() => onOpen(item.id)} aria-label={`Open item ${item.position + 1}: ${item.title}`}>
+              <span className="participant-item-photo">{item.imageUrl ? <img src={item.imageUrl} alt="" loading="lazy" /> : <span className="participant-photo-placeholder"><span>{String(item.position + 1).padStart(2, "0")}</span><small>{item.category || "Event item"}</small></span>}<span className="participant-number"><small>Item</small>{String(item.position + 1).padStart(2, "0")}</span>{item.donor && <span className="participant-provider">Provided by <b>{item.donor}</b></span>}</span>
+              <span className="participant-item-info"><span className="participant-eyebrow">{item.category || "Featured item"}</span><b className="participant-item-title">{item.title}</b>{item.short && <span className="participant-item-short">{item.short}</span>}<span className="participant-item-price"><b>{formatMoney(item.currentMinor ?? item.openingMinor)}</b><small>{item.bidCount === 0 ? "Opening bid" : `${item.bidCount} ${item.bidCount === 1 ? "bid" : "bids"}`}</small></span><span className="participant-item-state">{s && <span className={`participant-status tone-${s.tone}`}>{s.label}</span>}{item.withdrawn ? <span className="participant-withdrawn-label">Withdrawn</span> : item.phase === "open" ? <small>Ends in {untilText(item.closesAt, serverNow)}</small> : null}</span></span>
+            </button>
+            {onWatch && !item.withdrawn && <button className={`participant-watch${item.watching ? " is-on" : ""}`} type="button" aria-pressed={item.watching} aria-label={`${item.watching ? "Stop watching" : "Watch"} item ${item.position + 1}: ${item.title}`} onClick={() => onWatch(item, !item.watching)}><BookmarkIcon filled={item.watching} /></button>}
+          </article>
         );
       })}
+      </div>
     </>
   );
 }
 
-function MyBids({ snap, serverNow, onOpen }: { snap: Snapshot; serverNow: number; onOpen: (id: string) => void }) {
-  const mine = snap.items.filter(i => i.myBidCount > 0 || i.award?.isMe);
+function MyBids({ snap, serverNow, onOpen, onBid }: { snap: Snapshot; serverNow: number; onOpen: (id: string) => void; onBid: (item: Item) => void }) {
+  const mine = snap.items.filter(i => i.myBidCount > 0 || i.award?.isMe || i.bidHistory?.some(b => b.isMe));
+  const groups = [
+    { key: "outbid", title: "Outbid", items: mine.filter(i => i.phase === "open" && i.myBidCount > 0 && !i.leader?.isMe) },
+    { key: "leading", title: "Leading", items: mine.filter(i => i.phase === "open" && i.leader?.isMe) },
+    { key: "won", title: "Won", items: mine.filter(i => i.award?.isMe) },
+    { key: "closed", title: "Closed", items: mine.filter(i => i.phase === "closed" && !i.award?.isMe) },
+    { key: "voided", title: "Voided bids", items: mine.filter(i => i.phase === "open" && i.myBidCount === 0 && !i.award?.isMe && i.bidHistory?.some(b => b.isMe) && i.bidHistory.filter(b => b.isMe).every(b => b.voided)) },
+  ];
   return (
-    <>
-      <h1>My bids</h1>
+    <section className="participant-bids">
+      <div className="participant-pagehead"><p className="participant-eyebrow">Your auction activity</p><h1>My bids</h1><p>{mine.length ? `${mine.length} ${mine.length === 1 ? "item" : "items"} you've bid on` : "Your bids and results will be here."}</p></div>
       {snap.items.some(i => i.award?.isMe) && <WonBanner snap={snap} />}
-      <ItemList items={mine} serverNow={serverNow} onOpen={onOpen} empty="Items you bid on will show up here." />
+      {!mine.length && <div className="participant-empty"><b>You haven't placed a bid yet.</b><span>When you bid, your standing and bid history will be easy to find here.</span></div>}
+      {groups.map(group => group.items.length > 0 && <section className="participant-bid-group" key={group.key}><div className="participant-group-head"><h2>{group.title}</h2><span>{group.items.length}</span></div><div className="participant-tickets">{group.items.map(item => <BidTicket key={item.id} item={item} serverNow={serverNow} onOpen={onOpen} onBid={onBid} />)}</div></section>)}
       {snap.me!.pledges.length > 0 && (
-        <div className="card pad stack">
-          <h3>Your donations</h3>
+        <div className="participant-donations">
+          <h2>Your donations</h2>
           {snap.me!.pledges.map(p => <div key={p.id} className="row between"><span>{p.recipientName}</span><span className="money">{formatMoney(p.amountMinor)}</span></div>)}
         </div>
       )}
-    </>
+    </section>
   );
+}
+
+function BidTicket({ item, serverNow, onOpen, onBid }: { item: Item; serverNow: number; onOpen: (id: string) => void; onBid: (item: Item) => void }) {
+  const st = status(item), activeMine = item.bidHistory?.filter(b => b.isMe && !b.voided) ?? [], amount = item.myHighestMinor ?? (activeMine.length ? Math.max(...activeMine.map(b => b.amountMinor)) : null);
+  return <article className={`participant-ticket edge-${item.award?.isMe ? "won" : item.phase === "closed" || st?.tone === "closed" ? "closed" : item.leader?.isMe ? "leading" : "outbid"}`}>
+    <button className="participant-ticket-main" onClick={() => onOpen(item.id)}><span className="participant-ticket-thumb">{item.imageUrl ? <img src={item.imageUrl} alt="" loading="lazy" /> : <span>{String(item.position + 1).padStart(2, "0")}</span>}</span><span className="participant-ticket-copy"><small>Item {String(item.position + 1).padStart(2, "0")}</small><b>{item.title}</b>{st && <span className={`participant-status tone-${st.tone}`}>{st.label}</span>}<span>{item.phase === "open" ? `Ends in ${untilText(item.closesAt, serverNow)}` : item.phase === "closed" ? "Bidding has closed" : "Scheduled"}</span></span></button>
+    <div className="participant-ticket-stub"><small>{amount === null ? "Your standing" : "Your highest bid"}</small><b>{amount === null ? "—" : formatMoney(amount)}</b>{item.currentMinor !== null && amount !== null && !item.leader?.isMe && <span>Now {formatMoney(item.currentMinor)}</span>}</div>
+    <div className="participant-ticket-actions"><button className="participant-link-button" onClick={() => onOpen(item.id)}>View item and bid history <span aria-hidden="true">→</span></button>{item.phase === "open" && !item.withdrawn && !item.leader?.isMe && <button className="btn primary" onClick={() => onBid(item)}>Bid again</button>}</div>
+    <details className="participant-history-fold"><summary>Bid history <span>{item.bidHistory?.length ?? item.myBidCount} {item.bidHistory?.length === 1 || (!item.bidHistory?.length && item.myBidCount === 1) ? "bid" : "bids"}</span></summary><BidHistory item={item} /></details>
+  </article>;
+}
+
+function BidHistory({ item }: { item: Item }) {
+  const history = item.bidHistory ?? [];
+  if (!history.length) return <p className="participant-history-empty">Your bid history will appear here as the event updates.</p>;
+  return <ol className="participant-history">{history.map((bid, index) => <li key={bid.id} className={`${bid.isMe ? "mine" : ""}${bid.voided ? " is-voided" : ""}`}><span className="participant-history-who"><b>{bid.isMe ? "Your bid" : "Another bidder"}</b><small>{fmtTime(bid.decidedAt)}</small></span><span className="participant-history-amount"><b>{formatMoney(bid.amountMinor)}</b>{bid.voided ? <small>Voided</small> : index === 0 && <small>Current high bid</small>}</span></li>)}</ol>;
 }
 
 function WonBanner({ snap }: { snap: Snapshot }) {
@@ -318,17 +347,17 @@ function Sponsors({ snap }: { snap: Snapshot }) {
 function EventInfo({ snap }: { snap: Snapshot }) {
   const e = snap.event;
   return (
-    <>
-      {e.coverUrl && <div className="cover"><img src={e.coverUrl} alt="" /></div>}
-      <h1>{e.name}</h1>
-      <div className="card pad stack">
-        <div><span className="small faint">When</span><p>{fmtTime(e.startsAt, e.timezone)} – {fmtTime(e.endsAt, e.timezone)}</p></div>
-        {e.venue && <div><span className="small faint">Where</span><p>{e.venue}</p></div>}
+    <section className="participant-event">
+      <div className="participant-event-hero">{e.coverUrl ? <img src={e.coverUrl} alt="" /> : <div className="participant-event-placeholder"><span>BidZizi</span><small>A good find is worth sharing.</small></div>}<span className="participant-event-kicker">The event</span></div>
+      <div className="participant-event-body"><p className="participant-eyebrow">{e.phase === "open" ? "Now welcoming bids" : e.phase === "upcoming" ? "Save the date" : "Thank you for joining us"}</p><h1>{e.name}</h1>
+        <div className="participant-event-facts"><div><small>When</small><b>{fmtTime(e.startsAt, e.timezone)} – {fmtTime(e.endsAt, e.timezone)}</b></div>{e.venue && <div><small>Where</small><b>{e.venue}</b></div>}</div>
+        {e.welcome && <section className="participant-event-welcome"><p className="participant-eyebrow">A welcome from the host</p><p>{e.welcome}</p></section>}
+        <Sponsors snap={snap} />
+        {e.donations.enabled && <section className="participant-event-section"><p className="participant-eyebrow">Give back</p><h2>Support a community partner</h2><p>{e.donations.open ? "Optional donations are available from the Donate tab." : "Donations have closed for this event."}</p>{e.donations.recipients.map(r => <div className="participant-recipient" key={r.id}>{r.logoUrl ? <img src={r.logoUrl} alt="" /> : <span>{initials(r.name)}</span>}<div><b>{r.name}</b>{r.description && <small>{r.description}</small>}</div></div>)}</section>}
+        <section className="participant-event-section"><p className="participant-eyebrow">How winning works</p><h2>Good luck with your bids.</h2><ol className="participant-winning-steps"><li><span>01</span><p>Place a bid while the item is open. Your bid is confirmed only after it is recorded.</p></li><li><span>02</span><p>Follow your standing in My bids. We'll show you if another bid moves ahead.</p></li><li><span>03</span><p>After bidding closes, event staff confirm winners and share next steps.</p></li></ol></section>
+        <p className="participant-identity-note">You're here as <b>{snap.me!.displayName}</b> · {snap.me!.businessName}. Lost your phone? Event staff can help you rejoin.</p>
       </div>
-      {e.welcome && <p style={{ whiteSpace: "pre-wrap" }}>{e.welcome}</p>}
-      <Sponsors snap={snap} />
-      <p className="small faint">You joined as {snap.me!.displayName} · {snap.me!.businessName}. Lost your phone? Staff can move you to a new one.</p>
-    </>
+    </section>
   );
 }
 
@@ -336,40 +365,37 @@ function EventInfo({ snap }: { snap: Snapshot }) {
 
 function ItemPage({ item, snap, serverNow, onBack, onBid, onWatch }: { item: Item; snap: Snapshot; serverNow: number; onBack: () => void; onBid: () => void; onWatch: (on: boolean) => void }) {
   const s = status(item);
-  const canBid = item.phase === "open" && !item.leader?.isMe && item.minimumNextMinor !== null && snap.me!.canBid;
+  const canBid = item.phase === "open" && !item.withdrawn && !item.leader?.isMe && item.minimumNextMinor !== null && snap.me!.canBid;
   return (
     <>
-      <div className="topbar">
-        <button className="btn ghost" onClick={onBack}>← Items</button>
-        <span className="grow" />
-        <button className="btn small" aria-pressed={item.watching} onClick={() => onWatch(!item.watching)}>{item.watching ? "★ Watching" : "☆ Watch"}</button>
+      <div className="participant-detail-topbar">
+        <button onClick={onBack}><span aria-hidden="true">←</span> Back to items</button>
+        <b>BidZizi</b>
+        <button className={`participant-watch-inline${item.watching ? " is-on" : ""}`} aria-pressed={item.watching} onClick={() => onWatch(!item.watching)}><BookmarkIcon filled={item.watching} /><span>{item.watching ? "Watching" : "Watch"}</span></button>
       </div>
-      <div className="screen" style={{ paddingBottom: 24 }}>
-        {item.imageUrl && <div className="detail-img"><img src={item.imageUrl} alt="" /></div>}
-        <div className="stack" style={{ gap: 6 }}>
-          <span className="small faint">{String(item.position + 1).padStart(2, "0")}{item.category ? ` · ${item.category}` : ""}</span>
+      <section className="participant-detail">
+        <div className="participant-detail-photo">{item.imageUrl ? <img src={item.imageUrl} alt="" /> : <div className="participant-photo-placeholder"><span>{String(item.position + 1).padStart(2, "0")}</span><small>{item.category || "Event item"}</small></div>}<span className="participant-number"><small>Item</small>{String(item.position + 1).padStart(2, "0")}</span></div>
+        <div className="participant-detail-body">
+          <div className="participant-provider-line"><span className="participant-provider-mark">{initials(item.donor || "Item")}</span><span><small>Provided by</small><b>{item.donor || "Event host"}</b></span><span className="participant-eyebrow">{item.category || "Featured item"}</span></div>
           <h1>{item.title}</h1>
-          {item.donor && <p className="small muted">Provided by {item.donor}</p>}
-        </div>
-        <div className="stub stack" style={{ gap: 8 }}>
-          <div className="row between">
-            <span className="small faint">{item.currentMinor === null ? "Starting bid" : "Current bid"}</span>
-            {s && <span className={`chip ${s.tone}`}>{s.label}</span>}
-          </div>
-          <span className="money big">{formatMoney(item.currentMinor ?? item.openingMinor)}</span>
-          {item.leader && <p className="small muted">{item.leader.isMe ? "You" : `${item.leader.name} · ${item.leader.business}`} · {item.bidCount} bid{item.bidCount === 1 ? "" : "s"}</p>}
-          {item.phase === "open" && <p className="small">Ends {fmtClock(item.closesAt, snap.event.timezone)} · in {untilText(item.closesAt, serverNow)}</p>}
-          {item.phase === "scheduled" && <p className="small">Opens {fmtTime(item.opensAt, snap.event.timezone)}</p>}
+          {item.short && <p className="participant-detail-short">{item.short}</p>}
+          <section className="participant-standing-card" aria-label="Bid standing">
+            <div className="participant-standing-main"><span className="participant-eyebrow">{item.bidCount === 0 ? "Opening bid" : "Current bid"}</span><b>{formatMoney(item.currentMinor ?? item.openingMinor)}</b>{item.leader && <small>{item.leader.isMe ? "You're the highest bidder" : "Highest bid"} · {item.bidCount} {item.bidCount === 1 ? "bid" : "bids"}</small>}</div>
+            <div className="participant-standing-side"><span className="participant-eyebrow">{item.phase === "closed" ? "Closed" : item.phase === "scheduled" ? "Opens" : "Time left"}</span><b>{item.phase === "closed" ? fmtTime(item.closesAt, snap.event.timezone) : item.phase === "scheduled" ? fmtTime(item.opensAt, snap.event.timezone) : untilText(item.closesAt, serverNow)}</b><small>{item.phase === "open" ? `Closes ${fmtClock(item.closesAt, snap.event.timezone)}` : item.phase === "scheduled" ? "Bidding has not opened" : `${item.bidCount} total bids`}</small></div>
+          </section>
+          {s && <p className={`participant-detail-status tone-${s.tone}`} role="status">{s.label}{item.phase === "open" && item.leader?.isMe ? " · Your bid is recorded" : ""}</p>}
+          {item.withdrawn && <div className="participant-withdrawal-notice"><b>This item has been withdrawn.</b><p>{item.withdrawalMessage || "The event host has withdrawn this item. No further bids can be placed."}</p></div>}
           {item.award?.isMe && snap.me!.winnerInstructions && <p className="notice ok" style={{ whiteSpace: "pre-wrap" }}>{snap.me!.winnerInstructions}</p>}
-          {item.award && !item.award.isMe && item.award.winner && <p className="small muted">Won by {item.award.winner.name} · {item.award.winner.business}</p>}
+          {item.award && !item.award.isMe && item.award.winner && <p className="small muted">This item was awarded to a participant.</p>}
+          {item.description && <section className="participant-prose"><p className="participant-eyebrow">About this item</p><p>{item.description}</p></section>}
+          {!snap.me!.canBid && item.phase === "open" && !item.withdrawn && <p className="notice warn">Your bidding is paused. Talk to the event staff.</p>}
+          <section className="participant-prose participant-detail-history"><p className="participant-eyebrow">The bidding</p><h2>Bid history</h2><BidHistory item={item} /></section>
+          <button className="participant-event-link" onClick={onBack}>Back to all items <span aria-hidden="true">→</span></button>
         </div>
-        {item.short && <p style={{ fontWeight: 600 }}>{item.short}</p>}
-        {item.description && <p className="muted" style={{ whiteSpace: "pre-wrap" }}>{item.description}</p>}
-        {!snap.me!.canBid && item.phase === "open" && <p className="notice warn">Your bidding is paused. Talk to the event staff.</p>}
-      </div>
-      {item.phase === "open" && (
-        <div className="actionbar">
-          <div className="grow">
+      </section>
+      {item.phase === "open" && !item.withdrawn && (
+        <div className="participant-actionbar">
+          <div>
             {item.leader?.isMe ? <b>You're the highest bidder</b> : <><span className="small faint">Next bid at least</span><div className="money">{item.minimumNextMinor === null ? "—" : formatMoney(item.minimumNextMinor)}</div></>}
           </div>
           <button className="btn primary" disabled={!canBid} onClick={onBid}>Bid</button>
@@ -379,13 +405,35 @@ function ItemPage({ item, snap, serverNow, onBack, onBid, onWatch }: { item: Ite
   );
 }
 
+function TabIcon({ name }: { name: Tab }) {
+  const paths: Record<Tab, React.ReactNode> = {
+    items: <><path d="M4 5h7v7H4zM14 5h6v7h-6zM4 15h7v5H4zM14 15h6v5h-6z" /></>,
+    watching: <path d="M6 3.8c-1.7 0-3 1.4-3 3.1 0 4.4 9 12.2 9 12.2s9-7.8 9-12.2c0-1.7-1.3-3.1-3-3.1-2.5 0-4.5 2.4-6 4.2-1.5-1.8-3.5-4.2-6-4.2Z" />,
+    mine: <><path d="M4 4h16v16H4z" /><path d="M7 8h10M7 12h10M7 16h6" /></>,
+    event: <><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 7h.01" /></>,
+    give: <><path d="M12 20s-8-4.7-8-10.3A4.2 4.2 0 0 1 12 7a4.2 4.2 0 0 1 8 2.7C20 15.3 12 20 12 20Z" /><path d="M12 8v7M9.5 11.5h5" /></>,
+  };
+  return <svg className="participant-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">{paths[name]}</svg>;
+}
+function BookmarkIcon({ filled = false }: { filled?: boolean }) { return <svg className="participant-icon" viewBox="0 0 24 24" aria-hidden="true" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M6 4.8c0-.9.7-1.6 1.6-1.6h8.8c.9 0 1.6.7 1.6 1.6V21l-6-4-6 4V4.8Z" /></svg>; }
+function SearchIcon() { return <svg className="participant-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 4.2 4.2" /></svg>; }
+function GridIcon() { return <svg className="participant-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="4" y="4" width="6" height="6" rx="1" /><rect x="14" y="4" width="6" height="6" rx="1" /><rect x="4" y="14" width="6" height="6" rx="1" /><rect x="14" y="14" width="6" height="6" rx="1" /></svg>; }
+function ListIcon() { return <svg className="participant-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" /></svg>; }
+
 // ---------------------------------------------------------------- bidding
 
 function BidSheet({ item, me, code, pendingKey, onClose, onResult }: { item: Item; me: NonNullable<Snapshot["me"]>; code: string; pendingKey: string; onClose: () => void; onResult: (text: string) => void }) {
+  const dialog = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const previous = document.activeElement as HTMLElement | null;
+    dialog.current?.querySelector<HTMLButtonElement>("button")?.focus();
+    return () => { if (previous?.isConnected) previous.focus(); };
+  }, []);
   const minimum = item.minimumNextMinor ?? 0;
   const [amount, setAmount] = useState(minimum), [text, setText] = useState(dollarsInput(minimum));
   const [state, setState] = useState<"edit" | "sending" | "unconfirmed" | "rejected">("edit");
   const [message, setMessage] = useState("");
+  useEffect(() => { if (state === "sending") dialog.current?.focus(); }, [state]);
   const request = useRef<PendingBid | null>(null);
   const picks = [minimum, minimum + item.incrementMinor, minimum + item.incrementMinor * 2];
   const set = (minor: number) => { setAmount(minor); setText(dollarsInput(minor)); };
@@ -415,7 +463,15 @@ function BidSheet({ item, me, code, pendingKey, onClose, onResult }: { item: Ite
 
   return (
     <div className="sheet-backdrop" onClick={e => { if (e.target === e.currentTarget && state !== "sending") onClose(); }}>
-      <div className="sheet" role="dialog" aria-modal="true" aria-labelledby="bid-title">
+      <div ref={dialog} className="sheet" role="dialog" aria-modal="true" aria-labelledby="bid-title" tabIndex={-1} onKeyDown={e => {
+        if (e.key === "Escape" && state !== "sending") { e.preventDefault(); onClose(); }
+        if (e.key !== "Tab") return;
+        const controls = [...(dialog.current?.querySelectorAll<HTMLElement>("button:not(:disabled), input:not(:disabled), [tabindex='0']") ?? [])].filter(el => el.getClientRects().length);
+        const first = controls[0], last = controls.at(-1);
+        if (!first) { e.preventDefault(); dialog.current?.focus(); }
+        else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }}>
         <div className="row between"><h2 id="bid-title">Place a bid</h2>{state !== "sending" && <button className="btn ghost" onClick={onClose}>Close</button>}</div>
         <div className="row" style={{ gap: 10 }}>
           <span className="pass" style={{ position: "static", borderRadius: 12, padding: "8px 12px", flex: 1 }}>
