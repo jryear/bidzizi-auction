@@ -27,8 +27,10 @@ export function Catalog({ snap, now, nav, stale, pending, cameFrom, watching = f
   const categories = useMemo(() => {
     const counts = new Map<string, number>();
     for (const i of base) if (i.category) counts.set(i.category, (counts.get(i.category) ?? 0) + 1);
-    return [...counts];
-  }, [base]);
+    const order = snap.event.categories ?? [];
+    const rank = (c: string) => { const n = order.indexOf(c); return n < 0 ? order.length : n; };
+    return [...counts].sort((a, b) => rank(a[0]) - rank(b[0]));
+  }, [base, snap.event.categories]);
   const q = query.trim().toLowerCase();
   const list = sortItems(base.filter(i => (!category || i.category === category) && (!q || `${i.title} ${i.short} ${i.donor} ${i.category}`.toLowerCase().includes(q))), sort, now);
   const e = snap.event;

@@ -4,10 +4,11 @@ import { randomInt } from "node:crypto";
 import { normalizeAsset } from "./asset-codec";
 import { now, tx, type Db } from "./db";
 import { staffFrom, type Staff } from "./auth";
-import { cents, conflict, id, invalid, json, notFound, readJson, sameOrigin, sha256, str, when } from "./http";
+import { ApiError, cents, conflict, id, invalid, json, notFound, readJson, sameOrigin, sha256, str, when } from "./http";
 import { assetUrl, closesOf, eventPhase, opensOf, phaseOf, rulesOf, shownBidder, type EventRow, type ItemRow } from "./engine";
 import { DEFAULT_TIERS, formatMoney, minimumNext, validTiers } from "../../lib/money";
 import { TEMPLATES, THEMES } from "../../lib/templates";
+import { CATEGORY_LIMIT, CATEGORY_MAX, canonicalCategory, orderedCategories, sameCategory, tidyCategory } from "../../lib/categories";
 
 const THEME_IDS: string[] = THEMES.map(t => t.id);
 
@@ -47,6 +48,34 @@ async function once<T>(db: Db, staff: Staff, requestId: string, operation: strin
   const response = await run();
   await db.query("INSERT INTO staff_requests (staff_id, request_id, operation, response) VALUES ($1, $2, $3, $4)", [staff.id, requestId, operation, JSON.stringify(response)]);
   return response;
+}
+/** The event's categories in staff order: its stored list, then any an item uses that the list doesn't name. */
+async function categoriesOf(db: Db, e: Pick<EventRow, "id" | "categories">): Promise<string[]> {
+  const used = (await db.query<{ category: string; position: number }>("SELECT category, position FROM items WHERE event_id = $1 AND category <> ''", [e.id])).rows;
+  return orderedCategories(e.categories, used);
+}
+/** The spelling to store for a category typed on an item, remembered at the end of the event's list.
+ *  The caller holds the event row lock (taken before any item lock, as everywhere else). */
+async function placeCategory(db: Db, e: EventRow, raw: string, known?: string[]): Promise<string> {
+  const list = known ?? await categoriesOf(db, e);
+  const name = canonicalCategory(raw, list);
+  if (!name) return "";
+  if (!list.includes(name) && list.length >= CATEGORY_LIMIT) throw invalid(`An event can have up to ${CATEGORY_LIMIT} categories.`);
+  if (!e.categories.includes(name)) {
+    e.categories = [...e.categories, name];
+    await db.query("UPDATE events SET categories = $2 WHERE id = $1", [e.id, JSON.stringify(e.categories)]);
+  }
+  if (known && !known.includes(name)) known.push(name);
+  return name;
+}
+/** Draft events show a new item as soon as it has a title and a starting amount. In a published event it starts hidden,
+ *  and staff show it to guests when it's ready. An explicit choice from the caller wins. */
+const newItemReady = (e: EventRow, input: Record<string, unknown>) => "ready" in input ? input.ready === true : e.status === "draft";
+/** Item numbers are positions. While an event is a draft they close up after a delete; once published they stay put. */
+async function closeGaps(db: Db, e: EventRow): Promise<void> {
+  if (e.status !== "draft") return;
+  await db.query(`UPDATE items i SET position = n.p FROM (SELECT id, (row_number() OVER (ORDER BY position, created_at) - 1)::int AS p FROM items WHERE event_id = $1) n
+                   WHERE i.id = n.id AND i.position <> n.p`, [e.id]);
 }
 const num = (v: string | null) => v === null ? null : Number(v);
 const optionalCents = (v: unknown, max?: number) => v === null || v === undefined || v === "" ? null : cents(v, max);
@@ -108,6 +137,8 @@ export async function createEvent(request: Request): Promise<Response> {
         [row.id, staff.orgId, position, item.title, item.short, item.category, item.openingMinor])).rows[0];
       await db.query("INSERT INTO standings (item_id, event_id) VALUES ($1, $2)", [created.id, row.id]);
     }
+    const templateCategories = orderedCategories([], template.items.map((item, position) => ({ category: item.category, position })));
+    await db.query("UPDATE events SET categories = $2 WHERE id = $1", [row.id, JSON.stringify(templateCategories)]);
     for (const [position, recipient] of template.recipients.entries())
       await db.query("INSERT INTO recipients (event_id, org_id, position, name) VALUES ($1, $2, $3, $4)", [row.id, staff.orgId, position, recipient]);
     await syncDonations(db, row.id);
@@ -127,9 +158,9 @@ export async function duplicateEvent(request: Request, eventId: string): Promise
     const moved = (d: Date | null) => d === null ? null : new Date(d.getTime() + shift);
     const copy = (await db.query<{ id: string }>(
       `INSERT INTO events (org_id, join_code, name, welcome, venue, winner_instructions, cover_asset_id, timezone, starts_at, ends_at, access_ends_at,
-                           entry_open, bid_mode, tiers, fixed_increment_minor, donations_enabled, donation_deadline, created_by, theme, bidder_display, accent_color, cover_focal)
+                           entry_open, bid_mode, tiers, fixed_increment_minor, donations_enabled, donation_deadline, created_by, theme, bidder_display, accent_color, cover_focal, categories)
        SELECT org_id, $2, $3, welcome, venue, winner_instructions, cover_asset_id, timezone, $4, $5, $6,
-              true, bid_mode, tiers, fixed_increment_minor, donations_enabled, $7, $8, theme, bidder_display, accent_color, cover_focal FROM events WHERE id = $1 RETURNING id`,
+              true, bid_mode, tiers, fixed_increment_minor, donations_enabled, $7, $8, theme, bidder_display, accent_color, cover_focal, categories FROM events WHERE id = $1 RETURNING id`,
       [source.id, await newJoinCode(db), name, startsAt, moved(source.ends_at), moved(source.access_ends_at), moved(source.donation_deadline), staff.id])).rows[0];
     const items = (await db.query<ItemRow>("SELECT * FROM items WHERE event_id = $1 ORDER BY position", [source.id])).rows;
     for (const i of items) {
@@ -244,6 +275,7 @@ export async function workspace(request: Request, eventId: string): Promise<Resp
         donationsEnabled: e.donations_enabled, donationDeadline: e.donation_deadline, revision: e.revision, theme: e.theme,
         phase: e.status === "draft" ? "draft" : eventPhase(e, items, at), hasBids: bids.length > 0,
         isPractice: e.is_practice, archivedAt: e.archived_at, bidderDisplay: e.bidder_display, accentColor: e.accent_color,
+        categories: orderedCategories(e.categories, items),
       },
       items: items.map(i => {
         const a = awards.get(i.id), leader = i.leader_id ? byParticipant.get(i.leader_id) : undefined;
@@ -400,7 +432,7 @@ function itemFields(input: Record<string, unknown>, base: Partial<ItemRow>) {
   if ("title" in input) out.title = str(input.title, 200, { required: true });
   if ("short" in input) out.short = str(input.short, 500);
   if ("description" in input) out.description = str(input.description, 10_000, { trim: false });
-  if ("category" in input) out.category = str(input.category, 100);
+  if ("category" in input) out.category = tidyCategory(str(input.category, CATEGORY_MAX));
   if ("donor" in input) out.donor = str(input.donor, 200);
   if ("imageAssetId" in input) out.image_asset_id = input.imageAssetId === null ? null : id(input.imageAssetId);
   if ("imageAssetId" in input && out.image_asset_id !== base.image_asset_id) out.image_focal = CENTER;
@@ -413,9 +445,25 @@ function itemFields(input: Record<string, unknown>, base: Partial<ItemRow>) {
   if ("incrementOverrideMinor" in input) { const v = optionalCents(input.incrementOverrideMinor, 100_000_000); out.increment_override_minor = v === null ? null : String(v); }
   if ("opensAt" in input) out.opens_at = optionalWhen(input.opensAt);
   if ("closesAt" in input) out.closes_at = optionalWhen(input.closesAt);
-  if ("ready" in input) out.ready = input.ready === true;
+  if ("ready" in input) { if (typeof input.ready !== "boolean") throw invalid(); out.ready = input.ready; }
   return out;
 }
+
+const ITEM_DEFAULTS: Partial<ItemRow> = { short: "", description: "", category: "", donor: "", image_asset_id: null, increment_override_minor: null, opens_at: null, closes_at: null };
+
+async function insertItem(db: Db, staff: Staff, e: EventRow, input: Record<string, unknown>, position: number, known: string[]): Promise<{ id: string; ready: boolean }> {
+  const i = itemFields(input, { ...ITEM_DEFAULTS, ready: newItemReady(e, input) });
+  if (!i.title || !i.opening_minor) throw invalid("Add a title and a starting amount.");
+  i.category = await placeCategory(db, e, i.category, known);
+  const row = (await db.query<{ id: string }>(
+    `INSERT INTO items (event_id, org_id, position, title, short, description, category, donor, image_asset_id, opening_minor, increment_override_minor, opens_at, closes_at, ready, image_focal)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING id`,
+    [e.id, staff.orgId, position, i.title, i.short, i.description, i.category, i.donor, i.image_asset_id, i.opening_minor, i.increment_override_minor, i.opens_at, i.closes_at, i.ready, JSON.stringify(i.image_focal ?? CENTER)])).rows[0];
+  await db.query("INSERT INTO standings (item_id, event_id) VALUES ($1, $2)", [row.id, e.id]);
+  return { id: row.id, ready: i.ready };
+}
+const nextPosition = async (db: Db, eventId: string) =>
+  (await db.query<{ next: number }>("SELECT coalesce(max(position) + 1, 0)::int AS next FROM items WHERE event_id = $1", [eventId])).rows[0].next;
 
 export async function createItem(request: Request, eventId: string): Promise<Response> {
   const input = await readJson(request);
@@ -423,21 +471,47 @@ export async function createItem(request: Request, eventId: string): Promise<Res
   delete input.requestId;
   return json(await staffTx(request, (db, staff) => once(db, staff, requestId, "create-item", async () => {
     const e = await ownEvent(db, staff, eventId, "FOR UPDATE");
-    const i = itemFields(input, { short: "", description: "", category: "", donor: "", image_asset_id: null, increment_override_minor: null, opens_at: null, closes_at: null, ready: true });
-    if (!i.title || !i.opening_minor) throw invalid("Add a title and a starting amount.");
-    const position = (await db.query<{ next: number }>("SELECT coalesce(max(position) + 1, 0)::int AS next FROM items WHERE event_id = $1", [e.id])).rows[0].next;
-    const row = (await db.query<{ id: string }>(
-      `INSERT INTO items (event_id, org_id, position, title, short, description, category, donor, image_asset_id, opening_minor, increment_override_minor, opens_at, closes_at, ready, image_focal)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING id`,
-      [e.id, staff.orgId, position, i.title, i.short, i.description, i.category, i.donor, i.image_asset_id, i.opening_minor, i.increment_override_minor, i.opens_at, i.closes_at, i.ready, JSON.stringify(i.image_focal ?? CENTER)])).rows[0];
-    await db.query("INSERT INTO standings (item_id, event_id) VALUES ($1, $2)", [row.id, e.id]);
-    return { id: row.id };
+    return insertItem(db, staff, e, input, await nextPosition(db, e.id), await categoriesOf(db, e));
+  })), 201);
+}
+
+/** Many items at once (pasted from a spreadsheet): all are added, in order, or none are. Retry-safe. */
+export async function createItems(request: Request, eventId: string): Promise<Response> {
+  const input = await readJson(request);
+  const requestId = id(input.requestId);
+  if (!Array.isArray(input.items) || !input.items.length || input.items.length > 200) throw invalid("Add between 1 and 200 items at a time.");
+  const rows = input.items.map(row => {
+    if (!row || typeof row !== "object" || Array.isArray(row)) throw invalid();
+    const { title, openingMinor, category, donor, short, description } = row as Record<string, unknown>;
+    return Object.fromEntries(Object.entries({ title, openingMinor, category, donor, short, description }).filter(([, v]) => v !== undefined));
+  });
+  if (input.ready !== undefined && typeof input.ready !== "boolean") throw invalid();
+  return json(await staffTx(request, (db, staff) => once(db, staff, requestId, "create-items", async () => {
+    const e = await ownEvent(db, staff, eventId, "FOR UPDATE");
+    const known = await categoriesOf(db, e), start = await nextPosition(db, e.id);
+    if ((await db.query<{ n: number }>("SELECT count(*)::int AS n FROM items WHERE event_id = $1", [e.id])).rows[0].n + rows.length > 500)
+      throw invalid("An event can have up to 500 items.");
+    const created: { id: string; ready: boolean }[] = [];
+    for (const [n, row] of rows.entries()) {
+      try { created.push(await insertItem(db, staff, e, input.ready === undefined ? row : { ...row, ready: input.ready }, start + n, known)); }
+      catch (error) { if (error instanceof ApiError && error.status === 400) throw invalid(`Row ${n + 1}: ${error.message}`); throw error; }
+    }
+    return { ids: created.map(c => c.id), ready: created.every(c => c.ready) };
   })), 201);
 }
 
 export async function updateItem(request: Request, itemId: string): Promise<Response> {
   const input = await readJson(request);
   return json(await staffTx(request, async (db, staff) => {
+    // A category the event hasn't seen yet joins its list, so lock the event first, as every other path does.
+    let listed: EventRow | null = null;
+    if ("category" in input) {
+      const target = (await db.query<{ event_id: string }>("SELECT event_id FROM items WHERE id = $1 AND org_id = $2", [id(itemId), staff.orgId])).rows[0];
+      if (!target) throw notFound("This item");
+      const peek = await ownEvent(db, staff, target.event_id);
+      const name = canonicalCategory(tidyCategory(str(input.category, CATEGORY_MAX)), await categoriesOf(db, peek));
+      if (name && !peek.categories.includes(name)) listed = await ownEvent(db, staff, target.event_id, "FOR UPDATE");
+    }
     // Locking the item waits out any bid being decided on it, and blocks new ones until this commits.
     const { item, event } = await ownItem(db, staff, itemId, "FOR UPDATE");
     if ("imageExpectedAssetId" in input && input.imageExpectedAssetId !== item.image_asset_id) throw conflict("The photo changed. Try again with the latest photo.");
@@ -445,6 +519,7 @@ export async function updateItem(request: Request, itemId: string): Promise<Resp
     const at = await now(db);
     const hasBids = (await db.query("SELECT 1 FROM bids WHERE item_id = $1 LIMIT 1", [item.id])).rows.length > 0;
     const next = itemFields(input, item);
+    if ("category" in input) next.category = listed ? await placeCategory(db, listed, next.category) : canonicalCategory(next.category, await categoriesOf(db, event));
     if (hasBids) {
       if (next.opening_minor !== item.opening_minor) throw conflict("The starting amount is locked once bidding starts.");
       if (next.increment_override_minor !== item.increment_override_minor) throw conflict("The increment is locked once bidding starts.");
@@ -464,19 +539,27 @@ export async function updateItem(request: Request, itemId: string): Promise<Resp
               opens_at=$10, closes_at=$11, ready=$12, image_focal=$13, revision = revision + 1, updated_at = now() WHERE id = $1`,
       [item.id, next.title, next.short, next.description, next.category, next.donor, next.image_asset_id, next.opening_minor,
        next.increment_override_minor, next.opens_at, next.closes_at, next.ready, JSON.stringify(next.image_focal)]);
-    return { ok: true, revision: item.revision + 1 };
+    return { ok: true, revision: item.revision + 1, category: next.category, ready: next.ready };
   }));
+}
+
+async function removeItem(db: Db, itemId: string): Promise<void> {
+  await db.query("DELETE FROM watches WHERE item_id = $1", [itemId]);
+  await db.query("DELETE FROM standings WHERE item_id = $1", [itemId]);
+  await db.query("DELETE FROM items WHERE id = $1", [itemId]);
 }
 
 export async function deleteItem(request: Request, itemId: string): Promise<Response> {
   sameOrigin(request);
   return json(await staffTx(request, async (db, staff) => {
+    const target = (await db.query<{ event_id: string }>("SELECT event_id FROM items WHERE id = $1 AND org_id = $2", [id(itemId), staff.orgId])).rows[0];
+    if (!target) throw notFound("This item");
+    const e = await ownEvent(db, staff, target.event_id, "FOR UPDATE");
     const { item } = await ownItem(db, staff, itemId, "FOR UPDATE");
     if ((await db.query("SELECT 1 FROM bid_receipts WHERE item_id = $1 LIMIT 1", [item.id])).rows.length)
       throw conflict("People have bid on this item, so it can't be deleted.");
-    await db.query("DELETE FROM watches WHERE item_id = $1", [item.id]);
-    await db.query("DELETE FROM standings WHERE item_id = $1", [item.id]);
-    await db.query("DELETE FROM items WHERE id = $1", [item.id]);
+    await removeItem(db, item.id);
+    await closeGaps(db, e);
     return { ok: true };
   }));
 }
@@ -553,6 +636,118 @@ export async function reorderItems(request: Request, eventId: string): Promise<R
     if (existing.join() !== [...order].sort().join()) throw conflict("The item list changed. Reload and try again.");
     for (let p = 0; p < order.length; p++) await db.query("UPDATE items SET position = $2 WHERE id = $1", [order[p], p]);
     return { ok: true };
+  }));
+}
+
+const ids = (value: unknown, max = 500): string[] => {
+  if (!Array.isArray(value) || !value.length || value.length > max) throw invalid();
+  return [...new Set(value.map(id))];
+};
+type Skipped = { id: string; reason: string };
+
+/** Several items at once: category, guest visibility and photo. Each change follows the single-item rules; one that
+ *  can't apply (an item with bids can't be hidden, a photo that changed meanwhile) is skipped and reported, not forced. */
+export async function updateItems(request: Request, eventId: string): Promise<Response> {
+  const input = await readJson(request);
+  if (!Array.isArray(input.changes) || !input.changes.length || input.changes.length > 500) throw invalid();
+  const changes = input.changes.map(raw => {
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) throw invalid();
+    const c = raw as Record<string, unknown>;
+    const fields: Record<string, unknown> = {};
+    for (const k of ["category", "ready", "imageAssetId", "imageFocal"]) if (k in c) fields[k] = c[k];
+    if ("ready" in fields && typeof fields.ready !== "boolean") throw invalid();
+    if (!Object.keys(fields).length) throw invalid();
+    return { id: id(c.id), fields, expected: "imageExpectedAssetId" in c ? c.imageExpectedAssetId : undefined };
+  });
+  return json(await staffTx(request, async (db, staff) => {
+    const e = await ownEvent(db, staff, eventId, "FOR UPDATE");
+    const known = await categoriesOf(db, e);
+    const targets = [...new Set(changes.map(c => c.id))].sort();
+    const rows = new Map((await db.query<ItemRow & { has_bids: boolean }>(
+      `SELECT i.*, EXISTS (SELECT 1 FROM bids b WHERE b.item_id = i.id) AS has_bids FROM items i
+        WHERE i.event_id = $1 AND i.id = ANY($2::uuid[]) ORDER BY i.id FOR UPDATE OF i`, [e.id, targets])).rows.map(r => [r.id, r]));
+    const updated: { id: string; revision: number; category: string; ready: boolean }[] = [], skipped: Skipped[] = [];
+    for (const change of changes) {
+      const item = rows.get(change.id);
+      if (!item) { skipped.push({ id: change.id, reason: "This item is no longer in the event." }); continue; }
+      if (change.expected !== undefined && change.expected !== item.image_asset_id) { skipped.push({ id: item.id, reason: "Its photo changed meanwhile." }); continue; }
+      const next = itemFields(change.fields, item);
+      if (!next.ready && item.has_bids) { skipped.push({ id: item.id, reason: "It has bids, so it stays visible." }); continue; }
+      if ("category" in change.fields) next.category = await placeCategory(db, e, next.category, known);
+      await db.query("UPDATE items SET category=$2, ready=$3, image_asset_id=$4, image_focal=$5, revision=revision+1, updated_at=now() WHERE id=$1",
+        [item.id, next.category, next.ready, next.image_asset_id, JSON.stringify(next.image_focal)]);
+      Object.assign(item, { category: next.category, ready: next.ready, image_asset_id: next.image_asset_id, image_focal: next.image_focal, revision: item.revision + 1 });
+      updated.push({ id: item.id, revision: item.revision, category: item.category, ready: item.ready });
+    }
+    return { updated, skipped, categories: await categoriesOf(db, e) };
+  }));
+}
+
+/** Delete several items. Items people have bid on are kept (withdraw them instead). Already-deleted items count as done. */
+export async function deleteItems(request: Request, eventId: string): Promise<Response> {
+  const input = await readJson(request);
+  const targets = ids(input.itemIds).sort();
+  return json(await staffTx(request, async (db, staff) => {
+    const e = await ownEvent(db, staff, eventId, "FOR UPDATE");
+    const rows = (await db.query<{ id: string; tried: boolean }>(
+      `SELECT i.id, EXISTS (SELECT 1 FROM bid_receipts r WHERE r.item_id = i.id) AS tried FROM items i
+        WHERE i.event_id = $1 AND i.id = ANY($2::uuid[]) ORDER BY i.id FOR UPDATE OF i`, [e.id, targets])).rows;
+    const deleted: string[] = [], kept: Skipped[] = [];
+    for (const r of rows) {
+      if (r.tried) { kept.push({ id: r.id, reason: "People have bid on it. Withdraw it instead." }); continue; }
+      await removeItem(db, r.id); deleted.push(r.id);
+    }
+    await closeGaps(db, e);
+    return { deleted, kept, alreadyGone: targets.filter(t => !rows.some(r => r.id === t)) };
+  }));
+}
+
+/** The event's category list: add, rename (merging into an existing name), remove from every item, or reorder. */
+export async function editCategories(request: Request, eventId: string): Promise<Response> {
+  const input = await readJson(request);
+  const name = (v: unknown) => tidyCategory(str(v, CATEGORY_MAX));
+  return json(await staffTx(request, async (db, staff) => {
+    const e = await ownEvent(db, staff, eventId, "FOR UPDATE");
+    let list = await categoriesOf(db, e), changed = 0;
+    const find = (raw: string) => list.find(c => c === raw) ?? list.find(c => sameCategory(c, raw));
+    const relabel = async (from: string, to: string) => {
+      changed += (await db.query("UPDATE items SET category=$3, revision=revision+1, updated_at=now() WHERE event_id=$1 AND category=$2 AND category<>$3",
+        [e.id, from, to])).rowCount ?? 0;
+    };
+    switch (input.action) {
+      case "add": {
+        const n = name(input.name);
+        if (!n) throw invalid("Name the category.");
+        if (!find(n)) { if (list.length >= CATEGORY_LIMIT) throw invalid(`An event can have up to ${CATEGORY_LIMIT} categories.`); list = [...list, n]; }
+        break;
+      }
+      case "rename": {
+        const from = find(name(input.from)), to = name(input.to);
+        if (!from) throw conflict("That category is no longer in this event. Reload to see the latest.");
+        if (!to) throw invalid("Name the category, or remove it instead.");
+        const into = list.find(c => c !== from && sameCategory(c, to));
+        if (into) { await relabel(from, into); list = list.filter(c => c !== from); }
+        else { await relabel(from, to); list = list.map(c => c === from ? to : c); }
+        break;
+      }
+      case "remove": {
+        const from = find(name(input.name));
+        if (from) { await relabel(from, ""); list = list.filter(c => c !== from); }
+        break;
+      }
+      case "order": {
+        if (!Array.isArray(input.names)) throw invalid();
+        const names = input.names.map(name);
+        if (names.length !== list.length || [...names].sort().join("\n") !== [...list].sort().join("\n"))
+          throw conflict("The categories changed. Reload and try again.");
+        list = names;
+        break;
+      }
+      default: throw invalid();
+    }
+    await db.query("UPDATE events SET categories = $2 WHERE id = $1", [e.id, JSON.stringify(list)]);
+    const counts = (await db.query<{ category: string; n: number }>("SELECT category, count(*)::int AS n FROM items WHERE event_id = $1 AND category <> '' GROUP BY category", [e.id])).rows;
+    return { categories: list.map(c => ({ name: c, items: counts.find(x => x.category === c)?.n ?? 0 })), changed };
   }));
 }
 

@@ -19,6 +19,8 @@ export type EventInfo = {
   id: string; code: string; name: string; welcome: string; venue: string; timezone: string; theme?: string; coverUrl: string | null; coverFocal?: FocalPoint; bidderDisplay?: "name_business" | "business" | "anonymous"; accentColor?: string | null;
   startsAt: string; endsAt: string; accessEndsAt?: string; entryOpen: boolean; phase: "upcoming" | "open" | "closed";
   sponsors: { name: string; logoUrl: string | null; url?: string }[];
+  /** Staff's category order. Chips follow it; categories it doesn't name come after, in item order. */
+  categories?: string[];
   donations: { enabled: boolean; open: boolean; deadline: string | null; capMinor: number; recipients: Recipient[] };
 };
 export type Pledge = { id: string; recipientName: string; amountMinor: number; recordedAt: string };

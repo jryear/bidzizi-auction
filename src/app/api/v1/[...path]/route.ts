@@ -47,6 +47,10 @@ async function route(method: string, request: Request, ctx: Ctx): Promise<Respon
       if (method === "DELETE" && at("host", "events", "*")) return host.deleteEvent(request, e);
       if (method === "POST" && at("host", "events", "*", "items")) return host.createItem(request, e);
       if (method === "POST" && at("host", "events", "*", "items", "order")) return host.reorderItems(request, e);
+      if (method === "POST" && at("host", "events", "*", "items", "batch")) return host.createItems(request, e);
+      if (method === "PATCH" && at("host", "events", "*", "items")) return host.updateItems(request, e);
+      if (method === "POST" && at("host", "events", "*", "items", "delete")) return host.deleteItems(request, e);
+      if (method === "POST" && at("host", "events", "*", "categories")) return host.editCategories(request, e);
       if (method === "PUT" && at("host", "events", "*", "sponsors")) return host.saveSponsors(request, e);
       if (method === "POST" && at("host", "events", "*", "recipients")) return host.saveRecipient(request, e);
       if (method === "DELETE" && at("host", "events", "*", "recipients", "*")) return host.removeRecipient(request, e, p[4]);

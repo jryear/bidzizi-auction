@@ -5,13 +5,14 @@ import { now, tx, type Db } from "./db";
 import { ApiError, cents, conflict, id, invalid, json, notFound, readJson, sha256, str } from "./http";
 import { participantCookieHeader, participantFrom, requireParticipant, staffFrom, type Participant } from "./auth";
 import { BID_CAP, increment, minimumNext, PLEDGE_CAP, type Rules, type Tier } from "../../lib/money";
+import { orderedCategories } from "../../lib/categories";
 
 export type EventRow = {
   id: string; org_id: string; join_code: string; name: string; welcome: string; venue: string; winner_instructions: string;
   cover_asset_id: string | null; cover_focal: FocalPoint; timezone: string; starts_at: Date; ends_at: Date; access_ends_at: Date;
   status: "draft" | "live"; entry_open: boolean; bid_mode: "tiered" | "fixed"; tiers: Tier[]; fixed_increment_minor: string | null;
   donations_enabled: boolean; donation_deadline: Date | null; revision: number; theme: string; is_practice: boolean; archived_at: Date | null;
-  bidder_display: BidderDisplay; accent_color: string | null;
+  bidder_display: BidderDisplay; accent_color: string | null; categories: string[];
 };
 export type BidderDisplay = "name_business" | "business" | "anonymous";
 
@@ -105,6 +106,8 @@ export async function snapshot(request: Request, code: string): Promise<Response
         id: e.id, code: e.join_code, name: e.name, welcome: e.welcome, venue: e.venue, timezone: e.timezone, theme: e.theme, bidderDisplay: e.bidder_display,
         coverUrl: assetUrl(e.cover_asset_id), coverFocal: e.cover_focal, startsAt: e.starts_at, endsAt: e.ends_at, accessEndsAt: e.access_ends_at,
         entryOpen: e.entry_open && at < e.ends_at, phase: eventPhase(e, items, at),
+        // Staff's category order, limited to categories guests can actually filter by.
+        categories: orderedCategories(e.categories, items).filter(c => items.some(i => i.category === c)),
         sponsors: sponsors.map(s => ({ name: s.name, logoUrl: assetUrl(s.logo_asset_id), url: s.url })), accentColor: e.accent_color,
         donations: { enabled: e.donations_enabled, open: donationsOpen, deadline: e.donation_deadline, capMinor: PLEDGE_CAP,
           recipients: recipients.map(r => ({ id: r.id, name: r.name, description: r.description, logoUrl: assetUrl(r.logo_asset_id) })) },

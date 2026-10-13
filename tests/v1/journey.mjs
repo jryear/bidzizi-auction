@@ -544,6 +544,171 @@ await check("bidder numbers are unique under concurrent joins", async () => {
   assert.deepEqual([...numbers].sort((a, b) => a - b), [4, 5, 6, 7, 8, 9, 10, 11]);
 });
 
+// ---------------------------------------------------------------- items workspace (categories, bulk, visibility)
+async function itemsEvent(name, { live = false } = {}) {
+  const ev = await staff("POST", "/api/v1/host/events", { requestId: randomUUID(), name: `${name} ${randomUUID().slice(0, 6)}`, startsAt: iso(-60_000), endsAt: iso(3_600_000) });
+  assert.equal(ev.status, 201, JSON.stringify(ev.data));
+  if (live) {
+    const w = await staff("GET", `/api/v1/host/events/${ev.data.id}`);
+    assert.equal((await staff("PATCH", `/api/v1/host/events/${ev.data.id}`, { revision: w.data.event.revision, status: "live" })).status, 200);
+  }
+  return ev.data.id;
+}
+const ws = async eventId => (await staff("GET", `/api/v1/host/events/${eventId}`)).data;
+const addItem = (eventId, fields) => staff("POST", `/api/v1/host/events/${eventId}/items`, { requestId: randomUUID(), openingMinor: 10_000, ...fields });
+
+await check("new items: shown in a draft, hidden once published, and an explicit choice wins", async () => {
+  const draft = await itemsEvent("Draft visibility"), live = await itemsEvent("Live visibility", { live: true });
+  const a = await addItem(draft, { title: "Draft item" }), b = await addItem(live, { title: "Late arrival" }), c = await addItem(live, { title: "Shown now", ready: true });
+  assert.equal(a.data.ready, true); assert.equal(b.data.ready, false); assert.equal(c.data.ready, true);
+  const code = (await ws(live)).event.code, guest = client();
+  await guest("POST", `/api/v1/e/${code}/join`, { requestId: randomUUID(), displayName: "Gus", businessName: "Guest Co" });
+  assert.deepEqual((await guest("GET", `/api/v1/e/${code}`)).data.items.map(i => i.title), ["Shown now"], "a hidden new item never reaches guests");
+  const late = (await ws(live)).items.find(i => i.title === "Late arrival");
+  assert.equal((await staff("PATCH", `/api/v1/host/items/${late.id}`, { revision: late.revision, ready: true })).status, 200);
+  assert.deepEqual((await guest("GET", `/api/v1/e/${code}`)).data.items.map(i => i.title).sort(), ["Late arrival", "Shown now"]);
+  assert.equal((await addItem(live, { title: "Bad", ready: "yes" })).status, 400, "visibility must be a yes/no choice");
+});
+
+await check("categories are tidied, matched without case, and listed in staff order", async () => {
+  const ev = await itemsEvent("Category tidy");
+  const a = await addItem(ev, { title: "One", category: "  Food   &  drink " });
+  const b = await addItem(ev, { title: "Two", category: "FOOD & DRINK" });
+  const c = await addItem(ev, { title: "Three", category: "Travel" });
+  let w = await ws(ev);
+  assert.deepEqual(w.items.map(i => i.category), ["Food & drink", "Food & drink", "Travel"]);
+  assert.deepEqual(w.event.categories, ["Food & drink", "Travel"]);
+  const three = w.items.find(i => i.id === c.data.id);
+  const r = await staff("PATCH", `/api/v1/host/items/${three.id}`, { revision: three.revision, category: "travel " });
+  assert.equal(r.status, 200); assert.equal(r.data.category, "Travel", "the existing spelling wins");
+  const tooLong = await addItem(ev, { title: "Long", category: "x".repeat(101) });
+  assert.equal(tooLong.status, 400);
+  assert.ok(a.data.id && b.data.id);
+});
+
+await check("category list: add before use, rename, merge, remove, reorder; guests see staff order", async () => {
+  const ev = await itemsEvent("Category list");
+  const cat = body => staff("POST", `/api/v1/host/events/${ev}/categories`, body);
+  let r = await cat({ action: "add", name: "Wellness" });
+  assert.equal(r.status, 200); assert.deepEqual(r.data.categories, [{ name: "Wellness", items: 0 }], "an empty category is kept");
+  assert.deepEqual((await cat({ action: "add", name: "wellness" })).data.categories.map(c => c.name), ["Wellness"], "no case duplicates");
+  await addItem(ev, { title: "Spa day", category: "Wellness" });
+  await addItem(ev, { title: "Yoga pass", category: "Fitness" });
+  await addItem(ev, { title: "Dinner", category: "Dining" });
+  r = await cat({ action: "rename", from: "Dining", to: "Food & drink" });
+  assert.equal(r.data.changed, 1);
+  r = await cat({ action: "rename", from: "fitness", to: "WELLNESS" });
+  assert.deepEqual(r.data.categories, [{ name: "Wellness", items: 2 }, { name: "Food & drink", items: 1 }], "renaming onto an existing name merges");
+  assert.equal((await cat({ action: "rename", from: "Nope", to: "X" })).status, 409);
+  assert.equal((await cat({ action: "order", names: ["Wellness"] })).status, 409, "an order must name every category");
+  r = await cat({ action: "order", names: ["Food & drink", "Wellness"] });
+  assert.deepEqual(r.data.categories.map(c => c.name), ["Food & drink", "Wellness"]);
+  let w = await ws(ev);
+  assert.equal((await staff("PATCH", `/api/v1/host/events/${ev}`, { revision: w.event.revision, status: "live" })).status, 200);
+  const code = (await ws(ev)).event.code, guest = client();
+  await guest("POST", `/api/v1/e/${code}/join`, { requestId: randomUUID(), displayName: "Cat", businessName: "Cat Co" });
+  assert.deepEqual((await guest("GET", `/api/v1/e/${code}`)).data.event.categories, ["Food & drink", "Wellness"]);
+  r = await cat({ action: "remove", name: "Wellness" });
+  assert.equal(r.data.changed, 2); assert.deepEqual(r.data.categories.map(c => c.name), ["Food & drink"]);
+  w = await ws(ev);
+  assert.deepEqual(w.items.map(i => i.category), ["", "", "Food & drink"]);
+  assert.deepEqual((await guest("GET", `/api/v1/e/${code}`)).data.event.categories, ["Food & drink"]);
+});
+
+await check("paste rows: all added in order or none; a retry replays without duplicates", async () => {
+  const ev = await itemsEvent("Batch add");
+  const batch = (requestId, items, extra = {}) => staff("POST", `/api/v1/host/events/${ev}/items/batch`, { requestId, items, ...extra });
+  const bad = await batch(randomUUID(), [{ title: "Fine", openingMinor: 5_000 }, { title: "", openingMinor: 5_000 }]);
+  assert.equal(bad.status, 400); assert.match(bad.data.error.message, /Row 2/);
+  assert.equal((await ws(ev)).items.length, 0, "nothing from a failed batch is kept");
+  const rows = Array.from({ length: 24 }, (_, n) => ({ title: `Lot ${n + 1}`, openingMinor: 2_500 * (n + 1), category: n % 2 ? "Dining" : "travel", donor: `Donor ${n}` }));
+  const requestId = randomUUID();
+  const [first, again] = await Promise.all([batch(requestId, rows), batch(requestId, rows)]);
+  assert.equal(first.status, 201, JSON.stringify(first.data)); assert.deepEqual(again.data.ids, first.data.ids);
+  const w = await ws(ev);
+  assert.equal(w.items.length, 24, "the retry did not add a second copy");
+  assert.deepEqual(w.items.map(i => i.title), rows.map(r => r.title));
+  assert.deepEqual(w.items.map(i => i.position), rows.map((_, n) => n));
+  assert.deepEqual(w.event.categories, ["travel", "Dining"]);
+  assert.ok(w.items.every(i => i.ready), "draft batch is visible");
+  assert.equal((await batch(randomUUID(), [])).status, 400);
+  const live = await itemsEvent("Batch live", { live: true });
+  const lr = await staff("POST", `/api/v1/host/events/${live}/items/batch`, { requestId: randomUUID(), items: [{ title: "A", openingMinor: 100 }, { title: "B", openingMinor: 100 }] });
+  assert.equal(lr.data.ready, false); assert.ok((await ws(live)).items.every(i => !i.ready), "published batch starts hidden");
+});
+
+await check("bulk update: set category and visibility; an item with bids stays visible; stale photos are skipped", async () => {
+  const ev = await itemsEvent("Bulk update", { live: true });
+  const ids = [];
+  for (const title of ["Alpha", "Beta", "Gamma"]) ids.push((await addItem(ev, { title, ready: true })).data.id);
+  const code = (await ws(ev)).event.code, bidder = client();
+  await bidder("POST", `/api/v1/e/${code}/join`, { requestId: randomUUID(), displayName: "Bea", businessName: "Bid Co" });
+  assert.equal((await bidder("POST", `/api/v1/e/${code}/bid`, { requestId: randomUUID(), itemId: ids[0], amountMinor: 10_000 })).status, 201);
+  const bulk = changes => staff("PATCH", `/api/v1/host/events/${ev}/items`, { changes });
+  let r = await bulk(ids.map(id => ({ id, category: "Gift cards" })));
+  assert.equal(r.status, 200); assert.equal(r.data.updated.length, 3); assert.deepEqual(r.data.categories, ["Gift cards"]);
+  r = await bulk(ids.map(id => ({ id, ready: false })));
+  assert.deepEqual(r.data.updated.map(u => u.id).sort(), [ids[1], ids[2]].sort());
+  assert.deepEqual(r.data.skipped.map(s => s.id), [ids[0]]); assert.match(r.data.skipped[0].reason, /bids/);
+  r = await bulk([{ id: ids[1], imageAssetId: null, imageExpectedAssetId: "00000000-0000-4000-8000-000000000000" }]);
+  assert.equal(r.data.skipped.length, 1, "a photo write whose source changed is skipped");
+  const other = await itemsEvent("Other event");
+  const foreign = (await addItem(other, { title: "Not here" })).data.id;
+  r = await bulk([{ id: foreign, category: "X" }]);
+  assert.equal(r.data.updated.length, 0, "items from another event are never touched");
+  assert.equal((await ws(other)).items[0].category, "");
+  assert.equal((await bulk([{ id: ids[1], ready: "no" }])).status, 400);
+  const w = await ws(ev);
+  assert.deepEqual(w.items.map(i => [i.title, i.ready, i.category]), [["Alpha", true, "Gift cards"], ["Beta", false, "Gift cards"], ["Gamma", false, "Gift cards"]]);
+});
+
+await check("bulk delete: unbid items go, bid-on items stay; draft numbering closes up", async () => {
+  const ev = await itemsEvent("Bulk delete");
+  const ids = [];
+  for (const title of ["One", "Two", "Three", "Four", "Five"]) ids.push((await addItem(ev, { title })).data.id);
+  let r = await staff("POST", `/api/v1/host/events/${ev}/items/delete`, { itemIds: [ids[1], ids[3]] });
+  assert.equal(r.status, 200); assert.deepEqual(r.data.deleted.sort(), [ids[1], ids[3]].sort());
+  let w = await ws(ev);
+  assert.deepEqual(w.items.map(i => [i.title, i.position]), [["One", 0], ["Three", 1], ["Five", 2]], "draft items renumber");
+  r = await staff("POST", `/api/v1/host/events/${ev}/items/delete`, { itemIds: [ids[1]] });
+  assert.deepEqual(r.data.alreadyGone, [ids[1]], "a repeated delete is a no-op");
+  w = await ws(ev);
+  assert.equal((await staff("PATCH", `/api/v1/host/events/${ev}`, { revision: w.event.revision, status: "live" })).status, 200);
+  const code = (await ws(ev)).event.code, bidder = client();
+  await bidder("POST", `/api/v1/e/${code}/join`, { requestId: randomUUID(), displayName: "Dee", businessName: "Del Co" });
+  await bidder("POST", `/api/v1/e/${code}/bid`, { requestId: randomUUID(), itemId: ids[0], amountMinor: 10_000 });
+  r = await staff("POST", `/api/v1/host/events/${ev}/items/delete`, { itemIds: [ids[0], ids[2]] });
+  assert.deepEqual(r.data.deleted, [ids[2]]); assert.deepEqual(r.data.kept.map(k => k.id), [ids[0]]);
+  w = await ws(ev);
+  assert.deepEqual(w.items.map(i => [i.title, i.position]), [["One", 0], ["Five", 2]], "published item numbers stay put");
+});
+
+await check("concurrent edits, new categories, bulk changes and reorders never deadlock", async () => {
+  const ev = await itemsEvent("Concurrency");
+  const r = await staff("POST", `/api/v1/host/events/${ev}/items/batch`, { requestId: randomUUID(), items: Array.from({ length: 12 }, (_, n) => ({ title: `Item ${n}`, openingMinor: 1_000 })) });
+  const w = await ws(ev), ids = r.data.ids;
+  const calls = [
+    ...w.items.slice(0, 8).map((i, n) => staff("PATCH", `/api/v1/host/items/${i.id}`, { revision: i.revision, category: `Cat ${n}` })),
+    staff("PATCH", `/api/v1/host/events/${ev}/items`, { changes: ids.slice(8).map(id => ({ id, category: "Bulk cat" })) }),
+    staff("POST", `/api/v1/host/events/${ev}/items/order`, { order: [...ids].reverse() }),
+    staff("POST", `/api/v1/host/events/${ev}/categories`, { action: "add", name: "Added cat" }),
+  ];
+  const statuses = (await Promise.all(calls)).map(x => x.status);
+  assert.ok(statuses.every(s => s === 200), `statuses ${statuses}`);
+  const after = await ws(ev);
+  assert.equal(new Set(after.event.categories).size, 10, JSON.stringify(after.event.categories));
+  assert.deepEqual(after.items.map(i => i.id), [...ids].reverse());
+});
+
+await check("duplicate keeps the category list and order", async () => {
+  const ev = await itemsEvent("Dup categories");
+  await addItem(ev, { title: "A", category: "Zeta" });
+  await addItem(ev, { title: "B", category: "Alpha" });
+  await staff("POST", `/api/v1/host/events/${ev}/categories`, { action: "add", name: "Empty one" });
+  const copy = await staff("POST", `/api/v1/host/events/${ev}/duplicate`, { requestId: randomUUID() });
+  assert.deepEqual((await ws(copy.data.id)).event.categories, ["Zeta", "Alpha", "Empty one"]);
+});
+
 await check("staff logout ends the session", async () => {
   await staff("POST", "/api/v1/host/logout", {});
   assert.equal((await staff("GET", "/api/v1/host/events")).status, 401);

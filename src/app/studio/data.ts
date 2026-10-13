@@ -21,7 +21,7 @@ export type EventData = {
   id: string; code: string; name: string; welcome: string; venue: string; winnerInstructions: string; coverAssetId: string | null; coverUrl: string | null; coverFocal?: FocalPoint; timezone: string;
   startsAt: string; endsAt: string; accessEndsAt: string; status: "draft" | "live"; entryOpen: boolean; theme: string; bidMode: "tiered" | "fixed"; tiers: Tier[];
   fixedIncrementMinor: number | null; donationsEnabled: boolean; donationDeadline: string | null; revision: number; phase: string; hasBids: boolean;
-  isPractice: boolean; archivedAt: string | null; bidderDisplay: BidderDisplay; accentColor: string | null;
+  isPractice: boolean; archivedAt: string | null; bidderDisplay: BidderDisplay; accentColor: string | null; categories: string[];
 };
 export type BidderDisplay = "name_business" | "business" | "anonymous";
 /** The same rule the server applies to guests' phones, so the canvas previews exactly what guests will see. */
@@ -52,7 +52,7 @@ export function toSnapshot(d: Data, me = { displayName: "A guest", businessName:
       id: e.id, code: e.code, name: e.name, welcome: e.welcome, venue: e.venue, timezone: e.timezone, theme: e.theme, coverUrl: e.coverUrl, coverFocal: e.coverFocal,
       startsAt: e.startsAt, endsAt: e.endsAt, accessEndsAt: e.accessEndsAt, entryOpen: e.entryOpen,
       phase: e.phase === "open" || e.phase === "closed" ? e.phase : "upcoming",
-      sponsors: d.sponsors.map(s => ({ name: s.name, logoUrl: s.logoUrl, url: s.url })), accentColor: e.accentColor, bidderDisplay: e.bidderDisplay,
+      sponsors: d.sponsors.map(s => ({ name: s.name, logoUrl: s.logoUrl, url: s.url })), accentColor: e.accentColor, bidderDisplay: e.bidderDisplay, categories: e.categories,
       donations: { enabled: e.donationsEnabled, open: e.donationsEnabled && now < new Date(deadline).getTime(), deadline, capMinor: PLEDGE_CAP,
         recipients: d.recipients.map(r => ({ id: r.id, name: r.name, description: r.description, logoUrl: r.logoUrl })) },
     },
