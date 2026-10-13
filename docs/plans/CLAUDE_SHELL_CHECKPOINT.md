@@ -677,3 +677,7 @@ After Zack reported success on the previously failing phone and said “works! L
 ## Item-entry row follow-up (2026-10-13)
 
 Zack's Add-row screenshot was addressed separately with a CSS-only wrapping layout. **Staging** now serves `9b255db` via `dpl_AaZBntgxAR4Pu5UNvRktzMbJHKVU`; production keeps the compatibility release `3f6c3e2`. Chromium/WebKit layout checks across eight widths, Items 15/15, compatibility gate, production build and hosted Add persistence pass. [Before/after and delivery evidence](ITEMS_ADD_ROW_FIX.md).
+
+## Approved item-entry layout released to production
+
+Zack approved the staged layout and helper placement, then explicitly requested production release. `84f09fb` is live at **https://app.bidzizi.com/studio** as `dpl_Fa7b2Zh9rYAiv5zqpRvnNeigFmgk`. The served Items CSS matches staging byte for byte, with the helper beneath the entire card. No migration/environment change; staging remains separate. [Evidence](ITEMS_ADD_ROW_FIX.md).

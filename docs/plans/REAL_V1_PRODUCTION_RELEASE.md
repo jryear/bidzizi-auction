@@ -23,3 +23,7 @@ The old-phone result is **user-reported staging evidence**; its OS version and e
 The old production deployment remains available. To roll back the application, run `vercel rollback dpl_FaFhGmY8fd3BtYXBYRfxvkf63jV9 --scope saturn-ea53` from a checkout linked to the production project, and verify `app.bidzizi.com` afterward. Migration 009 is additive; leave its table and any diagnostic records intact during application rollback. Database restoration is a separate operation and must not discard bids accepted since the restore point.
 
 No Git push or main merge was needed. The later release-documentation commit does not change the deployed source. The Add-row overflow screenshot received during release is a separate follow-up; it was not mixed into this validated production build.
+
+## Approved item-entry presentation follow-up
+
+After Zack approved the staged Add-row layout and full-card helper placement, he explicitly requested production release. **Current production:** `dpl_Fa7b2Zh9rYAiv5zqpRvnNeigFmgk`, source `84f09fb`. The workspace route and served Items CSS are verified; CSS matches staging byte for byte. No migration or environment change. The prior compatibility deployment `dpl_CqZBiNowAAHiXFE8kXtmue27nrRq` is retained for rollback. [Layout release details](ITEMS_ADD_ROW_FIX.md).

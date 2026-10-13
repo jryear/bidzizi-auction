@@ -1,0 +1,21 @@
+{
+  "verifiedAt": "2026-10-13T22:55:57.848001+00:00",
+  "sourceCommit": "84f09fb86a3fde460732673daca2f3b868225b94",
+  "productionDeployment": "dpl_Fa7b2Zh9rYAiv5zqpRvnNeigFmgk",
+  "previousProduction": "dpl_CqZBiNowAAHiXFE8kXtmue27nrRq",
+  "stagingDeploymentUnchanged": "dpl_4CFSMuZVSnaa5ExaFJXHKJrw3G45",
+  "url": "https://app.bidzizi.com/studio",
+  "applicationFilesChanged": [
+    "src/app/studio/items.css",
+    "src/app/studio/[id]/items.tsx"
+  ],
+  "servedItemsStylesheet": "/_next/static/immutable/chunks/0vzcld5k74hk0.css",
+  "stylesheetMatchesStaging": true,
+  "stylesheetSha256": "c2238703c4435cc9bafbd9a855cb26fd7a3a2cdfdc5d32360ac5ae1f779c9807",
+  "productionWorkspaceRouteHttp": 200,
+  "databaseMigrations": false,
+  "productionEnvironmentChanges": false,
+  "authenticatedLayoutEvidence": "Prior staging readback at 390px and 1440px; production verification uses exact tested source and matching served CSS.",
+  "gitPush": false,
+  "mainMerge": false
+}

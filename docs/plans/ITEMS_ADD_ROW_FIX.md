@@ -22,3 +22,9 @@ Live at **https://staging.bidzizi.com/studio**, source `9b255db`, deployment `dp
 Zack requested that the helper belong to the horizontal card, beneath all its fields. The helper/error text is now a full-width sibling after the controls, with an explicit final flex order on mobile. Chromium and WebKit compiled-layout checks pass at all eight widths; production build/typecheck pass. [Phone](../evidence/items-add-row-20261013/helper-390.png) · [desktop](../evidence/items-add-row-20261013/helper-1268.png).
 
 Helper placement is live on staging at `dpl_4CFSMuZVSnaa5ExaFJXHKJrw3G45`, source `84f09fb`. The authenticated hosted Items screen verifies the helper is full width and below all five controls at 390px and 1440px. The temporary smoke session was removed and its account disabled. Production remains unchanged.
+
+## Production delivery
+
+Zack explicitly requested production release after approving the full-card helper placement. Source `84f09fb` is live at **https://app.bidzizi.com/studio**, deployment `dpl_Fa7b2Zh9rYAiv5zqpRvnNeigFmgk`. The workspace route returns HTTP 200 and identifies the correct deployment. Its served Items stylesheet matches staging byte for byte, including the full-width helper rule. The authenticated layout was already checked on staging at 390px/1440px, with compiled Chromium/WebKit checks at eight widths. No production data fixtures or sessions were created for this release readback.
+
+Only the two item-entry presentation files differ from the prior production source. Existing production environment values were retained, with no database migration. Staging remains on `dpl_4CFSMuZVSnaa5ExaFJXHKJrw3G45`. The previous production deployment `dpl_CqZBiNowAAHiXFE8kXtmue27nrRq` remains available for application rollback. [Release receipt](../evidence/items-add-row-20261013/production-layout-release.json).
