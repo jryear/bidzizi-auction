@@ -1,6 +1,7 @@
 "use client";
 // Presentational pieces shared by the attendee app and the Studio canvas. The canvas renders these same components with an
 // edit context, so what a host edits is literally what attendees see.
+import { headline } from "../../../lib/display";
 import { createContext, useContext, useEffect, useRef, useState, ViewTransition, type CSSProperties, type ReactNode } from "react";
 import { fmtClock, fmtTime, initials } from "../../../lib/api";
 import { formatMoney } from "../../../lib/money";
@@ -168,10 +169,11 @@ export function Band({ item, now, onRebid, unconfirmed }: { item: Item; now: num
 
 export function ItemCard({ item, now, onOpen, onWatch, onRebid, unconfirmed, stale, canWatch = true, here }: CardProps) {
   const s = standing(item, unconfirmed);
+  const head = headline(item, unconfirmed);
   const k = `item:${item.id}`;
   return (
     <article className={`lc tone-${s.tone}${s.mine ? " mine" : ""}${here ? " was-here" : ""}`} data-item={item.id}>
-      <Tap className="lc-hit" onOpen={onOpen} k={k} label={`${item.title}, ${formatMoney(shown(item))}`} />
+      <Tap className="lc-hit" onOpen={onOpen} k={k} label={`${item.title}, ${formatMoney(headline(item, unconfirmed).amountMinor)}`} />
       <Photo k={k} url={item.imageUrl} className="lc-media" vt={`photo-${item.id}`}><ItemArt item={item} /></Photo>
       <LotTab item={item} />
       {canWatch && <Watch on={item.watching} onToggle={() => onWatch?.(!item.watching)} />}
@@ -182,8 +184,8 @@ export function ItemCard({ item, now, onOpen, onWatch, onRebid, unconfirmed, sta
       </div>
       <div className="lc-numbers">
         <div className="cn">
-          <span className="lbl">{item.currentMinor === null ? "Starting bid" : item.phase === "closed" ? "Final bid" : "Current bid"}{item.bidCount ? ` · ${item.bidCount} bid${item.bidCount === 1 ? "" : "s"}` : ""}</span>
-          <Amount minor={shown(item)} stale={stale} />
+          <span className="lbl">{head.label}{item.bidCount ? ` · ${item.bidCount} bid${item.bidCount === 1 ? "" : "s"}` : ""}</span>
+          <Amount minor={head.amountMinor} stale={stale} />
         </div>
         {item.phase !== "open" && <div className="cn end"><TimeLeft item={item} now={now} /></div>}
         <div className="leaderrow"><LeaderLine item={item} /></div>
@@ -195,16 +197,17 @@ export function ItemCard({ item, now, onOpen, onWatch, onRebid, unconfirmed, sta
 
 export function ItemRow({ item, now, onOpen, onWatch, unconfirmed, stale, canWatch = true, here }: CardProps) {
   const s = standing(item, unconfirmed);
+  const head = headline(item, unconfirmed);
   return (
     <article className={`lr tone-${s.tone}${here ? " was-here" : ""}`} data-item={item.id}>
-      <Tap className="lr-hit" onOpen={onOpen} k={`item:${item.id}`} label={`${item.title}, ${formatMoney(shown(item))}`} />
+      <Tap className="lr-hit" onOpen={onOpen} k={`item:${item.id}`} label={`${item.title}, ${formatMoney(headline(item, unconfirmed).amountMinor)}`} />
       <div className="lr-thumb">{item.imageUrl ? <img src={item.imageUrl} alt="" loading="lazy" /> : <ItemArt item={item} size="sm" />}<span className="lr-no">{lotNo(item)}</span></div>
       <div className="lr-main">
         <h3>{item.title}</h3>
         <div className="lr-meta"><Pill s={s} small />{s.tone === "none" && <TimeLeft item={item} now={now} />}{s.tone !== "none" && item.phase === "open" && closingSoon(item, now) && <TimeLeft item={item} now={now} prefix={false} />}</div>
       </div>
       <div className="lr-end">
-        <Amount minor={shown(item)} stale={stale} />
+        <Amount minor={head.amountMinor} stale={stale} />
         <span className="pa-count">{item.bidCount ? `${item.bidCount} bid${item.bidCount === 1 ? "" : "s"}` : "starting"}</span>
       </div>
       {canWatch && <Watch on={item.watching} onToggle={() => onWatch?.(!item.watching)} />}

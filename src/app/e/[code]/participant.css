@@ -669,6 +669,8 @@
 .pa .tk-hist { grid-area: hist; margin: 0 14px 12px 12px; padding-top: 6px; border-top: 1.5px dashed var(--line); animation: rise .25s var(--ease); }
 .pa .tk-hist li { display: flex; justify-content: space-between; padding: 7px 0; font-size: 14px; color: var(--ink-2); }
 .pa .tk-hist .amt { font-size: 15px; color: var(--ink); }
+.pa .tk-history { grid-area: hist; padding: 2px 14px 6px 12px; border-top: 1.5px dashed var(--line); } .pa .tk-history .tk-hist { margin: 0 0 6px; }
+.pa .tk-hist li.muted { opacity: .6; } .pa .tk-hist li.muted .amt { text-decoration: line-through; }
 .pa .tk.give .tk-stub .amt { color: var(--red); }
 
 /* ---------------------------------------------------------------- donate */

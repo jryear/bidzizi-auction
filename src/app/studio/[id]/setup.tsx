@@ -79,7 +79,7 @@ export function Outline({ ctx, sel, select, addItem }: { ctx: SetupCtx; sel: Sel
       {row({ kind: "schedule" }, <ICalendar size={18} />, "Schedule", fmtClock(data.event.startsAt, data.event.timezone) + "–" + fmtClock(data.event.endsAt, data.event.timezone), "welcome")}
       {row({ kind: "theme" }, <IPalette size={18} />, "Look", THEMES.find(t => t.id === data.event.theme)?.name)}
       {row({ kind: "rules" }, <ISliders size={18} />, "Bidding rules", BIDDER_OPTIONS.find(o => o.id === data.event.bidderDisplay)?.label ?? "")}
-      {row({ kind: "donations" }, <IHeart size={18} />, "Donations", data.event.donationsEnabled ? `${data.recipients.length} cause${data.recipients.length === 1 ? "" : "s"}` : "Off")}
+      {row({ kind: "donations" }, <IHeart size={18} />, "Donations", data.recipients.length ? `${data.recipients.length} nonprofit${data.recipients.length === 1 ? "" : "s"}` : "Off")}
       {row({ kind: "sponsors" }, <IStore size={18} />, "Sponsors", data.sponsors.length ? `${data.sponsors.length}` : "None yet", "welcome")}
       <div className="ol-items-head"><h3>Items <span>{data.items.length}</span></h3><button type="button" className="sx-icon-btn sm" aria-label="Add item" onClick={addItem}><IPlus size={18} /></button></div>
       <ul className="ol-items">
@@ -384,8 +384,10 @@ function DonationsPanel({ ctx }: { ctx: SetupCtx }) {
   const { data, patchEvent, reload, flash } = ctx, e = data.event;
   const [name, setName] = useState(""), [desc, setDesc] = useState("");
   return (
-    <Panel title="Donations" icon={<IHeart size={20} />} sub="Guests give $25, $50, $100 or any amount up to $10,000. Staff mark each donation processed after the event.">
-      <Switch on={e.donationsEnabled} onChange={v => patchEvent({ donationsEnabled: v })} label="Let guests donate" sub={e.donationsEnabled ? `Open until ${fmtTime(e.donationDeadline ?? e.endsAt, e.timezone)}` : "Adds a Donate tab to the guest app"} />
+    <Panel title="Donations" icon={<IHeart size={20} />}>
+      <p className={`don-state${data.recipients.length ? " on" : ""}`}>{data.recipients.length
+        ? <>Guests can donate until <b>{fmtTime(e.donationDeadline ?? e.endsAt, e.timezone)}</b>, from the Donate tab.</>
+        : <>Add a nonprofit and a Donate tab appears for guests. Remove them all to turn donations off.</>}</p>
       <div className="recips">
         {data.recipients.map(r => (
           <div key={r.id} className="recip"><span className="mark-sq">{r.name.slice(0, 2).toUpperCase()}</span><span><b>{r.name}</b>{r.description && <small>{r.description}</small>}</span>
@@ -395,10 +397,11 @@ function DonationsPanel({ ctx }: { ctx: SetupCtx }) {
       <form className="add-recip" onSubmit={async x => { x.preventDefault(); if (!name.trim()) return;
         const r = await api("POST", `/api/v1/host/events/${e.id}/recipients`, { name, description: desc }).catch(() => null);
         if (r?.ok) { setName(""); setDesc(""); reload(); } else flash(r ? errorText(r) : "Connection lost.", "red"); }}>
-        <label className="sx-field"><span className="sx-label">Add a cause</span><input value={name} onChange={x => setName(x.target.value)} placeholder="Pasadena Humane" /></label>
+        <label className="sx-field"><span className="sx-label">Add a nonprofit</span><input value={name} onChange={x => setName(x.target.value)} placeholder="Pasadena Humane" /></label>
         <label className="sx-field"><span className="sx-label">Short note (optional)</span><input value={desc} onChange={x => setDesc(x.target.value)} placeholder="Animal shelter and adoption" /></label>
-        <button className="sx-btn" disabled={!name.trim()}><IPlus size={16} />Add cause</button>
+        <button className="sx-btn" disabled={!name.trim()}><IPlus size={16} />Add nonprofit</button>
       </form>
+      <p className="sx-hint">Guests give $25, $50, $100 or any amount up to $10,000. Mark each donation processed in Results.</p>
       <details className="sx-adv"><summary>Advanced<IChevD size={16} /></summary>
         <label className="sx-field"><span className="sx-label">Donations close</span><input type="datetime-local" key={`d${e.revision}`} defaultValue={toLocalInput(e.donationDeadline ?? e.endsAt, e.timezone)} onBlur={x => { const v = fromLocalInput(x.target.value, e.timezone); if (v) patchEvent({ donationDeadline: v }); }} /></label>
       </details>

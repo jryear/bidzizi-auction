@@ -429,6 +429,8 @@ button.ck-next:hover { background: var(--panel-2); }
 .panel-sub { font: 650 13px/1.2 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); padding: 0; }
 .panel-body > .panel-sub:not(:first-child) { margin-top: 10px; padding-top: 18px; border-top: 1px solid var(--line); }
 .panel-body > .panel-sub + .sx-hint { margin-top: -10px; }
+.don-state { padding: 12px 14px; border-radius: 12px; background: var(--panel-2); font-size: 14px; line-height: 1.45; color: var(--ink-2); }
+.don-state.on { background: var(--green-bg); color: var(--ink); }
 .choice-group { display: grid; gap: 8px; border: 0; padding: 0; margin: 0; min-width: 0; }
 .choice-group legend { margin-bottom: 8px; }
 .choice { position: relative; display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: #fff; box-shadow: inset 0 0 0 1.5px var(--line); cursor: pointer; transition: box-shadow .15s, background .15s; }

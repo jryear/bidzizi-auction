@@ -410,6 +410,31 @@ await check("staff invitation and reset use one-time password setup and revoke o
   assert.equal((await helper("POST", "/api/v1/host/login", { email: helperEmail, password: "test-password-123" })).status, 401);
   assert.equal((await helper("POST", "/api/v1/host/login", { email: helperEmail, password: "a-new-password-123" })).status, 200);
 });
+await check("donations appear only while the event has a nonprofit, and close at the deadline (no switch)", async () => {
+  const ev = await staff("POST", "/api/v1/host/events", { requestId: randomUUID(), name: "Donation rule " + randomUUID().slice(0, 6), startsAt: iso(-60_000), endsAt: iso(3_600_000) });
+  await staff("POST", `/api/v1/host/events/${ev.data.id}/items`, { requestId: randomUUID(), title: "Any prize", openingMinor: 10_000 });
+  let w = await staff("GET", `/api/v1/host/events/${ev.data.id}`);
+  await staff("PATCH", `/api/v1/host/events/${ev.data.id}`, { revision: w.data.event.revision, status: "live", donationsEnabled: true });
+  w = await staff("GET", `/api/v1/host/events/${ev.data.id}`);
+  const ecode = w.data.event.code, guest = client();
+  await guest("POST", `/api/v1/e/${ecode}/join`, { requestId: randomUUID(), displayName: "Gia Giver", businessName: "Kind Co" });
+  const donations = async () => (await guest("GET", `/api/v1/e/${ecode}`)).data.event.donations;
+  assert.equal((await donations()).enabled, false, "the old switch alone no longer turns donations on");
+  const rec = await staff("POST", `/api/v1/host/events/${ev.data.id}/recipients`, { name: "Food Bank" });
+  let d = await donations();
+  assert.equal(d.enabled, true); assert.equal(d.open, true); assert.equal(d.recipients.length, 1);
+  assert.ok([200, 201].includes((await guest("POST", `/api/v1/e/${ecode}/pledge`, { requestId: randomUUID(), recipientId: rec.data.id, amountMinor: 2_500 })).status));
+  w = await staff("GET", `/api/v1/host/events/${ev.data.id}`);
+  await staff("PATCH", `/api/v1/host/events/${ev.data.id}`, { revision: w.data.event.revision, donationDeadline: iso(-1_000) });
+  d = await donations();
+  assert.equal(d.enabled, true); assert.equal(d.open, false, "closed after the deadline");
+  assert.equal((await guest("POST", `/api/v1/e/${ecode}/pledge`, { requestId: randomUUID(), recipientId: rec.data.id, amountMinor: 2_500 })).status, 403);
+  await staff("DELETE", `/api/v1/host/events/${ev.data.id}/recipients/${rec.data.id}`);
+  d = await donations();
+  assert.equal(d.enabled, false, "removing the last nonprofit turns donations off"); assert.equal(d.recipients.length, 0);
+  assert.equal((await staff("GET", `/api/v1/host/events/${ev.data.id}`)).data.pledges.length, 1, "recorded pledges are kept");
+});
+
 // ---------------------------------------------------------------- bidder visibility (passthrough 1)
 let vis;
 async function visibilityEvent() {

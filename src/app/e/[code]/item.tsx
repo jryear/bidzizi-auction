@@ -1,4 +1,5 @@
 "use client";
+import { headline } from "../../../lib/display";
 import { useEffect, useState } from "react";
 import { fmtClock, fmtTime } from "../../../lib/api";
 import { formatMoney } from "../../../lib/money";
@@ -12,7 +13,7 @@ type Props = { snap: Snapshot; now: number; nav: Nav; code: string; stale: boole
 export function ItemPage({ snap, now, nav, code, stale, pending, item }: Props) {
   const me = snap.me!;
   const unconfirmed = pending?.itemId === item.id;
-  const s = standing(item, unconfirmed);
+  const s = standing(item, unconfirmed), head = headline(item, unconfirmed);
   const tz = snap.event.timezone;
   const edit = useEdit();
 
@@ -35,8 +36,8 @@ export function ItemPage({ snap, now, nav, code, stale, pending, item }: Props) 
 
         <div className="pa-stub">
           <div className="stub-main">
-            <span className="lbl">{item.currentMinor === null ? "Starting bid" : item.phase === "closed" ? "Final bid" : "Current bid"}</span>
-            <Amount minor={item.currentMinor ?? item.openingMinor} className="xl" stale={stale} />
+            <span className="lbl">{head.label}</span>
+            <Amount minor={head.amountMinor} className="xl" stale={stale} />
             <span className="stub-leader">
               {item.leader ? <><Mark name={item.leader.isMe ? "You" : item.leader.business} you={item.leader.isMe} size={24} /><span><b>{item.leader.isMe ? "You" : item.leader.business}</b> · {item.bidCount} bid{item.bidCount === 1 ? "" : "s"}</span></>
                 : <span className="muted">{item.phase === "open" ? "No bids yet" : item.phase === "scheduled" ? "Opens soon" : "No bids"}</span>}
@@ -82,7 +83,7 @@ function StandingCard({ item, now, nav, instructions, unconfirmed, paused }: { i
     case "outbid": return (
       <div className="standing t-red pulse-once" key="outbid">
         <span className="st-ic"><IAlert size={24} /></span>
-        <div><b>You&rsquo;ve been outbid</b><p>Your {formatMoney(item.myHighestMinor ?? 0)} is no longer the top bid.</p></div>
+        <div><b>You&rsquo;ve been outbid</b><p>Someone bid higher. Bid again to take the lead.</p></div>
       </div>
     );
     case "won": return <div className="standing t-marigold" key="won"><span className="st-ic"><ITrophy size={24} /></span><div><b>You won this item</b><p>{instructions || "The event staff will be in touch about collecting it."}</p></div></div>;

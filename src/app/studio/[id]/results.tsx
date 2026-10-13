@@ -66,7 +66,7 @@ export function ResultsBoard({ ctx }: { ctx: Ctx }) {
         <aside className="wrap-side">
           <section className="side-card">
             <h3><IHeart size={18} />Donations <em>{unprocessed.length ? `${unprocessed.length} to process` : pledges.length ? "All processed" : "None"}</em></h3>
-            {!pledges.length ? <p className="sx-muted">{e.donationsEnabled ? "No donations yet." : "Donations are off for this event."}</p> : (
+            {!pledges.length ? <p className="sx-muted">{data.recipients.length ? "No donations yet." : "This event has no nonprofits, so donations are off."}</p> : (
               <ul className="pledges">
                 {pledges.map(p => <Pledge key={p.id} ctx={ctx} p={p} />)}
               </ul>

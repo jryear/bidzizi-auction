@@ -1,7 +1,9 @@
 "use client";
+import { useState } from "react";
+import { headline } from "../../../lib/display";
 import { fmtClock } from "../../../lib/api";
 import { formatMoney } from "../../../lib/money";
-import { IHeart, ITicket, ITrophy } from "../../../lib/icons";
+import { IChevD, IHeart, ITicket, ITrophy } from "../../../lib/icons";
 import { standing, type Item, type PendingBid, type Snapshot } from "./model";
 import type { Nav } from "./participant";
 import { Amount, EmptyState, ItemArt, Pill, TimeLeft } from "./ui";
@@ -87,9 +89,12 @@ export function MyBids({ snap, now, nav, code, stale, pending }: Props) {
   );
 }
 
-function Ticket({ item, now, nav, code, stale, unconfirmed, tz }: { item: Item; now: number; nav: Nav; code: string; stale: boolean; unconfirmed: boolean; tz: string }) {
-  const s = standing(item, unconfirmed);
-  const mineAmt = item.award?.isMe ? item.award.amountMinor ?? 0 : item.myHighestMinor ?? item.currentMinor ?? 0;
+function Ticket({ item, now, nav, stale, unconfirmed, tz }: { item: Item; now: number; nav: Nav; code: string; stale: boolean; unconfirmed: boolean; tz: string }) {
+  const s = standing(item, unconfirmed), head = headline(item, unconfirmed);
+  const [open, setOpen] = useState(false);
+  // Your own bids live in the history, not on the ticket's face: the face leads with the top bid (passthrough 1).
+  const yours = (item.bidHistory ?? []).filter(b => b.isMe);
+  const showHistory = yours.length > 0 && !head.yours;
   return (
     <article className={`tk tone-${s.tone}${s.key === "outbid" ? " shake-once" : ""}`}>
       <button type="button" className="tk-main" onClick={() => nav.openItem(item.id)}>
@@ -101,15 +106,23 @@ function Ticket({ item, now, nav, code, stale, unconfirmed, tz }: { item: Item; 
         </span>
       </button>
       <div className="tk-stub">
-        <span className="lbl">{item.award?.isMe ? "Won at" : "Your bid"}</span>
-        <Amount minor={mineAmt} stale={stale} />
-        {item.currentMinor !== null && !item.leader?.isMe && <span className="tk-cur">Top {formatMoney(item.currentMinor)}</span>}
-        {item.leader?.isMe && item.phase === "open" && <span className="tk-cur good">Top bid</span>}
+        <span className="lbl">{head.label}</span>
+        <Amount minor={head.amountMinor} stale={stale} />
       </div>
       {(s.key === "outbid" && item.minimumNextMinor !== null || s.key === "unconfirmed") && (
         <div className="tk-act">
           {s.key === "outbid" ? <button type="button" className="btn primary" onClick={() => nav.openSheet(item, item.minimumNextMinor!)}>Bid {formatMoney(item.minimumNextMinor!)}</button>
             : <button type="button" className="btn primary" onClick={() => nav.openSheet(item)}>Check bid status</button>}
+        </div>
+      )}
+      {showHistory && (
+        <div className="tk-history">
+          <button type="button" className="tk-more" aria-expanded={open} onClick={() => setOpen(!open)}>Your bids ({yours.length})<IChevD size={16} /></button>
+          {open && (
+            <ol className="tk-hist">
+              {yours.map(b => <li key={b.id} className={b.voided ? "muted" : ""}><span>{b.voided ? "Removed by staff" : fmtClock(b.decidedAt, tz)}</span><b className="amt">{formatMoney(b.amountMinor)}</b></li>)}
+            </ol>
+          )}
         </div>
       )}
     </article>

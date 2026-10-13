@@ -14,6 +14,14 @@ const CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const code = (length: number) => Array.from({ length }, () => CODE_ALPHABET[randomInt(CODE_ALPHABET.length)]).join("");
 const FIVE_MINUTES = 5 * 60_000;
 
+/** Donations are on exactly when the event has at least one nonprofit; there is no separate switch. The deadline defaults to
+ *  the end of bidding. Call after anything that adds, removes or copies recipients. */
+async function syncDonations(db: Db, eventId: string): Promise<void> {
+  await db.query(
+    `UPDATE events SET donations_enabled = r.any, donation_deadline = CASE WHEN r.any THEN coalesce(donation_deadline, ends_at) ELSE donation_deadline END
+       FROM (SELECT EXISTS (SELECT 1 FROM recipients WHERE event_id = $1 AND NOT removed) AS any) r WHERE id = $1`, [eventId]);
+}
+
 async function staffTx<T>(request: Request, run: (db: Db, staff: Staff) => Promise<T>): Promise<T> {
   return tx(async db => run(db, await staffFrom(db, request)));
 }
@@ -101,6 +109,7 @@ export async function createEvent(request: Request): Promise<Response> {
     }
     for (const [position, recipient] of template.recipients.entries())
       await db.query("INSERT INTO recipients (event_id, org_id, position, name) VALUES ($1, $2, $3, $4)", [row.id, staff.orgId, position, recipient]);
+    await syncDonations(db, row.id);
     return { id: row.id };
   })), 201);
 }
@@ -133,6 +142,7 @@ export async function duplicateEvent(request: Request, eventId: string): Promise
     }
     await db.query(`INSERT INTO sponsors (event_id, org_id, position, name, logo_asset_id) SELECT $2, org_id, position, name, logo_asset_id FROM sponsors WHERE event_id = $1`, [source.id, copy.id]);
     await db.query(`INSERT INTO recipients (event_id, org_id, position, name, description, logo_asset_id) SELECT $2, org_id, position, name, description, logo_asset_id FROM recipients WHERE event_id = $1 AND NOT removed`, [source.id, copy.id]);
+    await syncDonations(db, copy.id);
     return { id: copy.id };
   })), 201);
 }
@@ -351,7 +361,7 @@ export async function updateEvent(request: Request, eventId: string): Promise<Re
       if ("fixedIncrementMinor" in input) next.fixed_increment_minor = input.fixedIncrementMinor === null ? null : String(cents(input.fixedIncrementMinor, 100_000_000));
       if (next.bid_mode === "fixed" && !next.fixed_increment_minor) throw invalid("Set the fixed increment.");
     }
-    if ("donationsEnabled" in input) next.donations_enabled = input.donationsEnabled === true;
+    // "donationsEnabled" is no longer settable: donations follow whether the event has a nonprofit (see syncDonations).
     if ("donationDeadline" in input) next.donation_deadline = optionalWhen(input.donationDeadline);
     if (next.donations_enabled && !next.donation_deadline) next.donation_deadline = next.ends_at;
     if ("bidderDisplay" in input) {
@@ -365,6 +375,7 @@ export async function updateEvent(request: Request, eventId: string): Promise<Re
       [e.id, next.name, next.welcome, next.venue, next.winner_instructions, next.cover_asset_id, next.timezone, next.starts_at, next.ends_at,
        next.access_ends_at, next.status, next.entry_open, next.bid_mode, JSON.stringify(next.tiers), next.fixed_increment_minor,
        next.donations_enabled, next.donation_deadline, next.theme, next.is_practice, next.bidder_display]);
+    await syncDonations(db, e.id);
     return { ok: true, revision: e.revision + 1 };
   }));
 }
@@ -551,8 +562,10 @@ export async function saveRecipient(request: Request, eventId: string): Promise<
       return { id: input.id };
     }
     const position = (await db.query<{ next: number }>("SELECT coalesce(max(position) + 1, 0)::int AS next FROM recipients WHERE event_id = $1", [e.id])).rows[0].next;
-    return (await db.query<{ id: string }>("INSERT INTO recipients (event_id, org_id, position, name, description, logo_asset_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id",
+    const created = (await db.query<{ id: string }>("INSERT INTO recipients (event_id, org_id, position, name, description, logo_asset_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id",
       [e.id, staff.orgId, position, name, description, logo])).rows[0];
+    await syncDonations(db, e.id);
+    return created;
   }));
 }
 
@@ -561,6 +574,7 @@ export async function removeRecipient(request: Request, eventId: string, recipie
   return json(await staffTx(request, async (db, staff) => {
     const e = await ownEvent(db, staff, eventId, "FOR UPDATE");
     await db.query("UPDATE recipients SET removed = true WHERE id = $1 AND event_id = $2", [id(recipientId), e.id]);
+    await syncDonations(db, e.id);
     return { ok: true };
   }));
 }

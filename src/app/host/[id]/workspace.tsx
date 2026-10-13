@@ -432,7 +432,7 @@ export function Donations({ ctx }: { ctx: Ctx }) {
     <>
       <h2>Donations</h2>
       <div className="card pad stack">
-        <label className="check"><input type="checkbox" checked={e.donationsEnabled} onChange={x => patchEvent({ donationsEnabled: x.target.checked, donationDeadline: fromLocalInput(deadline, e.timezone) })} /> Let participants donate</label>
+        <p className="small">{e.donationsEnabled ? "Donations are on because this event has a nonprofit." : "Add a nonprofit below to turn donations on."}</p>
         <div className="row wrap" style={{ alignItems: "flex-end" }}>
           <label className="field"><span>Donations close</span><input type="datetime-local" value={deadline} onChange={x => setDeadline(x.target.value)} /></label>
           <button className="btn small" onClick={async () => { if (await patchEvent({ donationDeadline: fromLocalInput(deadline, e.timezone) })) flash("Saved"); }}>Save</button>
