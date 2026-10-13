@@ -32,6 +32,8 @@ Public browsing, identity at first bid, phone versus invitation admission, and a
 - When bidding is implemented, derive identity, admission, lot state, and bid standing from server authority. Display acceptance only after durable server confirmation. Pending, stale, offline, or uncertain outcomes must not appear accepted.
 - Represent monetary amounts as integers in the agreed minor unit. Currency, scale, increments, ordering, retry semantics, and close behavior must be settled before the contract is frozen; this file does not choose them.
 - Older iOS Safari (before 17; staff iPhone 14s in the field) must keep working. Never put `backdrop-filter` on a `::backdrop` outside `@supports (text-wrap: balance)`: pre-17 WebKit paints the blurred backdrop over the dialog and hides it (hotfix `3fb5806`). Don't rely on iOS 17+ features on guest-critical paths without a fallback; `color-mix()` needs iOS 16.2.
+- Guest bid sheets use a fixed overlay (hotfix `d58c9be`), with focus containment, background isolation, scroll restoration and sending-state protection. Keep `tests/v1/bid-sheet.mjs` green in Chromium and WebKit; browser-engine checks are not old-iOS simulator evidence.
+- Browser support targets live in `package.json`; run `pnpm compat` for API/CSS checks. Every unsupported guest-critical feature needs a working fallback. Simple-mode HTML forms reuse the bid engine and original request IDs; uncertain outcomes must not offer a new bid. See `docs/plans/COMPATIBILITY_STATUS.md` for actual coverage and simulator gaps.
 - Honor the requested effect scope. Commits, pushes, provider configuration, migrations, data writes, and deployments are separate actions; a passing check does not authorize them.
 
 ## Bidder design foundation

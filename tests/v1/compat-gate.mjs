@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import { mkdtemp, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { spawnSync } from 'node:child_process';
+const dir=await mkdtemp(join(tmpdir(),'bz-compat-gate-')),file=join(dir,'critical.css');
+await writeFile(file,'.critical { height: 100dvh; background: color-mix(in srgb, black 10%, transparent); }');
+let r=spawnSync(process.execPath,['scripts/compat.mjs',file],{encoding:'utf8'});assert.equal(r.status,1);assert.match(r.stderr,/needs an earlier supported fallback/);
+await writeFile(file,'.critical { height: 100vh; height: 100dvh; background: #eee9df; background: color-mix(in srgb, black 10%, transparent); }');
+r=spawnSync(process.execPath,['scripts/compat.mjs',file],{encoding:'utf8'});assert.equal(r.status,0,r.stderr);
+console.log('2/2 compatibility gate cases: unsupported critical CSS fails; adding supported fallbacks passes');
