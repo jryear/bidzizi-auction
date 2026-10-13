@@ -1,0 +1,42 @@
+ok   staff login rejects a wrong password with a generic error
+ok   staff login succeeds
+ok   mutations from another origin are refused
+ok   create event (retry returns the same event)
+ok   add items (default tiers apply)
+ok   draft event is invisible to participants
+ok   go live
+ok   stale event edit is refused
+ok   participants join with a name and business
+ok   lost join response: retry returns the same participant
+ok   bidding requires joining
+ok   first bid at the opening amount is accepted
+ok   leader can't outbid themselves
+ok   below the minimum is rejected with the minimum
+ok   duplicate taps record one bid; replay returns the original receipt
+ok   reusing a request id for a different bid is refused
+ok   simultaneous bids at the same amount: exactly one wins
+ok   lost bid response: the receipt endpoint answers 'did it go through?'
+ok   tier increments step up with the amount ($500 → $50 raise)
+ok   paused participant can't bid but still sees their receipts
+ok   starting amount locks once bidding starts
+ok   staff can shorten or extend a bid item's close with the five-minute safeguard
+ok   donations: pledge once, retry is idempotent, over $10,000 refused
+ok   winner can't be assigned before the item closes
+ok   after close: bids refused, winner assigned, retry is safe, winner sees it
+ok   fulfil with follow-up notes; stale revision refused
+ok   lost phone: staff rejoin code moves Alice to a new device
+ok   exports download as CSV
+ok   duplicate event copies setup and items, not activity
+ok   editing a participant changes the event identity shown on their phone
+ok   voiding an awarded bid clears the award, preserves receipt and reveals a no-winner state
+ok   practice event can be created and run by staff
+ok   void of current leader recalculates exact standing and sequence stays monotonic
+ok   voiding a nonleader preserves standing; concurrent bid and void serialize correctly
+ok   withdrawing a bid-holding item keeps a clear bidder message and blocks new bids
+ok   reset practice removes all people and bids, restores withdrawn item, and rotates join code
+ok   staff can delete practice and unjoined draft events; archived drafts vanish from join
+ok   another organization cannot manage this event or its staff
+ok   staff invitation and reset use one-time password setup and revoke old sessions
+ok   staff logout ends the session
+
+40/40 passed

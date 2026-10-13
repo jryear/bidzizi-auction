@@ -72,6 +72,7 @@ export function Login({ onIn }: { onIn: () => void }) {
           {error && <p className="notice error" role="alert">{error}</p>}
           <button className="btn primary block" disabled={busy}>{busy ? "Signing in…" : "Sign in"}</button>
         </form>
+        <p className="small muted" style={{textAlign:"center"}}>Forgot your password? Ask another signed-in staff member to open Staff & access and create a reset link. If you are the only host, contact the event administrator.</p>
         <p className="small faint" style={{ textAlign: "center" }}>Joining an event? <a href="/join">Enter a code</a></p>
       </div>
     </main>
