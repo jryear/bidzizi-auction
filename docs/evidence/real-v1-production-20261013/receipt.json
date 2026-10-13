@@ -1,0 +1,26 @@
+{
+  "verifiedAt": "2026-10-13T22:33:23.274854+00:00",
+  "authorization": "Zack reported the previously failing phone works on staging, then said works! Let\u2019s go; production release announced and carried through.",
+  "sourceCommit": "3f6c3e29d878af860ff25ff38cba63b68caeb868",
+  "sourceBranch": "jryear/real-v1-claude-shell",
+  "projectId": "prj_gJg1GmPcU3pxeXf9UCj5O7clYZf2",
+  "deploymentId": "dpl_CqZBiNowAAHiXFE8kXtmue27nrRq",
+  "url": "https://app.bidzizi.com",
+  "previousDeployment": "dpl_FaFhGmY8fd3BtYXBYRfxvkf63jV9",
+  "stagingDeploymentUnchanged": "dpl_ACGwNLmUH8ptVipz18JQtNoe8VMb",
+  "databaseBranch": "br-cold-glitter-arx1msrh",
+  "restorePoint": {
+    "id": "br-plain-poetry-ar3kh24n",
+    "name": "before-compat-release-20261013",
+    "parent_id": "br-cold-glitter-arx1msrh",
+    "parent_lsn": "0/1E3FB58",
+    "created_at": "2026-10-13T22:28:47Z"
+  },
+  "migrationApplied": "009_client_reports.sql",
+  "businessRowsUnchanged": true,
+  "syntheticProductionBids": false,
+  "nativePhoneEvidence": "User-reported success on the previously failing phone on staging; OS version and exact completed steps not recorded.",
+  "nativeSimulatorMatrix": "Not executed; runtimes unavailable.",
+  "gitPush": false,
+  "mainMerge": false
+}

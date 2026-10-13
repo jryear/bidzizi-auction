@@ -669,3 +669,7 @@ Migration 009 was applied only to local test/review databases. The compiled Stud
 ## Authorized staging release (2026-10-13)
 
 Zack authorized deploying this branch and forking the live production baseline. **https://staging.bidzizi.com/studio** serves `3f6c3e2` via `dpl_ACGwNLmUH8ptVipz18JQtNoe8VMb`, in the dedicated `bidzizi-real-v1-staging` project. Its database is a verified fork of production, with migration 009 applied only there. Production's deployment and checked records are unchanged. Existing production sign-in and event data carry over; staging writes remain isolated. Hosted Chromium/WebKit bid-sheet and simple-mode checks, Devices and staff operations pass; an initial simple-mode timeout is retained with the successful rerun. Native old-iOS validation remains open. No Git push/main merge. [Release, preservation and rollback details](REAL_V1_STAGING_RELEASE.md).
+
+## Compatibility production release (2026-10-13)
+
+After Zack reported success on the previously failing phone and said “works! Let's go”, the staging-tested `3f6c3e2` build was released to **https://app.bidzizi.com/studio** as `dpl_CqZBiNowAAHiXFE8kXtmue27nrRq`. Production retains its own database; migration 009 is applied, business-row hashes are unchanged, and live rendering/route/reporting checks pass. Staging remains separate and unchanged. [Production release, evidence and rollback](REAL_V1_PRODUCTION_RELEASE.md). The Add-row screenshot is a separate layout follow-up.

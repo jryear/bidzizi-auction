@@ -1,0 +1,78 @@
+{
+  "migrations": [
+    {
+      "name": "001_core.sql",
+      "sha256": "b9647d41bbc64471e323a1bcb2ea1c92549dbf68c3428c0c592b52e0bdb433b9"
+    },
+    {
+      "name": "002_theme.sql",
+      "sha256": "5baa784fe64c9aec17970aa93b77b6786d79f184a9da2151d3ed6260e133bd4a"
+    },
+    {
+      "name": "003_operations.sql",
+      "sha256": "d65bdae8fdeca6b4612abc3eff0d9dc66b30076ce1b78739f4bc59a2499b81aa"
+    },
+    {
+      "name": "004_bidder_visibility.sql",
+      "sha256": "b811829d70a21dcac29cdf0525e98d0a8c52ed55c71a0aef67968ec4606b9418"
+    },
+    {
+      "name": "005_donations_follow_recipients.sql",
+      "sha256": "c53eba1910f467288e736c4b5c580fc0e04b4b14b9aec2299abbfdde561be26f"
+    },
+    {
+      "name": "006_look_and_sponsor_links.sql",
+      "sha256": "8263efbca51abcce5320de601e01fcac28e1e371e2316ee750f03e67064ec52f"
+    },
+    {
+      "name": "007_photo_position.sql",
+      "sha256": "35f7078bb52b003a0b1ff19f2510474d06be967e9451bec29a05a652f6223f0b"
+    },
+    {
+      "name": "008_item_categories.sql",
+      "sha256": "f08fa5011947b7cf5ce9b779a2a6ef4370f480b68d4f15373dd39ed7647d70f3"
+    }
+  ],
+  "business": {
+    "orgs": {
+      "count": 1,
+      "sha256": "9a5835ef4de3bc9b3d8c2580c4c211db6b9e296838b81dd7cfbe4bdc969c7f00"
+    },
+    "staff": {
+      "count": 2,
+      "sha256": "49169b42dd0dcb47754866579fb066e1280b2deff356831f14e4a2b1d6831325"
+    },
+    "events": {
+      "count": 1,
+      "sha256": "b333de1f2c962e66cb6f6d0dec5ac6d1001cfe959716f4b1070581ac8dfa04bb"
+    },
+    "items": {
+      "count": 6,
+      "sha256": "c3cf9167a8ad5622c708f9226fe10e17b4f85c2688ab9c8cb1c50e0ef1c30a99"
+    },
+    "bids": {
+      "count": 15,
+      "sha256": "23c09b00a9e5b3c5379fae86f292d2c82011a38bd96bb931e3c9cf1912616baa"
+    },
+    "assets": {
+      "count": 5,
+      "sha256": "31cb0afd89f4ddba3edbb9398a617fac6615aac5c7ea676aa41391ee78e09b5c"
+    },
+    "participants": {
+      "count": 5,
+      "sha256": "bc69c08b877d90ef7e823f1230b042a95b2cb8a897e1d5e3351a3cc0dc1ab450"
+    },
+    "pledges": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "awards": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "standings": {
+      "count": 6,
+      "sha256": "71e3a330709aad62607a413bbf6a6945388d90b3a4633acb34d31238c5a30eef"
+    }
+  }
+}

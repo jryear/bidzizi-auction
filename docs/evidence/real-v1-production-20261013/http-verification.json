@@ -1,0 +1,7 @@
+{
+  "/studio": 200,
+  "/join": 200,
+  "/api/v1/host/events": 401,
+  "/e/CODE": 200,
+  "/e/CODE/simple": 200
+}

@@ -1,0 +1,42 @@
+{
+  "businessUnchanged": true,
+  "migrations": [
+    {
+      "name": "001_core.sql",
+      "sha256": "b9647d41bbc64471e323a1bcb2ea1c92549dbf68c3428c0c592b52e0bdb433b9"
+    },
+    {
+      "name": "002_theme.sql",
+      "sha256": "5baa784fe64c9aec17970aa93b77b6786d79f184a9da2151d3ed6260e133bd4a"
+    },
+    {
+      "name": "003_operations.sql",
+      "sha256": "d65bdae8fdeca6b4612abc3eff0d9dc66b30076ce1b78739f4bc59a2499b81aa"
+    },
+    {
+      "name": "004_bidder_visibility.sql",
+      "sha256": "b811829d70a21dcac29cdf0525e98d0a8c52ed55c71a0aef67968ec4606b9418"
+    },
+    {
+      "name": "005_donations_follow_recipients.sql",
+      "sha256": "c53eba1910f467288e736c4b5c580fc0e04b4b14b9aec2299abbfdde561be26f"
+    },
+    {
+      "name": "006_look_and_sponsor_links.sql",
+      "sha256": "8263efbca51abcce5320de601e01fcac28e1e371e2316ee750f03e67064ec52f"
+    },
+    {
+      "name": "007_photo_position.sql",
+      "sha256": "35f7078bb52b003a0b1ff19f2510474d06be967e9451bec29a05a652f6223f0b"
+    },
+    {
+      "name": "008_item_categories.sql",
+      "sha256": "f08fa5011947b7cf5ce9b779a2a6ef4370f480b68d4f15373dd39ed7647d70f3"
+    },
+    {
+      "name": "009_client_reports.sql",
+      "sha256": "d2502bbb321da71cd6e6fb0c93d8ad55758c9e4c2f37e68c5de925e92f5e04e2"
+    }
+  ],
+  "checkedAt": "2026-10-13T22:30:58.003Z"
+}

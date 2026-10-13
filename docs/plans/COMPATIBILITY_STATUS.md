@@ -94,3 +94,7 @@ The saved information-architecture tranche remains separate. This compatibility 
 ## Authorized staging release — 2026-10-13
 
 This revision is now at **https://staging.bidzizi.com/studio**, against an isolated fork of the production database. Existing production staff accounts and the event are copied; staging changes stay separate. Hosted bid-sheet, Devices, simple-mode and staff-operation checks pass. The first simple-mode actionability timeout and successful rerun are both recorded. Production is unchanged. See [the release receipt and rollback notes](REAL_V1_STAGING_RELEASE.md). Physical old-iPhone validation remains open.
+
+## Production release — 2026-10-13
+
+Zack reported the previously failing phone works on staging and authorized release. The same tested source is live at **https://app.bidzizi.com/studio**. Production keeps its own database and existing records; migration 009 is applied. Staging remains separate. [Production release evidence and rollback](REAL_V1_PRODUCTION_RELEASE.md). The user's phone report does not supply an OS version or replace the unavailable native simulator matrix.
