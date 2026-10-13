@@ -5,13 +5,15 @@ import { api, errorText, newId } from "../../../lib/api";
 import { ICheck, IChevL, ICopy, IEye, IGrid, IBolt, IMonitor, IShare, ISliders, ITrophy, IWifiOff, IPlay } from "../../../lib/icons";
 import { confirm, isConfirmed, type Data, type Item } from "../data";
 import { Brand, Menu, Seg, Status, Toast } from "../kit";
-import { Canvas, Checklist, Inspector, Outline, useAddItem, useSteps, type Screen, type Sel, type SetupCtx } from "./setup";
+import { Canvas, Checklist, Inspector, Outline, selFromUrl, selToUrl, useAddItem, useSteps, type Screen, type Sel, type SetupCtx } from "./setup";
+import { ItemsWorkspace } from "./items";
 import { LiveBoard } from "./live";
 import { ResultsBoard } from "./results";
 import { ShareDialog } from "./share";
 import { GoLiveDialog } from "./golive";
 import "../../e/[code]/participant.css";
 import "../studio.css";
+import "../items.css";
 
 type Mode = "setup" | "live" | "results";
 type Save = "idle" | "editing" | "saving" | "saved" | "error";
@@ -63,7 +65,7 @@ export default function Studio({ eventId }: { eventId: string }) {
     const asked = new URLSearchParams(location.search).get("mode") as Mode | null;
     setMode(asked && ["setup", "live", "results"].includes(asked) ? asked : data.event.status === "draft" || data.event.phase === "upcoming" ? "setup" : data.event.phase === "open" ? "live" : "results");
   }, [data, mode]);
-  const pickMode = (m: Mode) => { setMode(m); history.replaceState(null, "", `?mode=${m}`); window.scrollTo(0, 0); };
+  const pickMode = (m: Mode) => { setMode(m); history.replaceState(null, "", `?mode=${m}${m === "setup" ? selToUrl(sel) : ""}`); window.scrollTo(0, 0); };
 
   // Acknowledgements update dataRef synchronously, before the next queued edit can start.
   const queue = useRef<Promise<unknown>>(Promise.resolve());
@@ -109,9 +111,34 @@ export default function Studio({ eventId }: { eventId: string }) {
     return { ok: r.ok, message: r.ok ? undefined : errorText(r) };
   }), [track]);
 
+  // Optimistic local changes (a drag-reorder) show at once; polls that started earlier are discarded.
+  const apply = useCallback((change: (d: Data) => Data) => {
+    if (!dataRef.current) return;
+    writeEpoch.current++;
+    const next = change(dataRef.current);
+    dataRef.current = next; setData(next);
+  }, []);
+  const current = useCallback(() => dataRef.current!, []);
   const openShare = useCallback(() => { confirm(eventId, "preview"); setPreviewed(true); setSharing(true); }, [eventId]);
-  const ctx: SetupCtx | null = data ? { data, reload, flash, patchEvent, patchItem, track, openShare, previewed } : null;
-  const select = useCallback((s: Sel, sc?: Screen) => { setSel(s); if (sc) setScreen(sc); }, []);
+  const ctx: SetupCtx | null = data ? { data, reload, flash, patchEvent, patchItem, track, apply, current, openShare, previewed } : null;
+  // The Items workspace and the open item live in the URL, so reload and Back return to the same place.
+  const select = useCallback((s: Sel, sc?: Screen) => {
+    setSel(prev => {
+      const url = `?mode=setup${selToUrl(s)}`;
+      if (url !== location.search) {
+        const workspace = (x: Sel) => x.kind === "items" || x.kind === "item";
+        if (workspace(s) !== workspace(prev)) history.pushState(null, "", url); else history.replaceState(null, "", url);
+      }
+      return s;
+    });
+    if (sc) setScreen(sc);
+  }, []);
+  useEffect(() => {
+    const fromUrl = selFromUrl(location.search);
+    if (fromUrl) setSel(fromUrl.sel), fromUrl.screen && setScreen(fromUrl.screen);
+    const back = () => { const next = selFromUrl(location.search); setSel(next?.sel ?? { kind: "event" }); if (next?.screen) setScreen(next.screen); };
+    addEventListener("popstate", back); return () => removeEventListener("popstate", back);
+  }, []);
   const dup = useRef(newId());
 
   if (missing) return <main className="sx sx-center"><div className="sx-loading"><Brand /><h1>That event isn&rsquo;t here</h1><p>It may belong to another organization, or the link is wrong.</p><a className="sx-btn primary" href="/studio">Back to Studio</a></div></main>;
@@ -183,16 +210,19 @@ function SetupMode({ ctx, sel, select, screen, setScreen, pane, setPane, addRequ
   ctx: SetupCtx; sel: Sel; select: (s: Sel, sc?: Screen) => void; screen: Screen; setScreen: (s: Screen) => void; pane: "steps" | "canvas" | "edit"; setPane: (p: "steps" | "canvas" | "edit") => void; addRequest: number;
 }) {
   const addItem = useAddItem(ctx, id => { select({ kind: "item", id }, "item"); setPane("canvas"); });
+  // Adding items happens in the Items workspace: its add row is ready to type into.
+  const openAdd = useCallback(() => select({ kind: "items", focus: "add" }), [select]);
   const handled = useRef(addRequest);
-  useEffect(() => { if (addRequest !== handled.current) { handled.current = addRequest; addItem(); } }, [addRequest, addItem]);
-  const steps = useSteps(ctx, (s, sc) => { select(s, sc); setPane(s.kind === "item" || sc ? "canvas" : "edit"); }, addItem);
+  useEffect(() => { if (addRequest !== handled.current) { handled.current = addRequest; openAdd(); } }, [addRequest, openAdd]);
+  const steps = useSteps(ctx, (s, sc) => { select(s, sc); setPane(s.kind === "item" || sc ? "canvas" : "edit"); }, openAdd);
+  if (sel.kind === "items") return <ItemsWorkspace ctx={ctx} sel={sel} select={select} />;
   return (
     <>
       <div className="pane-tabs"><Seg label="Panel" value={pane} onChange={setPane} options={[{ id: "steps", label: `Steps ${steps.filter(s => s.done).length}/${steps.length}` }, { id: "canvas", label: "Phone" }, { id: "edit", label: "Edit" }]} /></div>
       <div className={`setup p-${pane}`}>
         <aside className="rail-l" aria-label="Checklist and outline">
           <Checklist key={pane === "steps" ? "open" : "closed"} steps={steps} startOpen={pane === "steps"} />
-          <Outline ctx={ctx} sel={sel} select={(s, sc) => { select(s, sc); setPane("edit"); }} addItem={addItem} />
+          <Outline ctx={ctx} sel={sel} select={(s, sc) => { select(s, sc); setPane(s.kind === "items" ? pane : "edit"); }} addItem={openAdd} />
         </aside>
         <Canvas ctx={ctx} sel={sel} select={select} screen={screen} setScreen={setScreen} addItem={addItem} />
         <aside className="rail-r" aria-label="Settings for the selection"><Inspector ctx={ctx} sel={sel} select={select} /></aside>

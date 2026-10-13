@@ -8,7 +8,8 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { api, dollarsInput, errorText, fmtClock, fmtTime, fromLocalInput, newId, parseDollars, toLocalInput } from "../../../lib/api";
 import { formatMoney, increment } from "../../../lib/money";
 import { THEMES } from "../../../lib/templates";
-import { ICalendar, ICheck, IChevD, IChevR, IDrag, IEye, IEyeOff, IGift, IGrid, IHeart, IInfo, IPalette, IPhone, IPlus, ISliders, IStore, ITrash, IArrowUp, IUpload } from "../../../lib/icons";
+import { ICalendar, ICheck, IChevD, IChevL, IChevR, IDrag, IEye, IEyeOff, IGift, IGrid, IHeart, IInfo, IPalette, IPhone, IPlus, ISearch, ISliders, IStore, ITrash, IArrowUp, IUpload } from "../../../lib/icons";
+import { ReorderHelp, useMoveItem, useReorder } from "../reorder";
 import { EditCtx, EventHero, Facts, Ed, ItemCard, SponsorGrid, type EditApi } from "../../e/[code]/ui";
 import { ItemPage } from "../../e/[code]/item";
 import { EventClock } from "../../e/[code]/catalog";
@@ -16,15 +17,38 @@ import type { Nav } from "../../e/[code]/participant";
 import { confirm, isConfirmed, toSnapshot, type Data, type Item } from "../data";
 import { Housekeeping } from "./housekeeping";
 import { MoneyField, PhotoField, Ring, Seg, Switch, TextField } from "../kit";
+import { CategoryInput } from "../category-input";
 
-export type Sel = { kind: "event" | "schedule" | "theme" | "rules" | "donations" | "sponsors" } | { kind: "item"; id: string };
+export type ItemFilter = "all" | "visible" | "hidden" | "bids" | "closed" | "nophoto";
+export const ITEM_FILTERS: ItemFilter[] = ["all", "visible", "hidden", "bids", "closed", "nophoto"];
+export type Sel = { kind: "event" | "schedule" | "theme" | "rules" | "donations" | "sponsors" } | { kind: "item"; id: string }
+  | { kind: "items"; filter?: ItemFilter; focus?: "add" };
 export type Screen = "welcome" | "items" | "item";
 export type SetupCtx = {
   data: Data; reload: () => Promise<void>; flash: (t: string, tone?: "ink" | "red" | "green") => void;
   patchEvent: (f: Record<string, unknown>) => Promise<boolean>; patchItem: (i: Item, f: Record<string, unknown>) => Promise<boolean>;
   track: (run: () => Promise<{ ok: boolean; message?: string }>) => Promise<boolean>;
+  /** Change the screen now (an optimistic reorder); the next tracked save confirms it. */
+  apply: (change: (d: Data) => Data) => void;
+  /** The latest acknowledged data, for saves that run later than the render that queued them. */
+  current: () => Data;
   openShare: () => void; previewed: boolean;
 };
+
+/** `&view=items` (optionally `&show=hidden`) or `&item=<id>`: the setup selection worth returning to after a reload. */
+export function selToUrl(sel: Sel): string {
+  if (sel.kind === "items") return `&view=items${sel.filter && sel.filter !== "all" ? `&show=${sel.filter}` : ""}`;
+  if (sel.kind === "item") return `&item=${sel.id}`;
+  return "";
+}
+export function selFromUrl(search: string): { sel: Sel; screen?: Screen } | null {
+  const q = new URLSearchParams(search);
+  if (q.get("mode") && q.get("mode") !== "setup") return null;
+  if (q.get("view") === "items") { const f = q.get("show") as ItemFilter | null; return { sel: { kind: "items", filter: f && ITEM_FILTERS.includes(f) ? f : undefined } }; }
+  const item = q.get("item");
+  if (item && /^[0-9a-f-]{36}$/i.test(item)) return { sel: { kind: "item", id: item }, screen: "item" };
+  return null;
+}
 
 // ---------------------------------------------------------------- checklist
 type Step = { key: string; label: string; detail?: string; done: boolean; go: () => void };
@@ -37,7 +61,7 @@ export function useSteps(ctx: SetupCtx, select: (s: Sel, screen?: Screen) => voi
     { key: "cover", label: "Add a cover photo", detail: "The first thing guests see", done: Boolean(e.coverUrl), go: () => select({ kind: "event" }, "welcome") },
     { key: "welcome", label: "Write a welcome", detail: "A line or two is plenty", done: Boolean(e.welcome.trim()), go: () => select({ kind: "event" }, "welcome") },
     { key: "items", label: data.items.length >= 3 ? `${data.items.length} items added` : "Add at least 3 items", detail: data.items.length < 3 ? `${data.items.length} so far` : undefined, done: data.items.length >= 3, go: addItem },
-    { key: "photos", label: "A photo for every item", detail: missing.length && data.items.length ? `${missing.length} missing` : undefined, done: data.items.length > 0 && !missing.length, go: () => missing[0] ? select({ kind: "item", id: missing[0].id }, "item") : addItem() },
+    { key: "photos", label: "A photo for every item", detail: missing.length && data.items.length ? `${missing.length} missing` : undefined, done: data.items.length > 0 && !missing.length, go: () => missing.length ? select({ kind: "items", filter: "nophoto" }) : addItem() },
     { key: "winners", label: "Tell winners what's next", detail: "Pickup or delivery", done: Boolean(e.winnerInstructions.trim()), go: () => select({ kind: "event" }, "welcome") },
     { key: "preview", label: "Preview it on your phone", done: ctx.previewed || e.status === "live", go: ctx.openShare },
     { key: "live", label: e.status === "live" ? "Live. Share your code" : "Go live and share the code", done: e.status === "live", go: ctx.openShare },
@@ -85,20 +109,53 @@ export function Outline({ ctx, sel, select, addItem }: { ctx: SetupCtx; sel: Sel
       {row({ kind: "rules" }, <ISliders size={18} />, "Bidding rules", BIDDER_OPTIONS.find(o => o.id === data.event.bidderDisplay)?.label ?? "")}
       {row({ kind: "donations" }, <IHeart size={18} />, "Donations", data.recipients.length ? `${data.recipients.length} nonprofit${data.recipients.length === 1 ? "" : "s"}` : "Off")}
       {row({ kind: "sponsors" }, <IStore size={18} />, "Sponsors", data.sponsors.length ? `${data.sponsors.length}` : "None yet", "welcome")}
-      <div className="ol-items-head"><h3>Items <span>{data.items.length}</span></h3><button type="button" className="sx-icon-btn sm" aria-label="Add item" onClick={addItem}><IPlus size={18} /></button></div>
-      <ul className="ol-items">
-        {data.items.map(i => {
+      <ItemsNav ctx={ctx} sel={sel} select={select} addItem={addItem} />
+    </section>
+  );
+}
+
+/** The sidebar's item list stays calm at any length: one compact line per item, a search once there are more than
+ *  eight, and drag (or keyboard) reordering. The full workspace is one tap away. */
+function ItemsNav({ ctx, sel, select, addItem }: { ctx: SetupCtx; sel: Sel; select: (s: Sel, screen?: Screen) => void; addItem: () => void }) {
+  const { data } = ctx, items = data.items, live = data.event.status === "live";
+  const [query, setQuery] = useState("");
+  const list = useRef<HTMLUListElement>(null);
+  const move = useMoveItem(ctx);
+  const q = query.trim().toLowerCase();
+  const shown = q ? items.filter(i => `${String(i.position + 1).padStart(2, "0")} ${i.title} ${i.category} ${i.donor}`.toLowerCase().includes(q)) : items;
+  const reorder = useReorder({ ids: items.map(i => i.id), enabled: !q && items.length > 1, onMove: move, container: list, labels: id => items.find(i => i.id === id)?.title ?? "item" });
+  const hidden = items.filter(i => !i.ready).length, noPhoto = items.filter(i => !i.imageUrl).length;
+  const summary = !items.length ? "Add, paste or import" : [hidden ? `${hidden} hidden` : live ? "All visible" : "", noPhoto ? `${noPhoto} need${noPhoto === 1 ? "s" : ""} a photo` : ""].filter(Boolean).join(" · ") || "Sort and edit in bulk";
+  return (
+    <section className="inav" aria-label="Items">
+      <div className="ol-items-head"><h3>Items <span>{items.length}</span></h3><button type="button" className="sx-icon-btn sm" aria-label="Add items" onClick={addItem}><IPlus size={18} /></button></div>
+      <button type="button" className={`ol-row inav-open${sel.kind === "items" ? " on" : ""}`} onClick={() => select({ kind: "items" })}>
+        <IGrid size={18} /><span><b>All items</b><small>{summary}</small></span><IChevR size={16} />
+      </button>
+      {items.length > 8 && (
+        <label className="inav-search"><ISearch size={16} /><input type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder={`Find among ${items.length} items`} aria-label="Find an item" /></label>
+      )}
+      <ul className="inav-list" ref={list}>
+        {shown.map(i => {
           const on = sel.kind === "item" && sel.id === i.id;
           return (
-            <li key={i.id}><button type="button" className={`ol-item${on ? " on" : ""}${i.ready ? "" : " hidden"}`} onClick={() => select({ kind: "item", id: i.id }, "item")}>
-              <span className="oi-thumb">{i.imageUrl ? <img style={photoStyle(i.imageFocal)} src={i.imageUrl} alt="" /> : <span>{String(i.position + 1).padStart(2, "0")}</span>}</span>
-              <span className="oi-t"><b>{i.title}</b><small>{i.ready ? (i.bidCount ? `${formatMoney(i.currentMinor!)} · ${i.bidCount} bid${i.bidCount === 1 ? "" : "s"}` : `Starts ${formatMoney(i.openingMinor)}`) : "Hidden"}</small></span>
-              {!i.imageUrl && <span className="oi-warn" title="No photo yet" />}
-            </button></li>
+            <li key={i.id} data-reorder-id={i.id} className={reorder.rowClass(i.id)}>
+              <button type="button" className="inav-grip" {...reorder.handle(i.id)}><IDrag size={14} /></button>
+              <button type="button" className={`inav-row${on ? " on" : ""}${i.ready ? "" : " is-hidden"}`} aria-current={on || undefined} onClick={() => select({ kind: "item", id: i.id }, "item")}>
+                <span className="inav-no">{String(i.position + 1).padStart(2, "0")}</span>
+                <span className="inav-thumb">{i.imageUrl ? <img style={photoStyle(i.imageFocal)} src={i.imageUrl} alt="" /> : null}</span>
+                <span className="inav-t">{i.title}</span>
+                {!i.ready ? <IEyeOff size={14} aria-label="Hidden from guests" /> : !i.imageUrl ? <span className="oi-warn" title="No photo yet" /> : i.bidCount ? <small className="inav-bids">{i.bidCount}</small> : null}
+              </button>
+            </li>
           );
         })}
+        {reorder.dropAtEnd && <li className="drop-end" aria-hidden="true" />}
       </ul>
-      {!data.items.length && <button type="button" className="ol-add" onClick={addItem}><IPlus size={18} />Add your first item</button>}
+      {q && !shown.length && <p className="inav-none">No items match &ldquo;{query}&rdquo;.</p>}
+      {!items.length && <button type="button" className="ol-add" onClick={addItem}><IPlus size={18} />Add your first items</button>}
+      <ReorderHelp />
+      <p className="sr-only" aria-live="assertive">{reorder.status}</p>
     </section>
   );
 }
@@ -153,6 +210,13 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
 
   const item = sel.kind === "item" ? snap.items.find(i => i.id === sel.id) : snap.items[0];
   const wsItem = item ? data.items.find(i => i.id === item.id) : undefined;
+  const screenRef = useRef<HTMLDivElement>(null);
+  const selectedId = sel.kind === "item" ? sel.id : null;
+  useEffect(() => {
+    if (screen !== "items" || !selectedId) return;
+    const card = screenRef.current?.querySelector<HTMLElement>(`[data-item-id="${selectedId}"]`), box = screenRef.current;
+    if (card && box) box.scrollTo({ top: card.offsetTop - 90, behavior: "smooth" });
+  }, [screen, selectedId]);
 
   return (
     <section className="cv" aria-label="Your event as guests see it">
@@ -162,7 +226,7 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
       <div className="cv-stage">
         <div className="device">
           <span className="device-notch" aria-hidden="true" />
-          <div className="device-screen" key={screen === "item" ? `item-${item?.id}` : screen}>
+          <div className="device-screen" ref={screenRef} key={screen === "item" ? `item-${item?.id}` : screen}>
             <EditCtx.Provider value={edit}>
               <div className="pa is-canvas" data-theme={data.event.theme} style={accentVars(data.event.accentColor)} data-screen={screen === "item" ? "item" : "items"}>
                 {screen === "welcome" && (
@@ -192,7 +256,7 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
                         const wi = data.items[n];
                         const on = sel.kind === "item" && sel.id === pi.id;
                         return (
-                          <div key={pi.id} className={`cv-card${on ? " on" : ""}${wi.ready ? "" : " hidden"}${drag === pi.id ? " dragging" : ""}${over === pi.id && drag && drag !== pi.id ? " over" : ""}`}
+                          <div key={pi.id} data-item-id={pi.id} className={`cv-card${on ? " on" : ""}${wi.ready ? "" : " hidden"}${drag === pi.id ? " dragging" : ""}${over === pi.id && drag && drag !== pi.id ? " over" : ""}`}
                             draggable={drag === pi.id || handle.current === pi.id}
                             onDragStart={ev => { if (handle.current !== pi.id) { ev.preventDefault(); return; } setDrag(pi.id); ev.dataTransfer.effectAllowed = "move"; }}
                             onDragOver={ev => { if (drag) { ev.preventDefault(); setOver(pi.id); } }}
@@ -232,7 +296,12 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
 
 // ---------------------------------------------------------------- inspectors
 export function Inspector({ ctx, sel, select }: { ctx: SetupCtx; sel: Sel; select: (s: Sel, screen?: Screen) => void }) {
-  if (sel.kind === "item") { const it = ctx.data.items.find(i => i.id === sel.id); return it ? <ItemPanel key={it.id} ctx={ctx} item={it} onDeleted={() => select({ kind: "event" }, "items")} /> : null; }
+  if (sel.kind === "items") return null;
+  if (sel.kind === "item") {
+    const it = ctx.data.items.find(i => i.id === sel.id);
+    return it ? <ItemPanel key={it.id} ctx={ctx} item={it} onDeleted={() => select({ kind: "items" })} onAll={() => select({ kind: "items" })} />
+      : <div className="panel"><div className="panel-body"><p className="sx-muted">This item isn&rsquo;t in the event any more.</p><button type="button" className="sx-btn" onClick={() => select({ kind: "items" })}>All items</button></div></div>;
+  }
   return { event: <EventPanel ctx={ctx} />, schedule: <SchedulePanel ctx={ctx} />, theme: <ThemePanel ctx={ctx} />, rules: <RulesPanel ctx={ctx} key={ctx.data.event.revision} />,
     donations: <DonationsPanel ctx={ctx} />, sponsors: <SponsorsPanel ctx={ctx} /> }[sel.kind];
 }
@@ -329,23 +398,40 @@ function ThemePanel({ ctx }: { ctx: SetupCtx }) {
   );
 }
 
-function ItemPanel({ ctx, item, onDeleted }: { ctx: SetupCtx; item: Item; onDeleted: () => void }) {
-  const { data, patchItem, reload, flash } = ctx, tz = data.event.timezone, locked = item.bidCount > 0;
-  const cats = [...new Set(data.items.map(i => i.category).filter(Boolean))];
+function ItemPanel({ ctx, item, onDeleted, onAll }: { ctx: SetupCtx; item: Item; onDeleted: () => void; onAll: () => void }) {
+  const { data, patchItem, reload, flash } = ctx, tz = data.event.timezone, locked = item.bidCount > 0, live = data.event.status === "live";
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const move = useMoveItem(ctx);
   const p = (f: Record<string, unknown>) => patchItem(item, f);
+  const index = data.items.findIndex(i => i.id === item.id), total = data.items.length;
+  const counts = useMemo(() => { const m = new Map<string, number>(); for (const i of data.items) if (i.category) m.set(i.category, (m.get(i.category) ?? 0) + 1); return m; }, [data.items]);
   return (
-    <Panel title={`Item ${String(item.position + 1).padStart(2, "0")}`} icon={<IGift size={20} />} sub={locked ? `${item.bidCount} bid${item.bidCount === 1 ? "" : "s"} · top ${formatMoney(item.currentMinor!)}` : undefined}>
-      <p className="on-phone"><IPhone size={16} />Edit the title, photo and text on the phone.</p>
+    <Panel title={`Item ${String(item.position + 1).padStart(2, "0")}`} icon={<IGift size={20} />} sub={locked ? `${item.bidCount} bid${item.bidCount === 1 ? "" : "s"} · top ${formatMoney(item.currentMinor!)}` : `${index + 1} of ${total} in guests’ order`}>
+      <div className="ip-nav">
+        <button type="button" className="sx-btn ghost sm" onClick={onAll}><IChevL size={16} />All items</button>
+        <span className="ip-move" role="group" aria-label="Item order">
+          <button type="button" className="sx-icon-btn sm" aria-label="Move earlier" disabled={index <= 0} onClick={() => move(item.id, index - 1)}><IArrowUp size={16} /></button>
+          <button type="button" className="sx-icon-btn sm flip" aria-label="Move later" disabled={index >= total - 1} onClick={() => move(item.id, index + 1)}><IArrowUp size={16} /></button>
+        </span>
+      </div>
+      {!item.ready && (
+        <div className={`vis-callout${live ? " live" : ""}`} role="status">
+          <IEyeOff size={18} />
+          <span><b>Hidden from guests</b><small>{live ? "Guests can’t see it yet. Show it when it’s ready." : "It won’t appear when you go live."}</small></span>
+          <button type="button" className="sx-btn primary sm" onClick={() => p({ ready: true })}>Show to guests</button>
+        </div>
+      )}
+      <TextField label="Title" value={item.title} max={200} onSave={v => { if (!v) { flash("An item needs a title.", "red"); return; } p({ title: v }); }} />
+      <TextField label="Short line" value={item.short} max={500} placeholder="Two nights for two, sleeps four" hint="Shown under the title on the item card." onSave={v => p({ short: v })} />
+      <MoneyField label="Starting bid" minor={item.openingMinor} disabled={locked} onSave={v => v && p({ openingMinor: v })} hint={locked ? "Locked once someone bids." : undefined} />
+      <label className="sx-field"><span className="sx-label">Category</span>
+        <CategoryInput value={item.category} categories={data.event.categories ?? []} counts={counts} label="Category" placeholder="Travel, Dining…" className="field" onSave={v => p({ category: v })} /></label>
+      <TextField label="Provided by" value={item.donor} max={200} placeholder="Business that donated it" onSave={v => p({ donor: v })} />
+      <TextField label="Description" value={item.description} multiline rows={4} max={10_000} placeholder="What’s included, dates, fine print" onSave={v => p({ description: v })} />
       {item.imageUrl && <AdjustPhoto photoKey={`item:${item.id}`} key={item.imageAssetId} url={item.imageUrl} focal={item.imageFocal} onSave={imageFocal => p({ imageFocal, imageExpectedAssetId: item.imageAssetId })} />}
       {item.imageUrl && <button type="button" className="sx-btn ghost sm" onClick={() => { dispatchEvent(new CustomEvent("bz:photo-cancel", { detail: `item:${item.id}` })); dispatchEvent(new CustomEvent("bz:photo-position-cancel", { detail: `item:${item.id}` })); p({ imageAssetId: null }); }}><ITrash size={16} />Remove photo</button>}
-      <MoneyField label="Starting bid" minor={item.openingMinor} disabled={locked} onSave={v => v && p({ openingMinor: v })} hint={locked ? "Locked once someone bids." : undefined} />
-      <div className="sx-field">
-        <TextField label="Category" value={item.category} max={100} placeholder="Travel" onSave={v => p({ category: v })} />
-        {cats.length > 0 && <div className="cat-chips">{cats.filter(c => c !== item.category).slice(0, 6).map(c => <button type="button" key={c} className="sx-chip" onClick={() => p({ category: c })}>{c}</button>)}</div>}
-      </div>
-      <TextField label="Provided by" value={item.donor} max={200} placeholder="Business that donated it" onSave={v => p({ donor: v })} />
-      <Switch on={item.ready} disabled={locked && item.ready} onChange={v => p({ ready: v })} label="Show to guests" sub={locked ? "Items with bids stay visible." : undefined} />
+      <p className="on-phone"><IPhone size={16} />Drop a photo onto the phone, or click any text there to edit it in place.</p>
+      {item.ready && <Switch on={item.ready} disabled={locked} onChange={v => p({ ready: v })} label="Visible to guests" sub={locked ? "Items with bids stay visible." : live ? "Guests see it now." : "Guests see it once you go live."} />}
       <details className="sx-adv"><summary>Advanced<IChevD size={16} /></summary>
         <MoneyField label="Raise each bid by" minor={item.incrementOverrideMinor} allowEmpty disabled={locked} placeholder="Event default" onSave={v => p({ incrementOverrideMinor: v })} hint="Leave empty to use the event's increments." />
         <label className="sx-field"><span className="sx-label">Opens (empty = event start)</span><input type="datetime-local" key={`o${item.revision}`} disabled={locked} defaultValue={toLocalInput(item.opensAt, tz)} onBlur={x => { const v = fromLocalInput(x.target.value, tz); if ((v ?? null) !== (item.opensAt ? new Date(item.opensAt).toISOString() : null)) p({ opensAt: v }); }} /></label>
@@ -354,7 +440,7 @@ function ItemPanel({ ctx, item, onDeleted }: { ctx: SetupCtx; item: Item; onDele
           <div className="danger-confirm"><span>Delete &ldquo;{item.title}&rdquo;?</span>
             <button type="button" className="sx-btn danger sm" onClick={async () => { const r = await api("DELETE", `/api/v1/host/items/${item.id}`).catch(() => null); if (r?.ok) { flash("Item deleted"); onDeleted(); reload(); } else flash(r ? errorText(r) : "Connection lost.", "red"); }}>Delete</button>
             <button type="button" className="sx-btn ghost sm" onClick={() => setConfirmDelete(false)}>Keep</button></div>
-        ) : <button type="button" className="sx-btn danger-ghost" disabled={locked} onClick={() => setConfirmDelete(true)}><ITrash size={16} />{locked ? "Items with bids can't be deleted" : "Delete item"}</button>}
+        ) : <button type="button" className="sx-btn danger-ghost" disabled={item.hasBids} onClick={() => setConfirmDelete(true)}><ITrash size={16} />{item.hasBids ? "Items with bids can't be deleted. Withdraw it in Live." : "Delete item"}</button>}
       </details>
     </Panel>
   );
