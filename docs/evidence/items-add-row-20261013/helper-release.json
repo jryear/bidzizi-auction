@@ -1,0 +1,9 @@
+{
+  "sourceCommit": "84f09fb86a3fde460732673daca2f3b868225b94",
+  "deploymentId": "dpl_4CFSMuZVSnaa5ExaFJXHKJrw3G45",
+  "url": "https://staging.bidzizi.com/studio",
+  "compiledLayout": "Chromium and WebKit at eight widths",
+  "hostedLayout": "Authenticated Items screen: full-width helper below all controls at 390px and 1440px",
+  "productionUnchanged": "dpl_CqZBiNowAAHiXFE8kXtmue27nrRq",
+  "verificationSession": "Temporary session on separate smoke account removed; smoke account disabled afterward"
+}

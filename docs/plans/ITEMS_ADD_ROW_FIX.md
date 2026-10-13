@@ -20,3 +20,5 @@ Live at **https://staging.bidzizi.com/studio**, source `9b255db`, deployment `dp
 ## Helper text placement
 
 Zack requested that the helper belong to the horizontal card, beneath all its fields. The helper/error text is now a full-width sibling after the controls, with an explicit final flex order on mobile. Chromium and WebKit compiled-layout checks pass at all eight widths; production build/typecheck pass. [Phone](../evidence/items-add-row-20261013/helper-390.png) · [desktop](../evidence/items-add-row-20261013/helper-1268.png).
+
+Helper placement is live on staging at `dpl_4CFSMuZVSnaa5ExaFJXHKJrw3G45`, source `84f09fb`. The authenticated hosted Items screen verifies the helper is full width and below all five controls at 390px and 1440px. The temporary smoke session was removed and its account disabled. Production remains unchanged.
