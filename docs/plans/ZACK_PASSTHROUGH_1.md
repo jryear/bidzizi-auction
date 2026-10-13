@@ -83,3 +83,30 @@ All of `tests/v1/journey.mjs` (40), `operations-ui.mjs`, tsc and build must be g
 - Commit locally in sensible commits. **No push, merge to main, deploy or cloud resources.**
 - Keep the dev server on `127.0.0.1:3420` (`bz_test_claude`, host@example.com / claude-shell-pass), so Zack can keep using it. Apply new migrations to `bz_test_claude`.
 - Finish with a "Passthrough 1" section in `docs/plans/CLAUDE_SHELL_CHECKPOINT.md`. Say what was done, with screenshots, and list open questions for Zack.
+
+## Scope update (Zack, 2026-10-13): this build is the smaller batch; larger adds come later
+
+This build delivers only the following, **in this order. Commit after each numbered stage** so Zack can review as it lands:
+1. Step 0: merge Codex's operations.
+2. Readiness: the Draft/Live status pill, the "Saved" indicator and the Go-live readiness check.
+3. Share panel with printable QR (table card and full page), copy link, native share and room code.
+4. Bidder visibility setting, enforced on the server, with tests.
+5. Outbid display rule (with a test), and donations appearing when a nonprofit exists (no toggle).
+6. Quirks:
+   - compact items view;
+   - centred phone frame;
+   - Look section layout, plus **one** custom accent colour with an automatic contrast check;
+   - bid increment panel restyle;
+   - save indicator on welcome editing;
+   - sponsor hyperlink, and a fixed logo upload (simple, reliable upload; no crop yet).
+
+**Deferred to a dedicated later build (do not start these now):**
+- the full-screen Items manager, categories, bulk add and bulk photos;
+- the sidebar item list at scale, with drag reorder;
+- image crop and focal point everywhere;
+- stage display configuration;
+- the editable event info page;
+- the winner page preview;
+- a wider sidebar rebalance.
+
+For "your own ideas", **write proposals only**, in the checkpoint.
