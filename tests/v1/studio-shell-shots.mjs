@@ -28,6 +28,8 @@ await p.getByRole("button", { name: "New event", exact: true }).click(); await p
 await p.getByRole("button", { name: /Use the Trade show auction template/ }).click(); await shot(p, "s04-details-1440");
 await p.getByRole("button", { name: /Create and open the editor/ }).click();
 await p.waitForURL(/\/studio\/[0-9a-f-]{36}/); await p.locator(".device-screen").waitFor(); await shot(p, "s05-editor-welcome-1440", 1400);
+await p.locator(".top-acts").getByRole("button", { name: /Go live/ }).click(); await p.locator(".golive-dlg").waitFor(); await shot(p, "s05b-golive-check-1440", 700);
+await p.getByRole("button", { name: "Not yet" }).click(); await p.waitForTimeout(300);
 await p.locator(".cv-bar").getByRole("tab", { name: "Items" }).click(); await shot(p, "s06-editor-items-1440", 900);
 await p.locator(".cv-card").first().hover(); await shot(p, "s06b-editor-item-hover-1440", 400);
 // Inline edit on the phone: click the title text and type.

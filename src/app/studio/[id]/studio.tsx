@@ -9,11 +9,12 @@ import { Canvas, Checklist, Inspector, Outline, useAddItem, useSteps, type Scree
 import { LiveBoard } from "./live";
 import { ResultsBoard } from "./results";
 import { ShareDialog } from "./share";
+import { GoLiveDialog } from "./golive";
 import "../../e/[code]/participant.css";
 import "../studio.css";
 
 type Mode = "setup" | "live" | "results";
-type Save = "idle" | "saving" | "saved" | "error";
+type Save = "idle" | "editing" | "saving" | "saved" | "error";
 
 export default function Studio({ eventId }: { eventId: string }) {
   const [data, setData] = useState<Data | null>(null);
@@ -24,7 +25,7 @@ export default function Studio({ eventId }: { eventId: string }) {
   const [pane, setPane] = useState<"steps" | "canvas" | "edit">("canvas");
   const [save, setSave] = useState<Save>("idle");
   const [toast, setToast] = useState<{ text: string; tone: "ink" | "red" | "green" }>({ text: "", tone: "ink" });
-  const [sharing, setSharing] = useState(false), [previewed, setPreviewed] = useState(false);
+  const [sharing, setSharing] = useState(false), [previewed, setPreviewed] = useState(false), [checking, setChecking] = useState(false), [addRequest, setAddRequest] = useState(0);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const flash = useCallback((text: string, tone: "ink" | "red" | "green" = "ink") => { setToast({ text, tone }); clearTimeout(timer.current); timer.current = setTimeout(() => setToast({ text: "", tone }), 3600); }, []);
 
@@ -51,13 +52,23 @@ export default function Studio({ eventId }: { eventId: string }) {
   const pickMode = (m: Mode) => { setMode(m); history.replaceState(null, "", `?mode=${m}`); window.scrollTo(0, 0); };
 
   const dataRef = useRef(data); dataRef.current = data;
-  const track = useCallback(async (run: () => Promise<{ ok: boolean; message?: string }>) => {
-    setSave("saving");
-    const result = await run().catch(() => ({ ok: false, message: "Connection lost. That change wasn't saved." }));
-    if (result.ok) setSave("saved"); else { setSave("error"); flash(result.message ?? "That change wasn't saved.", "red"); }
-    await reload();
-    return result.ok;
+  // Changes save one at a time: each waits for the previous save and its reload, so it always carries the latest revision.
+  const queue = useRef<Promise<unknown>>(Promise.resolve());
+  const track = useCallback((run: () => Promise<{ ok: boolean; message?: string }>) => {
+    const next = queue.current.then(async () => {
+      setSave("saving");
+      const result = await run().catch(() => ({ ok: false, message: "Connection lost. That change wasn't saved." }));
+      if (result.ok) setSave("saved"); else { setSave("error"); flash(result.message ?? "That change wasn't saved.", "red"); }
+      await reload();
+      return result.ok;
+    });
+    queue.current = next.catch(() => {});
+    return next;
   }, [flash, reload]);
+  useEffect(() => {
+    const on = (ev: Event) => { if ((ev as CustomEvent<boolean>).detail) setSave("editing"); };
+    addEventListener("bz:editing", on); return () => removeEventListener("bz:editing", on);
+  }, []);
   const patchEvent = useCallback((fields: Record<string, unknown>) => track(async () => {
     const r = await api("PATCH", `/api/v1/host/events/${eventId}`, { revision: dataRef.current?.event.revision, ...fields });
     return { ok: r.ok, message: r.ok ? undefined : errorText(r) };
@@ -78,7 +89,8 @@ export default function Studio({ eventId }: { eventId: string }) {
 
   const e = data.event;
   const needs = data.items.filter(i => i.phase === "closed" && !i.withdrawn && (i.ready || i.bidCount) && (!i.award || i.award.status === "assigned")).length + data.pledges.filter(p => !p.processedAt).length;
-  const goLive = async () => { if (await patchEvent({ status: "live" })) { flash("You're live! Share the code.", "green"); setSharing(true); } };
+  const goLive = async () => { const ok = await patchEvent({ status: "live" }); if (ok) { flash("You're live! Share the code.", "green"); setSharing(true); } return ok; };
+  const askGoLive = () => { setSharing(false); setChecking(true); };
 
   return (
     <main className={`sx sx-studio m-${mode}`}>
@@ -89,9 +101,10 @@ export default function Studio({ eventId }: { eventId: string }) {
             onKeyDown={x => { if (x.key === "Enter") (x.target as HTMLInputElement).blur(); }}
             onBlur={x => { const v = x.target.value.trim(); if (v && v !== e.name) patchEvent({ name: v }); else x.target.value = e.name; }} />
           <div className="title-meta">
-            <Status stage={e.status === "draft" ? "draft" : e.phase === "open" ? "running" : e.phase === "closed" ? "ended" : "upcoming"} />
+            <span className={`vis-pill is-${e.status}`} title={e.status === "draft" ? "Guests can't see this event yet" : "Guests see every change as soon as it saves"}>
+              <i aria-hidden="true" /><b>{e.status === "draft" ? "Draft" : "Live"}</b><span className="vp-more"> · {e.status === "draft" ? "only you can see this" : "changes appear to guests instantly"}</span></span>
             {e.isPractice && <Status stage="practice" />}
-            <span className={`save s-${offline ? "error" : save}`} aria-live="polite">{offline ? <><IWifiOff size={14} />Offline. Changes won&rsquo;t save</> : save === "saving" ? "Saving…" : save === "saved" ? <><ICheck size={14} />Saved</> : save === "error" ? "Not saved" : <span className="save-idle">Autosaves</span>}</span>
+            <span className={`save s-${offline ? "error" : save}`} aria-live="polite">{offline ? <><IWifiOff size={14} />Offline. Changes won&rsquo;t save</> : save === "editing" ? "Unsaved changes" : save === "saving" ? <><span className="spin" aria-hidden="true" />Saving…</> : save === "error" ? "Not saved" : <><ICheck size={14} />Saved</>}</span>
           </div>
         </div>
         <Seg label="Mode" size="lg" value={mode} onChange={pickMode} options={[
@@ -102,7 +115,7 @@ export default function Studio({ eventId }: { eventId: string }) {
         <div className="top-acts">
           <a className="sx-btn ghost" href={`/e/${e.code}`} target="_blank" onClick={() => { confirm(e.id, "preview"); setPreviewed(true); }} title={e.status === "draft" ? "Opens on devices signed in to Studio" : "Open the guest app"}><IEye size={18} /><span>Preview</span></a>
           <button type="button" className="sx-btn" onClick={openShare}><IShare size={17} /><span>Share</span><b className="code-chip">{e.code}</b></button>
-          {e.status === "draft" ? <button type="button" className="sx-btn primary" onClick={goLive}><IBolt size={17} /><span>Go live</span></button>
+          {e.status === "draft" ? <button type="button" className="sx-btn primary" onClick={askGoLive}><IBolt size={17} /><span>Go live</span></button>
             : <a className="sx-btn dark" href={`/studio/${e.id}/stage`} target="_blank"><IMonitor size={17} /><span>Stage</span></a>}
           <Menu label="More actions">
             <button type="button" role="menuitem" onClick={async () => {
@@ -115,20 +128,25 @@ export default function Studio({ eventId }: { eventId: string }) {
         </div>
       </header>
 
-      {mode === "setup" && <SetupMode ctx={ctx} sel={sel} select={select} screen={screen} setScreen={setScreen} pane={pane} setPane={setPane} />}
+      {mode === "setup" && <SetupMode ctx={ctx} sel={sel} select={select} screen={screen} setScreen={setScreen} pane={pane} setPane={setPane} addRequest={addRequest} />}
       {mode === "live" && <LiveBoard ctx={ctx} />}
       {mode === "results" && <ResultsBoard ctx={ctx} />}
 
-      {sharing && <ShareDialog data={data} onClose={() => setSharing(false)} patchEvent={patchEvent} onGoLive={goLive} />}
+      {sharing && <ShareDialog data={data} onClose={() => setSharing(false)} patchEvent={patchEvent} onGoLive={askGoLive} />}
+      {checking && <GoLiveDialog data={data} onGoLive={goLive} onClose={() => setChecking(false)}
+        onFix={(s, sc) => { pickMode("setup"); select(s, sc); setPane(sc ? "canvas" : "edit"); }}
+        onAdd={() => { pickMode("setup"); setAddRequest(n => n + 1); }} />}
       <Toast text={toast.text} tone={toast.tone} />
     </main>
   );
 }
 
-function SetupMode({ ctx, sel, select, screen, setScreen, pane, setPane }: {
-  ctx: SetupCtx; sel: Sel; select: (s: Sel, sc?: Screen) => void; screen: Screen; setScreen: (s: Screen) => void; pane: "steps" | "canvas" | "edit"; setPane: (p: "steps" | "canvas" | "edit") => void;
+function SetupMode({ ctx, sel, select, screen, setScreen, pane, setPane, addRequest }: {
+  ctx: SetupCtx; sel: Sel; select: (s: Sel, sc?: Screen) => void; screen: Screen; setScreen: (s: Screen) => void; pane: "steps" | "canvas" | "edit"; setPane: (p: "steps" | "canvas" | "edit") => void; addRequest: number;
 }) {
   const addItem = useAddItem(ctx, id => { select({ kind: "item", id }, "item"); setPane("canvas"); });
+  const handled = useRef(addRequest);
+  useEffect(() => { if (addRequest !== handled.current) { handled.current = addRequest; addItem(); } }, [addRequest, addItem]);
   const steps = useSteps(ctx, (s, sc) => { select(s, sc); setPane(s.kind === "item" || sc ? "canvas" : "edit"); }, addItem);
   return (
     <>

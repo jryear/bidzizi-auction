@@ -189,7 +189,33 @@
 .sx-title:focus { outline: none; border-color: var(--cobalt); background: #fff; box-shadow: 0 0 0 4px var(--cobalt-bg); }
 .title-meta { display: flex; align-items: center; gap: 10px; }
 .save { display: inline-flex; align-items: center; gap: 4px; font: 600 12.5px/1 var(--sans); color: var(--ink-3); }
-.save.s-saved { color: var(--green); } .save.s-error { color: var(--red); } .save.s-saving { color: var(--ink-2); }
+.save.s-saved, .save.s-idle { color: var(--ink-3); } .save.s-saved svg, .save.s-idle svg { color: var(--green); }
+.save.s-error { color: var(--red); } .save.s-saving, .save.s-editing { color: var(--ink-2); }
+.save .spin { width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--line-2); border-top-color: var(--ink-2); animation: spin .7s linear infinite; }
+@keyframes spin { to { rotate: 360deg; } }
+/* Draft/Live: who can see this event right now */
+.vis-pill { display: inline-flex; align-items: center; gap: 6px; min-height: 24px; padding: 0 10px 0 8px; border-radius: 999px; font: 500 12.5px/1 var(--sans); white-space: nowrap; }
+.vis-pill b { font-weight: 700; }
+.vis-pill i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.vis-pill.is-draft { background: rgba(26, 24, 20, .07); color: var(--ink-2); }
+.vis-pill.is-live { background: var(--green-bg); color: var(--green); }
+.vis-pill.is-live i { animation: livepulse 1.8s infinite; }
+/* Go-live readiness */
+.golive-dlg { width: min(560px, 100vw); }
+.gl-body { display: grid; gap: 12px; padding: 30px 30px 26px; }
+.gl-ic { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: var(--green-bg); color: var(--green); }
+.gl-ic.warn { background: var(--amber-bg); color: #8A5A00; }
+.gl-body h2 { font: 600 28px/1.12 var(--serif); letter-spacing: -.02em; }
+.gl-list { display: grid; margin: 4px 0 6px; border-radius: 16px; box-shadow: inset 0 0 0 1px var(--line); }
+.gl-list li { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-top: 1px solid var(--line); }
+.gl-list li:first-child { border-top: 0; }
+.gl-tick { flex: none; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; font: 800 13px/1 var(--sans); }
+.gl-list li.ok .gl-tick { background: var(--green); color: #fff; }
+.gl-list li.warn .gl-tick { background: var(--amber); color: var(--amber-ink, #5A3D00); }
+.gl-t { flex: 1; min-width: 0; } .gl-t b { display: block; font: 600 14.5px/1.3 var(--sans); } .gl-t small { display: block; margin-top: 2px; font-size: 13px; color: var(--ink-3); }
+.gl-list li.ok .gl-t b { color: var(--ink-2); font-weight: 500; }
+.gl-acts { display: flex; flex-wrap: wrap; gap: 10px; }
+@media (max-width: 640px) { .gl-body { padding: 26px 18px 22px; } .gl-acts .sx-btn { flex: 1 1 100%; } }
 .sx-top > .sx-seg { margin: 0 auto; }
 .top-acts { flex: none; display: flex; align-items: center; gap: 8px; }
 
@@ -734,7 +760,7 @@ button.ck-next:hover { background: var(--panel-2); }
   .hero-body { padding: 26px 20px 22px; }
   .hero h1 { font-size: 44px; }
   .hero { min-height: 0; }
-  .save-idle { display: none; }
+  .vis-pill .vp-more { display: none; }
   .hero-stats { flex-wrap: nowrap; }
   .hero-stats > div { min-width: 0; padding: 0 16px; }
   .ar-dup .ar-dup-l, .ar-row .sx-status { display: none; }

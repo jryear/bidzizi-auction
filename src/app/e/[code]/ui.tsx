@@ -24,19 +24,26 @@ export function Ed({ k, field, value, placeholder, as: Tag = "span", className, 
 }) {
   const edit = useEdit();
   const ref = useRef<HTMLElement>(null);
+  const sent = useRef(value), idle = useRef<ReturnType<typeof setTimeout>>(undefined);
   // The browser owns the editable text nodes; sync from data only while the host isn't typing in it.
-  useEffect(() => { const el = ref.current; if (el && document.activeElement !== el && el.innerText !== value) el.innerText = value; }, [value, edit]);
+  useEffect(() => { sent.current = value; const el = ref.current; if (el && document.activeElement !== el && el.innerText !== value) el.innerText = value; }, [value, edit]);
+  useEffect(() => () => clearTimeout(idle.current), []);
   if (!edit) return value ? <Tag className={className}>{value}</Tag> : null;
-  const done = (el: HTMLElement) => {
-    const next = (el.innerText ?? "").replace(/ /g, " ").replace(multiline ? /\n{3,}/g : /\s*\n\s*/g, multiline ? "\n\n" : " ").trim().slice(0, max ?? 5000);
-    if (next !== value) edit.commit(k, field, next);
-    else el.innerText = value;
+  const clean = (el: HTMLElement) => (el.innerText ?? "").replace(/ /g, " ").replace(multiline ? /\n{3,}/g : /\s*\n\s*/g, multiline ? "\n\n" : " ").trim().slice(0, max ?? 5000);
+  // Saves after a short pause in typing and again on blur, so the top bar's "Saved" is always true.
+  const save = (el: HTMLElement, leaving: boolean) => {
+    clearTimeout(idle.current);
+    const next = clean(el);
+    if (!next && (field === "title" || field === "name")) { if (leaving) el.innerText = value; }
+    else if (next !== sent.current) { sent.current = next; edit.commit(k, field, next); }
+    dispatchEvent(new CustomEvent("bz:editing", { detail: false }));
   };
   return (
     <Tag ref={ref as never} className={`${className ?? ""} ed`} contentEditable="plaintext-only" suppressContentEditableWarning spellCheck
       data-placeholder={placeholder} aria-label={placeholder ?? field} role="textbox" aria-multiline={multiline}
       onFocus={() => edit.select(k)} onClick={e => e.stopPropagation()}
-      onBlur={e => done(e.currentTarget)}
+      onBlur={e => save(e.currentTarget, true)}
+      onInput={e => { const el = e.currentTarget; dispatchEvent(new CustomEvent("bz:editing", { detail: true })); clearTimeout(idle.current); idle.current = setTimeout(() => save(el, false), 1200); }}
       onKeyDown={e => {
         if (e.key === "Escape") { e.currentTarget.innerText = value; e.currentTarget.blur(); }
         if (e.key === "Enter" && !multiline) { e.preventDefault(); e.currentTarget.blur(); }
