@@ -1,0 +1,66 @@
+[
+  {
+    "width": 390,
+    "sheetWidth": 366,
+    "spill": -16,
+    "titleWidth": 334,
+    "placeholderWidth": 160.8726348876953,
+    "grid": "26px 46px minmax(0px, 1fr) auto 32px"
+  },
+  {
+    "width": 768,
+    "sheetWidth": 724,
+    "spill": -16,
+    "titleWidth": 265,
+    "placeholderWidth": 160.8726348876953,
+    "grid": "34px 26px 30px 52px minmax(150px, 1fr) 128px 104px 92px 36px"
+  },
+  {
+    "width": 1080,
+    "sheetWidth": 1036,
+    "spill": -16,
+    "titleWidth": 376,
+    "placeholderWidth": 160.8726348876953,
+    "grid": "34px 26px 32px 52px minmax(180px, 1fr) 150px 112px 100px 40px"
+  },
+  {
+    "width": 1120,
+    "sheetWidth": 1076,
+    "spill": -16,
+    "titleWidth": 396,
+    "placeholderWidth": 160.8726348876953,
+    "grid": "34px 26px 32px 52px minmax(180px, 1fr) 150px 112px 100px 40px"
+  },
+  {
+    "width": 1200,
+    "sheetWidth": 1156,
+    "spill": -16,
+    "titleWidth": 436,
+    "placeholderWidth": 160.8726348876953,
+    "grid": "34px 26px 32px 52px minmax(180px, 1fr) 168px 160px 112px 104px 108px 40px"
+  },
+  {
+    "width": 1268,
+    "sheetWidth": 1224,
+    "spill": -16,
+    "titleWidth": 470,
+    "placeholderWidth": 160.8726348876953,
+    "grid": "34px 26px 32px 52px minmax(180px, 1fr) 168px 160px 112px 104px 108px 40px"
+  },
+  {
+    "width": 1440,
+    "sheetWidth": 906,
+    "spill": -16,
+    "titleWidth": 311,
+    "placeholderWidth": 160.8726348876953,
+    "grid": "34px 26px 32px 52px minmax(180px, 1fr) 150px 112px 100px 40px"
+  },
+  {
+    "width": 1920,
+    "sheetWidth": 1386,
+    "spill": -16,
+    "titleWidth": 551,
+    "placeholderWidth": 160.8726348876953,
+    "grid": "34px 26px 32px 52px minmax(180px, 1fr) 168px 160px 112px 104px 108px 40px"
+  }
+]

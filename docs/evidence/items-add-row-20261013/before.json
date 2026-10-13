@@ -1,0 +1,66 @@
+[
+  {
+    "width": 390,
+    "sheetWidth": 366,
+    "spill": -12,
+    "titleWidth": 342,
+    "placeholderWidth": 160.8726348876953,
+    "grid": "146px 104px 72px"
+  },
+  {
+    "width": 768,
+    "sheetWidth": 724,
+    "spill": -40,
+    "titleWidth": 150,
+    "placeholderWidth": 160.8726348876953,
+    "grid": "34px 26px 30px 52px 150px 128px 104px 92px 36px"
+  },
+  {
+    "width": 1080,
+    "sheetWidth": 1036,
+    "spill": -60,
+    "titleWidth": 402,
+    "placeholderWidth": 160.8726348876953,
+    "grid": "34px 26px 32px 52px 402px 150px 112px 100px 40px"
+  },
+  {
+    "width": 1120,
+    "sheetWidth": 1076,
+    "spill": -60,
+    "titleWidth": 442,
+    "placeholderWidth": 160.8726348876953,
+    "grid": "34px 26px 32px 52px 442px 150px 112px 100px 40px"
+  },
+  {
+    "width": 1200,
+    "sheetWidth": 1156,
+    "spill": -176,
+    "titleWidth": 216,
+    "placeholderWidth": 160.8726348876953,
+    "grid": "34px 26px 32px 52px 216px 168px 160px 112px 104px 108px 40px"
+  },
+  {
+    "width": 1268,
+    "sheetWidth": 1224,
+    "spill": -176,
+    "titleWidth": 284,
+    "placeholderWidth": 160.8726348876953,
+    "grid": "34px 26px 32px 52px 284px 168px 160px 112px 104px 108px 40px"
+  },
+  {
+    "width": 1440,
+    "sheetWidth": 906,
+    "spill": -60,
+    "titleWidth": 272,
+    "placeholderWidth": 160.8726348876953,
+    "grid": "34px 26px 32px 52px 272px 150px 112px 100px 40px"
+  },
+  {
+    "width": 1920,
+    "sheetWidth": 1386,
+    "spill": -176,
+    "titleWidth": 446,
+    "placeholderWidth": 160.8726348876953,
+    "grid": "34px 26px 32px 52px 446px 168px 160px 112px 104px 108px 40px"
+  }
+]

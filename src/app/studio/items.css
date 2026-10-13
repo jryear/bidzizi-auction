@@ -166,7 +166,7 @@
 .iw-add .cell-in, .iw-add .cat-input .cell-in { border-color: var(--line); background: #fff; }
 .iw-add .c-title .cell-in { font-weight: 600; }
 .iw-add.first { min-height: 76px; box-shadow: inset 0 2px 0 var(--marigold); }
-.iw-add .add-go { width: 100%; }
+.iw-add .add-go { width: 100%; min-height: 42px; }
 .t-open { display: none; }
 .iw-add .c-title { display: grid; gap: 4px; padding: 6px 0; }
 .add-note { padding: 0 2px; line-height: 1.25; }
@@ -244,9 +244,6 @@
   .bids { justify-items: start; grid-auto-flow: column; gap: 6px; align-items: baseline; } .bids b { font-size: 12.5px; } .bids small, .bids.muted { font-size: 12px; }
   .c-status .bids.muted { display: none; }
   .bids { white-space: nowrap; }
-  .iw-add .c-donor .cell-in { min-height: 32px; margin-top: 4px; }
-  .iw-add .c-title { padding: 6px 0 0; } .iw-add .add-note:not(:has(.add-hint)) { display: none; }
-  .iw-add { row-gap: 2px; padding-bottom: 10px; }
   .iw-pending { grid-template-areas: "sel grip no photo title cat start vis open" "sel grip no photo donor cat status vis open"; }
 }
 @container sheet (max-width: 820px) { .iw-row { --cols: 34px 26px 30px 52px minmax(150px, 1fr) 128px 104px 92px 36px; } }
@@ -266,13 +263,27 @@
   .iw-row.selecting:not(.iw-add), .iw-row.is-sel:not(.iw-add) { grid-template-columns: 30px 26px 46px minmax(0, 1fr) auto; grid-template-areas: "sel grip photo title vis" "sel grip photo meta vis"; }
   .iw-row .cell-in { border-color: transparent; }
   .iw-row:not(.iw-add) .vis-t { width: 36px; height: 36px; padding: 0; justify-content: center; } .iw-row:not(.iw-add) .vis-t span { display: none; }
-  .iw-add { grid-template-columns: minmax(0, 1fr) 104px 72px; grid-template-areas: "title title title" "donor donor donor" "cat start go"; row-gap: 8px; padding: 12px; }
-  .iw-add .c-sel, .iw-add .c-grip, .iw-add .c-no, .iw-add .c-photo, .iw-add .c-open { display: none; }
-  .iw-add .c-title { display: block; grid-area: title; } .iw-add .c-cat { display: block; grid-area: cat; } .iw-add .c-start { display: block; grid-area: start; } .iw-add .c-vis { grid-area: go; }
-  .iw-add .c-status { display: none; } .iw-add .c-donor { display: block; grid-area: donor; } .iw-add .c-donor .cell-in { min-height: 38px; margin: 0; font-size: 14.5px; }
   .iw-pending { grid-template-columns: 24px minmax(0, 1fr) auto auto; grid-template-areas: "no title start vis"; }
   .iw-pending .c-no { display: block; grid-area: no; } .iw-pending .c-title { display: block; grid-area: title; } .iw-pending .c-start { display: block; grid-area: start; } .iw-pending .c-vis { grid-area: vis; }
   .iw-pending .c-sel, .iw-pending .c-grip, .iw-pending .c-photo, .iw-pending .c-cat, .iw-pending .c-donor, .iw-pending .c-status, .iw-pending .c-open { display: none; }
+}
+
+/* Creation has five fields, rather than the existing items' selection/photo/status columns.
+   Wrap those fields within the sheet, including on browsers without container queries. */
+.iw-add { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 10px; padding: 14px 16px; }
+.iw-add > [role="cell"] { grid-area: auto; align-self: auto; }
+.iw-add > .c-sel, .iw-add > .c-grip, .iw-add > .c-no, .iw-add > .c-photo, .iw-add > .c-status, .iw-add > .c-open { display: none; }
+.iw-add > .c-title { display: grid; flex: 2 1 260px; padding: 0; }
+.iw-add > .c-cat { display: block; flex: 1 1 128px; }
+.iw-add > .c-donor { display: block; flex: 1 1 160px; }
+.iw-add > .c-start { display: block; flex: 0 1 104px; }
+.iw-add > .c-vis { display: block; flex: 0 0 80px; margin-left: auto; }
+.iw-add .cell-in, .iw-add .c-donor .cell-in { min-height: 42px; margin: 0; font-size: 14.5px; }
+.iw-add .c-donor .cell-in { padding: 7px 9px; }
+@media (max-width: 640px) {
+  .iw-add > .c-title, .iw-add > .c-donor { flex-basis: 100%; }
+  .iw-add > .c-donor { order: 1; }
+  .iw-add > .c-cat, .iw-add > .c-start, .iw-add > .c-vis { order: 2; }
 }
 
 /* ---------------------------------------------------------------- dialogs */

@@ -1,0 +1,17 @@
+ok   type rows: Enter adds an item and starts the next, keeping the category
+ok   an unfinished add row survives a reload, and asks for the missing starting bid
+ok   paste rows: review, fix a row, add them all; they arrive selected
+ok   bulk: set a new category on the selection, then hide it from guests
+ok   filters: hidden, category and search narrow the sheet; clearing restores it
+ok   inline cells save on leaving them: title, starting bid, category with an existing spelling
+ok   keyboard reorder: Space picks up, arrows move, Space drops; the order is saved
+ok   drag reorder with the pointer saves the new order
+ok   one photo on a row, and many photos matched by file name
+ok   categories: rename merges into an existing name after confirming; guest order follows
+ok   published event: a new item starts hidden; Show makes it visible to guests
+ok   bulk delete keeps items people have bid on
+ok   sidebar list: compact past eight items, searchable, opens the workspace
+ok   phone: no sideways scrolling; tapping a title opens the item editor; add row works
+ok   no browser page errors
+
+15/15 passed

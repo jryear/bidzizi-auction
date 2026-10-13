@@ -1,0 +1,2 @@
+$ node scripts/compat.mjs
+Compatibility: 63 JS/TS modules; all CSS; 0 blocking findings.
