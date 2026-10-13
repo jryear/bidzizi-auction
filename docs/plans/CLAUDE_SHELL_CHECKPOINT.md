@@ -340,3 +340,40 @@ The attendee code screen names the code that failed ("No event uses ZZZZZ9") and
 - **Studio top bar unchanged.** It is still four controls on desktop.
 - **Template gallery and stage display unchanged.**
 - **Still no real-device or screen-reader testing.**
+
+## Passthrough 1 (2026-10-13), scoped batch
+
+This follows the scope update in `ZACK_PASSTHROUGH_1.md` (commit `67cb2a9`, kept in history). Each stage below was committed separately. Nothing is pushed or deployed.
+
+| Stage | Commit | What landed |
+|---|---|---|
+| 0 Merge | `b15ef78` | Codex's `jryear/real-v1-design-pass` is merged. I used the branch tip `66853de`, which has the same code as the `1477cae` named in the brief, re-committed a minute later with docs. Its server code, migration 003, API and tests are kept in full. Its UI files are superseded by this branch's design. |
+| 1 Operations UI | `a287ca7` | Codex's operations rebuilt in this design: **Live** item panel (void bid with a reason, withdraw with a guest message, change close time), edit participant, **Event housekeeping** (practice reset, archive/restore, delete with the typed name), **Staff & access** dialog (invite, reset link), a Practice option in New event, and a restyled password-setup page. The item page's bid activity now comes from the server's bid history; the per-device log is gone. |
+| 2 Readiness | `4f9d6f0` | A "Draft · only you can see this" / "Live · changes appear to guests instantly" pill. A save indicator (Unsaved changes → Saving… → Saved). Saves run one at a time. Text edited on the canvas autosaves after a pause. Go live runs a readiness check that warns with Fix links and never blocks. |
+| 3 Share | `815808d` | Room code, copy link, native share, email and text links. Printable QR as a 4×6 in table card and a full Letter page, each verified to print as exactly one PDF page. A note that remote guests use the same link. |
+| 4 Bidder visibility | `a20eaa2` | Migration 004. "Show bidders as": name and business / business only / anonymous ("Bidder N", stable per event). The server masks names in the participant snapshot and a new stage endpoint, so hidden names never reach phones or the projector. Staff views and exports keep full names. 5 journey checks. |
+| 5 Display and donations | `16f74b2` | **Outbid rule:** when you're outbid, cards, rows, the item page and tickets lead with the current top bid and "Bid $X"; your own bids sit in an expandable history. The rule lives in `src/lib/display.ts` and is locked by `tests/v1/display-logic.mjs` (10/10). **Donations:** migration 005; donations are on exactly when the event has a nonprofit, with no toggle. Journey check added. |
+| 6 Quirks | `82dfa8a` | Compact items view redesigned as a catalogue index. Studio phone frame centred exactly (a leftover 10px border was offsetting it). **Look** rebuilt: 5 themes, adding Slate, plus one custom accent colour with an automatic contrast check and a "Fix contrast" button (migration 006). Bid increments panel restyled with a live example. Sponsor links, checked on the server. Logo upload rebuilt (click, drop or paste; transparency kept). |
+
+**Gates at the end:**
+- tsc: clean
+- `next build`: succeeds
+- `tests/v1/journey.mjs`: 47/47 (Codex's 40 plus 7 new)
+- `tests/v1/operations-ui.mjs`: passes, adapted to the rebuilt screens
+- `tests/v1/display-logic.mjs`: 10/10
+
+Migrations 004–006 are applied to `bz_test_claude`.
+
+**Deferred, as instructed:** Items manager, sidebar list at scale, crop and focal point, stage display configuration, event info page, winner page preview, sidebar rebalance.
+
+**Proposals only (not built):**
+- per-item "pin to stage" from Live;
+- an end-of-night summary email/export pack;
+- a "rehearsal mode" banner on guest phones for practice events;
+- a phone-sized Live view for staff walking the floor.
+
+**Open questions for Zack:**
+1. Should anonymous mode also hide your bidder number from you? It's shown now ("Other guests see you as Bidder 4").
+2. The readiness check's "date and time confirmed" tick is still per-device. Should it move to the server?
+3. Should accent contrast be checked only against the ink colour, or also against the paper?
+4. This batch has no new before/after composite images, only working screenshots. If you want composites for review, I can produce them next.
