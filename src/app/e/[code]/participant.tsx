@@ -5,7 +5,7 @@ import { addTransitionType, startTransition, useCallback, useEffect, useLayoutEf
 import { api, fmtClock, initials } from "../../../lib/api";
 import { formatMoney } from "../../../lib/money";
 import { IBookmark, IChevL, IGrid, IHeart, IInfo, ITicket, IWifiOff } from "../../../lib/icons";
-import { appendLog, type Item, type PendingBid, type Snapshot, wasSeen } from "./model";
+import { type Item, type PendingBid, type Snapshot, wasSeen } from "./model";
 import { Catalog } from "./catalog";
 import { ItemPage } from "./item";
 import { BidSheet, ResumePending } from "./sheet";
@@ -69,8 +69,6 @@ export default function Participant({ code }: { code: string }) {
       if (next.me) {
         for (const item of next.items) {
           const before = prev?.items.find(p => p.id === item.id);
-          if (item.currentMinor !== null && item.leader && !item.leader.isMe && item.currentMinor !== before?.currentMinor)
-            appendLog(code, item.id, { amountMinor: item.currentMinor, at: next.serverNow, kind: "seen", business: item.leader.business });
           if (prev?.me && before?.leader?.isMe && item.leader && !item.leader.isMe && item.phase === "open") {
             navigator.vibrate?.([60, 40, 60]);
             notify({ key: `outbid-${item.id}`, tone: "red", itemId: item.id, title: `Outbid on ${item.title}`,

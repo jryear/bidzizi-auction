@@ -4,13 +4,14 @@
 import { increment, PLEDGE_CAP, type Tier } from "../../lib/money";
 import type { Item as PItem, Snapshot } from "../e/[code]/model";
 
-export type Bid = { id: string; amountMinor: number; at: string; participantId: string; name: string; business: string };
+export type Bid = { id: string; amountMinor: number; at: string; participantId: string; name: string; business: string; voided: boolean; voidReason: string };
 export type Award = { status: "assigned" | "fulfilled" | "no_winner"; bidId: string | null; participantId: string | null; amountMinor: number | null; notes: string; revision: number; updatedAt: string };
 export type Item = {
   id: string; position: number; title: string; short: string; description: string; category: string; donor: string; imageAssetId: string | null; imageUrl: string | null;
   openingMinor: number; incrementOverrideMinor: number | null; opensAt: string | null; closesAt: string | null; effectiveOpensAt: string; effectiveClosesAt: string;
   ready: boolean; revision: number; phase: "scheduled" | "open" | "closed"; currentMinor: number | null; bidCount: number; minimumNextMinor: number | null;
   leader: { id: string; name: string; business: string } | null; bids: Bid[]; award: Award | null;
+  withdrawn: boolean; withdrawalMessage: string; hasBids: boolean;
 };
 export type Participant = { id: string; name: string; business: string; canBid: boolean; joinedAt: string; bidCount: number; leadingCount: number; pledgedMinor: number };
 export type Pledge = { id: string; recipientName: string; amountMinor: number; recordedAt: string; processedAt: string | null; note: string; name: string; business: string };
@@ -18,10 +19,11 @@ export type EventData = {
   id: string; code: string; name: string; welcome: string; venue: string; winnerInstructions: string; coverAssetId: string | null; coverUrl: string | null; timezone: string;
   startsAt: string; endsAt: string; accessEndsAt: string; status: "draft" | "live"; entryOpen: boolean; theme: string; bidMode: "tiered" | "fixed"; tiers: Tier[];
   fixedIncrementMinor: number | null; donationsEnabled: boolean; donationDeadline: string | null; revision: number; phase: string; hasBids: boolean;
+  isPractice: boolean; archivedAt: string | null;
 };
 export type Data = {
   serverNow: string; event: EventData; items: Item[]; participants: Participant[];
-  activity: { id: string; itemId: string; amountMinor: number; at: string; name: string; business: string }[];
+  activity: { id: string; itemId: string; amountMinor: number; at: string; name: string; business: string; voided: boolean }[];
   pledges: Pledge[];
   recipients: { id: string; name: string; description: string; logoAssetId: string | null; logoUrl: string | null }[];
   sponsors: { id: string; name: string; logoAssetId: string | null; logoUrl: string | null }[];
@@ -29,6 +31,7 @@ export type Data = {
 export type EventCard = {
   id: string; name: string; code: string; status: "draft" | "live"; stage: "draft" | "upcoming" | "running" | "ended";
   startsAt: string; endsAt: string; coverUrl: string | null; itemCount: number; participantCount: number; bidCount: number;
+  isPractice: boolean; archivedAt: string | null;
 };
 
 /** The workspace, seen through an attendee's phone. Hidden items are included so the host can see and edit them. */
@@ -80,17 +83,20 @@ export async function uploadPhoto(file: File): Promise<{ id: string; url: string
   return data;
 }
 
-/** The one event the home page centres on: running now, then the next live one, then a draft being set up, then the latest. */
-export function currentEvent(events: EventCard[], nowMs: number): EventCard | null {
+/** The one event the home page centres on: running now, then the next live one, then a draft being set up, then the latest.
+ *  Archived events never take the spot, and a real event always beats a practice one at the same tier. */
+export function currentEvent(all: EventCard[], nowMs: number): EventCard | null {
   const t = (s: string) => new Date(s).getTime();
-  const running = events.filter(e => e.stage === "running").sort((a, b) => t(a.endsAt) - t(b.endsAt))[0];
+  const pool = all.filter(e => !e.archivedAt);
+  const pick = (list: EventCard[], by: (a: EventCard, b: EventCard) => number) => [...list].sort((a, b) => Number(a.isPractice) - Number(b.isPractice) || by(a, b))[0];
+  const running = pick(pool.filter(e => e.stage === "running"), (a, b) => t(a.endsAt) - t(b.endsAt));
   if (running) return running;
-  const upcoming = events.filter(e => e.stage === "upcoming").sort((a, b) => t(a.startsAt) - t(b.startsAt))[0];
+  const upcoming = pick(pool.filter(e => e.stage === "upcoming"), (a, b) => t(a.startsAt) - t(b.startsAt));
   if (upcoming) return upcoming;
-  const drafts = events.filter(e => e.stage === "draft");
-  const nextDraft = drafts.filter(e => t(e.endsAt) > nowMs).sort((a, b) => t(a.startsAt) - t(b.startsAt))[0] ?? drafts.sort((a, b) => t(b.startsAt) - t(a.startsAt))[0];
+  const drafts = pool.filter(e => e.stage === "draft");
+  const nextDraft = pick(drafts.filter(e => t(e.endsAt) > nowMs), (a, b) => t(a.startsAt) - t(b.startsAt)) ?? pick(drafts, (a, b) => t(b.startsAt) - t(a.startsAt));
   if (nextDraft) return nextDraft;
-  return [...events].sort((a, b) => t(b.endsAt) - t(a.endsAt))[0] ?? null;
+  return pick(pool, (a, b) => t(b.endsAt) - t(a.endsAt)) ?? null;
 }
 
 export const SUGGESTED_NAMES: Record<string, string> = { "trade-show": "Holiday Trade Show", gala: "Spring Charity Gala", quick: "Members' Mixer Auction", blank: "" };

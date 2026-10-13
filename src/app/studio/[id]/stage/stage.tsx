@@ -44,7 +44,8 @@ export default function Stage({ eventId }: { eventId: string }) {
 function StageView({ data, origin, idle, offline }: { data: Data; origin: string; idle: boolean; offline: boolean }) {
   const e = data.event, now = useTicking(data.serverNow);
   const theme = THEMES.find(t => t.id === e.theme) ?? THEMES[0];
-  const live = useMemo(() => data.items.filter(i => i.ready), [data.items]);
+  const live = useMemo(() => data.items.filter(i => i.ready && !i.withdrawn), [data.items]);
+  const activity = useMemo(() => data.activity.filter(a => !a.voided), [data.activity]);
   const raised = live.reduce((s, i) => s + (i.currentMinor ?? 0), 0);
   const t = (s: string) => new Date(s).getTime();
   const ended = e.status === "live" && e.phase === "closed";
@@ -58,15 +59,15 @@ function StageView({ data, origin, idle, offline }: { data: Data; origin: string
     return (open.length ? open : live).slice().sort((a, b) => a.position - b.position);
   }, [live]);
   useEffect(() => {
-    const top = data.activity[0];
+    const top = activity[0];
     if (top && lastBid.current && top.id !== lastBid.current) setFresh({ id: top.itemId, at: Date.now() });
     lastBid.current = top?.id ?? "none";
-  }, [data.activity]);
+  }, [activity]);
   useEffect(() => { const timer = setInterval(() => setSpot(s => s + 1), SPOT_MS); return () => clearInterval(timer); }, []);
   const freshItem = fresh && Date.now() - fresh.at < NEW_MS ? live.find(i => i.id === fresh.id) : undefined;
   const item: Item | undefined = freshItem ?? pool[spot % Math.max(pool.length, 1)];
   const soon = live.filter(i => i.phase === "open" && t(i.effectiveClosesAt) - now < 10 * 60_000).sort((a, b) => t(a.effectiveClosesAt) - t(b.effectiveClosesAt));
-  const bidders = new Set(data.activity.map(a => a.business)).size;
+  const bidders = new Set(activity.map(a => a.business)).size;
   const titles = new Map(data.items.map(i => [i.id, i.title]));
   const host = origin.replace(/^https?:\/\//, "");
 
@@ -117,8 +118,8 @@ function StageView({ data, origin, idle, offline }: { data: Data; origin: string
           </div>
           <div className="ticker" aria-live="polite">
             <span className="tk-label">Latest</span>
-            <ol>{data.activity.slice(0, 6).map((a, n) => <li key={a.id} className={n === 0 ? "first" : ""}><b>{a.business}</b> bid <b className="tk-amt">{formatMoney(a.amountMinor)}</b> on {titles.get(a.itemId)}</li>)}
-              {!data.activity.length && <li>Bids will appear here the moment they land.</li>}</ol>
+            <ol>{activity.slice(0, 6).map((a, n) => <li key={a.id} className={n === 0 ? "first" : ""}><b>{a.business}</b> bid <b className="tk-amt">{formatMoney(a.amountMinor)}</b> on {titles.get(a.itemId)}</li>)}
+              {!activity.length && <li>Bids will appear here the moment they land.</li>}</ol>
           </div>
         </footer>
       )}
@@ -128,7 +129,7 @@ function StageView({ data, origin, idle, offline }: { data: Data; origin: string
 
 function Finale({ data, raised }: { data: Data; raised: number }) {
   const given = data.pledges.reduce((s, p) => s + p.amountMinor, 0);
-  const top = data.items.filter(i => i.currentMinor).sort((a, b) => (b.currentMinor ?? 0) - (a.currentMinor ?? 0)).slice(0, 3);
+  const top = data.items.filter(i => i.currentMinor && !i.withdrawn).sort((a, b) => (b.currentMinor ?? 0) - (a.currentMinor ?? 0)).slice(0, 3);
   return (
     <section className="finale">
       <span className="fin-eyebrow"><ITrophy size={22} />Bidding has closed</span>
@@ -136,7 +137,7 @@ function Finale({ data, raised }: { data: Data; raised: number }) {
       <div className="fin-nums">
         <div><span>Raised in bids</span><b>{formatMoney(raised)}</b></div>
         {given > 0 && <div><span>Donated</span><b>{formatMoney(given)}</b></div>}
-        <div><span>Bidders</span><b>{new Set(data.activity.map(a => a.business)).size}</b></div>
+        <div><span>Bidders</span><b>{new Set(data.activity.filter(a => !a.voided).map(a => a.business)).size}</b></div>
       </div>
       {top.length > 0 && <ol className="fin-top">{top.map(i => <li key={i.id}><span className="ft-img">{i.imageUrl ? <img src={i.imageUrl} alt="" /> : <ItemArt item={i} size="sm" />}</span><span><b>{i.title}</b><small>{formatMoney(i.currentMinor!)}</small></span></li>)}</ol>}
       <p className="fin-note">Winners: check your phone. Staff will confirm and tell you how to collect.</p>

@@ -77,7 +77,7 @@ export default function Studio({ eventId }: { eventId: string }) {
   if (!data || !mode || !ctx) return <main className="sx sx-center"><div className="sx-loading"><Brand /><span className="dots"><i /><i /><i /></span><p>{offline ? "Can't reach BidZizi. Retrying…" : "Opening your event…"}</p></div></main>;
 
   const e = data.event;
-  const needs = data.items.filter(i => i.phase === "closed" && (i.ready || i.bidCount) && (!i.award || i.award.status === "assigned")).length + data.pledges.filter(p => !p.processedAt).length;
+  const needs = data.items.filter(i => i.phase === "closed" && !i.withdrawn && (i.ready || i.bidCount) && (!i.award || i.award.status === "assigned")).length + data.pledges.filter(p => !p.processedAt).length;
   const goLive = async () => { if (await patchEvent({ status: "live" })) { flash("You're live! Share the code.", "green"); setSharing(true); } };
 
   return (
@@ -90,6 +90,7 @@ export default function Studio({ eventId }: { eventId: string }) {
             onBlur={x => { const v = x.target.value.trim(); if (v && v !== e.name) patchEvent({ name: v }); else x.target.value = e.name; }} />
           <div className="title-meta">
             <Status stage={e.status === "draft" ? "draft" : e.phase === "open" ? "running" : e.phase === "closed" ? "ended" : "upcoming"} />
+            {e.isPractice && <Status stage="practice" />}
             <span className={`save s-${offline ? "error" : save}`} aria-live="polite">{offline ? <><IWifiOff size={14} />Offline. Changes won&rsquo;t save</> : save === "saving" ? "Saving…" : save === "saved" ? <><ICheck size={14} />Saved</> : save === "error" ? "Not saved" : <span className="save-idle">Autosaves</span>}</span>
           </div>
         </div>

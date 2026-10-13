@@ -10,6 +10,7 @@ import { ItemPage } from "../../e/[code]/item";
 import { EventClock } from "../../e/[code]/catalog";
 import type { Nav } from "../../e/[code]/participant";
 import { confirm, isConfirmed, toSnapshot, type Data, type Item } from "../data";
+import { Housekeeping } from "./housekeeping";
 import { MoneyField, PhotoField, Ring, Seg, Switch, TextField } from "../kit";
 
 export type Sel = { kind: "event" | "schedule" | "theme" | "rules" | "donations" | "sponsors" } | { kind: "item"; id: string };
@@ -239,6 +240,7 @@ function EventPanel({ ctx }: { ctx: SetupCtx }) {
       <TextField label="Venue" value={e.venue} max={300} placeholder="Saturn Hall, Pasadena" onSave={v => patchEvent({ venue: v })} />
       <TextField label="Message to winners" value={e.winnerInstructions} multiline rows={3} placeholder="Congratulations! Pick up your item at the front desk before 8 PM."
         hint="Only confirmed winners see this." onSave={v => patchEvent({ winnerInstructions: v })} />
+      <Housekeeping ctx={ctx} />
     </Panel>
   );
 }

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { api, dollarsInput, errorText, fmtClock, newId, parseDollars } from "../../../lib/api";
 import { formatMoney } from "../../../lib/money";
 import { IAlert, ICheck, IClose, IMinus, IPlus, IWifiOff } from "../../../lib/icons";
-import { appendLog, REASONS, type Item, type Me, type PendingBid, type Receipt } from "./model";
+import { REASONS, type Item, type Me, type PendingBid, type Receipt } from "./model";
 import type { Alert } from "./moments";
 import { ItemArt, Mark } from "./ui";
 
@@ -48,7 +48,6 @@ export function BidSheet({ item, me, code, pendingKey, initialAmount, offline, o
   function settle(receipt: Receipt) {
     remember(null);
     if (receipt.accepted) {
-      appendLog(code, item.id, { amountMinor: receipt.amountMinor, at: receipt.decidedAt ?? new Date().toISOString(), kind: "mine" });
       navigator.vibrate?.(30);
       setLanded(receipt); setState("landed"); onSettled();
       timer.current = setTimeout(finish, 2200);
@@ -183,7 +182,7 @@ export function ResumePending({ code, pendingKey, onResolved }: { code: string; 
     api<{ receipt: Receipt | null }>("GET", `/api/v1/e/${code}/receipt/${pending.requestId}`).then(r => {
       if (!r.ok) return;
       localStorage.removeItem(pendingKey);
-      if (r.data.receipt?.accepted) { appendLog(code, pending.itemId, { amountMinor: pending.amountMinor, at: r.data.receipt.decidedAt ?? new Date().toISOString(), kind: "mine" }); report.current(`Your ${formatMoney(pending.amountMinor)} bid went through`, true); }
+      if (r.data.receipt?.accepted) { report.current(`Your ${formatMoney(pending.amountMinor)} bid went through`, true); }
       else if (r.data.receipt) report.current(`Your ${formatMoney(pending.amountMinor)} bid wasn’t placed`, false);
       else report.current(`Your ${formatMoney(pending.amountMinor)} bid didn’t reach us. Nothing was placed.`, false);
     }).catch(() => {});

@@ -1,7 +1,7 @@
 "use client";
 // Live: a control room for the host's laptop, and a one-click stage display for the projector.
 import { useEffect, useMemo, useRef, useState } from "react";
-import { api, errorText, fmtClock } from "../../../lib/api";
+import { api, errorText, fmtClock, fromLocalInput, toLocalInput } from "../../../lib/api";
 import { formatMoney } from "../../../lib/money";
 import { IAlert, IArrowUp, IClock, ISearch, IUsers, IMore } from "../../../lib/icons";
 import { countdown } from "../../e/[code]/model";
@@ -17,11 +17,11 @@ export function LiveBoard({ ctx }: { ctx: Ctx }) {
   const [focus, setFocus] = useState<string | null>(null);
   const titles = useMemo(() => new Map(data.items.map(i => [i.id, i.title])), [data.items]);
   const live = data.items.filter(i => i.ready);
-  const raised = live.reduce((s, i) => s + (i.currentMinor ?? 0), 0);
+  const raised = live.filter(i => !i.withdrawn).reduce((s, i) => s + (i.currentMinor ?? 0), 0);
   const bids = live.reduce((s, i) => s + i.bidCount, 0);
   const t = (s: string) => new Date(s).getTime();
-  const soon = live.filter(i => i.phase === "open" && t(i.effectiveClosesAt) - now < 15 * 60_000).sort((a, b) => t(a.effectiveClosesAt) - t(b.effectiveClosesAt));
-  const quiet = live.filter(i => i.phase === "open" && !i.bidCount);
+  const soon = live.filter(i => !i.withdrawn && i.phase === "open" && t(i.effectiveClosesAt) - now < 15 * 60_000).sort((a, b) => t(a.effectiveClosesAt) - t(b.effectiveClosesAt));
+  const quiet = live.filter(i => !i.withdrawn && i.phase === "open" && !i.bidCount);
   const order = [...live].sort((a, b) => (a.phase === "open" ? 0 : a.phase === "scheduled" ? 1 : 2) - (b.phase === "open" ? 0 : b.phase === "scheduled" ? 1 : 2) || t(a.effectiveClosesAt) - t(b.effectiveClosesAt) || a.position - b.position);
   const focused = data.items.find(i => i.id === focus);
   const clock = e.phase === "open" ? { label: "Bidding ends in", value: countdown(e.endsAt, now), hot: t(e.endsAt) - now < 10 * 60_000 }
@@ -52,12 +52,12 @@ export function LiveBoard({ ctx }: { ctx: Ctx }) {
           </div>
         </div>
         <aside className="live-side">
-          {focused ? <BidsFor item={focused} tz={e.timezone} onClose={() => setFocus(null)} /> : (
+          {focused ? <ItemOps key={focused.id} ctx={ctx} item={focused} onClose={() => setFocus(null)} /> : (
             <section className="feed-card">
               <div className="fc-head"><h3>Latest bids</h3>{e.phase === "open" && <span className="live-dot">Live</span>}</div>
               {!data.activity.length && <p className="sx-muted">No bids yet.</p>}
               <ol className="feed">
-                {data.activity.slice(0, 14).map(a => (
+                {data.activity.filter(a => !a.voided).slice(0, 14).map(a => (
                   <li key={a.id}>
                     <span className="f-time">{fmtClock(a.at, e.timezone)}</span>
                     <span className="f-t"><b>{a.business}</b><small>{a.name} · {titles.get(a.itemId)}</small></span>
@@ -79,33 +79,80 @@ function Tile({ item, now, on, onClick }: { item: Item; now: number; on: boolean
   const prev = useRef(item.bidCount), [pulse, setPulse] = useState(0);
   useEffect(() => { if (item.bidCount > prev.current) setPulse(p => p + 1); prev.current = item.bidCount; }, [item.bidCount]);
   return (
-    <button type="button" className={`tile${on ? " on" : ""} p-${item.phase}${item.phase === "open" && left < 10 * 60_000 ? " soon" : ""}`} onClick={onClick} key={pulse} data-pulse={pulse || undefined}>
+    <button type="button" className={`tile${on ? " on" : ""}${item.withdrawn ? " withdrawn" : ""} p-${item.phase}${item.phase === "open" && left < 10 * 60_000 ? " soon" : ""}`} onClick={onClick} key={pulse} data-pulse={pulse || undefined}>
       <span className="tile-img">{item.imageUrl ? <img src={item.imageUrl} alt="" /> : <ItemArt item={item} size="sm" />}<span className="tile-no">{String(item.position + 1).padStart(2, "0")}</span></span>
       <span className="tile-b">
         <b className="tile-t">{item.title}</b>
         <Amount minor={item.currentMinor ?? item.openingMinor} className="tile-amt" />
         <span className="tile-lead">{item.leader ? <><b>{item.leader.business}</b> · {item.bidCount} bid{item.bidCount === 1 ? "" : "s"}</> : item.phase === "scheduled" ? "Not open yet" : "No bids yet"}</span>
-        {(item.phase !== "open" || left < 10 * 60_000) && <span className="tile-foot">{item.phase !== "open" ? <Status stage={item.phase} /> : <span className="tile-left hot">{countdown(item.effectiveClosesAt, now)}</span>}</span>}
+        {(item.withdrawn || item.phase !== "open" || left < 10 * 60_000) && <span className="tile-foot">{item.withdrawn ? <Status stage="withdrawn" /> : item.phase !== "open" ? <Status stage={item.phase} /> : <span className="tile-left hot">{countdown(item.effectiveClosesAt, now)}</span>}</span>}
       </span>
     </button>
   );
 }
 
-function BidsFor({ item, tz, onClose }: { item: Item; tz: string; onClose: () => void }) {
+/** One item's control panel: its bids (each can be voided, with a reason), its closing time, and withdrawal. */
+function ItemOps({ ctx, item, onClose }: { ctx: Ctx; item: Item; onClose: () => void }) {
+  const tz = ctx.data.event.timezone;
+  const [voiding, setVoiding] = useState<string | null>(null), [reason, setReason] = useState("");
+  const [withdrawing, setWithdrawing] = useState(false), [message, setMessage] = useState("This item has been withdrawn by the host. Bidding is no longer available.");
+  const [closes, setCloses] = useState(toLocalInput(item.effectiveClosesAt, tz));
+  const [busy, setBusy] = useState(false), [error, setError] = useState("");
+  useEffect(() => { setCloses(toLocalInput(item.effectiveClosesAt, tz)); }, [item.effectiveClosesAt, tz]);
+  async function send(method: string, path: string, body: object, done: string) {
+    setBusy(true); setError("");
+    const r = await api(method, path, body).catch(() => null);
+    setBusy(false);
+    if (!r?.ok) { setError(r ? errorText(r) : "Connection lost. Check the item before trying again."); return false; }
+    ctx.flash(done, "green"); await ctx.reload(); return true;
+  }
+  const closeChanged = fromLocalInput(closes, tz) !== null && new Date(fromLocalInput(closes, tz)!).getTime() !== new Date(item.effectiveClosesAt).getTime();
   return (
-    <section className="feed-card">
+    <section className="feed-card ops">
       <div className="fc-head"><h3>{item.title}</h3><button type="button" className="sx-btn ghost sm" onClick={onClose}>All bids</button></div>
-      <p className="sx-muted">Closes {fmtClock(item.effectiveClosesAt, tz)} · starts at {formatMoney(item.openingMinor)}</p>
-      {!item.bids.length && <p className="sx-muted">No bids yet.</p>}
+      {item.withdrawn && <p className="ops-note">Withdrawn · {item.withdrawalMessage}</p>}
+
+      {!item.withdrawn && item.phase !== "closed" && (
+        <div className="ops-close">
+          <label className="sx-field"><span className="sx-label">Item closes</span>
+            <input type="datetime-local" value={closes} onChange={x => setCloses(x.target.value)} /></label>
+          <button type="button" className="sx-btn sm" disabled={busy || !closeChanged}
+            onClick={() => send("PATCH", `/api/v1/host/items/${item.id}`, { revision: item.revision, closesAt: fromLocalInput(closes, tz) }, "Closing time saved")}>Save closing time</button>
+          {item.hasBids && <p className="sx-hint">With bids, closing can&rsquo;t move to within 5 minutes from now.</p>}
+        </div>
+      )}
+
+      {!item.bids.length && <p className="sx-muted">No bids yet. Starts at {formatMoney(item.openingMinor)}.</p>}
       <ol className="feed">
-        {item.bids.map((b, n) => (
-          <li key={b.id} className={n === 0 ? "top" : ""}>
+        {item.bids.map(b => (
+          <li key={b.id} className={b.voided ? "voided" : b.id === item.bids.find(x => !x.voided)?.id ? "top" : ""}>
             <span className="f-time">{fmtClock(b.at, tz)}</span>
-            <span className="f-t"><b>{b.business}</b><small>{b.name}</small></span>
+            <span className="f-t"><b>{b.business}</b><small>{b.voided ? `Voided · ${b.voidReason}` : b.name}</small></span>
             <b className="f-amt">{formatMoney(b.amountMinor)}</b>
+            {!b.voided && <button type="button" className="sx-btn ghost sm f-void" onClick={() => { setVoiding(b.id); setReason(""); }}>Void bid</button>}
           </li>
         ))}
       </ol>
+
+      {voiding && (
+        <form className="ops-confirm" onSubmit={x => { x.preventDefault(); send("POST", `/api/v1/host/items/${item.id}/void-bid`, { bidId: voiding, reason }, "Bid voided. The next highest bid now leads.").then(ok => ok && setVoiding(null)); }}>
+          <b>Void this bid?</b>
+          <p>The next highest bid becomes the top bid. If this bid had won, you&rsquo;ll confirm a winner again in Results.</p>
+          <label className="sx-field"><span className="sx-label">Reason</span><input required maxLength={500} value={reason} onChange={x => setReason(x.target.value)} autoFocus placeholder="For example: entered the wrong amount" /></label>
+          <div className="ops-acts"><button className="sx-btn danger sm" disabled={busy || !reason.trim()}>Confirm void</button><button type="button" className="sx-btn ghost sm" onClick={() => setVoiding(null)}>Cancel</button></div>
+        </form>
+      )}
+
+      {!item.withdrawn && !withdrawing && <button type="button" className="sx-btn danger-ghost sm ops-withdraw" onClick={() => setWithdrawing(true)}>Withdraw item</button>}
+      {withdrawing && (
+        <form className="ops-confirm" onSubmit={x => { x.preventDefault(); send("POST", `/api/v1/host/items/${item.id}/withdraw`, { message }, "Item withdrawn. Guests see your message.").then(ok => ok && setWithdrawing(false)); }}>
+          <b>Withdraw this item?</b>
+          <p>Bidding stops for good. Its bids stay on record, and guests see your message.</p>
+          <label className="sx-field"><span className="sx-label">Message to participants</span><textarea required maxLength={500} rows={3} value={message} onChange={x => setMessage(x.target.value)} /></label>
+          <div className="ops-acts"><button className="sx-btn danger sm" disabled={busy || !message.trim()}>Confirm withdrawal</button><button type="button" className="sx-btn ghost sm" onClick={() => setWithdrawing(false)}>Cancel</button></div>
+        </form>
+      )}
+      {error && <p className="sx-error" role="alert">{error}</p>}
     </section>
   );
 }
@@ -114,6 +161,15 @@ export function People({ ctx }: { ctx: Ctx }) {
   const { data, reload, flash } = ctx, e = data.event;
   const [q, setQ] = useState(""), [code, setCode] = useState<{ name: string; code: string } | null>(null);
   const shown = data.participants.filter(p => !q.trim() || `${p.name} ${p.business}`.toLowerCase().includes(q.trim().toLowerCase()));
+  const [editing, setEditing] = useState<{ id: string; name: string; business: string } | null>(null), [saving, setSaving] = useState(false);
+  const saveEdit = async () => {
+    if (!editing) return;
+    setSaving(true);
+    const r = await api("PATCH", `/api/v1/host/events/${e.id}/participants/${editing.id}`, { name: editing.name, business: editing.business }).catch(() => null);
+    setSaving(false);
+    if (r?.ok) { flash("Participant updated. Their phone shows the new name.", "green"); setEditing(null); reload(); }
+    else flash(r ? errorText(r) : "Connection lost. Try again.", "red");
+  };
   const setCanBid = async (p: Participant, canBid: boolean) => {
     const r = await api("PATCH", `/api/v1/host/events/${e.id}/participants/${p.id}`, { canBid }).catch(() => null);
     if (r && !r.ok) flash(errorText(r), "red"); else flash(canBid ? `${p.name} can bid again` : `${p.name}'s bidding is paused`);
@@ -142,9 +198,18 @@ export function People({ ctx }: { ctx: Ctx }) {
               <span className="pp-mark">{p.business.split(/\s+/).slice(0, 2).map(w => w[0]).join("").toUpperCase()}</span>
               <span className="pp-t"><b>{p.business}</b><small>{p.name} · {p.bidCount} bid{p.bidCount === 1 ? "" : "s"}{p.leadingCount ? ` · leading ${p.leadingCount}` : ""}{p.canBid ? "" : " · paused"}</small></span>
               <Menu label={`Options for ${p.name}`} trigger={<IMore size={18} />}>
+                <button type="button" role="menuitem" onClick={() => setEditing({ id: p.id, name: p.name, business: p.business })}>Edit participant</button>
                 <button type="button" role="menuitem" onClick={() => rejoin(p)}>Rejoin code (new phone)</button>
                 <button type="button" role="menuitem" onClick={() => setCanBid(p, !p.canBid)}>{p.canBid ? "Pause bidding" : "Let them bid again"}</button>
               </Menu>
+              {editing?.id === p.id && (
+                <form className="pp-edit" onSubmit={x => { x.preventDefault(); saveEdit(); }}>
+                  <label className="sx-field"><span className="sx-label">Name</span><input required maxLength={60} value={editing.name} onChange={x => setEditing({ ...editing, name: x.target.value })} autoFocus /></label>
+                  <label className="sx-field"><span className="sx-label">Business</span><input required maxLength={120} value={editing.business} onChange={x => setEditing({ ...editing, business: x.target.value })} /></label>
+                  <p className="sx-hint">Their bids stay attached. Their phone shows the new name.</p>
+                  <div className="ops-acts"><button className="sx-btn primary sm" disabled={saving || !editing.name.trim() || !editing.business.trim()}>Save participant</button><button type="button" className="sx-btn ghost sm" onClick={() => setEditing(null)}>Cancel</button></div>
+                </form>
+              )}
             </li>
           ))}
         </ul>

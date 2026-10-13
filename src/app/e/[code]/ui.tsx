@@ -152,6 +152,8 @@ export function Band({ item, now, onRebid, unconfirmed }: { item: Item; now: num
   if (s.key === "leading") return <div className="band t-green"><span><b>You&rsquo;re leading</b></span>{closingSoon(item, now) && <TimeLeft item={item} now={now} prefix={false} />}</div>;
   if (s.key === "won") return <div className="band t-marigold"><span><b>You won</b> · {formatMoney(item.award?.amountMinor ?? item.currentMinor ?? 0)}</span></div>;
   if (s.key === "awaiting") return <div className="band t-hatch"><span><b>Staff confirming</b> · you had the top bid</span></div>;
+  if (s.key === "withdrawn") return <div className="band t-grey"><span><b>Withdrawn</b> by the host</span></div>;
+  if (s.key === "voided") return <div className="band t-grey"><span><b>Your bid was removed.</b> You can bid again.</span></div>;
   if (s.key === "unconfirmed") return <div className="band t-dashed"><span><b>Not confirmed.</b> Check it before bidding again.</span></div>;
   if (closingSoon(item, now)) return <div className="band t-amber"><TimeLeft item={item} now={now} /></div>;
   return null;

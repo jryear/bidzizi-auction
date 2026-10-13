@@ -12,7 +12,7 @@ type Ctx = { data: Data; reload: () => Promise<void>; flash: (t: string, tone?: 
 
 export function ResultsBoard({ ctx }: { ctx: Ctx }) {
   const { data } = ctx, e = data.event;
-  const items = data.items.filter(i => i.ready || i.bidCount);
+  const items = data.items.filter(i => (i.ready || i.bidCount) && !i.withdrawn);
   const decide = items.filter(i => i.phase === "closed" && !i.award);
   const handover = items.filter(i => i.award?.status === "assigned");
   const done = items.filter(i => i.award?.status === "fulfilled" || i.award?.status === "no_winner");
@@ -117,7 +117,7 @@ function Thumb({ item }: { item: Item }) {
 function DecideCard({ ctx, item }: { ctx: Ctx; item: Item }) {
   const { busy, act } = useAward(ctx, item);
   const [choosing, setChoosing] = useState(false);
-  const top = item.bids[0];
+  const top = item.bids.find(b => !b.voided);
   return (
     <article className="rc decide">
       <div className="rc-row">
@@ -140,7 +140,7 @@ function ChooseBid({ item, busy, act, onCancel }: { ctx: Ctx; item: Item; busy: 
   return (
     <div className="choose">
       <p>Award a different bid, for example if the top bidder can’t take the item.</p>
-      <ol>{item.bids.map(b => (
+      <ol>{item.bids.filter(b => !b.voided).map(b => (
         <li key={b.id}><span><b>{b.business}</b> · {b.name}</span><span className="amt">{formatMoney(b.amountMinor)}</span>
           <button type="button" className="sx-btn sm" disabled={busy || b.id === item.award?.bidId} onClick={() => act("assign", { bidId: b.id })}>{b.id === item.award?.bidId ? "Current" : "Award"}</button></li>
       ))}</ol>

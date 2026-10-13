@@ -241,6 +241,7 @@
 .pa .band.t-hatch { background: repeating-linear-gradient(135deg, var(--amber) 0 10px, #EAB637 10px 20px); color: var(--amber-ink); }
 .pa .band.t-marigold { background: var(--marigold); color: var(--ink); }
 .pa .band.t-dashed { background: var(--paper-2); border-top: 2px dashed var(--ink); }
+.pa .band.t-grey { background: var(--paper-2); color: var(--ink-2); border-top: 1px solid var(--line); }
 .pa .band-btn { min-height: 36px; padding: 0 14px; border-radius: 999px; background: #fff; color: var(--red); font: 700 14px/1 var(--sans); box-shadow: 0 4px 10px -6px rgba(0, 0, 0, .5); }
 .pa .band-btn:active { transform: scale(.96); }
 .pa .lc.was-here, .pa .lr.was-here { animation: here 1.8s var(--ease); }
@@ -356,6 +357,7 @@
 .pa .history li.mine { margin: 0 -10px; padding: 12px 10px; border-radius: 12px; border-bottom-color: transparent; background: linear-gradient(90deg, color-mix(in srgb, var(--marigold) 30%, transparent), color-mix(in srgb, var(--marigold) 6%, transparent)); }
 .pa .history li.top { padding-top: 4px; }
 .pa .history li.opening { color: var(--ink-2); border-bottom: 0; }
+.pa .history li.voided { opacity: .6; } .pa .history li.voided .amt { text-decoration: line-through; }
 .pa .h-dot { width: 12px; height: 12px; margin-left: 11px; border-radius: 50%; border: 2px solid var(--ink-3); }
 .pa .h-who { min-width: 0; } .pa .h-who b { display: block; font: 650 16px/1.2 var(--sans); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pa .h-who span { display: block; font-size: 13.5px; color: var(--ink-2); }

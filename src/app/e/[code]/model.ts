@@ -1,6 +1,7 @@
 // The participant's view model. One status vocabulary: every card, row, page, ticket and sheet renders from `standing()`,
 // so an item can never say two different things in two places.
 import { fmtClock } from "../../../lib/api";
+import { standingKey } from "../../../lib/display";
 
 export type Phase = "scheduled" | "open" | "closed";
 export type Item = {
@@ -9,6 +10,8 @@ export type Item = {
   currentMinor: number | null; bidCount: number; leader: { name: string; business: string; isMe: boolean } | null;
   minimumNextMinor: number | null; incrementMinor: number; watching: boolean; myHighestMinor: number | null; myBidCount: number;
   award: { status: string; winner: { name: string; business: string } | null; amountMinor: number | null; isMe: boolean } | null;
+  withdrawn?: boolean; withdrawalMessage?: string;
+  bidHistory?: { id: string; amountMinor: number; decidedAt: string; isMe: boolean; voided: boolean }[];
 };
 export type Recipient = { id: string; name: string; description: string; logoUrl: string | null };
 export type EventInfo = {
@@ -28,7 +31,7 @@ export type PendingBid = { requestId: string; itemId: string; amountMinor: numbe
 
 export type Tone = "green" | "red" | "amber" | "hatch" | "marigold" | "dashed" | "grey" | "ink" | "none";
 export type Standing = {
-  key: "leading" | "outbid" | "won" | "awaiting" | "lost" | "sold" | "closed" | "scheduled" | "open" | "unconfirmed";
+  key: "leading" | "outbid" | "won" | "awaiting" | "lost" | "sold" | "closed" | "scheduled" | "open" | "unconfirmed" | "withdrawn" | "voided";
   label: string; tone: Tone; mine: boolean;
 };
 
@@ -43,18 +46,20 @@ export const REASONS: Record<string, string> = {
 };
 
 export function standing(item: Item, unconfirmed = false): Standing {
-  if (unconfirmed) return { key: "unconfirmed", label: "Unconfirmed", tone: "dashed", mine: true };
-  if (item.phase === "scheduled") return { key: "scheduled", label: `Opens ${fmtClock(item.opensAt)}`, tone: "grey", mine: false };
-  if (item.phase === "open") {
-    if (item.leader?.isMe) return { key: "leading", label: "You're leading", tone: "green", mine: true };
-    if (item.myBidCount > 0) return { key: "outbid", label: "Outbid", tone: "red", mine: true };
-    return { key: "open", label: "Bidding open", tone: "none", mine: false };
+  switch (standingKey(item, unconfirmed)) {
+    case "unconfirmed": return { key: "unconfirmed", label: "Unconfirmed", tone: "dashed", mine: true };
+    case "withdrawn": return { key: "withdrawn", label: "Withdrawn", tone: "grey", mine: item.myBidCount > 0 };
+    case "scheduled": return { key: "scheduled", label: `Opens ${fmtClock(item.opensAt)}`, tone: "grey", mine: false };
+    case "leading": return { key: "leading", label: "You're leading", tone: "green", mine: true };
+    case "outbid": return { key: "outbid", label: "Outbid", tone: "red", mine: true };
+    case "voided": return { key: "voided", label: "Bid removed", tone: "grey", mine: true };
+    case "open": return { key: "open", label: "Bidding open", tone: "none", mine: false };
+    case "won": return { key: "won", label: "You won", tone: "marigold", mine: true };
+    case "awaiting": return { key: "awaiting", label: "Staff confirming", tone: "hatch", mine: true };
+    case "lost": return { key: "lost", label: item.award && item.award.status !== "no_winner" ? "Won by another bidder" : "Bidding closed", tone: "grey", mine: true };
+    case "sold": return { key: "sold", label: "Sold", tone: "grey", mine: false };
+    default: return { key: "closed", label: "Bidding closed", tone: "grey", mine: false };
   }
-  if (item.award?.isMe) return { key: "won", label: "You won", tone: "marigold", mine: true };
-  if (!item.award && item.leader?.isMe) return { key: "awaiting", label: "Staff confirming", tone: "hatch", mine: true };
-  if (item.myBidCount > 0) return { key: "lost", label: item.award && item.award.status !== "no_winner" ? "Won by another bidder" : "Bidding closed", tone: "grey", mine: true };
-  if (item.award && item.award.status !== "no_winner") return { key: "sold", label: "Sold", tone: "grey", mine: false };
-  return { key: "closed", label: "Bidding closed", tone: "grey", mine: false };
 }
 
 /** Closing soon: under ten minutes of an open item's time left (server time). */
@@ -89,20 +94,6 @@ export function sortItems(items: Item[], sort: Sort, serverNow: number): Item[] 
 // ---------------------------------------------------------------- the on-device activity log
 // The API exposes the current top bid and the bid count, not each bid. This log keeps what this phone actually knows:
 // your own receipts (server decision time) and changes in the top bid seen while polling (time first seen).
-export type LogEntry = { amountMinor: number; at: string; kind: "mine" | "seen"; business?: string };
-const logKey = (code: string) => `bz_log_${code}`;
-function readLog(code: string): Record<string, LogEntry[]> {
-  try { return JSON.parse(localStorage.getItem(logKey(code)) ?? "{}"); } catch { return {}; }
-}
-export function itemLog(code: string, itemId: string): LogEntry[] { return readLog(code)[itemId] ?? []; }
-export function appendLog(code: string, itemId: string, entry: LogEntry) {
-  try {
-    const all = readLog(code), list = all[itemId] ?? [];
-    if (list.some(e => e.amountMinor === entry.amountMinor && (e.kind === entry.kind || entry.kind === "seen"))) return;
-    all[itemId] = [entry, ...list].sort((a, b) => b.amountMinor - a.amountMinor).slice(0, 40);
-    localStorage.setItem(logKey(code), JSON.stringify(all));
-  } catch { /* storage unavailable: the log is a courtesy */ }
-}
 
 // ---------------------------------------------------------------- once-only moments
 export function seenOnce(key: string): boolean {

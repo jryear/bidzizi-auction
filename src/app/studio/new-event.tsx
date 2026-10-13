@@ -7,7 +7,7 @@ import { IChevL, IClose, ICopy, IPlus } from "../../lib/icons";
 import type { Item as PItem } from "../e/[code]/model";
 import { ItemCard } from "../e/[code]/ui";
 import { SUGGESTED_NAMES, type EventCard } from "./data";
-import { Status } from "./kit";
+import { Status, Switch } from "./kit";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 function nextWeekDate() { const d = new Date(Date.now() + 7 * 86400_000); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; }
@@ -39,6 +39,7 @@ export function NewEvent({ events, onClose, onCreated, startWith }: { events: Ev
   const [template, setTemplate] = useState<Template | null>(null);
   const [source, setSource] = useState<EventCard | null>(startWith ?? null);
   const [name, setName] = useState(startWith ? startWith.name : "");
+  const [practice, setPractice] = useState(false);
   const [date, setDate] = useState(nextWeekDate()), [time, setTime] = useState("18:00"), [hours, setHours] = useState(3);
   const [error, setError] = useState(""), [busy, setBusy] = useState(false);
   useEffect(() => { ref.current?.showModal(); }, []);
@@ -57,7 +58,7 @@ export function NewEvent({ events, onClose, onCreated, startWith }: { events: Ev
     setBusy(true); setError("");
     const r = source
       ? await api("POST", `/api/v1/host/events/${source.id}/duplicate`, { requestId: request.current, name, startsAt: start.toISOString() }).catch(() => null)
-      : await api("POST", "/api/v1/host/events", { requestId: request.current, template: template?.id ?? "blank", name, startsAt: start.toISOString(), endsAt: end.toISOString(), timezone: tz }).catch(() => null);
+      : await api("POST", "/api/v1/host/events", { requestId: request.current, template: template?.id ?? "blank", name, startsAt: start.toISOString(), endsAt: end.toISOString(), timezone: tz, isPractice: practice }).catch(() => null);
     if (r?.ok) onCreated(r.data.id);
     else { setBusy(false); setError(r ? errorText(r) : "Connection lost. Try again. It won't be created twice."); }
   }
@@ -120,6 +121,7 @@ export function NewEvent({ events, onClose, onCreated, startWith }: { events: Ev
                   </div>
                 </div>
               )}
+              {!source && <Switch on={practice} onChange={setPractice} label="Practice event" sub="For rehearsals. You can reset it to a clean slate any time, and it never takes the spot of your real event." />}
               <p className="ne-summary">{Number.isNaN(start.getTime()) ? "Choose a date and time" : <>Bidding <b>{start.toLocaleString("en-US", { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}</b> to <b>{end.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}</b>{source ? " (same length as the original)" : ""}. You can change this any time.</>}</p>
               {error && <p className="sx-error" role="alert">{error}</p>}
               <button className="sx-btn primary lg" disabled={busy}>{busy ? "Creating…" : <><IPlus size={18} />Create and open the editor</>}</button>

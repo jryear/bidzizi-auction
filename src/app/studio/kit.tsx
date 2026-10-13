@@ -115,6 +115,7 @@ export function Ring({ done, total, size = 44, stroke = 5 }: { done: number; tot
 const STAGES: Record<string, [string, string]> = {
   draft: ["Draft", "draft"], upcoming: ["Live · starts soon", "upcoming"], running: ["Bidding open", "open"], ended: ["Ended", "ended"],
   open: ["Bidding open", "open"], closed: ["Bidding closed", "ended"], scheduled: ["Not open yet", "upcoming"], hidden: ["Hidden", "draft"],
+  withdrawn: ["Withdrawn", "ended"], practice: ["Practice", "practice"], archived: ["Archived", "ended"],
 };
 export function Status({ stage, big = false }: { stage: string; big?: boolean }) {
   const [label, tone] = STAGES[stage] ?? [stage, "draft"];
@@ -215,7 +216,7 @@ export function Login({ onIn }: { onIn: () => void }) {
               <button type="button" className="pw-eye" onClick={() => setShow(!show)} aria-label={show ? "Hide password" : "Show password"} aria-pressed={show}>{show ? <IEyeOff size={18} /> : <IEye size={18} />}</button>
             </span></div>
           <button className="sx-btn primary lg block" disabled={busy || !email || !password}>{busy ? "Signing in…" : error ? "Try again" : "Sign in"}</button>
-          <p className="sx-fine">Forgot your password? Ask the person who set up your account.</p>
+          <p className="sx-fine">Forgot your password? A colleague can send you a reset link from Studio &rarr; Staff &amp; access.</p>
           <p className="sx-fine login-guest">Here to bid? <a href="/join">Enter an event code</a></p>
         </form>
       </section>

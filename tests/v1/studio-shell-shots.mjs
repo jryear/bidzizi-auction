@@ -22,6 +22,8 @@ const desk = await browser.newContext({ viewport: { width: 1440, height: 900 } }
 const p = await desk.newPage(); watch(p, "desk");
 await p.goto(BASE + "/studio"); await p.getByLabel("Email").waitFor(); await shot(p, "s01-login-1440", 900);
 await signIn(p); await shot(p, "s02-home-1440", 1200);
+await p.getByRole("button", { name: "Staff & access" }).click(); await p.locator(".staff-dlg").waitFor(); await shot(p, "s02b-staff-1440", 900);
+await p.keyboard.press("Escape");
 await p.getByRole("button", { name: "New event", exact: true }).click(); await p.locator(".tpl-grid").waitFor(); await shot(p, "s03-gallery-1440", 900);
 await p.getByRole("button", { name: /Use the Trade show auction template/ }).click(); await shot(p, "s04-details-1440");
 await p.getByRole("button", { name: /Create and open the editor/ }).click();
@@ -42,8 +44,11 @@ await p.keyboard.press("Escape");
 
 if (SEEDED) {
   await p.goto(`${BASE}/studio/${SEEDED}?mode=live`); await p.locator(".live").waitFor(); await shot(p, "s11-live-1440", 1500);
+  await p.locator(".tile", { hasText: "Coffee for a year" }).click(); await p.locator(".ops").waitFor(); await shot(p, "s11b-live-item-ops-1440", 900);
+  await p.locator(".ops .f-void").first().click({ force: true }); await p.locator(".ops-confirm").waitFor(); await shot(p, "s11c-live-void-1440", 600);
   await p.goto(`${BASE}/studio/${SEEDED}?mode=results`); await p.locator(".results").waitFor(); await shot(p, "s12-results-1440", 1200);
   await p.goto(`${BASE}/studio/${SEEDED}?mode=setup`); await p.locator(".device-screen").waitFor(); await shot(p, "s13-editor-live-event-1440", 1400);
+  await p.locator("details.housekeeping").evaluate(d => { d.open = true; d.scrollIntoView(); }); await shot(p, "s13b-housekeeping-1440", 600);
   await p.locator(".top-acts").getByRole("button", { name: /Share/ }).click(); await p.locator(".share").waitFor(); await shot(p, "s14-share-live-1440", 900);
   const stage = await desk.newPage(); watch(stage, "stage");
   await stage.goto(`${BASE}/studio/${SEEDED}/stage`); await stage.locator(".st-main, .finale").first().waitFor(); await shot(stage, "s15-stage-1440", 2200);

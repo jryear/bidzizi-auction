@@ -3,11 +3,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { api, fmtTime } from "../../lib/api";
-import { ICalendar, IChevR, ICopy, IEye, IMonitor, IPlus, ISignOut } from "../../lib/icons";
+import { ICalendar, IChevR, ICopy, IEye, IMonitor, IPlus, ISignOut, IUsers } from "../../lib/icons";
 import { countdown } from "../e/[code]/model";
 import { currentEvent, type EventCard } from "./data";
 import { Brand, Login, Menu, Status } from "./kit";
 import { NewEvent } from "./new-event";
+import { StaffDialog } from "./staff";
 import "../e/[code]/participant.css";
 import "./studio.css";
 
@@ -19,6 +20,7 @@ export default function StudioHome() {
   const [serverNow, setServerNow] = useState(Date.now());
   const [creating, setCreating] = useState<null | { from?: EventCard }>(null);
   const [showAll, setShowAll] = useState(false);
+  const [team, setTeam] = useState(false);
   const load = useCallback(async () => {
     const r = await api("GET", "/api/v1/host/events").catch(() => null);
     if (!r) { setState(s => s === "ready" ? s : "error"); return; }
@@ -39,8 +41,9 @@ export default function StudioHome() {
   const now = serverNow + tick * 1000;
   const current = currentEvent(events, now);
   const rest = events.filter(e => e.id !== current?.id);
-  const drafts = rest.filter(e => e.stage === "draft"), others = rest.filter(e => e.stage !== "draft");
-  const archive = [...others, ...drafts];
+  // Real events first, then drafts, then practice rooms, then archived ones.
+  const rank = (e: EventCard) => e.archivedAt ? 3 : e.isPractice ? 2 : e.stage === "draft" ? 1 : 0;
+  const archive = [...rest].sort((a, b) => rank(a) - rank(b));
   const shown = showAll ? archive : archive.slice(0, 5);
 
   return (
@@ -49,6 +52,7 @@ export default function StudioHome() {
         <Brand />
         <span className="org">{staff?.orgName}</span>
         <span className="grow" />
+        <button type="button" className="sx-btn ghost" onClick={() => setTeam(true)}><IUsers size={18} />Staff &amp; access</button>
         <button type="button" className="sx-btn" onClick={() => setCreating({})}><IPlus size={18} />New event</button>
         <Menu label="Account">
           <span className="pop-head">{staff?.name}<small>{staff?.orgName}</small></span>
@@ -66,7 +70,7 @@ export default function StudioHome() {
           </section>
         )}
 
-        {current && archive.length > 0 && (
+        {archive.length > 0 && (
           <div className="home-grid">
               <section className="archive">
                 <div className="ar-head"><h2>Other events</h2></div>
@@ -76,7 +80,8 @@ export default function StudioHome() {
                       <a href={`/studio/${e.id}`} className="ar-main">
                         <span className="ar-thumb">{e.coverUrl ? <img src={e.coverUrl} alt="" /> : <span>{e.name.slice(0, 1)}</span>}</span>
                         <span className="ar-t"><b>{e.name}</b><small>{fmtTime(e.startsAt)} · {e.itemCount} item{e.itemCount === 1 ? "" : "s"}{e.participantCount ? ` · ${e.participantCount} joined` : ""}</small></span>
-                        <Status stage={e.stage} />
+                        {e.isPractice && !e.archivedAt && <Status stage="practice" />}
+                        <Status stage={e.archivedAt ? "archived" : e.stage} />
                       </a>
                       <button type="button" className="sx-btn ghost sm ar-dup" onClick={() => setCreating({ from: e })} title="New draft with this event's setup and items" aria-label={`Start from this: ${e.name}`}><ICopy size={16} /><span className="ar-dup-l">Start from this</span></button>
                     </li>
@@ -87,6 +92,7 @@ export default function StudioHome() {
           </div>
         )}
       </div>
+      {team && <StaffDialog me={staff?.name} onClose={() => setTeam(false)} />}
       {creating && <NewEvent events={events} startWith={creating.from} onClose={() => setCreating(null)} onCreated={id => router.push(`/studio/${id}`)} />}
     </main>
   );
@@ -108,7 +114,7 @@ function Hero({ e, now, onOpen }: { e: EventCard; now: number; onOpen: (id: stri
     <section className={`hero s-${e.stage}`}>
       <div className="hero-media">{e.coverUrl ? <img src={e.coverUrl} alt="" /> : <span className="hero-art">{e.name.slice(0, 1)}</span>}</div>
       <div className="hero-body">
-        <div className="hero-top"><Status stage={e.stage} big />{e.status === "live" && <span className="hero-code">Code <b>{e.code}</b></span>}</div>
+        <div className="hero-top"><Status stage={e.stage} big />{e.isPractice && <Status stage="practice" big />}{e.status === "live" && <span className="hero-code">Code <b>{e.code}</b></span>}</div>
         <h1>{e.name}</h1>
         <p className="hero-date"><ICalendar size={18} />{fmtTime(e.startsAt)} – {new Date(e.endsAt).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}</p>
         <div className="hero-stats">

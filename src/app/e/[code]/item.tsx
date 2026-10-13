@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { fmtClock, fmtTime } from "../../../lib/api";
 import { formatMoney } from "../../../lib/money";
 import { IAlert, ICheck, IClock, IHistory, ITrophy } from "../../../lib/icons";
-import { closingSoon, countdown, itemLog, standing, type Item, type LogEntry, type PendingBid, type Snapshot } from "./model";
+import { closingSoon, countdown, standing, type Item, type PendingBid, type Snapshot } from "./model";
 import type { Nav } from "./participant";
 import { Amount, Ed, ItemArt, LotTab, Mark, Photo, Pill, TimeLeft, useEdit, Watch } from "./ui";
 
@@ -13,8 +13,6 @@ export function ItemPage({ snap, now, nav, code, stale, pending, item }: Props) 
   const me = snap.me!;
   const unconfirmed = pending?.itemId === item.id;
   const s = standing(item, unconfirmed);
-  const [log, setLog] = useState<LogEntry[]>([]);
-  useEffect(() => { setLog(itemLog(code, item.id)); }, [code, item.id, item.currentMinor, item.myBidCount]);
   const tz = snap.event.timezone;
   const edit = useEdit();
 
@@ -58,7 +56,7 @@ export function ItemPage({ snap, now, nav, code, stale, pending, item }: Props) 
 
         <section className="prose activity">
           <h2><IHistory size={20} />Bid activity</h2>
-          <Activity item={item} log={log} tz={tz} />
+          <Activity item={item} tz={tz} />
         </section>
 
         <details className="howto">
@@ -90,35 +88,31 @@ function StandingCard({ item, now, nav, instructions, unconfirmed, paused }: { i
     case "won": return <div className="standing t-marigold" key="won"><span className="st-ic"><ITrophy size={24} /></span><div><b>You won this item</b><p>{instructions || "The event staff will be in touch about collecting it."}</p></div></div>;
     case "awaiting": return <div className="standing t-hatch"><span className="st-ic"><IClock size={24} /></span><div><b>You had the top bid</b><p>Staff are confirming the winner. You&rsquo;ll see it here.</p></div></div>;
     case "lost": return <div className="standing t-grey"><div><b>{s.label}</b><p>Your highest was {formatMoney(item.myHighestMinor ?? 0)}. Thanks for bidding.</p></div></div>;
+    case "withdrawn": return <div className="standing t-grey" key="withdrawn"><IAlert size={26} /><div><b>This item was withdrawn</b><p>{item.withdrawalMessage || "The host withdrew this item. Bidding is closed."}</p></div></div>;
+    case "voided": return <div className="standing t-grey" key="voided"><IAlert size={26} /><div><b>Staff removed your bid</b><p>You can bid again while bidding is open.</p></div></div>;
     case "unconfirmed": return <div className="standing t-dashed"><span className="st-ic"><IAlert size={24} /></span><div><b>We couldn&rsquo;t confirm your last bid</b><p>Check its status before bidding again.</p></div></div>;
     default:
       return null; // closing soon is carried by the ticket's countdown and the action bar
   }
 }
 
-function Activity({ item, log, tz }: { item: Item; log: LogEntry[]; tz: string }) {
-  const rows = log.filter(e => e.amountMinor !== item.currentMinor || e.kind === "mine");
-  const topMine = log.find(e => e.kind === "mine" && e.amountMinor === item.currentMinor);
+function Activity({ item, tz }: { item: Item; tz: string }) {
+  const history = item.bidHistory ?? [];
+  const topId = history.find(b => !b.voided)?.id;
+  const who = (b: { isMe: boolean; id: string }) => b.isMe ? "You" : b.id === topId && item.leader ? item.leader.business : "Another bidder";
   return (
     <>
       <ol className="history">
-        {item.currentMinor !== null && item.leader && (
-          <li className={`top${item.leader.isMe ? " mine" : ""}`}>
-            <Mark name={item.leader.isMe ? "You" : item.leader.business} you={item.leader.isMe} size={34} />
-            <span className="h-who"><b>{item.leader.isMe ? "You" : item.leader.business}</b><span>{item.phase === "closed" ? "Final bid" : "Top bid"}{topMine ? ` · ${fmtClock(topMine.at, tz)}` : ""}</span></span>
-            <span className="h-amt"><b className="amt">{formatMoney(item.currentMinor)}</b></span>
-          </li>
-        )}
-        {rows.filter(e => !(e.kind === "mine" && e.amountMinor === item.currentMinor && item.leader?.isMe)).map(e => (
-          <li key={`${e.kind}-${e.amountMinor}`} className={e.kind === "mine" ? "mine" : ""}>
-            <Mark name={e.kind === "mine" ? "You" : e.business ?? "?"} you={e.kind === "mine"} size={34} />
-            <span className="h-who"><b>{e.kind === "mine" ? "Your bid" : e.business}</b><span>{fmtClock(e.at, tz)}</span></span>
-            <span className="h-amt"><b className="amt">{formatMoney(e.amountMinor)}</b></span>
+        {history.map(b => (
+          <li key={b.id} className={`${b.isMe ? "mine" : ""}${b.id === topId ? " top" : ""}${b.voided ? " voided" : ""}`}>
+            <Mark name={who(b)} you={b.isMe} size={34} />
+            <span className="h-who"><b>{who(b)}</b><span>{b.voided ? "Removed by staff" : b.id === topId ? (item.phase === "closed" ? "Final bid" : "Top bid") : fmtClock(b.decidedAt, tz)}</span></span>
+            <span className="h-amt"><b className="amt">{formatMoney(b.amountMinor)}</b></span>
           </li>
         ))}
         <li className="opening"><span className="h-dot" aria-hidden="true" /><span className="h-who"><b>Starting bid</b></span><span className="h-amt"><b className="amt">{formatMoney(item.openingMinor)}</b></span></li>
       </ol>
-      <p className="fine">{item.bidCount} bid{item.bidCount === 1 ? "" : "s"} in total. This list shows your bids and the top bids this phone has seen.</p>
+      {item.bidCount > 0 && <p className="fine">{item.bidCount} bid{item.bidCount === 1 ? "" : "s"}{item.myBidCount ? `, ${item.myBidCount} from you` : ""}.</p>}
     </>
   );
 }
