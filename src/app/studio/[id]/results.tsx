@@ -18,26 +18,29 @@ export function ResultsBoard({ ctx }: { ctx: Ctx }) {
   const done = items.filter(i => i.award?.status === "fulfilled" || i.award?.status === "no_winner");
   const open = items.filter(i => i.phase !== "closed");
   const pledges = data.pledges, unprocessed = pledges.filter(p => !p.processedAt);
-  const total = items.length + pledges.length, finished = done.length + (pledges.length - unprocessed.length);
+  // Progress counts only what can be wrapped up now: closed items and donations. Open items join as they close.
+  const closed = items.filter(i => i.phase === "closed");
+  const total = closed.length + pledges.length, finished = done.length + (pledges.length - unprocessed.length);
   const allDone = total > 0 && finished === total;
+  const celebrate = allDone && !open.length;
   const sold = items.filter(i => i.award && i.award.status !== "no_winner").reduce((s, i) => s + (i.award?.amountMinor ?? 0), 0);
   const given = pledges.reduce((s, p) => s + p.amountMinor, 0);
   const [showDone, setShowDone] = useState(false);
 
   return (
     <div className="results">
-      <section className={`wrap-hero${allDone ? " all" : ""}`}>
+      <section className={`wrap-hero${celebrate ? " all" : ""}`}>
         <Ring done={finished} total={total} size={92} stroke={8} />
         <div className="wh-t">
           <span className="sx-eyebrow">Wrap-up</span>
-          <h2>{allDone ? "Everything's wrapped up" : open.length && !decide.length && !handover.length ? "Bidding is still going" : `${total - finished} thing${total - finished === 1 ? "" : "s"} left to wrap up`}</h2>
-          <p>{allDone ? "Every winner is confirmed and handed over, and every donation is processed. Nice work." : "Confirm each winner, mark items as handed over, then process donations. Confirmed winners see “You won” and your message on their phone."}</p>
+          <h2>{allDone && !open.length ? "Everything's wrapped up" : total - finished > 0 ? `${total - finished} thing${total - finished === 1 ? "" : "s"} to wrap up` : open.length ? "Bidding is still going" : "Nothing to wrap up yet"}</h2>
+          <p>{allDone && !open.length ? "Every winner is confirmed and handed over, and every donation is processed. Nice work." : allDone && open.length ? `All caught up. ${open.length} item${open.length === 1 ? " is" : "s are"} still open and will appear here as they close.` : "Confirm each winner, mark items as handed over, then process donations. Confirmed winners see “You won” and your message on their phone."}</p>
         </div>
         <div className="wh-nums">
           <div><span>Items sold</span><b>{formatMoney(sold)}</b></div>
           <div><span>Donated</span><b>{formatMoney(given)}</b></div>
         </div>
-        {allDone && <div className="wh-confetti" aria-hidden="true">{Array.from({ length: 24 }, (_, i) => <i key={i} style={{ "--x": `${(i * 41) % 100}%`, "--d": `${(i % 6) * 0.1}s`, "--c": ["#F2B632", "#2338C7", "#12724A", "#C93A1B"][i % 4] } as CSSProperties} />)}</div>}
+        {celebrate && <div className="wh-confetti" aria-hidden="true">{Array.from({ length: 24 }, (_, i) => <i key={i} style={{ "--x": `${(i * 41) % 100}%`, "--d": `${(i % 6) * 0.1}s`, "--c": ["#F2B632", "#2338C7", "#12724A", "#C93A1B"][i % 4] } as CSSProperties} />)}</div>}
       </section>
 
       <div className="wrap-cols">

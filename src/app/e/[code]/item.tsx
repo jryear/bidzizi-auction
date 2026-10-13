@@ -30,7 +30,7 @@ export function ItemPage({ snap, now, nav, code, stale, pending, item }: Props) 
           {item.donor ? <span className="provided"><Mark name={item.donor} kind="sponsor" size={36} /><span><small>Provided by</small><b>{item.donor}</b></span></span> : <span />}
           {item.category && <span className="eyebrow">{item.category}</span>}
         </div>
-        <Ed k={`item:${item.id}`} field="title" value={item.title} as="h1" className="ip-title" placeholder="Item title" max={200} />
+        <Ed k={`item:${item.id}`} field="title" value={item.title} as="h1" className={`ip-title${item.title.length > 60 ? " long" : ""}`} placeholder="Item title" max={200} />
         <Ed k={`item:${item.id}`} field="short" value={item.short} as="p" className="ip-short" placeholder="One-line summary" max={500} />
 
         <StandingCard item={item} now={now} nav={nav} instructions={me.winnerInstructions} unconfirmed={unconfirmed} paused={!me.canBid} />
@@ -84,7 +84,7 @@ function StandingCard({ item, now, nav, instructions, unconfirmed, paused }: { i
     case "outbid": return (
       <div className="standing t-red pulse-once" key="outbid">
         <span className="st-ic"><IAlert size={24} /></span>
-        <div><b>You&rsquo;ve been outbid</b><p>{item.leader?.business} leads at {formatMoney(item.currentMinor!)}. Your highest was {formatMoney(item.myHighestMinor ?? 0)}.{item.minimumNextMinor !== null ? ` One tap below bids ${formatMoney(item.minimumNextMinor)}.` : ""}</p></div>
+        <div><b>You&rsquo;ve been outbid</b><p>{item.leader?.business} leads at {formatMoney(item.currentMinor!)}. Your highest was {formatMoney(item.myHighestMinor ?? 0)}.{item.minimumNextMinor !== null ? ` Bid ${formatMoney(item.minimumNextMinor)} to take the lead back.` : ""}</p></div>
       </div>
     );
     case "won": return <div className="standing t-marigold" key="won"><span className="st-ic"><ITrophy size={24} /></span><div><b>You won this item</b><p>{instructions || "The event staff will be in touch about collecting it."}</p></div></div>;

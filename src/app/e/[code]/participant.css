@@ -311,6 +311,7 @@
 .pa .provided b { font: 650 15px/1.25 var(--sans); }
 .pa .ip-title { margin: 14px 0 8px; font: 600 clamp(32px, 9vw, 40px)/1.04 var(--serif); letter-spacing: -.022em; font-variation-settings: "SOFT" 40; text-wrap: balance; overflow-wrap: anywhere; }
 .pa .ip-short { font-size: 17.5px; color: var(--ink-2); }
+.pa .ip-title.long { font-size: clamp(26px, 7vw, 30px); line-height: 1.1; }
 .pa .standing { display: flex; gap: 14px; align-items: flex-start; margin-top: 20px; padding: 16px 16px 16px 14px; border-radius: 18px; border-left: 6px solid var(--tone, var(--line)); background: var(--card); animation: rise .45s var(--ease); }
 .pa .standing b { display: block; font: 700 18px/1.2 var(--sans); }
 .pa .standing p { margin-top: 4px; font-size: 15px; line-height: 1.45; white-space: pre-wrap; }
@@ -705,7 +706,7 @@
 .pa .lc .tap-ed.is-sel { box-shadow: inset 0 0 0 3px var(--cobalt); }
 .pa .ph-drop { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; opacity: 0; background: rgba(26, 24, 20, .38); color: #fff; transition: opacity .2s; }
 .pa .ph-drop span { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; background: rgba(26, 24, 20, .82); font: 650 14px/1 var(--sans); }
-.pa .ph-drop.ph-none { opacity: 1; background: transparent; }
+.pa .ph-drop.ph-none { opacity: 1; background: transparent; align-items: end; padding-bottom: 22px; }
 .pa .ph-drop.ph-none span { background: color-mix(in srgb, var(--paper) 92%, transparent); color: var(--ink); box-shadow: 0 6px 16px -8px rgba(0, 0, 0, .5); }
 .pa .ph-drop.over, .pa :hover > .ph-drop, .pa .ph-drop:focus-visible { opacity: 1; }
 .pa .ph-drop.over { background: rgba(35, 56, 199, .45); }
@@ -799,7 +800,7 @@
   .pa:not(.is-canvas) .mine-rail .rail-pass { display: block; }
   .pa:not(.is-canvas) .mine-rail .winner-note { margin: 0; }
   .pa:not(.is-canvas) .bids .b-sec { padding-right: 0; }
-  .pa:not(.is-canvas) .tickets { grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); }
+  .pa:not(.is-canvas) .tickets { grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); }
   .pa:not(.is-canvas) .give-layout { max-width: 760px; }
 }
 

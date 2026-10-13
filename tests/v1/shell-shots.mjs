@@ -87,6 +87,7 @@ a.on("console", m => { if (m.type() === "error") { console.log("CONSOLE", m.text
 const shot = async (page, name, opts = {}) => { await page.waitForTimeout(opts.full ? 1200 : opts.wait ?? 700); await page.screenshot({ path: `${OUT}/${name}.png`, fullPage: opts.full ?? false }); if (opts.full) await page.waitForTimeout(800); console.log("shot", name); };
 const abid = (itemId, amount) => a.evaluate(([c, i, m]) => fetch(`/api/v1/e/${c}/bid`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ requestId: crypto.randomUUID(), itemId: i, amountMinor: m }) }).then(r => r.status), [code, itemId, amount]);
 
+await a.goto(`${BASE}/join`); await a.getByLabel("Event code").fill(code.slice(0, 4)); await shot(a, "p00-join-code-390", 600);
 await a.goto(`${BASE}/e/${code}`); await a.getByLabel("Your name").waitFor();
 await shot(a, "p01-join-390", { wait: 1200 });
 await a.getByLabel("Your name").fill("Alice Chen"); await a.getByLabel("Business name").fill("Juniper Design Studio");
