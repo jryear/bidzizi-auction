@@ -643,3 +643,25 @@ The form, its error states and the guest link are unchanged.
 - `color-mix()` (about 40 declarations) needs iOS 16.2; on 16.0–16.1 those tints drop, while text stays readable.
 
 The rule is recorded in AGENTS.md's durable guardrails.
+
+
+## Compatibility build carried through (2026-10-13)
+
+Continued from `ece2890` after Claude's session limit. The interrupted fixed-overlay bid-sheet hotfix is committed as `d58c9be` in `real-v1-deploy`. It was integrated into this shell while retaining the in-progress diagnostic work:
+
+- `7d05423`: fixed-overlay guest bid sheet, focus/keyboard recovery, Devices reporting and server-rendered simple mode.
+- `961e040`: browser compatibility gate, supported CSS fallbacks, connected regression suites and native-iOS runner.
+
+The complete behavior, limits and reproduction commands are in [Compatibility status](COMPATIBILITY_STATUS.md). [Saturn's phone rehearsal](COMPAT_CROWD_REHEARSAL.md) gives staff a 20-minute, 10–15-person practice-event check.
+
+**Final local evidence:** compatibility suite passes (device parsing 10/10, CSS gate fixtures 2/2, telemetry API 8/8, Devices UI, bid sheet in Chromium/WebKit, and JavaScript-disabled simple mode in both engines). Existing auction journey **55/55**, Items UI **15/15**, Studio saving **7/7**, photo UI **11/11**, connected photos **8/8**, operations UI and display/Items logic pass. TypeScript and the production Next build pass. Connected checks ran against the separate `bz_test_compat_20261013` loopback database.
+
+| View | Phone | Desktop |
+|---|---|---|
+| WebKit bid sheet | [390px](images/compatibility/webkit-sheet-390.png) | [1440px](images/compatibility/webkit-sheet-1440.png) |
+| Simple mode, JavaScript disabled | [390px](images/compatibility/webkit-simple-390.png) | [1440px](images/compatibility/webkit-simple-1440.png) |
+| Devices and reported problem | — | [1440px](images/compatibility/devices-1440.png) |
+
+**Native iOS is unvalidated.** Xcode has no simulator runtimes installed; Apple's downloader reports the requested 16.4, 17.5 and 18.6 versions unavailable. The native runner exits **99**, with [the matrix](images/compatibility/ios-matrix.json), rather than claiming a pass. Its simulator path has not executed. Playwright WebKit is browser-engine evidence only. Physical phones and VoiceOver remain untested.
+
+Migration 009 was applied only to local test/review databases. The compiled Studio preview is updated at **http://127.0.0.1:3420/studio**, retaining the existing review account and events. Temporary compatibility servers on 3430/3431/3432 were stopped. Nothing was pushed or deployed. The saved information-architecture tranche remains separate.
