@@ -59,7 +59,7 @@ await check("type rows: Enter adds an item and starts the next, keeping the cate
   await page.getByLabel("New item provided by").fill("Pine Ridge");
   await page.getByLabel("New item starting bid").fill("400");
   await page.getByLabel("New item starting bid").press("Enter");
-  await assert.equal(await title.evaluate(el => el === document.activeElement), true, "focus returns to a fresh title");
+  await until("focus returns to a fresh title", () => title.evaluate(el => el === document.activeElement));
   for (const [t, price] of [["Ojai farmhouse retreat", "650"], ["Catalina day trip", "220"]]) {
     await title.fill(t); await page.getByLabel("New item starting bid").fill(price); await page.getByLabel("New item starting bid").press("Enter");
   }

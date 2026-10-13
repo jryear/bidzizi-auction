@@ -61,6 +61,7 @@ export function ShareDialog({ data, onClose, patchEvent, onGoLive }: { data: Dat
             </div>
           </div>
 
+          <p className="remote-note"><b>Someone having trouble?</b> <a href={`${link}/simple`} target="_blank" rel="noopener noreferrer">Open simple mode</a> works without JavaScript.</p>
           <p className="remote-note"><b>Guests who can&rsquo;t be there</b> use the same link. They join, browse and bid exactly like people in the room.</p>
 
           {draft ? (

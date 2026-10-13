@@ -123,13 +123,13 @@ export function ActionBar({ item, snap, nav, now, unconfirmed, inline = false }:
   const cls = `pa-actionbar${inline ? " inline" : ""} tone-${s.tone}`;
   if (item.phase === "scheduled") return <div className={cls}><div className="ab-row"><div className="ab-amt"><span className="lbl">Opens</span><b className="ab-big">{fmtTime(item.opensAt, snap.event.timezone)}</b></div><button type="button" className="btn primary lg" disabled>Not open yet</button></div></div>;
   if (item.phase === "closed") return null; // the standing card and the ticket already say it's closed and what it sold for
-  if (unconfirmed) return <div className={cls}><button type="button" className="btn primary lg block" onClick={() => nav.openSheet(item)}>Check bid status</button></div>;
+  if (unconfirmed) return <div className={cls}><button type="button" className="btn primary lg block" onClick={e => { e.currentTarget.focus({ preventScroll: true }); nav.openSheet(item); }}>Check bid status</button></div>;
   if (item.leader?.isMe) return null; // nothing to do; the standing card and the ticket already say you lead
   const outbid = s.key === "outbid", min = item.minimumNextMinor;
   return (
     <div className={cls}>
       {closingSoon(item, now) && <span className="ab-soon"><TimeLeft item={item} now={now} /></span>}
-      <button type="button" className="btn primary lg block" disabled={min === null || !me.canBid} onClick={() => nav.openSheet(item, outbid && min !== null ? min : undefined)}>
+      <button type="button" className="btn primary lg block" disabled={min === null || !me.canBid} onClick={e => { e.currentTarget.focus({ preventScroll: true }); nav.openSheet(item, outbid && min !== null ? min : undefined); }}>
         {min !== null ? <span>Bid <Amount minor={min} /></span> : "Bid"}
       </button>
     </div>

@@ -16,6 +16,7 @@ import { Give } from "./give";
 import { Join, PreviewBanner } from "./join";
 import { Alerts, Celebration, type Alert } from "./moments";
 import { Mark } from "./ui";
+import { startReporting } from "../../../lib/telemetry";
 import "./participant.css";
 
 export type Section = "items" | "watching" | "mine" | "event" | "give";
@@ -38,6 +39,14 @@ function readRoute(): Route {
 const urlOf = (r: Route) => `${location.pathname}?${new URLSearchParams({ ...(r.s !== "items" || r.i ? { s: r.s } : {}), ...(r.i ? { i: r.i } : {}) }).toString()}`.replace(/\?$/, "");
 
 export default function Participant({ code }: { code: string }) {
+  // The app has started: stand down the early catcher in the page, and report this device and any errors from here on.
+  useEffect(() => {
+    const w = window as unknown as { __bzHydrated?: boolean; __bzEarly?: (e: ErrorEvent) => void };
+    w.__bzHydrated = true;
+    document.getElementById("bz-stuck")?.remove();
+    if (w.__bzEarly) removeEventListener("error", w.__bzEarly);
+    return startReporting({ url: `/api/v1/e/${code}/telemetry` });
+  }, [code]);
   const [snap, setSnap] = useState<Snapshot | null>(null);
   const [missing, setMissing] = useState(false);
   const [offline, setOffline] = useState(false);

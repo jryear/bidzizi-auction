@@ -8,7 +8,7 @@ import { EventHero, Facts, Mark, SponsorGrid } from "./ui";
 
 type Props = { snap: Snapshot; now: number; nav: Nav; code: string; stale: boolean; pending: PendingBid | null };
 
-export function EventPage({ snap, now, nav }: Props) {
+export function EventPage({ snap, now, nav, code }: Props) {
   const e = snap.event, me = snap.me!;
   const d = e.donations;
   return (
@@ -45,6 +45,7 @@ export function EventPage({ snap, now, nav }: Props) {
         </section>
 
         <SponsorGrid sponsors={e.sponsors} />
+        <p className="fine"><a href={`/e/${encodeURIComponent(code)}/simple`}>Having trouble? Simple mode</a></p>
 
         <section className="joined">
           <Mark name={me.businessName} you size={44} />

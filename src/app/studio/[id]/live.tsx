@@ -9,6 +9,7 @@ import { countdown } from "../../e/[code]/model";
 import { Amount, ItemArt } from "../../e/[code]/ui";
 import type { Data, Item, Participant } from "../data";
 import { Menu, Status } from "../kit";
+import { DevicesPanel, problemTitle, useDevices, type Problem } from "./devices";
 
 type Ctx = { data: Data; reload: () => Promise<void>; flash: (t: string, tone?: "ink" | "red" | "green") => void; patchEvent: (f: Record<string, unknown>) => Promise<boolean> };
 
@@ -25,6 +26,14 @@ export function LiveBoard({ ctx }: { ctx: Ctx }) {
   const quiet = live.filter(i => !i.withdrawn && i.phase === "open" && !i.bidCount);
   const order = [...live].sort((a, b) => (a.phase === "open" ? 0 : a.phase === "scheduled" ? 1 : 2) - (b.phase === "open" ? 0 : b.phase === "scheduled" ? 1 : 2) || t(a.effectiveClosesAt) - t(b.effectiveClosesAt) || a.position - b.position);
   const focused = data.items.find(i => i.id === focus);
+  // Guests' devices: a new problem raises an alert here and a toast, within seconds.
+  const [recent, setRecent] = useState<Problem[]>([]);
+  const devices = useDevices(e.id, fresh => {
+    const guests = fresh.filter(p => p.source === "guest");
+    if (!guests.length) return;
+    setRecent(r => [...guests, ...r].slice(0, 3));
+    ctx.flash(`${problemTitle(guests[0])}: ${guests[0].who}`, "red");
+  });
   const clock = e.phase === "open" ? { label: "Bidding ends in", value: countdown(e.endsAt, now), hot: t(e.endsAt) - now < 10 * 60_000 }
     : e.phase === "upcoming" || e.status === "draft" ? { label: e.status === "draft" ? "Draft. Not live yet" : "Bidding opens in", value: e.status === "draft" ? "—" : countdown(e.startsAt, now), hot: false }
     : { label: "Bidding has ended", value: "Done", hot: false };
@@ -40,6 +49,13 @@ export function LiveBoard({ ctx }: { ctx: Ctx }) {
 
       <div className="live-grid">
         <div className="live-main">
+          {recent.length > 0 && (
+            <div className="attn">
+              <div className="attn-card bad" role="alert"><IAlert size={18} /><div><b>{recent.length === 1 ? problemTitle(recent[0]) : `${recent.length} guests hit a problem`}</b>
+                <span>{recent.map(p => `${p.who} (${[p.inApp || p.browser, p.os && `${p.os} ${p.osVersion}`].filter(Boolean).join(", ")})`).join(" · ")}. See Devices; send them the simple-mode link if they&rsquo;re stuck.</span></div>
+                <button type="button" className="sx-btn sm" onClick={() => setRecent([])}>Dismiss</button></div>
+            </div>
+          )}
           {(soon.length > 0 || quiet.length > 0) && (
             <div className="attn">
               {soon.length > 0 && <div className="attn-card hot"><IClock size={18} /><div><b>Closing soon</b><span>{soon.slice(0, 3).map(i => `${i.title} ${countdown(i.effectiveClosesAt, now)}`).join(" · ")}</span></div></div>}
@@ -68,6 +84,7 @@ export function LiveBoard({ ctx }: { ctx: Ctx }) {
               </ol>
             </section>
           )}
+          <DevicesPanel data={devices} code={e.code} />
           <People ctx={ctx} />
         </aside>
       </div>

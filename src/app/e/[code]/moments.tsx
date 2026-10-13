@@ -24,7 +24,7 @@ function AlertCard({ a, onDismiss, onAct }: { a: Alert; onDismiss: (id: string) 
     <div className={`alert t-${a.tone}`} role={a.tone === "red" ? "alert" : "status"} style={{ "--life": `${life}ms` } as CSSProperties}>
       <span className="al-ic">{a.tone === "red" ? <IAlert size={20} /> : a.tone === "green" ? <ICheck size={20} /> : <IInfo size={20} />}</span>
       <div className="al-t"><b>{a.title}</b>{a.body && <span>{a.body}</span>}</div>
-      {a.action && <button type="button" className="al-act" onClick={() => onAct(a)}>{a.action.label}</button>}
+      {a.action && <button type="button" className="al-act" onClick={e => { e.currentTarget.focus({ preventScroll: true }); onAct(a); }}>{a.action.label}</button>}
       <button type="button" className="al-x" aria-label="Dismiss" onClick={() => onDismiss(a.id)}><IClose size={18} /></button>
       <i className="al-life" aria-hidden="true" />
     </div>
@@ -37,7 +37,7 @@ const CONFETTI = ["#F2B632", "#2338C7", "#12724A", "#C93A1B", "#FFFCF5", "#F2B63
 /** `ambient`: a decorative replay (the Studio sign-in scene). It never takes focus, vibrates, records the win or listens for keys. */
 export function Celebration({ item, code, instructions, onClose, ambient = false }: { item: Item; code: string; instructions: string; onClose: (target: "mine" | "stay") => void; ambient?: boolean }) {
   const button = useRef<HTMLButtonElement>(null);
-  useEffect(() => { if (ambient) return; seenOnce(`bz_won_${code}_${item.id}`); button.current?.focus(); navigator.vibrate?.([40, 60, 40, 60, 120]); }, [code, item.id, ambient]);
+  useEffect(() => { if (ambient) return; seenOnce(`bz_won_${code}_${item.id}`); button.current?.focus(); if (navigator.vibrate) navigator.vibrate([40, 60, 40, 60, 120]); }, [code, item.id, ambient]);
   useEffect(() => { if (ambient) return; const k = (e: KeyboardEvent) => { if (e.key === "Escape") onClose("stay"); }; window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k); }, [onClose, ambient]);
   return (
     <div className="celebrate" role="dialog" aria-modal="true" aria-labelledby="won-title">

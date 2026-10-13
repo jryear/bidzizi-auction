@@ -15,7 +15,9 @@ export function useReorder({ ids, enabled, onMove, container, labels }: {
   labels: (id: string) => string;
 }) {
   const [dragging, setDragging] = useState<string | null>(null);
-  const [lifted, setLifted] = useState<{ id: string; at: number } | null>(null);
+  const [lifted, setLiftedState] = useState<{ id: string; at: number } | null>(null);
+  const liftedRef = useRef(lifted);
+  const setLifted = (next: typeof lifted) => { liftedRef.current = next; setLiftedState(next); };
   const [before, setBefore] = useState<string | null | undefined>(undefined); // drop indicator: before this id, or null = at the end
   const [status, setStatus] = useState("");
   const drag = useRef<Drag | null>(null);
@@ -96,10 +98,11 @@ export function useReorder({ ids, enabled, onMove, container, labels }: {
     onPointerCancel: () => end(false),
     onLostPointerCapture: () => { if (drag.current) end(true); },
     onKeyDown: (e: KeyboardEvent<HTMLElement>) => {
+      const lifted = liftedRef.current;
       if (!enabled) return;
       const list = latest.current.ids, from = list.indexOf(id);
       if (e.altKey && (e.key === "ArrowUp" || e.key === "ArrowDown")) {
-        e.preventDefault();
+        e.preventDefault(); e.stopPropagation();
         const to = Math.max(0, Math.min(list.length - 1, from + (e.key === "ArrowUp" ? -1 : 1)));
         if (to !== from) { latest.current.onMove(id, to); setStatus(`${labels(id)} moved to position ${to + 1} of ${list.length}.`); refocus(id); }
         return;
@@ -124,7 +127,7 @@ export function useReorder({ ids, enabled, onMove, container, labels }: {
       }
       if (lifted?.id === id && e.key === "Escape") { e.preventDefault(); setLifted(null); setBefore(undefined); setStatus(`Move cancelled. ${labels(id)} stays at position ${from + 1}.`); }
     },
-    onBlur: () => { if (lifted?.id === id) { setLifted(null); setBefore(undefined); } },
+    onBlur: () => { if (liftedRef.current?.id === id) { setLifted(null); setBefore(undefined); } },
   });
 
   /** Class names for a row: the drop line before it, the row being dragged, the row picked up by keyboard. */

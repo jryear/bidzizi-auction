@@ -29,6 +29,7 @@ async function check(name, run) {
   const controls = { patch: async () => {}, upload: async () => {}, rejectNext: false, failReload: false };
   await page.route('**/api/**', async route => {
     const req = route.request(), path = new URL(req.url()).pathname;
+    if (path.endsWith('/telemetry')) return route.fulfill({ status: 202, json: { ok: true } });
     if (req.method() === 'GET') {
       if (controls.failReload) return route.abort();
       return route.fulfill({ json: structuredClone(data) });

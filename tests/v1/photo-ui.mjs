@@ -18,6 +18,7 @@ async function check(name,run){
  await page.route('**/photo-*.png',r=>r.fulfill({contentType:'image/png',body:r.request().url().includes('old')?image:replacement}));
  await page.route('**/api/**',async r=>{
   const req=r.request(),path=new URL(req.url()).pathname;
+  if(path.endsWith('/telemetry'))return r.fulfill({status:202,json:{ok:true}});
   if(req.method()==='GET')return r.fulfill({json:structuredClone(data)});
   if(path.endsWith('/assets')){const n=++uploads;await controls.upload(n);return r.fulfill({status:201,json:{id:'asset-'+n,url:'/photo-'+n+'.png'}});}
   const body=req.postDataJSON();writes.push({path,...body});await controls.patch(body);

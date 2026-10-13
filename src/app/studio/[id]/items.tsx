@@ -400,7 +400,7 @@ function MoneyCell({ minor, onSave, label, cell, locked, nav }: { minor: number;
     <span className={`cell money${bad ? " bad" : ""}${locked ? " locked" : ""}`} title={locked ? "Locked once someone bids" : undefined}>
       <b aria-hidden="true">$</b>
       <input className="cell-in" data-cell={cell} inputMode="decimal" value={v} disabled={locked} aria-label={label} aria-invalid={Boolean(bad) || undefined}
-        onFocus={ev => { editing.current = true; if (!bad) { setV(dollarsInput(minor)); requestAnimationFrame(() => ev.target.select()); } }}
+        onFocus={ev => { editing.current = true; if (!bad) { setV(dollarsInput(minor)); requestAnimationFrame(() => { if (document.activeElement === ev.target && editing.current) ev.target.select(); }); } }}
         onChange={ev => { setV(ev.target.value.replace(/[^0-9.,$]/g, "")); setBad(""); mark(true); }}
         onBlur={commit}
         onKeyDown={ev => {

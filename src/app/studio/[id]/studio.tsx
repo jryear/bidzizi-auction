@@ -7,6 +7,7 @@ import { confirm, isConfirmed, type Data, type Item } from "../data";
 import { Brand, Menu, Seg, Status, Toast } from "../kit";
 import { Canvas, Checklist, Inspector, Outline, selFromUrl, selToUrl, useAddItem, useSteps, type Screen, type Sel, type SetupCtx } from "./setup";
 import { ItemsWorkspace } from "./items";
+import { startReporting } from "../../../lib/telemetry";
 import { LiveBoard } from "./live";
 import { ResultsBoard } from "./results";
 import { ShareDialog } from "./share";
@@ -59,6 +60,7 @@ export default function Studio({ eventId }: { eventId: string }) {
     return () => clearInterval(poll);
   }, [reload, mode]);
   useEffect(() => { setPreviewed(isConfirmed(eventId, "preview")); }, [eventId]);
+  useEffect(() => startReporting({ url: "/api/v1/host/telemetry", eventId }), [eventId]);
   // Pick the mode that fits where the event is (or the one the link asked for); staff can still switch.
   useEffect(() => {
     if (!data || mode) return;

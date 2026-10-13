@@ -3,6 +3,7 @@ import { photoStyle } from "../../../../lib/photo";
 // The stage display: for a projector or TV in the room. Read-only, self-updating, legible from the back of the hall.
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { api } from "../../../../lib/api";
+import { startReporting } from "../../../../lib/telemetry";
 import { formatMoney } from "../../../../lib/money";
 import { THEMES } from "../../../../lib/templates";
 import { IExpand, ITrophy } from "../../../../lib/icons";
@@ -31,6 +32,7 @@ export default function Stage({ eventId }: { eventId: string }) {
     if (r.ok) { setData(r.data); setOffline(false); }
   }, [eventId]);
   useEffect(() => { setOrigin(location.origin); load(); const t = setInterval(load, 2500); return () => clearInterval(t); }, [load]);
+  useEffect(() => startReporting({ url: "/api/v1/host/telemetry", eventId }), [eventId]);
 
   // Hide the cursor when the mouse rests, like a slideshow.
   const [idle, setIdle] = useState(false);
@@ -84,7 +86,7 @@ export function StageView({ data, origin, idle, offline }: { data: StageData; or
         <span className="grow" />
         {e.status === "draft" ? <span className="st-pill draft">Preview · not live</span> : ended ? <span className="st-pill">Bidding closed</span> : e.phase === "open" ? <span className="st-pill live"><i />Live</span> : <span className="st-pill">Starting soon</span>}
         {offline && <span className="st-pill warn">Reconnecting…</span>}
-        <button type="button" className="st-fs" aria-label="Full screen" onClick={() => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen().catch(() => {})}><IExpand size={20} /></button>
+        <button type="button" className="st-fs" aria-label="Full screen" onClick={() => { if (document.exitFullscreen && document.fullscreenElement) void document.exitFullscreen().catch(() => {}); else if (document.documentElement.requestFullscreen) void document.documentElement.requestFullscreen().catch(() => {}); }}><IExpand size={20} /></button>
       </header>
 
       {ended ? <Finale data={data} raised={raised} /> : (

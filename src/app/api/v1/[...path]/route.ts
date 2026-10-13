@@ -2,6 +2,7 @@ import { handle, notFound } from "../../../../server/v1/http";
 import { inviteStaff, listStaff, login, logout, resetStaffPassword, setStaffPassword } from "../../../../server/v1/auth";
 import { bidReceipt, join, placeBid, pledge, rejoin, snapshot, watch } from "../../../../server/v1/engine";
 import * as host from "../../../../server/v1/host";
+import * as telemetry from "../../../../server/v1/telemetry";
 
 export const dynamic = "force-dynamic";
 type Ctx = { params: Promise<{ path: string[] }> };
@@ -20,6 +21,7 @@ async function route(method: string, request: Request, ctx: Ctx): Promise<Respon
     if (method === "GET" && at("e", "*", "receipt", "*")) return bidReceipt(request, code, p[3]);
     if (method === "POST" && at("e", "*", "watch")) return watch(request, code);
     if (method === "POST" && at("e", "*", "pledge")) return pledge(request, code);
+    if (method === "POST" && at("e", "*", "telemetry")) return telemetry.guestReport(request, code);
   }
   if (method === "GET" && at("assets", "*")) return host.readAsset(p[1]);
 
@@ -29,6 +31,7 @@ async function route(method: string, request: Request, ctx: Ctx): Promise<Respon
     if (method === "POST" && at("host", "logout")) return logout(request);
     if (method === "POST" && at("host", "password", "set")) return setStaffPassword(request);
     if (method === "GET" && at("host", "me")) return host.me(request);
+    if (method === "POST" && at("host", "telemetry")) return telemetry.staffReport(request);
     if (method === "GET" && at("host", "staff")) return listStaff(request);
     if (method === "POST" && at("host", "staff", "invites")) return inviteStaff(request);
     if (method === "POST" && at("host", "staff", "*", "password-reset")) return resetStaffPassword(request, p[2]);
@@ -39,6 +42,7 @@ async function route(method: string, request: Request, ctx: Ctx): Promise<Respon
       const e = p[2];
       if (method === "GET" && at("host", "events", "*")) return host.workspace(request, e);
       if (method === "GET" && at("host", "events", "*", "stage")) return host.stageView(request, e);
+      if (method === "GET" && at("host", "events", "*", "devices")) return telemetry.eventDevices(request, e);
       if (method === "PATCH" && at("host", "events", "*")) return host.updateEvent(request, e);
       if (method === "POST" && at("host", "events", "*", "duplicate")) return host.duplicateEvent(request, e);
       if (method === "POST" && at("host", "events", "*", "reset")) return host.resetPractice(request, e);
