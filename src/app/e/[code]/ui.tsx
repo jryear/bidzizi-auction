@@ -2,7 +2,7 @@
 // Presentational pieces shared by the attendee app and the Studio canvas. The canvas renders these same components with an
 // edit context, so what a host edits is literally what attendees see.
 import { headline } from "../../../lib/display";
-import { createContext, useContext, useEffect, useRef, useState, ViewTransition, type CSSProperties, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useId, useRef, useState, ViewTransition, type CSSProperties, type ReactNode } from "react";
 import { fmtClock, fmtTime, initials } from "../../../lib/api";
 import { formatMoney } from "../../../lib/money";
 import { IBookmark, IChevR, IClock, IExternal, IPhoto, IUpload } from "../../../lib/icons";
@@ -12,7 +12,7 @@ import { closingSoon, countdown, lotNo, shown, standing, type EventInfo, type It
 export type EditApi = {
   selected: string | null;
   select: (key: string) => void;
-  commit: (key: string, field: string, value: string) => void;
+  commit: (key: string, field: string, value: string) => Promise<boolean>;
   photo: (key: string, file: File) => void;
   uploading: string | null;
 };
@@ -25,26 +25,48 @@ export function Ed({ k, field, value, placeholder, as: Tag = "span", className, 
 }) {
   const edit = useEdit();
   const ref = useRef<HTMLElement>(null);
-  const sent = useRef(value), idle = useRef<ReturnType<typeof setTimeout>>(undefined);
-  // The browser owns the editable text nodes; sync from data only while the host isn't typing in it.
-  useEffect(() => { sent.current = value; const el = ref.current; if (el && document.activeElement !== el && el.innerText !== value) el.innerText = value; }, [value, edit]);
-  useEffect(() => () => clearTimeout(idle.current), []);
+  const editId = useId(), dirty = useRef(false), generation = useRef(0);
+  const acknowledged = useRef(value), sent = useRef<string | null>(null), idle = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const mark = (isDirty: boolean) => {
+    dirty.current = isDirty;
+    dispatchEvent(new CustomEvent("bz:editing", { detail: { field: editId, dirty: isDirty } }));
+  };
+  // A server refresh must not erase newer text or a failed draft, even after blur.
+  useEffect(() => {
+    if (dirty.current) return;
+    acknowledged.current = value;
+    const el = ref.current;
+    if (el && document.activeElement !== el && el.innerText !== value) el.innerText = value;
+  }, [value, edit]);
+  useEffect(() => () => {
+    clearTimeout(idle.current);
+    dispatchEvent(new CustomEvent("bz:editing", { detail: { field: editId, dirty: false } }));
+  }, [editId]);
   if (!edit) return value ? <Tag className={className}>{value}</Tag> : null;
   const clean = (el: HTMLElement) => (el.innerText ?? "").replace(/ /g, " ").replace(multiline ? /\n{3,}/g : /\s*\n\s*/g, multiline ? "\n\n" : " ").trim().slice(0, max ?? 5000);
-  // Saves after a short pause in typing and again on blur, so the top bar's "Saved" is always true.
+  // Only acknowledge the exact generation saved; later typing stays dirty.
   const save = (el: HTMLElement, leaving: boolean) => {
     clearTimeout(idle.current);
-    const next = clean(el);
-    if (!next && (field === "title" || field === "name")) { if (leaving) el.innerText = value; }
-    else if (next !== sent.current) { sent.current = next; edit.commit(k, field, next); }
-    dispatchEvent(new CustomEvent("bz:editing", { detail: false }));
+    let next = clean(el);
+    if (!next && (field === "title" || field === "name")) {
+      if (!leaving) return;
+      next = value; el.innerText = value; generation.current++;
+    }
+    if (next === (sent.current ?? acknowledged.current)) { if (sent.current === null) mark(false); return; }
+    const version = generation.current;
+    sent.current = next;
+    void edit.commit(k, field, next).catch(() => false).then(ok => {
+      if (ok) acknowledged.current = next;
+      if (sent.current === next) sent.current = null;
+      if (generation.current === version) mark(!ok);
+    });
   };
   return (
     <Tag ref={ref as never} className={`${className ?? ""} ed`} contentEditable="plaintext-only" suppressContentEditableWarning spellCheck
       data-placeholder={placeholder} aria-label={placeholder ?? field} role="textbox" aria-multiline={multiline}
       onFocus={() => edit.select(k)} onClick={e => e.stopPropagation()}
       onBlur={e => save(e.currentTarget, true)}
-      onInput={e => { const el = e.currentTarget; dispatchEvent(new CustomEvent("bz:editing", { detail: true })); clearTimeout(idle.current); idle.current = setTimeout(() => save(el, false), 1200); }}
+      onInput={e => { const el = e.currentTarget; generation.current++; mark(true); clearTimeout(idle.current); idle.current = setTimeout(() => save(el, false), 1200); }}
       onKeyDown={e => {
         if (e.key === "Escape") { e.currentTarget.innerText = value; e.currentTarget.blur(); }
         if (e.key === "Enter" && !multiline) { e.preventDefault(); e.currentTarget.blur(); }

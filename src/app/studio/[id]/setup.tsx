@@ -114,11 +114,12 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
   const edit: EditApi = {
     selected: selKey,
     select: key => { if (key === "event") select({ kind: "event" }); else if (key.startsWith("item:")) select({ kind: "item", id: key.slice(5) }); else if (key === "sponsors") select({ kind: "sponsors" }); },
-    commit: (key, field, value) => {
-      if (field === "title" && !value) { flash("An item needs a title.", "red"); return; }
-      if (field === "name" && !value) { flash("Your event needs a name.", "red"); return; }
-      if (key === "event") patchEvent({ [field]: value });
-      else { const it = itemFor(key); if (it) patchItem(it, { [field]: value }); }
+    commit: async (key, field, value) => {
+      if (field === "title" && !value) { flash("An item needs a title.", "red"); return false; }
+      if (field === "name" && !value) { flash("Your event needs a name.", "red"); return false; }
+      if (key === "event") return patchEvent({ [field]: value });
+      const it = itemFor(key);
+      return it ? patchItem(it, { [field]: value }) : false;
     },
     photo: async (key, file) => {
       setUploading(key);
@@ -464,6 +465,8 @@ function SponsorsPanel({ ctx }: { ctx: SetupCtx }) {
   const { data, reload, flash } = ctx;
   // The panel owns its rows: a sponsor isn't saved until it has a name, and a logo added first is never lost.
   const [list, setList] = useState<SponsorRow[]>(() => data.sponsors.map(s => ({ k: s.id, name: s.name, url: s.url, logoAssetId: s.logoAssetId, logoUrl: s.logoUrl })));
+  const listRef = useRef(list);
+  const replace = (next: SponsorRow[]) => { listRef.current = next; setList(next); };
   async function save(next: SponsorRow[]) {
     const r = await ctx.track(async () => {
       const res = await api("PUT", `/api/v1/host/events/${data.event.id}/sponsors`, { sponsors: next.filter(s => s.name.trim()).map(s => ({ name: s.name.trim(), logoAssetId: s.logoAssetId, url: s.url.trim() })) });
@@ -472,8 +475,11 @@ function SponsorsPanel({ ctx }: { ctx: SetupCtx }) {
     if (r) reload();
   }
   const update = (k: string, patch: Partial<SponsorRow>, persist = false) => {
-    const next = list.map(x => x.k === k ? { ...x, ...patch } : x);
-    setList(next); if (persist) save(next);
+    // Upload callbacks may belong to an older render. Apply them to the latest rows,
+    // and ignore completions for a sponsor removed while its logo was uploading.
+    if (!listRef.current.some(x => x.k === k)) return;
+    const next = listRef.current.map(x => x.k === k ? { ...x, ...patch } : x);
+    replace(next); if (persist) save(next);
   };
   return (
     <Panel title="Sponsors" icon={<IStore size={20} />} sub="Optional. Shown on the welcome screen and the Event tab, with a link if you add one.">
@@ -483,16 +489,16 @@ function SponsorsPanel({ ctx }: { ctx: SetupCtx }) {
             <LogoTile name={s.name} url={s.logoUrl} onChange={a => update(s.k, { logoAssetId: a?.id ?? null, logoUrl: a?.url ?? null }, true)} onError={m => flash(m, "red")} />
             <div className="sp-fields">
               <input className="sp-name" value={s.name} placeholder="Sponsor name" aria-label="Sponsor name" maxLength={200}
-                onChange={e => update(s.k, { name: e.target.value })} onBlur={() => save(list)} />
+                onChange={e => update(s.k, { name: e.target.value })} onBlur={() => save(listRef.current)} />
               <input className="sp-url" value={s.url} placeholder="Website (optional)" aria-label={`${s.name || "Sponsor"} website`} inputMode="url" maxLength={500}
-                onChange={e => update(s.k, { url: e.target.value })} onBlur={() => save(list)} />
+                onChange={e => update(s.k, { url: e.target.value })} onBlur={() => save(listRef.current)} />
               {!s.name.trim() && <small className="sp-need">Add a name to save this sponsor.</small>}
             </div>
-            <button type="button" className="sx-icon-btn sm" aria-label={`Remove ${s.name || "sponsor"}`} onClick={() => { const next = list.filter(x => x.k !== s.k); setList(next); save(next); }}><ITrash size={15} /></button>
+            <button type="button" className="sx-icon-btn sm" aria-label={`Remove ${s.name || "sponsor"}`} onClick={() => { const next = listRef.current.filter(x => x.k !== s.k); replace(next); save(next); }}><ITrash size={15} /></button>
           </div>
         ))}
       </div>
-      <button type="button" className="sx-btn" onClick={() => setList([...list, { k: newId(), name: "", url: "", logoAssetId: null, logoUrl: null }])}><IPlus size={16} />Add a sponsor</button>
+      <button type="button" className="sx-btn" onClick={() => replace([...listRef.current, { k: newId(), name: "", url: "", logoAssetId: null, logoUrl: null }])}><IPlus size={16} />Add a sponsor</button>
     </Panel>
   );
 }

@@ -377,3 +377,25 @@ Migrations 004–006 are applied to `bz_test_claude`.
 2. The readiness check's "date and time confirmed" tick is still per-device. Should it move to the server?
 3. Should accent contrast be checked only against the ink colour, or also against the paper?
 4. This batch has no new before/after composite images, only working screenshots. If you want composites for review, I can produce them next.
+
+## Review fixes (Codex, 2026-10-13)
+
+Zack assigned the four findings from the independent review of `07b4642` to Codex for implementation in this worktree. All four are fixed locally:
+
+- **Save sequencing:** event and item PATCH acknowledgements update the current data/revision reference synchronously before the next queued edit. A failed refresh cannot make the queue reuse the previous revision. Responses from polls started before a write are ignored.
+- **Truthful save state:** the indicator accounts for queued saves and individually dirty canvas fields. An older save completing does not mark newer text Saved. Failed canvas drafts survive refresh and retry on blur. The top-bar event title also preserves newer typing across acknowledgements instead of remounting on every revision.
+- **Duplicate settings:** a new draft retains the source event's bidder visibility and custom accent. The connected duplication case also confirms that participants, bids, awards and pledges are not carried over.
+- **Sponsor upload:** upload completion merges its asset into the latest sponsor row by its local stable key. Newer name/link edits survive, and deleting a sponsor during upload does not resurrect it.
+
+### Verification
+
+Node 24 was used throughout. Connected checks ran against the separate loopback database `bz_test_save_fixes_20261013`, with existing migrations 001–006 and a disposable local staff account. The review database `bz_test_claude` was not seeded or reset. No new migration, production resource, push, or deployment was needed.
+
+- `tests/v1/studio-saving.mjs`: **7/7**, using intercepted APIs and controlled waits. The initial six cases all failed against `07b4642` before the fixes; the seventh protects newer top-bar title text. Covers queued revisions, failed refresh, newer unsaved text, failed draft retry, sponsor rename during upload, and deletion during upload.
+- `tests/v1/journey.mjs`: **47/47** against the compiled application on port 3421, including the expanded anonymous-event duplication regression.
+- `tests/v1/operations-ui.mjs`: **PASS**; void, withdrawal, participant edit, practice reset/delete, staff invitation, password setup/reset and session revocation; no browser page errors.
+- `tests/v1/display-logic.mjs`: **10/10**.
+- TypeScript (`tsc --noEmit --incremental false`), production `next build`, and `git diff --check`: **PASS**.
+- Connected Studio captures inspected at **1440×1000** and **390×844**, with no browser page errors: `.shots/save-fixes/studio-1440.png` and `.shots/save-fixes/studio-390.png` (local ignored artifacts).
+
+The existing preview remains on port 3420. These changes address the four review findings without changing the selected host/join experience or starting the deferred feature batch.

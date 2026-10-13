@@ -228,11 +228,18 @@ await check("exports download as CSV", async () => {
   }
 });
 await check("duplicate event copies setup and items, not activity", async () => {
+  const source = await staff("GET", `/api/v1/host/events/${eventId}`);
+  const settings = { bidderDisplay: "anonymous", accentColor: "#5EEAD4" };
+  assert.equal((await staff("PATCH", `/api/v1/host/events/${eventId}`, { revision: source.data.event.revision, ...settings })).status, 200);
   const r = await staff("POST", `/api/v1/host/events/${eventId}/duplicate`, { requestId: randomUUID() });
   const w = await staff("GET", `/api/v1/host/events/${r.data.id}`);
   assert.equal(w.data.event.status, "draft"); assert.equal(w.data.items.length, 2);
   assert.equal(w.data.participants.length, 0); assert.equal(w.data.items.every(i => i.bidCount === 0), true);
   assert.equal(w.data.recipients.length, 1); assert.notEqual(w.data.event.code, code);
+  assert.equal(w.data.event.bidderDisplay, settings.bidderDisplay);
+  assert.equal(w.data.event.accentColor, settings.accentColor);
+  assert.equal(w.data.pledges.length, 0);
+  assert.equal(w.data.items.every(i => i.award === null), true);
 });
 await check("editing a participant changes the event identity shown on their phone", async () => {
   const w = await staff("GET", `/api/v1/host/events/${eventId}`);

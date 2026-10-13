@@ -126,9 +126,9 @@ export async function duplicateEvent(request: Request, eventId: string): Promise
     const moved = (d: Date | null) => d === null ? null : new Date(d.getTime() + shift);
     const copy = (await db.query<{ id: string }>(
       `INSERT INTO events (org_id, join_code, name, welcome, venue, winner_instructions, cover_asset_id, timezone, starts_at, ends_at, access_ends_at,
-                           entry_open, bid_mode, tiers, fixed_increment_minor, donations_enabled, donation_deadline, created_by, theme)
+                           entry_open, bid_mode, tiers, fixed_increment_minor, donations_enabled, donation_deadline, created_by, theme, bidder_display, accent_color)
        SELECT org_id, $2, $3, welcome, venue, winner_instructions, cover_asset_id, timezone, $4, $5, $6,
-              true, bid_mode, tiers, fixed_increment_minor, donations_enabled, $7, $8, theme FROM events WHERE id = $1 RETURNING id`,
+              true, bid_mode, tiers, fixed_increment_minor, donations_enabled, $7, $8, theme, bidder_display, accent_color FROM events WHERE id = $1 RETURNING id`,
       [source.id, await newJoinCode(db), name, startsAt, moved(source.ends_at), moved(source.access_ends_at), moved(source.donation_deadline), staff.id])).rows[0];
     const items = (await db.query<ItemRow>("SELECT * FROM items WHERE event_id = $1 ORDER BY position", [source.id])).rows;
     for (const i of items) {

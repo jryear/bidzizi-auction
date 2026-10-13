@@ -24,22 +24,36 @@ export default function Studio({ eventId }: { eventId: string }) {
   const [screen, setScreen] = useState<Screen>("welcome");
   const [pane, setPane] = useState<"steps" | "canvas" | "edit">("canvas");
   const [save, setSave] = useState<Save>("idle");
+  const [title, setTitle] = useState<string | null>(null);
+  const titleGeneration = useRef(0);
+  const dataRef = useRef<Data | null>(null);
+  const loadId = useRef(0), writeEpoch = useRef(0), pendingSaves = useRef(0);
+  const dirtyFields = useRef(new Set<string>()), saveFailed = useRef(false);
+  const showSave = useCallback(() => {
+    setSave(saveFailed.current ? "error" : pendingSaves.current ? "saving" : dirtyFields.current.size ? "editing" : "saved");
+  }, []);
+  useEffect(() => {
+    if (!dirtyFields.current.has("header:name")) setTitle(data?.event.name ?? null);
+  }, [data?.event.name]);
   const [toast, setToast] = useState<{ text: string; tone: "ink" | "red" | "green" }>({ text: "", tone: "ink" });
   const [sharing, setSharing] = useState(false), [previewed, setPreviewed] = useState(false), [checking, setChecking] = useState(false), [addRequest, setAddRequest] = useState(0);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const flash = useCallback((text: string, tone: "ink" | "red" | "green" = "ink") => { setToast({ text, tone }); clearTimeout(timer.current); timer.current = setTimeout(() => setToast({ text: "", tone }), 3600); }, []);
 
   const reload = useCallback(async () => {
+    const requestId = ++loadId.current, epoch = writeEpoch.current;
     const r = await api<Data>("GET", `/api/v1/host/events/${eventId}`).catch(() => null);
+    // A poll started before a save must not replace that save's acknowledged state.
+    if (requestId !== loadId.current || epoch !== writeEpoch.current) return;
     if (!r) { setOffline(true); return; }
     if (r.status === 401) { location.href = "/studio"; return; }
     if (r.status === 404) { setMissing(true); return; }
-    if (r.ok) { setData(r.data); setOffline(false); }
+    if (r.ok) { dataRef.current = r.data; setData(r.data); setOffline(false); }
   }, [eventId]);
   useEffect(() => {
     reload();
     const fast = mode === "live";
-    const poll = setInterval(() => { if (document.visibilityState === "visible") reload(); }, fast ? 3000 : 6000);
+    const poll = setInterval(() => { if (document.visibilityState === "visible" && !pendingSaves.current) reload(); }, fast ? 3000 : 6000);
     return () => clearInterval(poll);
   }, [reload, mode]);
   useEffect(() => { setPreviewed(isConfirmed(eventId, "preview")); }, [eventId]);
@@ -51,31 +65,47 @@ export default function Studio({ eventId }: { eventId: string }) {
   }, [data, mode]);
   const pickMode = (m: Mode) => { setMode(m); history.replaceState(null, "", `?mode=${m}`); window.scrollTo(0, 0); };
 
-  const dataRef = useRef(data); dataRef.current = data;
-  // Changes save one at a time: each waits for the previous save and its reload, so it always carries the latest revision.
+  // Acknowledgements update dataRef synchronously, before the next queued edit can start.
   const queue = useRef<Promise<unknown>>(Promise.resolve());
   const track = useCallback((run: () => Promise<{ ok: boolean; message?: string }>) => {
+    pendingSaves.current++;
+    showSave();
     const next = queue.current.then(async () => {
-      setSave("saving");
+      writeEpoch.current++;
       const result = await run().catch(() => ({ ok: false, message: "Connection lost. That change wasn't saved." }));
-      if (result.ok) setSave("saved"); else { setSave("error"); flash(result.message ?? "That change wasn't saved.", "red"); }
+      saveFailed.current = !result.ok;
+      if (!result.ok) flash(result.message ?? "That change wasn't saved.", "red");
       await reload();
+      pendingSaves.current--;
+      showSave();
       return result.ok;
     });
     queue.current = next.catch(() => {});
     return next;
-  }, [flash, reload]);
+  }, [flash, reload, showSave]);
   useEffect(() => {
-    const on = (ev: Event) => { if ((ev as CustomEvent<boolean>).detail) setSave("editing"); };
+    const on = (ev: Event) => {
+      const { field, dirty } = (ev as CustomEvent<{ field: string; dirty: boolean }>).detail;
+      if (dirty) dirtyFields.current.add(field); else dirtyFields.current.delete(field);
+      showSave();
+    };
     addEventListener("bz:editing", on); return () => removeEventListener("bz:editing", on);
-  }, []);
+  }, [showSave]);
   const patchEvent = useCallback((fields: Record<string, unknown>) => track(async () => {
     const r = await api("PATCH", `/api/v1/host/events/${eventId}`, { revision: dataRef.current?.event.revision, ...fields });
+    if (r.ok && dataRef.current) {
+      const next = { ...dataRef.current, event: { ...dataRef.current.event, ...fields, revision: r.data.revision } };
+      dataRef.current = next; setData(next);
+    }
     return { ok: r.ok, message: r.ok ? undefined : errorText(r) };
   }), [eventId, track]);
   const patchItem = useCallback((item: Item, fields: Record<string, unknown>) => track(async () => {
     const fresh = dataRef.current?.items.find(i => i.id === item.id) ?? item;
     const r = await api("PATCH", `/api/v1/host/items/${item.id}`, { revision: fresh.revision, ...fields });
+    if (r.ok && dataRef.current) {
+      const next = { ...dataRef.current, items: dataRef.current.items.map(i => i.id === item.id ? { ...i, ...fields, revision: r.data.revision } : i) };
+      dataRef.current = next; setData(next);
+    }
     return { ok: r.ok, message: r.ok ? undefined : errorText(r) };
   }), [track]);
 
@@ -97,9 +127,17 @@ export default function Studio({ eventId }: { eventId: string }) {
       <header className="sx-top">
         <a className="sx-icon-btn back" href="/studio" aria-label="All events"><IChevL size={22} /></a>
         <div className="title-block">
-          <input className="sx-title" aria-label="Event name" defaultValue={e.name} key={`t-${e.revision}`} maxLength={200}
+          <input className="sx-title" aria-label="Event name" value={title ?? e.name} maxLength={200}
+            onChange={x => { titleGeneration.current++; setTitle(x.target.value); dirtyFields.current.add("header:name"); showSave(); }}
             onKeyDown={x => { if (x.key === "Enter") (x.target as HTMLInputElement).blur(); }}
-            onBlur={x => { const v = x.target.value.trim(); if (v && v !== e.name) patchEvent({ name: v }); else x.target.value = e.name; }} />
+            onBlur={async x => {
+              const v = x.target.value.trim(), version = titleGeneration.current;
+              const savedName = dataRef.current?.event.name ?? e.name;
+              if (v && v !== savedName) {
+                if (await patchEvent({ name: v }) && titleGeneration.current === version) { dirtyFields.current.delete("header:name"); setTitle(v); }
+              } else { setTitle(savedName); dirtyFields.current.delete("header:name"); }
+              showSave();
+            }} />
           <div className="title-meta">
             <span className={`vis-pill is-${e.status}`} title={e.status === "draft" ? "Guests can't see this event yet" : "Guests see every change as soon as it saves"}>
               <i aria-hidden="true" /><b>{e.status === "draft" ? "Draft" : "Live"}</b><span className="vp-more"> · {e.status === "draft" ? "only you can see this" : "changes appear to guests instantly"}</span></span>
