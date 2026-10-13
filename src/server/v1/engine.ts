@@ -9,12 +9,12 @@ export type EventRow = {
   id: string; org_id: string; join_code: string; name: string; welcome: string; venue: string; winner_instructions: string;
   cover_asset_id: string | null; timezone: string; starts_at: Date; ends_at: Date; access_ends_at: Date;
   status: "draft" | "live"; entry_open: boolean; bid_mode: "tiered" | "fixed"; tiers: Tier[]; fixed_increment_minor: string | null;
-  donations_enabled: boolean; donation_deadline: Date | null; revision: number; theme: string;
+  donations_enabled: boolean; donation_deadline: Date | null; revision: number; theme: string; is_practice: boolean; archived_at: Date | null;
 };
 export type ItemRow = {
   id: string; event_id: string; position: number; title: string; short: string; description: string; category: string; donor: string;
   image_asset_id: string | null; opening_minor: string; increment_override_minor: string | null;
-  opens_at: Date | null; closes_at: Date | null; ready: boolean; revision: number;
+  opens_at: Date | null; closes_at: Date | null; ready: boolean; revision: number; withdrawn_at: Date | null; withdrawal_message: string;
 };
 export type Phase = "scheduled" | "open" | "closed";
 
@@ -30,7 +30,7 @@ export async function eventByCode(db: Db, code: string, lock = ""): Promise<Even
   const normalized = code.toUpperCase();
   if (!/^[A-HJ-NP-Z2-9]{6}$/.test(normalized)) throw notFound("This event");
   const row = (await db.query<EventRow>(`SELECT * FROM events WHERE join_code = $1 ${lock}`, [normalized])).rows[0];
-  if (!row || row.status !== "live") throw notFound("This event");
+  if (!row || row.status !== "live" || row.archived_at) throw notFound("This event");
   return row;
 }
 
@@ -39,7 +39,7 @@ async function viewableEvent(db: Db, request: Request, code: string): Promise<{ 
   const normalized = code.toUpperCase();
   if (!/^[A-HJ-NP-Z2-9]{6}$/.test(normalized)) throw notFound("This event");
   const e = (await db.query<EventRow>("SELECT * FROM events WHERE join_code = $1", [normalized])).rows[0];
-  if (!e) throw notFound("This event");
+  if (!e || e.archived_at) throw notFound("This event");
   if (e.status === "live") return { e, preview: false };
   try { const staff = await staffFrom(db, request); if (staff.orgId === e.org_id) return { e, preview: true }; } catch { /* not staff */ }
   throw notFound("This event");
@@ -47,7 +47,7 @@ async function viewableEvent(db: Db, request: Request, code: string): Promise<{ 
 
 /** Display-only rollup. Each item's own phase is what decides bidding. */
 export function eventPhase(e: EventRow, items: ItemRow[], at: Date): "upcoming" | "open" | "closed" {
-  const live = items.filter(i => i.ready);
+  const live = items.filter(i => i.ready && !i.withdrawn_at);
   if (!live.length) return at < e.ends_at ? "upcoming" : "closed";
   const phases = live.map(i => phaseOf(e, i, at));
   return phases.includes("open") ? "open" : phases.includes("scheduled") ? "upcoming" : "closed";
@@ -63,6 +63,8 @@ export async function snapshot(request: Request, code: string): Promise<Response
     const { e, preview } = await viewableEvent(db, request, code), at = await now(db);
     const me = preview ? null : await participantFrom(db, request, e.id);
     const items = (await db.query<ItemRow>("SELECT * FROM items WHERE event_id = $1 AND ready ORDER BY position, created_at", [e.id])).rows;
+    const history = (await db.query<{ id: string; item_id: string; amount_minor: string; decided_at: Date; participant_id: string; voided_at: Date | null }>(
+      `SELECT id, item_id, amount_minor::text, decided_at, participant_id, voided_at FROM bids WHERE event_id = $1 ORDER BY sequence DESC`, [e.id])).rows;
     const standings = new Map((await db.query<StandingJoin>(
       `SELECT s.item_id, s.current_minor, s.bid_count, s.leader_id, p.display_name AS leader_name, p.business_name AS leader_business
          FROM standings s LEFT JOIN participants p ON p.id = s.leader_id WHERE s.event_id = $1`, [e.id])).rows.map(r => [r.item_id, r]));
@@ -75,7 +77,7 @@ export async function snapshot(request: Request, code: string): Promise<Response
     let mine: { bids: Map<string, { highest: number; count: number }>; watching: Set<string>; pledges: unknown[] } | null = null;
     if (me) {
       const bids = (await db.query<{ item_id: string; highest: string; count: number }>(
-        "SELECT item_id, max(amount_minor)::text AS highest, count(*)::int AS count FROM bids WHERE participant_id = $1 GROUP BY item_id", [me.id])).rows;
+        "SELECT item_id, max(amount_minor)::text AS highest, count(*)::int AS count FROM bids WHERE participant_id = $1 AND voided_at IS NULL GROUP BY item_id", [me.id])).rows;
       const watching = (await db.query<{ item_id: string }>("SELECT item_id FROM watches WHERE participant_id = $1", [me.id])).rows;
       const pledges = (await db.query<{ id: string; recipient_name: string; amount_minor: string; recorded_at: Date }>(
         "SELECT id, recipient_name, amount_minor::text, recorded_at FROM pledges WHERE participant_id = $1 ORDER BY recorded_at DESC", [me.id])).rows;
@@ -98,18 +100,21 @@ export async function snapshot(request: Request, code: string): Promise<Response
           recipients: recipients.map(r => ({ id: r.id, name: r.name, description: r.description, logoUrl: assetUrl(r.logo_asset_id) })) },
       },
       items: items.map(i => {
-        const s = standings.get(i.id), a = awards.get(i.id), phase = phaseOf(e, i, at);
+        const s = standings.get(i.id), a = awards.get(i.id), phase = i.withdrawn_at ? "closed" : phaseOf(e, i, at);
         const current = s?.current_minor == null ? null : Number(s.current_minor);
         const override = i.increment_override_minor === null ? null : Number(i.increment_override_minor);
         const mineHere = mine?.bids.get(i.id);
         const won = Boolean(me && a && a.status !== "no_winner" && a.participant_id === me.id);
         return {
           id: i.id, position: i.position, title: i.title, short: i.short, description: i.description, category: i.category, donor: i.donor,
+          withdrawn: i.withdrawn_at !== null, withdrawalMessage: i.withdrawal_message,
+          bidHistory: history.filter(b => b.item_id === i.id).map(b => ({ id: b.id, amountMinor: Number(b.amount_minor), decidedAt: b.decided_at,
+            isMe: b.participant_id === me?.id, voided: b.voided_at !== null })),
           imageUrl: assetUrl(i.image_asset_id), openingMinor: Number(i.opening_minor),
           opensAt: opensOf(e, i), closesAt: closesOf(e, i), phase,
           currentMinor: current, bidCount: s?.bid_count ?? 0,
           leader: s?.leader_id ? { name: s.leader_name, business: s.leader_business, isMe: s.leader_id === me?.id } : null,
-          minimumNextMinor: minimumNext(current, Number(i.opening_minor), rules, override),
+          minimumNextMinor: i.withdrawn_at ? null : minimumNext(current, Number(i.opening_minor), rules, override),
           incrementMinor: increment(current ?? Number(i.opening_minor), rules, override),
           watching: mine?.watching.has(i.id) ?? false,
           myHighestMinor: mineHere?.highest ?? null, myBidCount: mineHere?.count ?? 0,
@@ -198,8 +203,8 @@ export async function placeBid(request: Request, code: string): Promise<Response
     const e = (await db.query<EventRow>("SELECT * FROM events WHERE id = $1 FOR SHARE", [e0.id])).rows[0];
     const item = (await db.query<ItemRow>("SELECT * FROM items WHERE id = $1 AND event_id = $2 FOR SHARE", [itemId, e.id])).rows[0];
     if (!item) throw notFound("This item");
-    const standing = (await db.query<{ current_minor: string | null; leader_id: string | null; bid_count: number }>(
-      "SELECT current_minor, leader_id, bid_count FROM standings WHERE item_id = $1 FOR UPDATE", [itemId])).rows[0];
+    const standing = (await db.query<{ current_minor: string | null; leader_id: string | null; bid_count: number; next_sequence: number }>(
+      "SELECT current_minor, leader_id, bid_count, next_sequence FROM standings WHERE item_id = $1 FOR UPDATE", [itemId])).rows[0];
     // Recheck the participant after waiting on locks: staff may have paused them meanwhile.
     const fresh = await requireParticipant(db, request, e.id);
     const at = await now(db);
@@ -208,7 +213,7 @@ export async function placeBid(request: Request, code: string): Promise<Response
     const minimum = minimumNext(current, Number(item.opening_minor), rulesOf(e), override);
     const phase = phaseOf(e, item, at);
     const reason: BidReason | null =
-      !item.ready || e.status !== "live" ? "NOT_AVAILABLE" :
+      !item.ready || item.withdrawn_at || e.status !== "live" ? "NOT_AVAILABLE" :
       phase === "scheduled" ? "NOT_OPEN" : phase === "closed" ? "CLOSED" :
       !fresh.canBid ? "BIDDING_PAUSED" :
       standing.leader_id === fresh.id ? "ALREADY_LEADING" :
@@ -217,9 +222,9 @@ export async function placeBid(request: Request, code: string): Promise<Response
     if (bidId) {
       await db.query(
         `INSERT INTO bids (id, item_id, event_id, participant_id, request_id, amount_minor, sequence, decided_at)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`, [bidId, itemId, e.id, fresh.id, requestId, amount, standing.bid_count + 1, at]);
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`, [bidId, itemId, e.id, fresh.id, requestId, amount, standing.next_sequence, at]);
       await db.query(
-        "UPDATE standings SET current_minor = $2, leader_id = $3, leading_bid_id = $4, bid_count = bid_count + 1, updated_at = $5 WHERE item_id = $1",
+        "UPDATE standings SET current_minor = $2, leader_id = $3, leading_bid_id = $4, bid_count = bid_count + 1, next_sequence = next_sequence + 1, updated_at = $5 WHERE item_id = $1",
         [itemId, amount, fresh.id, bidId, at]);
     }
     const newCurrent = bidId ? amount : current;
