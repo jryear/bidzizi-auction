@@ -459,3 +459,120 @@ The retained prototype server is owned by this session, runs `prototypes/items-w
 [Studio information architecture and event operations](REAL_V1_NEXT_TRANCHE.md) records Zack's next tranche: Published versus Live language, a scalable event index, Live operations by phase, Navigator/Preview/Inspector, brand versus semantic tokens, human-first configuration, actual guest components in preview, sticky bidding actions, neutral results language and aligned domain responsibilities.
 
 This is queued direction. Zack will review the current build and Items interaction study next; no implementation of the new tranche has begun. The record distinguishes desired capabilities from existing backend support, preserves current auction guarantees and autosave, and does not introduce another publishing workflow for ordinary edits.
+
+## Items workspace (Claude, 2026-10-13)
+
+Delivered from [ITEMS_BUILD_BRIEF.md](ITEMS_BUILD_BRIEF.md), with Claude's own design rather than the rejected isolated prototype, connected to the real backend inside the Studio. Commits: `95620a0` (server), `0b57aa7` (workspace), `94f4cec` (browser suite and critique fixes), plus this checkpoint. Local only: nothing pushed, merged or deployed, and no cloud resources were created.
+
+### What staff get
+
+- **Set up → All items** opens a full-width sheet (`?mode=setup&view=items`, so Back and reload return to it). The guest phone sits beside it and renders the guests' own components; **Hide phone** gives the sheet the whole width. On narrow screens it becomes a **List / Guest phone** switch.
+- **Type straight into rows.** Title, category, provider and starting bid are inline cells. Each saves when you leave it and feeds the Studio's Saved / Saving / Not saved indicator. Enter and ↑/↓ move between rows like a spreadsheet; Escape restores. Starting bids lock once someone bids.
+- **The last row is always ready.** Enter adds the item and starts a fresh row, keeping the category for a run of similar items. Adding is retry-safe, shows a pending row, and offers **Retry** if it fails. Unfinished typing survives a reload on that device.
+- **Paste from a spreadsheet** (button, or paste several rows into the add row). It handles Excel, Google Sheets or Numbers tab-separated text, quoted multi-line cells, and CSV. The header row is detected, and *Retail value* is never taken for the starting bid. A review step lets staff remap columns, fix rows in place or leave them out. All rows are added in one atomic, retry-safe batch, and the new items arrive selected.
+- **Photos:** click, drop or paste one onto a row. **Add photos** (or drop a pile onto the sheet) matches many at once, either by item number or title words in the file name, or in order. Camera names like `IMG_4821` are never guessed, and every pair is reviewed before anything uploads.
+- **Filters:** search; All / Visible / Hidden / Has bids / Closed / No photo, each with counts; and category chips in staff order.
+- **Multi-select** with checkbox and Shift-range selection. A dark dock offers **Category** (existing or new), **Show to guests**, **Hide** and **Delete**. Items people have bid on are kept and the dock says so; Withdraw stays in Live. Results are reported as plain sentences, e.g. "Hid 4 items. 1 item with bids stays visible".
+- **Categories:** create (empty ones persist), rename, merge (rename onto an existing name, after a confirm), remove, and drag to set the order guests' chips follow. Names are tidied and matched without case, so "travel " becomes "Travel".
+- **Arrange** (⋯ menu): group by category, title A to Z, or lowest starting bid, each with **Undo**.
+- **Reorder:** drag the handle (mouse, pen or finger, with edge auto-scroll), or use the keyboard (Space to pick up, arrows to move, Space to drop, Escape to cancel), or Alt+↑/↓. The item editor also has Move earlier/later buttons. Reordering pauses while a filter would hide where things land, and the sheet says so.
+- **The sidebar list stays calm beyond 8 items:** one compact line per item, search once there are more than eight, the same reordering, and an **All items** row that summarises what needs attention.
+- **The item editor** gains All items and position controls, plus Title, Short line and Description fields, so it is complete on a phone. Hidden items get a clear **Show to guests** prompt.
+- **Go live check** now warns when items are hidden, and its photo fix opens the workspace filtered to *No photo*.
+
+### Decision: unfinished items
+
+I used the existing `items.ready` flag ("Visible to guests") and set the default on the server, so every path agrees: the add row, paste, the API and templates.
+
+- **Draft event:** a new item is visible as soon as it exists. It already needs a title and a starting amount to exist; the add row refuses to save without both ("Add a starting bid to save this item").
+- **Published event:** a new item starts **hidden**. Its row shows a cobalt **Show** button, the editor shows a **Show to guests** prompt, and the summary reads "40 visible to guests · 2 hidden". Pasted items arrive hidden and selected, so one click shows them together.
+- Editing an item guests can already see autosaves straight to guests. There is no second publish step.
+- An explicit `ready` from the API still wins, and must be a real yes/no.
+
+**Why:** during a live show, a half-entered item should never flash onto 300 phones. Before going live, an extra step for every item would only slow staff down. Draft and published therefore get different defaults, but the same toggle. Items with bids can never be hidden, and both bulk and single edits enforce that.
+
+### Server and schema
+
+`migrations/prod/008_item_categories.sql` (additive; applied to `bz_test_claude` and the disposable test database):
+- tidies category whitespace;
+- adds a CHECK that category text stays tidy;
+- adds `events.categories jsonb` (the ordered list, up to 100), backfilled from existing items;
+- indexes `(event_id, lower(category))`.
+
+`items.category` remains the single source of each item's assignment. The list adds order and empty categories, and the server unions the two on every read, so they can't drift.
+
+New endpoints:
+
+| Endpoint | What it does |
+|---|---|
+| `POST /host/events/:id/items/batch` | Paste: up to 200 rows, atomic, retry-safe |
+| `PATCH /host/events/:id/items` | Bulk category, visibility and photo. Each change follows the single-item rules; one that can't apply is skipped and reported |
+| `POST /host/events/:id/items/delete` | Keeps items with bid attempts; a repeated delete is a no-op |
+| `POST /host/events/:id/categories` | add / rename (merges) / remove / order |
+
+`updateItem` now returns the stored category, and takes the event lock *before* the item lock when it adds a new category, so lock order stays event-before-item everywhere. Item numbers close up after a delete while the event is a draft, and stay put once it's published. Duplicating an event copies its category list. Guest snapshots carry the staff category order.
+
+### Evidence
+
+Node v24.4.1. The final run used the **compiled** build (`next start` on temporary port 3422) against the disposable loopback database `bz_test_items_20261013`, with its own staff account.
+
+| Check | Result |
+|---|---|
+| `tests/v1/journey.mjs` | **55/55** (47 earlier + 8 new: visibility default, category tidying, category list actions, batch atomicity and replay, bulk update rules, bulk delete, concurrency without deadlock, duplicate) |
+| `tests/v1/items-ui.mjs` (new, connected) | **15/15**: typed rows, reload recovery, paste review, bulk category/hide, filters, inline cells, keyboard and pointer reorder, row and matched photos, category merge, published-event hidden default and Show, bulk delete keeps bid items, sidebar search, phone layout with no sideways scroll, no page errors |
+| `tests/v1/items-logic.mjs` (new, pure) | **10/10**: category rules, paste parsing and column guessing, photo matching |
+| `tests/v1/operations-ui.mjs` | **PASS** |
+| `tests/v1/display-logic.mjs` | **10/10** |
+| Image checks: `photos.mjs` / `photo-ui.mjs` / `studio-saving.mjs` | **8/8**, **11/11**, **7/7** |
+| tsc, `next build`, `git diff --check` | **PASS** |
+
+One existing selector changed: `photo-ui.mjs` now clicks `.inav-row`, the new sidebar row, instead of the removed `.ol-item`; the behaviour under test is unchanged.
+
+The 40-item seed, `tests/v1/seed-trade-show.mjs`, enters items through the batch and bulk-photo endpoints. With `LIVE=1` it publishes, adds four bidders, bids on 14 items, and adds two late items that start hidden.
+
+**Two critique rounds** of 390px and 1440px captures (plus an earlier first look). What they caught and fixed:
+- truncated titles at mid width;
+- *Provided by* disappearing when the phone preview narrowed the sheet (rows now go two-line instead);
+- a validation hint hidden by layout;
+- the new-category field buried below a long popover;
+- unlabelled stacked amounts;
+- long sidebar titles widening the rail;
+- phone titles squeezed by the visibility pill.
+
+The browser suite also caught the photo dialog uploading three at a time while the server deliberately decodes one at a time. Uploads now go in sequence, and `uploadPhoto` waits and retries on `ASSET_BUSY`, which also covers two staff uploading at once.
+
+| View | 1440 | 390 |
+|---|---|---|
+| Workspace with guest phone | [workspace](images/items-workspace/workspace-1440.png), [row focused](images/items-workspace/workspace-focus-1440.png) | [list](images/items-workspace/workspace-390.png), [guest phone](images/items-workspace/phone-preview-390.png) |
+| Full width, phone hidden | [all columns](images/items-workspace/workspace-full-1440.png), [Hidden filter](images/items-workspace/filter-hidden-1440.png) | [add row](images/items-workspace/add-row-390.png) |
+| Multi-select | [dock](images/items-workspace/bulk-1440.png), [set category](images/items-workspace/bulk-category-1440.png) | [dock](images/items-workspace/bulk-390.png) |
+| Paste review, categories | [paste](images/items-workspace/paste-1440.png), [categories](images/items-workspace/categories-1440.png) | |
+| Sidebar list, item editor | [sidebar](images/items-workspace/sidebar-1440.png), [editor](images/items-workspace/item-editor-1440.png) | [editor](images/items-workspace/item-editor-390.png) |
+
+**Not yet covered:**
+- real iOS and Android hardware;
+- VoiceOver;
+- two staff editing the same row at the same moment (the existing revision check refuses the stale write, and the row shows Not saved);
+- more than about 60 items (the sheet doesn't virtualise).
+
+### Running services
+
+- **http://127.0.0.1:3420/studio** (host@example.com / claude-shell-pass) now runs this build via `next start` on `bz_test_claude`. I replaced the earlier Codex-started server on the same port.
+- Seeded walkthrough event: **Holiday Trade Show 2026**, a draft with 40 items and 10 categories, 19 with photos, dated two days out. ID `813ad94c-e4de-4b20-bcd9-e1d0205a181c`, code `VMFPQC`.
+- The rejected prototype server on 3423 (Codex's) is still running; stop it with `kill $(lsof -tiTCP:3423 -sTCP:LISTEN)` when it's no longer needed.
+- Temporary servers on 3421 and 3422 are stopped. Other worktrees' servers on 3410 and 3412 were left alone.
+
+### 10-minute walkthrough script for Saturn staff
+
+*Before:* open `127.0.0.1:3420/studio` and sign in. Have a spreadsheet with about 15 items open (columns: Item, Starting bid, Category, Donated by), and a folder of item photos named by item number (`01.jpg`, `02.jpg` …) or by a word from the title.
+
+1. **Create the event (1 min).** **New event**, then Trade show. Name it, set the date and the bidding window, then **Create**. In Set up, click **All items** in the sidebar.
+2. **Type the first five fast (2 min).** In the highlighted bottom row, type a title, then Tab to category ("Travel"), provider and starting bid, then Enter. The cursor is already in a fresh row and the category is kept, so for the next few just type a title, Tab, Tab, an amount, Enter. Notice the green tick and *Saved* in the header; there is no Save button.
+3. **Paste the rest (2 min).** Copy the 15 spreadsheet rows, click **Paste rows**, and paste. Check that the columns read Title / Starting bid / Category / Provided by. Fix any red row in place (a price written as words, say), then **Add 15 items**. You now have 20+.
+4. **Categorise (1 min).** In the bulk dock (the pasted items are still selected), **Category**, then pick one or type a new name. Click **Manage** beside the category chips: rename "Dining" to "Food & drink" and confirm the merge, then drag the categories into the order guests should see. Click a category chip to filter by it.
+5. **Photos (1.5 min).** Drag the whole photo folder onto the sheet. Check the pairs (change any with the dropdown) and click **Add N photos**. Then click **No photo** to see what's left, and drop a single photo onto one of those rows.
+6. **Reorder (1 min).** Drag a row by its ⠿ handle to the top. On a laptop, focus a handle and press Space, ↑, ↑, Space. Or use ⋯ → **Group by category**, then **Undo** to see it's safe.
+7. **Go live (0.5 min).** **Go live**. The check lists anything missing (photos, hidden items). **Go live anyway** or fix first; then share the code.
+8. **Add one more item while live (1 min).** Back in **All items**, type "Late donation: …" with a price, then Enter. It starts **Hidden**: the guest phone beside the sheet doesn't show it, and the header reads "· 1 hidden". Finish its details, then click **Show** on its row. It appears on guests' phones immediately; open **Preview** on a phone to confirm.
+
+**What to watch for:** any moment someone looks for a Save button; whether "Hidden" versus "Visible" is understood without explanation; whether the paste review feels trustworthy; and how photo matching copes with Saturn's real file names.
