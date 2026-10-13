@@ -2,6 +2,40 @@
 
 Written 2026-10-12 at the end of the session that built Real V1. Read this, then `AGENTS.md` (its "Real V1 operating mode" section overrides the older process rules) and `docs/plans/REAL_V1_PRODUCT.md`.
 
+## The goal (Zack, 2026-10-12)
+
+The target is **not** "the backend pieces are connected". It is:
+- an interface Zack is proud to put in front of people;
+- Saturn signs up as **user 1** and builds the **complete Nov 19 trade-show event themselves**;
+- the product is rehearsed with real usability over the following month;
+- **nobody plays developer at the show.**
+
+### Definition of done for Nov 19
+1. **Look and feel:** Zack has accepted the participant app and the Studio visually. Use the side-by-side checks against the previous build.
+2. **No-developer operations.** Staff can handle all of these in the app:
+   - **void a mistaken bid**, with the standing recalculated exactly. This is an engine change: add journey tests for void, re-void and void of the current leader;
+   - **withdraw an item** that has bids, with a clear message to bidders;
+   - **invite a second staff member and reset a password**, without scripts;
+   - run **practice events** that can be reset or deleted, and delete or archive any draft or test event;
+   - **edit a participant's name or business**;
+   - extend or shorten closing on the day (exists; confirm it in rehearsal).
+3. **Production readiness:**
+   - load-tested at about 300 phones polling (consider longer polling intervals and backoff);
+   - an honest poor-connection experience;
+   - error alerts to the engineer;
+   - database backups;
+   - a one-page day-of runbook;
+   - printable QR and table cards.
+4. **Rehearsed:** Saturn staff authored the real event unaided, and at least two test runs with real phones happened, with every snag fixed.
+
+### Timeline
+- **Oct 13–19:** design pass and no-developer operations. Zack reviews on Oct 19.
+- **Oct 20:** production deploy and Saturn account (Zack's go required).
+- **Oct 20–Nov 2:** Saturn builds the event. First rehearsal around Oct 27.
+- **Nov 3–12:** scale rehearsal, load test, fixes. **Freeze on Nov 12.**
+- **Nov 13–18:** runbook, print, final dry run.
+- **Nov 19:** the show.
+
 ## Where things stand
 
 The worktree is `~/orca/workspaces/integration/real-v1-t1`, on branch `real-v1/t1-foundation`. It works end to end locally and is **not deployed**.
