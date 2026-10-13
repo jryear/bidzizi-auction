@@ -31,6 +31,7 @@ Public browsing, identity at first bid, phone versus invitation admission, and a
 - Import no legacy code or database contents without explicit scope. Keep old resources separate.
 - When bidding is implemented, derive identity, admission, lot state, and bid standing from server authority. Display acceptance only after durable server confirmation. Pending, stale, offline, or uncertain outcomes must not appear accepted.
 - Represent monetary amounts as integers in the agreed minor unit. Currency, scale, increments, ordering, retry semantics, and close behavior must be settled before the contract is frozen; this file does not choose them.
+- Older iOS Safari (before 17; staff iPhone 14s in the field) must keep working. Never put `backdrop-filter` on a `::backdrop` outside `@supports (text-wrap: balance)`: pre-17 WebKit paints the blurred backdrop over the dialog and hides it (hotfix `3fb5806`). Don't rely on iOS 17+ features on guest-critical paths without a fallback; `color-mix()` needs iOS 16.2.
 - Honor the requested effect scope. Commits, pushes, provider configuration, migrations, data writes, and deployments are separate actions; a passing check does not authorize them.
 
 ## Bidder design foundation

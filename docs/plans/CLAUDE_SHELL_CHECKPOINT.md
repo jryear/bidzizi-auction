@@ -630,3 +630,16 @@ The form, its error states and the guest link are unchanged.
 | Sign-in error, unchanged | [error-1440](images/sign-in/error-1440.png) |
 
 **Not checked yet:** Safari's rendering of the 3D tilt, and real-phone performance (the scene is light, but untested on low-end Android). Visual acceptance is Zack's call.
+
+## Older iOS hotfix carried forward (2026-10-13)
+
+`hotfix/old-ios-dialog` (`3fb5806`, live on app.bidzizi.com) is merged into this branch (`dda2254`): every `::backdrop` is a plain dim, and blur is enabled only under `@supports (text-wrap: balance)`. All three backdrops in the code comply: the guest bid sheet, `.sx-dialog` (which covers the new Items paste, photo and category dialogs), and the classic `dialog.modal`. The sign-in hero has no dialog.
+
+**Audit of the guest path for iOS 17+ features:**
+- No iOS 17+ feature is used without a fallback.
+- `field-sizing` (bid amount field, sort select) has fixed-width fallbacks.
+- `text-wrap` is cosmetic only.
+- React's view transitions only run where the browser supports them.
+- `color-mix()` (about 40 declarations) needs iOS 16.2; on 16.0–16.1 those tints drop, while text stays readable.
+
+The rule is recorded in AGENTS.md's durable guardrails.
