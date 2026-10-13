@@ -8,12 +8,14 @@ import type { Screen, Sel } from "./setup";
 type Check = { key: string; ok: boolean; title: string; detail: string; fix: { sel: Sel; screen?: Screen } | "add" };
 
 export function readiness(d: Data): Check[] {
-  const e = d.event, noPhoto = d.items.filter(i => !i.imageUrl);
+  const e = d.event, noPhoto = d.items.filter(i => !i.imageUrl), hidden = d.items.filter(i => !i.ready);
   return [
     { key: "items", ok: d.items.length > 0, title: d.items.length ? `${d.items.length} item${d.items.length === 1 ? "" : "s"} ready to bid on` : "No items yet",
       detail: d.items.length ? "" : "Guests will see an empty catalogue.", fix: "add" },
     { key: "photos", ok: d.items.length > 0 && !noPhoto.length, title: noPhoto.length ? `${noPhoto.length} item${noPhoto.length === 1 ? " has" : "s have"} no photo` : "Every item has a photo",
-      detail: noPhoto.length ? "Items without photos show a numbered plate instead." : "", fix: noPhoto[0] ? { sel: { kind: "item", id: noPhoto[0].id }, screen: "item" } : "add" },
+      detail: noPhoto.length ? "Items without photos show a numbered plate instead." : "", fix: noPhoto.length ? { sel: { kind: "items", filter: "nophoto" } } : "add" },
+    ...(hidden.length ? [{ key: "hidden", ok: false, title: `${hidden.length} item${hidden.length === 1 ? " is" : "s are"} hidden from guests`,
+      detail: "Hidden items stay out of the catalogue when you go live. Show them when they're ready.", fix: { sel: { kind: "items", filter: "hidden" } } } as Check] : []),
     { key: "schedule", ok: isConfirmed(e.id, "schedule"), title: isConfirmed(e.id, "schedule") ? "Date and time confirmed" : "Date and time not confirmed yet",
       detail: "Check when bidding opens and closes.", fix: { sel: { kind: "schedule" }, screen: "welcome" } },
     { key: "cover", ok: Boolean(e.coverUrl), title: e.coverUrl ? "Cover photo added" : "No cover photo",

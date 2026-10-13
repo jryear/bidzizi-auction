@@ -248,7 +248,8 @@ export function ItemsWorkspace({ ctx, sel, select }: Props) {
               <button type="button" className="sx-btn sm" onClick={() => { setQuery(""); setFilter("all"); setCat(null); }}>Show all items</button></div>
           )}
           <AddRow ctx={ctx} row={list.length} live={live} categories={categories} counts={counts.byCat} titleRef={addTitle} nav={nav}
-            defaultCategory={cat ?? ""} onPasteRows={text => setPasting(text)} first={!items.length} />
+            defaultCategory={cat ?? ""} onPasteRows={text => setPasting(text)} first={!items.length}
+            onAdded={title => { if (narrowed) flash(`Added “${title}”. Clear the search or filters to see it.`); }} />
         </div>
         {!items.length && <EmptyHelp onPaste={() => setPasting("")} onType={() => addTitle.current?.focus()} />}
         <ReorderHelp />
@@ -305,7 +306,6 @@ function ItemLine({ item, row, ctx, live, categories, counts, selected, selectin
           onSave={v => p({ title: v })} nav={nav(row, "title")} className="t-title" />
         <button type="button" className="t-open" onClick={onOpen}>{item.title}</button>
         <span className="t-meta">{item.category || "No category"} · {formatMoney(item.openingMinor)}{item.bidCount ? ` · ${plural(item.bidCount, "bid")}, top ${formatMoney(item.currentMinor!)}` : item.donor ? ` · ${item.donor}` : ""}</span>
-        <span className="t-sub">{[item.donor, item.withdrawn ? "Withdrawn" : item.bidCount ? `${plural(item.bidCount, "bid")} · top ${formatMoney(item.currentMinor!)}` : ""].filter(Boolean).join(" · ") || "\u00a0"}</span>
       </span>
       <span role="cell" className="c-cat">
         <CategoryInput value={item.category} categories={categories} counts={counts} label={`Category of ${item.title}`} placeholder="—"
@@ -322,7 +322,7 @@ function ItemLine({ item, row, ctx, live, categories, counts, selected, selectin
 
 function BidsText({ item }: { item: Item }) {
   if (item.withdrawn) return <span className="bids muted">Withdrawn</span>;
-  if (item.bidCount) return <span className="bids"><b>{formatMoney(item.currentMinor!)}</b><small>{plural(item.bidCount, "bid")}{item.phase === "closed" ? " · closed" : ""}</small></span>;
+  if (item.bidCount) return <span className="bids"><small className="bids-top">Top</small><b>{formatMoney(item.currentMinor!)}</b><small>{plural(item.bidCount, "bid")}{item.phase === "closed" ? " · closed" : ""}</small></span>;
   return <span className="bids muted">{item.phase === "closed" ? "Closed" : "None yet"}</span>;
 }
 
@@ -448,9 +448,10 @@ type DraftRow = { title: string; category: string; donor: string; price: string 
 
 /** The last row is always ready to type into. Enter adds the item and leaves the cursor in a fresh row, keeping the
  *  category for a run of similar items. Unfinished typing survives a reload on this device. */
-function AddRow({ ctx, row, live, categories, counts, titleRef, nav, defaultCategory, onPasteRows, first }: {
+function AddRow({ ctx, row, live, categories, counts, titleRef, nav, defaultCategory, onPasteRows, first, onAdded }: {
   ctx: SetupCtx; row: number; live: boolean; categories: string[]; counts: Map<string, number>; titleRef: React.RefObject<HTMLInputElement | null>;
   nav: (row: number, col: Col) => (key: "Enter" | "ArrowUp" | "ArrowDown", shift: boolean) => void; defaultCategory: string; onPasteRows: (text: string) => void; first: boolean;
+  onAdded: (title: string) => void;
 }) {
   const e = ctx.data.event, key = `bz_items_draft_${e.id}`;
   const [d, setD] = useState<DraftRow>({ title: "", category: defaultCategory, donor: "", price: "" });
@@ -473,7 +474,8 @@ function AddRow({ ctx, row, live, categories, counts, titleRef, nav, defaultCate
       return { ok: r.ok, message: r.ok ? undefined : message };
     });
     setPending(list => ok ? list.filter(x => x.key !== p.key) : list.map(x => x.key === p.key ? { ...x, error: message || "Not added. Try again." } : x));
-  }, [ctx, e.id]);
+    if (ok) onAdded(p.title);
+  }, [ctx, e.id, onAdded]);
   const submit = () => {
     const title = d.title.trim(), price = parseDollars(d.price);
     if (!title) { if (d.price || d.donor) { setHint("Add a title"); titleRef.current?.focus(); } return; }
@@ -592,12 +594,14 @@ function BulkBar({ count, total, live, categories, counts, withBids, onAll, onCl
           <span className="bk-n"><b>{count}</b> selected{count < total && <button type="button" className="link" onClick={onAll}>Select all {total}</button>}</span>
           <Popover label="Set category" button={<>Category</>} align="up" className="bk-cat">
             {close => <div className="bk-cat-pop">
-              {categories.map(c => <button type="button" role="menuitem" key={c} onClick={() => { close(); onCategory(c); }}>{c}<small>{counts.get(c) ?? 0}</small></button>)}
-              <button type="button" role="menuitem" className="muted" onClick={() => { close(); onCategory(""); }}>No category</button>
               <form onSubmit={ev => { ev.preventDefault(); if (fresh.trim()) { close(); onCategory(fresh.trim()); setFresh(""); } }}>
-                <input value={fresh} onChange={ev => setFresh(ev.target.value)} placeholder="New category" aria-label="New category name" maxLength={100} autoFocus={!categories.length} />
+                <input value={fresh} onChange={ev => setFresh(ev.target.value)} placeholder="New category" aria-label="New category name" maxLength={100} autoFocus />
                 <button type="submit" className="sx-btn primary sm" disabled={!fresh.trim()}>Set</button>
               </form>
+              <div className="bk-cat-list">
+                {categories.filter(c => !fresh.trim() || c.toLowerCase().includes(fresh.trim().toLowerCase())).map(c => <button type="button" role="menuitem" key={c} onClick={() => { close(); onCategory(c); }}>{c}<small>{counts.get(c) ?? 0}</small></button>)}
+                <button type="button" role="menuitem" className="muted" onClick={() => { close(); onCategory(""); }}>No category</button>
+              </div>
             </div>}
           </Popover>
           <button type="button" className="sx-btn on-dark sm" disabled={!canShow} onClick={onShow}><IEye size={16} />Show{live ? " to guests" : ""}</button>

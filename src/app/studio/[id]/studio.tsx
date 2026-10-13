@@ -122,22 +122,23 @@ export default function Studio({ eventId }: { eventId: string }) {
   const openShare = useCallback(() => { confirm(eventId, "preview"); setPreviewed(true); setSharing(true); }, [eventId]);
   const ctx: SetupCtx | null = data ? { data, reload, flash, patchEvent, patchItem, track, apply, current, openShare, previewed } : null;
   // The Items workspace and the open item live in the URL, so reload and Back return to the same place.
+  const selRef = useRef<Sel>(sel); selRef.current = sel;
   const select = useCallback((s: Sel, sc?: Screen) => {
-    setSel(prev => {
-      const url = `?mode=setup${selToUrl(s)}`;
-      if (url !== location.search) {
-        const workspace = (x: Sel) => x.kind === "items" || x.kind === "item";
-        if (workspace(s) !== workspace(prev)) history.pushState(null, "", url); else history.replaceState(null, "", url);
-      }
-      return s;
-    });
+    const url = `?mode=setup${selToUrl(s)}`, workspace = (x: Sel) => x.kind === "items" || x.kind === "item";
+    if (url !== location.search) {
+      if (workspace(s) !== workspace(selRef.current)) history.pushState(null, "", url); else history.replaceState(null, "", url);
+    }
+    selRef.current = s; setSel(s);
     if (sc) setScreen(sc);
   }, []);
   useEffect(() => {
-    const fromUrl = selFromUrl(location.search);
-    if (fromUrl) setSel(fromUrl.sel), fromUrl.screen && setScreen(fromUrl.screen);
-    const back = () => { const next = selFromUrl(location.search); setSel(next?.sel ?? { kind: "event" }); if (next?.screen) setScreen(next.screen); };
-    addEventListener("popstate", back); return () => removeEventListener("popstate", back);
+    const fromUrl = (): void => {
+      const next = selFromUrl(location.search);
+      setSel(next?.sel ?? { kind: "event" });
+      if (next?.screen) setScreen(next.screen);
+    };
+    if (selFromUrl(location.search)) fromUrl();
+    addEventListener("popstate", fromUrl); return () => removeEventListener("popstate", fromUrl);
   }, []);
   const dup = useRef(newId());
 
@@ -215,7 +216,7 @@ function SetupMode({ ctx, sel, select, screen, setScreen, pane, setPane, addRequ
   const handled = useRef(addRequest);
   useEffect(() => { if (addRequest !== handled.current) { handled.current = addRequest; openAdd(); } }, [addRequest, openAdd]);
   const steps = useSteps(ctx, (s, sc) => { select(s, sc); setPane(s.kind === "item" || sc ? "canvas" : "edit"); }, openAdd);
-  if (sel.kind === "items") return <ItemsWorkspace ctx={ctx} sel={sel} select={select} />;
+  if (sel.kind === "items") return <ItemsWorkspace ctx={ctx} sel={sel} select={(s, sc) => { select(s, sc); if (s.kind === "item") setPane(innerWidth <= 1080 ? "edit" : "canvas"); }} />;
   return (
     <>
       <div className="pane-tabs"><Seg label="Panel" value={pane} onChange={setPane} options={[{ id: "steps", label: `Steps ${steps.filter(s => s.done).length}/${steps.length}` }, { id: "canvas", label: "Phone" }, { id: "edit", label: "Edit" }]} /></div>

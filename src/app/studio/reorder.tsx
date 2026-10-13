@@ -22,7 +22,7 @@ export function useReorder({ ids, enabled, onMove, container, labels }: {
   const latest = useRef({ ids, onMove }); latest.current = { ids, onMove };
 
   const rows = () => [...(container.current?.querySelectorAll<HTMLElement>("[data-reorder-id]") ?? [])];
-  const refocus = (id: string) => requestAnimationFrame(() => container.current?.querySelector<HTMLElement>(`[data-reorder-handle="${id}"]`)?.focus());
+  const refocus = (id: string) => requestAnimationFrame(() => container.current?.querySelector<HTMLElement>(`[data-reorder-handle="${CSS.escape(id)}"]`)?.focus());
   const indicatorFor = (id: string, to: number) => { const rest = latest.current.ids.filter(x => x !== id); return rest[to] ?? null; };
 
   const targetAt = (clientY: number, id: string) => {

@@ -45,12 +45,12 @@ try{
    await page.screenshot({path:out+'/welcome-1440.png',fullPage:false,animations:"disabled"});
    if(!process.env.BASELINE_ONLY){await page.getByRole('button',{name:'Adjust photo',exact:true}).click();await page.screenshot({path:out+'/adjust-1440.png',fullPage:false,animations:"disabled"});}
    await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/welcome-390.png',fullPage:false,animations:"disabled"});
-   await page.setViewportSize({width:1440,height:1000});await page.locator('.ol-item').first().click();await page.screenshot({path:out+'/item-1440.png',fullPage:false,animations:"disabled"});
+   await page.setViewportSize({width:1440,height:1000});await page.locator('.inav-row').first().click();await page.screenshot({path:out+'/item-1440.png',fullPage:false,animations:"disabled"});
   });
  }else{
  await check('saved focal point reaches the cover and item hero',async({page})=>{
   await expect(page.locator('.ehero-media > img')).toHaveCSS('object-position','80% 50%');
-  await page.locator('.ol-item').click();await expect(page.locator('.hero > img')).toHaveCSS('object-position','80% 50%');
+  await page.locator('.inav-row').click();await expect(page.locator('.hero > img')).toHaveCSS('object-position','80% 50%');
  });
  await check('keyboard adjustment autosaves and previews both shapes',async({page,data})=>{
   await page.getByRole('button',{name:'Adjust photo',exact:true}).click();const slider=page.getByRole('slider',{name:'Photo focus horizontal'});
@@ -95,7 +95,7 @@ try{
  });
  await check('leaving the photo editor ignores unfinished upload completion',async({page,controls,writes})=>{
   const hold=gate(),started=gate();controls.upload=async()=>{started.resolve();await hold.promise;};await pick(page);await started.promise;
-  await page.locator('.ol-item').click();hold.resolve();await page.waitForTimeout(150);assert.equal(writes.length,0);
+  await page.locator('.inav-row').click();hold.resolve();await page.waitForTimeout(150);assert.equal(writes.length,0);
  });
  await check('canvas accepts a pasted image',async({page,data})=>{
   await page.locator('.ph-drop').first().evaluate((el,bytes)=>{const transfer=new DataTransfer();transfer.items.add(new File([Uint8Array.from(atob(bytes),c=>c.charCodeAt(0))],'pasted.png',{type:'image/png'}));el.dispatchEvent(new ClipboardEvent('paste',{clipboardData:transfer,bubbles:true,cancelable:true}));},replacement.toString('base64'));

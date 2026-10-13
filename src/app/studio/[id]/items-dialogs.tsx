@@ -166,8 +166,8 @@ export function PhotoDialog({ ctx, files, onClose }: { ctx: SetupCtx; files: Fil
     const expected = new Map(ctx.current().items.map(i => [i.id, i.imageAssetId]));
     const queue = [...todo];
     const set = (n: number, s: Upload, note = "") => { setState(x => x.map((v, k) => k === n ? s : v)); setNotes(x => x.map((v, k) => k === n ? note : v)); };
-    // Three at a time keeps a phone's upload steady without hiding progress.
-    await Promise.all([0, 1, 2].map(async () => {
+    // One at a time: the server decodes images one by one, and progress reads naturally down the list.
+    await Promise.all([0].map(async () => {
       for (let job = queue.shift(); job; job = queue.shift()) {
         if (assets.current[job.n]) continue;
         set(job.n, "uploading");

@@ -422,7 +422,7 @@ function ItemPanel({ ctx, item, onDeleted, onAll }: { ctx: SetupCtx; item: Item;
         </div>
       )}
       <TextField label="Title" value={item.title} max={200} onSave={v => { if (!v) { flash("An item needs a title.", "red"); return; } p({ title: v }); }} />
-      <TextField label="Short line" value={item.short} max={500} placeholder="Two nights for two, sleeps four" hint="Shown under the title on the item card." onSave={v => p({ short: v })} />
+      <TextField label="Short line" value={item.short} max={500} placeholder="Optional, e.g. what’s included" hint="Shown under the title on the item card." onSave={v => p({ short: v })} />
       <MoneyField label="Starting bid" minor={item.openingMinor} disabled={locked} onSave={v => v && p({ openingMinor: v })} hint={locked ? "Locked once someone bids." : undefined} />
       <label className="sx-field"><span className="sx-label">Category</span>
         <CategoryInput value={item.category} categories={data.event.categories ?? []} counts={counts} label="Category" placeholder="Travel, Dining…" className="field" onSave={v => p({ category: v })} /></label>

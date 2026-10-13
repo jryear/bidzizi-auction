@@ -32,7 +32,7 @@
 .inav-search svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--ink-3); }
 .inav-search input { width: 100%; min-height: 36px; padding: 6px 10px 6px 32px; border: 1.5px solid var(--line); border-radius: 10px; background: #fff; font-size: 13.5px; }
 .inav-search input:focus { outline: none; border-color: var(--cobalt); box-shadow: 0 0 0 3px var(--cobalt-bg); }
-.inav-list { display: grid; gap: 1px; margin-top: 4px; }
+.inav-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1px; margin-top: 4px; }
 .inav-list > li { position: relative; display: flex; align-items: center; border-radius: 9px; }
 .inav-grip { position: absolute; left: -2px; z-index: 2; width: 18px; height: 28px; opacity: 0; transition: opacity .12s; }
 .inav-list > li:hover .inav-grip, .inav-grip:focus-visible, .inav-grip[aria-pressed="true"] { opacity: 1; }
@@ -128,8 +128,7 @@
 .iw-row:hover .cell-in:not(:disabled) { border-color: var(--line); background: #fff; }
 .cell-in:focus { outline: none; border-color: var(--cobalt) !important; background: #fff !important; box-shadow: 0 0 0 3px var(--cobalt-bg); }
 .t-title { font: 600 15px/1.3 var(--sans); }
-.t-meta, .t-sub { display: none; }
-.t-sub { padding: 0 10px; margin-top: -3px; font-size: 12.5px; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.t-meta { display: none; }
 .cell.bad .cell-in, .cat-input.bad .cell-in { border-color: var(--red) !important; background: #fff; }
 .cell-err { position: absolute; left: 6px; top: calc(100% - 2px); z-index: 4; padding: 2px 7px; border-radius: 6px; background: var(--red); color: #fff; font: 650 11.5px/1.4 var(--sans); white-space: nowrap; pointer-events: none; }
 .cell-err.static { position: static; display: inline-block; margin-top: 4px; }
@@ -158,6 +157,7 @@
 .vis-t:disabled { cursor: default; opacity: .9; }
 .bids { display: grid; justify-items: end; gap: 2px; font-variant-numeric: tabular-nums; }
 .bids b { font: 700 14.5px/1 var(--sans); } .bids small { font-size: 12px; color: var(--ink-3); }
+.bids .bids-top { display: none; }
 .bids.muted { font-size: 13px; color: var(--ink-3); }
 
 /* the add row and its pending rows */
@@ -211,7 +211,9 @@
 .bk-cat-pop { display: grid; max-height: 320px; overflow: auto; }
 .bk-cat-pop [role="menuitem"] { display: flex; justify-content: space-between; align-items: center; }
 .bk-cat-pop [role="menuitem"].muted { color: var(--ink-2); font-style: italic; }
-.bk-cat-pop form { display: flex; gap: 6px; padding: 6px 4px 2px; margin-top: 4px; border-top: 1px solid var(--line); }
+.bk-cat-pop { max-height: none; overflow: visible; }
+.bk-cat-pop .bk-cat-list { display: grid; max-height: 260px; overflow: auto; }
+.bk-cat-pop form { display: flex; gap: 6px; padding: 4px 4px 8px; margin-bottom: 4px; border-bottom: 1px solid var(--line); }
 .bk-cat-pop input { flex: 1; min-width: 0; min-height: 34px; padding: 6px 10px; border: 1.5px solid var(--line); border-radius: 9px; font-size: 14px; }
 .bk-cat-pop input:focus { outline: none; border-color: var(--cobalt); }
 .iw-select-mode { display: none !important; }
@@ -227,11 +229,27 @@
 .iw-preview .cv-hint { display: none; }
 
 /* narrower sheets drop the least-needed columns, then fold into cards */
+/* Mid widths (the phone preview beside the sheet): two lines per row. The provider sits under the title, bids under the amount. */
 @container sheet (max-width: 1080px) {
-  .iw-row { --cols: 34px 26px 32px 52px minmax(180px, 1fr) 150px 104px 100px 40px; } .c-donor, .c-status { display: none; }
-  .c-title { align-self: center; } .iw-row:not(.iw-add):not(.iw-pending) .t-sub { display: block; }
+  .iw-row { --cols: 34px 26px 32px 52px minmax(180px, 1fr) 150px 112px 100px 40px;
+    grid-template-areas: "sel grip no photo title cat start vis open" "sel grip no photo donor cat status vis open"; row-gap: 0; min-height: 64px; }
+  .iw-row > .c-sel { grid-area: sel; } .iw-row > .c-grip { grid-area: grip; } .iw-row > .c-no { grid-area: no; } .iw-row > .c-photo { grid-area: photo; }
+  .iw-row > .c-title { grid-area: title; align-self: end; } .iw-row > .c-cat { grid-area: cat; } .iw-row > .c-start { grid-area: start; align-self: end; }
+  .iw-row > .c-donor { grid-area: donor; align-self: start; } .iw-row > .c-status { grid-area: status; align-self: start; text-align: left; padding-left: 21px; }
+  .iw-row > .c-vis { grid-area: vis; } .iw-row > .c-open { grid-area: open; }
+  .iw-headrow { grid-template-areas: "sel grip no photo title cat start vis open"; min-height: 44px; } .iw-headrow > .c-donor, .iw-headrow > .c-status { display: none; }
+  .iw-headrow > * { align-self: center !important; }
+  .c-title .cell-in { min-height: 32px; }
+  .c-donor .cell-in { min-height: 26px; padding: 2px 9px; font-size: 12.5px; color: var(--ink-2); }
+  .bids { justify-items: start; grid-auto-flow: column; gap: 6px; align-items: baseline; } .bids b { font-size: 12.5px; } .bids small, .bids.muted { font-size: 12px; }
+  .c-status .bids.muted { display: none; }
+  .bids { white-space: nowrap; }
+  .iw-add .c-donor .cell-in { min-height: 32px; margin-top: 4px; }
+  .iw-add .c-title { padding: 6px 0 0; } .iw-add .add-note:not(:has(.add-hint)) { display: none; }
+  .iw-add { row-gap: 2px; padding-bottom: 10px; }
+  .iw-pending { grid-template-areas: "sel grip no photo title cat start vis open" "sel grip no photo donor cat status vis open"; }
 }
-@container sheet (max-width: 820px) { .iw-row { --cols: 34px 26px 30px 52px minmax(150px, 1fr) 128px 96px 92px 36px; } }
+@container sheet (max-width: 820px) { .iw-row { --cols: 34px 26px 30px 52px minmax(150px, 1fr) 128px 104px 92px 36px; } }
 @container sheet (max-width: 720px) {
   .iw-row { grid-template-columns: 26px 46px minmax(0, 1fr) auto 32px; grid-template-areas: "grip photo title vis open" "grip photo meta meta open"; column-gap: 10px; row-gap: 2px; padding: 10px 10px 10px 8px; }
   .iw-row.selecting, .iw-row.is-sel { grid-template-columns: 30px 26px 46px minmax(0, 1fr) auto 32px; grid-template-areas: "sel grip photo title vis open" "sel grip photo meta meta open"; }
@@ -247,12 +265,11 @@
   .iw-row:not(.iw-add):not(.iw-pending) .c-open { display: none; }
   .iw-row.selecting:not(.iw-add), .iw-row.is-sel:not(.iw-add) { grid-template-columns: 30px 26px 46px minmax(0, 1fr) auto; grid-template-areas: "sel grip photo title vis" "sel grip photo meta vis"; }
   .iw-row .cell-in { border-color: transparent; }
-  .iw-row .t-sub { display: none !important; }
   .iw-row:not(.iw-add) .vis-t { width: 36px; height: 36px; padding: 0; justify-content: center; } .iw-row:not(.iw-add) .vis-t span { display: none; }
-  .iw-add { grid-template-columns: minmax(0, 1fr) 104px 72px; grid-template-areas: "title title title" "cat start go"; row-gap: 8px; padding: 12px; }
+  .iw-add { grid-template-columns: minmax(0, 1fr) 104px 72px; grid-template-areas: "title title title" "donor donor donor" "cat start go"; row-gap: 8px; padding: 12px; }
   .iw-add .c-sel, .iw-add .c-grip, .iw-add .c-no, .iw-add .c-photo, .iw-add .c-open { display: none; }
   .iw-add .c-title { display: block; grid-area: title; } .iw-add .c-cat { display: block; grid-area: cat; } .iw-add .c-start { display: block; grid-area: start; } .iw-add .c-vis { grid-area: go; }
-  .iw-add .c-donor, .iw-add .c-status { display: none; }
+  .iw-add .c-status { display: none; } .iw-add .c-donor { display: block; grid-area: donor; } .iw-add .c-donor .cell-in { min-height: 38px; margin: 0; font-size: 14.5px; }
   .iw-pending { grid-template-columns: 24px minmax(0, 1fr) auto auto; grid-template-areas: "no title start vis"; }
   .iw-pending .c-no { display: block; grid-area: no; } .iw-pending .c-title { display: block; grid-area: title; } .iw-pending .c-start { display: block; grid-area: start; } .iw-pending .c-vis { grid-area: vis; }
   .iw-pending .c-sel, .iw-pending .c-grip, .iw-pending .c-photo, .iw-pending .c-cat, .iw-pending .c-donor, .iw-pending .c-status, .iw-pending .c-open { display: none; }

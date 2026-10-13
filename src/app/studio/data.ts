@@ -86,11 +86,15 @@ export async function uploadPhoto(file: File, kind: "photo" | "logo" = "photo"):
   if (!file.type.startsWith("image/")) throw new Error("That file isn't an image. Use a JPEG, PNG or WebP.");
   let out: { blob: Blob; type: string };
   try { out = await shrink(file, kind); } catch { throw new Error("That image couldn't be read. Try a JPEG or PNG."); }
-  const r = await fetch("/api/v1/host/assets", { method: "POST", headers: { "Content-Type": out.type }, body: out.blob, credentials: "same-origin" }).catch(() => null);
-  if (!r) throw new Error("Connection lost. The photo wasn't uploaded.");
-  const data = await r.json().catch(() => null);
-  if (!r.ok) throw new Error(data?.error?.message ?? "Upload failed.");
-  return data;
+  // The server decodes one image at a time; when it's busy with someone else's, wait a moment and try again.
+  for (let attempt = 0; ; attempt++) {
+    const r = await fetch("/api/v1/host/assets", { method: "POST", headers: { "Content-Type": out.type }, body: out.blob, credentials: "same-origin" }).catch(() => null);
+    if (!r) throw new Error("Connection lost. The photo wasn't uploaded.");
+    const data = await r.json().catch(() => null);
+    if (r.status === 503 && data?.error?.code === "ASSET_BUSY" && attempt < 8) { await new Promise(done => setTimeout(done, 300 + attempt * 250)); continue; }
+    if (!r.ok) throw new Error(data?.error?.message ?? "Upload failed.");
+    return data;
+  }
 }
 
 /** The one event the home page centres on: running now, then the next live one, then a draft being set up, then the latest.
