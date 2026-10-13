@@ -397,17 +397,17 @@
 .pa .ab-soon { display: flex; justify-content: center; margin-bottom: 8px; }
 
 /* ---------------------------------------------------------------- bid sheet */
-.pa .pa-sheet { border: 0; padding: 0; margin: auto auto 0; width: min(100%, 520px); max-width: 100%; max-height: min(94dvh, 860px); border-radius: 28px 28px 0 0;
+.pa .pa-sheet { border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; width: min(100%, 520px); max-width: 100%; max-height: min(calc(var(--sheet-vh, 100vh) - 12px), 860px); border-radius: 28px 28px 0 0;
   background: var(--paper); color: var(--ink); overflow: hidden; box-shadow: 0 -18px 50px rgba(0, 0, 0, .32); transform: translateY(var(--drag, 0));
   animation: sheetup .42s var(--ease); }
-.pa .pa-sheet[open] { display: flex; flex-direction: column; }
 .pa .pa-sheet:not(.dragging) { transition: transform .25s var(--ease); }
-.pa .pa-sheet::backdrop { background: rgba(26, 24, 20, .55); animation: fade .3s; }
+.pa .pa-sheet-layer { position: fixed; inset: var(--sheet-top, 0px) 0 auto; height: var(--sheet-vh, 100vh); z-index: 300; display: flex; align-items: flex-end; justify-content: center;
+  background: rgba(26, 24, 20, .55); animation: fade .3s; overscroll-behavior: contain; }
 /* Older iOS Safari (before 17) paints a blurred ::backdrop over the dialog itself, hiding the sheet. Blur only where that bug is gone. */
-@supports (text-wrap: balance) { .pa .pa-sheet::backdrop { backdrop-filter: blur(3px); } }
+@supports (text-wrap: balance) { .pa .pa-sheet-layer { backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); } }
 @keyframes sheetup { from { transform: translateY(100%); } to { transform: translateY(0); } }
 @keyframes fade { from { opacity: 0; } }
-.pa .sheet-in { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+.pa .sheet-in { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
 .pa .sheet-grab { flex: none; touch-action: none; cursor: grab; }
 .pa .grab { display: block; width: 46px; height: 5px; margin: 10px auto 0; border-radius: 3px; background: var(--line); }
 .pa .sheet-head { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px 4px 20px; }
@@ -746,7 +746,8 @@
 @media (min-width: 640px) {
   .pa:not(.is-canvas) { --gutter: 28px; }
   .pa:not(.is-canvas) .cards { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
-  .pa:not(.is-canvas) .pa-sheet { margin: auto; border-radius: 28px; max-height: min(90dvh, 820px); animation: modalin .35s var(--spring); }
+  .pa:not(.is-canvas) .pa-sheet-layer { align-items: center; padding: 24px; }
+  .pa:not(.is-canvas) .pa-sheet { border-radius: 28px; max-height: min(calc(var(--sheet-vh, 100vh) - 48px), 820px); animation: modalin .35s var(--spring); }
   .pa:not(.is-canvas) .pa-sheet .grab { display: none; }
   .pa:not(.is-canvas) .pa-sheet .sheet-grab { cursor: default; }
   .pa:not(.is-canvas) .sheet-head { padding-top: 14px; }

@@ -24,7 +24,7 @@ function AlertCard({ a, onDismiss, onAct }: { a: Alert; onDismiss: (id: string) 
     <div className={`alert t-${a.tone}`} role={a.tone === "red" ? "alert" : "status"} style={{ "--life": `${life}ms` } as CSSProperties}>
       <span className="al-ic">{a.tone === "red" ? <IAlert size={20} /> : a.tone === "green" ? <ICheck size={20} /> : <IInfo size={20} />}</span>
       <div className="al-t"><b>{a.title}</b>{a.body && <span>{a.body}</span>}</div>
-      {a.action && <button type="button" className="al-act" onClick={() => onAct(a)}>{a.action.label}</button>}
+      {a.action && <button type="button" className="al-act" onClick={e => { e.currentTarget.focus({ preventScroll: true }); onAct(a); }}>{a.action.label}</button>}
       <button type="button" className="al-x" aria-label="Dismiss" onClick={() => onDismiss(a.id)}><IClose size={18} /></button>
       <i className="al-life" aria-hidden="true" />
     </div>

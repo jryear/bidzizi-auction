@@ -28,14 +28,59 @@ export function BidSheet({ item, me, code, pendingKey, initialAmount, offline, o
   const [state, setState] = useState<State>(() => { const p = typeof window === "undefined" ? null : readPending(pendingKey, item.id); if (p) request.current = p; return p ? "unconfirmed" : "edit"; });
   const [message, setMessage] = useState("");
   const [landed, setLanded] = useState<Receipt | null>(null);
-  const dialog = useRef<HTMLDialogElement>(null);
+  const dialog = useRef<HTMLDivElement>(null);
   const [drag, setDrag] = useState(0);
   const dragStart = useRef<number | null>(null);
   const closed = useRef(false), timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const finish = () => { if (closed.current) return; closed.current = true; clearTimeout(timer.current); onClose(); };
   useEffect(() => () => clearTimeout(timer.current), []);
 
-  useEffect(() => { const d = dialog.current; if (d && !d.open) d.showModal(); }, []);
+  // Keep the native-dialog guarantees without relying on WebKit's top-layer/backdrop painting.
+  const closeRef = useRef(() => {});
+  closeRef.current = () => close();
+  const focusables = () => [...(dialog.current?.querySelectorAll<HTMLElement>('button:not([disabled]), input:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])') ?? [])]
+    .filter(el => el.getClientRects().length && getComputedStyle(el).visibility !== "hidden");
+  useEffect(() => {
+    const previous = document.activeElement as HTMLElement | null;
+    const root = document.documentElement, body = document.body, y = window.scrollY;
+    const overflow = root.style.overflow, position = body.style.position, top = body.style.top, width = body.style.width;
+    root.style.overflow = "hidden"; body.style.position = "fixed"; body.style.top = `-${y}px`; body.style.width = "100%";
+    const layer = dialog.current!.parentElement!;
+    const hidden: { el: HTMLElement; aria: string | null; inert: boolean }[] = [];
+    for (let branch: HTMLElement | null = layer; branch && branch !== body; branch = branch.parentElement) {
+      for (const el of [...(branch.parentElement?.children ?? [])]) {
+        if (el === branch || !(el instanceof HTMLElement) || ["SCRIPT", "STYLE", "LINK"].includes(el.tagName)) continue;
+        hidden.push({ el, aria: el.getAttribute("aria-hidden"), inert: el.inert });
+        el.setAttribute("aria-hidden", "true"); el.inert = true;
+      }
+    }
+    const focus = () => dialog.current?.querySelector<HTMLElement>("#bid-title")?.focus({ preventScroll: true });
+    focus();
+    const onFocus = (e: FocusEvent) => { if (!dialog.current?.contains(e.target as Node)) focus(); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); closeRef.current(); } };
+    const resize = () => {
+      const v = window.visualViewport;
+      layer.style.setProperty("--sheet-vh", `${v?.height ?? window.innerHeight}px`);
+      layer.style.setProperty("--sheet-top", `${v?.offsetTop ?? 0}px`);
+    };
+    resize(); window.visualViewport?.addEventListener("resize", resize); window.visualViewport?.addEventListener("scroll", resize);
+    document.addEventListener("keydown", onKey, true); document.addEventListener("focusin", onFocus);
+    return () => {
+      document.removeEventListener("keydown", onKey, true); document.removeEventListener("focusin", onFocus);
+      window.visualViewport?.removeEventListener("resize", resize); window.visualViewport?.removeEventListener("scroll", resize);
+      hidden.forEach(({ el, aria, inert }) => { if (aria === null) el.removeAttribute("aria-hidden"); else el.setAttribute("aria-hidden", aria); el.inert = inert; });
+      root.style.overflow = overflow; body.style.position = position; body.style.top = top; body.style.width = width;
+      window.scrollTo(0, y); if (previous?.isConnected) previous.focus({ preventScroll: true });
+    };
+  }, []);
+  const trapFocus = (e: React.KeyboardEvent) => {
+    if (e.key !== "Tab" || !dialog.current) return;
+    const f = focusables(), active = document.activeElement;
+    if (!f.length) { e.preventDefault(); dialog.current.focus(); return; }
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && (active === first || !f.includes(active as HTMLElement))) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && (active === last || !f.includes(active as HTMLElement))) { e.preventDefault(); first.focus(); }
+  };
   // If the minimum rises while the sheet is open (someone else bid), lift the amount with it.
   useEffect(() => { if (state === "edit" && amount < minimum) set(minimum); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, [minimum]);
 
@@ -87,8 +132,10 @@ export function BidSheet({ item, me, code, pendingKey, initialAmount, offline, o
   const onPointerUp = () => { if (dragStart.current === null) return; dragStart.current = null; if (drag > 110) close(); setDrag(0); };
 
   return (
-    <dialog ref={dialog} className={`pa-sheet${drag ? " dragging" : ""}`} aria-labelledby="bid-title" style={{ "--drag": `${drag}px` } as CSSProperties}
-      onCancel={e => { e.preventDefault(); close(); }} onClick={e => { if (e.target === e.currentTarget) close(); }}>
+    // A plain fixed overlay, not <dialog>: older iOS Safari left a modal backdrop with no visible sheet.
+    <div className="pa-sheet-layer" onClick={e => { if (e.target === e.currentTarget) close(); }}>
+    <div ref={dialog} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="bid-title" className={`pa-sheet${drag ? " dragging" : ""}`}
+      style={{ "--drag": `${drag}px` } as CSSProperties} onKeyDown={trapFocus}>
       <div className="sheet-in">
         <div className="sheet-grab" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp}>
           <span className="grab" aria-hidden="true" />
@@ -152,7 +199,8 @@ export function BidSheet({ item, me, code, pendingKey, initialAmount, offline, o
           </>
         )}
       </div>
-    </dialog>
+    </div>
+    </div>
   );
 }
 

@@ -181,7 +181,7 @@ export function Band({ item, now, onRebid, unconfirmed }: { item: Item; now: num
   if (s.key === "outbid") return (
     <div className="band t-red">
       <span><b>You&rsquo;ve been outbid</b></span>
-      {onRebid && item.minimumNextMinor !== null && <button type="button" className="band-btn" onClick={e => { e.stopPropagation(); onRebid(); }}>Bid {formatMoney(item.minimumNextMinor)}</button>}
+      {onRebid && item.minimumNextMinor !== null && <button type="button" className="band-btn" onClick={e => { e.stopPropagation(); e.currentTarget.focus({ preventScroll: true }); onRebid(); }}>Bid {formatMoney(item.minimumNextMinor)}</button>}
     </div>
   );
   if (s.key === "leading") return <div className="band t-green"><span><b>You&rsquo;re leading</b></span>{closingSoon(item, now) && <TimeLeft item={item} now={now} prefix={false} />}</div>;

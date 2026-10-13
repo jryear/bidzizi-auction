@@ -643,3 +643,13 @@ The form, its error states and the guest link are unchanged.
 - `color-mix()` (about 40 declarations) needs iOS 16.2; on 16.0–16.1 those tints drop, while text stays readable.
 
 The rule is recorded in AGENTS.md's durable guardrails.
+
+## Bid-sheet overlay hotfix (Codex, 2026-10-13)
+
+Continued the interrupted `hotfix/sheet-no-dialog` work in `real-v1-deploy`, based on `ece2890`. The guest bid sheet uses a fixed overlay instead of the native dialog top layer. Focus stays inside the sheet (including heading-first Shift+Tab and a sending state with disabled controls); background siblings are hidden from assistive technology and inert where supported, with a focus guard as fallback. Escape and backdrop dismissal respect in-flight bids. Body scrolling locks and restores its previous position. Visual viewport changes keep the primary action reachable above a phone keyboard. Opening controls explicitly take focus so Safari can restore focus to the initiating button.
+
+`tests/v1/bid-sheet.mjs` passed on compiled Node 24 output in **Chromium and Playwright WebKit (2/2)** at 390×844, 390×420 and 1440×1000. It checks button hit-testing, focus wrapping/restoration, background isolation, sending-state containment and a lost accepted response recovered by receipt lookup, with exactly one recorded bid. Tests used the separate loopback database `bz_test_compat_20261013` and temporary server on 3431; no shared fixture reset or production activity.
+
+[WebKit phone](images/compat-sheet/webkit-sheet-390.png) · [WebKit desktop](images/compat-sheet/webkit-sheet-1440.png) · [Chromium phone](images/compat-sheet/chromium-sheet-390.png).
+
+TypeScript and production build pass. These are browser-engine checks, not an old-iOS simulator pass. No simulator runtimes are installed; Apple's `xcodebuild -downloadPlatform` reports 16.4, 17.5 and 18.6 unavailable on this setup. The full compatibility build continues separately in the shell worktree. No push or deployment was performed.
