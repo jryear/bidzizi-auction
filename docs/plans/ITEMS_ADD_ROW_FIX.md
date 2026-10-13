@@ -12,3 +12,7 @@ Compiled-build Chromium and WebKit layout checks cover 390, 768, 1080, 1120, 120
 | Desktop | [1268px](../evidence/items-add-row-20261013/before-1268.png) | [1268px](../evidence/items-add-row-20261013/after-1268.png) |
 
 Metrics and regression output are in the same evidence directory. Captures use a disposable local practice fixture; they do not claim an exact reproduction of Zack's browser configuration. This follow-up is intended for staging review; production remains on the compatibility release `3f6c3e2` until separately updated.
+
+## Staging delivery
+
+Live at **https://staging.bidzizi.com/studio**, source `9b255db`, deployment `dpl_AaZBntgxAR4Pu5UNvRktzMbJHKVU`. Hosted checks repeat the eight widths and verify Add saves a $125 item through the server. The separate practice fixture was deleted and the temporary smoke staff disabled afterward. [Hosted phone](../evidence/items-add-row-20261013/hosted-390.png) · [hosted desktop](../evidence/items-add-row-20261013/hosted-1268.png). Production remains on `dpl_CqZBiNowAAHiXFE8kXtmue27nrRq` / source `3f6c3e2`. No migrations or production changes in this layout follow-up.

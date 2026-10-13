@@ -673,3 +673,7 @@ Zack authorized deploying this branch and forking the live production baseline. 
 ## Compatibility production release (2026-10-13)
 
 After Zack reported success on the previously failing phone and said “works! Let's go”, the staging-tested `3f6c3e2` build was released to **https://app.bidzizi.com/studio** as `dpl_CqZBiNowAAHiXFE8kXtmue27nrRq`. Production retains its own database; migration 009 is applied, business-row hashes are unchanged, and live rendering/route/reporting checks pass. Staging remains separate and unchanged. [Production release, evidence and rollback](REAL_V1_PRODUCTION_RELEASE.md). The Add-row screenshot is a separate layout follow-up.
+
+## Item-entry row follow-up (2026-10-13)
+
+Zack's Add-row screenshot was addressed separately with a CSS-only wrapping layout. **Staging** now serves `9b255db` via `dpl_AaZBntgxAR4Pu5UNvRktzMbJHKVU`; production keeps the compatibility release `3f6c3e2`. Chromium/WebKit layout checks across eight widths, Items 15/15, compatibility gate, production build and hosted Add persistence pass. [Before/after and delivery evidence](ITEMS_ADD_ROW_FIX.md).

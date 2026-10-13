@@ -1,0 +1,10 @@
+{
+  "sourceCommit": "9b255dbb94a96cfc821973631691b634ec93f168",
+  "stagingDeployment": "dpl_AaZBntgxAR4Pu5UNvRktzMbJHKVU",
+  "stagingUrl": "https://staging.bidzizi.com/studio",
+  "productionDeploymentUnchanged": "dpl_CqZBiNowAAHiXFE8kXtmue27nrRq",
+  "productionSourceUnchanged": "3f6c3e29d878af860ff25ff38cba63b68caeb868",
+  "hostedLayout": "PASS at eight widths",
+  "hostedAdd": "PASS; created $125 practice item then deleted practice event",
+  "databaseMigrations": false
+}
