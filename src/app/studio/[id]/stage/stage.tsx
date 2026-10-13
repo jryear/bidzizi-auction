@@ -9,10 +9,10 @@ import { IExpand, ITrophy } from "../../../../lib/icons";
 import { countdown } from "../../../e/[code]/model";
 import { Amount, ItemArt } from "../../../e/[code]/ui";
 // The stage's own endpoint: only what the room may see, with bidder names already masked by the server.
-type Item = { id: string; position: number; title: string; donor: string; category: string; imageUrl: string | null; imageFocal?: import("../../../../lib/photo").FocalPoint; openingMinor: number;
+export type StageItem = { id: string; position: number; title: string; donor: string; category: string; imageUrl: string | null; imageFocal?: import("../../../../lib/photo").FocalPoint; openingMinor: number;
   currentMinor: number | null; bidCount: number; phase: "scheduled" | "open" | "closed"; effectiveClosesAt: string; leader: { name: string; business: string } | null };
-type Data = { serverNow: string; event: { id: string; name: string; code: string; theme: string; status: "draft" | "live"; startsAt: string; endsAt: string; phase: string; accentColor: string | null };
-  items: Item[]; activity: { id: string; itemId: string; amountMinor: number; at: string; name: string; business: string }[]; bidders: number; givenMinor: number };
+export type StageData = { serverNow: string; event: { id: string; name: string; code: string; theme: string; status: "draft" | "live"; startsAt: string; endsAt: string; phase: string; accentColor: string | null };
+  items: StageItem[]; activity: { id: string; itemId: string; amountMinor: number; at: string; name: string; business: string }[]; bidders: number; givenMinor: number };
 import { Qr } from "../../kit";
 import { useTicking } from "../live";
 import "../../../e/[code]/participant.css";
@@ -21,11 +21,11 @@ import "../../studio.css";
 const SPOT_MS = 9000, NEW_MS = 7000;
 
 export default function Stage({ eventId }: { eventId: string }) {
-  const [data, setData] = useState<Data | null>(null);
+  const [data, setData] = useState<StageData | null>(null);
   const [signedOut, setSignedOut] = useState(false), [offline, setOffline] = useState(false);
   const [origin, setOrigin] = useState("");
   const load = useCallback(async () => {
-    const r = await api<Data>("GET", `/api/v1/host/events/${eventId}/stage`).catch(() => null);
+    const r = await api<StageData>("GET", `/api/v1/host/events/${eventId}/stage`).catch(() => null);
     if (!r) { setOffline(true); return; }
     if (r.status === 401) { setSignedOut(true); return; }
     if (r.ok) { setData(r.data); setOffline(false); }
@@ -46,7 +46,7 @@ export default function Stage({ eventId }: { eventId: string }) {
   return <StageView data={data} origin={origin} idle={idle} offline={offline} />;
 }
 
-function StageView({ data, origin, idle, offline }: { data: Data; origin: string; idle: boolean; offline: boolean }) {
+export function StageView({ data, origin, idle, offline }: { data: StageData; origin: string; idle: boolean; offline: boolean }) {
   const e = data.event, now = useTicking(data.serverNow);
   const base = THEMES.find(t => t.id === e.theme) ?? THEMES[0], theme = { ...base, accent: e.accentColor ?? base.accent };
   const live = data.items, activity = data.activity;
@@ -69,7 +69,7 @@ function StageView({ data, origin, idle, offline }: { data: Data; origin: string
   }, [activity]);
   useEffect(() => { const timer = setInterval(() => setSpot(s => s + 1), SPOT_MS); return () => clearInterval(timer); }, []);
   const freshItem = fresh && Date.now() - fresh.at < NEW_MS ? live.find(i => i.id === fresh.id) : undefined;
-  const item: Item | undefined = freshItem ?? pool[spot % Math.max(pool.length, 1)];
+  const item: StageItem | undefined = freshItem ?? pool[spot % Math.max(pool.length, 1)];
   const soon = live.filter(i => i.phase === "open" && t(i.effectiveClosesAt) - now < 10 * 60_000).sort((a, b) => t(a.effectiveClosesAt) - t(b.effectiveClosesAt));
   const bidders = data.bidders;
   const titles = new Map(data.items.map(i => [i.id, i.title]));
@@ -93,11 +93,11 @@ function StageView({ data, origin, idle, offline }: { data: Data; origin: string
             <div className="spot" key={item.id + (freshItem ? "-fresh" : "")}>
               <div className="spot-img">{item.imageUrl ? <img style={photoStyle(item.imageFocal)} src={item.imageUrl} alt="" /> : <ItemArt item={item} />}<span className="spot-no">Item {String(item.position + 1).padStart(2, "0")}</span></div>
               <div className="spot-t">
-                {freshItem ? <span className="spot-flag new">New bid</span> : t(item.effectiveClosesAt) - now < 10 * 60_000 && item.phase === "open" ? <span className="spot-flag soon">Closing soon</span> : <span className="spot-flag">{item.category || "Now bidding"}</span>}
+                {freshItem && item.phase === "open" ? <span className="spot-flag new">New bid</span> : t(item.effectiveClosesAt) - now < 10 * 60_000 && item.phase === "open" ? <span className="spot-flag soon">Closing soon</span> : <span className="spot-flag">{item.category || "Now bidding"}</span>}
                 <h1>{item.title}</h1>
                 {item.donor && <p className="spot-donor">Provided by {item.donor}</p>}
                 <div className="spot-amt"><span>{item.currentMinor === null ? "Starting bid" : item.phase === "closed" ? "Final bid" : "Top bid"}</span><Amount minor={item.currentMinor ?? item.openingMinor} className="st-big" /></div>
-                <p className="spot-lead">{item.leader ? <><b>{item.leader.business}</b> leads · {item.bidCount} bid{item.bidCount === 1 ? "" : "s"}</> : item.phase === "open" ? "No bids yet. Yours could be the first." : item.phase === "scheduled" ? "Opens soon" : "No bids"}</p>
+                <p className="spot-lead">{item.leader ? <><b>{item.leader.business}</b> {item.phase === "closed" ? "had the top bid" : "leads"} · {item.bidCount} bid{item.bidCount === 1 ? "" : "s"}</> : item.phase === "open" ? "No bids yet. Yours could be the first." : item.phase === "scheduled" ? "Opens soon" : "No bids"}</p>
                 {item.phase === "open" && <p className={`spot-clock${t(item.effectiveClosesAt) - now < 10 * 60_000 ? " hot" : ""}`}>Closes in <b>{countdown(item.effectiveClosesAt, now)}</b></p>}
               </div>
             </div>
@@ -131,7 +131,7 @@ function StageView({ data, origin, idle, offline }: { data: Data; origin: string
   );
 }
 
-function Finale({ data, raised }: { data: Data; raised: number }) {
+function Finale({ data, raised }: { data: StageData; raised: number }) {
   const given = data.givenMinor;
   const top = data.items.filter(i => i.currentMinor).sort((a, b) => (b.currentMinor ?? 0) - (a.currentMinor ?? 0)).slice(0, 3);
   return (

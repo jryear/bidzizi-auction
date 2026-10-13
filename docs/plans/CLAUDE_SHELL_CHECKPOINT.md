@@ -576,3 +576,57 @@ The browser suite also caught the photo dialog uploading three at a time while t
 8. **Add one more item while live (1 min).** Back in **All items**, type "Late donation: …" with a price, then Enter. It starts **Hidden**: the guest phone beside the sheet doesn't show it, and the header reads "· 1 hidden". Finish its details, then click **Show** on its row. It appears on guests' phones immediately; open **Preview** on a phone to confirm.
 
 **What to watch for:** any moment someone looks for a Save button; whether "Hidden" versus "Visible" is understood without explanation; whether the paste review feels trustworthy; and how photo matching copes with Saturn's real file names.
+
+## Sign-in hero (Claude, 2026-10-13)
+
+Zack's queued follow-up: replace the generic "Run the room." hero on the staff sign-in page (`/studio` signed out; also `app.bidzizi.com/studio`) with the real product, alive.
+
+**What it is.** The left side plays a last-seconds bidding war on BidZizi's **real components**, rather than a mock-up:
+- the actual projector **stage display** (`StageView`), on a tilted screen;
+- two guests' phones in front of it, rendering the real guest `ItemCard`, the outbid `Alerts`, and the "You won!" `Celebration`.
+
+One scripted auction drives all three, so a single bid visibly lands everywhere at once. Over a 16.5-second loop:
+1. Harbor LLC taps **Bid $425**.
+2. The projector flags *New bid* and the amount rolls up.
+3. Juniper's phone turns red with the outbid alert, and Harbor's turns green.
+4. Juniper rebids from the alert, another item jumps onto the stage, the countdown hits zero in amber, and Juniper's phone gets the confetti win while the stage shows *Final bid · Juniper Design had the top bid*.
+
+The scene uses a projector beam, a warm floor glow, a gentle phone float, and tap pulses on the real buttons.
+
+**Copy.**
+- Eyebrow: "Live auctions for events".
+- Headline: "One bid. Every phone. **The big screen.**"
+- Line: "Bids reach the projector and every guest's phone in the same second. Outbid alerts go out by themselves; you confirm who won."
+- Form: "Sign in to Studio / For staff running a BidZizi event."
+
+The form, its error states and the guest link are unchanged.
+
+**Fast, accessible, honest.**
+- The scene is a lazy chunk (about 10–20 KB gzipped of its own code; the guest components were already on `/studio`). It mounts after the form has rendered. Its three photos (`public/hero/*.webp`, about 190 KB) load with it.
+- It pauses when off screen or in a background tab.
+- It is `aria-hidden` and `inert`, with zero reachable controls. A browser check typed into Email through a whole loop (including the win) and focus never moved.
+- With **reduced motion** it holds one still frame (outbid on one phone, leading on the other) with no timers.
+- Nothing talks to the server.
+
+**Product changes it needed, all small and explicit:**
+- **Stage sizing:** stage CSS sizes now use `--vw` / `--vh` / `--stage-h`, which default to the viewport, so the projector renders identically. A capture confirmed this.
+- **`Celebration` `ambient` prop:** in ambient mode it doesn't take focus, vibrate, record the win or listen for Escape.
+- **Exports:** `StageView` and its types are exported.
+- **Closed items on the stage:** a closed item now reads "had the top bid" instead of "leads", and a closed item no longer shows the *New bid* flag. This is a real projector improvement found while composing the scene.
+
+**Critique rounds** at 1440 and 390:
+- **Round 1:** crowded composition, with the copy colliding with the screen and a phone hiding the ticker. On mobile the stage fought the headline. Duplicate view-transition names appeared because both phones showed the same items; each phone now holds its own copies.
+- **Round 2:** the phones' status bands, the payoff, were cut off at the bottom. There was an orphaned word, and the mobile stage was too bright.
+- **Round 3:** the won moment exposed the stage wording above, plus an empty band under the screen, now filled by the floor glow.
+
+**Evidence:** tsc and `next build` pass. On the compiled build: `operations-ui` **PASS**, `items-ui` **15/15**, `studio-saving` **7/7**, `photo-ui` **11/11**, `journey` **55/55**. No page errors in any capture. Captures come from `tests/v1/sign-in-shots.mjs`, which uses a made-up email for the error state so no real account is paused.
+
+| | |
+|---|---|
+| 1440, outbid beat | [hero-outbid-1440](images/sign-in/hero-outbid-1440.png) |
+| 1440, won beat | [hero-won-1440](images/sign-in/hero-won-1440.png) |
+| 390 | [hero-390](images/sign-in/hero-390.png) |
+| Reduced motion | [hero-reduced-1440](images/sign-in/hero-reduced-1440.png) |
+| Sign-in error, unchanged | [error-1440](images/sign-in/error-1440.png) |
+
+**Not checked yet:** Safari's rendering of the 3D tilt, and real-phone performance (the scene is light, but untested on low-end Android). Visual acceptance is Zack's call.

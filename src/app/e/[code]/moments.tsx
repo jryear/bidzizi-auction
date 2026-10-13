@@ -34,10 +34,11 @@ function AlertCard({ a, onDismiss, onAct }: { a: Alert; onDismiss: (id: string) 
 const CONFETTI = ["#F2B632", "#2338C7", "#12724A", "#C93A1B", "#FFFCF5", "#F2B632"];
 
 /** Winning is the best moment in the product. It gets the whole screen, once per item. */
-export function Celebration({ item, code, instructions, onClose }: { item: Item; code: string; instructions: string; onClose: (target: "mine" | "stay") => void }) {
+/** `ambient`: a decorative replay (the Studio sign-in scene). It never takes focus, vibrates, records the win or listens for keys. */
+export function Celebration({ item, code, instructions, onClose, ambient = false }: { item: Item; code: string; instructions: string; onClose: (target: "mine" | "stay") => void; ambient?: boolean }) {
   const button = useRef<HTMLButtonElement>(null);
-  useEffect(() => { seenOnce(`bz_won_${code}_${item.id}`); button.current?.focus(); navigator.vibrate?.([40, 60, 40, 60, 120]); }, [code, item.id]);
-  useEffect(() => { const k = (e: KeyboardEvent) => { if (e.key === "Escape") onClose("stay"); }; window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k); }, [onClose]);
+  useEffect(() => { if (ambient) return; seenOnce(`bz_won_${code}_${item.id}`); button.current?.focus(); navigator.vibrate?.([40, 60, 40, 60, 120]); }, [code, item.id, ambient]);
+  useEffect(() => { if (ambient) return; const k = (e: KeyboardEvent) => { if (e.key === "Escape") onClose("stay"); }; window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k); }, [onClose, ambient]);
   return (
     <div className="celebrate" role="dialog" aria-modal="true" aria-labelledby="won-title">
       <div className="confetti" aria-hidden="true">

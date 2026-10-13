@@ -1,6 +1,6 @@
 "use client";
 // Studio controls. Every control is drawn here; nothing falls back to a default browser look.
-import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { api, dollarsInput, errorText, Offline, parseDollars } from "../../lib/api";
 import { qrcodegen } from "../../lib/qr-code.js";
 import { IAlert, ICheck, IEye, IEyeOff, IMore, IUpload, ITrash } from "../../lib/icons";
@@ -175,7 +175,12 @@ function loginError(r: { status: number; data: any } | null): LoginError {
   return { title: "Sign-in didn’t work", body: "Something went wrong on our side. Try again in a moment." };
 }
 
+// The live scene loads after the form is on screen and ready to type into.
+const SignInHero = lazy(() => import("./sign-in-hero"));
+
 export function Login({ onIn }: { onIn: () => void }) {
+  const [scene, setScene] = useState(false);
+  useEffect(() => { const t = requestAnimationFrame(() => setScene(true)); return () => cancelAnimationFrame(t); }, []);
   const [email, setEmail] = useState(""), [password, setPassword] = useState(""), [error, setError] = useState<LoginError | null>(null), [busy, setBusy] = useState(false);
   const [show, setShow] = useState(false);
   const pw = useRef<HTMLInputElement>(null);
@@ -190,18 +195,19 @@ export function Login({ onIn }: { onIn: () => void }) {
   }
   return (
     <main className="sx sx-login">
-      <section className="login-art" aria-hidden="true">
-        <div className="la-cards">
-          <span className="la-card c1"><i>01</i><b>Weekend cabin</b><em>$400</em></span>
-          <span className="la-card c2"><i>02</i><b>Chef&rsquo;s table</b><em>$325</em></span>
-          <span className="la-card c3"><i>03</i><b>Coffee for a year</b><em>$200</em></span>
+      <section className="login-art" aria-label="BidZizi, live">
+        <div className="lh-copy">
+          <p className="lh-eyebrow"><i aria-hidden="true" />Live auctions for events</p>
+          <h2>One bid. Every phone. <em>The big screen.</em></h2>
+          <p>Bids reach the projector and every guest&rsquo;s phone in the same second. Outbid alerts go out by themselves; you confirm who won.</p>
         </div>
-        <p className="la-quote">Run the room.</p>
+        {scene && <Suspense fallback={null}><SignInHero /></Suspense>}
       </section>
       <section className="login-panel">
         <form className="login-form" onSubmit={submit} noValidate={false}>
           <Brand />
-          <h1>Staff sign in</h1>
+          <h1>Sign in to Studio</h1>
+          <p className="login-sub">For staff running a BidZizi event.</p>
           {error && (
             <div className="login-err" role="alert">
               <IAlert size={20} />
