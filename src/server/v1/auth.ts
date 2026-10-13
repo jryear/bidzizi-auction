@@ -141,7 +141,7 @@ export async function setStaffPassword(request: Request): Promise<Response> {
 
 // ---- Participants: one device identity per event ----
 
-export type Participant = { id: string; eventId: string; displayName: string; businessName: string; canBid: boolean };
+export type Participant = { id: string; eventId: string; displayName: string; businessName: string; canBid: boolean; bidderNumber: number };
 export const participantCookie = (eventId: string) => `bzp_${eventId.replace(/-/g, "")}`;
 
 /** Returns the participant for this device, or null. Access ends at the event's access end. */
@@ -149,7 +149,7 @@ export async function participantFrom(db: Db, request: Request, eventId: string)
   const token = readCookie(request, participantCookie(eventId));
   if (!token || !/^[A-Za-z0-9_-]{43}$/.test(token)) return null;
   const row = (await db.query<Participant>(
-    `SELECT p.id, p.event_id AS "eventId", p.display_name AS "displayName", p.business_name AS "businessName", p.can_bid AS "canBid"
+    `SELECT p.id, p.event_id AS "eventId", p.display_name AS "displayName", p.business_name AS "businessName", p.can_bid AS "canBid", p.bidder_number AS "bidderNumber"
        FROM participants p JOIN events e ON e.id = p.event_id
       WHERE p.token_hash = $1 AND p.event_id = $2 AND e.access_ends_at > clock_timestamp()`,
     [sha256(token), eventId])).rows[0];

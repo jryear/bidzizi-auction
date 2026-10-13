@@ -38,6 +38,7 @@ async function route(method: string, request: Request, ctx: Ctx): Promise<Respon
     if (p[1] === "events" && p[2]) {
       const e = p[2];
       if (method === "GET" && at("host", "events", "*")) return host.workspace(request, e);
+      if (method === "GET" && at("host", "events", "*", "stage")) return host.stageView(request, e);
       if (method === "PATCH" && at("host", "events", "*")) return host.updateEvent(request, e);
       if (method === "POST" && at("host", "events", "*", "duplicate")) return host.duplicateEvent(request, e);
       if (method === "POST" && at("host", "events", "*", "reset")) return host.resetPractice(request, e);

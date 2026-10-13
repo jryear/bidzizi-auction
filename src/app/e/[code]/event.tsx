@@ -49,6 +49,7 @@ export function EventPage({ snap, now, nav }: Props) {
         <section className="joined">
           <Mark name={me.businessName} you size={44} />
           <div><b>{me.displayName}</b><small>{me.businessName}</small>
+            {e.bidderDisplay && e.bidderDisplay !== "name_business" && <p className="seen-as">Other guests see you as <b>{e.bidderDisplay === "anonymous" ? `Bidder ${me.bidderNumber}` : me.businessName}</b></p>}
             <p className="fine">This phone remembers you{e.accessEndsAt ? ` until ${fmtTime(e.accessEndsAt, e.timezone)}` : ""}. New phone? Ask staff for a rejoin code.</p></div>
         </section>
       </div>

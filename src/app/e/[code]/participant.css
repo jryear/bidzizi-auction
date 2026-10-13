@@ -615,6 +615,7 @@
 .pa .joined { display: flex; align-items: flex-start; gap: 14px; margin-top: 28px; padding: 16px; border-radius: 18px; background: var(--card); box-shadow: inset 0 0 0 1.5px var(--line); }
 .pa .joined b { display: block; font: 700 17px/1.2 var(--sans); } .pa .joined small { font-size: 14px; color: var(--ink-2); }
 .pa .joined .fine { margin-top: 8px; text-align: left; }
+.pa .joined .seen-as { margin-top: 8px; font-size: 14px; color: var(--ink-2); } .pa .joined .seen-as b { color: var(--ink); }
 .pa .event-page .fine.center { padding: 14px 8px 0; }
 .pa .linkrows { display: grid; gap: 8px; margin-top: 18px; }
 .pa .linkrow { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 60px; padding: 10px 14px; border-radius: 16px; background: var(--card); box-shadow: inset 0 0 0 1.5px var(--line); text-align: left; }

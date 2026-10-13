@@ -10,7 +10,16 @@ export type EventRow = {
   cover_asset_id: string | null; timezone: string; starts_at: Date; ends_at: Date; access_ends_at: Date;
   status: "draft" | "live"; entry_open: boolean; bid_mode: "tiered" | "fixed"; tiers: Tier[]; fixed_increment_minor: string | null;
   donations_enabled: boolean; donation_deadline: Date | null; revision: number; theme: string; is_practice: boolean; archived_at: Date | null;
+  bidder_display: BidderDisplay;
 };
+export type BidderDisplay = "name_business" | "business" | "anonymous";
+
+/** How one bidder appears to other participants and on the stage. Staff views never go through this. */
+export function shownBidder(mode: BidderDisplay, p: { name: string; business: string; number: number }): { name: string; business: string } {
+  if (mode === "anonymous") return { name: "", business: `Bidder ${p.number}` };
+  if (mode === "business") return { name: "", business: p.business };
+  return { name: p.name, business: p.business };
+}
 export type ItemRow = {
   id: string; event_id: string; position: number; title: string; short: string; description: string; category: string; donor: string;
   image_asset_id: string | null; opening_minor: string; increment_override_minor: string | null;
@@ -55,8 +64,8 @@ export function eventPhase(e: EventRow, items: ItemRow[], at: Date): "upcoming" 
 
 // ---------------------------------------------------------------- snapshot
 
-type StandingJoin = { item_id: string; current_minor: string | null; bid_count: number; leader_id: string | null; leader_name: string | null; leader_business: string | null };
-type AwardJoin = { item_id: string; status: string; participant_id: string | null; amount_minor: string | null; winner_name: string | null; winner_business: string | null };
+type StandingJoin = { item_id: string; current_minor: string | null; bid_count: number; leader_id: string | null; leader_name: string; leader_business: string; leader_number: number };
+type AwardJoin = { item_id: string; status: string; participant_id: string | null; amount_minor: string | null; winner_name: string; winner_business: string; winner_number: number };
 
 export async function snapshot(request: Request, code: string): Promise<Response> {
   return json(await tx(async db => {
@@ -66,10 +75,10 @@ export async function snapshot(request: Request, code: string): Promise<Response
     const history = (await db.query<{ id: string; item_id: string; amount_minor: string; decided_at: Date; participant_id: string; voided_at: Date | null }>(
       `SELECT id, item_id, amount_minor::text, decided_at, participant_id, voided_at FROM bids WHERE event_id = $1 ORDER BY sequence DESC`, [e.id])).rows;
     const standings = new Map((await db.query<StandingJoin>(
-      `SELECT s.item_id, s.current_minor, s.bid_count, s.leader_id, p.display_name AS leader_name, p.business_name AS leader_business
+      `SELECT s.item_id, s.current_minor, s.bid_count, s.leader_id, p.display_name AS leader_name, p.business_name AS leader_business, p.bidder_number AS leader_number
          FROM standings s LEFT JOIN participants p ON p.id = s.leader_id WHERE s.event_id = $1`, [e.id])).rows.map(r => [r.item_id, r]));
     const awards = new Map((await db.query<AwardJoin>(
-      `SELECT a.item_id, a.status, a.participant_id, a.amount_minor, p.display_name AS winner_name, p.business_name AS winner_business
+      `SELECT a.item_id, a.status, a.participant_id, a.amount_minor, p.display_name AS winner_name, p.business_name AS winner_business, p.bidder_number AS winner_number
          FROM awards a LEFT JOIN participants p ON p.id = a.participant_id WHERE a.event_id = $1`, [e.id])).rows.map(r => [r.item_id, r]));
     const sponsors = (await db.query<{ name: string; logo_asset_id: string | null }>("SELECT name, logo_asset_id FROM sponsors WHERE event_id = $1 ORDER BY position", [e.id])).rows;
     const recipients = e.donations_enabled ? (await db.query<{ id: string; name: string; description: string; logo_asset_id: string | null }>(
@@ -92,7 +101,7 @@ export async function snapshot(request: Request, code: string): Promise<Response
     return {
       serverNow: at, preview,
       event: {
-        id: e.id, code: e.join_code, name: e.name, welcome: e.welcome, venue: e.venue, timezone: e.timezone, theme: e.theme,
+        id: e.id, code: e.join_code, name: e.name, welcome: e.welcome, venue: e.venue, timezone: e.timezone, theme: e.theme, bidderDisplay: e.bidder_display,
         coverUrl: assetUrl(e.cover_asset_id), startsAt: e.starts_at, endsAt: e.ends_at, accessEndsAt: e.access_ends_at,
         entryOpen: e.entry_open && at < e.ends_at, phase: eventPhase(e, items, at),
         sponsors: sponsors.map(s => ({ name: s.name, logoUrl: assetUrl(s.logo_asset_id) })),
@@ -113,16 +122,18 @@ export async function snapshot(request: Request, code: string): Promise<Response
           imageUrl: assetUrl(i.image_asset_id), openingMinor: Number(i.opening_minor),
           opensAt: opensOf(e, i), closesAt: closesOf(e, i), phase,
           currentMinor: current, bidCount: s?.bid_count ?? 0,
-          leader: s?.leader_id ? { name: s.leader_name, business: s.leader_business, isMe: s.leader_id === me?.id } : null,
+          leader: s?.leader_id ? (s.leader_id === me?.id ? { name: s.leader_name, business: s.leader_business, isMe: true }
+            : { ...shownBidder(e.bidder_display, { name: s.leader_name, business: s.leader_business, number: s.leader_number }), isMe: false }) : null,
           minimumNextMinor: i.withdrawn_at ? null : minimumNext(current, Number(i.opening_minor), rules, override),
           incrementMinor: increment(current ?? Number(i.opening_minor), rules, override),
           watching: mine?.watching.has(i.id) ?? false,
           myHighestMinor: mineHere?.highest ?? null, myBidCount: mineHere?.count ?? 0,
-          award: a ? { status: a.status, winner: a.status === "no_winner" ? null : { name: a.winner_name, business: a.winner_business },
+          award: a ? { status: a.status, winner: a.status === "no_winner" ? null : won ? { name: a.winner_name, business: a.winner_business }
+            : shownBidder(e.bidder_display, { name: a.winner_name, business: a.winner_business, number: a.winner_number }),
             amountMinor: a.amount_minor === null ? null : Number(a.amount_minor), isMe: won } : null,
         };
       }),
-      me: me ? { id: me.id, displayName: me.displayName, businessName: me.businessName, canBid: me.canBid, pledges: mine!.pledges,
+      me: me ? { id: me.id, displayName: me.displayName, businessName: me.businessName, canBid: me.canBid, pledges: mine!.pledges, bidderNumber: me.bidderNumber,
         winnerInstructions: [...awards.values()].some(a => a.participant_id === me.id && a.status !== "no_winner") ? e.winner_instructions : "" } : null,
     };
   }));
@@ -147,8 +158,11 @@ export async function join(request: Request, code: string): Promise<Response> {
       return { e, at, participantId: prior.id };
     }
     if (!e.entry_open || at >= e.ends_at) throw new ApiError(403, "ENTRY_CLOSED", "Joining is closed for this event.");
+    // A stable per-event bidder number, in join order. The advisory lock serializes concurrent joins to this event only.
+    await db.query("SELECT pg_advisory_xact_lock(hashtextextended($1, 0))", [`bidders:${e.id}`]);
     const participantId = (await db.query<{ id: string }>(
-      "INSERT INTO participants (event_id, display_name, business_name, token_hash, join_request_id) VALUES ($1, $2, $3, $4, $5) RETURNING id",
+      `INSERT INTO participants (event_id, display_name, business_name, token_hash, join_request_id, bidder_number)
+       VALUES ($1, $2, $3, $4, $5, (SELECT coalesce(max(bidder_number), 0) + 1 FROM participants WHERE event_id = $1)) RETURNING id`,
       [e.id, displayName, businessName, sha256(token), requestId])).rows[0].id;
     return { e, at, participantId };
   });

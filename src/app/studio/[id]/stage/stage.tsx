@@ -7,7 +7,11 @@ import { THEMES } from "../../../../lib/templates";
 import { IExpand, ITrophy } from "../../../../lib/icons";
 import { countdown } from "../../../e/[code]/model";
 import { Amount, ItemArt } from "../../../e/[code]/ui";
-import type { Data, Item } from "../../data";
+// The stage's own endpoint: only what the room may see, with bidder names already masked by the server.
+type Item = { id: string; position: number; title: string; donor: string; category: string; imageUrl: string | null; openingMinor: number;
+  currentMinor: number | null; bidCount: number; phase: "scheduled" | "open" | "closed"; effectiveClosesAt: string; leader: { name: string; business: string } | null };
+type Data = { serverNow: string; event: { id: string; name: string; code: string; theme: string; status: "draft" | "live"; startsAt: string; endsAt: string; phase: string };
+  items: Item[]; activity: { id: string; itemId: string; amountMinor: number; at: string; name: string; business: string }[]; bidders: number; givenMinor: number };
 import { Qr } from "../../kit";
 import { useTicking } from "../live";
 import "../../../e/[code]/participant.css";
@@ -20,7 +24,7 @@ export default function Stage({ eventId }: { eventId: string }) {
   const [signedOut, setSignedOut] = useState(false), [offline, setOffline] = useState(false);
   const [origin, setOrigin] = useState("");
   const load = useCallback(async () => {
-    const r = await api<Data>("GET", `/api/v1/host/events/${eventId}`).catch(() => null);
+    const r = await api<Data>("GET", `/api/v1/host/events/${eventId}/stage`).catch(() => null);
     if (!r) { setOffline(true); return; }
     if (r.status === 401) { setSignedOut(true); return; }
     if (r.ok) { setData(r.data); setOffline(false); }
@@ -44,8 +48,7 @@ export default function Stage({ eventId }: { eventId: string }) {
 function StageView({ data, origin, idle, offline }: { data: Data; origin: string; idle: boolean; offline: boolean }) {
   const e = data.event, now = useTicking(data.serverNow);
   const theme = THEMES.find(t => t.id === e.theme) ?? THEMES[0];
-  const live = useMemo(() => data.items.filter(i => i.ready && !i.withdrawn), [data.items]);
-  const activity = useMemo(() => data.activity.filter(a => !a.voided), [data.activity]);
+  const live = data.items, activity = data.activity;
   const raised = live.reduce((s, i) => s + (i.currentMinor ?? 0), 0);
   const t = (s: string) => new Date(s).getTime();
   const ended = e.status === "live" && e.phase === "closed";
@@ -67,7 +70,7 @@ function StageView({ data, origin, idle, offline }: { data: Data; origin: string
   const freshItem = fresh && Date.now() - fresh.at < NEW_MS ? live.find(i => i.id === fresh.id) : undefined;
   const item: Item | undefined = freshItem ?? pool[spot % Math.max(pool.length, 1)];
   const soon = live.filter(i => i.phase === "open" && t(i.effectiveClosesAt) - now < 10 * 60_000).sort((a, b) => t(a.effectiveClosesAt) - t(b.effectiveClosesAt));
-  const bidders = new Set(activity.map(a => a.business)).size;
+  const bidders = data.bidders;
   const titles = new Map(data.items.map(i => [i.id, i.title]));
   const host = origin.replace(/^https?:\/\//, "");
 
@@ -128,8 +131,8 @@ function StageView({ data, origin, idle, offline }: { data: Data; origin: string
 }
 
 function Finale({ data, raised }: { data: Data; raised: number }) {
-  const given = data.pledges.reduce((s, p) => s + p.amountMinor, 0);
-  const top = data.items.filter(i => i.currentMinor && !i.withdrawn).sort((a, b) => (b.currentMinor ?? 0) - (a.currentMinor ?? 0)).slice(0, 3);
+  const given = data.givenMinor;
+  const top = data.items.filter(i => i.currentMinor).sort((a, b) => (b.currentMinor ?? 0) - (a.currentMinor ?? 0)).slice(0, 3);
   return (
     <section className="finale">
       <span className="fin-eyebrow"><ITrophy size={22} />Bidding has closed</span>
@@ -137,7 +140,7 @@ function Finale({ data, raised }: { data: Data; raised: number }) {
       <div className="fin-nums">
         <div><span>Raised in bids</span><b>{formatMoney(raised)}</b></div>
         {given > 0 && <div><span>Donated</span><b>{formatMoney(given)}</b></div>}
-        <div><span>Bidders</span><b>{new Set(data.activity.filter(a => !a.voided).map(a => a.business)).size}</b></div>
+        <div><span>Bidders</span><b>{data.bidders}</b></div>
       </div>
       {top.length > 0 && <ol className="fin-top">{top.map(i => <li key={i.id}><span className="ft-img">{i.imageUrl ? <img src={i.imageUrl} alt="" /> : <ItemArt item={i} size="sm" />}</span><span><b>{i.title}</b><small>{formatMoney(i.currentMinor!)}</small></span></li>)}</ol>}
       <p className="fin-note">Winners: check your phone. Staff will confirm and tell you how to collect.</p>

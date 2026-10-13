@@ -15,13 +15,13 @@ export type Item = {
 };
 export type Recipient = { id: string; name: string; description: string; logoUrl: string | null };
 export type EventInfo = {
-  id: string; code: string; name: string; welcome: string; venue: string; timezone: string; theme?: string; coverUrl: string | null;
+  id: string; code: string; name: string; welcome: string; venue: string; timezone: string; theme?: string; coverUrl: string | null; bidderDisplay?: "name_business" | "business" | "anonymous";
   startsAt: string; endsAt: string; accessEndsAt?: string; entryOpen: boolean; phase: "upcoming" | "open" | "closed";
   sponsors: { name: string; logoUrl: string | null }[];
   donations: { enabled: boolean; open: boolean; deadline: string | null; capMinor: number; recipients: Recipient[] };
 };
 export type Pledge = { id: string; recipientName: string; amountMinor: number; recordedAt: string };
-export type Me = { id: string; displayName: string; businessName: string; canBid: boolean; winnerInstructions: string; pledges: Pledge[] };
+export type Me = { id: string; displayName: string; businessName: string; canBid: boolean; winnerInstructions: string; pledges: Pledge[]; bidderNumber?: number };
 export type Snapshot = { serverNow: string; preview?: boolean; event: EventInfo; items: Item[]; me: Me | null };
 export type Receipt = {
   requestId: string; itemId: string; amountMinor: number; accepted: boolean; reason: string | null; decidedAt?: string;

@@ -78,7 +78,7 @@ export function Outline({ ctx, sel, select, addItem }: { ctx: SetupCtx; sel: Sel
       {row({ kind: "event" }, <IInfo size={18} />, "Welcome & details", undefined, "welcome")}
       {row({ kind: "schedule" }, <ICalendar size={18} />, "Schedule", fmtClock(data.event.startsAt, data.event.timezone) + "–" + fmtClock(data.event.endsAt, data.event.timezone), "welcome")}
       {row({ kind: "theme" }, <IPalette size={18} />, "Look", THEMES.find(t => t.id === data.event.theme)?.name)}
-      {row({ kind: "rules" }, <ISliders size={18} />, "Bid increments", data.event.bidMode === "fixed" ? `+${formatMoney(data.event.fixedIncrementMinor ?? 0)} each bid` : "Steps grow with price")}
+      {row({ kind: "rules" }, <ISliders size={18} />, "Bidding rules", BIDDER_OPTIONS.find(o => o.id === data.event.bidderDisplay)?.label ?? "")}
       {row({ kind: "donations" }, <IHeart size={18} />, "Donations", data.event.donationsEnabled ? `${data.recipients.length} cause${data.recipients.length === 1 ? "" : "s"}` : "Off")}
       {row({ kind: "sponsors" }, <IStore size={18} />, "Sponsors", data.sponsors.length ? `${data.sponsors.length}` : "None yet", "welcome")}
       <div className="ol-items-head"><h3>Items <span>{data.items.length}</span></h3><button type="button" className="sx-icon-btn sm" aria-label="Add item" onClick={addItem}><IPlus size={18} /></button></div>
@@ -330,7 +330,10 @@ function RulesPanel({ ctx }: { ctx: SetupCtx }) {
     if (await patchEvent(body)) flash("Increments saved", "green");
   }
   return (
-    <Panel title="Bid increments" icon={<ISliders size={20} />} sub={locked ? "Bidding has started, so increments are locked to keep things fair." : "How much each new bid must add. Any item can override it."}>
+    <Panel title="Bidding rules" icon={<ISliders size={20} />}>
+      <BidderDisplayPicker ctx={ctx} />
+      <h4 className="panel-sub">Bid increments</h4>
+      <p className="sx-hint">{locked ? "Bidding has started, so increments are locked to keep things fair." : "How much each new bid must add. Any item can override it."}</p>
       <Seg label="Increment style" value={mode} onChange={v => !locked && setMode(v)} options={[{ id: "tiered", label: "Grows with price" }, { id: "fixed", label: "Same every time" }]} />
       {mode === "fixed" ? (
         <label className="sx-field"><span className="sx-label">Every bid adds</span><span className="sx-money"><b>$</b><input inputMode="decimal" value={fixed} disabled={locked} onChange={x => setFixed(x.target.value)} /></span></label>
@@ -350,6 +353,30 @@ function RulesPanel({ ctx }: { ctx: SetupCtx }) {
       )}
       {!locked && <button type="button" className="sx-btn primary block" onClick={save}>Save increments</button>}
     </Panel>
+  );
+}
+
+const BIDDER_OPTIONS = [
+  { id: "name_business", label: "Name and business", example: "Alice Chen · Juniper Design" },
+  { id: "business", label: "Business only", example: "Juniper Design" },
+  { id: "anonymous", label: "Anonymous", example: "Bidder 12" },
+] as const;
+
+/** "Show bidders as": how other guests and the stage display see who's bidding. Staff always see everyone in full. */
+function BidderDisplayPicker({ ctx }: { ctx: SetupCtx }) {
+  const value = ctx.data.event.bidderDisplay;
+  return (
+    <fieldset className="choice-group">
+      <legend className="panel-sub">Show bidders as</legend>
+      {BIDDER_OPTIONS.map(o => (
+        <label key={o.id} className={`choice${value === o.id ? " on" : ""}`}>
+          <input type="radio" name="bidder-display" value={o.id} checked={value === o.id} onChange={() => ctx.patchEvent({ bidderDisplay: o.id })} />
+          <span className="ch-dot" aria-hidden="true" />
+          <span className="ch-t"><b>{o.label}</b><small>{o.example}</small></span>
+        </label>
+      ))}
+      <p className="sx-hint">Applies to other guests&rsquo; phones and the stage display. You and your staff always see full names.</p>
+    </fieldset>
   );
 }
 

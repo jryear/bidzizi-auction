@@ -410,6 +410,93 @@ await check("staff invitation and reset use one-time password setup and revoke o
   assert.equal((await helper("POST", "/api/v1/host/login", { email: helperEmail, password: "test-password-123" })).status, 401);
   assert.equal((await helper("POST", "/api/v1/host/login", { email: helperEmail, password: "a-new-password-123" })).status, 200);
 });
+// ---------------------------------------------------------------- bidder visibility (passthrough 1)
+let vis;
+async function visibilityEvent() {
+  const ev = await staff("POST", "/api/v1/host/events", { requestId: randomUUID(), name: "Visibility check " + randomUUID().slice(0, 6), startsAt: iso(-60_000), endsAt: iso(3_600_000) });
+  const item = await staff("POST", `/api/v1/host/events/${ev.data.id}/items`, { requestId: randomUUID(), title: "Visible prize", openingMinor: 10_000 });
+  const item2 = await staff("POST", `/api/v1/host/events/${ev.data.id}/items`, { requestId: randomUUID(), title: "Second prize", openingMinor: 10_000, closesAt: iso(9_000) });
+  let w = await staff("GET", `/api/v1/host/events/${ev.data.id}`);
+  await staff("PATCH", `/api/v1/host/events/${ev.data.id}`, { revision: w.data.event.revision, status: "live" });
+  w = await staff("GET", `/api/v1/host/events/${ev.data.id}`);
+  const p1 = client(), p2 = client(), p3 = client();
+  const join = (c, n, b) => c("POST", `/api/v1/e/${w.data.event.code}/join`, { requestId: randomUUID(), displayName: n, businessName: b });
+  await join(p1, "Vera Secret", "Hidden Holdings"); await join(p2, "Walt Watcher", "Open Books"); await join(p3, "Xena Third", "Third Co");
+  const bid = (c, itemId, amountMinor) => c("POST", `/api/v1/e/${w.data.event.code}/bid`, { requestId: randomUUID(), itemId, amountMinor });
+  assert.equal((await bid(p1, item.data.id, 10_000)).data.receipt.accepted, true);
+  assert.equal((await bid(p1, item2.data.id, 10_000)).data.receipt.accepted, true);
+  return { id: ev.data.id, code: w.data.event.code, itemId: item.data.id, item2Id: item2.data.id, p1, p2, p3 };
+}
+const setDisplay = async (mode) => {
+  const w = await staff("GET", `/api/v1/host/events/${vis.id}`);
+  return staff("PATCH", `/api/v1/host/events/${vis.id}`, { revision: w.data.event.revision, bidderDisplay: mode });
+};
+const leaderSeenBy = async (c) => (await c("GET", `/api/v1/e/${vis.code}`)).data.items.find(i => i.id === vis.itemId).leader;
+
+await check("bidder visibility defaults to name and business for other guests", async () => {
+  vis = await visibilityEvent();
+  const w = await staff("GET", `/api/v1/host/events/${vis.id}`);
+  assert.equal(w.data.event.bidderDisplay, "name_business");
+  assert.deepEqual(await leaderSeenBy(vis.p2), { name: "Vera Secret", business: "Hidden Holdings", isMe: false });
+  assert.equal((await leaderSeenBy(vis.p1)).isMe, true, "the leader sees themselves");
+  assert.equal((await setDisplay("everyone")).status, 400, "unknown modes are rejected");
+});
+await check("business only: other guests and the stage never receive the bidder's name", async () => {
+  assert.equal((await setDisplay("business")).status, 200);
+  const raw = JSON.stringify((await vis.p2("GET", `/api/v1/e/${vis.code}`)).data);
+  assert.ok(!raw.includes("Vera Secret"), "name absent from the whole participant snapshot");
+  assert.deepEqual(await leaderSeenBy(vis.p2), { name: "", business: "Hidden Holdings", isMe: false });
+  const stage = await staff("GET", `/api/v1/host/events/${vis.id}/stage`);
+  assert.equal(stage.status, 200);
+  assert.ok(!JSON.stringify(stage.data).includes("Vera Secret"), "name absent from the stage view");
+  const leader = await leaderSeenBy(vis.p1);
+  assert.equal(leader.name, "Vera Secret", "a bidder still sees their own name");
+});
+await check("anonymous: stable per-event bidder numbers; names and businesses never reach phones or the stage", async () => {
+  assert.equal((await setDisplay("anonymous")).status, 200);
+  const seen = await leaderSeenBy(vis.p2);
+  assert.deepEqual(seen, { name: "", business: "Bidder 1", isMe: false });
+  // The number is stable across items, reloads and leadership changes.
+  assert.equal((await vis.p3("GET", `/api/v1/e/${vis.code}`)).data.items.find(i => i.id === vis.item2Id).leader.business, "Bidder 1");
+  const minOf = async (c) => (await c("GET", `/api/v1/e/${vis.code}`)).data.items.find(i => i.id === vis.itemId).minimumNextMinor;
+  assert.equal((await vis.p2("POST", `/api/v1/e/${vis.code}/bid`, { requestId: randomUUID(), itemId: vis.itemId, amountMinor: await minOf(vis.p2) })).data.receipt.accepted, true);
+  assert.equal((await leaderSeenBy(vis.p3)).business, "Bidder 2");
+  assert.equal((await vis.p1("POST", `/api/v1/e/${vis.code}/bid`, { requestId: randomUUID(), itemId: vis.itemId, amountMinor: await minOf(vis.p1) })).data.receipt.accepted, true);
+  assert.equal((await leaderSeenBy(vis.p3)).business, "Bidder 1", "same bidder, same number");
+  for (const c of [vis.p2, vis.p3]) {
+    const raw = JSON.stringify((await c("GET", `/api/v1/e/${vis.code}`)).data);
+    assert.ok(!raw.includes("Vera Secret") && !raw.includes("Hidden Holdings"), "no real identity in another guest's snapshot");
+  }
+  const stage = JSON.stringify((await staff("GET", `/api/v1/host/events/${vis.id}/stage`)).data);
+  assert.ok(!stage.includes("Vera Secret") && !stage.includes("Hidden Holdings") && !stage.includes("Walt Watcher"), "no real identity on the stage");
+  assert.ok(stage.includes("Bidder 1") && stage.includes("Bidder 2"));
+  assert.equal((await vis.p1("GET", `/api/v1/e/${vis.code}`)).data.me.bidderNumber, 1);
+});
+await check("anonymous: winners are masked for other guests; staff always see full identities", async () => {
+  await sleep(Math.max(0, 9_500));
+  let w = await staff("GET", `/api/v1/host/events/${vis.id}`);
+  const second = w.data.items.find(i => i.id === vis.item2Id);
+  assert.equal(second.phase, "closed");
+  assert.equal((await staff("POST", `/api/v1/host/items/${vis.item2Id}/award`, { action: "assign", revision: 0 })).status, 200);
+  const other = (await vis.p2("GET", `/api/v1/e/${vis.code}`)).data.items.find(i => i.id === vis.item2Id);
+  assert.deepEqual(other.award.winner, { name: "", business: "Bidder 1" });
+  const mine = (await vis.p1("GET", `/api/v1/e/${vis.code}`)).data.items.find(i => i.id === vis.item2Id);
+  assert.equal(mine.award.isMe, true); assert.equal(mine.award.winner.name, "Vera Secret");
+  w = await staff("GET", `/api/v1/host/events/${vis.id}`);
+  const first = w.data.items.find(i => i.id === vis.itemId);
+  assert.equal(first.leader.name, "Vera Secret"); assert.equal(first.leader.business, "Hidden Holdings");
+  assert.ok(w.data.activity.some(a => a.name === "Walt Watcher"), "staff feed keeps full names");
+  const csv = await staff("GET", `/api/v1/host/events/${vis.id}/export/participants`);
+  assert.ok(String(csv.data).includes("Vera Secret"), "exports keep full names");
+});
+await check("bidder numbers are unique under concurrent joins", async () => {
+  const many = Array.from({ length: 8 }, () => client());
+  await Promise.all(many.map((c, n) => c("POST", `/api/v1/e/${vis.code}/join`, { requestId: randomUUID(), displayName: `Guest ${n}`, businessName: `Biz ${n}` })));
+  const numbers = await Promise.all(many.map(async c => (await c("GET", `/api/v1/e/${vis.code}`)).data.me.bidderNumber));
+  assert.equal(new Set(numbers).size, numbers.length, `duplicates in ${numbers}`);
+  assert.deepEqual([...numbers].sort((a, b) => a - b), [4, 5, 6, 7, 8, 9, 10, 11]);
+});
+
 await check("staff logout ends the session", async () => {
   await staff("POST", "/api/v1/host/logout", {});
   assert.equal((await staff("GET", "/api/v1/host/events")).status, 401);

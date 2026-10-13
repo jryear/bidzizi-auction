@@ -4,7 +4,7 @@ import { normalizeAsset } from "./asset-codec";
 import { now, tx, type Db } from "./db";
 import { staffFrom, type Staff } from "./auth";
 import { cents, conflict, id, invalid, json, notFound, readJson, sameOrigin, sha256, str, when } from "./http";
-import { assetUrl, closesOf, eventPhase, opensOf, phaseOf, rulesOf, type EventRow, type ItemRow } from "./engine";
+import { assetUrl, closesOf, eventPhase, opensOf, phaseOf, rulesOf, shownBidder, type EventRow, type ItemRow } from "./engine";
 import { DEFAULT_TIERS, formatMoney, minimumNext, validTiers } from "../../lib/money";
 import { TEMPLATES, THEMES } from "../../lib/templates";
 
@@ -214,8 +214,8 @@ export async function workspace(request: Request, eventId: string): Promise<Resp
          FROM bids b JOIN participants p ON p.id = b.participant_id WHERE b.event_id = $1 ORDER BY b.decided_at DESC`, [e.id])).rows;
     const awards = new Map((await db.query<{ item_id: string; status: string; bid_id: string | null; participant_id: string | null; amount_minor: string | null; notes: string; revision: number; updated_at: Date }>(
       "SELECT * FROM awards WHERE event_id = $1", [e.id])).rows.map(a => [a.item_id, a]));
-    const participants = (await db.query<{ id: string; display_name: string; business_name: string; can_bid: boolean; created_at: Date }>(
-      "SELECT id, display_name, business_name, can_bid, created_at FROM participants WHERE event_id = $1 ORDER BY created_at", [e.id])).rows;
+    const participants = (await db.query<{ id: string; display_name: string; business_name: string; can_bid: boolean; created_at: Date; bidder_number: number }>(
+      "SELECT id, display_name, business_name, can_bid, created_at, bidder_number FROM participants WHERE event_id = $1 ORDER BY created_at", [e.id])).rows;
     const pledges = (await db.query<{ id: string; participant_id: string; recipient_name: string; amount_minor: string; recorded_at: Date; processed_at: Date | null; note: string }>(
       "SELECT id, participant_id, recipient_name, amount_minor::text, recorded_at, processed_at, note FROM pledges WHERE event_id = $1 ORDER BY recorded_at DESC", [e.id])).rows;
     const recipients = (await db.query<{ id: string; name: string; description: string; logo_asset_id: string | null; position: number }>(
@@ -232,7 +232,7 @@ export async function workspace(request: Request, eventId: string): Promise<Resp
         bidMode: e.bid_mode, tiers: e.tiers, fixedIncrementMinor: num(e.fixed_increment_minor),
         donationsEnabled: e.donations_enabled, donationDeadline: e.donation_deadline, revision: e.revision, theme: e.theme,
         phase: e.status === "draft" ? "draft" : eventPhase(e, items, at), hasBids: bids.length > 0,
-        isPractice: e.is_practice, archivedAt: e.archived_at,
+        isPractice: e.is_practice, archivedAt: e.archived_at, bidderDisplay: e.bidder_display,
       },
       items: items.map(i => {
         const a = awards.get(i.id), leader = i.leader_id ? byParticipant.get(i.leader_id) : undefined;
@@ -246,7 +246,7 @@ export async function workspace(request: Request, eventId: string): Promise<Resp
           phase: i.withdrawn_at ? "closed" : phaseOf(e, i, at), currentMinor: current, bidCount: i.bid_count,
           hasBids: bids.some(b => b.item_id === i.id),
           minimumNextMinor: i.withdrawn_at ? null : minimumNext(current, Number(i.opening_minor), rules, override),
-          leader: leader ? { id: leader.id, name: leader.display_name, business: leader.business_name } : null,
+          leader: leader ? { id: leader.id, name: leader.display_name, business: leader.business_name, number: leader.bidder_number } : null,
           bids: bids.filter(b => b.item_id === i.id).map(b => ({ id: b.id, amountMinor: Number(b.amount_minor), at: b.decided_at,
             participantId: b.participant_id, name: b.display_name, business: b.business_name, voided: b.voided_at !== null, voidReason: b.void_reason })),
           award: a ? { status: a.status, bidId: a.bid_id, participantId: a.participant_id, amountMinor: num(a.amount_minor), notes: a.notes, revision: a.revision, updatedAt: a.updated_at } : null,
@@ -254,7 +254,7 @@ export async function workspace(request: Request, eventId: string): Promise<Resp
       }),
       participants: participants.map(p => {
         const theirBids = bids.filter(b => b.participant_id === p.id);
-        return { id: p.id, name: p.display_name, business: p.business_name, canBid: p.can_bid, joinedAt: p.created_at,
+        return { id: p.id, name: p.display_name, business: p.business_name, canBid: p.can_bid, joinedAt: p.created_at, number: p.bidder_number,
           bidCount: theirBids.filter(b => !b.voided_at).length, leadingCount: items.filter(i => i.leader_id === p.id).length,
           pledgedMinor: pledges.filter(x => x.participant_id === p.id).reduce((sum, x) => sum + Number(x.amount_minor), 0) };
       }),
@@ -264,6 +264,38 @@ export async function workspace(request: Request, eventId: string): Promise<Resp
         processedAt: p.processed_at, note: p.note, name: who?.display_name ?? "", business: who?.business_name ?? "" }; }),
       recipients: recipients.map(r => ({ id: r.id, name: r.name, description: r.description, logoAssetId: r.logo_asset_id, logoUrl: assetUrl(r.logo_asset_id) })),
       sponsors: sponsors.map(s => ({ id: s.id, name: s.name, logoAssetId: s.logo_asset_id, logoUrl: assetUrl(s.logo_asset_id) })),
+    };
+  }));
+}
+
+/** What the room sees on the projector. Bidder identities follow the event's "Show bidders as" setting, exactly as
+ *  participants' phones do, so hidden names never reach the stage display. */
+export async function stageView(request: Request, eventId: string): Promise<Response> {
+  return json(await staffTx(request, async (db, staff) => {
+    const e = await ownEvent(db, staff, eventId), at = await now(db);
+    const items = (await db.query<ItemRow & { current_minor: string | null; bid_count: number; leader_name: string | null; leader_business: string | null; leader_number: number | null }>(
+      `SELECT i.*, s.current_minor, s.bid_count, p.display_name AS leader_name, p.business_name AS leader_business, p.bidder_number AS leader_number
+         FROM items i JOIN standings s ON s.item_id = i.id LEFT JOIN participants p ON p.id = s.leader_id
+        WHERE i.event_id = $1 AND i.ready AND i.withdrawn_at IS NULL ORDER BY i.position, i.created_at`, [e.id])).rows;
+    const bids = (await db.query<{ id: string; item_id: string; amount_minor: string; decided_at: Date; display_name: string; business_name: string; bidder_number: number }>(
+      `SELECT b.id, b.item_id, b.amount_minor::text, b.decided_at, p.display_name, p.business_name, p.bidder_number
+         FROM bids b JOIN participants p ON p.id = b.participant_id JOIN items i ON i.id = b.item_id
+        WHERE b.event_id = $1 AND b.voided_at IS NULL AND i.ready AND i.withdrawn_at IS NULL ORDER BY b.decided_at DESC LIMIT 50`, [e.id])).rows;
+    const bidders = (await db.query<{ n: number }>("SELECT count(DISTINCT participant_id)::int AS n FROM bids WHERE event_id = $1 AND voided_at IS NULL", [e.id])).rows[0].n;
+    const given = (await db.query<{ total: string }>("SELECT coalesce(sum(amount_minor), 0)::text AS total FROM pledges WHERE event_id = $1", [e.id])).rows[0].total;
+    const show = (name: string, business: string, number: number) => shownBidder(e.bidder_display, { name, business, number });
+    return {
+      serverNow: at,
+      event: { id: e.id, name: e.name, code: e.join_code, theme: e.theme, status: e.status, startsAt: e.starts_at, endsAt: e.ends_at,
+        phase: e.status === "draft" ? "draft" : eventPhase(e, items, at), bidderDisplay: e.bidder_display },
+      items: items.map(i => ({
+        id: i.id, position: i.position, title: i.title, donor: i.donor, category: i.category, imageUrl: assetUrl(i.image_asset_id),
+        openingMinor: Number(i.opening_minor), currentMinor: i.current_minor === null ? null : Number(i.current_minor), bidCount: i.bid_count,
+        phase: phaseOf(e, i, at), effectiveClosesAt: closesOf(e, i),
+        leader: i.leader_number === null ? null : show(i.leader_name!, i.leader_business!, i.leader_number),
+      })),
+      activity: bids.map(b => ({ id: b.id, itemId: b.item_id, amountMinor: Number(b.amount_minor), at: b.decided_at, ...show(b.display_name, b.business_name, b.bidder_number) })),
+      bidders, givenMinor: Number(given),
     };
   }));
 }
@@ -322,13 +354,17 @@ export async function updateEvent(request: Request, eventId: string): Promise<Re
     if ("donationsEnabled" in input) next.donations_enabled = input.donationsEnabled === true;
     if ("donationDeadline" in input) next.donation_deadline = optionalWhen(input.donationDeadline);
     if (next.donations_enabled && !next.donation_deadline) next.donation_deadline = next.ends_at;
+    if ("bidderDisplay" in input) {
+      if (!["name_business", "business", "anonymous"].includes(input.bidderDisplay as string)) throw invalid();
+      next.bidder_display = input.bidderDisplay as EventRow["bidder_display"];
+    }
     await db.query(
       `UPDATE events SET name=$2, welcome=$3, venue=$4, winner_instructions=$5, cover_asset_id=$6, timezone=$7, starts_at=$8, ends_at=$9,
               access_ends_at=$10, status=$11, entry_open=$12, bid_mode=$13, tiers=$14, fixed_increment_minor=$15, donations_enabled=$16,
-              donation_deadline=$17, theme=$18, is_practice=$19, revision = revision + 1, updated_at = now() WHERE id = $1`,
+              donation_deadline=$17, theme=$18, is_practice=$19, bidder_display=$20, revision = revision + 1, updated_at = now() WHERE id = $1`,
       [e.id, next.name, next.welcome, next.venue, next.winner_instructions, next.cover_asset_id, next.timezone, next.starts_at, next.ends_at,
        next.access_ends_at, next.status, next.entry_open, next.bid_mode, JSON.stringify(next.tiers), next.fixed_increment_minor,
-       next.donations_enabled, next.donation_deadline, next.theme, next.is_practice]);
+       next.donations_enabled, next.donation_deadline, next.theme, next.is_practice, next.bidder_display]);
     return { ok: true, revision: e.revision + 1 };
   }));
 }

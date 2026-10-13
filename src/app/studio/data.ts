@@ -10,17 +10,22 @@ export type Item = {
   id: string; position: number; title: string; short: string; description: string; category: string; donor: string; imageAssetId: string | null; imageUrl: string | null;
   openingMinor: number; incrementOverrideMinor: number | null; opensAt: string | null; closesAt: string | null; effectiveOpensAt: string; effectiveClosesAt: string;
   ready: boolean; revision: number; phase: "scheduled" | "open" | "closed"; currentMinor: number | null; bidCount: number; minimumNextMinor: number | null;
-  leader: { id: string; name: string; business: string } | null; bids: Bid[]; award: Award | null;
+  leader: { id: string; name: string; business: string; number: number } | null; bids: Bid[]; award: Award | null;
   withdrawn: boolean; withdrawalMessage: string; hasBids: boolean;
 };
-export type Participant = { id: string; name: string; business: string; canBid: boolean; joinedAt: string; bidCount: number; leadingCount: number; pledgedMinor: number };
+export type Participant = { id: string; name: string; business: string; number: number; canBid: boolean; joinedAt: string; bidCount: number; leadingCount: number; pledgedMinor: number };
 export type Pledge = { id: string; recipientName: string; amountMinor: number; recordedAt: string; processedAt: string | null; note: string; name: string; business: string };
 export type EventData = {
   id: string; code: string; name: string; welcome: string; venue: string; winnerInstructions: string; coverAssetId: string | null; coverUrl: string | null; timezone: string;
   startsAt: string; endsAt: string; accessEndsAt: string; status: "draft" | "live"; entryOpen: boolean; theme: string; bidMode: "tiered" | "fixed"; tiers: Tier[];
   fixedIncrementMinor: number | null; donationsEnabled: boolean; donationDeadline: string | null; revision: number; phase: string; hasBids: boolean;
-  isPractice: boolean; archivedAt: string | null;
+  isPractice: boolean; archivedAt: string | null; bidderDisplay: BidderDisplay;
 };
+export type BidderDisplay = "name_business" | "business" | "anonymous";
+/** The same rule the server applies to guests' phones, so the canvas previews exactly what guests will see. */
+export function shownBidder(mode: BidderDisplay, p: { name: string; business: string; number: number }) {
+  return mode === "anonymous" ? { name: "", business: `Bidder ${p.number}` } : mode === "business" ? { name: "", business: p.business } : { name: p.name, business: p.business };
+}
 export type Data = {
   serverNow: string; event: EventData; items: Item[]; participants: Participant[];
   activity: { id: string; itemId: string; amountMinor: number; at: string; name: string; business: string; voided: boolean }[];
@@ -54,7 +59,7 @@ export function toSnapshot(d: Data, me = { displayName: "A guest", businessName:
       return {
         id: i.id, position: i.position, title: i.title, short: i.short, description: i.description, category: i.category, donor: i.donor, imageUrl: i.imageUrl,
         openingMinor: i.openingMinor, opensAt: i.effectiveOpensAt, closesAt: i.effectiveClosesAt, phase: i.phase, currentMinor: i.currentMinor, bidCount: i.bidCount,
-        leader: i.leader ? { name: i.leader.name, business: i.leader.business, isMe: false } : null, minimumNextMinor: i.minimumNextMinor,
+        leader: i.leader ? { ...shownBidder(e.bidderDisplay, i.leader), isMe: false } : null, minimumNextMinor: i.minimumNextMinor,
         incrementMinor: increment(i.currentMinor ?? i.openingMinor, rules, i.incrementOverrideMinor), watching: false, myHighestMinor: null, myBidCount: 0,
         award: i.award ? { status: i.award.status, winner: winner ? { name: winner.name, business: winner.business } : null, amountMinor: i.award.amountMinor, isMe: false } : null,
       };
