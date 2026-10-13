@@ -1,0 +1,9 @@
+{
+  "schema_migrations": true,
+  "orgs": true,
+  "staff": true,
+  "events": true,
+  "items": true,
+  "bids": true,
+  "assets": true
+}

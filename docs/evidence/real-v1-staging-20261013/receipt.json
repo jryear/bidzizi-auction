@@ -1,0 +1,45 @@
+{
+  "verifiedAt": "2026-10-13T22:11:42.447130+00:00",
+  "sourceCommit": "3f6c3e29d878af860ff25ff38cba63b68caeb868",
+  "sourceBranch": "jryear/real-v1-claude-shell",
+  "staging": {
+    "domain": "staging.bidzizi.com",
+    "projectId": "prj_nQdWJzjZjFg0TY2MjlTf2hxWtBf9",
+    "projectName": "bidzizi-real-v1-staging",
+    "deploymentId": "dpl_ACGwNLmUH8ptVipz18JQtNoe8VMb",
+    "url": "bidzizi-real-v1-staging-pr37llji6-saturn-ea53.vercel.app",
+    "readyState": "READY",
+    "databaseBranch": "br-crimson-mountain-arsolcfe",
+    "databaseParent": "br-cold-glitter-arx1msrh",
+    "forkLsn": "0/1E3AEF8",
+    "migrations": "001-009",
+    "applicationOrigin": "https://staging.bidzizi.com",
+    "applicationMode": "production",
+    "nodeVersion": "24.x",
+    "runtimeRegion": "pdx1"
+  },
+  "productionPreserved": {
+    "deploymentId": "dpl_FaFhGmY8fd3BtYXBYRfxvkf63jV9",
+    "url": "bidzizi-production-7lkmgwccx-saturn-ea53.vercel.app",
+    "sourceCommitMetadata": "ece2890da8ad2b8de49f90a4fcb6e9965071414c",
+    "gitDirtyMetadata": true,
+    "databaseBranch": "br-cold-glitter-arx1msrh",
+    "migrations": "001-008"
+  },
+  "previousStaging": {
+    "projectId": "prj_fy9oxz1zTFpwqLRDJONdgvjI2KNP",
+    "deploymentId": "dpl_8YmnFRrjLWnKkKEu5tjXU2yqCQaV",
+    "url": "bidzizi-clean-staging-ns0mwvdvs-saturn-ea53.vercel.app"
+  },
+  "hostedChecks": {
+    "bidSheet": "Chromium and WebKit PASS",
+    "devices": "PASS",
+    "simpleMode": "Chromium and WebKit PASS on rerun; first Chromium Join stability timeout retained",
+    "staffOperations": "PASS"
+  },
+  "nativeIos": "Untested; requested simulator runtimes unavailable",
+  "testData": "Separate staging-compat-smoke organization retained; staff disabled, sessions revoked, room entry closed",
+  "productionWrites": false,
+  "gitPush": false,
+  "mainMerge": false
+}

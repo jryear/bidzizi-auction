@@ -11,7 +11,7 @@ This section overrides the conflicting process rules below for Real V1 work (`re
   - Review findings are tasks for the owner, not approval gates. Escalate only real product decisions.
 - **Still Zack's explicit go:** production deploys, creating paid or provider resources, pointing a domain, and pushing to or merging into `main`.
 - **Still always true:** credentials stay server-side and out of Git; production requires verified TLS; bids and pledges are recorded idempotently, with server time deciding.
-- The staging demo (`migrations/001–019`, `staging.bidzizi.com`) is frozen history. Real V1 uses `migrations/prod/`.
+- The old staging demo (`migrations/001–019`, Vercel project `bidzizi-clean-staging`) is frozen history. As authorized on 2026-10-13, `staging.bidzizi.com` now serves Real V1 from its own project and isolated production database fork. Real V1 uses `migrations/prod/`; see `docs/plans/REAL_V1_STAGING_RELEASE.md` for deployment and rollback evidence.
 
 ## Product and context
 

@@ -1,0 +1,7 @@
+RUN simple-ui.mjs
+PASS chromium JavaScript disabled: join, detail, bid receipt/replay, My bids, donation replay, uncertain recovery, rejoin and CSRF; no duplicate bids or pledges
+PASS webkit JavaScript disabled: join, detail, bid receipt/replay, My bids, donation replay, uncertain recovery, rejoin and CSRF; no duplicate bids or pledges
+2/2 simple-mode journeys passed
+RUN operations-ui.mjs
+PASS UI: void, withdrawal, edit participant, reset, delete, invite, password setup and reset/session revocation; no page errors
+Hosted staging smoke checks passed.

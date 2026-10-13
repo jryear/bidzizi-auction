@@ -1,0 +1,63 @@
+{
+  "same": true,
+  "production": {
+    "schema_migrations": {
+      "count": 8,
+      "sha256": "5a201db65e50d27710e5957256dcf1de8cd338d70f89d4f22f093d021569918b"
+    },
+    "orgs": {
+      "count": 1,
+      "sha256": "9a5835ef4de3bc9b3d8c2580c4c211db6b9e296838b81dd7cfbe4bdc969c7f00"
+    },
+    "staff": {
+      "count": 2,
+      "sha256": "49169b42dd0dcb47754866579fb066e1280b2deff356831f14e4a2b1d6831325"
+    },
+    "events": {
+      "count": 1,
+      "sha256": "b333de1f2c962e66cb6f6d0dec5ac6d1001cfe959716f4b1070581ac8dfa04bb"
+    },
+    "items": {
+      "count": 6,
+      "sha256": "c3cf9167a8ad5622c708f9226fe10e17b4f85c2688ab9c8cb1c50e0ef1c30a99"
+    },
+    "bids": {
+      "count": 15,
+      "sha256": "23c09b00a9e5b3c5379fae86f292d2c82011a38bd96bb931e3c9cf1912616baa"
+    },
+    "assets": {
+      "count": 5,
+      "sha256": "31cb0afd89f4ddba3edbb9398a617fac6615aac5c7ea676aa41391ee78e09b5c"
+    }
+  },
+  "staging": {
+    "schema_migrations": {
+      "count": 8,
+      "sha256": "5a201db65e50d27710e5957256dcf1de8cd338d70f89d4f22f093d021569918b"
+    },
+    "orgs": {
+      "count": 1,
+      "sha256": "9a5835ef4de3bc9b3d8c2580c4c211db6b9e296838b81dd7cfbe4bdc969c7f00"
+    },
+    "staff": {
+      "count": 2,
+      "sha256": "49169b42dd0dcb47754866579fb066e1280b2deff356831f14e4a2b1d6831325"
+    },
+    "events": {
+      "count": 1,
+      "sha256": "b333de1f2c962e66cb6f6d0dec5ac6d1001cfe959716f4b1070581ac8dfa04bb"
+    },
+    "items": {
+      "count": 6,
+      "sha256": "c3cf9167a8ad5622c708f9226fe10e17b4f85c2688ab9c8cb1c50e0ef1c30a99"
+    },
+    "bids": {
+      "count": 15,
+      "sha256": "23c09b00a9e5b3c5379fae86f292d2c82011a38bd96bb931e3c9cf1912616baa"
+    },
+    "assets": {
+      "count": 5,
+      "sha256": "31cb0afd89f4ddba3edbb9398a617fac6615aac5c7ea676aa41391ee78e09b5c"
+    }
+  }
+}

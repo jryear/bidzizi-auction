@@ -2,7 +2,7 @@
 
 Continued by Codex after Claude's session limit. Source baseline `ece2890`; worktree `real-v1-claude-shell`, branch `jryear/real-v1-claude-shell`. The interrupted sheet hotfix was completed separately in `real-v1-deploy` as `d58c9be` (`hotfix/sheet-no-dialog`) and integrated while preserving the shell's in-progress telemetry work.
 
-**Software implementation and local browser checks are complete. The requested old-iOS simulator validation remains unavailable.** No push, production deployment, cloud resource, real-message send or provider configuration change was performed.
+**Software implementation and local browser checks are complete. The requested old-iOS simulator validation remains unavailable.** At completion of the local build, no push, production deployment, cloud resource, real-message send or provider configuration change had been performed. Zack subsequently authorized the staging release below.
 
 ## What changed
 
@@ -90,3 +90,7 @@ pnpm test:compat
 - [Saturn's 10–15-person rehearsal](COMPAT_CROWD_REHEARSAL.md) covers real phones, in-app browsers, Wi-Fi/cellular, outbid/recovery, donation/rejoin, simple mode and results.
 
 The saved information-architecture tranche remains separate. This compatibility build does not implement its publication terminology, event index or expanded Live console.
+
+## Authorized staging release — 2026-10-13
+
+This revision is now at **https://staging.bidzizi.com/studio**, against an isolated fork of the production database. Existing production staff accounts and the event are copied; staging changes stay separate. Hosted bid-sheet, Devices, simple-mode and staff-operation checks pass. The first simple-mode actionability timeout and successful rerun are both recorded. Production is unchanged. See [the release receipt and rollback notes](REAL_V1_STAGING_RELEASE.md). Physical old-iPhone validation remains open.
