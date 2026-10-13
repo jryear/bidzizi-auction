@@ -453,3 +453,9 @@ The connected application has no new Items workflow from this study. All effects
 [Study and five-minute trial](ITEMS_WORKSPACE_STUDY.md) · [desktop comparison](images/items-study/flows-desktop-pair.png) · [phone comparison](images/items-study/flows-phone-pair.png).
 
 The retained prototype server is owned by this session, runs `prototypes/items-workspace/serve.mjs` on loopback 3423, and can be restarted with `node prototypes/items-workspace/serve.mjs`. The final interaction decision belongs to Zack's trial; this is a reviewable prototype, not an accepted connected Items manager. Stage controls, event-info editing and winner-page editing remain later landings.
+
+## Next tranche saved (Zack, 2026-10-13)
+
+[Studio information architecture and event operations](REAL_V1_NEXT_TRANCHE.md) records Zack's next tranche: Published versus Live language, a scalable event index, Live operations by phase, Navigator/Preview/Inspector, brand versus semantic tokens, human-first configuration, actual guest components in preview, sticky bidding actions, neutral results language and aligned domain responsibilities.
+
+This is queued direction. Zack will review the current build and Items interaction study next; no implementation of the new tranche has begun. The record distinguishes desired capabilities from existing backend support, preserves current auction guarantees and autosave, and does not introduce another publishing workflow for ordinary edits.
