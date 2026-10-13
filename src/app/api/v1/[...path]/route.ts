@@ -1,5 +1,5 @@
 import { handle, notFound } from "../../../../server/v1/http";
-import { login, logout } from "../../../../server/v1/auth";
+import { inviteStaff, listStaff, login, logout, resetStaffPassword, setStaffPassword } from "../../../../server/v1/auth";
 import { bidReceipt, join, placeBid, pledge, rejoin, snapshot, watch } from "../../../../server/v1/engine";
 import * as host from "../../../../server/v1/host";
 
@@ -27,7 +27,11 @@ async function route(method: string, request: Request, ctx: Ctx): Promise<Respon
   if (p[0] === "host") {
     if (method === "POST" && at("host", "login")) return login(request);
     if (method === "POST" && at("host", "logout")) return logout(request);
+    if (method === "POST" && at("host", "password", "set")) return setStaffPassword(request);
     if (method === "GET" && at("host", "me")) return host.me(request);
+    if (method === "GET" && at("host", "staff")) return listStaff(request);
+    if (method === "POST" && at("host", "staff", "invites")) return inviteStaff(request);
+    if (method === "POST" && at("host", "staff", "*", "password-reset")) return resetStaffPassword(request, p[2]);
     if (method === "POST" && at("host", "assets")) return host.uploadAsset(request);
     if (method === "GET" && at("host", "events")) return host.listEvents(request);
     if (method === "POST" && at("host", "events")) return host.createEvent(request);
@@ -36,6 +40,10 @@ async function route(method: string, request: Request, ctx: Ctx): Promise<Respon
       if (method === "GET" && at("host", "events", "*")) return host.workspace(request, e);
       if (method === "PATCH" && at("host", "events", "*")) return host.updateEvent(request, e);
       if (method === "POST" && at("host", "events", "*", "duplicate")) return host.duplicateEvent(request, e);
+      if (method === "POST" && at("host", "events", "*", "reset")) return host.resetPractice(request, e);
+      if (method === "POST" && at("host", "events", "*", "archive")) return host.archiveEvent(request, e);
+      if (method === "POST" && at("host", "events", "*", "restore")) return host.restoreEvent(request, e);
+      if (method === "DELETE" && at("host", "events", "*")) return host.deleteEvent(request, e);
       if (method === "POST" && at("host", "events", "*", "items")) return host.createItem(request, e);
       if (method === "POST" && at("host", "events", "*", "items", "order")) return host.reorderItems(request, e);
       if (method === "PUT" && at("host", "events", "*", "sponsors")) return host.saveSponsors(request, e);
@@ -50,6 +58,8 @@ async function route(method: string, request: Request, ctx: Ctx): Promise<Respon
       if (method === "PATCH" && at("host", "items", "*")) return host.updateItem(request, p[2]);
       if (method === "DELETE" && at("host", "items", "*")) return host.deleteItem(request, p[2]);
       if (method === "POST" && at("host", "items", "*", "award")) return host.decideAward(request, p[2]);
+      if (method === "POST" && at("host", "items", "*", "void-bid")) return host.voidBid(request, p[2]);
+      if (method === "POST" && at("host", "items", "*", "withdraw")) return host.withdrawItem(request, p[2]);
     }
   }
   throw notFound();

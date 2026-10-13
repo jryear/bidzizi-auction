@@ -30,8 +30,11 @@ async function ownItem(db: Db, staff: Staff, itemId: string, lock = ""): Promise
 /** Replays a staff create action retried after a lost response. */
 async function once<T>(db: Db, staff: Staff, requestId: string, operation: string, run: () => Promise<T>): Promise<T> {
   await db.query("SELECT pg_advisory_xact_lock(hashtextextended($1, 0))", [`staff:${staff.id}:${requestId}`]);
-  const prior = (await db.query<{ response: T }>("SELECT response FROM staff_requests WHERE staff_id = $1 AND request_id = $2", [staff.id, requestId])).rows[0];
-  if (prior) return prior.response;
+  const prior = (await db.query<{ response: T; operation: string }>("SELECT response, operation FROM staff_requests WHERE staff_id = $1 AND request_id = $2", [staff.id, requestId])).rows[0];
+  if (prior) {
+    if (prior.operation !== operation) throw conflict("This request ID was already used for another action.");
+    return prior.response;
+  }
   const response = await run();
   await db.query("INSERT INTO staff_requests (staff_id, request_id, operation, response) VALUES ($1, $2, $3, $4)", [staff.id, requestId, operation, JSON.stringify(response)]);
   return response;
@@ -51,15 +54,16 @@ export async function me(request: Request): Promise<Response> {
 export async function listEvents(request: Request): Promise<Response> {
   return json(await staffTx(request, async (db, staff) => {
     const at = await now(db);
-    const rows = (await db.query<EventRow & { item_count: number; participant_count: number; bid_count: number }>(
+    const rows = (await db.query<EventRow & { item_count: number; participant_count: number; bid_count: number; is_practice: boolean; archived_at: Date | null }>(
       `SELECT e.*, (SELECT count(*)::int FROM items i WHERE i.event_id = e.id) AS item_count,
               (SELECT count(*)::int FROM participants p WHERE p.event_id = e.id) AS participant_count,
-              (SELECT count(*)::int FROM bids b WHERE b.event_id = e.id) AS bid_count
+              (SELECT count(*)::int FROM bids b WHERE b.event_id = e.id AND b.voided_at IS NULL) AS bid_count
          FROM events e WHERE e.org_id = $1 ORDER BY e.starts_at DESC`, [staff.orgId])).rows;
     return { serverNow: at, events: rows.map(e => ({
       id: e.id, name: e.name, code: e.join_code, status: e.status, startsAt: e.starts_at, endsAt: e.ends_at,
       stage: e.status === "draft" ? "draft" : at < e.starts_at ? "upcoming" : at < e.ends_at ? "running" : "ended",
       coverUrl: assetUrl(e.cover_asset_id), itemCount: e.item_count, participantCount: e.participant_count, bidCount: e.bid_count,
+      isPractice: e.is_practice, archivedAt: e.archived_at,
     })) };
   }));
 }
@@ -74,6 +78,7 @@ async function newJoinCode(db: Db): Promise<string> {
 export async function createEvent(request: Request): Promise<Response> {
   const input = await readJson(request);
   const requestId = id(input.requestId), name = str(input.name, 200, { required: true });
+  const isPractice = input.isPractice === true;
   const startsAt = when(input.startsAt), endsAt = when(input.endsAt);
   const timezone = str(input.timezone ?? "America/Los_Angeles", 100);
   try { new Intl.DateTimeFormat("en-US", { timeZone: timezone }); } catch { throw invalid("Choose a valid time zone."); }
@@ -84,10 +89,10 @@ export async function createEvent(request: Request): Promise<Response> {
   return json(await staffTx(request, (db, staff) => once(db, staff, requestId, "create-event", async () => {
     const row = (await db.query<{ id: string }>(
       `INSERT INTO events (org_id, join_code, name, timezone, starts_at, ends_at, access_ends_at, tiers, created_by, theme, welcome, winner_instructions,
-                           donations_enabled, donation_deadline)
-       VALUES ($1, $2, $3, $4, $5, $6, $6::timestamptz + interval '7 days', $7, $8, $9, $10, $11, $12, CASE WHEN $12 THEN $6::timestamptz END) RETURNING id`,
+                           donations_enabled, donation_deadline, is_practice)
+       VALUES ($1, $2, $3, $4, $5, $6, $6::timestamptz + interval '7 days', $7, $8, $9, $10, $11, $12, CASE WHEN $12 THEN $6::timestamptz END, $13) RETURNING id`,
       [staff.orgId, await newJoinCode(db), name, timezone, startsAt, endsAt, JSON.stringify(DEFAULT_TIERS), staff.id, template.theme, template.welcome,
-       template.winnerInstructions, template.donations])).rows[0];
+       template.winnerInstructions, template.donations, isPractice])).rows[0];
     for (const [position, item] of template.items.entries()) {
       const created = (await db.query<{ id: string }>(
         "INSERT INTO items (event_id, org_id, position, title, short, category, opening_minor, ready) VALUES ($1, $2, $3, $4, $5, $6, $7, true) RETURNING id",
@@ -132,7 +137,71 @@ export async function duplicateEvent(request: Request, eventId: string): Promise
   })), 201);
 }
 
-type BidJoin = { id: string; item_id: string; amount_minor: string; decided_at: Date; participant_id: string; display_name: string; business_name: string };
+async function eraseEventActivity(db: Db, eventId: string): Promise<void> {
+  await db.query("DELETE FROM award_log WHERE item_id IN (SELECT id FROM items WHERE event_id = $1)", [eventId]);
+  await db.query("DELETE FROM awards WHERE event_id = $1", [eventId]);
+  await db.query("DELETE FROM bid_receipts WHERE item_id IN (SELECT id FROM items WHERE event_id = $1)", [eventId]);
+  await db.query("DELETE FROM rejoin_codes WHERE participant_id IN (SELECT id FROM participants WHERE event_id = $1)", [eventId]);
+  await db.query("DELETE FROM watches WHERE item_id IN (SELECT id FROM items WHERE event_id = $1)", [eventId]);
+  await db.query("DELETE FROM pledges WHERE event_id = $1", [eventId]);
+  await db.query("UPDATE standings SET current_minor=NULL, leader_id=NULL, leading_bid_id=NULL, bid_count=0, next_sequence=1, updated_at=now() WHERE event_id=$1", [eventId]);
+  await db.query("DELETE FROM bids WHERE event_id = $1", [eventId]);
+  await db.query("DELETE FROM participants WHERE event_id = $1", [eventId]);
+}
+
+/** A practice reset retains setup and items but gives the room a fresh code and empty activity. */
+export async function resetPractice(request: Request, eventId: string): Promise<Response> {
+  const input = await readJson(request), requestId = id(input.requestId);
+  return json(await staffTx(request, (db, staff) => once(db, staff, requestId, `reset-practice:${id(eventId)}`, async () => {
+    const e = await ownEvent(db, staff, eventId, "FOR UPDATE");
+    if (!e.is_practice) throw conflict("Only practice events can be reset.");
+    await eraseEventActivity(db, e.id);
+    await db.query("UPDATE items SET withdrawn_at=NULL, withdrawal_message='', revision=revision+1, updated_at=now() WHERE event_id=$1 AND withdrawn_at IS NOT NULL", [e.id]);
+    const nextCode = await newJoinCode(db);
+    await db.query("UPDATE events SET status='draft', join_code=$2, archived_at=NULL, revision=revision+1, updated_at=now() WHERE id=$1", [e.id, nextCode]);
+    return { ok: true, code: nextCode, revision: e.revision + 1 };
+  })));
+}
+
+/** Staff may remove practice rooms, or unjoined drafts. */
+export async function deleteEvent(request: Request, eventId: string): Promise<Response> {
+  sameOrigin(request);
+  return json(await staffTx(request, async (db, staff) => {
+    const e = await ownEvent(db, staff, eventId, "FOR UPDATE");
+    const joined = (await db.query("SELECT 1 FROM participants WHERE event_id=$1 LIMIT 1", [e.id])).rows.length > 0;
+    if (!e.is_practice && (e.status !== "draft" || joined)) throw conflict("Only a practice event or an unjoined draft can be deleted.");
+    await eraseEventActivity(db, e.id);
+    await db.query("DELETE FROM standings WHERE event_id=$1", [e.id]);
+    await db.query("DELETE FROM items WHERE event_id=$1", [e.id]);
+    await db.query("DELETE FROM sponsors WHERE event_id=$1", [e.id]);
+    await db.query("DELETE FROM recipients WHERE event_id=$1", [e.id]);
+    await db.query("DELETE FROM events WHERE id=$1", [e.id]);
+    return { ok: true };
+  }));
+}
+
+export async function archiveEvent(request: Request, eventId: string): Promise<Response> {
+  await readJson(request);
+  return json(await staffTx(request, async (db, staff) => {
+    const e = await ownEvent(db, staff, eventId, "FOR UPDATE");
+    if (!e.is_practice && e.status !== "draft") throw conflict("Only draft and practice events can be archived.");
+    if (e.archived_at) return { ok: true, replay: true };
+    await db.query("UPDATE events SET archived_at=now(), revision=revision+1, updated_at=now() WHERE id=$1", [e.id]);
+    return { ok: true, replay: false };
+  }));
+}
+
+/** Restore an archived draft/practice room without losing its records. */
+export async function restoreEvent(request: Request, eventId: string): Promise<Response> {
+  await readJson(request);
+  return json(await staffTx(request, async (db, staff) => {
+    const e = await ownEvent(db, staff, eventId, "FOR UPDATE");
+    if (e.archived_at) await db.query("UPDATE events SET archived_at=NULL, revision=revision+1, updated_at=now() WHERE id=$1", [e.id]);
+    return { ok: true };
+  }));
+}
+
+type BidJoin = { id: string; item_id: string; amount_minor: string; decided_at: Date; participant_id: string; display_name: string; business_name: string; voided_at: Date | null; void_reason: string };
 
 export async function workspace(request: Request, eventId: string): Promise<Response> {
   return json(await staffTx(request, async (db, staff) => {
@@ -141,7 +210,7 @@ export async function workspace(request: Request, eventId: string): Promise<Resp
       `SELECT i.*, s.current_minor, s.bid_count, s.leader_id FROM items i JOIN standings s ON s.item_id = i.id
         WHERE i.event_id = $1 ORDER BY i.position, i.created_at`, [e.id])).rows;
     const bids = (await db.query<BidJoin>(
-      `SELECT b.id, b.item_id, b.amount_minor::text, b.decided_at, b.participant_id, p.display_name, p.business_name
+      `SELECT b.id, b.item_id, b.amount_minor::text, b.decided_at, b.participant_id, p.display_name, p.business_name, b.voided_at, b.void_reason
          FROM bids b JOIN participants p ON p.id = b.participant_id WHERE b.event_id = $1 ORDER BY b.decided_at DESC`, [e.id])).rows;
     const awards = new Map((await db.query<{ item_id: string; status: string; bid_id: string | null; participant_id: string | null; amount_minor: string | null; notes: string; revision: number; updated_at: Date }>(
       "SELECT * FROM awards WHERE event_id = $1", [e.id])).rows.map(a => [a.item_id, a]));
@@ -163,6 +232,7 @@ export async function workspace(request: Request, eventId: string): Promise<Resp
         bidMode: e.bid_mode, tiers: e.tiers, fixedIncrementMinor: num(e.fixed_increment_minor),
         donationsEnabled: e.donations_enabled, donationDeadline: e.donation_deadline, revision: e.revision, theme: e.theme,
         phase: e.status === "draft" ? "draft" : eventPhase(e, items, at), hasBids: bids.length > 0,
+        isPractice: e.is_practice, archivedAt: e.archived_at,
       },
       items: items.map(i => {
         const a = awards.get(i.id), leader = i.leader_id ? byParticipant.get(i.leader_id) : undefined;
@@ -172,21 +242,23 @@ export async function workspace(request: Request, eventId: string): Promise<Resp
           imageAssetId: i.image_asset_id, imageUrl: assetUrl(i.image_asset_id), openingMinor: Number(i.opening_minor),
           incrementOverrideMinor: override, opensAt: i.opens_at, closesAt: i.closes_at,
           effectiveOpensAt: opensOf(e, i), effectiveClosesAt: closesOf(e, i), ready: i.ready, revision: i.revision,
-          phase: phaseOf(e, i, at), currentMinor: current, bidCount: i.bid_count,
-          minimumNextMinor: minimumNext(current, Number(i.opening_minor), rules, override),
+          withdrawn: i.withdrawn_at !== null, withdrawalMessage: i.withdrawal_message,
+          phase: i.withdrawn_at ? "closed" : phaseOf(e, i, at), currentMinor: current, bidCount: i.bid_count,
+          hasBids: bids.some(b => b.item_id === i.id),
+          minimumNextMinor: i.withdrawn_at ? null : minimumNext(current, Number(i.opening_minor), rules, override),
           leader: leader ? { id: leader.id, name: leader.display_name, business: leader.business_name } : null,
           bids: bids.filter(b => b.item_id === i.id).map(b => ({ id: b.id, amountMinor: Number(b.amount_minor), at: b.decided_at,
-            participantId: b.participant_id, name: b.display_name, business: b.business_name })),
+            participantId: b.participant_id, name: b.display_name, business: b.business_name, voided: b.voided_at !== null, voidReason: b.void_reason })),
           award: a ? { status: a.status, bidId: a.bid_id, participantId: a.participant_id, amountMinor: num(a.amount_minor), notes: a.notes, revision: a.revision, updatedAt: a.updated_at } : null,
         };
       }),
       participants: participants.map(p => {
         const theirBids = bids.filter(b => b.participant_id === p.id);
         return { id: p.id, name: p.display_name, business: p.business_name, canBid: p.can_bid, joinedAt: p.created_at,
-          bidCount: theirBids.length, leadingCount: items.filter(i => i.leader_id === p.id).length,
+          bidCount: theirBids.filter(b => !b.voided_at).length, leadingCount: items.filter(i => i.leader_id === p.id).length,
           pledgedMinor: pledges.filter(x => x.participant_id === p.id).reduce((sum, x) => sum + Number(x.amount_minor), 0) };
       }),
-      activity: bids.slice(0, 50).map(b => ({ id: b.id, itemId: b.item_id, amountMinor: Number(b.amount_minor), at: b.decided_at, name: b.display_name, business: b.business_name })),
+      activity: bids.slice(0, 50).map(b => ({ id: b.id, itemId: b.item_id, amountMinor: Number(b.amount_minor), at: b.decided_at, name: b.display_name, business: b.business_name, voided: b.voided_at !== null })),
       pledges: pledges.map(p => { const who = byParticipant.get(p.participant_id); return {
         id: p.id, recipientName: p.recipient_name, amountMinor: Number(p.amount_minor), recordedAt: p.recorded_at,
         processedAt: p.processed_at, note: p.note, name: who?.display_name ?? "", business: who?.business_name ?? "" }; }),
@@ -233,6 +305,12 @@ export async function updateEvent(request: Request, eventId: string): Promise<Re
       next.status = input.status;
     }
     if ("entryOpen" in input) next.entry_open = input.entryOpen === true;
+    if ("isPractice" in input) {
+      if (typeof input.isPractice !== "boolean") throw invalid();
+      if ((await db.query("SELECT 1 FROM participants WHERE event_id = $1 LIMIT 1", [e.id])).rows.length)
+        throw conflict("Practice status can't change after people join.");
+      next.is_practice = input.isPractice;
+    }
     if ("theme" in input) { if (!THEME_IDS.includes(input.theme as string)) throw invalid(); next.theme = input.theme as string; }
     if ("bidMode" in input || "tiers" in input || "fixedIncrementMinor" in input) {
       if (hasBids) throw conflict("Bid increments can't change after bidding has begun.");
@@ -247,10 +325,10 @@ export async function updateEvent(request: Request, eventId: string): Promise<Re
     await db.query(
       `UPDATE events SET name=$2, welcome=$3, venue=$4, winner_instructions=$5, cover_asset_id=$6, timezone=$7, starts_at=$8, ends_at=$9,
               access_ends_at=$10, status=$11, entry_open=$12, bid_mode=$13, tiers=$14, fixed_increment_minor=$15, donations_enabled=$16,
-              donation_deadline=$17, theme=$18, revision = revision + 1, updated_at = now() WHERE id = $1`,
+              donation_deadline=$17, theme=$18, is_practice=$19, revision = revision + 1, updated_at = now() WHERE id = $1`,
       [e.id, next.name, next.welcome, next.venue, next.winner_instructions, next.cover_asset_id, next.timezone, next.starts_at, next.ends_at,
        next.access_ends_at, next.status, next.entry_open, next.bid_mode, JSON.stringify(next.tiers), next.fixed_increment_minor,
-       next.donations_enabled, next.donation_deadline, next.theme]);
+       next.donations_enabled, next.donation_deadline, next.theme, next.is_practice]);
     return { ok: true, revision: e.revision + 1 };
   }));
 }
@@ -298,9 +376,9 @@ export async function updateItem(request: Request, itemId: string): Promise<Resp
     const { item, event } = await ownItem(db, staff, itemId, "FOR UPDATE");
     if (input.revision !== item.revision) throw conflict("This item changed. Reload to see the latest.");
     const at = await now(db);
-    const standing = (await db.query<{ bid_count: number }>("SELECT bid_count FROM standings WHERE item_id = $1", [item.id])).rows[0];
+    const hasBids = (await db.query("SELECT 1 FROM bids WHERE item_id = $1 LIMIT 1", [item.id])).rows.length > 0;
     const next = itemFields(input, item);
-    if (standing.bid_count > 0) {
+    if (hasBids) {
       if (next.opening_minor !== item.opening_minor) throw conflict("The starting amount is locked once bidding starts.");
       if (next.increment_override_minor !== item.increment_override_minor) throw conflict("The increment is locked once bidding starts.");
       if (!next.ready) throw conflict("An item with bids can't be hidden.");
@@ -333,6 +411,68 @@ export async function deleteItem(request: Request, itemId: string): Promise<Resp
     await db.query("DELETE FROM standings WHERE item_id = $1", [item.id]);
     await db.query("DELETE FROM items WHERE id = $1", [item.id]);
     return { ok: true };
+  }));
+}
+
+/** A mistaken accepted bid remains in the audit trail, while standing is recomputed from active bids. */
+export async function voidBid(request: Request, itemId: string): Promise<Response> {
+  const input = await readJson(request);
+  const bidId = id(input.bidId), reason = str(input.reason, 500, { required: true });
+  return json(await staffTx(request, async (db, staff) => {
+    const target = (await db.query<{ event_id: string }>("SELECT event_id FROM items WHERE id = $1 AND org_id = $2", [id(itemId), staff.orgId])).rows[0];
+    if (!target) throw notFound("This item");
+    await ownEvent(db, staff, target.event_id, "FOR SHARE");
+    const item = (await db.query<ItemRow>("SELECT * FROM items WHERE id = $1 AND event_id = $2 FOR UPDATE", [itemId, target.event_id])).rows[0];
+    if (!item) throw notFound("This item");
+    await db.query("SELECT 1 FROM standings WHERE item_id = $1 FOR UPDATE", [item.id]);
+    const bid = (await db.query<{ voided_at: Date | null }>("SELECT voided_at FROM bids WHERE id = $1 AND item_id = $2 FOR UPDATE", [bidId, item.id])).rows[0];
+    if (!bid) throw notFound("This bid");
+    if (bid.voided_at) return { ok: true, replay: true };
+    const at = await now(db);
+    await db.query("UPDATE bids SET voided_at = $2, voided_by = $3, void_reason = $4 WHERE id = $1", [bidId, at, staff.id, reason]);
+    const active = (await db.query<{ id: string; amount_minor: string; participant_id: string; count: number }>(
+      `SELECT b.id, b.amount_minor::text, b.participant_id,
+              (SELECT count(*)::int FROM bids x WHERE x.item_id = $1 AND x.voided_at IS NULL) AS count
+         FROM bids b WHERE b.item_id = $1 AND b.voided_at IS NULL ORDER BY b.sequence DESC LIMIT 1`, [item.id])).rows[0];
+    await db.query(
+      `UPDATE standings SET current_minor = $2, leader_id = $3, leading_bid_id = $4, bid_count = $5, updated_at = $6 WHERE item_id = $1`,
+      [item.id, active?.amount_minor ?? null, active?.participant_id ?? null, active?.id ?? null, active?.count ?? 0, at]);
+    const award = (await db.query<{ bid_id: string | null }>("SELECT bid_id FROM awards WHERE item_id = $1 FOR UPDATE", [item.id])).rows[0];
+    if (award?.bid_id === bidId) {
+      await db.query(`UPDATE awards SET status='no_winner', bid_id=NULL, participant_id=NULL, amount_minor=NULL,
+        revision=revision+1, updated_by=$2, updated_at=$3 WHERE item_id=$1`, [item.id, staff.id, at]);
+      await db.query("INSERT INTO award_log (item_id, action, detail, staff_id) VALUES ($1, 'void_bid', $2, $3)",
+        [item.id, JSON.stringify({ bidId, reason, awardCleared: true }), staff.id]);
+    } else {
+      await db.query("INSERT INTO award_log (item_id, action, detail, staff_id) VALUES ($1, 'void_bid', $2, $3)",
+        [item.id, JSON.stringify({ bidId, reason, awardCleared: false }), staff.id]);
+    }
+    return { ok: true, replay: false, currentMinor: active ? Number(active.amount_minor) : null,
+      bidCount: active?.count ?? 0, leadingBidId: active?.id ?? null };
+  }));
+}
+
+/** Withdrawn items stay visible, with a reason; no new bids or winner decisions are allowed. */
+export async function withdrawItem(request: Request, itemId: string): Promise<Response> {
+  const input = await readJson(request);
+  const message = str(input.message, 1000, { required: true });
+  return json(await staffTx(request, async (db, staff) => {
+    const target = (await db.query<{ event_id: string }>("SELECT event_id FROM items WHERE id = $1 AND org_id = $2", [id(itemId), staff.orgId])).rows[0];
+    if (!target) throw notFound("This item");
+    await ownEvent(db, staff, target.event_id, "FOR SHARE");
+    const item = (await db.query<ItemRow>("SELECT * FROM items WHERE id = $1 AND event_id = $2 FOR UPDATE", [itemId, target.event_id])).rows[0];
+    await db.query("SELECT 1 FROM standings WHERE item_id = $1 FOR UPDATE", [item.id]);
+    if (item.withdrawn_at) {
+      if (item.withdrawal_message !== message) throw conflict("This item was already withdrawn. Reload to see the message.");
+      return { ok: true, replay: true };
+    }
+    const at = await now(db);
+    await db.query("UPDATE items SET withdrawn_at=$2, withdrawal_message=$3, revision=revision+1, updated_at=$2 WHERE id=$1", [item.id, at, message]);
+    await db.query(`UPDATE awards SET status='no_winner', bid_id=NULL, participant_id=NULL, amount_minor=NULL,
+      revision=revision+1, updated_by=$2, updated_at=$3 WHERE item_id=$1 AND status <> 'no_winner'`, [item.id, staff.id, at]);
+    await db.query("INSERT INTO award_log (item_id, action, detail, staff_id) VALUES ($1, 'withdraw', $2, $3)",
+      [item.id, JSON.stringify({ message }), staff.id]);
+    return { ok: true, replay: false, revision: item.revision + 1 };
   }));
 }
 
@@ -393,10 +533,16 @@ export async function removeRecipient(request: Request, eventId: string, recipie
 
 export async function updateParticipant(request: Request, eventId: string, participantId: string): Promise<Response> {
   const input = await readJson(request);
-  if (typeof input.canBid !== "boolean") throw invalid();
+  if (!("canBid" in input || "name" in input || "business" in input)) throw invalid();
+  if ("canBid" in input && typeof input.canBid !== "boolean") throw invalid();
+  const name = "name" in input ? str(input.name, 60, { required: true }) : null;
+  const business = "business" in input ? str(input.business, 120, { required: true }) : null;
+  if (/\p{Cc}/u.test((name ?? "") + (business ?? ""))) throw invalid();
   return json(await staffTx(request, async (db, staff) => {
     const e = await ownEvent(db, staff, eventId);
-    const updated = await db.query("UPDATE participants SET can_bid = $3 WHERE id = $1 AND event_id = $2", [id(participantId), e.id, input.canBid]);
+    const updated = await db.query(
+      `UPDATE participants SET can_bid = coalesce($3, can_bid), display_name = coalesce($4, display_name), business_name = coalesce($5, business_name)
+        WHERE id = $1 AND event_id = $2`, [id(participantId), e.id, input.canBid ?? null, name, business]);
     if (!updated.rowCount) throw notFound("This participant");
     return { ok: true };
   }));
@@ -431,6 +577,7 @@ export async function decideAward(request: Request, itemId: string): Promise<Res
     // Standing lock: waits for any in-flight bid, and serializes winner decisions on this item.
     const standing = (await db.query<{ leading_bid_id: string | null }>("SELECT leading_bid_id FROM standings WHERE item_id = $1 FOR UPDATE", [item.id])).rows[0];
     const at = await now(db);
+    if (item.withdrawn_at) throw conflict("This item was withdrawn and can't have a winner.");
     if (phaseOf(event, item, at) !== "closed") throw conflict("Winners can be assigned after this item closes.");
     const current = (await db.query<AwardRow>("SELECT status, bid_id, participant_id, amount_minor, notes, revision FROM awards WHERE item_id = $1 FOR UPDATE", [item.id])).rows[0];
     const expected = typeof input.revision === "number" ? input.revision : 0;
@@ -457,7 +604,7 @@ export async function decideAward(request: Request, itemId: string): Promise<Res
     if ((current?.revision ?? 0) !== expected) throw conflict("Someone else updated this winner. Reload to see the latest.");
     let participant: string | null = null, amount: string | null = null;
     if (next.bidId) {
-      const bid = (await db.query<{ participant_id: string; amount_minor: string }>("SELECT participant_id, amount_minor::text FROM bids WHERE id = $1 AND item_id = $2", [next.bidId, item.id])).rows[0];
+      const bid = (await db.query<{ participant_id: string; amount_minor: string }>("SELECT participant_id, amount_minor::text FROM bids WHERE id = $1 AND item_id = $2 AND voided_at IS NULL", [next.bidId, item.id])).rows[0];
       if (!bid) throw notFound("That bid");
       participant = bid.participant_id; amount = bid.amount_minor;
     }
