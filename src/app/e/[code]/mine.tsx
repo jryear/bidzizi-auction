@@ -1,0 +1,132 @@
+"use client";
+import { useEffect, useState } from "react";
+import { fmtClock } from "../../../lib/api";
+import { formatMoney } from "../../../lib/money";
+import { IChevD, IHeart, ITicket, ITrophy } from "../../../lib/icons";
+import { closingSoon, itemLog, lotNo, standing, type Item, type LogEntry, type PendingBid, type Snapshot } from "./model";
+import type { Nav } from "./participant";
+import { Amount, EmptyState, ItemArt, Pill, TimeLeft } from "./ui";
+
+type Props = { snap: Snapshot; now: number; nav: Nav; code: string; stale: boolean; pending: PendingBid | null };
+
+const GROUPS = [
+  { key: "attention", title: "Needs your attention", sub: "Someone outbid you. Bid again while it's open." },
+  { key: "won", title: "You won", sub: "Confirmed by the event staff." },
+  { key: "leading", title: "Leading", sub: "Your bid is on top right now." },
+  { key: "awaiting", title: "Waiting for staff", sub: "You had the top bid when bidding closed." },
+  { key: "closed", title: "Closed", sub: "Bidding has ended on these." },
+] as const;
+
+function groupOf(item: Item, pendingId?: string): typeof GROUPS[number]["key"] {
+  const k = standing(item, item.id === pendingId).key;
+  if (k === "outbid" || k === "unconfirmed") return "attention";
+  if (k === "won") return "won";
+  if (k === "leading") return "leading";
+  if (k === "awaiting") return "awaiting";
+  return "closed";
+}
+
+export function MyBids({ snap, now, nav, code, stale, pending }: Props) {
+  const mine = snap.items.filter(i => i.myBidCount > 0 || i.award?.isMe || i.id === pending?.itemId);
+  const pledges = snap.me!.pledges;
+  const leadingTotal = mine.filter(i => i.leader?.isMe && i.phase === "open").reduce((s, i) => s + (i.currentMinor ?? 0), 0);
+  const wonTotal = mine.filter(i => i.award?.isMe).reduce((s, i) => s + (i.award?.amountMinor ?? 0), 0);
+  return (
+    <div className="mine-layout">
+      <section className="page-head">
+        <span className="eyebrow">{snap.event.name}</span>
+        <h1>My bids</h1>
+        {mine.length > 0 && <p className="sub">{mine.length} item{mine.length === 1 ? "" : "s"} · {wonTotal ? <>won <b className="amt">{formatMoney(wonTotal)}</b></> : <>leading <b className="amt">{formatMoney(leadingTotal)}</b></>}</p>}
+      </section>
+      <aside className="mine-rail" aria-label="Your night">
+        <div className="rail-pass">
+          <span className="lbl">Your night</span>
+          <div className="rp-grid">
+            <div><span>Won</span><b>{mine.filter(i => i.award?.isMe).length}</b></div>
+            <div><span>Leading</span><b>{mine.filter(i => i.leader?.isMe && i.phase === "open").length}</b></div>
+            <div><span>Outbid</span><b className={mine.some(i => standing(i).key === "outbid") ? "hot" : ""}>{mine.filter(i => standing(i).key === "outbid").length}</b></div>
+            <div><span>Given</span><b className="amt">{formatMoney(pledges.reduce((s, p) => s + p.amountMinor, 0))}</b></div>
+          </div>
+        </div>
+        {snap.me!.winnerInstructions && mine.some(i => i.award?.isMe) && (
+          <div className="winner-note"><ITrophy size={22} /><div><b>What to do next</b><p>{snap.me!.winnerInstructions}</p></div></div>
+        )}
+      </aside>
+      {!mine.length && !pledges.length ? (
+        <EmptyState icon={<ITicket size={28} />} title="No bids yet">
+          <p>Items you bid on land here as tickets, sorted by what needs you first.</p>
+          <button type="button" className="btn primary" onClick={() => nav.tab("items")}>Browse items</button>
+        </EmptyState>
+      ) : (
+        <div className="bids">
+          {GROUPS.map(g => {
+            const list = mine.filter(i => groupOf(i, pending?.itemId) === g.key);
+            if (!list.length) return null;
+            return (
+              <section key={g.key} className={`b-sec g-${g.key}`}>
+                <h2>{g.title}<span className="b-count">{list.length}</span></h2>
+                <p className="sub">{g.sub}</p>
+                <div className="tickets">{list.map(i => <Ticket key={i.id} item={i} now={now} nav={nav} code={code} stale={stale} unconfirmed={i.id === pending?.itemId} tz={snap.event.timezone} />)}</div>
+              </section>
+            );
+          })}
+          {pledges.length > 0 && (
+            <section className="b-sec g-give">
+              <h2>Your donations<span className="b-count">{pledges.length}</span></h2>
+              <p className="sub">Recorded. Event staff process them after the event.</p>
+              <div className="tickets">
+                {pledges.map(p => (
+                  <article key={p.id} className="tk tone-ink give">
+                    <div className="tk-main"><span className="tk-thumb heart"><IHeart size={24} filled /></span>
+                      <div className="tk-t"><span className="lbl">Donation</span><h3>{p.recipientName}</h3><p>Recorded {fmtClock(p.recordedAt, snap.event.timezone)}</p></div></div>
+                    <div className="tk-stub"><span className="lbl">Given</span><b className="amt">{formatMoney(p.amountMinor)}</b></div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Ticket({ item, now, nav, code, stale, unconfirmed, tz }: { item: Item; now: number; nav: Nav; code: string; stale: boolean; unconfirmed: boolean; tz: string }) {
+  const s = standing(item, unconfirmed);
+  const [open, setOpen] = useState(false);
+  const [log, setLog] = useState<LogEntry[]>([]);
+  useEffect(() => { if (open) setLog(itemLog(code, item.id).filter(e => e.kind === "mine")); }, [open, code, item.id, item.myBidCount]);
+  const mineAmt = item.award?.isMe ? item.award.amountMinor ?? 0 : item.myHighestMinor ?? item.currentMinor ?? 0;
+  return (
+    <article className={`tk tone-${s.tone}${s.key === "outbid" ? " shake-once" : ""}`}>
+      <button type="button" className="tk-main" onClick={() => nav.openItem(item.id)}>
+        <span className="tk-thumb">{item.imageUrl ? <img src={item.imageUrl} alt="" loading="lazy" /> : <ItemArt item={item} size="sm" />}</span>
+        <span className="tk-t">
+          <span className="lbl">Item {lotNo(item)}</span>
+          <h3>{item.title}</h3>
+          <span className="tk-pills"><Pill s={s} small />{item.phase === "open" && (closingSoon(item, now) || s.key !== "leading") && <TimeLeft item={item} now={now} prefix={false} />}</span>
+        </span>
+      </button>
+      <div className="tk-stub">
+        <span className="lbl">{item.award?.isMe ? "Won at" : "Your bid"}</span>
+        <Amount minor={mineAmt} stale={stale} />
+        {item.currentMinor !== null && !item.leader?.isMe && <span className="tk-cur">Top {formatMoney(item.currentMinor)}</span>}
+        {item.leader?.isMe && item.phase === "open" && <span className="tk-cur good">Top bid</span>}
+      </div>
+      <div className="tk-act">
+        {s.key === "outbid" && item.minimumNextMinor !== null && <button type="button" className="btn primary urgent" onClick={() => nav.openSheet(item, item.minimumNextMinor!)}>Bid again · {formatMoney(item.minimumNextMinor)}</button>}
+        {s.key === "unconfirmed" && <button type="button" className="btn primary" onClick={() => nav.openSheet(item)}>Check bid status</button>}
+        <button type="button" className="tk-more" aria-expanded={open} onClick={() => setOpen(!open)}>
+          {item.myBidCount} bid{item.myBidCount === 1 ? "" : "s"} from you<IChevD size={18} />
+        </button>
+      </div>
+      {open && (
+        <ol className="tk-hist">
+          {log.length ? log.map(e => <li key={e.amountMinor}><span>{fmtClock(e.at, tz)}</span><b className="amt">{formatMoney(e.amountMinor)}</b></li>)
+            : <li className="muted"><span>Highest from you</span><b className="amt">{formatMoney(item.myHighestMinor ?? 0)}</b></li>}
+          {item.myBidCount > log.length && log.length > 0 && <li className="muted"><span>{item.myBidCount - log.length} more placed from another phone</span></li>}
+        </ol>
+      )}
+    </article>
+  );
+}

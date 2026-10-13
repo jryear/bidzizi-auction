@@ -1,0 +1,200 @@
+"use client";
+// One bid sheet for every Bid button. Truth before reassurance: "leading" appears only after the server's receipt; a lost
+// response is Unconfirmed and offers only Check status, which replays the same request id (never a second bid).
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { api, dollarsInput, errorText, fmtClock, newId, parseDollars } from "../../../lib/api";
+import { formatMoney } from "../../../lib/money";
+import { IAlert, ICheck, IClose, IMinus, IPlus, IWifiOff } from "../../../lib/icons";
+import { appendLog, REASONS, type Item, type Me, type PendingBid, type Receipt } from "./model";
+import type { Alert } from "./moments";
+import { ItemArt, Mark } from "./ui";
+
+type State = "edit" | "sending" | "landed" | "rejected" | "unconfirmed";
+type Props = {
+  item: Item; me: Me; code: string; pendingKey: string; initialAmount?: number; offline: boolean;
+  onPending: (p: PendingBid | null) => void; onClose: () => void; onSettled: () => void; notify: (a: Omit<Alert, "id">) => void;
+};
+
+function readPending(key: string, itemId: string): PendingBid | null {
+  try { const raw = localStorage.getItem(key); const p = raw ? JSON.parse(raw) as PendingBid : null; return p?.itemId === itemId ? p : null; } catch { return null; }
+}
+
+export function BidSheet({ item, me, code, pendingKey, initialAmount, offline, onPending, onClose, onSettled, notify }: Props) {
+  const minimum = item.minimumNextMinor ?? 0;
+  const start = Math.max(initialAmount ?? minimum, minimum);
+  const [amount, setAmount] = useState(start), [text, setText] = useState(dollarsInput(start));
+  const request = useRef<PendingBid | null>(null);
+  const [state, setState] = useState<State>(() => { const p = typeof window === "undefined" ? null : readPending(pendingKey, item.id); if (p) request.current = p; return p ? "unconfirmed" : "edit"; });
+  const [message, setMessage] = useState("");
+  const [landed, setLanded] = useState<Receipt | null>(null);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const [drag, setDrag] = useState(0);
+  const dragStart = useRef<number | null>(null);
+  const closed = useRef(false), timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const finish = () => { if (closed.current) return; closed.current = true; clearTimeout(timer.current); onClose(); };
+  useEffect(() => () => clearTimeout(timer.current), []);
+
+  useEffect(() => { const d = dialog.current; if (d && !d.open) d.showModal(); }, []);
+  // If the minimum rises while the sheet is open (someone else bid), lift the amount with it.
+  useEffect(() => { if (state === "edit" && amount < minimum) set(minimum); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, [minimum]);
+
+  const set = (minor: number) => { setAmount(minor); setText(dollarsInput(minor)); };
+  const valid = amount >= minimum && amount > 0;
+  const picks = [minimum, minimum + item.incrementMinor, minimum + item.incrementMinor * 3];
+  const busy = state === "sending";
+  const close = () => { if (!busy) finish(); };
+  const remember = (p: PendingBid | null) => { try { if (p) localStorage.setItem(pendingKey, JSON.stringify(p)); else localStorage.removeItem(pendingKey); } catch { /* ignore */ } onPending(p); };
+
+  function settle(receipt: Receipt) {
+    remember(null);
+    if (receipt.accepted) {
+      appendLog(code, item.id, { amountMinor: receipt.amountMinor, at: receipt.decidedAt ?? new Date().toISOString(), kind: "mine" });
+      navigator.vibrate?.(30);
+      setLanded(receipt); setState("landed"); onSettled();
+      timer.current = setTimeout(finish, 2200);
+      return;
+    }
+    setState("rejected"); setMessage(REASONS[receipt.reason ?? ""] ?? "Your bid wasn't placed.");
+    if (receipt.minimumNextMinor) set(receipt.minimumNextMinor);
+    onSettled();
+  }
+
+  async function submit(retry = false) {
+    if (!retry) { request.current = { requestId: newId(), itemId: item.id, amountMinor: amount }; remember(request.current); }
+    const pending = request.current!;
+    setState("sending"); setMessage("");
+    try {
+      const r = await api<{ receipt: Receipt }>("POST", `/api/v1/e/${code}/bid`, pending);
+      if (r.data?.receipt) { settle(r.data.receipt); return; }
+      if (r.status >= 500) { setState("unconfirmed"); return; }
+      remember(null); setState("rejected"); setMessage(errorText(r));
+    } catch { setState("unconfirmed"); }
+  }
+
+  async function check() {
+    const pending = request.current; if (!pending) return;
+    setState("sending");
+    try {
+      const r = await api<{ receipt: Receipt | null }>("GET", `/api/v1/e/${code}/receipt/${pending.requestId}`);
+      if (!r.ok) { setState("unconfirmed"); return; }
+      if (r.data.receipt) settle(r.data.receipt);
+      else submit(true); // Never recorded: safe to resend the same request.
+    } catch { setState("unconfirmed"); notify({ tone: "ink", title: "Still offline", body: "We'll check again when you tap Check status." }); }
+  }
+
+  const onPointerDown = (e: React.PointerEvent) => { if (busy || state === "landed") return; dragStart.current = e.clientY; (e.target as HTMLElement).setPointerCapture?.(e.pointerId); };
+  const onPointerMove = (e: React.PointerEvent) => { if (dragStart.current !== null) setDrag(Math.max(0, e.clientY - dragStart.current)); };
+  const onPointerUp = () => { if (dragStart.current === null) return; dragStart.current = null; if (drag > 110) close(); setDrag(0); };
+
+  return (
+    <dialog ref={dialog} className={`pa-sheet${drag ? " dragging" : ""}`} aria-labelledby="bid-title" style={{ "--drag": `${drag}px` } as CSSProperties}
+      onCancel={e => { e.preventDefault(); close(); }} onClick={e => { if (e.target === e.currentTarget) close(); }}>
+      <div className="sheet-in">
+        <div className="sheet-grab" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp}>
+          <span className="grab" aria-hidden="true" />
+          <div className="sheet-head">
+            <h2 id="bid-title" tabIndex={-1}>{state === "landed" ? "Bid placed" : state === "unconfirmed" ? "Did it go through?" : "Place a bid"}</h2>
+            {!busy && state !== "landed" && <button type="button" className="x" aria-label="Close" onClick={close}><IClose size={22} /></button>}
+          </div>
+        </div>
+
+        {state === "landed" && landed ? <Landed receipt={landed} item={item} business={me.businessName} onDone={finish} /> : (
+          <>
+            <div className="sheet-scroll">
+              <div className="lotmini">
+                <span className="lm-thumb">{item.imageUrl ? <img src={item.imageUrl} alt="" /> : <ItemArt item={item} size="sm" />}</span>
+                <div><span className="lbl">Item {String(item.position + 1).padStart(2, "0")}</span><p>{item.title}</p></div>
+              </div>
+              <div className="forbiz"><Mark name={me.businessName} you size={44} /><div><span className="lbl">Bidding for</span><b>{me.businessName}</b><small>{me.displayName}</small></div></div>
+
+              {state === "unconfirmed" ? (
+                <div className="result t-dashed" role="status">
+                  <span className="r-ic"><IAlert size={22} /></span>
+                  <h3>We couldn&rsquo;t confirm your {formatMoney(request.current?.amountMinor ?? amount)} bid</h3>
+                  <p>The connection dropped before the answer arrived. It may or may not have been placed. Checking asks the server about this exact bid; it can&rsquo;t place a second one.</p>
+                  {offline && <p className="r-note"><IWifiOff size={16} /> You&rsquo;re offline. Check again once you&rsquo;re connected.</p>}
+                </div>
+              ) : (
+                <>
+                  <div className="amount">
+                    <label className="lbl" htmlFor="bid-amount">Your bid <span>minimum {formatMoney(minimum)}</span></label>
+                    <div className="pa-stepper">
+                      <button type="button" className="pa-step" aria-label={`Lower by ${formatMoney(item.incrementMinor)}`} disabled={amount - item.incrementMinor < minimum || busy} onClick={() => set(amount - item.incrementMinor)}><IMinus size={24} /></button>
+                      <div className={`amt-field${!valid && text ? " bad" : ""}`}>
+                        <span className="cur">$</span>
+                        <input id="bid-amount" inputMode="decimal" autoComplete="off" value={text} disabled={busy} aria-invalid={!valid}
+                          onChange={e => { const raw = e.target.value.replace(/[^0-9.,]/g, ""); setText(raw); setAmount(parseDollars(raw) ?? 0); if (state === "rejected") setState("edit"); }} />
+                      </div>
+                      <button type="button" className="pa-step" aria-label={`Raise by ${formatMoney(item.incrementMinor)}`} disabled={busy} onClick={() => set(Math.max(amount, minimum) + item.incrementMinor)}><IPlus size={24} /></button>
+                    </div>
+                    <div className="quick" role="group" aria-label="Quick amounts">
+                      {picks.map((p, i) => <button type="button" key={p} className={`qbtn${amount === p ? " on" : ""}`} disabled={busy} onClick={() => set(p)}><small>{["Minimum", "+1 step", "+3 steps"][i]}</small>{formatMoney(p)}</button>)}
+                    </div>
+                    {!valid && text && <p className="err" role="alert">Enter at least {formatMoney(minimum)}.</p>}
+                  </div>
+                  {state === "rejected" ? (
+                    <div className="result t-red" role="alert">
+                      <span className="r-ic"><IAlert size={22} /></span>
+                      <h3>Not placed</h3><p>{message} {item.minimumNextMinor ? <>The minimum is now <b>{formatMoney(item.minimumNextMinor)}</b>.</> : null}</p>
+                    </div>
+                  ) : (
+                    <div className="commit-box">
+                      <h3>What this does</h3>
+                      <ul>
+                        <li>Bids <b className="amt">{valid ? formatMoney(amount) : "—"}</b> for <b>{me.businessName}</b>.</li>
+                        <li>{item.currentMinor === null ? <>No bids yet; yours would be the first.</> : <>The top bid is <b className="amt">{formatMoney(item.currentMinor)}</b>{item.leader ? ` by ${item.leader.business}` : ""}.</>}</li>
+                        <li className="note">You lead only once the server confirms it. If someone bids first, nothing is placed and you&rsquo;ll see the new minimum.</li>
+                      </ul>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+            <div className="sheet-foot">
+              {state === "unconfirmed"
+                ? <button type="button" className="btn primary block lg" onClick={check}>Check status</button>
+                : <button type="button" className={`btn primary block lg${busy ? " sending" : ""}`} disabled={!valid || busy || offline} onClick={() => submit()}>
+                    {busy ? <><span className="spinner" aria-hidden="true" />Sending your bid…</> : offline ? "Offline — reconnecting" : `Bid ${valid ? formatMoney(amount) : ""}`}
+                  </button>}
+            </div>
+          </>
+        )}
+      </div>
+    </dialog>
+  );
+}
+
+/** The moment a bid lands: confirmed by the server, so it is allowed to feel good. */
+function Landed({ receipt, item, business, onDone }: { receipt: Receipt; item: Item; business: string; onDone: () => void }) {
+  return (
+    <div className="landed" role="status" aria-live="assertive">
+      <div className="burst" aria-hidden="true">{Array.from({ length: 14 }, (_, i) => <i key={i} style={{ "--a": `${i * (360 / 14)}deg`, "--d": `${60 + (i % 3) * 18}px` } as CSSProperties} />)}</div>
+      <span className="landed-check"><ICheck size={44} /></span>
+      <h3>You&rsquo;re leading</h3>
+      <b className="amt landed-amt">{formatMoney(receipt.amountMinor)}</b>
+      <p>On <b>{item.title}</b> for {business}. Recorded {fmtClock(receipt.decidedAt ?? new Date())}.</p>
+      <button type="button" className="btn quiet" onClick={onDone}>Done</button>
+    </div>
+  );
+}
+
+/** After a reload, resolves a bid whose response never arrived. */
+export function ResumePending({ code, pendingKey, onResolved }: { code: string; pendingKey: string; onResolved: (text: string, ok: boolean) => void }) {
+  const report = useRef(onResolved);
+  report.current = onResolved;
+  // Runs once per page load, so it never races a bid being sent from this page.
+  useEffect(() => {
+    let raw: string | null = null;
+    try { raw = localStorage.getItem(pendingKey); } catch { return; }
+    if (!raw) return;
+    const pending = JSON.parse(raw) as PendingBid;
+    api<{ receipt: Receipt | null }>("GET", `/api/v1/e/${code}/receipt/${pending.requestId}`).then(r => {
+      if (!r.ok) return;
+      localStorage.removeItem(pendingKey);
+      if (r.data.receipt?.accepted) { appendLog(code, pending.itemId, { amountMinor: pending.amountMinor, at: r.data.receipt.decidedAt ?? new Date().toISOString(), kind: "mine" }); report.current(`Your ${formatMoney(pending.amountMinor)} bid went through`, true); }
+      else if (r.data.receipt) report.current("Your last bid wasn't placed", false);
+      else report.current("Your last bid didn't reach us. Nothing was placed.", false);
+    }).catch(() => {});
+  }, [code, pendingKey]);
+  return null;
+}
