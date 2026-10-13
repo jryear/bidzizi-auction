@@ -443,3 +443,13 @@ Matching captures use controlled synthetic content; the baseline was separately 
 | Connected phone editor | [Capture](images/image-handling/connected-edit-390.png) |
 
 Focal positioning is implemented. Freeform crop/zoom and bulk uploads remain later work. The separate Items interaction study does not change application routes or data.
+
+## Separate Items interaction study (Codex, 2026-10-13)
+
+The image pass is checkpointed in `96af781`. The isolated Items prototype is ready at **http://127.0.0.1:3423**, with 30 synthetic items and a comparison switch for **Automatic + optional draft** versus **Visible Drafts group**. Both autosave, recover unfinished work across reload, keep draft items out of guest preview, and support search, category/missing-photo filters and single-photo selection. Add several is an optional spreadsheet-paste demonstration with a review step.
+
+The connected application has no new Items workflow from this study. All effects are browser-local, with separate examples per flow. The verified browser rehearsal passes for **2/2 flows**, at 1440px and 390px, including creation, recovery, guest visibility, filtering, return navigation and bulk-row validation; no page errors or horizontal overflow. Two visual inspections were completed, including a fix to oversized missing-photo placeholders.
+
+[Study and five-minute trial](ITEMS_WORKSPACE_STUDY.md) · [desktop comparison](images/items-study/flows-desktop-pair.png) · [phone comparison](images/items-study/flows-phone-pair.png).
+
+The retained prototype server is owned by this session, runs `prototypes/items-workspace/serve.mjs` on loopback 3423, and can be restarted with `node prototypes/items-workspace/serve.mjs`. The final interaction decision belongs to Zack's trial; this is a reviewable prototype, not an accepted connected Items manager. Stage controls, event-info editing and winner-page editing remain later landings.
