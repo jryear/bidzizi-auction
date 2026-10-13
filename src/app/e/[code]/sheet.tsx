@@ -1,4 +1,5 @@
 "use client";
+import { photoStyle } from "../../../lib/photo";
 // One bid sheet for every Bid button. Truth before reassurance: "leading" appears only after the server's receipt; a lost
 // response is Unconfirmed and offers only Check status, which replays the same request id (never a second bid).
 import { useEffect, useRef, useState, type CSSProperties } from "react";
@@ -101,7 +102,7 @@ export function BidSheet({ item, me, code, pendingKey, initialAmount, offline, o
           <>
             <div className="sheet-scroll">
               <div className="lotmini">
-                <span className="lm-thumb">{item.imageUrl ? <img src={item.imageUrl} alt="" /> : <ItemArt item={item} size="sm" />}</span>
+                <span className="lm-thumb">{item.imageUrl ? <img style={photoStyle(item.imageFocal)} src={item.imageUrl} alt="" /> : <ItemArt item={item} size="sm" />}</span>
                 <div><p>{item.title}</p><span className="lm-for"><Mark name={me.businessName} you size={18} />Bidding as <b>{me.businessName}</b></span></div>
               </div>
 

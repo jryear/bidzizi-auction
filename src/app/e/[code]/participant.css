@@ -854,3 +854,11 @@
   .pa .confetti, .pa .burst, .pa .hearts { display: none; }
   ::view-transition-old(*), ::view-transition-new(*), ::view-transition-group(*) { animation-duration: 0s !important; animation-delay: 0s !important; }
 }
+
+.pa .mark.sq img { object-fit: contain; padding: 5px; }
+.pa .photo-error { position: absolute; inset: auto 8px 8px; z-index: 8; display: flex; gap: 8px; align-items: center; padding: 9px 12px; border-radius: 10px; background: #fff; color: #8b2525; font: 500 12px/1.4 var(--sans); box-shadow: 0 4px 16px #0002; }
+.pa .photo-error button { flex-shrink: 0; text-decoration: underline; font-weight: 700; }
+.pa .ehero > .cover-ph { inset: 10px 10px auto auto; z-index: 4; padding: 0; background: transparent; opacity: 1; }
+.pa .ehero > .cover-ph span { padding: 8px 12px; font-size: 12px; }
+.pa .ehero > .photo-error { inset: 52px 10px auto; }
+.pa [aria-busy="true"] .ph-drop { opacity: 1; }

@@ -1,3 +1,4 @@
+import type { FocalPoint } from "../../lib/photo";
 import "server-only";
 import { randomBytes, randomUUID } from "node:crypto";
 import { now, tx, type Db } from "./db";
@@ -7,7 +8,7 @@ import { BID_CAP, increment, minimumNext, PLEDGE_CAP, type Rules, type Tier } fr
 
 export type EventRow = {
   id: string; org_id: string; join_code: string; name: string; welcome: string; venue: string; winner_instructions: string;
-  cover_asset_id: string | null; timezone: string; starts_at: Date; ends_at: Date; access_ends_at: Date;
+  cover_asset_id: string | null; cover_focal: FocalPoint; timezone: string; starts_at: Date; ends_at: Date; access_ends_at: Date;
   status: "draft" | "live"; entry_open: boolean; bid_mode: "tiered" | "fixed"; tiers: Tier[]; fixed_increment_minor: string | null;
   donations_enabled: boolean; donation_deadline: Date | null; revision: number; theme: string; is_practice: boolean; archived_at: Date | null;
   bidder_display: BidderDisplay; accent_color: string | null;
@@ -22,7 +23,7 @@ export function shownBidder(mode: BidderDisplay, p: { name: string; business: st
 }
 export type ItemRow = {
   id: string; event_id: string; position: number; title: string; short: string; description: string; category: string; donor: string;
-  image_asset_id: string | null; opening_minor: string; increment_override_minor: string | null;
+  image_asset_id: string | null; image_focal: FocalPoint; opening_minor: string; increment_override_minor: string | null;
   opens_at: Date | null; closes_at: Date | null; ready: boolean; revision: number; withdrawn_at: Date | null; withdrawal_message: string;
 };
 export type Phase = "scheduled" | "open" | "closed";
@@ -102,7 +103,7 @@ export async function snapshot(request: Request, code: string): Promise<Response
       serverNow: at, preview,
       event: {
         id: e.id, code: e.join_code, name: e.name, welcome: e.welcome, venue: e.venue, timezone: e.timezone, theme: e.theme, bidderDisplay: e.bidder_display,
-        coverUrl: assetUrl(e.cover_asset_id), startsAt: e.starts_at, endsAt: e.ends_at, accessEndsAt: e.access_ends_at,
+        coverUrl: assetUrl(e.cover_asset_id), coverFocal: e.cover_focal, startsAt: e.starts_at, endsAt: e.ends_at, accessEndsAt: e.access_ends_at,
         entryOpen: e.entry_open && at < e.ends_at, phase: eventPhase(e, items, at),
         sponsors: sponsors.map(s => ({ name: s.name, logoUrl: assetUrl(s.logo_asset_id), url: s.url })), accentColor: e.accent_color,
         donations: { enabled: e.donations_enabled, open: donationsOpen, deadline: e.donation_deadline, capMinor: PLEDGE_CAP,
@@ -119,7 +120,7 @@ export async function snapshot(request: Request, code: string): Promise<Response
           withdrawn: i.withdrawn_at !== null, withdrawalMessage: i.withdrawal_message,
           bidHistory: history.filter(b => b.item_id === i.id).map(b => ({ id: b.id, amountMinor: Number(b.amount_minor), decidedAt: b.decided_at,
             isMe: b.participant_id === me?.id, voided: b.voided_at !== null })),
-          imageUrl: assetUrl(i.image_asset_id), openingMinor: Number(i.opening_minor),
+          imageUrl: assetUrl(i.image_asset_id), imageFocal: i.image_focal, openingMinor: Number(i.opening_minor),
           opensAt: opensOf(e, i), closesAt: closesOf(e, i), phase,
           currentMinor: current, bidCount: s?.bid_count ?? 0,
           leader: s?.leader_id ? (s.leader_id === me?.id ? { name: s.leader_name, business: s.leader_business, isMe: true }

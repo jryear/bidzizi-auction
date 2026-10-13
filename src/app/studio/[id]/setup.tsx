@@ -1,4 +1,7 @@
 "use client";
+import { AdjustPhoto } from "../photo-tools";
+import { usePhotoUpload } from "../../../lib/use-photo-upload";
+import { photoStyle } from "../../../lib/photo";
 // Set up: a checklist that knows the event, the attendee's phone as an editable canvas, and an inspector for the selection.
 import { accentVars, accentReadable, readableAccent, contrast, ACCENT_MIN } from "../../../lib/color";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
@@ -88,7 +91,7 @@ export function Outline({ ctx, sel, select, addItem }: { ctx: SetupCtx; sel: Sel
           const on = sel.kind === "item" && sel.id === i.id;
           return (
             <li key={i.id}><button type="button" className={`ol-item${on ? " on" : ""}${i.ready ? "" : " hidden"}`} onClick={() => select({ kind: "item", id: i.id }, "item")}>
-              <span className="oi-thumb">{i.imageUrl ? <img src={i.imageUrl} alt="" /> : <span>{String(i.position + 1).padStart(2, "0")}</span>}</span>
+              <span className="oi-thumb">{i.imageUrl ? <img style={photoStyle(i.imageFocal)} src={i.imageUrl} alt="" /> : <span>{String(i.position + 1).padStart(2, "0")}</span>}</span>
               <span className="oi-t"><b>{i.title}</b><small>{i.ready ? (i.bidCount ? `${formatMoney(i.currentMinor!)} · ${i.bidCount} bid${i.bidCount === 1 ? "" : "s"}` : `Starts ${formatMoney(i.openingMinor)}`) : "Hidden"}</small></span>
               {!i.imageUrl && <span className="oi-warn" title="No photo yet" />}
             </button></li>
@@ -105,7 +108,7 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
   const { data, patchEvent, patchItem, flash, reload } = ctx;
   const snap = useMemo(() => toSnapshot(data), [data]);
   const now = new Date(data.serverNow).getTime();
-  const [uploading, setUploading] = useState<string | null>(null);
+  const live = useRef({ data, sel }); live.current = { data, sel };
   const [drag, setDrag] = useState<string | null>(null), [over, setOver] = useState<string | null>(null);
   const handle = useRef<string | null>(null);
   const selKey = sel.kind === "item" ? `item:${sel.id}` : sel.kind === "event" || sel.kind === "schedule" ? "event" : sel.kind;
@@ -121,17 +124,22 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
       const it = itemFor(key);
       return it ? patchItem(it, { [field]: value }) : false;
     },
-    photo: async (key, file) => {
-      setUploading(key);
-      try {
-        const { uploadPhoto } = await import("../data");
-        const asset = await uploadPhoto(file);
-        if (key === "event") await patchEvent({ coverAssetId: asset.id });
-        else { const it = itemFor(key); if (it) await patchItem(it, { imageAssetId: asset.id }); }
-      } catch (e) { flash(e instanceof Error ? e.message : "Upload failed.", "red"); }
-      finally { setUploading(null); }
+    photo: async (key, file, current) => {
+      const { uploadPhoto } = await import("../data");
+      const before = key === "event" ? data.event.coverAssetId : itemFor(key)?.imageAssetId;
+      const asset = await uploadPhoto(file);
+      if (!current()) return false;
+      const latest = live.current.data;
+      if (key === "event") {
+        if (latest.event.coverAssetId !== before) return false;
+        dispatchEvent(new CustomEvent("bz:photo-position-cancel", { detail: key }));
+        return patchEvent({ coverAssetId: asset.id, coverFocal: { x: 0.5, y: 0.5 }, coverExpectedAssetId: before });
+      }
+      const it = latest.items.find(i => `item:${i.id}` === key);
+      if (!it || it.imageAssetId !== before) return false;
+      dispatchEvent(new CustomEvent("bz:photo-position-cancel", { detail: key }));
+      return patchItem(it, { imageAssetId: asset.id, imageFocal: { x: 0.5, y: 0.5 }, imageExpectedAssetId: before });
     },
-    uploading,
   };
   const noop: Nav = { openItem: id => { select({ kind: "item", id }, "item"); }, openSheet: () => flash("Bidding is off in the editor. Use Preview to try it."), tab: () => {}, back: () => setScreen("items"), watch: () => {} };
 
@@ -238,7 +246,8 @@ function EventPanel({ ctx }: { ctx: SetupCtx }) {
   return (
     <Panel title="Details" icon={<IInfo size={20} />}>
       <p className="on-phone"><IPhone size={16} />Edit the name, welcome and cover photo on the phone.</p>
-      {e.coverUrl && <button type="button" className="sx-btn ghost sm" onClick={() => patchEvent({ coverAssetId: null })}><ITrash size={16} />Remove cover photo</button>}
+      {e.coverUrl && <AdjustPhoto photoKey="event" key={e.coverAssetId} url={e.coverUrl} focal={e.coverFocal} onSave={coverFocal => patchEvent({ coverFocal, coverExpectedAssetId: e.coverAssetId })} />}
+      {e.coverUrl && <button type="button" className="sx-btn ghost sm" onClick={() => { dispatchEvent(new CustomEvent("bz:photo-cancel", { detail: "event" })); dispatchEvent(new CustomEvent("bz:photo-position-cancel", { detail: "event" })); patchEvent({ coverAssetId: null }); }}><ITrash size={16} />Remove cover photo</button>}
       <TextField label="Venue" value={e.venue} max={300} placeholder="Saturn Hall, Pasadena" onSave={v => patchEvent({ venue: v })} />
       <TextField label="Message to winners" value={e.winnerInstructions} multiline rows={3} placeholder="Congratulations! Pick up your item at the front desk before 8 PM."
         hint="Only confirmed winners see this." onSave={v => patchEvent({ winnerInstructions: v })} />
@@ -328,7 +337,8 @@ function ItemPanel({ ctx, item, onDeleted }: { ctx: SetupCtx; item: Item; onDele
   return (
     <Panel title={`Item ${String(item.position + 1).padStart(2, "0")}`} icon={<IGift size={20} />} sub={locked ? `${item.bidCount} bid${item.bidCount === 1 ? "" : "s"} · top ${formatMoney(item.currentMinor!)}` : undefined}>
       <p className="on-phone"><IPhone size={16} />Edit the title, photo and text on the phone.</p>
-      {item.imageUrl && <button type="button" className="sx-btn ghost sm" onClick={() => p({ imageAssetId: null })}><ITrash size={16} />Remove photo</button>}
+      {item.imageUrl && <AdjustPhoto photoKey={`item:${item.id}`} key={item.imageAssetId} url={item.imageUrl} focal={item.imageFocal} onSave={imageFocal => p({ imageFocal, imageExpectedAssetId: item.imageAssetId })} />}
+      {item.imageUrl && <button type="button" className="sx-btn ghost sm" onClick={() => { dispatchEvent(new CustomEvent("bz:photo-cancel", { detail: `item:${item.id}` })); dispatchEvent(new CustomEvent("bz:photo-position-cancel", { detail: `item:${item.id}` })); p({ imageAssetId: null }); }}><ITrash size={16} />Remove photo</button>}
       <MoneyField label="Starting bid" minor={item.openingMinor} disabled={locked} onSave={v => v && p({ openingMinor: v })} hint={locked ? "Locked once someone bids." : undefined} />
       <div className="sx-field">
         <TextField label="Category" value={item.category} max={100} placeholder="Travel" onSave={v => p({ category: v })} />
@@ -473,20 +483,31 @@ function SponsorsPanel({ ctx }: { ctx: SetupCtx }) {
       return { ok: res.ok, message: res.ok ? undefined : errorText(res) };
     }).catch(() => false);
     if (r) reload();
+    return r;
   }
-  const update = (k: string, patch: Partial<SponsorRow>, persist = false) => {
+  const update = async (k: string, patch: Partial<SponsorRow>, persist = false) => {
     // Upload callbacks may belong to an older render. Apply them to the latest rows,
     // and ignore completions for a sponsor removed while its logo was uploading.
-    if (!listRef.current.some(x => x.k === k)) return;
+    if (!listRef.current.some(x => x.k === k)) return false;
     const next = listRef.current.map(x => x.k === k ? { ...x, ...patch } : x);
-    replace(next); if (persist) save(next);
+    if (persist) {
+      const previous = listRef.current.find(x => x.k === k)!;
+      // Keep displaying the confirmed logo while saving, but let later text saves carry its pending asset.
+      replace(listRef.current.map(x => x.k === k ? { ...x, ...patch, logoUrl: previous.logoUrl } : x));
+      const ok = await save(listRef.current);
+      const current = listRef.current.find(x => x.k === k);
+      if (!current || current.logoAssetId !== patch.logoAssetId) return false;
+      replace(listRef.current.map(x => x.k === k ? { ...x, logoAssetId: ok ? patch.logoAssetId! : previous.logoAssetId, logoUrl: ok ? patch.logoUrl! : previous.logoUrl } : x));
+      return ok;
+    }
+    replace(next); return true;
   };
   return (
     <Panel title="Sponsors" icon={<IStore size={20} />} sub="Optional. Shown on the welcome screen and the Event tab, with a link if you add one.">
       <div className="sp-rows">
         {list.map(s => (
           <div key={s.k} className="sp-row">
-            <LogoTile name={s.name} url={s.logoUrl} onChange={a => update(s.k, { logoAssetId: a?.id ?? null, logoUrl: a?.url ?? null }, true)} onError={m => flash(m, "red")} />
+            <LogoTile name={s.name} url={s.logoUrl} onChange={a => update(s.k, { logoAssetId: a?.id ?? null, logoUrl: a?.url ?? null }, true)} />
             <div className="sp-fields">
               <input className="sp-name" value={s.name} placeholder="Sponsor name" aria-label="Sponsor name" maxLength={200}
                 onChange={e => update(s.k, { name: e.target.value })} onBlur={() => save(listRef.current)} />
@@ -504,16 +525,16 @@ function SponsorsPanel({ ctx }: { ctx: SetupCtx }) {
 }
 
 /** A square logo target: click to choose, drop a file, or paste an image. Logos keep transparency. */
-function LogoTile({ name, url, onChange, onError }: { name: string; url: string | null; onChange: (a: { id: string; url: string } | null) => void; onError: (m: string) => void }) {
+function LogoTile({ name, url, onChange }: { name: string; url: string | null; onChange: (a: { id: string; url: string } | null) => Promise<boolean> }) {
   const input = useRef<HTMLInputElement>(null);
-  const [busy, setBusy] = useState(false), [over, setOver] = useState(false);
-  async function pick(file?: File) {
-    if (!file) return;
-    setBusy(true);
-    try { const { uploadPhoto } = await import("../data"); onChange(await uploadPhoto(file, "logo")); }
-    catch (e) { onError(e instanceof Error ? e.message : "The logo didn't upload."); }
-    finally { setBusy(false); if (input.current) input.current.value = ""; }
-  }
+  const [over, setOver] = useState(false);
+  const upload = usePhotoUpload(url ?? "empty", async (file, current) => {
+    const { uploadPhoto } = await import("../data");
+    const asset = await uploadPhoto(file, "logo");
+    if (!current()) return false;
+    return onChange(asset);
+  });
+  const { busy, pick } = upload;
   return (
     <div className={`logo-tile${url ? " has" : ""}${over ? " over" : ""}${busy ? " busy" : ""}`}
       onDragOver={e => { e.preventDefault(); setOver(true); }} onDragLeave={() => setOver(false)}
@@ -522,8 +543,9 @@ function LogoTile({ name, url, onChange, onError }: { name: string; url: string 
       <button type="button" className="lt-hit" onClick={() => input.current?.click()} aria-label={url ? `Replace ${name || "sponsor"} logo` : `Add ${name || "sponsor"} logo`}>
         {url ? <img src={url} alt="" /> : <span className="lt-empty">{busy ? "…" : <><IUpload size={18} /><small>Logo</small></>}</span>}
       </button>
-      {url && !busy && <button type="button" className="lt-x" aria-label="Remove logo" onClick={() => onChange(null)}>×</button>}
-      <input ref={input} type="file" accept="image/png,image/jpeg,image/webp" hidden onChange={e => pick(e.target.files?.[0])} />
+      {url && <button type="button" className="lt-x" aria-label="Remove logo" onClick={() => { upload.cancel(); onChange(null); }}>×</button>}
+      <input ref={input} type="file" accept="image/png,image/jpeg,image/webp" hidden onChange={e => { pick(e.target.files?.[0]); e.target.value = ""; }} />
+      {upload.error && <button type="button" className="logo-retry" title={upload.error} onClick={upload.retry}>Try again</button>}
     </div>
   );
 }

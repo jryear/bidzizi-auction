@@ -1,4 +1,5 @@
 import "server-only";
+import { CENTER, validFocal } from "../../lib/photo";
 import { randomInt } from "node:crypto";
 import { normalizeAsset } from "./asset-codec";
 import { now, tx, type Db } from "./db";
@@ -70,7 +71,7 @@ export async function listEvents(request: Request): Promise<Response> {
     return { serverNow: at, events: rows.map(e => ({
       id: e.id, name: e.name, code: e.join_code, status: e.status, startsAt: e.starts_at, endsAt: e.ends_at,
       stage: e.status === "draft" ? "draft" : at < e.starts_at ? "upcoming" : at < e.ends_at ? "running" : "ended",
-      coverUrl: assetUrl(e.cover_asset_id), itemCount: e.item_count, participantCount: e.participant_count, bidCount: e.bid_count,
+      coverUrl: assetUrl(e.cover_asset_id), coverFocal: e.cover_focal, itemCount: e.item_count, participantCount: e.participant_count, bidCount: e.bid_count,
       isPractice: e.is_practice, archivedAt: e.archived_at,
     })) };
   }));
@@ -126,18 +127,18 @@ export async function duplicateEvent(request: Request, eventId: string): Promise
     const moved = (d: Date | null) => d === null ? null : new Date(d.getTime() + shift);
     const copy = (await db.query<{ id: string }>(
       `INSERT INTO events (org_id, join_code, name, welcome, venue, winner_instructions, cover_asset_id, timezone, starts_at, ends_at, access_ends_at,
-                           entry_open, bid_mode, tiers, fixed_increment_minor, donations_enabled, donation_deadline, created_by, theme, bidder_display, accent_color)
+                           entry_open, bid_mode, tiers, fixed_increment_minor, donations_enabled, donation_deadline, created_by, theme, bidder_display, accent_color, cover_focal)
        SELECT org_id, $2, $3, welcome, venue, winner_instructions, cover_asset_id, timezone, $4, $5, $6,
-              true, bid_mode, tiers, fixed_increment_minor, donations_enabled, $7, $8, theme, bidder_display, accent_color FROM events WHERE id = $1 RETURNING id`,
+              true, bid_mode, tiers, fixed_increment_minor, donations_enabled, $7, $8, theme, bidder_display, accent_color, cover_focal FROM events WHERE id = $1 RETURNING id`,
       [source.id, await newJoinCode(db), name, startsAt, moved(source.ends_at), moved(source.access_ends_at), moved(source.donation_deadline), staff.id])).rows[0];
     const items = (await db.query<ItemRow>("SELECT * FROM items WHERE event_id = $1 ORDER BY position", [source.id])).rows;
     for (const i of items) {
       const created = (await db.query<{ id: string }>(
         `INSERT INTO items (event_id, org_id, position, title, short, description, category, donor, image_asset_id, opening_minor,
-                            increment_override_minor, opens_at, closes_at, ready)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING id`,
+                            increment_override_minor, opens_at, closes_at, ready, image_focal)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING id`,
         [copy.id, staff.orgId, i.position, i.title, i.short, i.description, i.category, i.donor, i.image_asset_id, i.opening_minor,
-         i.increment_override_minor, moved(i.opens_at), moved(i.closes_at), i.ready])).rows[0];
+         i.increment_override_minor, moved(i.opens_at), moved(i.closes_at), i.ready, JSON.stringify(i.image_focal)])).rows[0];
       await db.query("INSERT INTO standings (item_id, event_id) VALUES ($1, $2)", [created.id, copy.id]);
     }
     await db.query(`INSERT INTO sponsors (event_id, org_id, position, name, logo_asset_id, url) SELECT $2, org_id, position, name, logo_asset_id, url FROM sponsors WHERE event_id = $1`, [source.id, copy.id]);
@@ -237,7 +238,7 @@ export async function workspace(request: Request, eventId: string): Promise<Resp
       serverNow: at,
       event: {
         id: e.id, code: e.join_code, name: e.name, welcome: e.welcome, venue: e.venue, winnerInstructions: e.winner_instructions,
-        coverAssetId: e.cover_asset_id, coverUrl: assetUrl(e.cover_asset_id), timezone: e.timezone,
+        coverAssetId: e.cover_asset_id, coverUrl: assetUrl(e.cover_asset_id), coverFocal: e.cover_focal, timezone: e.timezone,
         startsAt: e.starts_at, endsAt: e.ends_at, accessEndsAt: e.access_ends_at, status: e.status, entryOpen: e.entry_open,
         bidMode: e.bid_mode, tiers: e.tiers, fixedIncrementMinor: num(e.fixed_increment_minor),
         donationsEnabled: e.donations_enabled, donationDeadline: e.donation_deadline, revision: e.revision, theme: e.theme,
@@ -249,7 +250,7 @@ export async function workspace(request: Request, eventId: string): Promise<Resp
         const current = num(i.current_minor), override = num(i.increment_override_minor);
         return {
           id: i.id, position: i.position, title: i.title, short: i.short, description: i.description, category: i.category, donor: i.donor,
-          imageAssetId: i.image_asset_id, imageUrl: assetUrl(i.image_asset_id), openingMinor: Number(i.opening_minor),
+          imageAssetId: i.image_asset_id, imageUrl: assetUrl(i.image_asset_id), imageFocal: i.image_focal, openingMinor: Number(i.opening_minor),
           incrementOverrideMinor: override, opensAt: i.opens_at, closesAt: i.closes_at,
           effectiveOpensAt: opensOf(e, i), effectiveClosesAt: closesOf(e, i), ready: i.ready, revision: i.revision,
           withdrawn: i.withdrawn_at !== null, withdrawalMessage: i.withdrawal_message,
@@ -299,7 +300,7 @@ export async function stageView(request: Request, eventId: string): Promise<Resp
       event: { id: e.id, name: e.name, code: e.join_code, theme: e.theme, status: e.status, startsAt: e.starts_at, endsAt: e.ends_at,
         phase: e.status === "draft" ? "draft" : eventPhase(e, items, at), bidderDisplay: e.bidder_display, accentColor: e.accent_color },
       items: items.map(i => ({
-        id: i.id, position: i.position, title: i.title, donor: i.donor, category: i.category, imageUrl: assetUrl(i.image_asset_id),
+        id: i.id, position: i.position, title: i.title, donor: i.donor, category: i.category, imageUrl: assetUrl(i.image_asset_id), imageFocal: i.image_focal,
         openingMinor: Number(i.opening_minor), currentMinor: i.current_minor === null ? null : Number(i.current_minor), bidCount: i.bid_count,
         phase: phaseOf(e, i, at), effectiveClosesAt: closesOf(e, i),
         leader: i.leader_number === null ? null : show(i.leader_name!, i.leader_business!, i.leader_number),
@@ -316,6 +317,7 @@ export async function updateEvent(request: Request, eventId: string): Promise<Re
   return json(await staffTx(request, async (db, staff) => {
     const e = await ownEvent(db, staff, eventId, "FOR UPDATE"), at = await now(db);
     if (input.revision !== e.revision) throw conflict("Someone else changed this event. Reload to see the latest.");
+    if ("coverExpectedAssetId" in input && input.coverExpectedAssetId !== e.cover_asset_id) throw conflict("The cover photo changed. Try again with the latest photo.");
     const hasBids = (await db.query("SELECT 1 FROM bids WHERE event_id = $1 LIMIT 1", [e.id])).rows.length > 0;
     const next = { ...e };
     if ("name" in input) next.name = str(input.name, 200, { required: true });
@@ -323,6 +325,12 @@ export async function updateEvent(request: Request, eventId: string): Promise<Re
     if ("venue" in input) next.venue = str(input.venue, 300);
     if ("winnerInstructions" in input) next.winner_instructions = str(input.winnerInstructions, 5000, { trim: false });
     if ("coverAssetId" in input) next.cover_asset_id = input.coverAssetId === null ? null : id(input.coverAssetId);
+    if ("coverAssetId" in input && next.cover_asset_id !== e.cover_asset_id) next.cover_focal = CENTER;
+    if ("coverFocal" in input) {
+      if (!validFocal(input.coverFocal)) throw invalid("Choose a position within the photo.");
+      next.cover_focal = input.coverFocal;
+    }
+    if (!next.cover_asset_id) next.cover_focal = CENTER;
     if ("timezone" in input) {
       next.timezone = str(input.timezone, 100);
       try { new Intl.DateTimeFormat("en-US", { timeZone: next.timezone }); } catch { throw invalid("Choose a valid time zone."); }
@@ -376,10 +384,10 @@ export async function updateEvent(request: Request, eventId: string): Promise<Re
     await db.query(
       `UPDATE events SET name=$2, welcome=$3, venue=$4, winner_instructions=$5, cover_asset_id=$6, timezone=$7, starts_at=$8, ends_at=$9,
               access_ends_at=$10, status=$11, entry_open=$12, bid_mode=$13, tiers=$14, fixed_increment_minor=$15, donations_enabled=$16,
-              donation_deadline=$17, theme=$18, is_practice=$19, bidder_display=$20, accent_color=$21, revision = revision + 1, updated_at = now() WHERE id = $1`,
+              donation_deadline=$17, theme=$18, is_practice=$19, bidder_display=$20, accent_color=$21, cover_focal=$22, revision = revision + 1, updated_at = now() WHERE id = $1`,
       [e.id, next.name, next.welcome, next.venue, next.winner_instructions, next.cover_asset_id, next.timezone, next.starts_at, next.ends_at,
        next.access_ends_at, next.status, next.entry_open, next.bid_mode, JSON.stringify(next.tiers), next.fixed_increment_minor,
-       next.donations_enabled, next.donation_deadline, next.theme, next.is_practice, next.bidder_display, next.accent_color]);
+       next.donations_enabled, next.donation_deadline, next.theme, next.is_practice, next.bidder_display, next.accent_color, JSON.stringify(next.cover_focal)]);
     await syncDonations(db, e.id);
     return { ok: true, revision: e.revision + 1 };
   }));
@@ -395,6 +403,12 @@ function itemFields(input: Record<string, unknown>, base: Partial<ItemRow>) {
   if ("category" in input) out.category = str(input.category, 100);
   if ("donor" in input) out.donor = str(input.donor, 200);
   if ("imageAssetId" in input) out.image_asset_id = input.imageAssetId === null ? null : id(input.imageAssetId);
+  if ("imageAssetId" in input && out.image_asset_id !== base.image_asset_id) out.image_focal = CENTER;
+  if ("imageFocal" in input) {
+    if (!validFocal(input.imageFocal)) throw invalid("Choose a position within the photo.");
+    out.image_focal = input.imageFocal;
+  }
+  if (!out.image_asset_id) out.image_focal = CENTER;
   if ("openingMinor" in input) out.opening_minor = String(cents(input.openingMinor));
   if ("incrementOverrideMinor" in input) { const v = optionalCents(input.incrementOverrideMinor, 100_000_000); out.increment_override_minor = v === null ? null : String(v); }
   if ("opensAt" in input) out.opens_at = optionalWhen(input.opensAt);
@@ -413,9 +427,9 @@ export async function createItem(request: Request, eventId: string): Promise<Res
     if (!i.title || !i.opening_minor) throw invalid("Add a title and a starting amount.");
     const position = (await db.query<{ next: number }>("SELECT coalesce(max(position) + 1, 0)::int AS next FROM items WHERE event_id = $1", [e.id])).rows[0].next;
     const row = (await db.query<{ id: string }>(
-      `INSERT INTO items (event_id, org_id, position, title, short, description, category, donor, image_asset_id, opening_minor, increment_override_minor, opens_at, closes_at, ready)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING id`,
-      [e.id, staff.orgId, position, i.title, i.short, i.description, i.category, i.donor, i.image_asset_id, i.opening_minor, i.increment_override_minor, i.opens_at, i.closes_at, i.ready])).rows[0];
+      `INSERT INTO items (event_id, org_id, position, title, short, description, category, donor, image_asset_id, opening_minor, increment_override_minor, opens_at, closes_at, ready, image_focal)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING id`,
+      [e.id, staff.orgId, position, i.title, i.short, i.description, i.category, i.donor, i.image_asset_id, i.opening_minor, i.increment_override_minor, i.opens_at, i.closes_at, i.ready, JSON.stringify(i.image_focal ?? CENTER)])).rows[0];
     await db.query("INSERT INTO standings (item_id, event_id) VALUES ($1, $2)", [row.id, e.id]);
     return { id: row.id };
   })), 201);
@@ -426,6 +440,7 @@ export async function updateItem(request: Request, itemId: string): Promise<Resp
   return json(await staffTx(request, async (db, staff) => {
     // Locking the item waits out any bid being decided on it, and blocks new ones until this commits.
     const { item, event } = await ownItem(db, staff, itemId, "FOR UPDATE");
+    if ("imageExpectedAssetId" in input && input.imageExpectedAssetId !== item.image_asset_id) throw conflict("The photo changed. Try again with the latest photo.");
     if (input.revision !== item.revision) throw conflict("This item changed. Reload to see the latest.");
     const at = await now(db);
     const hasBids = (await db.query("SELECT 1 FROM bids WHERE item_id = $1 LIMIT 1", [item.id])).rows.length > 0;
@@ -446,9 +461,9 @@ export async function updateItem(request: Request, itemId: string): Promise<Resp
     if (opens >= closes) throw invalid("Closing must be after opening.");
     await db.query(
       `UPDATE items SET title=$2, short=$3, description=$4, category=$5, donor=$6, image_asset_id=$7, opening_minor=$8, increment_override_minor=$9,
-              opens_at=$10, closes_at=$11, ready=$12, revision = revision + 1, updated_at = now() WHERE id = $1`,
+              opens_at=$10, closes_at=$11, ready=$12, image_focal=$13, revision = revision + 1, updated_at = now() WHERE id = $1`,
       [item.id, next.title, next.short, next.description, next.category, next.donor, next.image_asset_id, next.opening_minor,
-       next.increment_override_minor, next.opens_at, next.closes_at, next.ready]);
+       next.increment_override_minor, next.opens_at, next.closes_at, next.ready, JSON.stringify(next.image_focal)]);
     return { ok: true, revision: item.revision + 1 };
   }));
 }

@@ -399,3 +399,47 @@ Node 24 was used throughout. Connected checks ran against the separate loopback 
 - Connected Studio captures inspected at **1440×1000** and **390×844**, with no browser page errors: `.shots/save-fixes/studio-1440.png` and `.shots/save-fixes/studio-390.png` (local ignored artifacts).
 
 The existing preview remains on port 3420. These changes address the four review findings without changing the selected host/join experience or starting the deferred feature batch.
+
+## Image handling landing (Codex, 2026-10-13)
+
+Approved from the next-landing plan in this conversation. Baseline: `63580aa`, the separate checkpoint of all four save/duplication/upload review fixes. This landing preserves the selected Claude shell and its autosave behavior.
+
+### Delivered
+
+- **Adjust photo** for the welcome cover and item photo: tap or drag the important part, use arrow keys or the horizontal/vertical sliders, inspect wide/square previews, and reset to center. Position edits autosave and use the same Saved/Saving/Not saved indicator as other edits.
+- Every existing cover/item photo rendering path honors the reference's position: guest welcome/join, fan, catalog cards and compact rows, item hero, bid sheet, tickets, winner moments, Studio outline/canvas/Live/Results, home/duplicate thumbnails and projector. Sponsor/nonprofit logo marks use contain, preserving their complete shape; logo uploads retain transparency.
+- Single-image selection supports click, drop and paste. Cover upload is now a reachable control above the welcome text. Failed upload/save retains the confirmed photo and offers **Try again**. Newer picks, removal, source changes and leaving the editor invalidate unfinished uploads.
+- Sponsor uploads retain the confirmed logo until save succeeds, preserve newer name/link edits, and cannot resurrect removed rows. Failed logo saves can retry.
+- Removing/replacing a photo cancels pending focal edits as well as obsolete uploads. A delayed queued write also checks the expected previous asset, so it cannot restore an image removed in the meantime.
+
+### Storage and interfaces
+
+New additive migration `migrations/prod/007_photo_position.sql` stores `events.cover_focal` and `items.image_focal`, each `{x,y}` within `[0,1]`, default center `{x:0.5,y:0.5}`. Coordinates belong to event/item references; asset bytes remain immutable. Duplicates copy positioning independently. Replacement/removal resets it unless the replacement supplies its position atomically.
+
+Staff PATCH accepts `coverFocal` / `imageFocal`; guest, staff, stage and home models return the corresponding metadata. Optional `coverExpectedAssetId` / `imageExpectedAssetId` refuses a photo write if its source has changed. Existing optimistic revisions and bid protections remain in force. No applied migration was edited.
+
+### Evidence
+
+Final build and tests used verified **Node v24.4.1** at `~/.nvm/versions/node/v24.4.1/bin/node`. The Homebrew path named `node@24` unexpectedly runs v26.7.0 here; after discovering that, the build and final checks were repeated with the verified runtime.
+
+- `tests/v1/photos.mjs`: **8/8**, connected persistence, validation, snapshot propagation, duplicate independence, obsolete writes, replacement defaults, transparency, staff access and actual Studio upload/keyboard positioning at desktop and phone sizes.
+- `tests/v1/photo-ui.mjs`: **11/11**, controlled browser upload/save races, retry, paste, keyboard positioning and pending focal cancellation; APIs intercepted.
+- `tests/v1/studio-saving.mjs`: **7/7**.
+- `tests/v1/journey.mjs`: **47/47**.
+- `tests/v1/operations-ui.mjs`: **PASS**, no page errors.
+- `tests/v1/display-logic.mjs`: **10/10**.
+- TypeScript, production Next build, `git diff --check`: **PASS**.
+
+Connected acceptance used the separate loopback database `bz_test_save_fixes_20261013`, compiled app on temporary port 3421, and disposable staff credentials. Migration 007 was also applied to the existing local review database `bz_test_claude` without seeding/resetting it. The preview at **http://127.0.0.1:3420/studio** now serves this build using Node 24. Temporary candidate and baseline servers on 3421/3422 were stopped. No provider, staging or production database was touched; nothing was pushed or deployed.
+
+Matching captures use controlled synthetic content; the baseline was separately compiled from `63580aa`. Two visual inspections covered 390px and 1440px. The first found an obscured cover retry control, fixed and covered by the browser suite; the final captures show reachable controls and intact layouts. Connected phone positioning was also inspected.
+
+| Review | Evidence |
+|---|---|
+| Welcome desktop, before/after | [Pair](images/image-handling/welcome-desktop-pair.png) |
+| New positioning controls, before/after | [Pair](images/image-handling/adjust-desktop-pair.png), [full-size controls](images/image-handling/adjust-1440.png) |
+| Welcome phone, before/after | [Pair](images/image-handling/welcome-phone-pair.png) |
+| Item desktop, before/after | [Pair](images/image-handling/item-desktop-pair.png) |
+| Connected phone editor | [Capture](images/image-handling/connected-edit-390.png) |
+
+Focal positioning is implemented. Freeform crop/zoom and bulk uploads remain later work. The separate Items interaction study does not change application routes or data.

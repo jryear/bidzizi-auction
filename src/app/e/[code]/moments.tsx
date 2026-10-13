@@ -1,4 +1,5 @@
 "use client";
+import { photoStyle } from "../../../lib/photo";
 import { useEffect, useRef, type CSSProperties } from "react";
 import { formatMoney } from "../../../lib/money";
 import { IAlert, ICheck, IClose, IInfo, ITrophy } from "../../../lib/icons";
@@ -49,7 +50,7 @@ export function Celebration({ item, code, instructions, onClose }: { item: Item;
         <span className="won-eyebrow"><ITrophy size={18} />Confirmed by the event staff</span>
         <h2 id="won-title">You won!</h2>
         <div className="polaroid">
-          <div className="pol-img">{item.imageUrl ? <img src={item.imageUrl} alt="" /> : <ItemArt item={item} />}</div>
+          <div className="pol-img">{item.imageUrl ? <img style={photoStyle(item.imageFocal)} src={item.imageUrl} alt="" /> : <ItemArt item={item} />}</div>
           <div className="pol-cap"><span>Item {lotNo(item)}</span><b>{item.title}</b></div>
         </div>
         <p className="won-amt"><span>Winning bid</span><b className="amt">{formatMoney(item.award?.amountMinor ?? item.currentMinor ?? 0)}</b></p>

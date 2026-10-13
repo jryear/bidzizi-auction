@@ -1,4 +1,5 @@
 "use client";
+import { photoStyle } from "../../lib/photo";
 
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -78,7 +79,7 @@ export default function StudioHome() {
                   {shown.map(e => (
                     <li key={e.id} className="ar-row">
                       <a href={`/studio/${e.id}`} className="ar-main">
-                        <span className="ar-thumb">{e.coverUrl ? <img src={e.coverUrl} alt="" /> : <span>{e.name.slice(0, 1)}</span>}</span>
+                        <span className="ar-thumb">{e.coverUrl ? <img style={photoStyle(e.coverFocal)} src={e.coverUrl} alt="" /> : <span>{e.name.slice(0, 1)}</span>}</span>
                         <span className="ar-t"><b>{e.name}</b><small>{fmtTime(e.startsAt)} · {e.itemCount} item{e.itemCount === 1 ? "" : "s"}{e.participantCount ? ` · ${e.participantCount} joined` : ""}</small></span>
                         {e.isPractice && !e.archivedAt && <Status stage="practice" />}
                         <Status stage={e.archivedAt ? "archived" : e.stage} />
@@ -112,7 +113,7 @@ function Hero({ e, now, onOpen }: { e: EventCard; now: number; onOpen: (id: stri
   }[e.stage];
   return (
     <section className={`hero s-${e.stage}`}>
-      <div className="hero-media">{e.coverUrl ? <img src={e.coverUrl} alt="" /> : <span className="hero-art">{e.name.slice(0, 1)}</span>}</div>
+      <div className="hero-media">{e.coverUrl ? <img style={photoStyle(e.coverFocal)} src={e.coverUrl} alt="" /> : <span className="hero-art">{e.name.slice(0, 1)}</span>}</div>
       <div className="hero-body">
         <div className="hero-top"><Status stage={e.stage} big />{e.isPractice && <Status stage="practice" big />}{e.status === "live" && <span className="hero-code">Code <b>{e.code}</b></span>}</div>
         <h1>{e.name}</h1>

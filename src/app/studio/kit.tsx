@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNod
 import { api, dollarsInput, errorText, Offline, parseDollars } from "../../lib/api";
 import { qrcodegen } from "../../lib/qr-code.js";
 import { IAlert, ICheck, IEye, IEyeOff, IMore, IUpload, ITrash } from "../../lib/icons";
+import { usePhotoUpload } from "../../lib/use-photo-upload";
 import { uploadPhoto } from "./data";
 
 export function Brand({ href = "/studio" }: { href?: string }) {
@@ -122,27 +123,26 @@ export function Status({ stage, big = false }: { stage: string; big?: boolean })
   return <span className={`sx-status t-${tone}${big ? " big" : ""}`}><i aria-hidden="true" />{label}</span>;
 }
 
-export function PhotoField({ label, url, onChange, shape = "wide", kind = "photo" }: { label: string; url: string | null; onChange: (asset: { id: string; url: string } | null) => void; shape?: "wide" | "square"; kind?: "photo" | "logo" }) {
+export function PhotoField({ label, url, onChange, shape = "wide", kind = "photo" }: { label: string; url: string | null; onChange: (asset: { id: string; url: string } | null) => Promise<boolean | void>; shape?: "wide" | "square"; kind?: "photo" | "logo" }) {
   const input = useRef<HTMLInputElement>(null);
-  const [busy, setBusy] = useState(false), [error, setError] = useState(""), [over, setOver] = useState(false);
-  async function pick(file?: File) {
-    if (!file) return;
-    setBusy(true); setError("");
-    try { onChange(await uploadPhoto(file, kind)); } catch (e) { setError(e instanceof Error ? e.message : "Upload failed."); }
-    finally { setBusy(false); if (input.current) input.current.value = ""; }
-  }
+  const [over, setOver] = useState(false);
+  const upload = usePhotoUpload(url ?? "empty", async (file, current) => {
+    const asset = await uploadPhoto(file, kind);
+    return current() ? (await onChange(asset)) !== false : false;
+  });
+  const { busy, error, pick } = upload;
   return (
     <div className="sx-field">
       <span className="sx-label">{label}</span>
-      <div className={`sx-photo ${shape}${url ? " has" : ""}${over ? " over" : ""}`} onDragOver={e => { e.preventDefault(); setOver(true); }} onDragLeave={() => setOver(false)}
+      <div className={`sx-photo ${shape} ${kind}${url ? " has" : ""}${over ? " over" : ""}`} onDragOver={e => { e.preventDefault(); setOver(true); }} onDragLeave={() => setOver(false)}
         onPaste={e => { const f = [...e.clipboardData.files].find(x => x.type.startsWith("image/")); if (f) { e.preventDefault(); pick(f); } }}
         onDrop={e => { e.preventDefault(); setOver(false); pick(e.dataTransfer.files?.[0]); }}>
         {url ? <img src={url} alt="" /> : <span className="ph-empty"><IUpload size={22} /><b>{busy ? "Uploading…" : `Drop ${kind === "logo" ? "a logo" : "a photo"}`}</b><small>click to choose, or paste</small></span>}
         <button type="button" className="ph-hit" aria-label={url ? `Replace ${label.toLowerCase()}` : `Upload ${label.toLowerCase()}`} onClick={() => input.current?.click()} />
-        {url && <div className="ph-acts"><button type="button" onClick={() => input.current?.click()}>{busy ? "Uploading…" : "Replace"}</button><button type="button" aria-label="Remove photo" onClick={() => onChange(null)}><ITrash size={16} /></button></div>}
-        <input ref={input} type="file" accept="image/*" hidden onChange={e => pick(e.target.files?.[0])} />
+        {url && <div className="ph-acts"><button type="button" onClick={() => input.current?.click()}>{busy ? "Uploading…" : "Replace"}</button><button type="button" aria-label="Remove photo" onClick={() => { upload.cancel(); onChange(null); }}><ITrash size={16} /></button></div>}
+        <input ref={input} type="file" accept="image/*" hidden onChange={e => { pick(e.target.files?.[0]); e.target.value = ""; }} />
       </div>
-      {error && <span className="sx-hint err">{error}</span>}
+      {error && <span className="sx-hint err" role="alert">{error} <button type="button" onClick={upload.retry}>Try again</button></span>}
     </div>
   );
 }

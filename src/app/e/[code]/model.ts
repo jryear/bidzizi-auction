@@ -1,3 +1,4 @@
+import type { FocalPoint } from "../../../lib/photo";
 // The participant's view model. One status vocabulary: every card, row, page, ticket and sheet renders from `standing()`,
 // so an item can never say two different things in two places.
 import { fmtClock } from "../../../lib/api";
@@ -5,7 +6,7 @@ import { standingKey } from "../../../lib/display";
 
 export type Phase = "scheduled" | "open" | "closed";
 export type Item = {
-  id: string; position: number; title: string; short: string; description: string; category: string; donor: string; imageUrl: string | null;
+  id: string; position: number; title: string; short: string; description: string; category: string; donor: string; imageUrl: string | null; imageFocal?: FocalPoint;
   openingMinor: number; opensAt: string; closesAt: string; phase: Phase;
   currentMinor: number | null; bidCount: number; leader: { name: string; business: string; isMe: boolean } | null;
   minimumNextMinor: number | null; incrementMinor: number; watching: boolean; myHighestMinor: number | null; myBidCount: number;
@@ -15,7 +16,7 @@ export type Item = {
 };
 export type Recipient = { id: string; name: string; description: string; logoUrl: string | null };
 export type EventInfo = {
-  id: string; code: string; name: string; welcome: string; venue: string; timezone: string; theme?: string; coverUrl: string | null; bidderDisplay?: "name_business" | "business" | "anonymous"; accentColor?: string | null;
+  id: string; code: string; name: string; welcome: string; venue: string; timezone: string; theme?: string; coverUrl: string | null; coverFocal?: FocalPoint; bidderDisplay?: "name_business" | "business" | "anonymous"; accentColor?: string | null;
   startsAt: string; endsAt: string; accessEndsAt?: string; entryOpen: boolean; phase: "upcoming" | "open" | "closed";
   sponsors: { name: string; logoUrl: string | null; url?: string }[];
   donations: { enabled: boolean; open: boolean; deadline: string | null; capMinor: number; recipients: Recipient[] };
