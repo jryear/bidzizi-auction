@@ -53,7 +53,7 @@ export function ItemPage({ snap, now, nav, code, stale, pending, item }: Props) 
 
         <ActionBar item={item} snap={snap} nav={nav} now={now} unconfirmed={unconfirmed} inline />
 
-        {(item.description || edit) && <section className="prose"><h2>About this item</h2><Ed k={`item:${item.id}`} field="description" value={item.description} as="p" multiline placeholder="Describe the item: what it includes, any dates or limits." max={10000} /></section>}
+        {(item.description || edit) && <section className="prose" data-edit-chrome={!item.description || undefined}><h2>About this item</h2><Ed k={`item:${item.id}`} field="description" value={item.description} as="p" multiline placeholder="Describe the item: what it includes, any dates or limits." max={10000} /></section>}
 
         <section className="prose activity">
           <h2><IHistory size={20} />Bid activity</h2>

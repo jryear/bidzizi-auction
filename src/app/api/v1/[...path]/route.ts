@@ -1,6 +1,6 @@
 import { handle, notFound } from "../../../../server/v1/http";
 import { inviteStaff, listStaff, login, logout, resetStaffPassword, setStaffPassword } from "../../../../server/v1/auth";
-import { bidReceipt, join, placeBid, pledge, rejoin, snapshot, watch } from "../../../../server/v1/engine";
+import { bidReceipt, join, placeBid, pledge, rejoin, snapshot, previewSnapshot, watch } from "../../../../server/v1/engine";
 import * as host from "../../../../server/v1/host";
 import * as telemetry from "../../../../server/v1/telemetry";
 
@@ -41,6 +41,7 @@ async function route(method: string, request: Request, ctx: Ctx): Promise<Respon
     if (p[1] === "events" && p[2]) {
       const e = p[2];
       if (method === "GET" && at("host", "events", "*")) return host.workspace(request, e);
+      if (method === "GET" && at("host", "events", "*", "preview")) return previewSnapshot(request, e);
       if (method === "GET" && at("host", "events", "*", "stage")) return host.stageView(request, e);
       if (method === "GET" && at("host", "events", "*", "devices")) return telemetry.eventDevices(request, e);
       if (method === "PATCH" && at("host", "events", "*")) return host.updateEvent(request, e);

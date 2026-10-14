@@ -32,6 +32,11 @@ async function check(name, run) {
     if (path.endsWith('/telemetry')) return route.fulfill({ status: 202, json: { ok: true } });
     if (req.method() === 'GET') {
       if (controls.failReload) return route.abort();
+      if (path.endsWith('/preview')) return route.fulfill({ json: {
+        serverNow: data.serverNow, preview: true,
+        event: { ...structuredClone(data.event), sponsors: data.sponsors, donations: { enabled: false, open: false, deadline: null, capMinor: 1000000, recipients: [] } },
+        items: [], me: { id: 'preview', displayName: 'A guest', businessName: 'Your Business', canBid: true, pledges: [], winnerInstructions: '' },
+      } });
       return route.fulfill({ json: structuredClone(data) });
     }
     if (path.endsWith('/assets')) {

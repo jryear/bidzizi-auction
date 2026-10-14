@@ -8,9 +8,9 @@ import type { Nav } from "./participant";
 import type { Alert } from "./moments";
 import { EmptyState, Mark } from "./ui";
 
-type Props = { snap: Snapshot; now: number; nav: Nav; code: string; stale: boolean; pending: PendingBid | null; onDone: () => void; notify: (a: Omit<Alert, "id">) => void };
+type Props = { snap: Snapshot; now: number; nav: Nav; code: string; stale: boolean; pending: PendingBid | null; onDone: () => void; readOnly?: boolean; notify: (a: Omit<Alert, "id">) => void };
 
-export function Give({ snap, code, nav, onDone }: Props) {
+export function Give({ snap, code, nav, onDone, readOnly = false }: Props) {
   const d = snap.event.donations, me = snap.me!;
   const [recipient, setRecipient] = useState(d.recipients.length === 1 ? d.recipients[0].id : "");
   const [amount, setAmount] = useState<number | null>(5000), [custom, setCustom] = useState("");
@@ -23,6 +23,7 @@ export function Give({ snap, code, nav, onDone }: Props) {
   const given = me.pledges.reduce((s, p) => s + p.amountMinor, 0);
 
   async function confirm() {
+    if (readOnly) return;
     request.current ??= newId();
     setStep("sending"); setError("");
     try {

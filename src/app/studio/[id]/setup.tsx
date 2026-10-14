@@ -10,11 +10,11 @@ import { formatMoney, increment } from "../../../lib/money";
 import { THEMES } from "../../../lib/templates";
 import { ICalendar, ICheck, IChevD, IChevL, IChevR, IDrag, IEye, IEyeOff, IGift, IGrid, IHeart, IInfo, IPalette, IPhone, IPlus, ISearch, ISliders, IStore, ITrash, IArrowUp, IUpload } from "../../../lib/icons";
 import { ReorderHelp, useMoveItem, useReorder } from "../reorder";
-import { EditCtx, EventHero, Facts, Ed, ItemCard, SponsorGrid, type EditApi } from "../../e/[code]/ui";
-import { ItemPage } from "../../e/[code]/item";
-import { EventClock } from "../../e/[code]/catalog";
-import type { Nav } from "../../e/[code]/participant";
-import { confirm, isConfirmed, toSnapshot, type Data, type Item } from "../data";
+import { EditCtx, type EditApi } from "../../e/[code]/ui";
+import { GuestShell } from "../../e/[code]/guest-shell";
+import type { Snapshot } from "../../e/[code]/model";
+import type { Nav, Section } from "../../e/[code]/participant";
+import { confirm, isConfirmed, type Data, type Item } from "../data";
 import { Housekeeping } from "./housekeeping";
 import { MoneyField, PhotoField, Ring, Seg, Switch, TextField } from "../kit";
 import { CategoryInput } from "../category-input";
@@ -23,8 +23,9 @@ export type ItemFilter = "all" | "visible" | "hidden" | "bids" | "closed" | "nop
 export const ITEM_FILTERS: ItemFilter[] = ["all", "visible", "hidden", "bids", "closed", "nophoto"];
 export type Sel = { kind: "event" | "schedule" | "theme" | "rules" | "donations" | "sponsors" } | { kind: "item"; id: string }
   | { kind: "items"; filter?: ItemFilter; focus?: "add" };
-export type Screen = "welcome" | "items" | "item";
+export type Screen = "welcome" | "join" | "items" | "watching" | "item" | "event" | "give" | "mine";
 export type SetupCtx = {
+  preview: Snapshot | null;
   data: Data; reload: () => Promise<void>; flash: (t: string, tone?: "ink" | "red" | "green") => void;
   patchEvent: (f: Record<string, unknown>) => Promise<boolean>; patchItem: (i: Item, f: Record<string, unknown>) => Promise<boolean>;
   track: (run: () => Promise<{ ok: boolean; message?: string }>) => Promise<boolean>;
@@ -45,6 +46,11 @@ export function selFromUrl(search: string): { sel: Sel; screen?: Screen } | null
   const q = new URLSearchParams(search);
   if (q.get("mode") && q.get("mode") !== "setup") return null;
   if (q.get("view") === "items") { const f = q.get("show") as ItemFilter | null; return { sel: { kind: "items", filter: f && ITEM_FILTERS.includes(f) ? f : undefined } }; }
+  const screen = q.get("screen") as Screen | null;
+  if (screen && ["welcome", "join", "items", "watching", "item", "event", "give", "mine"].includes(screen)) {
+    const item = q.get("item");
+    return { sel: screen === "item" && item && /^[0-9a-f-]{36}$/i.test(item) ? { kind: "item", id: item } : { kind: "event" }, screen };
+  }
   const item = q.get("item");
   if (item && /^[0-9a-f-]{36}$/i.test(item)) return { sel: { kind: "item", id: item }, screen: "item" };
   return null;
@@ -163,8 +169,8 @@ function ItemsNav({ ctx, sel, select, addItem }: { ctx: SetupCtx; sel: Sel; sele
 // ---------------------------------------------------------------- canvas
 export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: SetupCtx; sel: Sel; select: (s: Sel, screen?: Screen) => void; screen: Screen; setScreen: (s: Screen) => void; addItem: () => void }) {
   const { data, patchEvent, patchItem, flash, reload } = ctx;
-  const snap = useMemo(() => toSnapshot(data), [data]);
-  const now = new Date(data.serverNow).getTime();
+  const snap = ctx.preview;
+  const now = new Date(snap?.serverNow ?? data.serverNow).getTime();
   const live = useRef({ data, sel }); live.current = { data, sel };
   const [drag, setDrag] = useState<string | null>(null), [over, setOver] = useState<string | null>(null);
   const handle = useRef<string | null>(null);
@@ -198,7 +204,7 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
       return patchItem(it, { imageAssetId: asset.id, imageFocal: { x: 0.5, y: 0.5 }, imageExpectedAssetId: before });
     },
   };
-  const noop: Nav = { openItem: id => { select({ kind: "item", id }, "item"); }, openSheet: () => flash("Bidding is off in the editor. Use Preview to try it."), tab: () => {}, back: () => setScreen("items"), watch: () => {} };
+  const noop: Nav = { openItem: id => { select({ kind: "item", id }, "item"); }, openSheet: () => flash("Bidding is off in the editor. Use Preview to try it."), tab: s => setScreen(s), back: () => setScreen("items"), watch: () => {} };
 
   async function move(id: string, to: number) {
     const order = data.items.map(i => i.id).filter(x => x !== id);
@@ -208,7 +214,7 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
     reload();
   }
 
-  const item = sel.kind === "item" ? snap.items.find(i => i.id === sel.id) : snap.items[0];
+  const item = sel.kind === "item" ? snap?.items.find(i => i.id === sel.id) : snap?.items[0];
   const wsItem = item ? data.items.find(i => i.id === item.id) : undefined;
   const screenRef = useRef<HTMLDivElement>(null);
   const selectedId = sel.kind === "item" ? sel.id : null;
@@ -218,78 +224,49 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
     if (card && box) box.scrollTo({ top: card.offsetTop - 90, behavior: "smooth" });
   }, [screen, selectedId]);
 
-  return (
-    <section className="cv" aria-label="Your event as guests see it">
-      <div className="cv-bar">
-        <Seg label="Screen" value={screen} onChange={setScreen} options={[{ id: "welcome", label: "Welcome" }, { id: "items", label: "Items" }, { id: "item", label: "Item page" }]} />
-      </div>
-      <div className="cv-stage">
-        <div className="device">
-          <span className="device-notch" aria-hidden="true" />
-          <div className="device-screen" ref={screenRef} key={screen === "item" ? `item-${item?.id}` : screen}>
-            <EditCtx.Provider value={edit}>
-              <div className="pa is-canvas" data-theme={data.event.theme} style={accentVars(data.event.accentColor)} data-screen={screen === "item" ? "item" : "items"}>
-                {screen === "welcome" && (
-                  <div className="cv-welcome">
-                    <EventHero event={snap.event} eyebrow={data.event.venue || "Add a venue in Details"}><p className="ehero-clock"><EventClock snap={snap} now={now} /></p></EventHero>
-                    <div className="join-panel">
-                      <Facts event={snap.event} items={snap.items.length} />
-                      <Ed k="event" field="welcome" value={data.event.welcome} as="p" className="lead" multiline placeholder="Write a welcome: what's this event for, and how should guests take part?" max={5000} />
-                      <div className="join-card cv-join" aria-hidden="true">
-                        <h2>Join the auction</h2>
-                        <div className="pass-preview filled"><span className="pp-clip" /><span className="mark ci you" style={{ "--s": "52px" } as React.CSSProperties}>YB</span><span className="pp-text"><b>Your Business</b><small>A guest</small></span><span className="pp-ev">{data.event.code}</span></div>
-                        <span className="cv-fake">Your name</span><span className="cv-fake">Business name</span>
-                        <span className="btn primary block lg">Join</span>
-                      </div>
-                      <div className={`cv-sponsors${sel.kind === "sponsors" ? " is-sel" : ""}`} onClick={() => select({ kind: "sponsors" })}>
-                        {data.sponsors.length ? <SponsorGrid sponsors={snap.event.sponsors} /> : <button type="button" className="cv-add-line"><IPlus size={16} />Add sponsors (optional)</button>}
-                      </div>
-                    </div>
-                  </div>
-                )}
-                {screen === "items" && (
-                  <div className="cv-items">
-                    <div className="pa-pass static"><div className="pass-badge"><span className="mark ci you" style={{ "--s": "40px" } as React.CSSProperties}>YB</span><span className="pass-text"><b>Your Business</b><small>A guest</small></span></div><div className="pass-event"><span className="pass-ev-name">{data.event.name}</span><span className="pass-ev-code">{data.event.code}</span></div></div>
-                    <section className="page-head"><h1>Items</h1><p className="sub"><EventClock snap={snap} now={now} /></p></section>
-                    <div className="cards">
-                      {snap.items.map((pi, n) => {
-                        const wi = data.items[n];
-                        const on = sel.kind === "item" && sel.id === pi.id;
-                        return (
-                          <div key={pi.id} data-item-id={pi.id} className={`cv-card${on ? " on" : ""}${wi.ready ? "" : " hidden"}${drag === pi.id ? " dragging" : ""}${over === pi.id && drag && drag !== pi.id ? " over" : ""}`}
+  edit.decorateItem = (pi, content) => {
+    const n = data.items.findIndex(i => i.id === pi.id), wi = data.items[n];
+    if (!wi) return content;
+    const on = sel.kind === "item" && sel.id === pi.id;
+    return (
+                          <div key={pi.id} data-item-id={pi.id} data-preview-hidden={pi.hidden || undefined} className={`cv-card${on ? " on" : ""}${wi.ready ? "" : " hidden"}${drag === pi.id ? " dragging" : ""}${over === pi.id && drag && drag !== pi.id ? " over" : ""}`}
                             draggable={drag === pi.id || handle.current === pi.id}
                             onDragStart={ev => { if (handle.current !== pi.id) { ev.preventDefault(); return; } setDrag(pi.id); ev.dataTransfer.effectAllowed = "move"; }}
                             onDragOver={ev => { if (drag) { ev.preventDefault(); setOver(pi.id); } }}
                             onDragEnd={() => { setDrag(null); setOver(null); handle.current = null; }}
                             onDrop={ev => { ev.preventDefault(); if (drag && drag !== pi.id) move(drag, n); setDrag(null); setOver(null); handle.current = null; }}>
-                            <div className="cv-tools" role="toolbar" aria-label={`${pi.title} tools`}>
+                            <div data-edit-chrome className="cv-tools" role="toolbar" aria-label={`${pi.title} tools`}>
                               <span className="cv-grip" title="Drag to reorder" onMouseDown={() => { handle.current = pi.id; }} onMouseUp={() => { handle.current = null; }}><IDrag size={18} /></span>
                               <button type="button" aria-label="Move up" disabled={n === 0} onClick={() => move(pi.id, n - 1)}><IArrowUp size={16} /></button>
-                              <button type="button" aria-label="Move down" disabled={n === snap.items.length - 1} onClick={() => move(pi.id, n + 1)} className="flip"><IArrowUp size={16} /></button>
+                              <button type="button" aria-label="Move down" disabled={n === data.items.length - 1} onClick={() => move(pi.id, n + 1)} className="flip"><IArrowUp size={16} /></button>
                               <button type="button" aria-label={wi.ready ? "Hide from guests" : "Show to guests"} disabled={wi.bidCount > 0} onClick={() => patchItem(wi, { ready: !wi.ready })}>{wi.ready ? <IEye size={16} /> : <IEyeOff size={16} />}</button>
                               <button type="button" aria-label="Open item page" onClick={() => select({ kind: "item", id: pi.id }, "item")}><IChevR size={16} /></button>
                             </div>
-                            {!wi.ready && <span className="cv-hidden-tag"><IEyeOff size={14} />Hidden from guests</span>}
-                            <ItemCard item={pi} now={now} canWatch={false} />
+                            {!wi.ready && <span data-edit-chrome className="cv-hidden-tag"><IEyeOff size={14} />Hidden from guests</span>}
+                            {content}
                           </div>
-                        );
-                      })}
-                      <button type="button" className="cv-add-card" onClick={addItem}><span><IPlus size={22} /></span><b>Add an item</b><small>Title, photo and a starting bid</small></button>
-                    </div>
-                  </div>
-                )}
-                {screen === "item" && (item ? (
-                  <ItemPage snap={snap} now={now} nav={noop} code={data.event.code} stale={false} pending={null} item={item} />
-                ) : (
-                  <div className="cv-empty"><IGrid size={28} /><b>No items yet</b><button type="button" className="btn primary" onClick={addItem}>Add an item</button></div>
-                ))}
-              </div>
+    );
+  };
+  edit.catalogFooter = <button type="button" data-edit-chrome className="cv-add-card" onClick={addItem}><span><IPlus size={22} /></span><b>Add an item</b><small>Title, photo and a starting bid</small></button>;
+  return (
+    <section className="cv" aria-label="Your event as guests see it">
+      <div data-edit-chrome className="cv-bar">
+        <Seg label="Screen" value={screen} onChange={setScreen} options={[{ id: "welcome", label: "Welcome" }, { id: "items", label: "Items" }, { id: "item", label: "Item page" }, { id: "event", label: "Event" }, { id: "give", label: "Donate" }, { id: "mine", label: "My bids" }]} />
+      </div>
+      <div className="cv-stage">
+        <div className="device" data-preview-device>
+          <span data-edit-chrome className="device-notch" aria-hidden="true" />
+          <div className="device-screen" ref={screenRef} key={screen === "item" ? `item-${item?.id}` : screen}>
+            <EditCtx.Provider value={edit}>
+              {snap ? <GuestShell snap={snap} code={data.event.code} route={{ s: screen === "item" || screen === "welcome" || screen === "join" ? "items" : screen as Section, i: screen === "item" ? item?.id ?? null : null }}
+                nav={noop} now={now} editor join={screen === "welcome" || screen === "join"} onDone={() => {}} notify={() => {}} />
+                : <div data-edit-chrome className="cv-empty" role="status">Opening the guest preview…</div>}
             </EditCtx.Provider>
           </div>
         </div>
-        {screen === "item" && wsItem && <p className="cv-note">{wsItem.bidCount > 0 ? `${wsItem.bidCount} bid${wsItem.bidCount === 1 ? "" : "s"} so far. Text and photos can still change.` : "Bidding is off while you edit. Use Preview to try it."}</p>}
+        {screen === "item" && wsItem && <p data-edit-chrome className="cv-note">{wsItem.bidCount > 0 ? `${wsItem.bidCount} bid${wsItem.bidCount === 1 ? "" : "s"} so far. Text and photos can still change.` : "Bidding is off while you edit. Use Preview to try it."}</p>}
       </div>
-      <p className="cv-hint">Click text to edit · drop photos onto the phone · drag the handle to reorder</p>
+      <p data-edit-chrome className="cv-hint">Click text to edit · drop photos onto the phone · drag the handle to reorder</p>
     </section>
   );
 }

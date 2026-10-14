@@ -73,7 +73,15 @@ export async function snapshot(request: Request, code: string): Promise<Response
   return json(await tx(async db => {
     const { e, preview } = await viewableEvent(db, request, code), at = await now(db);
     const me = preview ? null : await participantFrom(db, request, e.id);
-    const items = (await db.query<ItemRow>("SELECT * FROM items WHERE event_id = $1 AND ready ORDER BY position, created_at", [e.id])).rows;
+    return buildSnapshot(db, e, at, me, preview);
+  }));
+}
+
+/** One projection for guests and staff previews; privacy and standing rules stay on the server. */
+async function buildSnapshot(db: Db, e: EventRow, at: Date, me: Participant | null, preview: boolean, includeHidden = false) {
+    const allItems = (await db.query<ItemRow>("SELECT * FROM items WHERE event_id = $1 ORDER BY position, created_at", [e.id])).rows;
+    const visibleItems = allItems.filter(i => i.ready);
+    const items = includeHidden ? allItems : visibleItems;
     const history = (await db.query<{ id: string; item_id: string; amount_minor: string; decided_at: Date; participant_id: string; voided_at: Date | null }>(
       `SELECT id, item_id, amount_minor::text, decided_at, participant_id, voided_at FROM bids WHERE event_id = $1 ORDER BY sequence DESC`, [e.id])).rows;
     const standings = new Map((await db.query<StandingJoin>(
@@ -105,9 +113,9 @@ export async function snapshot(request: Request, code: string): Promise<Response
       event: {
         id: e.id, code: e.join_code, name: e.name, welcome: e.welcome, venue: e.venue, timezone: e.timezone, theme: e.theme, bidderDisplay: e.bidder_display,
         coverUrl: assetUrl(e.cover_asset_id), coverFocal: e.cover_focal, startsAt: e.starts_at, endsAt: e.ends_at, accessEndsAt: e.access_ends_at,
-        entryOpen: e.entry_open && at < e.ends_at, phase: eventPhase(e, items, at),
+        entryOpen: e.entry_open && at < e.ends_at, phase: eventPhase(e, visibleItems, at),
         // Staff's category order, limited to categories guests can actually filter by.
-        categories: orderedCategories(e.categories, items).filter(c => items.some(i => i.category === c)),
+        categories: orderedCategories(e.categories, visibleItems).filter(c => visibleItems.some(i => i.category === c)),
         sponsors: sponsors.map(s => ({ name: s.name, logoUrl: assetUrl(s.logo_asset_id), url: s.url })), accentColor: e.accent_color,
         donations: { enabled: e.donations_enabled, open: donationsOpen, deadline: e.donation_deadline, capMinor: PLEDGE_CAP,
           recipients: recipients.map(r => ({ id: r.id, name: r.name, description: r.description, logoUrl: assetUrl(r.logo_asset_id) })) },
@@ -119,6 +127,7 @@ export async function snapshot(request: Request, code: string): Promise<Response
         const mineHere = mine?.bids.get(i.id);
         const won = Boolean(me && a && a.status !== "no_winner" && a.participant_id === me.id);
         return {
+          ...(includeHidden && !i.ready ? { hidden: true } : {}),
           id: i.id, position: i.position, title: i.title, short: i.short, description: i.description, category: i.category, donor: i.donor,
           withdrawn: i.withdrawn_at !== null, withdrawalMessage: i.withdrawal_message,
           bidHistory: history.filter(b => b.item_id === i.id).map(b => ({ id: b.id, amountMinor: Number(b.amount_minor), decidedAt: b.decided_at,
@@ -140,6 +149,18 @@ export async function snapshot(request: Request, code: string): Promise<Response
       me: me ? { id: me.id, displayName: me.displayName, businessName: me.businessName, canBid: me.canBid, pledges: mine!.pledges, bidderNumber: me.bidderNumber,
         winnerInstructions: [...awards.values()].some(a => a.participant_id === me.id && a.status !== "no_winner") ? e.winner_instructions : "" } : null,
     };
+}
+
+/** A stand-in guest has no credential, activity or write authority. */
+export async function previewSnapshot(request: Request, eventId: string): Promise<Response> {
+  return json(await tx(async db => {
+    const staff = await staffFrom(db, request);
+    const e = (await db.query<EventRow>("SELECT * FROM events WHERE id = $1 AND org_id = $2 AND archived_at IS NULL", [id(eventId), staff.orgId])).rows[0];
+    if (!e) throw notFound("This event");
+    const snap = await buildSnapshot(db, e, await now(db), null, true, true);
+    // Use the current sample ordinal for anonymous attribution; this is never a participant identity.
+    const number = (await db.query<{ n: number }>("SELECT greatest(coalesce(max(bidder_number), 1), 1)::int AS n FROM participants WHERE event_id = $1", [e.id])).rows[0].n;
+    return { ...snap, me: { id: "preview", displayName: "A guest", businessName: "Your Business", canBid: true, pledges: [], bidderNumber: number, winnerInstructions: "" } };
   }));
 }
 

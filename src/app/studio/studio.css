@@ -420,7 +420,7 @@ button.ck-next:hover { background: var(--panel-2); }
 .pa.is-canvas .lc { animation: none; }
 .pa.is-canvas .lc-hit { z-index: 1; }
 .pa.is-canvas .lc .ed { position: relative; z-index: 4; }
-.pa.is-canvas .ehero { min-height: 420px; padding-top: 30px; }
+.pa.is-canvas .ehero { padding-top: 0; }
 .pa.is-canvas .pa-topbar, .pa.is-canvas[data-screen="item"] .ip-media { margin-top: 0; }
 .pa.is-canvas .ip-media { padding-top: 0; }
 .pa.is-canvas[data-screen="item"] .ip { padding-top: 0; }
@@ -976,3 +976,11 @@ button.ck-next:hover { background: var(--panel-2); }
 .focal-range input { min-width: 0; width: 100%; accent-color: var(--cobalt); }
 .logo-retry { position: absolute; inset: auto -5px -14px; border-radius: 6px; background: var(--ink); color: white; font-size: 11px; padding: 3px; }
 .sx-photo.logo img { object-fit: contain; padding: 8px; }
+
+/* The shared guest shell keeps phone geometry inside the Studio device. */
+.device-screen .pa.is-canvas { min-height: 100%; position: relative; }
+.device-screen .pa.is-canvas .pa-nav.bottom { position: sticky; bottom: 0; }
+.device-screen .pa.is-canvas .pa-main { min-width: 0; }
+.device-screen .pa.is-canvas .chip-pass { padding: 0; border: 0; background: none; min-height: 44px; }
+.device-screen .pa.is-canvas .chip-pass span:last-child { display: none; }
+.device-screen .pa.is-canvas .chip-pass .mark { --s: 36px !important; box-shadow: 0 0 0 2px var(--ink); }

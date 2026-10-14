@@ -5,7 +5,7 @@ import { formatMoney } from "../../../lib/money";
 import { IBookmark, ICards, IChevD, IChevR, IHeart, IList, ISearch, ITrophy } from "../../../lib/icons";
 import { closingSoon, countdown, sortItems, standing, type PendingBid, type Snapshot, type Sort } from "./model";
 import type { Nav } from "./participant";
-import { EmptyState, ItemCard, ItemRow, Mark, TimeLeft } from "./ui";
+import { EmptyState, ItemCard, ItemRow, Mark, TimeLeft, useEdit } from "./ui";
 
 type Props = { snap: Snapshot; now: number; nav: Nav; code: string; stale: boolean; pending: PendingBid | null; cameFrom: string | null; watching?: boolean };
 
@@ -17,6 +17,7 @@ export function EventClock({ snap, now }: { snap: Snapshot; now: number }) {
 }
 
 export function Catalog({ snap, now, nav, stale, pending, cameFrom, watching = false }: Props) {
+  const edit = useEdit();
   const [query, setQuery] = useState(""), [category, setCategory] = useState("");
   const [sort, setSort] = useState<Sort>("order");
   const [view, setView] = useState<"cards" | "rows">("cards");
@@ -86,10 +87,12 @@ export function Catalog({ snap, now, nav, stale, pending, cameFrom, watching = f
           <EmptyState icon={<ISearch size={28} />} title="No matches"><p>Nothing matches &ldquo;{query || category}&rdquo;.</p><button type="button" className="btn quiet" onClick={() => { setQuery(""); setCategory(""); }}>Clear search</button></EmptyState>
         ) : (
           <div className={view === "cards" ? "cards" : "rows"}>
-            {list.map(item => (
-              <Comp key={item.id} item={item} now={now} stale={stale} here={item.id === cameFrom} unconfirmed={pending?.itemId === item.id}
-                onOpen={() => nav.openItem(item.id)} onWatch={on => nav.watch(item, on)} onRebid={() => nav.openSheet(item, item.minimumNextMinor ?? undefined)} />
-            ))}
+            {list.map(item => {
+              const card = <Comp key={item.id} item={item} now={now} stale={stale} here={item.id === cameFrom} unconfirmed={pending?.itemId === item.id}
+                onOpen={() => nav.openItem(item.id)} onWatch={on => nav.watch(item, on)} onRebid={() => nav.openSheet(item, item.minimumNextMinor ?? undefined)} />;
+              return edit?.decorateItem ? edit.decorateItem(item, card) : card;
+            })}
+            {edit?.catalogFooter}
           </div>
         )}
       </div>
