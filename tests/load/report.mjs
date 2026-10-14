@@ -24,6 +24,8 @@ const bids = runs.reduce((total, r) => total + r.latencyMs.bid.count, 0);
 const receipts = runs.reduce((total, r) => total + r.latencyMs.receipt.count, 0);
 await writeFile('docs/plans/NOV19_LOCAL_LOAD_RESULTS.md', `# Nov 19: stage 1 local evidence
 
+**Historical local report and original staging proposal.** The subsequent approved as-is hosted rehearsal is complete; see [staging results](NOV19_STAGING_LOAD_RESULTS.md). Approval/pending statements below describe the local report's original boundary. Stage 1 now has separate local and hosted evidence; the measurements in this file remain local-only.
+
 Source: \`${runs[0].sourceRevision}\`. No application, schema, dependency, or UI changes were needed. This is a production Next.js build in local application mode against a fresh disposable database, not hosted capacity evidence. Stage 1 remains open pending approved staging results; stages 2–5 have not begun.
 
 ## Workload and machine

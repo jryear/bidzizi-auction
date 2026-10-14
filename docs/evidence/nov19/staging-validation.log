@@ -1,0 +1,43 @@
+2026-10-14, isolated worktree real-v1-nov19-execution
+Node v24.4.1; pnpm 12.4.2
+
+node tests/load/staging-guards.mjs
+PASS exact staging origin/path guards; redirect refusal; platform challenge/block/429 stop; no post-stop requests; legitimate CLOSED rejection. No network requests.
+
+node tests/load/guards.mjs
+PASS local-only target guards. No network requests.
+
+node --check tests/load/staging.mjs
+node --check tests/load/staging-provider.mjs
+node --check tests/load/staging-metrics.mjs
+node --check tests/load/staging-cleanup-proof.mjs
+node --check tests/load/staging-report.mjs
+PASS syntax checks.
+
+pnpm typecheck
+PASS tsc --noEmit (exit 0).
+
+pnpm compat
+PASS 63 JS/TS modules; all CSS; 0 blocking findings (exit 0).
+
+node tests/load/staging.mjs --run-staging-approved
+PASS approved staging 50/150/300 workload (exit 0), no platform stop or unexpected request failure. All SQL invariant/receipt comparisons and post-lock server-time close proofs passed. All event and account cleanup confirmed. Before/after domain and provider configuration unchanged.
+
+node tests/load/staging-cleanup-proof.mjs
+PASS independent fresh read-only staging and production connections: zero fixture/account/activity/session/request/login rows (exit 0).
+
+node tests/load/staging-metrics.mjs
+READBACK cold starts 20 / 0 / 0 reported. 50/150 totals reconcile. 300 total 16,183 versus 16,201 guest HTTP requests: incomplete.
+
+node tests/load/staging-evidence-check.mjs
+PASS workload request totals, SQL invariants, receipt coverage, server-clock lock proof, one-second sampling cadence, unchanged provider configuration, independent cleanup and production absence.
+INCOMPLETE provider metric reconciliation: 300 phones, 18 missing invocations (11 snapshots, 7 bids). Exit 1 deliberately retained for this evidence gap.
+
+node tests/load/staging-report.mjs
+PASS generated report and standalone SVG charts from saved evidence.
+Both SVG charts rendered locally in Chromium and visually inspected; labels, units and series are legible. No hosted page navigation.
+
+git diff --check
+PASS.
+
+No application/schema/dependency/UI changes. Earlier disposable-DB journey/build/browser/poor-network validation remains in validation.log; those unchanged application suites were not rerun solely for this tests/docs-only hosted follow-up.

@@ -1,5 +1,7 @@
 # Nov 19 rehearsal: read-only staging/production comparison
 
+**Historical prerequisite receipt; its hold is superseded.** The user subsequently approved an as-is conservative 0.25 CU rehearsal and omission of untrustworthy instance counts. All 50/150/300 ramps passed, database binding was proved, and fixtures were removed; see [hosted results](NOV19_STAGING_LOAD_RESULTS.md). The unused production automation bypass was separately authorized for removal and has been removed; see [security receipt](NOV19_BYPASS_REMOVAL.md). The text below preserves the original readback and its then-current authority boundary, rather than the current execution status. No compute alignment was made or is proposed.
+
 Read back on 2026-10-14. [Sanitized provider and SQL receipt](../evidence/nov19/provider-readback.json). **The rehearsal did not start.** The user's approval requires representative staging settings, reporting material differences before load, stopping on the first platform challenge/block/429, cleanup of test accounts/events, and no configuration or deployment changes.
 
 ## Material difference: database capacity and suspension

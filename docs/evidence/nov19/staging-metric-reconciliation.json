@@ -1,0 +1,126 @@
+{
+  "readAt": "2026-10-14T23:26:35.975Z",
+  "phones": 300,
+  "breakdown": [
+    {
+      "suffix": "",
+      "query": {
+        "metric": "vercel.function_invocation.count",
+        "aggregation": "count",
+        "groupBy": [
+          "functionStartType"
+        ],
+        "filter": "(requestPath:\"/api/v1/e/8DHZ6L\") AND (deploymentId:\"dpl_84j5YvYHCn18XZxycpMckLTf5ftf\")",
+        "startTime": "2026-10-14T23:19:00.000Z",
+        "endTime": "2026-10-14T23:23:00.000Z",
+        "granularity": {
+          "minutes": 1
+        },
+        "orderBy": "count",
+        "orderDirection": "desc"
+      },
+      "summary": [
+        {
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 11839
+        }
+      ]
+    },
+    {
+      "suffix": "/join",
+      "query": {
+        "metric": "vercel.function_invocation.count",
+        "aggregation": "count",
+        "groupBy": [
+          "functionStartType"
+        ],
+        "filter": "(requestPath:\"/api/v1/e/8DHZ6L/join\") AND (deploymentId:\"dpl_84j5YvYHCn18XZxycpMckLTf5ftf\")",
+        "startTime": "2026-10-14T23:19:00.000Z",
+        "endTime": "2026-10-14T23:23:00.000Z",
+        "granularity": {
+          "minutes": 1
+        },
+        "orderBy": "count",
+        "orderDirection": "desc"
+      },
+      "summary": [
+        {
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 300
+        }
+      ]
+    },
+    {
+      "suffix": "/watch",
+      "query": {
+        "metric": "vercel.function_invocation.count",
+        "aggregation": "count",
+        "groupBy": [
+          "functionStartType"
+        ],
+        "filter": "(requestPath:\"/api/v1/e/8DHZ6L/watch\") AND (deploymentId:\"dpl_84j5YvYHCn18XZxycpMckLTf5ftf\")",
+        "startTime": "2026-10-14T23:19:00.000Z",
+        "endTime": "2026-10-14T23:23:00.000Z",
+        "granularity": {
+          "minutes": 1
+        },
+        "orderBy": "count",
+        "orderDirection": "desc"
+      },
+      "summary": [
+        {
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 300
+        }
+      ]
+    },
+    {
+      "suffix": "/bid",
+      "query": {
+        "metric": "vercel.function_invocation.count",
+        "aggregation": "count",
+        "groupBy": [
+          "functionStartType"
+        ],
+        "filter": "(requestPath:\"/api/v1/e/8DHZ6L/bid\") AND (deploymentId:\"dpl_84j5YvYHCn18XZxycpMckLTf5ftf\")",
+        "startTime": "2026-10-14T23:19:00.000Z",
+        "endTime": "2026-10-14T23:23:00.000Z",
+        "granularity": {
+          "minutes": 1
+        },
+        "orderBy": "count",
+        "orderDirection": "desc"
+      },
+      "summary": [
+        {
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 3344
+        }
+      ]
+    },
+    {
+      "suffix": "/receipt/*",
+      "query": {
+        "metric": "vercel.function_invocation.count",
+        "aggregation": "count",
+        "groupBy": [
+          "functionStartType"
+        ],
+        "filter": "(requestPath:/api/v1/e/8DHZ6L/receipt/*) AND (deploymentId:\"dpl_84j5YvYHCn18XZxycpMckLTf5ftf\")",
+        "startTime": "2026-10-14T23:19:00.000Z",
+        "endTime": "2026-10-14T23:23:00.000Z",
+        "granularity": {
+          "minutes": 1
+        },
+        "orderBy": "count",
+        "orderDirection": "desc"
+      },
+      "summary": [
+        {
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 400
+        }
+      ]
+    }
+  ]
+}

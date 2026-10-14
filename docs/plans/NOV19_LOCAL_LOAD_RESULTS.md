@@ -1,5 +1,7 @@
 # Nov 19: stage 1 local evidence
 
+**Historical local report and original staging proposal.** The subsequent approved as-is hosted rehearsal is complete; see [staging results](NOV19_STAGING_LOAD_RESULTS.md). Approval/pending statements below describe the local report's original boundary. Stage 1 now has separate local and hosted evidence; the measurements in this file remain local-only.
+
 Source: `1ee003bc978692b3525ad47d0ab2b18646dea53d`. No application, schema, dependency, or UI changes were needed. This is a production Next.js build in local application mode against a fresh disposable database, not hosted capacity evidence. Stage 1 remains open pending approved staging results; stages 2–5 have not begun.
 
 ## Workload and machine
