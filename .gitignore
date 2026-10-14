@@ -8,3 +8,5 @@ out/
 .bzpg-dir
 .next-dev.log
 .shots/
+node_modules
+next-env.d.ts
