@@ -1,5 +1,5 @@
 "use client";
-import { photoStyle } from "../../../lib/photo";
+import { FramedPhoto } from "../../../lib/framed-photo";
 // Presentational pieces shared by the attendee app and the Studio canvas. The canvas renders these same components with an
 // edit context, so what a host edits is literally what attendees see.
 import { usePhotoUpload } from "../../../lib/use-photo-upload";
@@ -7,7 +7,8 @@ import { headline } from "../../../lib/display";
 import { createContext, useContext, useEffect, useId, useRef, useState, ViewTransition, type CSSProperties, type ReactNode } from "react";
 import { fmtClock, fmtTime, initials } from "../../../lib/api";
 import { formatMoney } from "../../../lib/money";
-import { IBookmark, IChevR, IClock, IExternal, IPhoto, IUpload } from "../../../lib/icons";
+import { IBookmark, IChevR, IClock, ICrop, IExternal, IPhoto, IUpload } from "../../../lib/icons";
+import type { Frame } from "../../../lib/photo";
 import { closingSoon, countdown, lotNo, shown, standing, type EventInfo, type Item, type Standing } from "./model";
 
 // ---------------------------------------------------------------- edit context (Studio canvas only)
@@ -18,6 +19,10 @@ export type EditApi = {
   select: (key: string) => void;
   commit: (key: string, field: string, value: string) => Promise<boolean>;
   photo: (key: string, file: File, current: () => boolean) => Promise<boolean>;
+  /** The photo being framed and its live, unsaved frame: that slot shows the draft and hosts the editor. */
+  framing?: { key: string; frame: Frame } | null;
+  startFraming?: (key: string) => void;
+  renderFrameEditor?: (key: string, box: { current: HTMLElement | null }, url: string) => ReactNode;
 };
 export const EditCtx = createContext<EditApi | null>(null);
 export const useEdit = () => useContext(EditCtx);
@@ -87,23 +92,42 @@ export function Tap({ onOpen, k, className, label, children, style }: { onOpen?:
   return <button type="button" className={className} style={style} onClick={onOpen} aria-label={label}>{children}</button>;
 }
 
-/** A photo slot. On the canvas it accepts a click or a dropped file. */
-export function Photo({ k, url, alt = "", className, children, vt, focal }: { k?: string; url: string | null; alt?: string; className?: string; children?: ReactNode; vt?: string; focal?: import("../../../lib/photo").FocalPoint }) {
+/** A photo slot, framed. On the canvas it accepts a dropped or pasted file; clicking a photo frames it in place (pan and
+ *  zoom, the Studio's framing editor drawn over this very slot), and "Replace" picks a new file. */
+export function Photo({ k, url, alt = "", className, children, vt, frame }: { k?: string; url: string | null; alt?: string; className?: string; children?: ReactNode; vt?: string; frame?: Frame }) {
   const edit = useEdit();
-  const input = useRef<HTMLInputElement>(null);
+  const input = useRef<HTMLInputElement>(null), box = useRef<HTMLElement | null>(null);
   const [over, setOver] = useState(false);
   const upload = usePhotoUpload(`${k}:${url}`, (file, current) => edit && k ? edit.photo(k, file, current) : Promise.resolve(false), k);
-  const img = url ? <img style={photoStyle(focal)} src={url} alt={alt} loading="lazy" draggable={false} /> : null;
-  const control = edit && k ? <button type="button" data-edit-chrome className={`ph-drop${className === "ehero-media" ? " cover-ph" : ""}${url ? "" : " ph-none"}${over ? " over" : ""}`} onClick={e => { e.stopPropagation(); edit.select(k); input.current?.click(); }}
-      onDragOver={e => { e.preventDefault(); setOver(true); }} onDragLeave={() => setOver(false)}
-      onDrop={e => { e.preventDefault(); setOver(false); upload.pick(e.dataTransfer.files?.[0]); }}
-      onPaste={e => { const f = [...e.clipboardData.files].find(f => f.type.startsWith("image/")); if (f) { e.preventDefault(); upload.pick(f); } }}>
-      <span><IUpload size={18} />{upload.busy ? "Uploading…" : url ? "Replace photo" : "Add a photo"}</span>
-      <input ref={input} type="file" accept="image/png,image/jpeg,image/webp" hidden onChange={e => { upload.pick(e.target.files?.[0]); e.target.value = ""; }} />
-    </button> : null;
-  const body = <div className={className} aria-busy={upload.busy || undefined}>{img ?? children}{className !== "ehero-media" && control}</div>;
+  const framing = edit && k && url && edit.framing?.key === k ? edit.framing : null;
+  const cover = className === "ehero-media";
+  const drop = {
+    onDragOver: (e: React.DragEvent) => { if (e.dataTransfer.types.includes("Files")) { e.preventDefault(); setOver(true); } },
+    onDragLeave: () => setOver(false),
+    onDrop: (e: React.DragEvent) => { const f = e.dataTransfer.files?.[0]; if (!f) return; e.preventDefault(); setOver(false); upload.pick(f); },
+  };
+  const file = <input ref={input} type="file" accept="image/png,image/jpeg,image/webp" hidden onChange={e => { upload.pick(e.target.files?.[0]); e.target.value = ""; }} />;
+  const control = edit && k && !framing ? (url
+    ? <div data-edit-chrome className={`ph-drop has${cover ? " cover-ph" : ""}${over ? " over" : ""}`} {...drop}
+        onPaste={e => { const f = [...e.clipboardData.files].find(f => f.type.startsWith("image/")); if (f) { e.preventDefault(); upload.pick(f); } }}>
+        {!cover && <button type="button" className="ph-hit" aria-label="Adjust photo" onClick={e => { e.stopPropagation(); edit.select(k); edit.startFraming?.(k); }} />}
+        <div className="ph-acts">
+          <button type="button" className="ph-chip" onClick={e => { e.stopPropagation(); edit.select(k); edit.startFraming?.(k); }}><ICrop size={16} />{upload.busy ? "Uploading…" : "Adjust photo"}</button>
+          <button type="button" className="ph-chip" onClick={e => { e.stopPropagation(); edit.select(k); input.current?.click(); }}><IUpload size={16} />Replace</button>
+        </div>
+        {file}
+      </div>
+    : <button type="button" data-edit-chrome className={`ph-drop ph-none${cover ? " cover-ph" : ""}${over ? " over" : ""}`} onClick={e => { e.stopPropagation(); edit.select(k); input.current?.click(); }} {...drop}
+        onPaste={e => { const f = [...e.clipboardData.files].find(f => f.type.startsWith("image/")); if (f) { e.preventDefault(); upload.pick(f); } }}>
+        <span><IUpload size={18} />{upload.busy ? "Uploading…" : "Add a photo"}</span>{file}
+      </button>) : null;
+  const body = url
+    ? <FramedPhoto as="div" boxRef={box} className={className} src={url} frame={framing ? framing.frame : frame} alt={alt} loading="lazy" aria-busy={upload.busy || undefined}>
+        {!cover && control}{framing && edit?.renderFrameEditor?.(k!, box, url)}
+      </FramedPhoto>
+    : <div className={className} aria-busy={upload.busy || undefined}>{children}{!cover && control}</div>;
   return <>{vt && !edit ? <ViewTransition name={vt} share="morph">{body}</ViewTransition> : body}
-    {className === "ehero-media" && control}
+    {cover && control}
     {edit && upload.error && <div data-edit-chrome className="photo-error" role="alert"><span>{upload.error}</span><button type="button" onClick={upload.retry}>Try again</button></div>}</>;
 }
 
@@ -201,9 +225,9 @@ export function ItemCard({ item, now, onOpen, onWatch, onRebid, unconfirmed, sta
   const head = headline(item, unconfirmed);
   const k = `item:${item.id}`;
   return (
-    <article className={`lc tone-${s.tone}${s.mine ? " mine" : ""}${here ? " was-here" : ""}`} data-item={item.id}>
+    <article className={`lc tone-${s.tone}${s.mine ? " mine" : ""}${here ? " was-here" : ""}`} data-item={item.id} data-item-card={item.id}>
       <Tap className="lc-hit" onOpen={onOpen} k={k} label={`${item.title}, ${formatMoney(headline(item, unconfirmed).amountMinor)}`} />
-      <Photo k={k} url={item.imageUrl} focal={item.imageFocal} className="lc-media" vt={`photo-${item.id}`}><ItemArt item={item} /></Photo>
+      <Photo k={k} url={item.imageUrl} frame={item.imageFrame} className="lc-media" vt={`photo-${item.id}`}><ItemArt item={item} /></Photo>
       <LotTab item={item} />
       {canWatch && <Watch on={item.watching} onToggle={() => onWatch?.(!item.watching)} />}
       {item.donor && <span className="provider"><Mark name={item.donor} kind="sponsor" size={24} /><span>{item.donor}</span></span>}
@@ -232,10 +256,10 @@ export function ItemRow({ item, now, onOpen, onWatch, unconfirmed, stale, canWat
   const status = s.mine || s.key === "withdrawn" || s.key === "scheduled" || s.key === "closed" || s.key === "sold" ? s.label
     : item.bidCount ? `${item.bidCount} bid${item.bidCount === 1 ? "" : "s"}` : "No bids yet";
   return (
-    <article className={`lr tone-${s.tone}${here ? " was-here" : ""}`} data-item={item.id}>
+    <article className={`lr tone-${s.tone}${here ? " was-here" : ""}`} data-item={item.id} data-item-card={item.id}>
       <Tap className="lr-hit" onOpen={onOpen} k={`item:${item.id}`} label={`${item.title}, ${head.label} ${formatMoney(head.amountMinor)}`} />
       <span className="lr-no" aria-hidden="true">{lotNo(item)}</span>
-      <div className="lr-thumb">{item.imageUrl ? <img style={photoStyle(item.imageFocal)} src={item.imageUrl} alt="" loading="lazy" /> : <ItemArt item={item} size="sm" />}</div>
+      <div className="lr-thumb">{item.imageUrl ? <FramedPhoto src={item.imageUrl} frame={item.imageFrame} className="pf-fill" loading="lazy" /> : <ItemArt item={item} size="sm" />}</div>
       <div className="lr-main">
         <h3>{item.title}</h3>
         <p className="lr-meta"><span className={`lr-status s-${s.key}`}>{status}</span>{soon && <span className="lr-soon"><IClock size={13} />{countdown(item.closesAt, now)}</span>}</p>
@@ -253,7 +277,7 @@ export function ItemRow({ item, now, onOpen, onWatch, unconfirmed, stale, canWat
 export function EventHero({ event, eyebrow, compact = false, children }: { event: EventInfo; eyebrow?: string; compact?: boolean; children?: ReactNode }) {
   return (
     <header className={`ehero${compact ? " compact" : ""}${event.coverUrl ? "" : " no-cover"}`}>
-      <Photo k="event" url={event.coverUrl} focal={event.coverFocal} className="ehero-media"><div className="ehero-art" aria-hidden="true"><span>{initials(event.name)}</span></div></Photo>
+      <Photo k="event" url={event.coverUrl} frame={event.coverFrame} className="ehero-media"><div className="ehero-art" aria-hidden="true"><span>{initials(event.name)}</span></div></Photo>
       <div className="ehero-text">
         {eyebrow && <span className="ehero-eyebrow">{eyebrow}</span>}
         <Ed k="event" field="name" value={event.name} as="h1" className="ehero-title" placeholder="Event name" max={200} />

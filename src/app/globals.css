@@ -17,6 +17,9 @@ html, body { margin: 0; background: var(--paper); color: var(--ink); font-family
 button, input, textarea, select { font: inherit; color: inherit; }
 a { color: var(--cobalt); }
 img { display: block; max-width: 100%; }
+/* A framed photo's box clips its photo (src/lib/framed-photo.tsx). Zero specificity: each surface's own rules win. */
+:where([data-photo-frame]) { position: relative; display: block; overflow: hidden; }
+.pf-fill { width: 100%; height: 100%; }
 h1, h2, h3 { font-family: var(--serif); font-weight: 600; letter-spacing: -0.01em; line-height: 1.15; margin: 0; }
 h1 { font-size: 30px; } h2 { font-size: 22px; } h3 { font-size: 18px; }
 p { margin: 0; }

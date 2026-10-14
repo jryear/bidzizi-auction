@@ -20,7 +20,7 @@ export function ItemPage({ snap, now, nav, code, stale, pending, item }: Props) 
   return (
     <article className={`ip tone-${s.tone}`}>
       <div className="ip-media">
-        <Photo k={`item:${item.id}`} url={item.imageUrl} focal={item.imageFocal} className="hero" vt={`photo-${item.id}`} alt={item.title}><ItemArt item={item} /></Photo>
+        <Photo k={`item:${item.id}`} url={item.imageUrl} frame={item.imageFrame} className="hero" vt={`photo-${item.id}`} alt={item.title}><ItemArt item={item} /></Photo>
         <LotTab item={item} size="lg" />
         <Watch on={item.watching} size="lg" onToggle={() => nav.watch(item, !item.watching)} />
       </div>

@@ -1,15 +1,11 @@
 "use client";
-// The Items workspace's three bigger moments, each reviewed before anything is saved:
-// pasting a spreadsheet, matching a pile of photos to items, and tidying the category list.
+// The Items workspace’s two bigger moments, each reviewed before anything is saved:
+// pasting a spreadsheet and tidying the category list. (Photos go through the tray: photo-tray.tsx.)
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { api, errorText, newId, parseDollars } from "../../../lib/api";
-import { CENTER } from "../../../lib/photo";
 import { sameCategory, tidyCategory } from "../../../lib/categories";
 import { COLUMN_LABELS, draftsFrom, guessColumns, parseTable, type Column } from "../../../lib/items-paste";
-import { byFileName, matchPhotos, type MatchMode } from "../../../lib/photo-match";
-import { IAlert, ICheck, IClose, IDrag, IPhoto, ITrash } from "../../../lib/icons";
-import { uploadPhoto } from "../data";
-import { Seg } from "../kit";
+import { IAlert, ICheck, IClose, IDrag, ITrash } from "../../../lib/icons";
 import { useReorder } from "../reorder";
 import type { SetupCtx } from "./setup";
 
@@ -138,97 +134,6 @@ export function PasteDialog({ ctx, initial, onClose, onAdded }: { ctx: SetupCtx;
           </div>
         </>
       )}
-    </Dialog>
-  );
-}
-
-// ---------------------------------------------------------------- many photos
-type Upload = "waiting" | "uploading" | "done" | "failed";
-
-export function PhotoDialog({ ctx, files, onClose }: { ctx: SetupCtx; files: File[]; onClose: () => void }) {
-  const items = ctx.data.items;
-  const ordered = useMemo(() => [...files].sort((a, b) => byFileName(a.name, b.name)), [files]);
-  const urls = useMemo(() => ordered.map(f => URL.createObjectURL(f)), [ordered]);
-  useEffect(() => () => urls.forEach(u => URL.revokeObjectURL(u)), [urls]);
-  const auto = (mode: MatchMode) => matchPhotos(ordered.map(f => f.name), items.map(i => ({ id: i.id, title: i.title, position: i.position, hasPhoto: Boolean(i.imageUrl) })), mode);
-  const [mode, setMode] = useState<MatchMode>(() => auto("name").some(Boolean) ? "name" : "order");
-  const [targets, setTargets] = useState<(string | null)[]>(() => auto(mode));
-  const [state, setState] = useState<Upload[]>(() => ordered.map(() => "waiting"));
-  const [notes, setNotes] = useState<string[]>(() => ordered.map(() => ""));
-  const [busy, setBusy] = useState(false);
-  const assets = useRef<(string | null)[]>(ordered.map(() => null)), foot = useRef<HTMLDivElement>(null);
-  const pick = (n: number, id: string | null) => setTargets(t => t.map((x, k) => k === n ? id : id && x === id ? null : x));
-  const chosen = targets.filter(Boolean).length, replacing = targets.filter(id => id && items.find(i => i.id === id)?.imageUrl).length;
-  const todo = targets.map((id, n) => ({ id, n })).filter(x => x.id && state[x.n] !== "done");
-
-  async function run() {
-    setBusy(true);
-    const expected = new Map(ctx.current().items.map(i => [i.id, i.imageAssetId]));
-    const queue = [...todo];
-    const set = (n: number, s: Upload, note = "") => { setState(x => x.map((v, k) => k === n ? s : v)); setNotes(x => x.map((v, k) => k === n ? note : v)); };
-    // One at a time: the server decodes images one by one, and progress reads naturally down the list.
-    await Promise.all([0].map(async () => {
-      for (let job = queue.shift(); job; job = queue.shift()) {
-        if (assets.current[job.n]) continue;
-        set(job.n, "uploading");
-        try { assets.current[job.n] = (await uploadPhoto(ordered[job.n])).id; set(job.n, "uploading", "Saving…"); }
-        catch (err) { set(job.n, "failed", err instanceof Error ? err.message : "Upload failed."); }
-      }
-    }));
-    const ready = todo.filter(x => assets.current[x.n]);
-    if (ready.length) {
-      type Result = { updated: { id: string }[]; skipped: { id: string; reason: string }[] };
-      const box: { result: Result | null } = { result: null };
-      let message = "";
-      await ctx.track(async () => {
-        const r = await api("PATCH", `/api/v1/host/events/${ctx.data.event.id}/items`, {
-          changes: ready.map(x => ({ id: x.id, imageAssetId: assets.current[x.n], imageFocal: CENTER, imageExpectedAssetId: expected.get(x.id!) ?? null })) });
-        if (r.ok) box.result = r.data; else message = errorText(r);
-        return { ok: r.ok, message: r.ok ? undefined : message };
-      });
-      const result = box.result;
-      for (const x of ready) {
-        const skipped = result?.skipped.find(s => s.id === x.id);
-        if (!result) set(x.n, "failed", message || "Not saved. Try again.");
-        else if (skipped) { assets.current[x.n] = null; set(x.n, "failed", skipped.reason); }
-        else set(x.n, "done");
-      }
-      const done = result?.updated.length ?? 0;
-      if (done) ctx.flash(`${plural(done, "photo")} added`, "green");
-      if (result && done === todo.length) { setBusy(false); closeDialog(foot.current); return; }
-    }
-    setBusy(false);
-  }
-
-  const failed = state.filter(s => s === "failed").length;
-  return (
-    <Dialog title={`Match ${plural(ordered.length, "photo")} to items`} onClose={onClose} busy={busy} className="photo-dlg"
-      sub="Check each pair. Nothing uploads until you say so."
-      foot={<div ref={foot} className="pd-foot">
-        <span className="pd-count">{failed ? <><IAlert size={16} />{plural(failed, "photo")} didn&rsquo;t save</> : <>{plural(chosen, "photo")} matched{replacing ? ` · ${replacing} will replace a photo` : ""}</>}</span>
-        <button type="button" className="sx-btn primary" disabled={!todo.length || busy} onClick={run}>{busy ? "Uploading…" : failed ? "Try again" : `Add ${plural(todo.length, "photo")}`}</button>
-      </div>}>
-      <div className="ph-mode">
-        <Seg label="Match by" value={mode} onChange={m => { if (busy) return; setMode(m); setTargets(auto(m)); }} options={[{ id: "name", label: "File names" }, { id: "order", label: "In order" }]} />
-        <small>{mode === "name" ? "An item number (07.jpg, lot-7.png) or words from the title." : "First file to the first item without a photo, and so on."}</small>
-      </div>
-      <ul className="ph-list">
-        {ordered.map((f, n) => {
-          const target = items.find(i => i.id === targets[n]);
-          return (
-            <li key={`${f.name}-${n}`} className={`ph-pair s-${state[n]}${target ? "" : " none"}`}>
-              <img src={urls[n]} alt="" />
-              <span className="ph-file"><b title={f.name}>{f.name}</b><small>{notes[n] || (state[n] === "done" ? "Added" : state[n] === "uploading" ? "Uploading…" : target?.imageUrl ? "Replaces the current photo" : target ? "" : "Not used")}</small></span>
-              <span className="ph-arrow" aria-hidden="true">→</span>
-              <select value={targets[n] ?? ""} disabled={busy || state[n] === "done"} aria-label={`Item for ${f.name}`} onChange={ev => pick(n, ev.target.value || null)}>
-                <option value="">Don&rsquo;t use this photo</option>
-                {items.map(i => <option key={i.id} value={i.id}>{String(i.position + 1).padStart(2, "0")} · {i.title}{i.imageUrl ? " (has a photo)" : ""}</option>)}
-              </select>
-              <span className="ph-st" aria-hidden="true">{state[n] === "done" ? <ICheck size={18} /> : state[n] === "failed" ? <IAlert size={18} /> : state[n] === "uploading" ? <span className="spin" /> : target ? null : <IPhoto size={18} />}</span>
-            </li>
-          );
-        })}
-      </ul>
     </Dialog>
   );
 }

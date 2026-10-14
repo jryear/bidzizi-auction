@@ -1,5 +1,5 @@
 "use client";
-import { photoStyle } from "../../../lib/photo";
+import { FramedPhoto } from "../../../lib/framed-photo";
 // Live: a control room for the host's laptop, and a one-click stage display for the projector.
 import { useEffect, useMemo, useRef, useState } from "react";
 import { api, errorText, fmtClock, fromLocalInput, toLocalInput } from "../../../lib/api";
@@ -98,7 +98,7 @@ function Tile({ item, now, on, onClick }: { item: Item; now: number; on: boolean
   useEffect(() => { if (item.bidCount > prev.current) setPulse(p => p + 1); prev.current = item.bidCount; }, [item.bidCount]);
   return (
     <button type="button" className={`tile${on ? " on" : ""}${item.withdrawn ? " withdrawn" : ""} p-${item.phase}${item.phase === "open" && left < 10 * 60_000 ? " soon" : ""}`} onClick={onClick} key={pulse} data-pulse={pulse || undefined}>
-      <span className="tile-img">{item.imageUrl ? <img style={photoStyle(item.imageFocal)} src={item.imageUrl} alt="" /> : <ItemArt item={item} size="sm" />}<span className="tile-no">{String(item.position + 1).padStart(2, "0")}</span></span>
+      <span className="tile-img">{item.imageUrl ? <FramedPhoto src={item.imageUrl} frame={item.imageFrame} className="pf-fill" /> : <ItemArt item={item} size="sm" />}<span className="tile-no">{String(item.position + 1).padStart(2, "0")}</span></span>
       <span className="tile-b">
         <b className="tile-t">{item.title}</b>
         <Amount minor={item.currentMinor ?? item.openingMinor} className="tile-amt" />

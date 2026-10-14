@@ -5,7 +5,8 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { api, dollarsInput, errorText, newId, parseDollars } from "../../../lib/api";
 import { formatMoney } from "../../../lib/money";
-import { CENTER, photoStyle } from "../../../lib/photo";
+import { DEFAULT_FRAME } from "../../../lib/photo";
+import { FramedPhoto } from "../../../lib/framed-photo";
 import { looksLikeRows } from "../../../lib/items-paste";
 import { usePhotoUpload } from "../../../lib/use-photo-upload";
 import { IAlert, ICheck, IChevL, IChevR, IClose, IDrag, IEye, IEyeOff, IMore, IPhone, IPhoto, IPlus, ISearch, ITrash, IUpload } from "../../../lib/icons";
@@ -14,7 +15,10 @@ import { Seg } from "../kit";
 import { CategoryInput } from "../category-input";
 import { ReorderHelp, useMoveItem, useReorder } from "../reorder";
 import { Canvas, selToUrl, type ItemFilter, type Screen, type Sel, type SetupCtx } from "./setup";
-import { CategoriesDialog, PasteDialog, PhotoDialog } from "./items-dialogs";
+import { CategoriesDialog, PasteDialog } from "./items-dialogs";
+import { PhotoTray, suggestions, useTray, type TrayPhoto } from "./photo-tray";
+import { matchPhotos } from "../../../lib/photo-match";
+import { isHeic } from "../data";
 
 type Props = { ctx: SetupCtx; sel: Extract<Sel, { kind: "items" }>; select: (s: Sel, sc?: Screen) => void };
 type Col = "title" | "category" | "donor" | "start";
@@ -43,16 +47,20 @@ export function ItemsWorkspace({ ctx, sel, select }: Props) {
   const [selected, setSelected] = useState<Set<string>>(() => new Set());
   const anchor = useRef<string | null>(null);
   const [focused, setFocused] = useState<string | null>(null);
-  const [preview, setPreview] = usePref("bz_items_preview", () => innerWidth >= 1360);
+  // The guest phone starts collapsed; it opens on demand and the choice is remembered on this device.
+  const [preview, setPreview] = usePref("bz_items_preview", () => false);
+  const [compact, setCompact] = usePref("bz_items_compact", () => false);
   const [pane, setPane] = useState<"list" | "phone">("list");
   const [screen, setScreen] = useState<Screen>("items");
   const [pasting, setPasting] = useState<string | null>(null);
-  const [photos, setPhotos] = useState<File[] | null>(null);
+  const { tray, photos: trayPhotos } = useTray(e.id);
+  const [trayPick, setTrayPick] = useState<string | null>(null);
+  const [ask, setAsk] = useState<{ pairs: { key: string; itemId: string }[]; title: string } | null>(null);
   const [managing, setManaging] = useState(false);
   const [dropping, setDropping] = useState(false);
   const [selecting, setSelecting] = useState(false);
   const [notice, setNotice] = useState<{ text: string; undo?: () => void } | null>(null);
-  const sheet = useRef<HTMLDivElement>(null), fileInput = useRef<HTMLInputElement>(null), addTitle = useRef<HTMLInputElement>(null);
+  const sheet = useRef<HTMLDivElement>(null), trayInput = useRef<HTMLInputElement>(null), addTitle = useRef<HTMLInputElement>(null);
   const move = useMoveItem(ctx);
 
   const setFilter = (f: ItemFilter) => { setFilterState(f); history.replaceState(null, "", `?mode=setup${selToUrl({ kind: "items", filter: f })}`); };
@@ -152,11 +160,75 @@ export function ItemsWorkspace({ ctx, sel, select }: Props) {
 
   // ---------------------------------------------------------------- files dropped on the sheet
   const takeFiles = (files: FileList | File[] | null | undefined) => {
-    const images = [...(files ?? [])].filter(f => f.type.startsWith("image/"));
+    const images = [...(files ?? [])].filter(f => f.type.startsWith("image/") || isHeic(f));
     if (!images.length) { if (files && [...files].length) flash("Those files aren't images. Use JPEG, PNG or WebP.", "red"); return; }
-    if (!items.length) { flash("Add items first, then drop their photos here to match them.", "red"); return; }
-    setPhotos(images);
+    tray.add(images);
   };
+  // Paste photos anywhere on the workspace (outside a text field) to add them to the tray.
+  useEffect(() => {
+    const paste = (ev: ClipboardEvent) => {
+      const t = ev.target as HTMLElement | null;
+      if (t?.closest("input, textarea, [contenteditable]")) return;
+      const files = [...(ev.clipboardData?.files ?? [])].filter(f => f.type.startsWith("image/"));
+      if (files.length) { ev.preventDefault(); tray.add(files); }
+    };
+    addEventListener("paste", paste); return () => removeEventListener("paste", paste);
+  }, [tray]);
+  // Photos still uploading or waiting in the tray are never lost silently.
+  const unplaced = trayPhotos.filter(p => p.state !== "failed").length;
+  useEffect(() => {
+    if (!unplaced) return;
+    const warn = (ev: BeforeUnloadEvent) => { ev.preventDefault(); ev.returnValue = ""; };
+    addEventListener("beforeunload", warn); return () => removeEventListener("beforeunload", warn);
+  }, [unplaced]);
+
+  // ---------------------------------------------------------------- placing tray photos on items
+  /** Saves photo → item pairs in one batch. Photos leave the tray while saving and come back if anything fails. */
+  const place = async (pairs: { key: string; itemId: string }[], confirmed = false) => {
+    const latest = current().items;
+    pairs = pairs.filter((p, n) => latest.some(i => i.id === p.itemId) && pairs.findIndex(q => q.itemId === p.itemId) === n);
+    if (!pairs.length) return;
+    const replacing = pairs.filter(p => latest.find(i => i.id === p.itemId)?.imageAssetId);
+    if (replacing.length && !confirmed) { setAsk({ pairs, title: latest.find(i => i.id === replacing[0].itemId)!.title }); return; }
+    setAsk(null); setTrayPick(null);
+    const taken = tray.take(pairs.map(p => p.key));
+    const byKey = new Map(taken.map(p => [p.key, p]));
+    const work = pairs.filter(p => byKey.get(p.key)?.assetId);
+    const before = new Map(work.map(p => { const i = latest.find(x => x.id === p.itemId)!; return [p.itemId, { assetId: i.imageAssetId, frame: i.imageFrame ?? DEFAULT_FRAME }]; }));
+    type Result = { updated: { id: string }[]; skipped: { id: string; reason: string }[] };
+    const box: { r: Result | null } = { r: null };
+    const ok = await track(async () => {
+      const r = await api("PATCH", `/api/v1/host/events/${e.id}/items`, { changes: work.map(p => ({ id: p.itemId, imageAssetId: byKey.get(p.key)!.assetId, imageFrame: DEFAULT_FRAME, imageExpectedAssetId: before.get(p.itemId)!.assetId ?? null })) });
+      if (r.ok) box.r = r.data;
+      return { ok: r.ok, message: r.ok ? undefined : errorText(r) };
+    });
+    if (!ok || !box.r) { tray.restore(taken, "Not placed. Try again."); return; }
+    const skipped = new Map(box.r.skipped.map(x => [x.id, x.reason]));
+    const back = work.filter(p => skipped.has(p.itemId));
+    for (const p of back) tray.restore([byKey.get(p.key)!], `Not placed: ${skipped.get(p.itemId)}`);
+    const done = work.filter(p => !skipped.has(p.itemId));
+    if (!done.length) return;
+    const one = latest.find(i => i.id === done[0].itemId)!;
+    setNotice({ text: done.length === 1 ? `Photo placed on ${lot(one)} ${one.title}.` : `${plural(done.length, "photo")} placed.`, undo: async () => {
+      setNotice(null);
+      const ok = await track(async () => {
+        const r = await api("PATCH", `/api/v1/host/events/${e.id}/items`, { changes: done.map(p => ({ id: p.itemId, imageAssetId: before.get(p.itemId)!.assetId, ...(before.get(p.itemId)!.assetId ? { imageFrame: before.get(p.itemId)!.frame } : {}), imageExpectedAssetId: byKey.get(p.key)!.assetId })) });
+        return { ok: r.ok, message: r.ok ? undefined : errorText(r) };
+      });
+      if (ok) tray.restore(done.map(p => byKey.get(p.key)!));
+    } });
+  };
+  const placeInOrder = () => {
+    const ready = trayPhotos.filter(p => p.state === "ready");
+    const open = current().items.filter(i => !i.imageUrl);
+    const ids = matchPhotos(ready.map(p => p.name), open.map(i => ({ id: i.id, title: i.title, position: i.position, hasPhoto: false })), "order");
+    void place(ready.flatMap((p, n) => ids[n] ? [{ key: p.key, itemId: ids[n]! }] : []));
+  };
+  const suggested = useMemo(() => {
+    const m = suggestions(trayPhotos, items), byItem = new Map<string, TrayPhoto>();
+    for (const [key, id] of m) { const p = trayPhotos.find(x => x.key === key); if (p) byItem.set(id, p); }
+    return byItem;
+  }, [trayPhotos, items]);
 
   const hiddenCount = counts.byFilter.hidden, noPhoto = counts.byFilter.nophoto, visibleCount = counts.byFilter.visible;
   const focusedItem = focused ? items.find(i => i.id === focused) : undefined;
@@ -169,7 +241,7 @@ export function ItemsWorkspace({ ctx, sel, select }: Props) {
         onDragLeave={ev => { if (ev.currentTarget === ev.target || !ev.currentTarget.contains(ev.relatedTarget as Node)) setDropping(false); }}
         onDrop={ev => { if (!ev.dataTransfer.files.length) return; ev.preventDefault(); setDropping(false); takeFiles(ev.dataTransfer.files); }}>
         <header className="iw-head">
-          <button type="button" className="sx-btn ghost sm iw-back" onClick={() => select({ kind: "event" }, "welcome")}><IChevL size={16} />Event setup</button>
+          <button type="button" className="sx-btn ghost sm iw-back" onClick={() => select({ kind: "event" }, "welcome")}><IChevL size={16} />Event setup{unplaced > 0 && <small className="iw-back-tray">{plural(unplaced, "photo")} in the tray stay here</small>}</button>
           <div className="iw-title">
             <h1>Items <span>{items.length}</span></h1>
             <p className="iw-sum">{!items.length ? "Nothing yet. Type a row below, or paste from a spreadsheet."
@@ -178,18 +250,17 @@ export function ItemsWorkspace({ ctx, sel, select }: Props) {
                 {noPhoto > 0 && <> · <button type="button" className="link" onClick={() => setFilter("nophoto")}>{noPhoto} need{noPhoto === 1 ? "s" : ""} a photo</button></>}</>}</p>
           </div>
           <div className="iw-acts">
-            <button type="button" className="sx-btn" onClick={() => fileInput.current?.click()} disabled={!items.length} title={items.length ? "Match many photos to items at once" : "Add items first"}><IPhoto size={17} /><span>Add photos</span></button>
-            <button type="button" className="sx-btn" onClick={() => setPasting("")}><IUpload size={17} /><span>Paste rows</span></button>
+            <button type="button" className="sx-btn" onClick={() => trayInput.current?.click()} title="Upload many photos, then place them on items"><IPhoto size={17} /><span>Add photos</span></button>
+            <button type="button" className="sx-btn iw-paste" onClick={() => setPasting("")} aria-label="Paste rows"><IUpload size={17} /><span>Paste rows</span></button>
             <ArrangeMenu disabled={items.length < 2} onArrange={(how) => {
               if (how === "category") arrange("by category", (a, b) => rank(a.category) - rank(b.category));
               if (how === "title") arrange("by title, A to Z", (a, b) => a.title.localeCompare(b.title, "en", { numeric: true, sensitivity: "base" }));
               if (how === "price") arrange("by starting bid, lowest first", (a, b) => a.openingMinor - b.openingMinor);
             }} onCategories={() => setManaging(true)} />
-            {items.length > 0 && <button type="button" className={`sx-btn iw-select-mode${selecting ? " on" : ""}`} aria-pressed={selecting} onClick={() => selecting ? clear() : setSelecting(true)}>{selecting ? "Done" : "Select"}</button>}
-            <button type="button" className={`sx-btn iw-phone-btn${preview ? " on" : ""}`} aria-pressed={preview} onClick={() => setPreview(!preview)}><IPhone size={17} /><span>{preview ? "Hide phone" : "Show phone"}</span></button>
+            {items.length > 0 && <button type="button" className={`sx-btn iw-select-mode${selecting ? " on" : ""}`} aria-pressed={selecting} onClick={() => selecting ? clear() : setSelecting(true)}>Select</button>}
+            <button type="button" className={`sx-btn iw-phone-btn${preview ? " on" : ""}`} aria-pressed={preview} onClick={() => setPreview(!preview)}><IPhone size={17} /><span>{preview ? "Hide guest phone" : "Show guest phone"}</span></button>
           </div>
           <div className="iw-panes"><Seg label="View" value={pane} onChange={setPane} options={[{ id: "list", label: "List" }, { id: "phone", label: "Guest phone" }]} /></div>
-          <input ref={fileInput} type="file" accept="image/*" multiple hidden onChange={ev => { takeFiles(ev.target.files); ev.target.value = ""; }} />
         </header>
 
         {notice && <div className="iw-notice" role="status"><ICheck size={16} /><span>{notice.text}</span>{notice.undo && <button type="button" className="sx-btn sm" onClick={notice.undo}>Undo</button>}<button type="button" className="sx-icon-btn sm" aria-label="Dismiss" onClick={() => setNotice(null)}><IClose size={16} /></button></div>}
@@ -202,6 +273,10 @@ export function ItemsWorkspace({ ctx, sel, select }: Props) {
                 <button type="button" key={f} className={`fchip${filter === f ? " on" : ""}${f === "hidden" && live ? " warn" : ""}`} aria-pressed={filter === f} onClick={() => setFilter(filter === f && f !== "all" ? "all" : f)}>
                   {FILTER_LABEL[f]}<small>{counts.byFilter[f]}</small></button>
               ))}
+            </div>
+            <div className="iw-density" role="radiogroup" aria-label="Row height">
+              <button type="button" role="radio" aria-checked={!compact} onClick={() => setCompact(false)}>Comfortable</button>
+              <button type="button" role="radio" aria-checked={compact} onClick={() => setCompact(true)}>Compact</button>
             </div>
           </div>
         )}
@@ -217,7 +292,11 @@ export function ItemsWorkspace({ ctx, sel, select }: Props) {
           </div>
         )}
 
-        <div className="iw-sheet" ref={sheet} role="table" aria-label={`Items, ${narrowed ? `${list.length} of ${items.length} shown` : `${items.length} in guests’ order`}`} aria-rowcount={list.length + 1}>
+        <PhotoTray eventId={e.id} items={items} inputRef={trayInput} picked={trayPick} setPicked={setTrayPick}
+          onPlace={(key, itemId) => void place([{ key, itemId }])} onAccept={pairs => void place(pairs)} onInOrder={placeInOrder}
+          ask={ask && { title: ask.title, count: ask.pairs.length }} onConfirm={() => ask && void place(ask.pairs, true)} onCancelAsk={() => setAsk(null)} />
+
+        <div className={`iw-sheet${compact ? " compact" : ""}${trayPick ? " placing" : ""}`} ref={sheet} role="table" aria-label={`Items, ${narrowed ? `${list.length} of ${items.length} shown` : `${items.length} in guests’ order`}`} aria-rowcount={list.length + 1}>
           <div className="iw-row iw-headrow" role="row">
             <span role="columnheader" className="c-sel">
               <input type="checkbox" className="sx-check" aria-label={allShown ? "Clear selection" : `Select all ${list.length} shown`} checked={allShown} disabled={!list.length}
@@ -229,9 +308,9 @@ export function ItemsWorkspace({ ctx, sel, select }: Props) {
             <span role="columnheader" className="c-title">Title</span>
             <span role="columnheader" className="c-cat">Category</span>
             <span role="columnheader" className="c-donor">Provided by</span>
-            <span role="columnheader" className="c-start">Starting bid</span>
+            <span role="columnheader" className="c-start">Starting</span>
+            <span role="columnheader" className="c-status">Top bid</span>
             <span role="columnheader" className="c-vis">Guests</span>
-            <span role="columnheader" className="c-status">Bids</span>
             <span role="columnheader" className="c-open"><span className="sr-only">Open</span></span>
           </div>
           {list.map((item, row) => (
@@ -240,7 +319,8 @@ export function ItemsWorkspace({ ctx, sel, select }: Props) {
               rowClass={reorder.rowClass(item.id)} handle={reorder.handle(item.id)} reorderable={!narrowed}
               onFocus={() => setFocused(item.id)} focused={focused === item.id} nav={nav}
               onMoveKey={dir => { const at = items.findIndex(i => i.id === item.id); if (!narrowed) move(item.id, at + dir); }}
-              onOpen={() => select({ kind: "item", id: item.id }, "item")} />
+              onOpen={() => select({ kind: "item", id: item.id }, "item")}
+              suggestion={suggested.get(item.id)} placing={Boolean(trayPick)} onPlace={() => trayPick && void place([{ key: trayPick, itemId: item.id }])} />
           ))}
           {reorder.dropAtEnd && <div className="iw-drop-end" aria-hidden="true" />}
           {narrowed && !list.length && (
@@ -256,7 +336,7 @@ export function ItemsWorkspace({ ctx, sel, select }: Props) {
         <p className="sr-only" aria-live="assertive">{reorder.status}</p>
         {narrowed && items.length > 1 && <p className="iw-foot">Reordering is off while a search or filter is on, so nothing moves out of sight. <button type="button" className="link" onClick={() => { setQuery(""); setFilter("all"); setCat(null); }}>Show all to reorder</button></p>}
 
-        {(picked.length > 0) && (
+        {(picked.length > 0 || selecting) && (
           <BulkBar count={picked.length} total={list.length} live={live} categories={categories} counts={counts.byCat}
             withBids={picked.filter(i => i.hasBids).length}
             onAll={() => setSelected(new Set([...selected, ...list.map(i => i.id)]))} onClear={clear}
@@ -265,7 +345,7 @@ export function ItemsWorkspace({ ctx, sel, select }: Props) {
             onHide={() => setVisible(picked.filter(i => i.ready).map(i => i.id), false)} canHide={picked.some(i => i.ready)}
             onDelete={() => remove(picked.map(i => i.id))} />
         )}
-        {dropping && <div className="iw-dropzone" aria-hidden="true"><IPhoto size={34} /><b>Drop photos to match them to items</b><span>By item number or title in the file name, or in order. You&rsquo;ll check every match first.</span></div>}
+        {dropping && <div className="iw-dropzone" aria-hidden="true"><IPhoto size={34} /><b>Drop photos to add them to the tray</b><span>They upload right away. Then drag each one onto its item, or accept the matches we find in the file names.</span></div>}
       </section>
 
       {preview && (
@@ -276,31 +356,30 @@ export function ItemsWorkspace({ ctx, sel, select }: Props) {
       )}
 
       {pasting !== null && <PasteDialog ctx={ctx} initial={pasting} onClose={() => setPasting(null)} onAdded={ids => { setSelected(new Set(ids)); setFilter("all"); setCat(null); setQuery(""); }} />}
-      {photos && <PhotoDialog ctx={ctx} files={photos} onClose={() => setPhotos(null)} />}
       {managing && <CategoriesDialog ctx={ctx} onClose={() => setManaging(false)} onPick={c => { setCat(c); setManaging(false); }} />}
     </div>
   );
 }
 
 // ---------------------------------------------------------------- one row
-function ItemLine({ item, row, ctx, live, categories, counts, selected, selecting, onSelect, rowClass, handle, reorderable, onFocus, focused, nav, onMoveKey, onOpen }: {
+function ItemLine({ item, row, ctx, live, categories, counts, selected, selecting, onSelect, rowClass, handle, reorderable, onFocus, focused, nav, onMoveKey, onOpen, suggestion, placing, onPlace }: {
   item: Item; row: number; ctx: SetupCtx; live: boolean; categories: string[]; counts: Map<string, number>;
   selected: boolean; selecting: boolean; onSelect: (range: boolean) => void; rowClass: string; handle: Record<string, unknown>; reorderable: boolean;
   onFocus: () => void; focused: boolean; nav: (row: number, col: Col) => (key: "Enter" | "ArrowUp" | "ArrowDown", shift: boolean) => void;
-  onMoveKey: (dir: -1 | 1) => void; onOpen: () => void;
+  onMoveKey: (dir: -1 | 1) => void; onOpen: () => void; suggestion?: TrayPhoto; placing: boolean; onPlace: () => void;
 }) {
   const { patchItem, flash } = ctx, locked = item.bidCount > 0;
   const p = (f: Record<string, unknown>) => patchItem(item, f);
   const moveKey = (e: KeyboardEvent) => { if (e.altKey && (e.key === "ArrowUp" || e.key === "ArrowDown") && reorderable) { e.preventDefault(); onMoveKey(e.key === "ArrowUp" ? -1 : 1); } };
   return (
-    <div role="row" data-reorder-id={item.id} aria-selected={selected}
-      className={`iw-row${selected ? " is-sel" : ""}${item.ready ? "" : " is-hidden"}${focused ? " is-focus" : ""}${selecting ? " selecting" : ""} ${rowClass}`}
+    <div role="row" data-reorder-id={item.id} data-item-row={item.id} aria-selected={selected}
+      className={`iw-row${selected ? " is-sel" : ""}${item.ready ? "" : " is-hidden"}${item.imageUrl ? "" : " no-photo"}${focused ? " is-focus" : ""}${selecting ? " selecting" : ""} ${rowClass}`}
       onFocus={onFocus} onKeyDown={moveKey}>
       <span role="cell" className="c-sel"><input type="checkbox" className="sx-check" checked={selected} aria-label={`Select ${item.title}`}
         onClick={ev => onSelect(ev.shiftKey)} onChange={() => {}} /></span>
       <span role="cell" className="c-grip"><button type="button" className="grip" {...handle}><IDrag size={16} /></button></span>
       <span role="cell" className="c-no">{lot(item)}</span>
-      <span role="cell" className="c-photo"><PhotoCell ctx={ctx} item={item} /></span>
+      <span role="cell" className="c-photo"><PhotoCell ctx={ctx} item={item} suggestion={suggestion} /></span>
       <span role="cell" className="c-title">
         <TextCell value={item.title} label={`Title of item ${lot(item)}`} cell={`${row}:title`} max={200} required onEmpty={() => flash("An item needs a title.", "red")}
           onSave={v => p({ title: v })} nav={nav(row, "title")} className="t-title" />
@@ -313,27 +392,32 @@ function ItemLine({ item, row, ctx, live, categories, counts, selected, selectin
       </span>
       <span role="cell" className="c-donor"><TextCell value={item.donor} label={`Provided by, ${item.title}`} cell={`${row}:donor`} max={200} placeholder="—" onSave={v => p({ donor: v })} nav={nav(row, "donor")} /></span>
       <span role="cell" className="c-start"><MoneyCell minor={item.openingMinor} label={`Starting bid of ${item.title}`} cell={`${row}:start`} locked={locked} onSave={v => p({ openingMinor: v })} nav={nav(row, "start")} /></span>
-      <span role="cell" className="c-vis"><VisToggle item={item} live={live} onChange={ready => p({ ready })} /></span>
       <span role="cell" className="c-status"><BidsText item={item} /></span>
+      <span role="cell" className="c-vis"><VisToggle item={item} live={live} onChange={ready => p({ ready })} /></span>
       <span role="cell" className="c-open"><button type="button" className="sx-icon-btn sm" aria-label={`Open ${item.title}`} onClick={onOpen}><IChevR size={18} /></button></span>
+      {placing && <button type="button" className="iw-place" aria-label={`Place the photo on ${item.title}`} onClick={onPlace}><span>{item.imageUrl ? "Replace photo" : "Place photo here"}</span></button>}
     </div>
   );
 }
 
+/** The top bid and how many bids; blank until bidding starts. */
 function BidsText({ item }: { item: Item }) {
   if (item.withdrawn) return <span className="bids muted">Withdrawn</span>;
-  if (item.bidCount) return <span className="bids"><small className="bids-top">Top</small><b>{formatMoney(item.currentMinor!)}</b><small>{plural(item.bidCount, "bid")}{item.phase === "closed" ? " · closed" : ""}</small></span>;
-  return <span className="bids muted">{item.phase === "closed" ? "Closed" : "None yet"}</span>;
+  if (item.bidCount) return <span className="bids"><b>{formatMoney(item.currentMinor!)}</b><small>{plural(item.bidCount, "bid")}{item.phase === "closed" ? " · closed" : ""}</small></span>;
+  return item.phase === "closed" ? <span className="bids muted">Closed</span> : <span className="bids none" aria-label="No bids yet" />;
 }
 
-/** Visible / Hidden, as a button. Items people have bid on stay visible. */
+/** Guests column: only exceptions speak. A hidden item says so; a visible one shows a quiet eye that hides it.
+ *  Items people have bid on stay visible. */
 function VisToggle({ item, live, onChange }: { item: Item; live: boolean; onChange: (ready: boolean) => void }) {
   const locked = item.bidCount > 0 && item.ready;
+  if (item.ready) return (
+    <button type="button" className="vis-q" disabled={locked} onClick={() => onChange(false)} aria-label={`Hide ${item.title} from guests`}
+      title={locked ? "Items with bids stay visible" : live ? "Guests can see this. Click to hide it." : "Will show when you go live. Click to hide it."}><IEye size={16} /></button>
+  );
   return (
-    <button type="button" role="switch" aria-checked={item.ready} disabled={locked}
-      className={`vis-t${item.ready ? " on" : ""}${live ? " live" : ""}`} onClick={() => onChange(!item.ready)}
-      title={locked ? "Items with bids stay visible" : item.ready ? (live ? "Guests can see this. Click to hide it." : "Will show when you go live. Click to hide it.") : "Hidden from guests. Click to show it."}>
-      {item.ready ? <IEye size={15} /> : <IEyeOff size={15} />}<span>{item.ready ? "Visible" : live ? "Show" : "Hidden"}</span>
+    <button type="button" className={`vis-t${live ? " live" : ""}`} onClick={() => onChange(true)} aria-label={`Show ${item.title} to guests`} title="Hidden from guests. Click to show it.">
+      <IEyeOff size={15} /><span>Hidden</span>
     </button>
   );
 }
@@ -414,7 +498,7 @@ function MoneyCell({ minor, onSave, label, cell, locked, nav }: { minor: number;
 }
 
 /** Click, drop or paste one photo onto a row. A newer pick, a removal or leaving the page cancels an unfinished upload. */
-function PhotoCell({ ctx, item }: { ctx: SetupCtx; item: Item }) {
+function PhotoCell({ ctx, item, suggestion }: { ctx: SetupCtx; item: Item; suggestion?: TrayPhoto }) {
   const input = useRef<HTMLInputElement>(null);
   const [over, setOver] = useState(false);
   const upload = usePhotoUpload(item.imageAssetId ?? `none:${item.id}`, async (file, isCurrent) => {
@@ -424,16 +508,17 @@ function PhotoCell({ ctx, item }: { ctx: SetupCtx; item: Item }) {
     const latest = ctx.current().items.find(i => i.id === item.id);
     if (!latest || latest.imageAssetId !== before) return false;
     dispatchEvent(new CustomEvent("bz:photo-position-cancel", { detail: `item:${item.id}` }));
-    return ctx.patchItem(latest, { imageAssetId: asset.id, imageFocal: CENTER, imageExpectedAssetId: before });
+    return ctx.patchItem(latest, { imageAssetId: asset.id, imageFrame: DEFAULT_FRAME, imageExpectedAssetId: before });
   }, `item:${item.id}`);
   return (
-    <span className={`ph-cell${item.imageUrl ? " has" : ""}${over ? " over" : ""}${upload.busy ? " busy" : ""}${upload.error ? " bad" : ""}`}
+    <span className={`ph-cell${item.imageUrl ? " has" : " empty"}${suggestion ? " suggested" : ""}${over ? " over" : ""}${upload.busy ? " busy" : ""}${upload.error ? " bad" : ""}`}
       onDragOver={ev => { if (ev.dataTransfer.types.includes("Files")) { ev.preventDefault(); ev.stopPropagation(); setOver(true); } }}
       onDragLeave={() => setOver(false)}
       onDrop={ev => { const files = [...ev.dataTransfer.files]; if (files.length !== 1) return; ev.preventDefault(); ev.stopPropagation(); setOver(false); void upload.pick(files[0]); }}
       onPaste={ev => { const f = [...ev.clipboardData.files].find(x => x.type.startsWith("image/")); if (f) { ev.preventDefault(); void upload.pick(f); } }}>
       <button type="button" aria-label={item.imageUrl ? `Replace photo of ${item.title}` : `Add a photo of ${item.title}`} onClick={() => upload.error ? upload.retry() : input.current?.click()} title={upload.error || undefined}>
-        {item.imageUrl ? <img src={item.imageUrl} alt="" style={photoStyle(item.imageFocal)} /> : <IPhoto size={18} />}
+        {item.imageUrl ? <FramedPhoto src={item.imageUrl} frame={item.imageFrame} className="pf-fill" />
+          : suggestion?.thumb ? <img className="ph-sugg" src={suggestion.thumb} alt="" draggable={false} /> : <IPhoto size={18} />}
         {upload.busy && <span className="ph-spin" aria-label="Uploading" />}
         {upload.error && <span className="ph-retry">Retry</span>}
       </button>
@@ -592,6 +677,7 @@ function BulkBar({ count, total, live, categories, counts, withBids, onAll, onCl
       ) : (
         <>
           <span className="bk-n"><b>{count}</b> selected{count < total && <button type="button" className="link" onClick={onAll}>Select all {total}</button>}</span>
+          <span className="bk-wide">
           <Popover label="Set category" button={<>Category</>} align="up" className="bk-cat">
             {close => <div className="bk-cat-pop">
               <form onSubmit={ev => { ev.preventDefault(); if (fresh.trim()) { close(); onCategory(fresh.trim()); setFresh(""); } }}>
@@ -606,7 +692,23 @@ function BulkBar({ count, total, live, categories, counts, withBids, onAll, onCl
           </Popover>
           <button type="button" className="sx-btn on-dark sm" disabled={!canShow} onClick={onShow}><IEye size={16} />Show{live ? " to guests" : ""}</button>
           <button type="button" className="sx-btn on-dark sm" disabled={!canHide} onClick={onHide}><IEyeOff size={16} />Hide</button>
-          <button type="button" className="sx-btn on-dark sm danger-t" onClick={() => setConfirming(true)}><ITrash size={16} />Delete</button>
+          </span>
+          <Popover label="More actions for the selected items" button={<IMore size={18} />} align="up" className="bk-narrow bk-cat">
+            {close => <div className="bk-cat-pop">
+              <button type="button" role="menuitem" disabled={!canShow} onClick={() => { close(); onShow(); }}>Show{live ? " to guests" : ""}</button>
+              <button type="button" role="menuitem" disabled={!canHide} onClick={() => { close(); onHide(); }}>Hide from guests</button>
+              <p className="pop-h">Category</p>
+              <form onSubmit={ev => { ev.preventDefault(); if (fresh.trim()) { close(); onCategory(fresh.trim()); setFresh(""); } }}>
+                <input value={fresh} onChange={ev => setFresh(ev.target.value)} placeholder="New category" aria-label="New category name" maxLength={100} />
+                <button type="submit" className="sx-btn primary sm" disabled={!fresh.trim()}>Set</button>
+              </form>
+              <div className="bk-cat-list">
+                {categories.filter(c => !fresh.trim() || c.toLowerCase().includes(fresh.trim().toLowerCase())).map(c => <button type="button" role="menuitem" key={c} onClick={() => { close(); onCategory(c); }}>{c}<small>{counts.get(c) ?? 0}</small></button>)}
+                <button type="button" role="menuitem" className="muted" onClick={() => { close(); onCategory(""); }}>No category</button>
+              </div>
+            </div>}
+          </Popover>
+          <button type="button" className="sx-btn on-dark sm danger-t" disabled={!count} onClick={() => setConfirming(true)}><ITrash size={16} />Delete</button>
           <button type="button" className="sx-icon-btn sm bk-x" aria-label="Clear selection" onClick={onClear}><IClose size={18} /></button>
         </>
       )}

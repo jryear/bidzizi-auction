@@ -1,5 +1,5 @@
 "use client";
-import { photoStyle } from "../../lib/photo";
+import { FramedPhoto } from "../../lib/framed-photo";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -7,7 +7,7 @@ import { api, errorText, fmtTime, fromLocalInput, newId, Offline } from "../../l
 import { Login, StageChip } from "./ui";
 
 type EventCard = { id: string; name: string; code: string; status: string; stage: "draft" | "upcoming" | "running" | "ended"; startsAt: string; endsAt: string;
-  coverUrl: string | null; coverFocal?: import("../../lib/photo").FocalPoint; itemCount: number; participantCount: number; bidCount: number };
+  coverUrl: string | null; coverFrame?: import("../../lib/photo").Frame; itemCount: number; participantCount: number; bidCount: number };
 
 export default function HostHome() {
   // The Studio is the host home; this route stays for old links.
@@ -52,7 +52,7 @@ function ClassicHostHome() {
         <div className="events-grid">
           {events.map(e => (
             <a key={e.id} href={`/host/${e.id}`} className="card event-card">
-              <div className="cover">{e.coverUrl && <img style={photoStyle(e.coverFocal)} src={e.coverUrl} alt="" />}</div>
+              <div className="cover">{e.coverUrl && <FramedPhoto src={e.coverUrl} frame={e.coverFrame} className="pf-fill" />}</div>
               <div className="pad stack" style={{ gap: 6 }}>
                 <div className="row between"><StageChip stage={e.stage} /><span className="small faint">Code {e.code}</span></div>
                 <h3>{e.name}</h3>
