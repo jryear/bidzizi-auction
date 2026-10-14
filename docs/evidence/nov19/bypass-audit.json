@@ -1,0 +1,1244 @@
+{
+  "auditedAt": "2026-10-14T23:05:01.216Z",
+  "projectId": "prj_gJg1GmPcU3pxeXf9UCj5O7clYZf2",
+  "credentialCount": 1,
+  "roots": [
+    "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release",
+    "/Users/jryear/Documents/Codex/2026-10-07/task-18/entry-inherited-gate-base",
+    "/Users/jryear/Documents/Codex/2026-10-07/task-18/entry-inherited-gate-candidate",
+    "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration",
+    "/Users/jryear/Documents/Codex/2026-10-07/task-18/studio-candidate",
+    "/Users/jryear/orca/workspaces/integration/junior-saturn-v1-backend",
+    "/Users/jryear/orca/workspaces/integration/junior-saturn-v1-frontend",
+    "/Users/jryear/orca/workspaces/integration/real-v1-claude-shell",
+    "/Users/jryear/orca/workspaces/integration/real-v1-deploy",
+    "/Users/jryear/orca/workspaces/integration/real-v1-design-pass",
+    "/Users/jryear/orca/workspaces/integration/real-v1-nov19-execution",
+    "/Users/jryear/orca/workspaces/integration/real-v1-photos",
+    "/Users/jryear/orca/workspaces/integration/real-v1-t1",
+    "/Users/jryear/orca/workspaces/integration/saturn-v1-authority-p2",
+    "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-claude-review",
+    "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement",
+    "/Users/jryear/orca/workspaces/integration/saturn-v1-member-ui",
+    "/Users/jryear/orca/workspaces/integration/saturn-v1-recovery-inventory",
+    "/Users/jryear/orca/workspaces/integration/ui-v1-skin",
+    "/Users/jryear/code/bidzizi",
+    "/Users/jryear/code/bidzizi-admin-journey",
+    "/Users/jryear/code/bidzizi-bidder-foundation-a",
+    "/Users/jryear/code/bidzizi-event-studio-workspace",
+    "/Users/jryear/code/bidzizi-staging-e2e",
+    "/Users/jryear/code/bidzizi-verifier-review-20261005",
+    "/Users/jryear/code/bidzizi-workspace-contract",
+    "/Users/jryear/code/saturn"
+  ],
+  "filesScanned": 10851,
+  "unreadable": [],
+  "oversizedTextFilesSkipped": [],
+  "exactCredentialReferences": [],
+  "genericBypassReferences": [
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-06/task-3/saturn-public-connected-release/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/entry-inherited-gate-base/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/entry-inherited-gate-base/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/entry-inherited-gate-base/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/entry-inherited-gate-base/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/entry-inherited-gate-base/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/entry-inherited-gate-candidate/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/entry-inherited-gate-candidate/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/entry-inherited-gate-candidate/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/entry-inherited-gate-candidate/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/entry-inherited-gate-candidate/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/integration/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/studio-candidate/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/studio-candidate/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/studio-candidate/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/studio-candidate/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/Documents/Codex/2026-10-07/task-18/studio-candidate/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/junior-saturn-v1-backend/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/junior-saturn-v1-backend/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/junior-saturn-v1-backend/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/junior-saturn-v1-backend/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/junior-saturn-v1-backend/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/junior-saturn-v1-frontend/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/junior-saturn-v1-frontend/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/junior-saturn-v1-frontend/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/junior-saturn-v1-frontend/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/junior-saturn-v1-frontend/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-claude-shell/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-claude-shell/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-claude-shell/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-claude-shell/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-claude-shell/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-deploy/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-deploy/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-deploy/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-deploy/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-deploy/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-design-pass/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-design-pass/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-design-pass/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-design-pass/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-design-pass/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/tests/load/bypass-audit.mjs",
+      "lines": [
+        12,
+        30
+      ],
+      "containsProductionProject": true,
+      "containsProductionDomain": true,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-photos/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-photos/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-photos/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-photos/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-photos/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-t1/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-t1/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-t1/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-t1/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/real-v1-t1/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-authority-p2/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-authority-p2/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-authority-p2/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-authority-p2/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-authority-p2/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-claude-review/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-claude-review/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-claude-review/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-claude-review/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-claude-review/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-configured-codex-refinement/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-member-ui/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-member-ui/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-member-ui/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-member-ui/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-member-ui/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-recovery-inventory/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-recovery-inventory/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-recovery-inventory/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-recovery-inventory/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/saturn-v1-recovery-inventory/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/ui-v1-skin/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/ui-v1-skin/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/ui-v1-skin/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/ui-v1-skin/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/orca/workspaces/integration/ui-v1-skin/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/code/bidzizi-staging-e2e/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/code/bidzizi-staging-e2e/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/code/bidzizi-staging-e2e/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/code/bidzizi-staging-e2e/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/code/bidzizi-staging-e2e/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/code/bidzizi-workspace-contract/docs/evidence/hosted-manual-ba4e325/runner/prepare-staging-demo.mjs",
+      "lines": [
+        14,
+        24
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/code/bidzizi-workspace-contract/docs/evidence/hosted-manual-ba4e325/runner/remote-manual-bid-e2e.mjs",
+      "lines": [
+        74,
+        103,
+        153,
+        172,
+        175,
+        181
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/code/bidzizi-workspace-contract/docs/evidence/hosted-manual-ba4e325/runner/launch-remote-manual-bid.py",
+      "lines": [
+        41
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": true
+    },
+    {
+      "file": "/Users/jryear/code/bidzizi-workspace-contract/docs/evidence/hosted-manual-ba4e325/runner/capture-verified-outbid.mjs",
+      "lines": [
+        14,
+        16,
+        18
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    },
+    {
+      "file": "/Users/jryear/code/bidzizi-workspace-contract/docs/evidence/hosted-manual-ba4e325/runner/capture-staging-demo.mjs",
+      "lines": [
+        13,
+        21,
+        25,
+        27
+      ],
+      "containsProductionProject": false,
+      "containsProductionDomain": false,
+      "containsLegacyStagingProject": false
+    }
+  ],
+  "ci": {
+    "repoSecrets": [],
+    "repoVariables": [],
+    "workflows": [],
+    "environments": [
+      {
+        "name": "Preview",
+        "secrets": [],
+        "variables": []
+      },
+      {
+        "name": "Production",
+        "secrets": [],
+        "variables": []
+      }
+    ]
+  },
+  "limitation": "No claim about consumers outside the inspected related repositories, worktrees, selected temporary scripts, and linked GitHub repository/CI metadata. Encrypted CI values are not readable."
+}
