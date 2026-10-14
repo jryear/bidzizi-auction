@@ -152,22 +152,48 @@ await check("drag reorder with the pointer saves the new order", async () => {
   await until("dragged", async () => (await ws(draft.id)).items[1].id === before[4]);
 });
 
-await check("one photo on a row, and many photos matched by file name", async () => {
+await check("photo tray: upload never assigns; suggestions, undo, drag, tap-to-place and replace all go through the batch", async () => {
   const w0 = await ws(draft.id);
   await rows().nth(0).locator('.ph-cell input[type="file"]').setInputFiles(await image("anything.jpg", 10));
   await until("row photo", async () => (await ws(draft.id)).items[0].imageAssetId);
-  const second = w0.items[1], third = w0.items[2];
-  await page.locator('.iw-head input[type="file"]').setInputFiles([await image(`${String(second.position + 1).padStart(2, "0")}.jpg`, 40), await image(`${third.title.split(" ")[0].toLowerCase()}-photo.jpg`, 80), await image("IMG_9921.jpg", 120)]);
-  await page.getByRole("heading", { name: "Match 3 photos to items" }).waitFor();
-  if (SHOTS) await page.screenshot({ path: `${SHOTS}/photo-match-1440.png` });
-  assert.equal(await page.getByLabel("Item for IMG_9921.jpg").inputValue(), "", "camera names aren't guessed");
-  await page.getByRole("button", { name: "Add 2 photos" }).click();
-  await until("dialog closed", async () => {
-    if (await page.locator(".ph-pair.s-failed").count()) throw new Error(`failed pairs: ${await page.locator(".ph-pair.s-failed .ph-file").allTextContents()}`);
-    return !(await page.getByRole("heading", { name: "Match 3 photos to items" }).count());
-  }, 15000);
-  const w = await ws(draft.id);
-  assert.ok(w.items.find(i => i.id === second.id).imageAssetId && w.items.find(i => i.id === third.id).imageAssetId);
+  const second = w0.items[1], third = w0.items[2], fourth = w0.items[3], fifth = w0.items[4];
+  await page.locator("input[type=file][data-tray-input]").setInputFiles([await image(`${String(second.position + 1).padStart(2, "0")}.jpg`, 40), await image(`${third.title.split(" ")[0].toLowerCase()}-photo.jpg`, 80), await image("IMG_9921.jpg", 120), await image("IMG_9922.jpg", 150)]);
+  const ready = page.locator('[data-photo-tray] [data-tray-photo][data-state="ready"]');
+  await until("4 ready", async () => (await ready.count()) === 4, 30000);
+  let w = await ws(draft.id);
+  assert.ok([second, third, fourth, fifth].every(x => !w.items.find(i => i.id === x.id).imageAssetId), "uploading changes no item");
+  if (SHOTS) await page.screenshot({ path: `${SHOTS}/photo-tray-1440.png` });
+  assert.equal(await page.locator("[data-tray-photo]", { hasText: "IMG_9921.jpg" }).locator(".tt-no").count(), 0, "camera names aren't guessed");
+  await page.getByRole("button", { name: "Place 2 matches" }).click();
+  await until("matches placed", async () => { const w = await ws(draft.id); return w.items.find(i => i.id === second.id).imageAssetId && w.items.find(i => i.id === third.id).imageAssetId; });
+  await until("tray has 2", async () => (await page.locator("[data-tray-photo]").count()) === 2);
+  // Undo puts both photos back in the tray and the items back as they were.
+  await page.locator(".iw-notice").getByRole("button", { name: "Undo" }).click();
+  await until("undone", async () => { const w = await ws(draft.id); return !w.items.find(i => i.id === second.id).imageAssetId && !w.items.find(i => i.id === third.id).imageAssetId; });
+  await until("tray has 4 again", async () => (await page.locator("[data-tray-photo]").count()) === 4);
+  await page.getByRole("button", { name: "Place 2 matches" }).click();
+  await until("placed again", async () => (await ws(draft.id)).items.find(i => i.id === third.id).imageAssetId);
+  // Drag a camera-named photo onto a row without a photo.
+  await page.locator('[data-tray-photo][data-state="ready"]', { hasText: "IMG_9921.jpg" }).locator(".tt-hit").dragTo(page.locator(`[data-item-row="${fourth.id}"]`));
+  await until("dragged photo placed", async () => (await ws(draft.id)).items.find(i => i.id === fourth.id).imageAssetId);
+  // Tap a photo, then a row that already has one: it asks first, then replaces.
+  const before = (await ws(draft.id)).items.find(i => i.id === second.id).imageAssetId;
+  await page.locator('[data-tray-photo]', { hasText: "IMG_9922.jpg" }).locator(".tt-hit").click();
+  await page.getByRole("button", { name: `Place the photo on ${second.title}` }).click();
+  await page.getByRole("alertdialog", { name: "Replace photo" }).getByRole("button", { name: "Replace", exact: true }).click();
+  await until("replaced", async () => { const a = (await ws(draft.id)).items.find(i => i.id === second.id).imageAssetId; return a && a !== before; });
+  await until("tray empty", async () => (await page.locator("[data-tray-photo]").count()) === 0);
+  w = await ws(draft.id);
+  assert.deepEqual(w.items.find(i => i.id === second.id).imageFrame, { x: 0.5, y: 0.5, zoom: 1 }, "a placed photo starts centred");
+});
+
+await check("photo tray: an undecodable HEIC stays in the tray and says to use JPEG", async () => {
+  await page.locator("input[type=file][data-tray-input]").setInputFiles([{ name: "IMG_4242.HEIC", mimeType: "image/heic", buffer: Buffer.from("not decodable here") }]);
+  const failed = page.locator('[data-tray-photo][data-state="failed"]');
+  await failed.waitFor();
+  assert.match(await failed.textContent(), /JPEG/);
+  await failed.getByRole("button", { name: /^Remove IMG_4242/ }).click();
+  await until("removed", async () => (await page.locator("[data-tray-photo]").count()) === 0);
 });
 
 await check("categories: rename merges into an existing name after confirming; guest order follows", async () => {
@@ -193,7 +219,8 @@ await check("published event: a new item starts hidden; Show makes it visible to
   const late = await until("late item", async () => (await ws(draft.id)).items.find(i => i.title === "Late donation: team lunch"));
   assert.equal(late.ready, false, "hidden until staff show it");
   const row = page.locator(".iw-sheet [data-reorder-id]", { has: page.locator('input[value="Late donation: team lunch"]') });
-  await row.getByRole("switch").click();
+  assert.equal(await row.getByText("Hidden", { exact: true }).count(), 1, "a hidden row says so");
+  await row.getByRole("button", { name: "Show Late donation: team lunch to guests" }).click();
   await until("shown", async () => (await ws(draft.id)).items.find(i => i.id === late.id).ready);
 });
 
