@@ -118,7 +118,8 @@
 .iw-row.is-hidden .c-photo, .iw-row.is-hidden .t-title { opacity: .55; }
 .c-sel { display: grid; place-items: center; }
 .c-no { font: 650 13px/1 var(--sans); color: var(--ink-3); font-variant-numeric: tabular-nums; text-align: center; }
-.c-status { text-align: right; }
+.c-status { text-align: right; padding-right: 16px; }
+.c-vis { padding-left: 4px; }
 .c-open { display: grid; place-items: center; color: var(--ink-3); }
 
 /* inline cells: quiet until you touch them */
