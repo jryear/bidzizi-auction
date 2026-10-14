@@ -4,14 +4,13 @@
 import { spawnSync } from "node:child_process";
 import { harness, receipt, requireVerifyEnv, database, appServer } from "./lib/stack.mjs";
 
-// tests/v1/operations-ui.mjs is excluded: it is already stale on the base (waits for a "Refresh staff" button
-// the Studio no longer has), so it cannot be a regression that passes on both trees.
+// tests/v1/items-ui.mjs and tests/v1/photos.mjs are not run here: they drive the photo UI that
+// real-v1-photos-001 replaces, so that tranche updates them itself.
 const SUITES = [
   ["JOURNEY", "tests/v1/journey.mjs"],
-  ["ITEMS_UI", "tests/v1/items-ui.mjs"],
+  ["OPERATIONS_UI", "tests/v1/operations-ui.mjs"],
   ["STUDIO_SAVING", "tests/v1/studio-saving.mjs"],
   ["BID_SHEET", "tests/v1/bid-sheet.mjs"],
-  ["PHOTOS", "tests/v1/photos.mjs"],
   ["SIMPLE_UI", "tests/v1/simple-ui.mjs"],
 ];
 
