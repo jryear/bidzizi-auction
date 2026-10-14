@@ -51,7 +51,7 @@ export function Catalog({ snap, now, nav, stale, pending, cameFrom, watching = f
             {base.length > 3 && (
               <label className="search">
                 <ISearch size={19} />
-                <input type="search" placeholder={watching ? "Search your watchlist" : "Search items, providers"} value={query} onChange={x => setQuery(x.target.value)} aria-label="Search items" />
+                <input type="search" placeholder={watching ? "Search your watchlist" : "Search items, providers"} value={query} onChange={x => setQuery(x.target.value)} aria-label={edit ? "Search preview items" : "Search items"} />
               </label>
             )}
             {categories.length > 1 && (
