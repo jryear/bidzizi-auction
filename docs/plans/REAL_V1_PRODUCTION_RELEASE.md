@@ -27,3 +27,16 @@ No Git push or main merge was needed. The later release-documentation commit doe
 ## Approved item-entry presentation follow-up
 
 After Zack approved the staged Add-row layout and full-card helper placement, he explicitly requested production release. **Current production:** `dpl_Fa7b2Zh9rYAiv5zqpRvnNeigFmgk`, source `84f09fb`. The workspace route and served Items CSS are verified; CSS matches staging byte for byte. No migration or environment change. The prior compatibility deployment `dpl_CqZBiNowAAHiXFE8kXtmue27nrRq` is retained for rollback. [Layout release details](ITEMS_ADD_ROW_FIX.md).
+
+## Studio preview attach — 2026-10-14
+
+Zack authorized merge, checks, staging and production for the Studio phone preview, which now renders the real guest app from a server-built snapshot (`GET /api/v1/host/events/:id/preview`), plus a test-only `operations-ui` stability fix. **Current production:** `dpl_qWNvq4UCk7P6FKZGRJSdt1fqXAie`, source `088e3b0`.
+
+- Merges on `jryear/real-v1-claude-shell` (no push, no `main`): `8afde65` (`real-v1/preview-attach` @ `ca7d17c`), then `088e3b0` (`real-v1/fix-operations-ui` @ `84ba167`). No migration changes since `8246e7f`; no environment, domain or DNS changes.
+- Deployed from a `git archive` export of `088e3b0` with the standard exclusions (docs, tests, prototypes, tools, .shots, *.png, .env*); source metadata attached. Node 24.x, pnpm 12.4.2, functions `pdx1`.
+- Local checks (Node 24.4.1, disposable loopback Postgres 18 database, dropped afterward), all first-run passes: typecheck; Turbopack build; compat (0 blocking findings); display-logic 10/10, items-logic 10/10, compat-logic 10/10; journey 55/55; operations-ui PASS; items-ui 15/15; studio-saving 7/7; bid-sheet 2/2 engines; photos 8/8; simple-ui 2/2.
+- **Staging** `dpl_84j5YvYHCn18XZxycpMckLTf5ftf` (previous `dpl_4CFSMuZVSnaa5ExaFJXHKJrw3G45`), aliased to staging.bidzizi.com. **Production** `dpl_qWNvq4UCk7P6FKZGRJSdt1fqXAie`, promoted after staging passed. Provider alias readback and served HTML identify each deployment.
+- Hosted checks on both domains: `/studio`, `/join`, `/e/FZZGY3`, `/e/FZZGY3/simple` → 200; simple route keeps `script-src 'none'`; unauthenticated `/api/v1/host/events` and `/api/v1/host/events/<id>/preview` → 401 with no data; Chromium at 390px renders sign-in, guest event and join with zero page errors, zero broken images, no horizontal overflow. Production verification was read-only apart from the guest page's automatic device report (one telemetry 202).
+- **Not run:** the signed-in Studio canvas preview on staging (no staging staff credentials without provisioning against the staging database). The preview's signed-in behaviour rests on the local suites and the prior kernel/canvas evidence on `ca7d17c`.
+
+Rollback: `vercel rollback dpl_Fa7b2Zh9rYAiv5zqpRvnNeigFmgk --scope saturn-ea53` from a checkout linked to the production project, then verify `app.bidzizi.com`. No database step is needed. [Receipt](../evidence/preview-attach-release-20261014/receipt.json).
