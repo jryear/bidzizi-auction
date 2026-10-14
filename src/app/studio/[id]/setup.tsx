@@ -10,7 +10,7 @@ import { formatMoney, increment } from "../../../lib/money";
 import { THEMES } from "../../../lib/templates";
 import { ICalendar, ICheck, IChevD, IChevL, IChevR, IDrag, IEye, IEyeOff, IGift, IGrid, IHeart, IInfo, IPalette, IPhone, IPlus, ISearch, ISliders, IStore, ITrash, IArrowUp, IUpload } from "../../../lib/icons";
 import { ReorderHelp, useMoveItem, useReorder } from "../reorder";
-import { EditCtx, type EditApi } from "../../e/[code]/ui";
+import { Ed, Photo, EditCtx, type EditApi } from "../../e/[code]/ui";
 import { GuestShell } from "../../e/[code]/guest-shell";
 import type { Snapshot } from "../../e/[code]/model";
 import type { Nav, Section } from "../../e/[code]/participant";
@@ -260,7 +260,12 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
             <EditCtx.Provider value={edit}>
               {snap ? <GuestShell snap={snap} code={data.event.code} route={{ s: screen === "item" || screen === "welcome" || screen === "join" ? "items" : screen as Section, i: screen === "item" ? item?.id ?? null : null }}
                 nav={noop} now={now} editor join={screen === "welcome" || screen === "join"} onDone={() => {}} notify={() => {}} />
-                : <div data-edit-chrome className="cv-empty" role="status">Opening the guest preview…</div>}
+                : <div data-edit-chrome className="pa is-canvas preview-unavailable">
+                  <p role="status">Opening the guest preview… You can keep editing.</p>
+                  <Photo k="event" url={data.event.coverUrl} focal={data.event.coverFocal} className="hero" />
+                  <Ed k="event" field="name" value={data.event.name} as="h1" placeholder="Event name" max={200} />
+                  <Ed k="event" field="welcome" value={data.event.welcome} as="p" multiline placeholder="Write a welcome" max={5000} />
+                </div>}
             </EditCtx.Provider>
           </div>
         </div>

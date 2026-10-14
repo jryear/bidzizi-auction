@@ -53,7 +53,7 @@ export default function Studio({ eventId }: { eventId: string }) {
     ]);
     // A poll started before a save must not replace that save's acknowledged state.
     if (requestId !== loadId.current || epoch !== writeEpoch.current) return;
-    if (p?.ok) setPreview(p.data);
+    if (p?.ok && p.data.me && p.data.event?.donations && Array.isArray(p.data.items)) setPreview(p.data);
     if (!r) { setOffline(true); return; }
     if (r.status === 401) { location.href = "/studio"; return; }
     if (r.status === 404) { setMissing(true); return; }
