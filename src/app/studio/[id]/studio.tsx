@@ -26,6 +26,7 @@ export default function Studio({ eventId }: { eventId: string }) {
   const [data, setData] = useState<Data | null>(null);
   const [missing, setMissing] = useState(false), [offline, setOffline] = useState(false);
   const [mode, setMode] = useState<Mode | null>(null);
+  const modeRef = useRef(mode); modeRef.current = mode;
   const [sel, setSel] = useState<Sel>({ kind: "event" });
   const [screen, setScreen] = useState<Screen>("welcome");
   const [pane, setPane] = useState<"steps" | "canvas" | "edit">("canvas");
@@ -48,14 +49,17 @@ export default function Studio({ eventId }: { eventId: string }) {
 
   const reload = useCallback(async () => {
     const requestId = ++loadId.current, epoch = writeEpoch.current;
+    const wantsPreview = modeRef.current === "setup";
     const [r, p] = await Promise.all([
       api<Data>("GET", `/api/v1/host/events/${eventId}`).catch(() => null),
-      api<Snapshot>("GET", `/api/v1/host/events/${eventId}/preview`).catch(() => null),
+      wantsPreview ? api<Snapshot>("GET", `/api/v1/host/events/${eventId}/preview`).catch(() => null) : Promise.resolve(null),
     ]);
     // A poll started before a save must not replace that save's acknowledged state.
     if (requestId !== loadId.current || epoch !== writeEpoch.current) return;
-    if (p?.ok && p.data.me && p.data.event?.donations && Array.isArray(p.data.items)) { setPreview(p.data); setPreviewStale(false); }
-    else setPreviewStale(true);
+    if (wantsPreview && modeRef.current === "setup") {
+      if (p?.ok && p.data.me && p.data.event?.donations && Array.isArray(p.data.items)) { setPreview(p.data); setPreviewStale(false); }
+      else setPreviewStale(true);
+    }
     if (!r) { setOffline(true); return; }
     if (r.status === 401) { location.href = "/studio"; return; }
     if (r.status === 404) { setMissing(true); return; }
@@ -162,7 +166,7 @@ export default function Studio({ eventId }: { eventId: string }) {
   const askGoLive = () => { setSharing(false); setChecking(true); };
 
   return (
-    <main className={`sx sx-studio m-${mode}`}>
+    <main className={`sx sx-studio m-${mode}`} data-compact-setup={mode === "setup" && sel.kind !== "items"}>
       <header className="sx-top">
         <a className="sx-icon-btn back" href="/studio" aria-label="All events"><IChevL size={22} /></a>
         <div className="title-block">
@@ -205,7 +209,7 @@ export default function Studio({ eventId }: { eventId: string }) {
         </div>
       </header>
 
-      {mode === "setup" && <SetupMode ctx={ctx} sel={sel} select={select} screen={screen} setScreen={sc => { setScreen(sc); history.replaceState(null, "", `?mode=setup${selToUrl(sel)}&screen=${sc}`); }} pane={pane} setPane={setPane} addRequest={addRequest} />}
+      {mode === "setup" && <SetupMode onMode={pickMode} ctx={ctx} sel={sel} select={select} screen={screen} setScreen={sc => { setScreen(sc); history.replaceState(null, "", `?mode=setup${selToUrl(sel)}&screen=${sc}`); }} pane={pane} setPane={setPane} addRequest={addRequest} />}
       {mode === "live" && <LiveBoard ctx={ctx} />}
       {mode === "results" && <ResultsBoard ctx={ctx} />}
 
@@ -218,8 +222,8 @@ export default function Studio({ eventId }: { eventId: string }) {
   );
 }
 
-function SetupMode({ ctx, sel, select, screen, setScreen, pane, setPane, addRequest }: {
-  ctx: SetupCtx; sel: Sel; select: (s: Sel, sc?: Screen) => void; screen: Screen; setScreen: (s: Screen) => void; pane: "steps" | "canvas" | "edit"; setPane: (p: "steps" | "canvas" | "edit") => void; addRequest: number;
+function SetupMode({ onMode, ctx, sel, select, screen, setScreen, pane, setPane, addRequest }: {
+  onMode: (m: Mode) => void; ctx: SetupCtx; sel: Sel; select: (s: Sel, sc?: Screen) => void; screen: Screen; setScreen: (s: Screen) => void; pane: "steps" | "canvas" | "edit"; setPane: (p: "steps" | "canvas" | "edit") => void; addRequest: number;
 }) {
   const addItem = useAddItem(ctx, id => { select({ kind: "item", id }, "item"); setPane("canvas"); });
   // Adding items happens in the Items workspace: its add row is ready to type into.
@@ -230,7 +234,7 @@ function SetupMode({ ctx, sel, select, screen, setScreen, pane, setPane, addRequ
   if (sel.kind === "items") return <ItemsWorkspace ctx={ctx} sel={sel} select={(s, sc) => { select(s, sc); if (s.kind === "item") setPane(innerWidth <= 1080 ? "edit" : "canvas"); }} />;
   return (
     <>
-      <div className="pane-tabs"><Seg label="Panel" value={pane} onChange={setPane} options={[{ id: "steps", label: `Steps ${steps.filter(s => s.done).length}/${steps.length}` }, { id: "canvas", label: "Phone" }, { id: "edit", label: "Edit" }]} /></div>
+      <div className="pane-tabs"><select className="compact-mode" aria-label="Studio mode" value="setup" onChange={e => onMode(e.target.value as Mode)}><option value="setup">Set up</option><option value="live">Live</option><option value="results">Results</option></select><Seg label="Panel" value={pane} onChange={setPane} options={[{ id: "steps", label: `Steps ${steps.filter(s => s.done).length}/${steps.length}` }, { id: "canvas", label: "Phone" }, { id: "edit", label: "Edit" }]} /></div>
       <div className={`setup p-${pane}`}>
         <aside className="rail-l" aria-label="Checklist and outline">
           <Checklist key={pane === "steps" ? "open" : "closed"} steps={steps} startOpen={pane === "steps"} />

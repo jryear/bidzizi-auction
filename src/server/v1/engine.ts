@@ -158,9 +158,8 @@ export async function previewSnapshot(request: Request, eventId: string): Promis
     const e = (await db.query<EventRow>("SELECT * FROM events WHERE id = $1 AND org_id = $2 AND archived_at IS NULL", [id(eventId), staff.orgId])).rows[0];
     if (!e) throw notFound("This event");
     const snap = await buildSnapshot(db, e, await now(db), null, true, true);
-    // Use the current sample ordinal for anonymous attribution; this is never a participant identity.
-    const number = (await db.query<{ n: number }>("SELECT greatest(coalesce(max(bidder_number), 1), 1)::int AS n FROM participants WHERE event_id = $1", [e.id])).rows[0].n;
-    return { ...snap, me: { id: "preview", displayName: "A guest", businessName: "Your Business", canBid: true, pledges: [], bidderNumber: number, winnerInstructions: "" } };
+    // Real bidder numbers are strictly positive. Zero belongs only to this credential-free stand-in.
+    return { ...snap, me: { id: "preview", displayName: "A guest", businessName: "Your Business", canBid: true, pledges: [], bidderNumber: 0, winnerInstructions: "" } };
   }));
 }
 

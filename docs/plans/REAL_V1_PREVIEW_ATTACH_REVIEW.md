@@ -47,3 +47,32 @@ pnpm build
 ```
 
 Zack's visual acceptance remains separate from automated parity, regression suites and build checks. Nothing is pushed, merged or deployed by this tranche.
+
+## Six pre-merge fixes — before and after
+
+Requested after the initial attachment at `915ab5f`. All captures below use the same synthetic event content, hidden photographed item and 390×844 / 1440×1000 viewports. Each phase has its own disposable local database, so join codes and schedule times differ. The before phase is the actual `915ab5f` implementation; no historical screenshots were recreated with altered CSS.
+
+1. Studio requests `/preview` only while in Set up, including a fresh request when returning from Live or Results. The mode is read at request time so queued saves also respect the current mode. During the browser rehearsal, Live entry and two polling intervals generated 5 preview requests before and 0 after; Results generated 2 before and 0 after. Returning to Set up generated a fresh request.
+2. The preview's `me.bidderNumber` is always `0`. Real participant numbers are strictly positive. The staff-only identity caption is **Sample guest · Bidder 00**; no real participant number is used as the sample guest's own identity. The shared anonymous-visibility sentence now explains that names and businesses stay private, without claiming a sample ordinal belongs to a real guest. Server-projected leaders and winners keep their actual anonymous numbers. [Sample identity capture](preview-attach-review/fixes/after/sample-guest-1440.png).
+3. The preview notice has 28px of layout space before the desktop phone frame, plus its own margin rather than touching the frame's halo.
+4. Hidden tags and card tools occupy a reserved editor row above the guest card. They neither cover its bookmark nor extend into the pass header. Selection outlines still wrap the card content; inline editing, photo replacement, ordering and visibility use the same staff actions.
+5. The welcome cover-photo chip is in the upper-left corner, opposite the upper-right photo stack.
+6. On a 390px phone, the preview controls collapse to one disclosure row. A compact mode selector keeps Live and Results reachable; Steps / Phone / Edit remain available. The device grows from 584px to 684px and its bottom fits inside the 844px viewport. Expanded preview controls and the editing panel remain usable. The separate Items workspace retains its existing mode controls.
+
+| Fix | 390px before / after | 1440px before / after |
+| --- | --- | --- |
+| 3 — notice spacing | [Compare](preview-attach-review/fixes/notice-390-before-after.png) | [Compare](preview-attach-review/fixes/notice-1440-before-after.png) |
+| 4 — hidden tag and card tools | [Compare](preview-attach-review/fixes/hidden-tools-390-before-after.png) | [Compare](preview-attach-review/fixes/hidden-tools-1440-before-after.png) |
+| 5 — welcome photo chip | [Compare](preview-attach-review/fixes/welcome-photo-390-before-after.png) | [Compare](preview-attach-review/fixes/welcome-photo-1440-before-after.png) |
+| 6 — phone canvas height | [Compare](preview-attach-review/fixes/phone-space-390-before-after.png) | [Compare](preview-attach-review/fixes/phone-space-1440-before-after.png) |
+
+Individual screenshots and measured geometry are retained in [before](preview-attach-review/fixes/before/capture.json) and [after](preview-attach-review/fixes/after/capture.json). The after rehearsal recorded zero browser page errors. It checked notice spacing, tag/bookmark separation, toolbar/header separation, photo-chip/stack separation, phone canvas bounds, disclosure controls, a saved phone edit and mode switching.
+
+Reproduce the after rehearsal with Node 24:
+
+```sh
+export BZ_CONTRACT_PG=postgres://bz@127.0.0.1:55433/postgres
+node tests/v1/preview-fixes.mjs
+```
+
+This remains implementation-owned regression and visual evidence. The frozen gate is run separately against `09923cf`; `tasks/`, `tests/contract/` and the frozen helper chain are untouched.
