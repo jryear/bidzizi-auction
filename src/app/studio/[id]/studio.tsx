@@ -21,6 +21,7 @@ type Mode = "setup" | "live" | "results";
 type Save = "idle" | "editing" | "saving" | "saved" | "error";
 
 export default function Studio({ eventId }: { eventId: string }) {
+  const [previewStale, setPreviewStale] = useState(false);
   const [preview, setPreview] = useState<Snapshot | null>(null);
   const [data, setData] = useState<Data | null>(null);
   const [missing, setMissing] = useState(false), [offline, setOffline] = useState(false);
@@ -53,7 +54,8 @@ export default function Studio({ eventId }: { eventId: string }) {
     ]);
     // A poll started before a save must not replace that save's acknowledged state.
     if (requestId !== loadId.current || epoch !== writeEpoch.current) return;
-    if (p?.ok && p.data.me && p.data.event?.donations && Array.isArray(p.data.items)) setPreview(p.data);
+    if (p?.ok && p.data.me && p.data.event?.donations && Array.isArray(p.data.items)) { setPreview(p.data); setPreviewStale(false); }
+    else setPreviewStale(true);
     if (!r) { setOffline(true); return; }
     if (r.status === 401) { location.href = "/studio"; return; }
     if (r.status === 404) { setMissing(true); return; }
@@ -128,11 +130,12 @@ export default function Studio({ eventId }: { eventId: string }) {
   }, []);
   const current = useCallback(() => dataRef.current!, []);
   const openShare = useCallback(() => { confirm(eventId, "preview"); setPreviewed(true); setSharing(true); }, [eventId]);
-  const ctx: SetupCtx | null = data ? { preview, data, reload, flash, patchEvent, patchItem, track, apply, current, openShare, previewed } : null;
+  const ctx: SetupCtx | null = data ? { preview, previewStale, data, reload, flash, patchEvent, patchItem, track, apply, current, openShare, previewed } : null;
   // The Items workspace and the open item live in the URL, so reload and Back return to the same place.
   const selRef = useRef<Sel>(sel); selRef.current = sel;
+  const screenRef = useRef<Screen>(screen); screenRef.current = screen;
   const select = useCallback((s: Sel, sc?: Screen) => {
-    const url = `?mode=setup${selToUrl(s)}${sc ? `&screen=${sc}` : ""}`, workspace = (x: Sel) => x.kind === "items" || x.kind === "item";
+    const url = `?mode=setup${selToUrl(s)}&screen=${sc ?? screenRef.current}`, workspace = (x: Sel) => x.kind === "items" || x.kind === "item";
     if (url !== location.search) {
       if (workspace(s) !== workspace(selRef.current)) history.pushState(null, "", url); else history.replaceState(null, "", url);
     }

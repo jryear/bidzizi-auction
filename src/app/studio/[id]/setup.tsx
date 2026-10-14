@@ -25,7 +25,7 @@ export type Sel = { kind: "event" | "schedule" | "theme" | "rules" | "donations"
   | { kind: "items"; filter?: ItemFilter; focus?: "add" };
 export type Screen = "welcome" | "join" | "items" | "watching" | "item" | "event" | "give" | "mine";
 export type SetupCtx = {
-  preview: Snapshot | null;
+  preview: Snapshot | null; previewStale: boolean;
   data: Data; reload: () => Promise<void>; flash: (t: string, tone?: "ink" | "red" | "green") => void;
   patchEvent: (f: Record<string, unknown>) => Promise<boolean>; patchItem: (i: Item, f: Record<string, unknown>) => Promise<boolean>;
   track: (run: () => Promise<{ ok: boolean; message?: string }>) => Promise<boolean>;
@@ -229,22 +229,23 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
     if (!wi) return content;
     const on = sel.kind === "item" && sel.id === pi.id;
     return (
-                          <div key={pi.id} data-item-id={pi.id} data-preview-hidden={pi.hidden || undefined} className={`cv-card${on ? " on" : ""}${wi.ready ? "" : " hidden"}${drag === pi.id ? " dragging" : ""}${over === pi.id && drag && drag !== pi.id ? " over" : ""}`}
-                            draggable={drag === pi.id || handle.current === pi.id}
-                            onDragStart={ev => { if (handle.current !== pi.id) { ev.preventDefault(); return; } setDrag(pi.id); ev.dataTransfer.effectAllowed = "move"; }}
-                            onDragOver={ev => { if (drag) { ev.preventDefault(); setOver(pi.id); } }}
-                            onDragEnd={() => { setDrag(null); setOver(null); handle.current = null; }}
-                            onDrop={ev => { ev.preventDefault(); if (drag && drag !== pi.id) move(drag, n); setDrag(null); setOver(null); handle.current = null; }}>
-                            <div data-edit-chrome className="cv-tools" role="toolbar" aria-label={`${pi.title} tools`}>
-                              <span className="cv-grip" title="Drag to reorder" onMouseDown={() => { handle.current = pi.id; }} onMouseUp={() => { handle.current = null; }}><IDrag size={18} /></span>
-                              <button type="button" aria-label="Move up" disabled={n === 0} onClick={() => move(pi.id, n - 1)}><IArrowUp size={16} /></button>
-                              <button type="button" aria-label="Move down" disabled={n === data.items.length - 1} onClick={() => move(pi.id, n + 1)} className="flip"><IArrowUp size={16} /></button>
-                              <button type="button" aria-label={wi.ready ? "Hide from guests" : "Show to guests"} disabled={wi.bidCount > 0} onClick={() => patchItem(wi, { ready: !wi.ready })}>{wi.ready ? <IEye size={16} /> : <IEyeOff size={16} />}</button>
-                              <button type="button" aria-label="Open item page" onClick={() => select({ kind: "item", id: pi.id }, "item")}><IChevR size={16} /></button>
-                            </div>
-                            {!wi.ready && <span data-edit-chrome className="cv-hidden-tag"><IEyeOff size={14} />Hidden from guests</span>}
-                            {content}
-                          </div>
+      <div key={pi.id} data-item-id={pi.id} data-preview-hidden={pi.hidden || undefined} className={`cv-card${on ? " on" : ""}${wi.ready ? "" : " hidden"}${drag === pi.id ? " dragging" : ""}${over === pi.id && drag && drag !== pi.id ? " over" : ""}`}
+        draggable={drag === pi.id || handle.current === pi.id}
+        onDragStart={ev => { if (handle.current !== pi.id) { ev.preventDefault(); return; } setDrag(pi.id); ev.dataTransfer.effectAllowed = "move"; }}
+        onDragOver={ev => { if (drag) { ev.preventDefault(); setOver(pi.id); } }}
+        onDragEnd={() => { setDrag(null); setOver(null); handle.current = null; }}
+        onDrop={ev => { ev.preventDefault(); if (drag && drag !== pi.id) move(drag, n); setDrag(null); setOver(null); handle.current = null; }}>
+        {on && <span data-edit-chrome className="cv-selection" aria-hidden="true" />}
+        <div data-edit-chrome className="cv-tools" role="toolbar" aria-label={`${pi.title} tools`}>
+          <span className="cv-grip" title="Drag to reorder" onMouseDown={() => { handle.current = pi.id; }} onMouseUp={() => { handle.current = null; }}><IDrag size={18} /></span>
+          <button type="button" aria-label="Move up" disabled={n === 0} onClick={() => move(pi.id, n - 1)}><IArrowUp size={16} /></button>
+          <button type="button" aria-label="Move down" disabled={n === data.items.length - 1} onClick={() => move(pi.id, n + 1)} className="flip"><IArrowUp size={16} /></button>
+          <button type="button" aria-label={wi.ready ? "Hide from guests" : "Show to guests"} disabled={wi.bidCount > 0} onClick={() => patchItem(wi, { ready: !wi.ready })}>{wi.ready ? <IEye size={16} /> : <IEyeOff size={16} />}</button>
+          <button type="button" aria-label="Open item page" onClick={() => select({ kind: "item", id: pi.id }, "item")}><IChevR size={16} /></button>
+        </div>
+        {!wi.ready && <span data-edit-chrome className="cv-hidden-tag"><IEyeOff size={14} />Hidden from guests</span>}
+        {content}
+      </div>
     );
   };
   edit.catalogFooter = <button type="button" data-edit-chrome className="cv-add-card" onClick={addItem}><span><IPlus size={22} /></span><b>Add an item</b><small>Title, photo and a starting bid</small></button>;
@@ -253,6 +254,7 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
       <div data-edit-chrome className="cv-bar">
         <Seg label="Screen" value={screen} onChange={setScreen} options={[{ id: "welcome", label: "Welcome" }, { id: "items", label: "Items" }, { id: "item", label: "Item page" }, { id: "event", label: "Event" }, { id: "give", label: "Donate" }, { id: "mine", label: "My bids" }]} />
       </div>
+      <p data-edit-chrome className="cv-note" role="status">{ctx.previewStale ? "Preview could not refresh. Showing the last view; you can keep editing." : "Preview. Guest actions are off while you edit."}</p>
       <div className="cv-stage">
         <div className="device" data-preview-device>
           <span data-edit-chrome className="device-notch" aria-hidden="true" />

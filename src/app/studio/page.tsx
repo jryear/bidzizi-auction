@@ -112,7 +112,7 @@ function Hero({ e, now, onOpen }: { e: EventCard; now: number; onOpen: (id: stri
     ended: { label: "Wrap up", href: `/studio/${e.id}?mode=results` },
   }[e.stage];
   return (
-    <section className={`hero s-${e.stage}`}>
+    <section className={`studio-hero s-${e.stage}`}>
       <div className="hero-media">{e.coverUrl ? <img style={photoStyle(e.coverFocal)} src={e.coverUrl} alt="" /> : <span className="hero-art">{e.name.slice(0, 1)}</span>}</div>
       <div className="hero-body">
         <div className="hero-top"><Status stage={e.stage} big />{e.isPractice && <Status stage="practice" big />}{e.status === "live" && <span className="hero-code">Code <b>{e.code}</b></span>}</div>

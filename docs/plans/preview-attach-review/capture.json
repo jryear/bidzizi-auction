@@ -1,0 +1,78 @@
+{
+  "screenshots": [
+    {
+      "screen": "join",
+      "studioWidth": 390,
+      "canvasWidth": 390,
+      "guestWidth": 390
+    },
+    {
+      "screen": "items",
+      "studioWidth": 390,
+      "canvasWidth": 390,
+      "guestWidth": 390
+    },
+    {
+      "screen": "item",
+      "studioWidth": 390,
+      "canvasWidth": 390,
+      "guestWidth": 390
+    },
+    {
+      "screen": "event",
+      "studioWidth": 390,
+      "canvasWidth": 390,
+      "guestWidth": 390
+    },
+    {
+      "screen": "give",
+      "studioWidth": 390,
+      "canvasWidth": 390,
+      "guestWidth": 390
+    },
+    {
+      "screen": "mine",
+      "studioWidth": 390,
+      "canvasWidth": 390,
+      "guestWidth": 390
+    },
+    {
+      "screen": "join",
+      "studioWidth": 1440,
+      "canvasWidth": 390,
+      "guestWidth": 390
+    },
+    {
+      "screen": "items",
+      "studioWidth": 1440,
+      "canvasWidth": 390,
+      "guestWidth": 390
+    },
+    {
+      "screen": "item",
+      "studioWidth": 1440,
+      "canvasWidth": 390,
+      "guestWidth": 390
+    },
+    {
+      "screen": "event",
+      "studioWidth": 1440,
+      "canvasWidth": 390,
+      "guestWidth": 390
+    },
+    {
+      "screen": "give",
+      "studioWidth": 1440,
+      "canvasWidth": 390,
+      "guestWidth": 390
+    },
+    {
+      "screen": "mine",
+      "studioWidth": 1440,
+      "canvasWidth": 390,
+      "guestWidth": 390
+    }
+  ],
+  "guestWrites": 0,
+  "pageErrors": 0
+}

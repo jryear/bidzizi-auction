@@ -82,7 +82,7 @@ export function Tap({ onOpen, k, className, label, children, style }: { onOpen?:
   const edit = useEdit();
   if (edit) {
     const on = k !== undefined && edit.selected === k;
-    return <div className={`${className ?? ""} tap-ed${on ? " is-sel" : ""}`} style={style} onClick={() => k && edit.select(k)} aria-label={label}>{children}</div>;
+    return <div className={`${className ?? ""} tap-ed${on ? " is-sel" : ""}`} style={style} onClick={() => k && edit.select(k)} aria-label={label}>{on && <span data-edit-chrome className="tap-selection" aria-hidden="true" />}{children}</div>;
   }
   return <button type="button" className={className} style={style} onClick={onOpen} aria-label={label}>{children}</button>;
 }

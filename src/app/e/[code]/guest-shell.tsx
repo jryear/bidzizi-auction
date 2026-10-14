@@ -21,7 +21,7 @@ export function GuestShell({ snap, code, route, nav, now, stale = false, pending
   cameFrom?: string | null; asOf?: number | null; editor?: boolean; join?: boolean; onDone: () => Promise<boolean> | void;
   notify: (a: Omit<Alert, "id">) => void; children?: ReactNode;
 }) {
-  if (join || !snap.me) return <Join snap={editor ? { ...snap, preview: false } : snap} code={code} onJoined={onDone} readOnly={editor} preview={snap.preview ? <div data-edit-chrome>{editor ? <div className="preview-banner" role="status">Preview. Actions are off while you edit.</div> : <PreviewBanner />}</div> : null} />;
+  if (join || !snap.me) return <Join snap={editor ? { ...snap, preview: false } : snap} code={code} onJoined={onDone} readOnly={editor} preview={snap.preview && !editor ? <div data-edit-chrome><PreviewBanner /></div> : null} />;
   const me = snap.me, e = snap.event;
   const item = route.i ? snap.items.find(i => i.id === route.i) ?? null : null;
   const outbid = snap.items.filter(i => i.phase === "open" && i.myBidCount > 0 && !i.leader?.isMe).length;
@@ -76,7 +76,7 @@ export function GuestShell({ snap, code, route, nav, now, stale = false, pending
           <span><b>Reconnecting.</b> Standings as of {asOf ? fmtClock(new Date(asOf)) : "earlier"}. Bids can&rsquo;t be confirmed until you&rsquo;re back.</span>
         </div>
       )}
-      {snap.preview && <div data-edit-chrome>{editor ? <div className="preview-banner" role="status">Preview. Actions are off while you edit.</div> : <PreviewBanner />}</div>}
+      {snap.preview && !editor && <div data-edit-chrome><PreviewBanner /></div>}
 
       <main id="main" className="pa-main">
         <ViewTransition key={screenKey} enter={{ "nav-forward": "nav-forward", "nav-back": "nav-back", tab: "tab-fade", default: "none" }}
