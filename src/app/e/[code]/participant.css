@@ -739,7 +739,7 @@
 .pa .ed:empty::before { content: attr(data-placeholder); color: var(--ink-3); font-style: italic; }
 .pa .ehero .ed:empty::before { color: #fff; color: color-mix(in srgb, #fff 55%, transparent); }
 .pa .tap-ed { cursor: pointer; }
-.pa .lc .tap-ed.is-sel { box-shadow: inset 0 0 0 3px var(--cobalt); }
+.pa .lc .tap-selection { position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 3px var(--cobalt); pointer-events: none; }
 .pa .ph-drop { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; opacity: 0; background: rgba(26, 24, 20, .38); color: #fff; transition: opacity .2s; }
 .pa .ph-drop span { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; background: rgba(26, 24, 20, .82); font: 650 14px/1 var(--sans); }
 .pa .ph-drop.ph-none { opacity: 1; background: transparent; align-items: end; padding-bottom: 22px; }

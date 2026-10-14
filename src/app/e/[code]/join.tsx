@@ -6,13 +6,14 @@ import { api, errorText, initials, newId, Offline } from "../../../lib/api";
 import { IChevL, IEye } from "../../../lib/icons";
 import type { Snapshot } from "./model";
 import { EventClock } from "./catalog";
-import { EventHero, Facts, ItemCard, SponsorGrid } from "./ui";
+import { Ed, EventHero, Facts, ItemCard, SponsorGrid, useEdit } from "./ui";
 
 export function PreviewBanner() {
   return <div className="preview-banner" role="status"><IEye size={18} /><span><b>Preview.</b> Only staff can see this draft.</span></div>;
 }
 
-export function Join({ snap, code, onJoined, preview }: { snap: Snapshot; code: string; onJoined: () => Promise<boolean> | void; preview: ReactNode }) {
+export function Join({ snap, code, onJoined, preview, readOnly = false }: { snap: Snapshot; code: string; onJoined: () => Promise<boolean> | void; preview: ReactNode; readOnly?: boolean }) {
+  const edit = useEdit();
   const key = `bz_join_${code}`;
   const [name, setName] = useState(""), [business, setBusiness] = useState("");
   const [error, setError] = useState(""), [busy, setBusy] = useState(false), [rejoin, setRejoin] = useState(false), [rejoinCode, setRejoinCode] = useState("");
@@ -22,6 +23,7 @@ export function Join({ snap, code, onJoined, preview }: { snap: Snapshot; code: 
 
   async function join(event: React.FormEvent) {
     event.preventDefault();
+    if (readOnly) return;
     if (!name.trim() || !business.trim()) { setError(!name.trim() ? "Add your name." : "Add your business name."); return; }
     setBusy(true); setError("");
     // Reuse the same request id if a previous attempt's response was lost.
@@ -35,7 +37,7 @@ export function Join({ snap, code, onJoined, preview }: { snap: Snapshot; code: 
     finally { setBusy(false); }
   }
   async function useRejoin(event: React.FormEvent) {
-    event.preventDefault(); setBusy(true); setError("");
+    event.preventDefault(); if (readOnly) return; setBusy(true); setError("");
     try {
       const r = await api("POST", `/api/v1/e/${code}/rejoin`, { code: rejoinCode });
       if (r.ok) await onJoined(); else setError(errorText(r));
@@ -45,9 +47,9 @@ export function Join({ snap, code, onJoined, preview }: { snap: Snapshot; code: 
 
   const photos = snap.items.filter(i => i.imageUrl).slice(0, 3);
   return (
-    <div className="pa join" data-theme={e.theme} style={accentVars(e.accentColor)}>
+    <div className={`pa join${readOnly ? " is-canvas" : ""}`} data-guest-shell data-theme={e.theme} style={accentVars(e.accentColor)}>
       {preview}
-      <div className="join-grid">
+      <div className="join-grid" data-guest-screen="join">
         <div className="j-hero">
           <EventHero event={e} eyebrow={e.venue ? `${e.venue}` : "You're invited"}>
             <p className="ehero-clock"><EventClock snap={snap} now={now} /></p>
@@ -57,7 +59,7 @@ export function Join({ snap, code, onJoined, preview }: { snap: Snapshot; code: 
         <div className="join-panel">
           <div className="join-intro">
             <Facts event={e} items={snap.items.length} />
-            {e.welcome && <p className="lead">{e.welcome}</p>}
+            {(e.welcome || edit) && <Ed k="event" field="welcome" value={e.welcome} as="p" className="lead" multiline placeholder="Write a welcome" max={5000} />}
           </div>
           {isPreview ? (
             <div className="join-card disabled">

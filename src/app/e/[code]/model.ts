@@ -6,6 +6,8 @@ import { standingKey } from "../../../lib/display";
 
 export type Phase = "scheduled" | "open" | "closed";
 export type Item = {
+  /** Only the staff preview projection includes hidden items. */
+  hidden?: boolean;
   id: string; position: number; title: string; short: string; description: string; category: string; donor: string; imageUrl: string | null; imageFocal?: FocalPoint;
   openingMinor: number; opensAt: string; closesAt: string; phase: Phase;
   currentMinor: number | null; bidCount: number; leader: { name: string; business: string; isMe: boolean } | null;

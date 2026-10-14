@@ -1,0 +1,150 @@
+# real-v1-preview-001: the Studio phone preview IS the guest app.
+#
+# Freeze this file and tests/contract/* on the trusted base before implementation. Then:
+#   export BZ_CONTRACT_PG=postgres://bz@127.0.0.1:55433/postgres   # loopback Postgres admin URL
+#   python3 ~/code/_kernel/verify.py tasks/real-v1-preview-001.toml --repo . --base "$FROZEN_BASE_SHA" --baseline
+#   python3 ~/code/_kernel/verify.py tasks/real-v1-preview-001.toml --repo . --base "$FROZEN_BASE_SHA" \
+#     --claim "Studio preview renders the real guest app from a server preview snapshot" --implementer-model "<model/runtime>"
+#
+# FROZEN INTERFACE (what the checks observe; how you build it is yours)
+#
+# 1. GET /api/v1/host/events/:id/preview  (staff session, same org; any draft or live event)
+#    - 200 JSON in the exact shape of GET /api/v1/e/:code, built by the same server code.
+#    - `me` is a stand-in guest: displayName "A guest", businessName "Your Business", no bids, watches or pledges.
+#    - `event` deep-equals what a joined guest with no activity receives.
+#    - `items` = the guest-visible items, each deep-equal to that guest's copy, in the same order,
+#      PLUS not-yet-visible items carrying `hidden: true`. Visible items carry no `hidden: true`.
+#    - Bidder visibility (name/business/anonymous) is the server's rule: hidden names never appear in the body.
+#    - No session, a guest cookie, or another org's staff: 401/403/404, never the event's data.
+#    - Top-level fields serverNow and preview are not compared.
+#
+# 2. Guest app DOM markers (src/app/e/[code]):
+#    - The guest app root carries `data-guest-shell`.
+#    - The current screen root carries `data-guest-screen` = join | items | watching | mine | event | give | item.
+#
+# 3. Studio canvas (/studio/:id?mode=setup&screen=<join|items|item|event|give|mine>[&item=<itemId>]):
+#    - Inside an element marked `data-preview-device` (directly, or in an iframe it contains) renders the
+#      real guest shell on that screen, fed by the endpoint in (1). The Studio must request that endpoint.
+#    - Every edit-only element (selection outlines, toolbars, drag grips, add buttons, banners for staff)
+#      sits in a subtree marked `data-edit-chrome`.
+#    - Excluding `data-edit-chrome` subtrees, the shell's visible text equals the real guest app's for a joined
+#      "A guest / Your Business" on a 390px phone (compared as a multiset of text runs; countdown figures normalized).
+#      The join screen compares with a not-yet-joined phone.
+#    - Hidden items appear in the canvas Items screen inside an element marked `data-preview-hidden`.
+#    - Bidding stays off in the editor: nothing in the canvas calls the guest bid/join/rejoin/watch/pledge APIs.
+#
+# Editing on the canvas (inline text, photos, reorder, show/hide) must keep working; the connected suites
+# below (items-ui, studio-saving, photos; operations-ui is stale on the base and excluded) are the regression evidence for that.
+spec_version = 2
+id = "real-v1-preview-001"
+project = "bidzizi"
+goal = "The Studio phone preview renders the real guest app, fed by a server-built preview snapshot, so the editor can never drift from what guests see"
+bypass_policy = "fail"
+
+[scope]
+include = ["src/*", "tests/v1/*", "docs/plans/*"]
+exclude = [
+  "*.env*",
+  "migrations/*",
+  "scripts/*",
+  "prototypes/*",
+  "package.json",
+  "pnpm-lock.yaml",
+  "next.config.*",
+  "AGENTS.md",
+]
+protected = ["tasks/*", "tests/contract/*"]
+test_files = ["tests/*"]
+
+[worktree]
+link = ["node_modules"]
+
+[[checks]]
+name = "studio preview is the real guest app"
+kind = "acceptance"
+timeout = 900
+argv = ["node", "tests/contract/preview-parity.mjs"]
+entry = "tests/contract/preview-parity.mjs"
+chain = [
+  "tests/contract/preview-parity.mjs",
+  "tests/contract/lib/stack.mjs",
+  "scripts/prod-migrate.mjs",
+  "scripts/provision-staff.mjs",
+]
+evidence = ["tests/contract/*"]
+assertions = [
+  "PREVIEW_API_STAFF_ONLY",
+  "PREVIEW_API_MATCHES_GUEST",
+  "PREVIEW_API_ANON",
+  "PREVIEW_API_DRAFT",
+  "PREVIEW_API_HIDDEN_FLAGGED",
+  "CANVAS_USES_SERVER_PREVIEW",
+  "CANVAS_PARITY_JOIN",
+  "CANVAS_PARITY_ITEMS",
+  "CANVAS_PARITY_ITEM",
+  "CANVAS_PARITY_EVENT",
+  "CANVAS_PARITY_GIVE",
+  "CANVAS_PARITY_MINE",
+  "CANVAS_HIDDEN_MARKED",
+  "CANVAS_NO_GUEST_WRITES",
+]
+baseline_failures = [
+  "PREVIEW_API_MATCHES_GUEST",
+  "PREVIEW_API_ANON",
+  "PREVIEW_API_DRAFT",
+  "PREVIEW_API_HIDDEN_FLAGGED",
+  "CANVAS_USES_SERVER_PREVIEW",
+  "CANVAS_PARITY_JOIN",
+  "CANVAS_PARITY_ITEMS",
+  "CANVAS_PARITY_ITEM",
+  "CANVAS_PARITY_EVENT",
+  "CANVAS_PARITY_GIVE",
+  "CANVAS_PARITY_MINE",
+  "CANVAS_HIDDEN_MARKED",
+]
+
+[[checks]]
+name = "static gates stay green"
+kind = "regression"
+timeout = 900
+argv = ["node", "tests/contract/static-gates.mjs"]
+entry = "tests/contract/static-gates.mjs"
+chain = [
+  "tests/contract/static-gates.mjs",
+  "tests/contract/lib/stack.mjs",
+  "scripts/compat.mjs",
+  "eslint.compat.config.mjs",
+  "package.json",
+  "tests/v1/display-logic.mjs",
+  "tests/v1/items-logic.mjs",
+  "tests/v1/compat-logic.mjs",
+]
+evidence = ["tests/contract/*"]
+assertions = ["TYPECHECK", "COMPAT_GATE", "DISPLAY_LOGIC", "ITEMS_LOGIC", "COMPAT_LOGIC", "NEXT_BUILD"]
+baseline_failures = []
+
+[[checks]]
+name = "connected suites stay green"
+kind = "regression"
+timeout = 1800
+argv = ["node", "tests/contract/server-suites.mjs"]
+entry = "tests/contract/server-suites.mjs"
+chain = [
+  "tests/contract/server-suites.mjs",
+  "tests/contract/lib/stack.mjs",
+  "scripts/prod-migrate.mjs",
+  "scripts/provision-staff.mjs",
+  "tests/v1/journey.mjs",
+  "tests/v1/items-ui.mjs",
+  "tests/v1/studio-saving.mjs",
+  "tests/v1/bid-sheet.mjs",
+  "tests/v1/photos.mjs",
+  "tests/v1/simple-ui.mjs",
+]
+evidence = ["tests/contract/*"]
+assertions = ["JOURNEY", "ITEMS_UI", "STUDIO_SAVING", "BID_SHEET", "PHOTOS", "SIMPLE_UI"]
+baseline_failures = []
+
+[notes]
+assumptions = "Snapshot builds and dev servers use --webpack because Turbopack rejects the linked node_modules; the implementer must also keep the normal Turbopack `pnpm build` green. Loopback Postgres 18 reachable via BZ_CONTRACT_PG; node_modules installed (linked into verifier snapshots); Playwright Chromium and WebKit installed; ripgrep on PATH for the compat gate. Harnesses create and drop their own bz_test_ct_* database and never touch shared, staging or production data."
+out_of_scope = "Visual acceptance (Zack's call; tests cannot grant it). The Navigator/Inspector re-layout, Published-vs-Live naming, events index, Live console and stage configuration from REAL_V1_NEXT_TRANCHE.md. New preview states (outbid/won/closed toggles) beyond the screens listed. Schema migrations, new dependencies, deploys, pushes and merges to main."

@@ -13,6 +13,8 @@ import { closingSoon, countdown, lotNo, shown, standing, type EventInfo, type It
 // ---------------------------------------------------------------- edit context (Studio canvas only)
 export type EditApi = {
   selected: string | null;
+  decorateItem?: (item: Item, content: ReactNode) => ReactNode;
+  catalogFooter?: ReactNode;
   select: (key: string) => void;
   commit: (key: string, field: string, value: string) => Promise<boolean>;
   photo: (key: string, file: File, current: () => boolean) => Promise<boolean>;
@@ -80,7 +82,7 @@ export function Tap({ onOpen, k, className, label, children, style }: { onOpen?:
   const edit = useEdit();
   if (edit) {
     const on = k !== undefined && edit.selected === k;
-    return <div className={`${className ?? ""} tap-ed${on ? " is-sel" : ""}`} style={style} onClick={() => k && edit.select(k)} aria-label={label}>{children}</div>;
+    return <div className={`${className ?? ""} tap-ed${on ? " is-sel" : ""}`} style={style} onClick={() => k && edit.select(k)} aria-label={label}>{on && <span data-edit-chrome className="tap-selection" aria-hidden="true" />}{children}</div>;
   }
   return <button type="button" className={className} style={style} onClick={onOpen} aria-label={label}>{children}</button>;
 }
@@ -92,7 +94,7 @@ export function Photo({ k, url, alt = "", className, children, vt, focal }: { k?
   const [over, setOver] = useState(false);
   const upload = usePhotoUpload(`${k}:${url}`, (file, current) => edit && k ? edit.photo(k, file, current) : Promise.resolve(false), k);
   const img = url ? <img style={photoStyle(focal)} src={url} alt={alt} loading="lazy" draggable={false} /> : null;
-  const control = edit && k ? <button type="button" className={`ph-drop${className === "ehero-media" ? " cover-ph" : ""}${url ? "" : " ph-none"}${over ? " over" : ""}`} onClick={e => { e.stopPropagation(); edit.select(k); input.current?.click(); }}
+  const control = edit && k ? <button type="button" data-edit-chrome className={`ph-drop${className === "ehero-media" ? " cover-ph" : ""}${url ? "" : " ph-none"}${over ? " over" : ""}`} onClick={e => { e.stopPropagation(); edit.select(k); input.current?.click(); }}
       onDragOver={e => { e.preventDefault(); setOver(true); }} onDragLeave={() => setOver(false)}
       onDrop={e => { e.preventDefault(); setOver(false); upload.pick(e.dataTransfer.files?.[0]); }}
       onPaste={e => { const f = [...e.clipboardData.files].find(f => f.type.startsWith("image/")); if (f) { e.preventDefault(); upload.pick(f); } }}>
@@ -102,7 +104,7 @@ export function Photo({ k, url, alt = "", className, children, vt, focal }: { k?
   const body = <div className={className} aria-busy={upload.busy || undefined}>{img ?? children}{className !== "ehero-media" && control}</div>;
   return <>{vt && !edit ? <ViewTransition name={vt} share="morph">{body}</ViewTransition> : body}
     {className === "ehero-media" && control}
-    {edit && upload.error && <div className="photo-error" role="alert"><span>{upload.error}</span><button type="button" onClick={upload.retry}>Try again</button></div>}</>;
+    {edit && upload.error && <div data-edit-chrome className="photo-error" role="alert"><span>{upload.error}</span><button type="button" onClick={upload.retry}>Try again</button></div>}</>;
 }
 
 // ---------------------------------------------------------------- atoms
