@@ -4,9 +4,11 @@ import pg from 'pg';
 
 export const targets = {
   staging: { project: 'prj_nQdWJzjZjFg0TY2MjlTf2hxWtBf9', alias: 'staging.bidzizi.com',
-    branch: 'br-crimson-mountain-arsolcfe', endpoint: 'ep-orange-cake-aryndhab', deployment: 'dpl_84j5YvYHCn18XZxycpMckLTf5ftf' },
+    branch: 'br-crimson-mountain-arsolcfe', endpoint: 'ep-orange-cake-aryndhab', deployment: 'dpl_AZZH3S67gBuDQvff6rmapwAUGKjr',
+    sourceCommit: 'c50cad0e441a75a8db045b3baf76054032b2821b' },
   production: { project: 'prj_gJg1GmPcU3pxeXf9UCj5O7clYZf2', alias: 'app.bidzizi.com',
-    branch: 'br-cold-glitter-arx1msrh', endpoint: 'ep-broad-credit-arcrxgvi', deployment: 'dpl_qWNvq4UCk7P6FKZGRJSdt1fqXAie' },
+    branch: 'br-cold-glitter-arx1msrh', endpoint: 'ep-broad-credit-arcrxgvi', deployment: 'dpl_Ap9xYPp7CcbWUxr7TrBFvjC85MQ5',
+    sourceCommit: 'c2b98e6971ccb2f742a6a58b21400ef5c127df6a' },
 };
 const project = 'delicate-math-48681189', team = 'team_fOkqe9T0PRKMmdczUvnoMXct';
 export async function providers() {
@@ -29,6 +31,7 @@ export async function providers() {
       assert.equal(alias.deployment?.id ?? alias.deploymentId, t.deployment, 'Domain deployment changed; stop before writes.');
       const d = await vercel('/v13/deployments/' + t.deployment), p = await vercel('/v9/projects/' + t.project);
       assert.equal(d.projectId, t.project);
+      assert.equal(d.readyState, 'READY'); assert.equal(d.meta?.sourceCommit, t.sourceCommit);
       const fw = await vercel('/v1/security/firewall/config?projectId=' + t.project);
       const attack = await vercel('/v1/security/firewall/attack-status?projectId=' + t.project);
       out.targets[label] = { ...t, minCu: ep.autoscaling_limit_min_cu, maxCu: ep.autoscaling_limit_max_cu,

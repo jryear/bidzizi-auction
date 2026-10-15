@@ -1,0 +1,48 @@
+{
+  "verifiedAt": "2026-10-15T19:50:40.620Z",
+  "method": "Authenticated Vercel GET only; no application-domain requests or provider mutations",
+  "targets": {
+    "staging": {
+      "alias": "staging.bidzizi.com",
+      "project": "prj_nQdWJzjZjFg0TY2MjlTf2hxWtBf9",
+      "deployment": "dpl_AZZH3S67gBuDQvff6rmapwAUGKjr",
+      "readyState": "READY",
+      "sourceCommit": "c50cad0e441a75a8db045b3baf76054032b2821b",
+      "regions": [
+        "pdx1"
+      ],
+      "nodeVersion": "24.x",
+      "alertDsnConfigured": true
+    },
+    "production": {
+      "alias": "app.bidzizi.com",
+      "project": "prj_gJg1GmPcU3pxeXf9UCj5O7clYZf2",
+      "deployment": "dpl_Ap9xYPp7CcbWUxr7TrBFvjC85MQ5",
+      "readyState": "READY",
+      "sourceCommit": "c2b98e6971ccb2f742a6a58b21400ef5c127df6a",
+      "regions": [
+        "pdx1"
+      ],
+      "nodeVersion": "24.x",
+      "alertDsnConfigured": false
+    }
+  },
+  "localGuardVerification": {
+    "passed": true,
+    "checks": [
+      "node --check on deploy script and provider helper",
+      "deployment/source pins match fresh Vercel readback",
+      "both served source commits and 40b7a6d retained as ancestors of HEAD",
+      "live assertStagingDeployment through Vercel GET only",
+      "git diff --check"
+    ],
+    "deploymentExecuted": false
+  },
+  "localTrackingReferenceComparison": {
+    "reference": "origin/main",
+    "productionSource": "c2b98e6971ccb2f742a6a58b21400ef5c127df6a",
+    "mainOnlyCommits": 0,
+    "productionOnlyCommits": 97,
+    "remoteFetched": false
+  }
+}

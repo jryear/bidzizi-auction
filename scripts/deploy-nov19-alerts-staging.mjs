@@ -24,8 +24,8 @@ try { execFileSync('/Users/jryear/.local/bin/vercel',['whoami','--scope','saturn
   {encoding:'utf8',stdio:['ignore','pipe','pipe'],timeout:20000}); }
 catch { throw new Error('Existing Vercel authentication unavailable; no provider mutation occurred. Raw output suppressed.'); }
 const auth = JSON.parse(await readFile('/Users/jryear/Library/Application Support/com.vercel.cli/auth.json','utf8'));
-// Preserve the newer photo framing release observed on staging before this alert deploy.
-const team = 'team_fOkqe9T0PRKMmdczUvnoMXct', stage = { ...targets.staging, deployment: 'dpl_AqVVa22iSSFxtQTL6n5JtBCuw4bC' }, prod = targets.production;
+// Pins were refreshed by read-only provider checks after the production photos release.
+const team = 'team_fOkqe9T0PRKMmdczUvnoMXct', stage = targets.staging, prod = targets.production;
 async function api(method,path,body) {
   const r = await fetch('https://api.vercel.com'+path+(path.includes('?')?'&':'?')+'teamId='+team, {method,redirect:'error',signal:AbortSignal.timeout(20000),
     headers:{Authorization:'Bearer '+auth.token,...(body?{'content-type':'application/json'}:{})},body:body?JSON.stringify(body):undefined});
@@ -34,11 +34,15 @@ async function api(method,path,body) {
 const beforeAlias = await api('GET','/v4/aliases/'+stage.alias);
 assert.equal(beforeAlias.deployment?.id ?? beforeAlias.deploymentId,stage.deployment,'Staging changed since approved baseline; stop before mutation.');
 const served = await api('GET','/v13/deployments/'+stage.deployment);
-assert.equal(served.meta?.sourceCommit,'efc302b8960badcb8fb54c2d468cd86e34f6903a');
+assert.equal(served.meta?.sourceCommit,stage.sourceCommit);
 assert.equal(served.projectId,stage.project); assert.equal(served.readyState,'READY');
 execFileSync('git',['merge-base','--is-ancestor',served.meta.sourceCommit,commit]);
+execFileSync('git',['merge-base','--is-ancestor','40b7a6d81a08204e5ff378d3b319b337272d6129',commit]);
 const beforeProd = await api('GET','/v4/aliases/'+prod.alias);
 assert.equal(beforeProd.deployment?.id ?? beforeProd.deploymentId,prod.deployment);
+const productionServed = await api('GET','/v13/deployments/'+prod.deployment);
+assert.equal(productionServed.projectId,prod.project); assert.equal(productionServed.readyState,'READY');
+assert.equal(productionServed.meta?.sourceCommit,prod.sourceCommit);
 const prodVars = await api('GET',`/v10/projects/${prod.project}/env`);
 const envList = data => { const list=Array.isArray(data)?data:data.envs;assert.ok(Array.isArray(list),'Unexpected env readback shape; values suppressed.');return list; };
 assert.ok(!envList(prodVars).some(x=>x.key==='BIDZIZI_SENTRY_DSN'),'Production alert activation must remain gated.');

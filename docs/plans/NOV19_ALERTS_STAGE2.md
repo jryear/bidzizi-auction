@@ -53,7 +53,7 @@ If the fresh project does not yet offer the environment or uses a different buil
 
 ## Historical staging execution procedure (completed)
 
-The commands below record the completed procedure. The deployment guard pins the prior served photo revision; do not rerun it without a fresh alias/source readback and preserving the requested `40b7a6d` merge. No further deployment is being performed at this stopping point.
+The commands below record the completed procedure. The deployment guard has since been refreshed to the current staging alert deployment and new production photos deployment; it requires the requested `40b7a6d` merge. Any next execution still requires a fresh alias/source readback. No further deployment is being performed at this stopping point.
 
 Use the real Node 24 installation. Do not print/cat the DSN, put it in shell arguments or copy it into the repo. The deployment script reads it in memory, checks sensitive staging scope, validates every tested application source hash, exports committed source to a private temporary directory and uses existing authenticated Vercel access.
 
@@ -84,3 +84,5 @@ After the accepted alert proof, Zack requested preserving `jryear/real-v1-claude
 The merged source passed `next build` followed by `next start` against an owned disposable loopback database, using Node 24.4.1 and pnpm 12.4.2. Typecheck, compatibility, alert core/actual SDK tests, 55/55 journey, 8/8 telemetry, photos 9/9, photo UI 11/11 and Items UI 17/17 passed. Bid-sheet and JavaScript-disabled simple-mode suites passed in Chromium and WebKit; four poor-network scenarios passed per engine. Client bundle isolation passed. The thumbnail regression uses JPEG bytes under a HEIC filename to exercise missing local preview, so it does not establish a physical iOS HEIC rehearsal. The production server and disposable Postgres were stopped and the cluster removed.
 
 See [merged source validation receipt](../evidence/nov19/thumbnail-merge-validation.json), [application hashes](../evidence/nov19/alerts-validation.json), and [full production-server log](../evidence/nov19/alerts-validation.log). No new staging deployment was performed. Hosted alert proof remains bound to `c50cad0`; its original validation receipt/log were preserved separately as `alerts-hosted-source-validation.*`. The newer merged candidate is locally validated and must be preserved in any next authorized staging deployment.
+
+Production subsequently moved through a separate release to this thread's validated c2b98e6 candidate (`dpl_Ap9xYPp7CcbWUxr7TrBFvjC85MQ5`). Fresh [read-only provider verification](../evidence/nov19/production-move-readback.json) confirms production still has no DSN and staging is unchanged. Local deployment guards were refreshed without deploying. Production alert activation and production controlled-error/fixture scope still require explicit approval.
