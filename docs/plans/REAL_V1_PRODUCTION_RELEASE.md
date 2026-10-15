@@ -41,6 +41,17 @@ Zack authorized merge, checks, staging and production for the Studio phone previ
 
 Rollback: `vercel rollback dpl_Fa7b2Zh9rYAiv5zqpRvnNeigFmgk --scope saturn-ea53` from a checkout linked to the production project, then verify `app.bidzizi.com`. No database step is needed. [Receipt](../evidence/preview-attach-release-20261014/receipt.json).
 
+## Items dialog Safari 17 collapse — production, 2026-10-15
+
+Zack: "prod". **Current production:** `dpl_kkAtoBzwqXeF72ieMkuLwUZyCgtT`, source `4d6028f` (`jryear/real-v1-claude-shell`, pushed). Previous: `dpl_2NhtVPqraU9Gv427PMGvNLxadnNE`.
+
+- Emma's screenshot (MacBook Air) showed the Paste rows dialog body collapsed to a ~45px strip. Cause: `.iw-dlg-body { flex: 1 }` (basis 0%) inside a `<dialog>` with only a max-height collapses to its padding in Safari 17; current Safari/Chromium/WebKit size it from content, which is why neither Zack nor the test engines reproduced it. Reproduced with WebKit 17.4 (`playwright-core@1.40.1`): old rule → body 36px with 321px of content scrolling inside; `flex: 1 1 auto` → 321px. Same rule fixes every Items dialog (paste, categories).
+- App diff against `c2b98e6`: `items-dialogs.tsx` (focus fix) and one line of `items.css`. No migration or environment change.
+- Current Chromium/WebKit at 1440×1000, 1280×720, 735×420 and 640×860, empty and 18-row review: dialog sizes unchanged, short windows still scroll, footer on screen. items-ui 17/17 on a production build. Guest bid sheet already uses `flex: 1 1 auto`.
+- Live: provider readback and served HTML identify the new deployment; core routes 200; signed-out host API 401; served CSS has `.iw-dlg-body{flex:auto;…}`.
+
+Rollback: `vercel rollback dpl_2NhtVPqraU9Gv427PMGvNLxadnNE --scope saturn-ea53`.
+
 ## Paste-rows focus fix — production, 2026-10-15
 
 Zack: "prod now". **Current production:** `dpl_2NhtVPqraU9Gv427PMGvNLxadnNE`, source `fad66b0` (`jryear/real-v1-claude-shell`, pushed) = production source `c2b98e6` merged with `73c2cbc`. Previous: `dpl_Ap9xYPp7CcbWUxr7TrBFvjC85MQ5`.
