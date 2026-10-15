@@ -196,6 +196,16 @@ await check("photo tray: an undecodable HEIC stays in the tray and says to use J
   await until("removed", async () => (await page.locator("[data-tray-photo]").count()) === 0);
 });
 
+await check("photo tray: every uploaded photo shows a thumbnail, even one without a local preview (HEIC in Safari)", async () => {
+  // A HEIC name gets no local preview; Safari still uploads it. Real JPEG bytes stand in for what Safari can decode.
+  const bytes = await sharp({ create: { width: 900, height: 600, channels: 3, background: { r: 200, g: 120, b: 40 } } }).jpeg().toBuffer();
+  await page.locator("input[type=file][data-tray-input]").setInputFiles([{ name: "IMG_5555.HEIC", mimeType: "image/jpeg", buffer: bytes }]);
+  const tile = page.locator('[data-tray-photo][data-state="ready"]', { hasText: "IMG_5555" });
+  await tile.waitFor({ timeout: 60_000 });
+  await until("thumbnail drawn", async () => tile.locator("img").evaluate(img => img.complete && img.naturalWidth > 0).catch(() => false));
+  await tile.getByRole("button", { name: /^Remove IMG_5555/ }).click();
+  await until("removed", async () => (await page.locator("[data-tray-photo]").count()) === 0);
+});
 await check("categories: rename merges into an existing name after confirming; guest order follows", async () => {
   await page.locator(".cchip.manage").click();
   await page.getByRole("heading", { name: "Categories" }).waitFor();
@@ -219,7 +229,7 @@ await check("published event: a new item starts hidden; Show makes it visible to
   const late = await until("late item", async () => (await ws(draft.id)).items.find(i => i.title === "Late donation: team lunch"));
   assert.equal(late.ready, false, "hidden until staff show it");
   const row = page.locator(".iw-sheet [data-reorder-id]", { has: page.locator('input[value="Late donation: team lunch"]') });
-  assert.equal(await row.getByText("Hidden", { exact: true }).count(), 1, "a hidden row says so");
+  await until("a hidden row says so", async () => (await row.getByText("Hidden", { exact: true }).count()) === 1);
   await row.getByRole("button", { name: "Show Late donation: team lunch to guests" }).click();
   await until("shown", async () => (await ws(draft.id)).items.find(i => i.id === late.id).ready);
 });

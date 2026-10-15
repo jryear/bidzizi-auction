@@ -4,7 +4,7 @@
 // dragged onto a row (or a card on the phone preview), tapped then a row, or chosen with "Assign to…". File names that name
 // an item are offered as suggestions to accept in one go. The tray belongs to the event for this browser session, so
 // leaving the Items view (or reloading) never silently loses an uploaded photo.
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type SyntheticEvent } from "react";
 import { byFileName, matchPhotos } from "../../../lib/photo-match";
 import { IAlert, ICheck, IClose, IPhoto, IPlus } from "../../../lib/icons";
 import { isHeic, shrink, unreadable, type Item } from "../data";
@@ -14,6 +14,14 @@ export type TrayPhoto = {
   thumb: string | null; assetId?: string; assetUrl?: string; error?: string; file?: File;
 };
 const CONCURRENCY = 3;
+/** What a tray tile shows: the uploaded copy once there is one (always a browser-friendly WebP, small), otherwise the
+ *  local preview. HEIC files and some very large photos have no usable local preview. */
+const thumbOf = (p: Pick<TrayPhoto, "thumb" | "assetUrl" | "state">) => (p.state === "ready" && p.assetUrl) || p.thumb || p.assetUrl || null;
+/** If a local preview can't be drawn, fall back to the uploaded copy as soon as it exists. */
+const fallback = (assetUrl?: string) => (e: SyntheticEvent<HTMLImageElement>) => {
+  const img = e.currentTarget;
+  if (assetUrl && !img.dataset.fellBack) { img.dataset.fellBack = "1"; img.src = assetUrl; } else img.style.visibility = "hidden";
+};
 
 class Tray {
   photos: TrayPhoto[] = [];
@@ -207,7 +215,7 @@ export function PhotoTray({ eventId, items, inputRef, picked, setPicked, onPlace
                     if (!s || s.id !== e.pointerId || e.pointerType !== "mouse") return;
                     if (!s.moved && Math.hypot(e.clientX - s.x, e.clientY - s.y) < 5) return;
                     s.moved = true; document.documentElement.classList.add("tray-dragging");
-                    setDrag({ key: p.key, x: e.clientX, y: e.clientY, thumb: p.thumb });
+                    setDrag({ key: p.key, x: e.clientX, y: e.clientY, thumb: thumbOf(p) });
                     pointer.current = { x: e.clientX, y: e.clientY };
                     if (!scroller.current) scroller.current = requestAnimationFrame(autoscroll);
                     hover(targetAt(e.clientX, e.clientY)?.el ?? null);
@@ -220,7 +228,7 @@ export function PhotoTray({ eventId, items, inputRef, picked, setPicked, onPlace
                   }}
                   onPointerCancel={end}
                   onKeyDown={e => { if (e.key === "Escape") setPicked(null); }}>
-                  {p.thumb ? <img src={p.thumb} alt="" draggable={false} /> : <span className="tt-ph"><IPhoto size={22} /><small>{p.name.split(".").pop()?.toUpperCase()}</small></span>}
+                  {thumbOf(p) ? <img key={thumbOf(p)!} src={thumbOf(p)!} alt="" draggable={false} onError={fallback(p.assetUrl)} /> : <span className="tt-ph"><IPhoto size={22} /><small>{p.name.split(".").pop()?.toUpperCase()}</small></span>}
                   {(p.state === "uploading" || p.state === "waiting") && <span className="tt-bar"><i style={{ width: `${Math.round((p.state === "waiting" ? 0 : p.progress) * 100)}%` }} /></span>}
                   {p.state === "failed" && <span className="tt-bad"><IAlert size={16} /></span>}
                   {target && <span className="tt-no">→ {lot(target)}</span>}
