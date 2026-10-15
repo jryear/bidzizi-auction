@@ -1,0 +1,67 @@
+{
+  "releasedAt": "2026-10-15",
+  "scope": "staging only; production not authorized for this step",
+  "sourceCommit": "efc302b8960badcb8fb54c2d468cd86e34f6903a",
+  "sourceBranch": "jryear/real-v1-claude-shell",
+  "merges": {
+    "real-v1/photos@62322e9": "86e52e1f9cbd02a13679689776ff832895957d1c",
+    "real-v1/photos@a207b7a (production-build framing editor fix)": "efc302b8960badcb8fb54c2d468cd86e34f6903a"
+  },
+  "previousSource": "68440b6 (deployed source 088e3b0)",
+  "migrationsChanged": ["migrations/prod/010_photo_frame.sql (sha256 9cb7bf4db258...)"],
+  "environmentChanges": false,
+  "firstAttempt": {
+    "merge": "86e52e1",
+    "result": "stopped before staging: in-place Studio framing editor never opened in a production build (next build + next start) although it passed under next dev",
+    "photos": "8/9 twice (connected Studio in-place framing timed out at tests/v1/photos.mjs:84)",
+    "photo-ui": "8/11 (three in-place editor cases timed out)",
+    "fix": "real-v1/photos a207b7a: stable FramedPhoto ref callback + retry; editor mounts once placed, then focuses"
+  },
+  "localChecks": {
+    "commit": "efc302b",
+    "server": "production build (next build, Turbopack) served by next start, BIDZIZI_APP_MODE=local",
+    "node": "24.4.1",
+    "database": "disposable loopback Postgres 18 bz_test_photos_rel2, migrated 001-010, dropped afterward",
+    "loadAverage": "3.5-4.7",
+    "typecheck": "pass",
+    "build": "pass (Next.js 16.3.8, Turbopack)",
+    "compat": "pass, 0 blocking findings",
+    "display-logic": "10/10",
+    "items-logic": "10/10",
+    "compat-logic": "10/10",
+    "journey": "55/55",
+    "operations-ui": "PASS",
+    "items-ui": "16/16",
+    "studio-saving": "7/7",
+    "bid-sheet": "2/2 engines",
+    "photos": "9/9",
+    "photo-ui": "11/11",
+    "simple-ui": "2/2",
+    "reruns": "none needed on efc302b; all passed first run"
+  },
+  "localReviewDb": "migration 010 applied to bz_test_claude (port 3420 server was not running at release time; not started)",
+  "staging": {
+    "project": "prj_nQdWJzjZjFg0TY2MjlTf2hxWtBf9",
+    "neonBranch": "br-crimson-mountain-arsolcfe (staging-compat-20261013), project delicate-math-48681189",
+    "preMigration": "001-009 applied; repository hashes matched all nine; 010 absent",
+    "migration": "010_photo_frame.sql applied 2026-10-15T17:53:59Z via scripts/prod-migrate.mjs, direct (non-pooled) connection, client TLSv1.3 certificate verified; backfill: 10/10 events and 27/27 items carry zoom; constraints events_cover_frame_check, items_image_frame_check",
+    "oldAppAfterMigration": "/studio, /join, /e/FZZGY3, /e/FZZGY3/simple returned 200 on dpl_84j5YvYHCn18XZxycpMckLTf5ftf before the new deployment",
+    "stateBeforeDeploy": "staging.bidzizi.com served dpl_84j5YvYHCn18XZxycpMckLTf5ftf; no newer or in-progress deployment in the project",
+    "deployment": "dpl_AqVVa22iSSFxtQTL6n5JtBCuw4bC",
+    "deploymentUrl": "bidzizi-real-v1-staging-kiz4ijw9f-saturn-ea53.vercel.app",
+    "previous": "dpl_84j5YvYHCn18XZxycpMckLTf5ftf",
+    "deployMethod": "git archive of efc302b; excluded docs, tests, prototypes, tools, .shots, *.png, .env*; vercel deploy --prod --skip-domain with source metadata; then vercel alias set",
+    "aliasReadback": "staging.bidzizi.com -> dpl_AqVVa22iSSFxtQTL6n5JtBCuw4bC",
+    "smoke": "pass (staging-smoke.json): HTTP 200 x4, host APIs 401 SIGNED_OUT, simple CSP script-src 'none', served HTML ids only dpl_AqVVa22iSSFxtQTL6n5JtBCuw4bC; Chromium + WebKit at 390x844 sign-in/join/guest event/simple: 0 page errors, 0 broken images, no horizontal overflow",
+    "signedIn": "pass (staging-signed-in.json): throwaway staff in a throwaway org; practice event with 3 photo items framed {x:1,zoom:2}, default, {x:0,zoom:1.5}; guest cards at 390 in Chromium and WebKit match by pixel colour; Studio Item page 'Adjust photo' opens the in-place editor in Chromium and WebKit at 1440; Escape leaves the saved frame unchanged; 0 page errors",
+    "signedInScriptReruns": "three earlier runs of the check script failed for script reasons (waited for item titles before the join view settled; added items after publishing, so they started hidden by design; corner pixel sampling bug). Each created and deleted its own practice event.",
+    "cleanup": "all 4 practice events deleted through the API (DELETE 200, then GET 404); one transaction removed the throwaway org (1), staff (1), sessions (8), request records (16), assets (12); throwaway login now 401",
+    "preservation": "orgs, staff, bids, participants, pledges hash identical to the pre-test baseline. events/items/assets differ only through concurrent Saturn staff activity (Emma Johnson, signed in 17:42Z, edited the Saturn draft 'Holiday Trade Show' 17:59-18:00Z and uploaded 3 photos), not through the throwaway account"
+  },
+  "production": {
+    "touched": false,
+    "readOnlyIdentity": "app.bidzizi.com -> dpl_qWNvq4UCk7P6FKZGRJSdt1fqXAie (bidzizi-production); production database is Neon default branch br-cold-glitter-arx1msrh (not connected to; its migration list was not read)"
+  },
+  "gitPush": false,
+  "mainMerge": false
+}

@@ -1,0 +1,16 @@
+{
+  "steps": [
+    "signed in",
+    "event 7913beb6-f0af-43ff-84df-542ae77a5569",
+    "code PLJWMQ frames stored [{\"x\":1,\"y\":0.5,\"zoom\":2},{\"x\":0.5,\"y\":0.5,\"zoom\":1},{\"x\":0,\"y\":0.5,\"zoom\":1.5}]",
+    "chromium cards [{\"title\":\"Framed right 2x\",\"meanG\":205,\"leftG\":204,\"rightG\":204,\"loaded\":true},{\"title\":\"Default frame\",\"meanG\":125,\"leftG\":34,\"rightG\":204,\"loaded\":true},{\"title\":\"Framed left 1.5x\",\"meanG\":43,\"leftG\":34,\"rightG\":34,\"loaded\":true}] pageErrors 0",
+    "webkit cards [{\"title\":\"Framed right 2x\",\"meanG\":205,\"leftG\":204,\"rightG\":204,\"loaded\":true},{\"title\":\"Default frame\",\"meanG\":125,\"leftG\":34,\"rightG\":204,\"loaded\":true},{\"title\":\"Framed left 1.5x\",\"meanG\":43,\"leftG\":34,\"rightG\":34,\"loaded\":true}] pageErrors 0",
+    "chromium studio item screen: Adjust photo opened in-place editor = true pageErrors 0",
+    "webkit studio item screen: Adjust photo opened in-place editor = true pageErrors 0",
+    "delete event 200",
+    "event after delete GET 404"
+  ],
+  "failures": [],
+  "pass": true,
+  "at": "2026-10-15T18:01:15.117Z"
+}
