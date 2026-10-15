@@ -41,6 +41,20 @@ Zack authorized merge, checks, staging and production for the Studio phone previ
 
 Rollback: `vercel rollback dpl_Fa7b2Zh9rYAiv5zqpRvnNeigFmgk --scope saturn-ea53` from a checkout linked to the production project, then verify `app.bidzizi.com`. No database step is needed. [Receipt](../evidence/preview-attach-release-20261014/receipt.json).
 
+## Photos framing + tray thumbnails — production, 2026-10-15
+
+Zack: "I'm ready to get this to prod" (old-iPhone pass waived: events are not created on phones for now). **Current production:** `dpl_Ap9xYPp7CcbWUxr7TrBFvjC85MQ5`, source `c2b98e6` (`jryear/real-v1-nov19-execution`, pushed to origin). Previous: `dpl_qWNvq4UCk7P6FKZGRJSdt1fqXAie`.
+
+- Source is the production-build-validated merge, not `efc302b` alone: photos framing, the tray thumbnail fix (`213d477`, merged at `d51e087`), and the Sentry alert code. Alerts are **inert in production**: `alertConfig` returns null without `BIDZIZI_SENTRY_DSN`, and production still has only its three variables (unchanged). Validation: `docs/evidence/nov19/thumbnail-merge-validation.json` on that branch (`next build` + `next start`; journey 55/55, photos 9/9, photo-ui 11/11, items-ui 17/17, bid-sheet/simple/resilience in Chromium and WebKit).
+- Restore point `before-photos-release-20261015` / `br-blue-water-ar13j577`, LSN `0/23C0810`, no compute, created immediately before migrating.
+- Pre-check (read-only, direct endpoint, TLS 1.3 authorized): 001–009 match repository hashes; only 010 pending. `010_photo_frame.sql` applied. With `zoom` stripped, events and items hashed identical to before and every other table was unchanged; no row lacks `zoom`; both `*_frame_check` constraints exist; the old app kept serving 200.
+- Deployed from a `git archive` export with the standard exclusions (`pnpm 12.4.2`, functions `pdx1`), promoted; provider readback and served HTML both identify the new deployment.
+- Live: `/studio`, `/join`, `/e/FZZGY3`, `/e/MYPLES` and both simple routes 200; simple CSP `script-src 'none'`; signed-out host API 401 with no data. Chromium and WebKit at 390: 0 page errors, no horizontal overflow, no broken visible images.
+- After release, only `schema_migrations` (+010), `client_reports` (5 passive device reports from the smoke's page loads, 1 staff) and `events` changed. The events change is a staff member saving draft `YYXTWE` on the new deployment at 18:43:15Z, not the release. No synthetic participants, bids, pledges or events. [Receipt](../evidence/photos-framing-release-20261015/production-receipt.json).
+- Not covered: a real old-iPhone run of this build, a real HEIC upload into the tray, and production alert activation (needs a production DSN env var and production-filtered Sentry rules — Zack's go).
+
+Rollback: `vercel rollback dpl_qWNvq4UCk7P6FKZGRJSdt1fqXAie --scope saturn-ea53`; leave 010 in place (the old app ignores `zoom`).
+
 ## Photos framing — staging, 2026-10-15
 
 Zack visually approved photo framing (pan + zoom on every guest surface, in-place framing on the Studio phone), the photo tray and Items polish, and authorized merge, checks and **staging only**. Production was not authorized; it waits for Zack's old-iPhone testing on staging. **Current staging:** `dpl_AqVVa22iSSFxtQTL6n5JtBCuw4bC`, source `efc302b`. **Production is unchanged** at `dpl_qWNvq4UCk7P6FKZGRJSdt1fqXAie`.
@@ -58,7 +72,7 @@ Zack visually approved photo framing (pan + zoom on every guest surface, in-plac
 
 Staging rollback: `vercel alias set bidzizi-real-v1-staging-ric1lp9kn-saturn-ea53.vercel.app staging.bidzizi.com --scope saturn-ea53` (that is `dpl_84j5YvYHCn18XZxycpMckLTf5ftf`). Migration 010 stays, because the old app ignores `zoom`.
 
-### Production runbook for this release (written, NOT executed — needs Zack's explicit go)
+### Production runbook for this release (executed 2026-10-15 with source `c2b98e6` — see the production section above)
 
 Release exactly the staging-tested source `efc302b`. Never alias production to a staging deployment: build a separate production deployment.
 
