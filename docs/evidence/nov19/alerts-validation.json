@@ -1,7 +1,7 @@
 {
   "passed": true,
-  "validatedAt": "2026-10-15T18:01:56.511Z",
-  "appDigest": "3bd59421fc96db11993862bdc29674413aa16d4f51d8d703bad557aced745980",
+  "validatedAt": "2026-10-15T18:33:52.898Z",
+  "appDigest": "d3bd9488de9b236c3691189464676f4efe81cdc8edba2a22f3d41a84fad1cd6b",
   "manifest": {
     "next.config.ts": "f144fc876a7e0e443762ecea49af7e82214f72271c3fe81e364232524d1ed5ae",
     "package.json": "1967d87e16a68b73664171a3163151767843f350a4a0d7b25852bcd3018816ef",
@@ -43,7 +43,7 @@
     "src/app/studio/[id]/items.tsx": "4dc089996231739e559ecb49443e79840dd490808b1395c2f6755d50f42d5c18",
     "src/app/studio/[id]/live.tsx": "645b6e90cd6fc3cd93d701ea572295bd06d1a2f9ca2817284e3fdfbfe33e87ea",
     "src/app/studio/[id]/page.tsx": "c06f7a31221b03a2a5213421e1eb176380dd3aff11c010654053b90b4503acd2",
-    "src/app/studio/[id]/photo-tray.tsx": "ac66368ce3206baecfbff05bd1a0d3abf094e442e48af650d35832da27a94871",
+    "src/app/studio/[id]/photo-tray.tsx": "a4b235eb4c642e0d35a21bed72fb85c39f78e0b38deb85e41d52ee4ad2ff140d",
     "src/app/studio/[id]/print/page.tsx": "71da388f55257ac2897d110a83597d21d8a12a82b7232ed59e7a44a90691b255",
     "src/app/studio/[id]/print/print.tsx": "2561560c7a25b1bb96077adbad8d0d89838373c30231d947c1dfc80f4eaf02e1",
     "src/app/studio/[id]/results.tsx": "57fce5172f15cdd466d6a8ebc670c785fd2b4fadcd2142cf3d7e9c296dd0efe2",

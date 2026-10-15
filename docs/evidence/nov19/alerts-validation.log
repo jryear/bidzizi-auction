@@ -1,9 +1,9 @@
-(node:55097) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/src/server/v1/alert-core.ts is not specified and it doesn't parse as CommonJS.
+(node:77982) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/src/server/v1/alert-core.ts is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 To eliminate this warning, add "type": "module" to /Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
 PASS alert core: target/config guards, strict field allowlist/redaction, deferred send, first delivery, deduplication/expiry/eviction/pending bounds, once-only dispatch, failure retry, provider backoff, timeout, disarmed mode. No network access.
-(node:55098) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/src/server/v1/sentry-sdk.ts is not specified and it doesn't parse as CommonJS.
+(node:77983) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/src/server/v1/sentry-sdk.ts is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 To eliminate this warning, add "type": "module" to /Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
@@ -18,7 +18,7 @@ The default text search configuration will be set to "english".
 
 Data page checksums are enabled.
 
-fixing permissions on existing directory /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-xWlWsc ... ok
+fixing permissions on existing directory /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-iZ3Ife ... ok
 creating subdirectories ... ok
 selecting dynamic shared memory implementation ... posix
 selecting default "max_connections" ... 100
@@ -31,7 +31,7 @@ syncing data to disk ... ok
 
 Success. You can now start the database server using:
 
-    '/opt/homebrew/opt/postgresql@18/bin/pg_ctl' -D /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-xWlWsc -l logfile start
+    '/opt/homebrew/opt/postgresql@18/bin/pg_ctl' -D /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-iZ3Ife -l logfile start
 
 waiting for server to start.... done
 server started
@@ -51,22 +51,22 @@ Created staff account readiness@example.test.
 $ tsc --noEmit
 $ next build
 ▲ Next.js 16.3.8 (Turbopack)
-✓ Running next.config.ts took 212ms
+✓ Running next.config.ts took 231ms
 - Experiments (use with caution):
   · clientTraceMetadata
 
   Creating an optimized production build ...
-✓ Compiled successfully in 953ms
+✓ Compiled successfully in 633ms
   Running next.config.js provided runAfterProductionCompile ...
-✓ Completed runAfterProductionCompile in 86ms
+✓ Completed runAfterProductionCompile in 88ms
   Running TypeScript ...
-  Finished TypeScript in 360ms ...
+  Finished TypeScript in 200ms ...
   Collecting page data using 15 workers ...
   Generating static pages using 15 workers (0/8) ...
   Generating static pages using 15 workers (2/8) 
   Generating static pages using 15 workers (4/8) 
   Generating static pages using 15 workers (6/8) 
-✓ Generating static pages using 15 workers (8/8) in 83ms
+✓ Generating static pages using 15 workers (8/8) in 80ms
   Finalizing page optimization ...
 
 Route (app)
@@ -92,13 +92,13 @@ Route (app)
 ▲ Next.js 16.3.8
 - Local:         http://127.0.0.1:3469
 - Network:       http://127.0.0.1:3469
-✓ Ready in 73ms
-✓ Running next.config.ts took 164ms
-Request failed: error
-BidZizi alert {"status":"accepted","eventId":"0017b0c5c48342968db394e83c806d46","category":"server-failure","check":"api-request","occurredAt":"2026-10-15T18:00:49.452Z","at":"2026-10-15T18:00:49.464Z","providerDate":"2026-10-15T18:00:49.000Z"}
-BidZizi alert {"status":"accepted","eventId":"0610b7749c774f488152cdd75ce8331d","category":"guest-blocked","check":"client-error","occurredAt":"2026-10-15T18:00:49.654Z","at":"2026-10-15T18:00:49.655Z","providerDate":"2026-10-15T18:00:49.000Z"}
-BidZizi alert {"status":"accepted","eventId":"925ac65ebb5d437ab09b0dbef9a7b4f9","category":"guest-blocked","check":"bid-sheet","occurredAt":"2026-10-15T18:00:52.428Z","at":"2026-10-15T18:00:52.429Z","providerDate":"2026-10-15T18:00:52.000Z"}
-BidZizi alert {"status":"failed","reason":"provider-delivery-failed","eventId":"6a286ee61b3b4b8db42415fa23f30d2d","category":"guest-blocked","check":"app-not-started","occurredAt":"2026-10-15T18:00:52.442Z","at":"2026-10-15T18:00:52.445Z"}
+✓ Ready in 78ms
+✓ Running next.config.ts took 168ms
+Request failed: Error
+BidZizi alert {"status":"accepted","eventId":"f6e0a6079641491c94b7ab03e8db021e","category":"server-failure","check":"api-request","occurredAt":"2026-10-15T18:32:46.354Z","at":"2026-10-15T18:32:46.364Z","providerDate":"2026-10-15T18:32:46.000Z"}
+BidZizi alert {"status":"accepted","eventId":"61a4d43226fc44ff8fb0178908fce8f3","category":"guest-blocked","check":"client-error","occurredAt":"2026-10-15T18:32:46.756Z","at":"2026-10-15T18:32:46.759Z","providerDate":"2026-10-15T18:32:46.000Z"}
+BidZizi alert {"status":"accepted","eventId":"62471f8d12fd4504980261f6b8b5d767","category":"guest-blocked","check":"bid-sheet","occurredAt":"2026-10-15T18:32:48.598Z","at":"2026-10-15T18:32:48.600Z","providerDate":"2026-10-15T18:32:48.000Z"}
+BidZizi alert {"status":"failed","reason":"provider-delivery-failed","eventId":"52353fce5de44042bc72d8c2be2247c6","category":"guest-blocked","check":"app-not-started","occurredAt":"2026-10-15T18:32:48.614Z","at":"2026-10-15T18:32:48.616Z"}
 PASS local alert integration: genuine 8s bid timeout → sanitized 503 with no bid/receipt; real uncaught browser error and blocking health → committed telemetry → filtered envelope after response; expected bid rejection/unknown health suppressed; fixture cleanup.
 $ node scripts/compat.mjs
 Compatibility: 66 JS/TS modules; all CSS; 0 blocking findings.
@@ -200,6 +200,7 @@ ok   keyboard reorder: Space picks up, arrows move, Space drops; the order is sa
 ok   drag reorder with the pointer saves the new order
 ok   photo tray: upload never assigns; suggestions, undo, drag, tap-to-place and replace all go through the batch
 ok   photo tray: an undecodable HEIC stays in the tray and says to use JPEG
+ok   photo tray: every uploaded photo shows a thumbnail, even one without a local preview (HEIC in Safari)
 ok   categories: rename merges into an existing name after confirming; guest order follows
 ok   published event: a new item starts hidden; Show makes it visible to guests
 ok   bulk delete keeps items people have bid on
@@ -207,7 +208,7 @@ ok   sidebar list: compact past eight items, searchable, opens the workspace
 ok   phone: no sideways scrolling; tapping a title opens the item editor; add row works
 ok   no browser page errors
 
-16/16 passed
+17/17 passed
 PASS chromium: 4 poor-network scenarios
 PASS webkit: 4 poor-network scenarios
 waiting for server to shut down.... done
