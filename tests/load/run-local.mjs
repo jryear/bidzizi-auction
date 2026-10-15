@@ -59,6 +59,7 @@ try {
       await run(process.execPath, ['tests/load/local.mjs'], { PHONES: String(phones), LOAD_LABEL: process.env.LOAD_LABEL ?? 'baseline' });
     }
   }
+  if (process.env.NOV19_ALERT_CHECKS === '1') await run(process.execPath, ['tests/alerts/journey.mjs']);
   await run('pnpm', ['compat']);
   for (const suite of ['journey', 'bid-sheet', 'simple-ui', 'compat-api']) await run(process.execPath, [`tests/v1/${suite}.mjs`]);
   await run(process.execPath, ['tests/load/resilience.mjs']);

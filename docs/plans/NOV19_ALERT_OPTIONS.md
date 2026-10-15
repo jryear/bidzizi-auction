@@ -1,5 +1,7 @@
 # Nov 19 engineer alerts: concrete selection boundary
 
+**Decision recorded:** Zack selected Option A and authorized the ordered local implementation, rule setup, staging-only DSN, tested staging deployment and controlled proof in one approval. The separate staging-activation request below is superseded; do not repeat it. Account/org/project creation and DSN-file setup belong to Zack. Destination is `zackj13@gmail.com`. Production activation remains gated. See [current implementation and proof state](NOV19_ALERTS_STAGE2.md).
+
 Prepared 2026-10-14 after hosted stage 1 commit `1ddbb58`. No alert integration, account, project, notification, credential, deployment or provider setting has been created or changed. Stage 2 is not complete. This proposal requests the separate provider-resource/selection approval required by the readiness brief; the load approval and production bypass exception do not authorize alert activation.
 
 ## Two options

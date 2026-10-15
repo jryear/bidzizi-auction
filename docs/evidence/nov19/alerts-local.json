@@ -1,0 +1,36 @@
+{
+  "localOnly": true,
+  "startedAt": "2026-10-15T02:30:32.122Z",
+  "scenarios": {
+    "serverTimeout": {
+      "requestStartedAt": "2026-10-15T02:30:32.271Z",
+      "observedLockWait": true,
+      "responseStatus": 503,
+      "eventId": "2e7b106c6fa84ec9b39b267736273a8e",
+      "occurredAt": "2026-10-15T02:30:40.277Z",
+      "receiverAt": "2026-10-15T02:30:40.283Z",
+      "noBidOrReceiptCommitted": true
+    },
+    "browserError": {
+      "eventId": "a90e47316f5a48bfa5cf0a8d3da39ab3",
+      "occurredAt": "2026-10-15T02:30:40.478Z",
+      "receiverAt": "2026-10-15T02:30:40.479Z",
+      "committedRows": 1,
+      "strictFiltering": true
+    },
+    "blockingHealth": {
+      "eventId": "15fea79dc7f942b9a388aef46e17b36f",
+      "occurredAt": "2026-10-15T02:30:43.248Z",
+      "receiverAt": "2026-10-15T02:30:43.249Z",
+      "realCoveredButtonCheck": true
+    },
+    "providerFailure": {
+      "responseStatus": 202,
+      "committedRows": 1,
+      "boundedAttempts": 2,
+      "unchangedApplicationOutcome": true
+    }
+  },
+  "passed": true,
+  "cleanup": true
+}

@@ -46,7 +46,8 @@ export function stagingTransport({ origin, fetcher = fetch, observe = () => {} }
           const [key, ...value] = set.split(';')[0].split('=');
           if (/Max-Age=0/.test(set)) jar.delete(key); else jar.set(key, value.join('='));
         }
-        const result = { status: r.status, data };
+        const id = r.headers.get('x-bidzizi-alert-id');
+        const result = { status: r.status, data, alertId: /^[a-f0-9]{32}$/.test(id ?? '') ? id : null };
         observe(kind, performance.now() - begin, result, Buffer.byteLength(raw));
         return result;
       } catch {

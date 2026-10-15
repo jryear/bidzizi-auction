@@ -149,5 +149,6 @@ try {
     }
   }
   await mkdir('docs/evidence/nov19', { recursive: true });
-  await writeFile('docs/evidence/nov19/resilience.json', JSON.stringify({ databaseMismatchGuard: 'passed: read-only HTTP rejection and local fixture cleanup', profile: 'API-only 400ms each way; 128kbit/s download; 64kbit/s upload; offline and three flaps', evidence }, null, 2) + '\n');
+  const receiptPath = process.env.NOV19_ALERT_CHECKS === '1' ? 'docs/evidence/nov19/alerts-resilience.json' : 'docs/evidence/nov19/resilience.json';
+  await writeFile(receiptPath, JSON.stringify({ databaseMismatchGuard: 'passed: read-only HTTP rejection and local fixture cleanup', profile: 'API-only 400ms each way; 128kbit/s download; 64kbit/s upload; offline and three flaps', evidence }, null, 2) + '\n');
 } finally { await db.end(); }

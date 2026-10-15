@@ -8,6 +8,7 @@ import { participantFrom, staffFrom } from "./auth";
 import { ApiError, id, invalid, json, notFound, sha256 } from "./http";
 import { allowedOrigin } from "./env";
 import type { EventRow } from "./engine";
+import { queueAlert } from "./alerts";
 
 const KINDS = ["device", "error", "health"] as const;
 const PER_DEVICE_PER_MINUTE = 30, PER_IP_PER_MINUTE = 120, RETENTION_DAYS = 30, MAX_BODY = 8 * 1024;
@@ -92,7 +93,7 @@ export async function guestReport(request: Request, code: string): Promise<Respo
     const me = await participantFrom(db, request, e.id);
     await store(db, request, input, { orgId: e.org_id, eventId: e.id, participantId: me?.id ?? null, staffId: null, source: "guest" });
   });
-  return json({ ok: true }, 202);
+  return reportResponse(input, request);
 }
 
 /** A staff browser reporting an error (Studio, Live, the stage display). */
@@ -106,7 +107,15 @@ export async function staffReport(request: Request): Promise<Response> {
     if (eventId && !own) throw notFound("This event");
     await store(db, request, r, { orgId: staff.orgId, eventId: own ? eventId : null, participantId: null, staffId: staff.id, source: "staff" });
   });
-  return json({ ok: true }, 202);
+  return reportResponse(r, request);
+}
+
+/** The store transaction has committed before this function is called. */
+function reportResponse(r: Clean, request: Request): Response {
+  const alertId = r.kind === "error" || (r.kind === "health" && ["app-not-started", "error-boundary", "bid-sheet"].includes(r.check))
+    ? queueAlert({ category: "guest-blocked", check: r.kind === "error" ? "client-error" : r.check,
+      browser: readUserAgent(request.headers.get("user-agent") ?? "").browser }) : null;
+  return json({ ok: true }, 202, alertId ? { "X-BidZizi-Alert-Id": alertId } : {});
 }
 
 /** Studio → Live → Devices: the device mix of this event's guests, and every problem anyone (guest or staff) hit. */

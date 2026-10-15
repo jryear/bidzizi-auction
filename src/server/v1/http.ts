@@ -1,6 +1,7 @@
 import "server-only";
 import { createHash } from "node:crypto";
 import { allowedOrigin } from "./env";
+import { queueAlert } from "./alerts";
 
 export class ApiError extends Error {
   constructor(public status: number, public code: string, message: string, public extra: Record<string, unknown> = {}) { super(message); }
@@ -22,7 +23,9 @@ export async function handle(run: () => Promise<Response>): Promise<Response> {
     if (error instanceof ApiError) return json({ error: { code: error.code, message: error.message }, ...error.extra }, error.status);
     // Never expose SQL, provider or stack details.
     console.error("Request failed:", error instanceof Error ? error.name : "unknown");
-    return json({ error: { code: "UNAVAILABLE", message: "Something went wrong. Try again." } }, 503);
+    const alertId = queueAlert({ category: "server-failure", check: "api-request" });
+    return json({ error: { code: "UNAVAILABLE", message: "Something went wrong. Try again." } }, 503,
+      alertId ? { "X-BidZizi-Alert-Id": alertId } : {});
   }
 }
 

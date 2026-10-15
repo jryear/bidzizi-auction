@@ -62,5 +62,16 @@ export async function providers() {
     if (readOnly) assert.equal((await db.query('SHOW default_transaction_read_only')).rows[0].default_transaction_read_only, 'on');
     return db;
   }
-  return { readback, database };
+  async function assertStagingDeployment(deploymentId, sourceCommit) {
+    assert.match(deploymentId, /^dpl_[A-Za-z0-9]+$/); assert.match(sourceCommit, /^[a-f0-9]{40}$/);
+    const alias = await vercel('/v4/aliases/' + targets.staging.alias);
+    assert.equal(alias.deployment?.id ?? alias.deploymentId, deploymentId);
+    const d = await vercel('/v13/deployments/' + deploymentId);
+    assert.equal(d.projectId, targets.staging.project); assert.equal(d.readyState, 'READY');
+    assert.equal(d.meta?.sourceCommit, sourceCommit);
+    const prod = await vercel('/v4/aliases/' + targets.production.alias);
+    assert.equal(prod.deployment?.id ?? prod.deploymentId, targets.production.deployment, 'Production must remain unchanged.');
+    return { deploymentId, sourceCommit, readyState: d.readyState, projectId: d.projectId, productionUnchanged: true };
+  }
+  return { readback, database, assertStagingDeployment };
 }

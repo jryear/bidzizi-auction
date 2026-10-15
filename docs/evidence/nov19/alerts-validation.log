@@ -1,0 +1,158 @@
+PASS local load target guards (no network access).
+PASS CPU sampler: owned trees, initial baseline, backend exit and replacement.
+The files belonging to this database system will be owned by user "jryear".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are enabled.
+
+fixing permissions on existing directory /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-FrDbzE ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... America/Los_Angeles
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    '/opt/homebrew/opt/postgresql@18/bin/pg_ctl' -D /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-FrDbzE -l logfile start
+
+waiting for server to start.... done
+server started
+CREATE EXTENSION
+applied 001_core.sql
+applied 002_theme.sql
+applied 003_operations.sql
+applied 004_bidder_visibility.sql
+applied 005_donations_follow_recipients.sql
+applied 006_look_and_sponsor_links.sql
+applied 007_photo_position.sql
+applied 008_item_categories.sql
+applied 009_client_reports.sql
+migrations up to date
+Created staff account readiness@example.test.
+$ tsc --noEmit
+$ next build
+▲ Next.js 16.3.8 (Turbopack)
+✓ Running next.config.ts took 58ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 361ms
+  Running TypeScript ...
+  Finished TypeScript in 138ms ...
+  Collecting page data using 15 workers ...
+  Generating static pages using 15 workers (0/8) ...
+  Generating static pages using 15 workers (2/8) 
+  Generating static pages using 15 workers (4/8) 
+  Generating static pages using 15 workers (6/8) 
+✓ Generating static pages using 15 workers (8/8) in 81ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/v1/[...path]
+├ ƒ /e/[code]
+├ ƒ /e/[code]/simple
+├ ○ /host
+├ ƒ /host/[id]
+├ ○ /host/set-password
+├ ○ /join
+├ ○ /staff/setup
+├ ○ /studio
+├ ƒ /studio/[id]
+├ ƒ /studio/[id]/print
+└ ƒ /studio/[id]/stage
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+▲ Next.js 16.3.8
+- Local:         http://127.0.0.1:3469
+- Network:       http://127.0.0.1:3469
+✓ Ready in 70ms
+✓ Running next.config.ts took 16ms
+Request failed: error
+BidZizi alert {"status":"accepted","eventId":"2e7b106c6fa84ec9b39b267736273a8e","category":"server-failure","check":"api-request","occurredAt":"2026-10-15T02:30:40.277Z","at":"2026-10-15T02:30:40.285Z","providerDate":"2026-10-15T02:30:40.000Z"}
+BidZizi alert {"status":"accepted","eventId":"a90e47316f5a48bfa5cf0a8d3da39ab3","category":"guest-blocked","check":"client-error","occurredAt":"2026-10-15T02:30:40.478Z","at":"2026-10-15T02:30:40.479Z","providerDate":"2026-10-15T02:30:40.000Z"}
+BidZizi alert {"status":"accepted","eventId":"15fea79dc7f942b9a388aef46e17b36f","category":"guest-blocked","check":"bid-sheet","occurredAt":"2026-10-15T02:30:43.248Z","at":"2026-10-15T02:30:43.249Z","providerDate":"2026-10-15T02:30:43.000Z"}
+BidZizi alert {"status":"failed","reason":"provider-delivery-failed","eventId":"07428136eac94a51a9280a942aa2afdd","category":"guest-blocked","check":"app-not-started","occurredAt":"2026-10-15T02:30:43.263Z","at":"2026-10-15T02:30:43.266Z"}
+PASS local alert integration: genuine 8s bid timeout → sanitized 503 with no bid/receipt; real uncaught browser error and blocking health → committed telemetry → filtered envelope after response; expected bid rejection/unknown health suppressed; fixture cleanup.
+$ node scripts/compat.mjs
+Compatibility: 64 JS/TS modules; all CSS; 0 blocking findings.
+ok   staff login rejects a wrong password with a generic error
+ok   staff login succeeds
+ok   mutations from another origin are refused
+ok   create event (retry returns the same event)
+ok   add items (default tiers apply)
+ok   draft event is invisible to participants
+ok   go live
+ok   stale event edit is refused
+ok   participants join with a name and business
+ok   lost join response: retry returns the same participant
+ok   bidding requires joining
+ok   first bid at the opening amount is accepted
+ok   leader can't outbid themselves
+ok   below the minimum is rejected with the minimum
+ok   duplicate taps record one bid; replay returns the original receipt
+ok   reusing a request id for a different bid is refused
+ok   simultaneous bids at the same amount: exactly one wins
+ok   lost bid response: the receipt endpoint answers 'did it go through?'
+ok   tier increments step up with the amount ($500 → $50 raise)
+ok   paused participant can't bid but still sees their receipts
+ok   starting amount locks once bidding starts
+ok   staff can shorten or extend a bid item's close with the five-minute safeguard
+ok   donations: pledge once, retry is idempotent, over $10,000 refused
+ok   winner can't be assigned before the item closes
+ok   after close: bids refused, winner assigned, retry is safe, winner sees it
+ok   fulfil with follow-up notes; stale revision refused
+ok   lost phone: staff rejoin code moves Alice to a new device
+ok   exports download as CSV
+ok   duplicate event copies setup and items, not activity
+ok   editing a participant changes the event identity shown on their phone
+ok   voiding an awarded bid clears the award, preserves receipt and reveals a no-winner state
+ok   practice event can be created and run by staff
+ok   void of current leader recalculates exact standing and sequence stays monotonic
+ok   voiding a nonleader preserves standing; concurrent bid and void serialize correctly
+ok   withdrawing a bid-holding item keeps a clear bidder message and blocks new bids
+ok   reset practice removes all people and bids, restores withdrawn item, and rotates join code
+ok   staff can delete practice and unjoined draft events; archived drafts vanish from join
+ok   another organization cannot manage this event or its staff
+ok   staff invitation and reset use one-time password setup and revoke old sessions
+ok   donations appear only while the event has a nonprofit, and close at the deadline (no switch)
+ok   look: one custom accent colour (validated) and sponsor links reach guests
+ok   bidder visibility defaults to name and business for other guests
+ok   business only: other guests and the stage never receive the bidder's name
+ok   anonymous: stable per-event bidder numbers; names and businesses never reach phones or the stage
+ok   anonymous: winners are masked for other guests; staff always see full identities
+ok   bidder numbers are unique under concurrent joins
+ok   new items: shown in a draft, hidden once published, and an explicit choice wins
+ok   categories are tidied, matched without case, and listed in staff order
+ok   category list: add before use, rename, merge, remove, reorder; guests see staff order
+ok   paste rows: all added in order or none; a retry replays without duplicates
+ok   bulk update: set category and visibility; an item with bids stays visible; stale photos are skipped
+ok   bulk delete: unbid items go, bid-on items stay; draft numbering closes up
+ok   concurrent edits, new categories, bulk changes and reorders never deadlock
+ok   duplicate keeps the category list and order
+ok   staff logout ends the session
+
+55/55 passed
+PASS chromium: visible/tappable at 390×844, 390×420 and 1440×1000; focus, inert background, Escape, sending and lost-response receipt recovery; exactly one bid
+PASS webkit: visible/tappable at 390×844, 390×420 and 1440×1000; focus, inert background, Escape, sending and lost-response receipt recovery; exactly one bid
+2/2 engines passed
+PASS chromium JavaScript disabled: join, detail, bid receipt/replay, My bids, donation replay, uncertain recovery, rejoin and CSRF; no duplicate bids or pledges
+PASS webkit JavaScript disabled: join, detail, bid receipt/replay, My bids, donation replay, uncertain recovery, rejoin and CSRF; no duplicate bids or pledges
+2/2 simple-mode journeys passed
+8/8 telemetry checks passed: draft isolation, validation/size/origin, concurrent device/IP limits, redaction, staff/tenant scoping and retention
+PASS chromium: 4 poor-network scenarios
+PASS webkit: 4 poor-network scenarios
+waiting for server to shut down.... done
+server stopped
+Owned app and disposable Postgres stopped; temporary cluster removed.
