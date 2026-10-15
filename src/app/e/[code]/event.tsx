@@ -4,13 +4,14 @@ import { IGrid, IHeart } from "../../../lib/icons";
 import type { PendingBid, Snapshot } from "./model";
 import type { Nav } from "./participant";
 import { EventClock } from "./catalog";
-import { EventHero, Facts, Mark, SponsorGrid } from "./ui";
+import { EventHero, Facts, Mark, SponsorGrid, useEdit } from "./ui";
 
 type Props = { snap: Snapshot; now: number; nav: Nav; code: string; stale: boolean; pending: PendingBid | null };
 
 export function EventPage({ snap, now, nav, code }: Props) {
   const e = snap.event, me = snap.me!;
   const d = e.donations;
+  const edit = useEdit();
   return (
     <div className="event-page">
       <EventHero event={e} eyebrow={e.venue || "Welcome"}><p className="ehero-clock"><EventClock snap={snap} now={now} /></p></EventHero>
@@ -50,7 +51,9 @@ export function EventPage({ snap, now, nav, code }: Props) {
         <section className="joined">
           <Mark name={me.businessName} you size={44} />
           <div><b>{me.displayName}</b><small>{me.businessName}</small>
-            {e.bidderDisplay && e.bidderDisplay !== "name_business" && <p className="seen-as">Other guests see you as <b>{e.bidderDisplay === "anonymous" ? `Bidder ${me.bidderNumber}` : me.businessName}</b></p>}
+            {e.bidderDisplay === "anonymous" ? <p className="seen-as">Other guests see an anonymous bidder number. Your name and business stay private.</p>
+              : e.bidderDisplay === "business" && <p className="seen-as">Other guests see you as <b>{me.businessName}</b></p>}
+            {edit && me.bidderNumber === 0 && <small data-edit-chrome className="sample-guest">Sample guest · Bidder 00</small>}
             <p className="fine">This phone remembers you{e.accessEndsAt ? ` until ${fmtTime(e.accessEndsAt, e.timezone)}` : ""}. New phone? Ask staff for a rejoin code.</p></div>
         </section>
       </div>

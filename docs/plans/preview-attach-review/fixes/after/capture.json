@@ -1,0 +1,388 @@
+{
+  "phase": "after",
+  "previewRequests": {
+    "live": 0,
+    "results": 0,
+    "setup": 1
+  },
+  "previewBidderNumber": 0,
+  "measures": [
+    {
+      "name": "notice",
+      "width": 390,
+      "device": {
+        "x": 0,
+        "y": 159.59375,
+        "width": 390,
+        "height": 684,
+        "bottom": 843.59375,
+        "right": 390
+      },
+      "notice": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "bottom": 0,
+        "right": 0
+      },
+      "pass": {
+        "x": 0,
+        "y": 159.59375,
+        "width": 390,
+        "height": 70,
+        "bottom": 229.59375,
+        "right": 390
+      },
+      "tag": {
+        "x": 16,
+        "y": 1095.828125,
+        "width": 150.859375,
+        "height": 26,
+        "bottom": 1121.828125,
+        "right": 166.859375
+      },
+      "tools": {
+        "x": 188,
+        "y": 1088.828125,
+        "width": 186,
+        "height": 40,
+        "bottom": 1128.828125,
+        "right": 374
+      },
+      "watch": {
+        "x": 316,
+        "y": 1150.828125,
+        "width": 46,
+        "height": 46,
+        "bottom": 1196.828125,
+        "right": 362
+      },
+      "photo": null,
+      "fan": null
+    },
+    {
+      "name": "hidden-tools",
+      "width": 390,
+      "device": {
+        "x": 0,
+        "y": 159.59375,
+        "width": 390,
+        "height": 684,
+        "bottom": 843.59375,
+        "right": 390
+      },
+      "notice": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "bottom": 0,
+        "right": 0
+      },
+      "pass": {
+        "x": 0,
+        "y": 159.59375,
+        "width": 390,
+        "height": 70,
+        "bottom": 229.59375,
+        "right": 390
+      },
+      "tag": {
+        "x": 16,
+        "y": 238.828125,
+        "width": 150.859375,
+        "height": 26,
+        "bottom": 264.828125,
+        "right": 166.859375
+      },
+      "tools": {
+        "x": 188,
+        "y": 231.828125,
+        "width": 186,
+        "height": 40,
+        "bottom": 271.828125,
+        "right": 374
+      },
+      "watch": {
+        "x": 316,
+        "y": 293.828125,
+        "width": 46,
+        "height": 46,
+        "bottom": 339.828125,
+        "right": 362
+      },
+      "photo": null,
+      "fan": null
+    },
+    {
+      "name": "welcome-photo",
+      "width": 390,
+      "device": {
+        "x": 0,
+        "y": 159.59375,
+        "width": 390,
+        "height": 684,
+        "bottom": 843.59375,
+        "right": 390
+      },
+      "notice": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "bottom": 0,
+        "right": 0
+      },
+      "pass": null,
+      "tag": null,
+      "tools": null,
+      "watch": null,
+      "photo": {
+        "x": 16,
+        "y": 175.59375,
+        "width": 118.75,
+        "height": 34,
+        "bottom": 209.59375,
+        "right": 134.75
+      },
+      "fan": {
+        "x": 171.203125,
+        "y": 181.59375,
+        "width": 202.796875,
+        "height": 150,
+        "bottom": 331.59375,
+        "right": 374
+      }
+    },
+    {
+      "name": "phone-space",
+      "width": 390,
+      "device": {
+        "x": 0,
+        "y": 159.59375,
+        "width": 390,
+        "height": 684,
+        "bottom": 843.59375,
+        "right": 390
+      },
+      "notice": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "bottom": 0,
+        "right": 0
+      },
+      "pass": null,
+      "tag": null,
+      "tools": null,
+      "watch": null,
+      "photo": {
+        "x": 16,
+        "y": 175.59375,
+        "width": 118.75,
+        "height": 34,
+        "bottom": 209.59375,
+        "right": 134.75
+      },
+      "fan": {
+        "x": 171.203125,
+        "y": 181.59375,
+        "width": 202.796875,
+        "height": 150,
+        "bottom": 331.59375,
+        "right": 374
+      }
+    },
+    {
+      "name": "notice",
+      "width": 1440,
+      "device": {
+        "x": 473,
+        "y": 200.03125,
+        "width": 414,
+        "height": 790,
+        "bottom": 990.03125,
+        "right": 887
+      },
+      "notice": {
+        "x": 548.71875,
+        "y": 153.1875,
+        "width": 262.546875,
+        "height": 18.84375,
+        "bottom": 172.03125,
+        "right": 811.265625
+      },
+      "pass": {
+        "x": 485,
+        "y": 212.03125,
+        "width": 390,
+        "height": 70,
+        "bottom": 282.03125,
+        "right": 875
+      },
+      "tag": {
+        "x": 501,
+        "y": 1148.265625,
+        "width": 150.859375,
+        "height": 26,
+        "bottom": 1174.265625,
+        "right": 651.859375
+      },
+      "tools": {
+        "x": 673,
+        "y": 1141.265625,
+        "width": 186,
+        "height": 40,
+        "bottom": 1181.265625,
+        "right": 859
+      },
+      "watch": {
+        "x": 801,
+        "y": 1203.265625,
+        "width": 46,
+        "height": 46,
+        "bottom": 1249.265625,
+        "right": 847
+      },
+      "photo": null,
+      "fan": null
+    },
+    {
+      "name": "hidden-tools",
+      "width": 1440,
+      "device": {
+        "x": 473,
+        "y": 200.03125,
+        "width": 414,
+        "height": 790,
+        "bottom": 990.03125,
+        "right": 887
+      },
+      "notice": {
+        "x": 548.71875,
+        "y": 153.1875,
+        "width": 262.546875,
+        "height": 18.84375,
+        "bottom": 172.03125,
+        "right": 811.265625
+      },
+      "pass": {
+        "x": 485,
+        "y": 212.03125,
+        "width": 390,
+        "height": 70,
+        "bottom": 282.03125,
+        "right": 875
+      },
+      "tag": {
+        "x": 501,
+        "y": 291.265625,
+        "width": 150.859375,
+        "height": 26,
+        "bottom": 317.265625,
+        "right": 651.859375
+      },
+      "tools": {
+        "x": 673,
+        "y": 284.265625,
+        "width": 186,
+        "height": 40,
+        "bottom": 324.265625,
+        "right": 859
+      },
+      "watch": {
+        "x": 801,
+        "y": 346.265625,
+        "width": 46,
+        "height": 46,
+        "bottom": 392.265625,
+        "right": 847
+      },
+      "photo": null,
+      "fan": null
+    },
+    {
+      "name": "welcome-photo",
+      "width": 1440,
+      "device": {
+        "x": 473,
+        "y": 200.03125,
+        "width": 414,
+        "height": 790,
+        "bottom": 990.03125,
+        "right": 887
+      },
+      "notice": {
+        "x": 548.71875,
+        "y": 153.1875,
+        "width": 262.546875,
+        "height": 18.84375,
+        "bottom": 172.03125,
+        "right": 811.265625
+      },
+      "pass": null,
+      "tag": null,
+      "tools": null,
+      "watch": null,
+      "photo": {
+        "x": 501,
+        "y": 228.03125,
+        "width": 118.75,
+        "height": 34,
+        "bottom": 262.03125,
+        "right": 619.75
+      },
+      "fan": {
+        "x": 656.203125,
+        "y": 234.03125,
+        "width": 202.796875,
+        "height": 150,
+        "bottom": 384.03125,
+        "right": 859
+      }
+    },
+    {
+      "name": "phone-space",
+      "width": 1440,
+      "device": {
+        "x": 473,
+        "y": 200.03125,
+        "width": 414,
+        "height": 790,
+        "bottom": 990.03125,
+        "right": 887
+      },
+      "notice": {
+        "x": 548.71875,
+        "y": 153.1875,
+        "width": 262.546875,
+        "height": 18.84375,
+        "bottom": 172.03125,
+        "right": 811.265625
+      },
+      "pass": null,
+      "tag": null,
+      "tools": null,
+      "watch": null,
+      "photo": {
+        "x": 501,
+        "y": 228.03125,
+        "width": 118.75,
+        "height": 34,
+        "bottom": 262.03125,
+        "right": 619.75
+      },
+      "fan": {
+        "x": 656.203125,
+        "y": 234.03125,
+        "width": 202.796875,
+        "height": 150,
+        "bottom": 384.03125,
+        "right": 859
+      }
+    }
+  ],
+  "pageErrors": 0
+}

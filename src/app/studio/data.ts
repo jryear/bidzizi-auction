@@ -1,10 +1,8 @@
 "use client";
 import type { FocalPoint } from "../../lib/photo";
 
-// Studio data: the host workspace as the API returns it, and a view of it in the attendee's shape so the canvas can render
-// the attendee's own components.
-import { increment, PLEDGE_CAP, type Tier } from "../../lib/money";
-import type { Item as PItem, Snapshot } from "../e/[code]/model";
+// Studio workspace data. Guest previews are projected separately by the server.
+import { type Tier } from "../../lib/money";
 
 export type Bid = { id: string; amountMinor: number; at: string; participantId: string; name: string; business: string; voided: boolean; voidReason: string };
 export type Award = { status: "assigned" | "fulfilled" | "no_winner"; bidId: string | null; participantId: string | null; amountMinor: number | null; notes: string; revision: number; updatedAt: string };
@@ -24,10 +22,6 @@ export type EventData = {
   isPractice: boolean; archivedAt: string | null; bidderDisplay: BidderDisplay; accentColor: string | null; categories: string[];
 };
 export type BidderDisplay = "name_business" | "business" | "anonymous";
-/** The same rule the server applies to guests' phones, so the canvas previews exactly what guests will see. */
-export function shownBidder(mode: BidderDisplay, p: { name: string; business: string; number: number }) {
-  return mode === "anonymous" ? { name: "", business: `Bidder ${p.number}` } : mode === "business" ? { name: "", business: p.business } : { name: p.name, business: p.business };
-}
 export type Data = {
   serverNow: string; event: EventData; items: Item[]; participants: Participant[];
   activity: { id: string; itemId: string; amountMinor: number; at: string; name: string; business: string; voided: boolean }[];
@@ -40,35 +34,6 @@ export type EventCard = {
   startsAt: string; endsAt: string; coverUrl: string | null; coverFocal?: FocalPoint; itemCount: number; participantCount: number; bidCount: number;
   isPractice: boolean; archivedAt: string | null;
 };
-
-/** The workspace, seen through an attendee's phone. Hidden items are included so the host can see and edit them. */
-export function toSnapshot(d: Data, me = { displayName: "A guest", businessName: "Your Business" }): Snapshot {
-  const e = d.event, now = new Date(d.serverNow).getTime();
-  const rules = { mode: e.bidMode, tiers: e.tiers, fixedIncrementMinor: e.fixedIncrementMinor };
-  const deadline = e.donationDeadline ?? e.endsAt;
-  return {
-    serverNow: d.serverNow,
-    event: {
-      id: e.id, code: e.code, name: e.name, welcome: e.welcome, venue: e.venue, timezone: e.timezone, theme: e.theme, coverUrl: e.coverUrl, coverFocal: e.coverFocal,
-      startsAt: e.startsAt, endsAt: e.endsAt, accessEndsAt: e.accessEndsAt, entryOpen: e.entryOpen,
-      phase: e.phase === "open" || e.phase === "closed" ? e.phase : "upcoming",
-      sponsors: d.sponsors.map(s => ({ name: s.name, logoUrl: s.logoUrl, url: s.url })), accentColor: e.accentColor, bidderDisplay: e.bidderDisplay, categories: e.categories,
-      donations: { enabled: e.donationsEnabled, open: e.donationsEnabled && now < new Date(deadline).getTime(), deadline, capMinor: PLEDGE_CAP,
-        recipients: d.recipients.map(r => ({ id: r.id, name: r.name, description: r.description, logoUrl: r.logoUrl })) },
-    },
-    items: d.items.map((i): PItem => {
-      const winner = i.award?.bidId ? i.bids.find(b => b.id === i.award!.bidId) : undefined;
-      return {
-        id: i.id, position: i.position, title: i.title, short: i.short, description: i.description, category: i.category, donor: i.donor, imageUrl: i.imageUrl, imageFocal: i.imageFocal,
-        openingMinor: i.openingMinor, opensAt: i.effectiveOpensAt, closesAt: i.effectiveClosesAt, phase: i.phase, currentMinor: i.currentMinor, bidCount: i.bidCount,
-        leader: i.leader ? { ...shownBidder(e.bidderDisplay, i.leader), isMe: false } : null, minimumNextMinor: i.minimumNextMinor,
-        incrementMinor: increment(i.currentMinor ?? i.openingMinor, rules, i.incrementOverrideMinor), watching: false, myHighestMinor: null, myBidCount: 0,
-        award: i.award ? { status: i.award.status, winner: winner ? { name: winner.name, business: winner.business } : null, amountMinor: i.award.amountMinor, isMe: false } : null,
-      };
-    }),
-    me: { id: "preview", displayName: me.displayName, businessName: me.businessName, canBid: true, winnerInstructions: e.winnerInstructions, pledges: [] },
-  };
-}
 
 /** Downscale in the browser so phone photos upload quickly and fit the server's limits. Logos keep their transparency
  *  (PNG); photos become JPEG. */

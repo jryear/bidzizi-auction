@@ -39,7 +39,7 @@ export function LiveBoard({ ctx }: { ctx: Ctx }) {
     : { label: "Bidding has ended", value: "Done", hot: false };
 
   return (
-    <div className="live">
+    <div className="live-board">
       <div className="live-stats">
         <div className={`ls big${clock.hot ? " hot" : ""}`}><span><IClock size={16} />{clock.label}</span><b>{clock.value}</b></div>
         <div className="ls"><span>Raised so far</span><Amount minor={raised} className="ls-amt" /></div>

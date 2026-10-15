@@ -1,0 +1,388 @@
+{
+  "phase": "before",
+  "previewRequests": {
+    "live": 5,
+    "results": 2,
+    "setup": 1
+  },
+  "previewBidderNumber": 2,
+  "measures": [
+    {
+      "name": "notice",
+      "width": 390,
+      "device": {
+        "x": 0,
+        "y": 266.4375,
+        "width": 390,
+        "height": 584,
+        "bottom": 850.4375,
+        "right": 390
+      },
+      "notice": {
+        "x": 63.71875,
+        "y": 247.59375,
+        "width": 262.546875,
+        "height": 18.84375,
+        "bottom": 266.4375,
+        "right": 326.265625
+      },
+      "pass": {
+        "x": 0,
+        "y": 266.4375,
+        "width": 390,
+        "height": 70,
+        "bottom": 336.4375,
+        "right": 390
+      },
+      "tag": {
+        "x": 207.140625,
+        "y": 1157.671875,
+        "width": 150.859375,
+        "height": 26,
+        "bottom": 1183.671875,
+        "right": 358
+      },
+      "tools": {
+        "x": 102,
+        "y": 1131.671875,
+        "width": 186,
+        "height": 40,
+        "bottom": 1171.671875,
+        "right": 288
+      },
+      "watch": {
+        "x": 316,
+        "y": 1153.671875,
+        "width": 46,
+        "height": 46,
+        "bottom": 1199.671875,
+        "right": 362
+      },
+      "photo": null,
+      "fan": null
+    },
+    {
+      "name": "hidden-tools",
+      "width": 390,
+      "device": {
+        "x": 0,
+        "y": 266.4375,
+        "width": 390,
+        "height": 584,
+        "bottom": 850.4375,
+        "right": 390
+      },
+      "notice": {
+        "x": 63.71875,
+        "y": 247.59375,
+        "width": 262.546875,
+        "height": 18.84375,
+        "bottom": 266.4375,
+        "right": 326.265625
+      },
+      "pass": {
+        "x": 0,
+        "y": 266.4375,
+        "width": 390,
+        "height": 70,
+        "bottom": 336.4375,
+        "right": 390
+      },
+      "tag": {
+        "x": 207.140625,
+        "y": 352.671875,
+        "width": 150.859375,
+        "height": 26,
+        "bottom": 378.671875,
+        "right": 358
+      },
+      "tools": {
+        "x": 102,
+        "y": 320.671875,
+        "width": 186,
+        "height": 40,
+        "bottom": 360.671875,
+        "right": 288
+      },
+      "watch": {
+        "x": 316,
+        "y": 348.671875,
+        "width": 46,
+        "height": 46,
+        "bottom": 394.671875,
+        "right": 362
+      },
+      "photo": null,
+      "fan": null
+    },
+    {
+      "name": "welcome-photo",
+      "width": 390,
+      "device": {
+        "x": 0,
+        "y": 266.4375,
+        "width": 390,
+        "height": 584,
+        "bottom": 850.4375,
+        "right": 390
+      },
+      "notice": {
+        "x": 63.71875,
+        "y": 247.59375,
+        "width": 262.546875,
+        "height": 18.84375,
+        "bottom": 266.4375,
+        "right": 326.265625
+      },
+      "pass": null,
+      "tag": null,
+      "tools": null,
+      "watch": null,
+      "photo": {
+        "x": 261.25,
+        "y": 276.4375,
+        "width": 118.75,
+        "height": 34,
+        "bottom": 310.4375,
+        "right": 380
+      },
+      "fan": {
+        "x": 171.203125,
+        "y": 288.4375,
+        "width": 202.796875,
+        "height": 150,
+        "bottom": 438.4375,
+        "right": 374
+      }
+    },
+    {
+      "name": "phone-space",
+      "width": 390,
+      "device": {
+        "x": 0,
+        "y": 266.4375,
+        "width": 390,
+        "height": 584,
+        "bottom": 850.4375,
+        "right": 390
+      },
+      "notice": {
+        "x": 63.71875,
+        "y": 247.59375,
+        "width": 262.546875,
+        "height": 18.84375,
+        "bottom": 266.4375,
+        "right": 326.265625
+      },
+      "pass": null,
+      "tag": null,
+      "tools": null,
+      "watch": null,
+      "photo": {
+        "x": 261.25,
+        "y": 276.4375,
+        "width": 118.75,
+        "height": 34,
+        "bottom": 310.4375,
+        "right": 380
+      },
+      "fan": {
+        "x": 171.203125,
+        "y": 288.4375,
+        "width": 202.796875,
+        "height": 150,
+        "bottom": 438.4375,
+        "right": 374
+      }
+    },
+    {
+      "name": "notice",
+      "width": 1440,
+      "device": {
+        "x": 473,
+        "y": 172.03125,
+        "width": 414,
+        "height": 790,
+        "bottom": 962.03125,
+        "right": 887
+      },
+      "notice": {
+        "x": 548.71875,
+        "y": 153.1875,
+        "width": 262.546875,
+        "height": 18.84375,
+        "bottom": 172.03125,
+        "right": 811.265625
+      },
+      "pass": {
+        "x": 485,
+        "y": 184.03125,
+        "width": 390,
+        "height": 70,
+        "bottom": 254.03125,
+        "right": 875
+      },
+      "tag": {
+        "x": 692.140625,
+        "y": 1075.265625,
+        "width": 150.859375,
+        "height": 26,
+        "bottom": 1101.265625,
+        "right": 843
+      },
+      "tools": {
+        "x": 587,
+        "y": 1049.265625,
+        "width": 186,
+        "height": 40,
+        "bottom": 1089.265625,
+        "right": 773
+      },
+      "watch": {
+        "x": 801,
+        "y": 1071.265625,
+        "width": 46,
+        "height": 46,
+        "bottom": 1117.265625,
+        "right": 847
+      },
+      "photo": null,
+      "fan": null
+    },
+    {
+      "name": "hidden-tools",
+      "width": 1440,
+      "device": {
+        "x": 473,
+        "y": 172.03125,
+        "width": 414,
+        "height": 790,
+        "bottom": 962.03125,
+        "right": 887
+      },
+      "notice": {
+        "x": 548.71875,
+        "y": 153.1875,
+        "width": 262.546875,
+        "height": 18.84375,
+        "bottom": 172.03125,
+        "right": 811.265625
+      },
+      "pass": {
+        "x": 485,
+        "y": 184.03125,
+        "width": 390,
+        "height": 70,
+        "bottom": 254.03125,
+        "right": 875
+      },
+      "tag": {
+        "x": 692.140625,
+        "y": 270.265625,
+        "width": 150.859375,
+        "height": 26,
+        "bottom": 296.265625,
+        "right": 843
+      },
+      "tools": {
+        "x": 587,
+        "y": 238.265625,
+        "width": 186,
+        "height": 40,
+        "bottom": 278.265625,
+        "right": 773
+      },
+      "watch": {
+        "x": 801,
+        "y": 266.265625,
+        "width": 46,
+        "height": 46,
+        "bottom": 312.265625,
+        "right": 847
+      },
+      "photo": null,
+      "fan": null
+    },
+    {
+      "name": "welcome-photo",
+      "width": 1440,
+      "device": {
+        "x": 473,
+        "y": 172.03125,
+        "width": 414,
+        "height": 790,
+        "bottom": 962.03125,
+        "right": 887
+      },
+      "notice": {
+        "x": 548.71875,
+        "y": 153.1875,
+        "width": 262.546875,
+        "height": 18.84375,
+        "bottom": 172.03125,
+        "right": 811.265625
+      },
+      "pass": null,
+      "tag": null,
+      "tools": null,
+      "watch": null,
+      "photo": {
+        "x": 746.25,
+        "y": 194.03125,
+        "width": 118.75,
+        "height": 34,
+        "bottom": 228.03125,
+        "right": 865
+      },
+      "fan": {
+        "x": 656.203125,
+        "y": 206.03125,
+        "width": 202.796875,
+        "height": 150,
+        "bottom": 356.03125,
+        "right": 859
+      }
+    },
+    {
+      "name": "phone-space",
+      "width": 1440,
+      "device": {
+        "x": 473,
+        "y": 172.03125,
+        "width": 414,
+        "height": 790,
+        "bottom": 962.03125,
+        "right": 887
+      },
+      "notice": {
+        "x": 548.71875,
+        "y": 153.1875,
+        "width": 262.546875,
+        "height": 18.84375,
+        "bottom": 172.03125,
+        "right": 811.265625
+      },
+      "pass": null,
+      "tag": null,
+      "tools": null,
+      "watch": null,
+      "photo": {
+        "x": 746.25,
+        "y": 194.03125,
+        "width": 118.75,
+        "height": 34,
+        "bottom": 228.03125,
+        "right": 865
+      },
+      "fan": {
+        "x": 656.203125,
+        "y": 206.03125,
+        "width": 202.796875,
+        "height": 150,
+        "bottom": 356.03125,
+        "right": 859
+      }
+    }
+  ],
+  "pageErrors": 0
+}

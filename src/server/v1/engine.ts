@@ -73,73 +73,93 @@ export async function snapshot(request: Request, code: string): Promise<Response
   return json(await tx(async db => {
     const { e, preview } = await viewableEvent(db, request, code), at = await now(db);
     const me = preview ? null : await participantFrom(db, request, e.id);
-    const items = (await db.query<ItemRow>("SELECT * FROM items WHERE event_id = $1 AND ready ORDER BY position, created_at", [e.id])).rows;
-    const history = (await db.query<{ id: string; item_id: string; amount_minor: string; decided_at: Date; participant_id: string; voided_at: Date | null }>(
-      `SELECT id, item_id, amount_minor::text, decided_at, participant_id, voided_at FROM bids WHERE event_id = $1 ORDER BY sequence DESC`, [e.id])).rows;
-    const standings = new Map((await db.query<StandingJoin>(
-      `SELECT s.item_id, s.current_minor, s.bid_count, s.leader_id, p.display_name AS leader_name, p.business_name AS leader_business, p.bidder_number AS leader_number
-         FROM standings s LEFT JOIN participants p ON p.id = s.leader_id WHERE s.event_id = $1`, [e.id])).rows.map(r => [r.item_id, r]));
-    const awards = new Map((await db.query<AwardJoin>(
-      `SELECT a.item_id, a.status, a.participant_id, a.amount_minor, p.display_name AS winner_name, p.business_name AS winner_business, p.bidder_number AS winner_number
-         FROM awards a LEFT JOIN participants p ON p.id = a.participant_id WHERE a.event_id = $1`, [e.id])).rows.map(r => [r.item_id, r]));
-    const sponsors = (await db.query<{ name: string; logo_asset_id: string | null; url: string }>("SELECT name, logo_asset_id, url FROM sponsors WHERE event_id = $1 ORDER BY position", [e.id])).rows;
-    const recipients = e.donations_enabled ? (await db.query<{ id: string; name: string; description: string; logo_asset_id: string | null }>(
-      "SELECT id, name, description, logo_asset_id FROM recipients WHERE event_id = $1 AND NOT removed ORDER BY position", [e.id])).rows : [];
-    let mine: { bids: Map<string, { highest: number; count: number }>; watching: Set<string>; pledges: unknown[] } | null = null;
-    if (me) {
-      const bids = (await db.query<{ item_id: string; highest: string; count: number }>(
-        "SELECT item_id, max(amount_minor)::text AS highest, count(*)::int AS count FROM bids WHERE participant_id = $1 AND voided_at IS NULL GROUP BY item_id", [me.id])).rows;
-      const watching = (await db.query<{ item_id: string }>("SELECT item_id FROM watches WHERE participant_id = $1", [me.id])).rows;
-      const pledges = (await db.query<{ id: string; recipient_name: string; amount_minor: string; recorded_at: Date }>(
-        "SELECT id, recipient_name, amount_minor::text, recorded_at FROM pledges WHERE participant_id = $1 ORDER BY recorded_at DESC", [me.id])).rows;
-      mine = {
-        bids: new Map(bids.map(b => [b.item_id, { highest: Number(b.highest), count: b.count }])),
-        watching: new Set(watching.map(w => w.item_id)),
-        pledges: pledges.map(p => ({ id: p.id, recipientName: p.recipient_name, amountMinor: Number(p.amount_minor), recordedAt: p.recorded_at })),
-      };
-    }
-    const rules = rulesOf(e);
-    const donationsOpen = e.donations_enabled && e.donation_deadline !== null && at < e.donation_deadline;
-    return {
-      serverNow: at, preview,
-      event: {
-        id: e.id, code: e.join_code, name: e.name, welcome: e.welcome, venue: e.venue, timezone: e.timezone, theme: e.theme, bidderDisplay: e.bidder_display,
-        coverUrl: assetUrl(e.cover_asset_id), coverFocal: e.cover_focal, startsAt: e.starts_at, endsAt: e.ends_at, accessEndsAt: e.access_ends_at,
-        entryOpen: e.entry_open && at < e.ends_at, phase: eventPhase(e, items, at),
-        // Staff's category order, limited to categories guests can actually filter by.
-        categories: orderedCategories(e.categories, items).filter(c => items.some(i => i.category === c)),
-        sponsors: sponsors.map(s => ({ name: s.name, logoUrl: assetUrl(s.logo_asset_id), url: s.url })), accentColor: e.accent_color,
-        donations: { enabled: e.donations_enabled, open: donationsOpen, deadline: e.donation_deadline, capMinor: PLEDGE_CAP,
-          recipients: recipients.map(r => ({ id: r.id, name: r.name, description: r.description, logoUrl: assetUrl(r.logo_asset_id) })) },
-      },
-      items: items.map(i => {
-        const s = standings.get(i.id), a = awards.get(i.id), phase = i.withdrawn_at ? "closed" : phaseOf(e, i, at);
-        const current = s?.current_minor == null ? null : Number(s.current_minor);
-        const override = i.increment_override_minor === null ? null : Number(i.increment_override_minor);
-        const mineHere = mine?.bids.get(i.id);
-        const won = Boolean(me && a && a.status !== "no_winner" && a.participant_id === me.id);
-        return {
-          id: i.id, position: i.position, title: i.title, short: i.short, description: i.description, category: i.category, donor: i.donor,
-          withdrawn: i.withdrawn_at !== null, withdrawalMessage: i.withdrawal_message,
-          bidHistory: history.filter(b => b.item_id === i.id).map(b => ({ id: b.id, amountMinor: Number(b.amount_minor), decidedAt: b.decided_at,
-            isMe: b.participant_id === me?.id, voided: b.voided_at !== null })),
-          imageUrl: assetUrl(i.image_asset_id), imageFocal: i.image_focal, openingMinor: Number(i.opening_minor),
-          opensAt: opensOf(e, i), closesAt: closesOf(e, i), phase,
-          currentMinor: current, bidCount: s?.bid_count ?? 0,
-          leader: s?.leader_id ? (s.leader_id === me?.id ? { name: s.leader_name, business: s.leader_business, isMe: true }
-            : { ...shownBidder(e.bidder_display, { name: s.leader_name, business: s.leader_business, number: s.leader_number }), isMe: false }) : null,
-          minimumNextMinor: i.withdrawn_at ? null : minimumNext(current, Number(i.opening_minor), rules, override),
-          incrementMinor: increment(current ?? Number(i.opening_minor), rules, override),
-          watching: mine?.watching.has(i.id) ?? false,
-          myHighestMinor: mineHere?.highest ?? null, myBidCount: mineHere?.count ?? 0,
-          award: a ? { status: a.status, winner: a.status === "no_winner" ? null : won ? { name: a.winner_name, business: a.winner_business }
-            : shownBidder(e.bidder_display, { name: a.winner_name, business: a.winner_business, number: a.winner_number }),
-            amountMinor: a.amount_minor === null ? null : Number(a.amount_minor), isMe: won } : null,
-        };
-      }),
-      me: me ? { id: me.id, displayName: me.displayName, businessName: me.businessName, canBid: me.canBid, pledges: mine!.pledges, bidderNumber: me.bidderNumber,
-        winnerInstructions: [...awards.values()].some(a => a.participant_id === me.id && a.status !== "no_winner") ? e.winner_instructions : "" } : null,
+    return buildSnapshot(db, e, at, me, preview);
+  }));
+}
+
+/** One projection for guests and staff previews; privacy and standing rules stay on the server. */
+async function buildSnapshot(db: Db, e: EventRow, at: Date, me: Participant | null, preview: boolean, includeHidden = false) {
+  const allItems = (await db.query<ItemRow>("SELECT * FROM items WHERE event_id = $1 ORDER BY position, created_at", [e.id])).rows;
+  const visibleItems = allItems.filter(i => i.ready);
+  const items = includeHidden ? allItems : visibleItems;
+  const history = (await db.query<{ id: string; item_id: string; amount_minor: string; decided_at: Date; participant_id: string; voided_at: Date | null }>(
+    `SELECT id, item_id, amount_minor::text, decided_at, participant_id, voided_at FROM bids WHERE event_id = $1 ORDER BY sequence DESC`, [e.id])).rows;
+  const standings = new Map((await db.query<StandingJoin>(
+    `SELECT s.item_id, s.current_minor, s.bid_count, s.leader_id, p.display_name AS leader_name, p.business_name AS leader_business, p.bidder_number AS leader_number
+       FROM standings s LEFT JOIN participants p ON p.id = s.leader_id WHERE s.event_id = $1`, [e.id])).rows.map(r => [r.item_id, r]));
+  const awards = new Map((await db.query<AwardJoin>(
+    `SELECT a.item_id, a.status, a.participant_id, a.amount_minor, p.display_name AS winner_name, p.business_name AS winner_business, p.bidder_number AS winner_number
+       FROM awards a LEFT JOIN participants p ON p.id = a.participant_id WHERE a.event_id = $1`, [e.id])).rows.map(r => [r.item_id, r]));
+  const sponsors = (await db.query<{ name: string; logo_asset_id: string | null; url: string }>("SELECT name, logo_asset_id, url FROM sponsors WHERE event_id = $1 ORDER BY position", [e.id])).rows;
+  const recipients = e.donations_enabled ? (await db.query<{ id: string; name: string; description: string; logo_asset_id: string | null }>(
+    "SELECT id, name, description, logo_asset_id FROM recipients WHERE event_id = $1 AND NOT removed ORDER BY position", [e.id])).rows : [];
+  let mine: { bids: Map<string, { highest: number; count: number }>; watching: Set<string>; pledges: unknown[] } | null = null;
+  if (me) {
+    const bids = (await db.query<{ item_id: string; highest: string; count: number }>(
+      "SELECT item_id, max(amount_minor)::text AS highest, count(*)::int AS count FROM bids WHERE participant_id = $1 AND voided_at IS NULL GROUP BY item_id", [me.id])).rows;
+    const watching = (await db.query<{ item_id: string }>("SELECT item_id FROM watches WHERE participant_id = $1", [me.id])).rows;
+    const pledges = (await db.query<{ id: string; recipient_name: string; amount_minor: string; recorded_at: Date }>(
+      "SELECT id, recipient_name, amount_minor::text, recorded_at FROM pledges WHERE participant_id = $1 ORDER BY recorded_at DESC", [me.id])).rows;
+    mine = {
+      bids: new Map(bids.map(b => [b.item_id, { highest: Number(b.highest), count: b.count }])),
+      watching: new Set(watching.map(w => w.item_id)),
+      pledges: pledges.map(p => ({ id: p.id, recipientName: p.recipient_name, amountMinor: Number(p.amount_minor), recordedAt: p.recorded_at })),
     };
+  }
+  const rules = rulesOf(e);
+  const donationsOpen = e.donations_enabled && e.donation_deadline !== null && at < e.donation_deadline;
+  return {
+    serverNow: at, preview,
+    event: {
+      id: e.id, code: e.join_code, name: e.name, welcome: e.welcome, venue: e.venue, timezone: e.timezone, theme: e.theme, bidderDisplay: e.bidder_display,
+      coverUrl: assetUrl(e.cover_asset_id), coverFocal: e.cover_focal, startsAt: e.starts_at, endsAt: e.ends_at, accessEndsAt: e.access_ends_at,
+      entryOpen: e.entry_open && at < e.ends_at, phase: eventPhase(e, visibleItems, at),
+      // Staff's category order, limited to categories guests can actually filter by.
+      categories: orderedCategories(e.categories, visibleItems).filter(c => visibleItems.some(i => i.category === c)),
+      sponsors: sponsors.map(s => ({ name: s.name, logoUrl: assetUrl(s.logo_asset_id), url: s.url })), accentColor: e.accent_color,
+      donations: { enabled: e.donations_enabled, open: donationsOpen, deadline: e.donation_deadline, capMinor: PLEDGE_CAP,
+        recipients: recipients.map(r => ({ id: r.id, name: r.name, description: r.description, logoUrl: assetUrl(r.logo_asset_id) })) },
+    },
+    items: items.map(i => {
+      const s = standings.get(i.id), a = awards.get(i.id), phase = i.withdrawn_at ? "closed" : phaseOf(e, i, at);
+      const current = s?.current_minor == null ? null : Number(s.current_minor);
+      const override = i.increment_override_minor === null ? null : Number(i.increment_override_minor);
+      const mineHere = mine?.bids.get(i.id);
+      const won = Boolean(me && a && a.status !== "no_winner" && a.participant_id === me.id);
+      return {
+        ...(includeHidden && !i.ready ? { hidden: true } : {}),
+        id: i.id, position: i.position, title: i.title, short: i.short, description: i.description, category: i.category, donor: i.donor,
+        withdrawn: i.withdrawn_at !== null, withdrawalMessage: i.withdrawal_message,
+        bidHistory: history.filter(b => b.item_id === i.id).map(b => ({ id: b.id, amountMinor: Number(b.amount_minor), decidedAt: b.decided_at,
+          isMe: b.participant_id === me?.id, voided: b.voided_at !== null })),
+        imageUrl: assetUrl(i.image_asset_id), imageFocal: i.image_focal, openingMinor: Number(i.opening_minor),
+        opensAt: opensOf(e, i), closesAt: closesOf(e, i), phase,
+        currentMinor: current, bidCount: s?.bid_count ?? 0,
+        leader: s?.leader_id ? (s.leader_id === me?.id ? { name: s.leader_name, business: s.leader_business, isMe: true }
+          : { ...shownBidder(e.bidder_display, { name: s.leader_name, business: s.leader_business, number: s.leader_number }), isMe: false }) : null,
+        minimumNextMinor: i.withdrawn_at ? null : minimumNext(current, Number(i.opening_minor), rules, override),
+        incrementMinor: increment(current ?? Number(i.opening_minor), rules, override),
+        watching: mine?.watching.has(i.id) ?? false,
+        myHighestMinor: mineHere?.highest ?? null, myBidCount: mineHere?.count ?? 0,
+        award: a ? { status: a.status, winner: a.status === "no_winner" ? null : won ? { name: a.winner_name, business: a.winner_business }
+          : shownBidder(e.bidder_display, { name: a.winner_name, business: a.winner_business, number: a.winner_number }),
+          amountMinor: a.amount_minor === null ? null : Number(a.amount_minor), isMe: won } : null,
+      };
+    }),
+    me: me ? { id: me.id, displayName: me.displayName, businessName: me.businessName, canBid: me.canBid, pledges: mine!.pledges, bidderNumber: me.bidderNumber,
+      winnerInstructions: [...awards.values()].some(a => a.participant_id === me.id && a.status !== "no_winner") ? e.winner_instructions : "" } : null,
+  };
+}
+
+/** A stand-in guest has no credential, activity or write authority. */
+export async function previewSnapshot(request: Request, eventId: string): Promise<Response> {
+  return json(await tx(async db => {
+    const staff = await staffFrom(db, request);
+    const e = (await db.query<EventRow>("SELECT * FROM events WHERE id = $1 AND org_id = $2 AND archived_at IS NULL", [id(eventId), staff.orgId])).rows[0];
+    if (!e) throw notFound("This event");
+    const snap = await buildSnapshot(db, e, await now(db), null, true, true);
+    // Real bidder numbers are strictly positive. Zero belongs only to this credential-free stand-in.
+    return { ...snap, me: { id: "preview", displayName: "A guest", businessName: "Your Business", canBid: true, pledges: [], bidderNumber: 0, winnerInstructions: "" } };
   }));
 }
 
