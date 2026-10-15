@@ -1,5 +1,5 @@
 "use client";
-import { photoStyle } from "../../../lib/photo";
+import { FramedPhoto } from "../../../lib/framed-photo";
 // Results: wrap-up as a checklist. Confirm each winner, hand the item over, process donations, export.
 import { useEffect, useState, type CSSProperties } from "react";
 import { api, errorText, fmtClock, fmtTime } from "../../../lib/api";
@@ -112,7 +112,7 @@ function useAward(ctx: Ctx, item: Item) {
 }
 
 function Thumb({ item }: { item: Item }) {
-  return <span className="rc-thumb">{item.imageUrl ? <img style={photoStyle(item.imageFocal)} src={item.imageUrl} alt="" /> : <ItemArt item={item} size="sm" />}</span>;
+  return <span className="rc-thumb">{item.imageUrl ? <FramedPhoto src={item.imageUrl} frame={item.imageFrame} className="pf-fill" /> : <ItemArt item={item} size="sm" />}</span>;
 }
 
 function DecideCard({ ctx, item }: { ctx: Ctx; item: Item }) {

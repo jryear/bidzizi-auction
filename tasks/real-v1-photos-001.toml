@@ -1,0 +1,183 @@
+# real-v1-photos-001: photos that actually frame (pan + zoom) everywhere, framed in place on the Studio phone,
+# a photo tray that separates upload from assignment, and Items workspace polish.
+# Brief: docs/plans/PHOTOS_AND_ITEMS_POLISH_BRIEF.md
+#
+#   export BZ_CONTRACT_PG=postgres://bz@127.0.0.1:55433/postgres
+#   python3 ~/code/_kernel/verify.py tasks/real-v1-photos-001.toml --repo . --base "$FROZEN_BASE_SHA" --baseline
+#   python3 ~/code/_kernel/verify.py tasks/real-v1-photos-001.toml --repo . --base "$FROZEN_BASE_SHA" \
+#     --claim "Photos frame with pan and zoom everywhere; tray upload; items polish" --implementer-model "<model/runtime>"
+#
+# FROZEN INTERFACE (what the checks observe; how you build it is yours)
+#
+# 1. Frames. A frame is { x, y, zoom }: x,y in [0,1] = the photo point at the frame centre; zoom in [1,4]
+#    (1 = cover fit). Anything else (missing keys, out of range, non-object) → 400.
+#    - Write: PATCH /api/v1/host/items/:id { revision, imageFrame }  and  PATCH /api/v1/host/events/:id { revision, coverFrame }.
+#    - Read: guest snapshot items[].imageFrame and event.coverFrame; staff workspace items[].imageFrame.
+#    - A photo with no explicit frame reads { x: 0.5, y: 0.5, zoom: 1 }. Duplicating an event copies frames.
+# 2. Rendering. Every framed photo renders inside a clipping element marked `data-photo-frame` containing its <img>.
+#    The guest catalog card root carries `data-item-card="<itemId>"`. The item page hero is the first
+#    `data-photo-frame` in `[data-guest-screen="item"]`; the welcome cover is the first in `[data-guest-screen="join"]`.
+#    The frame's (x, y) point is centred and magnified by zoom, clamped so the photo always fills the box
+#    (the <img> box always covers the frame box, at any frame). Checked by pixel colour in Chromium and WebKit.
+# 3. Studio framing in place. On the Studio item screen (?mode=setup&screen=item&item=<id>), a button named
+#    "Adjust photo" enters framing mode: an element `data-frame-editor` appears inside `[data-preview-device]`
+#    (on the phone, over the real photo). Dragging on it moves the photo under the pointer (drag left → x grows);
+#    a slider named "Zoom" changes zoom (arrow keys work); a button named "Done" saves.
+# 4. Photo tray (Items workspace, ?mode=setup&view=items). A multiple file input `input[type=file][data-tray-input]`
+#    uploads into `[data-photo-tray]`; each photo is `[data-tray-photo]` with data-state uploading|ready|failed.
+#    Uploading never changes an item. Dragging a ready tray photo onto `[data-item-row="<itemId>"]` assigns it and
+#    removes it from the tray. A file the browser can't decode (e.g. HEIC in Chromium) stays as a failed tray photo
+#    whose text tells the user to use JPEG.
+# 5. Items workspace polish. Rows carry `data-item-row="<itemId>"`. Column headers (role columnheader) named
+#    "Starting" and "Top bid". The phone preview is collapsed on a first visit and opens with a button named
+#    "Show guest phone". Rows don't say "Visible"; hidden rows say "Hidden". A control named "Compact"
+#    (button, radio or switch) makes rows ≤ 64px tall at 1440px.
+spec_version = 2
+id = "real-v1-photos-001"
+project = "bidzizi"
+goal = "Photos frame with real pan and zoom on every guest surface, are framed in place on the Studio phone, upload into a tray separate from assignment, and the Items workspace is polished"
+bypass_policy = "fail"
+
+[scope]
+include = ["src/*", "tests/v1/*", "docs/plans/*", "migrations/prod/010_*", "public/*"]
+exclude = [
+  "*.env*",
+  "migrations/prod/00*",
+  "scripts/*",
+  "prototypes/*",
+  "package.json",
+  "pnpm-lock.yaml",
+  "next.config.*",
+  "AGENTS.md",
+]
+protected = ["tasks/*", "tests/contract/*"]
+test_files = ["tests/*"]
+
+[worktree]
+link = ["node_modules"]
+
+[[checks]]
+name = "photos are framed everywhere and items workspace is polished"
+kind = "acceptance"
+timeout = 1200
+argv = ["node", "tests/contract/photos.mjs"]
+entry = "tests/contract/photos.mjs"
+chain = [
+  "tests/contract/photos.mjs",
+  "tests/contract/lib/stack.mjs",
+  "scripts/prod-migrate.mjs",
+  "scripts/provision-staff.mjs",
+]
+evidence = ["tests/contract/*"]
+assertions = [
+  "FRAME_API_VALIDATES",
+  "FRAME_DEFAULT",
+  "FRAME_DUPLICATES",
+  "FRAME_PIXELS_CARD_CHROMIUM",
+  "FRAME_PIXELS_CARD_WEBKIT",
+  "FRAME_PIXELS_ITEM_PAGE",
+  "FRAME_PIXELS_COVER",
+  "FRAME_FILLS_BOX",
+  "STUDIO_FRAME_IN_PLACE",
+  "TRAY_UPLOADS_WITHOUT_ASSIGNING",
+  "TRAY_DRAG_ASSIGNS",
+  "TRAY_HEIC_EXPLAINED",
+  "ITEMS_SPLIT_COLUMNS",
+  "ITEMS_COMPACT_ROWS",
+  "ITEMS_PREVIEW_COLLAPSED",
+  "ITEMS_GUESTS_EXCEPTIONS",
+]
+baseline_failures = [
+  "FRAME_API_VALIDATES",
+  "FRAME_DEFAULT",
+  "FRAME_DUPLICATES",
+  "FRAME_PIXELS_CARD_CHROMIUM",
+  "FRAME_PIXELS_CARD_WEBKIT",
+  "FRAME_PIXELS_ITEM_PAGE",
+  "FRAME_PIXELS_COVER",
+  "FRAME_FILLS_BOX",
+  "STUDIO_FRAME_IN_PLACE",
+  "TRAY_UPLOADS_WITHOUT_ASSIGNING",
+  "TRAY_DRAG_ASSIGNS",
+  "TRAY_HEIC_EXPLAINED",
+  "ITEMS_SPLIT_COLUMNS",
+  "ITEMS_COMPACT_ROWS",
+  "ITEMS_PREVIEW_COLLAPSED",
+  "ITEMS_GUESTS_EXCEPTIONS",
+]
+
+[[checks]]
+name = "studio preview is the real guest app"
+kind = "regression"
+timeout = 900
+argv = ["node", "tests/contract/preview-parity.mjs"]
+entry = "tests/contract/preview-parity.mjs"
+chain = [
+  "tests/contract/preview-parity.mjs",
+  "tests/contract/lib/stack.mjs",
+  "scripts/prod-migrate.mjs",
+  "scripts/provision-staff.mjs",
+]
+evidence = ["tests/contract/*"]
+assertions = [
+  "PREVIEW_API_STAFF_ONLY",
+  "PREVIEW_API_MATCHES_GUEST",
+  "PREVIEW_API_ANON",
+  "PREVIEW_API_DRAFT",
+  "PREVIEW_API_HIDDEN_FLAGGED",
+  "CANVAS_USES_SERVER_PREVIEW",
+  "CANVAS_PARITY_JOIN",
+  "CANVAS_PARITY_ITEMS",
+  "CANVAS_PARITY_ITEM",
+  "CANVAS_PARITY_EVENT",
+  "CANVAS_PARITY_GIVE",
+  "CANVAS_PARITY_MINE",
+  "CANVAS_HIDDEN_MARKED",
+  "CANVAS_NO_GUEST_WRITES",
+]
+baseline_failures = []
+
+[[checks]]
+name = "static gates stay green"
+kind = "regression"
+timeout = 900
+argv = ["node", "tests/contract/static-gates.mjs"]
+entry = "tests/contract/static-gates.mjs"
+chain = [
+  "tests/contract/static-gates.mjs",
+  "tests/contract/lib/stack.mjs",
+  "scripts/compat.mjs",
+  "eslint.compat.config.mjs",
+  "package.json",
+  "tests/v1/display-logic.mjs",
+  "tests/v1/items-logic.mjs",
+  "tests/v1/compat-logic.mjs",
+]
+evidence = ["tests/contract/*"]
+assertions = ["NEXT_BUILD", "TYPECHECK", "COMPAT_GATE", "DISPLAY_LOGIC", "ITEMS_LOGIC", "COMPAT_LOGIC"]
+baseline_failures = []
+
+[[checks]]
+name = "connected suites stay green"
+kind = "regression"
+timeout = 1800
+argv = ["node", "tests/contract/server-suites.mjs"]
+entry = "tests/contract/server-suites.mjs"
+chain = [
+  "tests/contract/server-suites.mjs",
+  "tests/contract/lib/stack.mjs",
+  "scripts/prod-migrate.mjs",
+  "scripts/provision-staff.mjs",
+  "tests/v1/journey.mjs",
+  "tests/v1/operations-ui.mjs",
+  "tests/v1/studio-saving.mjs",
+  "tests/v1/bid-sheet.mjs",
+  "tests/v1/simple-ui.mjs",
+]
+evidence = ["tests/contract/*"]
+assertions = ["JOURNEY", "OPERATIONS_UI", "STUDIO_SAVING", "BID_SHEET", "SIMPLE_UI"]
+baseline_failures = []
+
+[notes]
+assumptions = "Snapshot builds and dev servers use --webpack because Turbopack rejects the linked node_modules; the implementer must also keep the normal Turbopack `pnpm build` green. Loopback Postgres 18 via BZ_CONTRACT_PG; Playwright Chromium and WebKit installed; ripgrep on PATH. Harnesses create and drop their own bz_test_ct_* database. Chained tests/v1 suites are frozen: if a UI change makes one of them outdated, stop and report rather than editing it. tests/v1/items-ui.mjs and tests/v1/photos.mjs exercise the photo-matching dialog and focal editor this tranche replaces, so they are NOT chained: the implementer updates them to the new tray/framing UI, keeping every server guarantee they assert (immutable assets, stale-write protection, guest cannot reposition), and reports them green."
+out_of_scope = "Visual acceptance (Zack's). Sponsor-logo framing is in the brief but not asserted here. Native iOS simulator runs. Published-vs-Live naming, events index, Live console, stage configuration. Pushes, merges, deploys and provider resources."

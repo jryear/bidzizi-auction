@@ -1,5 +1,5 @@
 "use client";
-import { photoStyle } from "../../../lib/photo";
+import { FramedPhoto } from "../../../lib/framed-photo";
 import { useState } from "react";
 import { headline } from "../../../lib/display";
 import { fmtClock } from "../../../lib/api";
@@ -99,7 +99,7 @@ function Ticket({ item, now, nav, stale, unconfirmed, tz }: { item: Item; now: n
   return (
     <article className={`tk tone-${s.tone}${s.key === "outbid" ? " shake-once" : ""}`}>
       <button type="button" className="tk-main" onClick={() => nav.openItem(item.id)}>
-        <span className="tk-thumb">{item.imageUrl ? <img style={photoStyle(item.imageFocal)} src={item.imageUrl} alt="" loading="lazy" /> : <ItemArt item={item} size="sm" />}</span>
+        <span className="tk-thumb">{item.imageUrl ? <FramedPhoto src={item.imageUrl} frame={item.imageFrame} className="pf-fill" loading="lazy" /> : <ItemArt item={item} size="sm" />}</span>
         <span className="tk-t">
           <h3>{item.title}</h3>
           {s.key === "unconfirmed" ? <span className="tk-pills"><Pill s={s} small /></span>

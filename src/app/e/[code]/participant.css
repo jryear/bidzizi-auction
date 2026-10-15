@@ -539,12 +539,13 @@
 .pa .ehero-media img { width: 100%; height: 100%; object-fit: cover; animation: kenburns 18s ease-out both; }
 @keyframes kenburns { from { transform: scale(1.08); } to { transform: scale(1); } }
 .pa .ehero::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: linear-gradient(180deg, rgba(12, 11, 9, .38) 0%, rgba(12, 11, 9, .1) 34%, rgba(12, 11, 9, .82) 100%); }
+  background: linear-gradient(180deg, rgba(12, 11, 9, .38) 0%, rgba(12, 11, 9, .08) 34%, rgba(12, 11, 9, .08) 100%); }
 .pa .ehero-art { position: absolute; inset: 0; display: grid; place-items: center end; overflow: hidden;
   background: radial-gradient(60% 80% at 85% 20%, rgba(26, 24, 20, .12) 0%, transparent 60%), radial-gradient(50% 60% at 10% 90%, rgba(35, 56, 199, .45) 0%, transparent 70%), var(--ink);
   background: radial-gradient(60% 80% at 85% 20%, color-mix(in srgb, var(--marigold) 55%, transparent) 0%, transparent 60%), radial-gradient(50% 60% at 10% 90%, rgba(35, 56, 199, .45) 0%, transparent 70%), var(--ink); }
 .pa .ehero-art span { margin-right: -6%; font: 300 min(210px, 380px)/.8 var(--serif); font: 300 min(70cqw, 380px)/.8 var(--serif); letter-spacing: -.06em; color: var(--paper); color: color-mix(in srgb, var(--paper) 8%, transparent); font-variation-settings: "SOFT" 100; }
-.pa .ehero-text { padding: 28px 20px 26px; }
+/* The dark scrim follows the text block, so a long title stays legible and the photo above it stays clear. */
+.pa .ehero-text { padding: 28px 20px 26px; background: linear-gradient(180deg, rgba(12, 11, 9, 0) 0%, rgba(12, 11, 9, .5) 38%, rgba(12, 11, 9, .8) 100%); }
 .pa .ehero-eyebrow { display: block; margin-bottom: 12px; font: 700 12px/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: #FFFCF5; color: color-mix(in srgb, #FFFCF5 88%, transparent); }
 .pa .ehero-title { font: 600 clamp(42px, 12vw, 64px)/.96 var(--serif); letter-spacing: -.035em; font-variation-settings: "SOFT" 70; text-wrap: balance; overflow-wrap: anywhere; text-shadow: 0 2px 30px rgba(0, 0, 0, .25); }
 .pa .ehero-clock { margin-top: 14px; }
@@ -566,10 +567,10 @@
 .pa .j-hero { position: relative; }
 .pa .j-hero .ehero { min-height: min(62vh, 520px); min-height: min(62dvh, 520px); }
 .pa .fan { position: absolute; right: 16px; top: 22px; width: 52%; height: 150px; pointer-events: none; }
-.pa .fan img { position: absolute; width: 56%; aspect-ratio: 4 / 5; object-fit: cover; border: 5px solid var(--card); border-radius: 10px; box-shadow: 0 14px 30px -12px rgba(0, 0, 0, .6); animation: fanin .8s var(--spring) both; }
-.pa .fan img:nth-child(1) { left: 0; top: 18px; transform: rotate(-9deg); }
-.pa .fan img:nth-child(2) { left: 24%; top: 0; transform: rotate(2deg); z-index: 2; animation-delay: .08s; }
-.pa .fan img:nth-child(3) { right: 0; top: 22px; transform: rotate(10deg); animation-delay: .16s; }
+.pa .fan > .fan-ph { position: absolute; width: 56%; aspect-ratio: 4 / 5; border: 5px solid var(--card); border-radius: 10px; box-shadow: 0 14px 30px -12px rgba(0, 0, 0, .6); animation: fanin .8s var(--spring) both; }
+.pa .fan > .fan-ph:nth-child(1) { left: 0; top: 18px; transform: rotate(-9deg); }
+.pa .fan > .fan-ph:nth-child(2) { left: 24%; top: 0; transform: rotate(2deg); z-index: 2; animation-delay: .08s; }
+.pa .fan > .fan-ph:nth-child(3) { right: 0; top: 22px; transform: rotate(10deg); animation-delay: .16s; }
 @keyframes fanin { from { opacity: 0; translate: 0 30px; } }
 .pa .join-panel { padding: 22px var(--gutter) 0; display: grid; gap: 18px; }
 .pa .join-intro { display: grid; gap: 16px; }
@@ -745,6 +746,15 @@
 .pa .ph-drop.ph-none { opacity: 1; background: transparent; align-items: end; padding-bottom: 22px; }
 .pa .ph-drop.ph-none span { background: rgba(26, 24, 20, .12); background: color-mix(in srgb, var(--paper) 92%, transparent); color: var(--ink); box-shadow: 0 6px 16px -8px rgba(0, 0, 0, .5); }
 .pa .ph-drop.over, .pa :hover > .ph-drop, .pa .ph-drop:focus-visible { opacity: 1; }
+/* A photo that's already there: clicking it frames it in place; chips offer the same and a replacement. */
+.pa .ph-drop.has { background: rgba(26, 24, 20, .18); align-items: end; justify-items: center; padding-bottom: 14px; }
+.pa .ph-drop.has:focus-within { opacity: 1; }
+.pa .ph-hit { position: absolute; inset: 0; border: 0; padding: 0; background: transparent; cursor: move; }
+.pa .ph-acts { position: relative; display: flex; gap: 8px; pointer-events: none; }
+.pa .ph-chip { pointer-events: auto; display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: rgba(26, 24, 20, .84); color: #fff; font: 650 13px/1 var(--sans); cursor: pointer; box-shadow: 0 6px 16px -8px rgba(0, 0, 0, .6); }
+.pa .ph-chip:hover { background: #1A1814; }
+.pa .ehero > .ph-drop.has.cover-ph { inset: 10px 10px auto auto; padding: 0; background: transparent; opacity: 1; }
+.pa .ehero > .ph-drop.has.cover-ph .ph-chip { min-height: 32px; padding: 0 12px; font-size: 12px; }
 .pa .ph-drop.over { background: rgba(35, 56, 199, .45); }
 .pa .lc-media { position: relative; }
 .pa .ehero .ph-drop { z-index: 0; align-items: start; justify-items: end; padding: 14px; }
@@ -821,6 +831,8 @@
   /* event page */
   .pa:not(.is-canvas) .event-page .ehero { min-height: 520px; }
   .pa:not(.is-canvas) .event-page .ehero-text { max-width: 1320px; width: 100%; margin: 0 auto; padding: 0 var(--gutter) 48px; }
+  .pa:not(.is-canvas) .event-page .ehero-text { background: none; }
+  .pa:not(.is-canvas) .event-page .ehero::after { background: linear-gradient(180deg, rgba(12, 11, 9, .38) 0%, rgba(12, 11, 9, .1) 34%, rgba(12, 11, 9, .82) 100%); }
   .pa:not(.is-canvas) .event-page .ehero-title { font-size: clamp(64px, 6.5vw, 104px); max-width: 15ch; }
   .pa:not(.is-canvas) .ev-body { max-width: 1320px; margin: 0 auto; padding-top: 40px; }
   .pa:not(.is-canvas) .ev-intro { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 72px; }

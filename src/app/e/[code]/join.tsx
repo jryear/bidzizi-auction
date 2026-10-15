@@ -1,5 +1,5 @@
 "use client";
-import { photoStyle } from "../../../lib/photo";
+import { FramedPhoto } from "../../../lib/framed-photo";
 import { accentVars } from "../../../lib/color";
 import { useState, type ReactNode } from "react";
 import { api, errorText, initials, newId, Offline } from "../../../lib/api";
@@ -54,7 +54,7 @@ export function Join({ snap, code, onJoined, preview, readOnly = false }: { snap
           <EventHero event={e} eyebrow={e.venue ? `${e.venue}` : "You're invited"}>
             <p className="ehero-clock"><EventClock snap={snap} now={now} /></p>
           </EventHero>
-          {!e.coverUrl && photos.length >= 2 && <div className="fan" aria-hidden="true">{photos.map(p => <img key={p.id} style={photoStyle(p.imageFocal)} src={p.imageUrl!} alt="" />)}</div>}
+          {!e.coverUrl && photos.length >= 2 && <div className="fan" aria-hidden="true">{photos.map(p => <FramedPhoto key={p.id} src={p.imageUrl!} frame={p.imageFrame} className="fan-ph" />)}</div>}
         </div>
         <div className="join-panel">
           <div className="join-intro">

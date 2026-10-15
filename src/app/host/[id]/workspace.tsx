@@ -1,5 +1,5 @@
 "use client";
-import { photoStyle } from "../../../lib/photo";
+import { FramedPhoto } from "../../../lib/framed-photo";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { api, dollarsInput, errorText, fmtClock, fmtTime, fromLocalInput, newId, parseDollars, toLocalInput, untilText } from "../../../lib/api";
@@ -10,7 +10,7 @@ import { PhotoPicker, StageChip } from "../ui";
 type Bid = { voided?: boolean; voidReason?: string; id: string; amountMinor: number; at: string; participantId: string; name: string; business: string };
 type Award = { status: "assigned" | "fulfilled" | "no_winner"; bidId: string | null; participantId: string | null; amountMinor: number | null; notes: string; revision: number; updatedAt: string };
 export type Item = {
-  id: string; position: number; title: string; short: string; description: string; category: string; donor: string; imageAssetId: string | null; imageUrl: string | null; imageFocal?: import("../../../lib/photo").FocalPoint;
+  id: string; position: number; title: string; short: string; description: string; category: string; donor: string; imageAssetId: string | null; imageUrl: string | null; imageFrame?: import("../../../lib/photo").Frame;
   openingMinor: number; incrementOverrideMinor: number | null; opensAt: string | null; closesAt: string | null; effectiveOpensAt: string; effectiveClosesAt: string;
   hasBids?: boolean; withdrawn?: boolean; withdrawalMessage?: string; ready: boolean; revision: number; phase: "scheduled" | "open" | "closed"; currentMinor: number | null; bidCount: number; minimumNextMinor: number | null;
   leader: { id: string; name: string; business: string } | null; bids: Bid[]; award: Award | null;
@@ -18,7 +18,7 @@ export type Item = {
 type Tier = { belowMinor: number | null; raiseMinor: number };
 export type Data = {
   serverNow: string;
-  event: { id: string; code: string; name: string; welcome: string; venue: string; winnerInstructions: string; coverAssetId: string | null; coverUrl: string | null; coverFocal?: import("../../../lib/photo").FocalPoint; timezone: string;
+  event: { id: string; code: string; name: string; welcome: string; venue: string; winnerInstructions: string; coverAssetId: string | null; coverUrl: string | null; coverFrame?: import("../../../lib/photo").Frame; timezone: string;
     startsAt: string; endsAt: string; accessEndsAt: string; status: "draft" | "live"; entryOpen: boolean; theme: string; bidMode: "tiered" | "fixed"; tiers: Tier[]; fixedIncrementMinor: number | null;
     isPractice?: boolean; archivedAt?: string | null; donationsEnabled: boolean; donationDeadline: string | null; revision: number; phase: string; hasBids: boolean };
   items: Item[];
@@ -210,7 +210,7 @@ function Items({ ctx }: { ctx: Ctx }) {
                 <button aria-label="Move up" disabled={index === 0} onClick={() => move(index, -1)}>▲</button>
                 <button aria-label="Move down" disabled={index === data.items.length - 1} onClick={() => move(index, 1)}>▼</button>
               </div>
-              <div className="thumb">{item.imageUrl ? <img style={photoStyle(item.imageFocal)} src={item.imageUrl} alt="" /> : String(index + 1).padStart(2, "0")}</div>
+              <div className="thumb">{item.imageUrl ? <FramedPhoto src={item.imageUrl} frame={item.imageFrame} className="pf-fill" /> : String(index + 1).padStart(2, "0")}</div>
               <div className="stack" style={{ gap: 4, minWidth: 0 }}>
                 <b>{item.title}</b>
                 <div className="row wrap small" style={{ gap: 8 }}>

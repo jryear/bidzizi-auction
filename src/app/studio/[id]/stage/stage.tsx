@@ -1,5 +1,5 @@
 "use client";
-import { photoStyle } from "../../../../lib/photo";
+import { FramedPhoto } from "../../../../lib/framed-photo";
 // The stage display: for a projector or TV in the room. Read-only, self-updating, legible from the back of the hall.
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { api } from "../../../../lib/api";
@@ -10,7 +10,7 @@ import { IExpand, ITrophy } from "../../../../lib/icons";
 import { countdown } from "../../../e/[code]/model";
 import { Amount, ItemArt } from "../../../e/[code]/ui";
 // The stage's own endpoint: only what the room may see, with bidder names already masked by the server.
-export type StageItem = { id: string; position: number; title: string; donor: string; category: string; imageUrl: string | null; imageFocal?: import("../../../../lib/photo").FocalPoint; openingMinor: number;
+export type StageItem = { id: string; position: number; title: string; donor: string; category: string; imageUrl: string | null; imageFrame?: import("../../../../lib/photo").Frame; openingMinor: number;
   currentMinor: number | null; bidCount: number; phase: "scheduled" | "open" | "closed"; effectiveClosesAt: string; leader: { name: string; business: string } | null };
 export type StageData = { serverNow: string; event: { id: string; name: string; code: string; theme: string; status: "draft" | "live"; startsAt: string; endsAt: string; phase: string; accentColor: string | null };
   items: StageItem[]; activity: { id: string; itemId: string; amountMinor: number; at: string; name: string; business: string }[]; bidders: number; givenMinor: number };
@@ -79,7 +79,7 @@ export function StageView({ data, origin, idle, offline }: { data: StageData; or
 
   return (
     <main className={`stage${idle ? " idle" : ""}`} style={{ "--st-ink": theme.ink, "--st-accent": theme.accent, "--st-paper": theme.paper } as CSSProperties}>
-      <div className="st-bg" aria-hidden="true">{item?.imageUrl && <img key={item.id} style={photoStyle(item.imageFocal)} src={item.imageUrl} alt="" />}</div>
+      <div className="st-bg" aria-hidden="true">{item?.imageUrl && <FramedPhoto key={item.id} src={item.imageUrl} frame={item.imageFrame} className="pf-fill" />}</div>
       <header className="st-top">
         <span className="st-brand">Bid<i>Zizi</i></span>
         <span className="st-event">{e.name}</span>
@@ -93,7 +93,7 @@ export function StageView({ data, origin, idle, offline }: { data: StageData; or
         <section className="st-main">
           {item ? (
             <div className="spot" key={item.id + (freshItem ? "-fresh" : "")}>
-              <div className="spot-img">{item.imageUrl ? <img style={photoStyle(item.imageFocal)} src={item.imageUrl} alt="" /> : <ItemArt item={item} />}<span className="spot-no">Item {String(item.position + 1).padStart(2, "0")}</span></div>
+              <div className="spot-img">{item.imageUrl ? <FramedPhoto src={item.imageUrl} frame={item.imageFrame} className="pf-fill" /> : <ItemArt item={item} />}<span className="spot-no">Item {String(item.position + 1).padStart(2, "0")}</span></div>
               <div className="spot-t">
                 {freshItem && item.phase === "open" ? <span className="spot-flag new">New bid</span> : t(item.effectiveClosesAt) - now < 10 * 60_000 && item.phase === "open" ? <span className="spot-flag soon">Closing soon</span> : <span className="spot-flag">{item.category || "Now bidding"}</span>}
                 <h1>{item.title}</h1>
@@ -145,7 +145,7 @@ function Finale({ data, raised }: { data: StageData; raised: number }) {
         {given > 0 && <div><span>Donated</span><b>{formatMoney(given)}</b></div>}
         <div><span>Bidders</span><b>{data.bidders}</b></div>
       </div>
-      {top.length > 0 && <ol className="fin-top">{top.map(i => <li key={i.id}><span className="ft-img">{i.imageUrl ? <img style={photoStyle(i.imageFocal)} src={i.imageUrl} alt="" /> : <ItemArt item={i} size="sm" />}</span><span><b>{i.title}</b><small>{formatMoney(i.currentMinor!)}</small></span></li>)}</ol>}
+      {top.length > 0 && <ol className="fin-top">{top.map(i => <li key={i.id}><span className="ft-img">{i.imageUrl ? <FramedPhoto src={i.imageUrl} frame={i.imageFrame} className="pf-fill" /> : <ItemArt item={i} size="sm" />}</span><span><b>{i.title}</b><small>{formatMoney(i.currentMinor!)}</small></span></li>)}</ol>}
       <p className="fin-note">Winners: check your phone. Staff will confirm and tell you how to collect.</p>
     </section>
   );

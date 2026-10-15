@@ -1,5 +1,5 @@
 "use client";
-import type { FocalPoint } from "../../lib/photo";
+import type { Frame } from "../../lib/photo";
 
 // Studio workspace data. Guest previews are projected separately by the server.
 import { type Tier } from "../../lib/money";
@@ -7,7 +7,7 @@ import { type Tier } from "../../lib/money";
 export type Bid = { id: string; amountMinor: number; at: string; participantId: string; name: string; business: string; voided: boolean; voidReason: string };
 export type Award = { status: "assigned" | "fulfilled" | "no_winner"; bidId: string | null; participantId: string | null; amountMinor: number | null; notes: string; revision: number; updatedAt: string };
 export type Item = {
-  id: string; position: number; title: string; short: string; description: string; category: string; donor: string; imageAssetId: string | null; imageUrl: string | null; imageFocal?: FocalPoint;
+  id: string; position: number; title: string; short: string; description: string; category: string; donor: string; imageAssetId: string | null; imageUrl: string | null; imageFrame?: Frame;
   openingMinor: number; incrementOverrideMinor: number | null; opensAt: string | null; closesAt: string | null; effectiveOpensAt: string; effectiveClosesAt: string;
   ready: boolean; revision: number; phase: "scheduled" | "open" | "closed"; currentMinor: number | null; bidCount: number; minimumNextMinor: number | null;
   leader: { id: string; name: string; business: string; number: number } | null; bids: Bid[]; award: Award | null;
@@ -16,7 +16,7 @@ export type Item = {
 export type Participant = { id: string; name: string; business: string; number: number; canBid: boolean; joinedAt: string; bidCount: number; leadingCount: number; pledgedMinor: number };
 export type Pledge = { id: string; recipientName: string; amountMinor: number; recordedAt: string; processedAt: string | null; note: string; name: string; business: string };
 export type EventData = {
-  id: string; code: string; name: string; welcome: string; venue: string; winnerInstructions: string; coverAssetId: string | null; coverUrl: string | null; coverFocal?: FocalPoint; timezone: string;
+  id: string; code: string; name: string; welcome: string; venue: string; winnerInstructions: string; coverAssetId: string | null; coverUrl: string | null; coverFrame?: Frame; timezone: string;
   startsAt: string; endsAt: string; accessEndsAt: string; status: "draft" | "live"; entryOpen: boolean; theme: string; bidMode: "tiered" | "fixed"; tiers: Tier[];
   fixedIncrementMinor: number | null; donationsEnabled: boolean; donationDeadline: string | null; revision: number; phase: string; hasBids: boolean;
   isPractice: boolean; archivedAt: string | null; bidderDisplay: BidderDisplay; accentColor: string | null; categories: string[];
@@ -31,13 +31,13 @@ export type Data = {
 };
 export type EventCard = {
   id: string; name: string; code: string; status: "draft" | "live"; stage: "draft" | "upcoming" | "running" | "ended";
-  startsAt: string; endsAt: string; coverUrl: string | null; coverFocal?: FocalPoint; itemCount: number; participantCount: number; bidCount: number;
+  startsAt: string; endsAt: string; coverUrl: string | null; coverFrame?: Frame; itemCount: number; participantCount: number; bidCount: number;
   isPractice: boolean; archivedAt: string | null;
 };
 
 /** Downscale in the browser so phone photos upload quickly and fit the server's limits. Logos keep their transparency
  *  (PNG); photos become JPEG. */
-async function shrink(file: File, kind: "photo" | "logo"): Promise<{ blob: Blob; type: string }> {
+export async function shrink(file: File, kind: "photo" | "logo"): Promise<{ blob: Blob; type: string }> {
   const bitmap = await createImageBitmap(file);
   const scale = Math.min(1, (kind === "logo" ? 800 : 1600) / Math.max(bitmap.width, bitmap.height));
   const canvas = document.createElement("canvas");
@@ -47,10 +47,17 @@ async function shrink(file: File, kind: "photo" | "logo"): Promise<{ blob: Blob;
   const type = kind === "logo" ? "image/png" : "image/jpeg";
   return new Promise((resolve, reject) => canvas.toBlob(b => b ? resolve({ blob: b, type }) : reject(new Error("encode")), type, 0.86));
 }
+export const isHeic = (file: File) => /hei[cf]/i.test(file.type) || /\.(heic|heif)$/i.test(file.name);
+/** What to tell someone whose browser can't decode a photo. HEIC (iPhone, Mac Photos) is the usual one outside Safari. */
+export function unreadable(file: File) {
+  return isHeic(file)
+    ? "This browser can’t read HEIC photos. Export it as JPEG (in Photos: File › Export › JPEG), or add it using Safari."
+    : "This image couldn’t be read. Save it as a JPEG or PNG and try again.";
+}
 export async function uploadPhoto(file: File, kind: "photo" | "logo" = "photo"): Promise<{ id: string; url: string }> {
-  if (!file.type.startsWith("image/")) throw new Error("That file isn't an image. Use a JPEG, PNG or WebP.");
+  if (!file.type.startsWith("image/") && !isHeic(file)) throw new Error("That file isn't an image. Use a JPEG, PNG or WebP.");
   let out: { blob: Blob; type: string };
-  try { out = await shrink(file, kind); } catch { throw new Error("That image couldn't be read. Try a JPEG or PNG."); }
+  try { out = await shrink(file, kind); } catch { throw new Error(unreadable(file)); }
   // The server decodes one image at a time; when it's busy with someone else's, wait a moment and try again.
   for (let attempt = 0; ; attempt++) {
     const r = await fetch("/api/v1/host/assets", { method: "POST", headers: { "Content-Type": out.type }, body: out.blob, credentials: "same-origin" }).catch(() => null);

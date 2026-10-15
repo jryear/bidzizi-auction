@@ -1,14 +1,15 @@
 "use client";
-import { AdjustPhoto } from "../photo-tools";
+import { COVER_SHAPES, FrameEditor, ITEM_SHAPES } from "../frame-editor";
 import { usePhotoUpload } from "../../../lib/use-photo-upload";
-import { photoStyle } from "../../../lib/photo";
+import { FramedPhoto } from "../../../lib/framed-photo";
 // Set up: a checklist that knows the event, the attendee's phone as an editable canvas, and an inspector for the selection.
 import { accentVars, accentReadable, readableAccent, contrast, ACCENT_MIN } from "../../../lib/color";
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from "react";
+import { DEFAULT_FRAME, sameFrame, type Frame } from "../../../lib/photo";
 import { api, dollarsInput, errorText, fmtClock, fmtTime, fromLocalInput, newId, parseDollars, toLocalInput } from "../../../lib/api";
 import { formatMoney, increment } from "../../../lib/money";
 import { THEMES } from "../../../lib/templates";
-import { ICalendar, ICheck, IChevD, IChevL, IChevR, IDrag, IEye, IEyeOff, IGift, IGrid, IHeart, IInfo, IPalette, IPhone, IPlus, ISearch, ISliders, IStore, ITrash, IArrowUp, IUpload } from "../../../lib/icons";
+import { ICalendar, ICheck, IChevD, IChevL, IChevR, IDrag, IEye, IEyeOff, IGift, IGrid, IHeart, IInfo, IPalette, IPhone, IPlus, ISearch, ISliders, IStore, ITrash, IArrowUp, IUpload, ICrop } from "../../../lib/icons";
 import { ReorderHelp, useMoveItem, useReorder } from "../reorder";
 import { Ed, Photo, EditCtx, type EditApi } from "../../e/[code]/ui";
 import { GuestShell } from "../../e/[code]/guest-shell";
@@ -149,7 +150,7 @@ function ItemsNav({ ctx, sel, select, addItem }: { ctx: SetupCtx; sel: Sel; sele
               <button type="button" className="inav-grip" {...reorder.handle(i.id)}><IDrag size={14} /></button>
               <button type="button" className={`inav-row${on ? " on" : ""}${i.ready ? "" : " is-hidden"}`} aria-current={on || undefined} onClick={() => select({ kind: "item", id: i.id }, "item")}>
                 <span className="inav-no">{String(i.position + 1).padStart(2, "0")}</span>
-                <span className="inav-thumb">{i.imageUrl ? <img style={photoStyle(i.imageFocal)} src={i.imageUrl} alt="" /> : null}</span>
+                <span className="inav-thumb">{i.imageUrl ? <FramedPhoto src={i.imageUrl} frame={i.imageFrame} className="pf-fill" /> : null}</span>
                 <span className="inav-t">{i.title}</span>
                 {!i.ready ? <IEyeOff size={14} aria-label="Hidden from guests" /> : !i.imageUrl ? <span className="oi-warn" title="No photo yet" /> : i.bidCount ? <small className="inav-bids">{i.bidCount}</small> : null}
               </button>
@@ -178,8 +179,78 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
   const selKey = sel.kind === "item" ? `item:${sel.id}` : sel.kind === "event" || sel.kind === "schedule" ? "event" : sel.kind;
   const itemFor = (key: string) => data.items.find(i => `item:${i.id}` === key);
 
+  // ---------------------------------------------------------------- framing a photo in place
+  const [framing, setFraming] = useState<{ key: string; start: Frame; frame: Frame } | null>(null);
+  const framingRef = useRef(framing); framingRef.current = framing;
+  const frameField = useId(), frameTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const pendingFrame = useRef<{ key: string; frame: Frame } | null>(null), sentFrame = useRef(false);
+  const markFrame = (dirty: boolean) => dispatchEvent(new CustomEvent("bz:editing", { detail: { field: frameField, dirty } }));
+  const saveFrame = (key: string, frame: Frame) => {
+    const d = live.current.data;
+    if (key === "event") return patchEvent({ coverFrame: frame, coverExpectedAssetId: d.event.coverAssetId });
+    const it = d.items.find(i => `item:${i.id}` === key);
+    return it?.imageAssetId ? patchItem(it, { imageFrame: frame, imageExpectedAssetId: it.imageAssetId }) : Promise.resolve(false);
+  };
+  const flushFrame = async () => {
+    clearTimeout(frameTimer.current);
+    const job = pendingFrame.current;
+    if (!job) return true;
+    pendingFrame.current = null; sentFrame.current = true;
+    const ok = await saveFrame(job.key, job.frame);
+    if (!pendingFrame.current) markFrame(false);
+    if (!ok) flash("The framing wasn’t saved. Adjust it again to retry.", "red");
+    return ok;
+  };
+  const queueFrame = (key: string, frame: Frame, now = false) => {
+    pendingFrame.current = { key, frame }; markFrame(true);
+    clearTimeout(frameTimer.current);
+    if (now) void flushFrame(); else frameTimer.current = setTimeout(flushFrame, 450);
+  };
+  const frameNow = (key: string) => key === "event" ? live.current.data.event.coverFrame : live.current.data.items.find(i => `item:${i.id}` === key)?.imageFrame;
+  const startFraming = (key: string) => {
+    if (framingRef.current?.key === key) return;
+    if (framingRef.current) finishFraming(framingRef.current.frame);
+    if (key === "event") { if (!["welcome", "join", "event"].includes(screen)) setScreen("welcome"); if (selKey !== "event") select({ kind: "event" }); }
+    else if (!(screen === "items" || (screen === "item" && selKey === key))) select({ kind: "item", id: key.slice(5) }, "item");
+    const f = frameNow(key) ?? DEFAULT_FRAME;
+    sentFrame.current = false;
+    setFraming({ key, start: f, frame: f });
+  };
+  function finishFraming(frame: Frame) {
+    const cur = framingRef.current;
+    if (!cur) return;
+    if (!sameFrame(frame, cur.frame) || pendingFrame.current) queueFrame(cur.key, frame, true);
+    setFraming(null);
+  }
+  const cancelFraming = (save = true) => {
+    const cur = framingRef.current;
+    if (!cur) return;
+    clearTimeout(frameTimer.current); pendingFrame.current = null; markFrame(false);
+    if (save && sentFrame.current) queueFrame(cur.key, cur.start, true);
+    setFraming(null);
+  };
+  useEffect(() => {
+    const start = (e: Event) => startFraming((e as CustomEvent<string>).detail);
+    const replaced = (e: Event) => { if (framingRef.current?.key === (e as CustomEvent).detail) cancelFraming(false); };
+    addEventListener("bz:frame-start", start); addEventListener("bz:photo-position-cancel", replaced);
+    return () => { removeEventListener("bz:frame-start", start); removeEventListener("bz:photo-position-cancel", replaced); };
+  });
+  useEffect(() => () => { clearTimeout(frameTimer.current); if (pendingFrame.current) void flushFrame(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // Selecting something else on the canvas or in the outline finishes framing, keeping the frame.
+  const lastSel = useRef(selKey);
+  useEffect(() => {
+    if (lastSel.current === selKey) return;
+    lastSel.current = selKey;
+    if (framingRef.current && framingRef.current.key !== selKey) finishFraming(framingRef.current.frame);
+  }, [selKey]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const edit: EditApi = {
     selected: selKey,
+    framing: framing && { key: framing.key, frame: framing.frame },
+    startFraming,
+    renderFrameEditor: (key, box, url) => framing?.key === key ? <FrameEditor key={key} box={box} url={url} frame={framing.frame} shapes={key === "event" ? COVER_SHAPES : ITEM_SHAPES}
+      onChange={f => { setFraming(x => x && { ...x, frame: f }); queueFrame(key, f); }}
+      onDone={finishFraming} onCancel={() => cancelFraming()} /> : null,
     select: key => { if (key === "event") select({ kind: "event" }); else if (key.startsWith("item:")) select({ kind: "item", id: key.slice(5) }); else if (key === "sponsors") select({ kind: "sponsors" }); },
     commit: async (key, field, value) => {
       if (field === "title" && !value) { flash("An item needs a title.", "red"); return false; }
@@ -197,12 +268,12 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
       if (key === "event") {
         if (latest.event.coverAssetId !== before) return false;
         dispatchEvent(new CustomEvent("bz:photo-position-cancel", { detail: key }));
-        return patchEvent({ coverAssetId: asset.id, coverFocal: { x: 0.5, y: 0.5 }, coverExpectedAssetId: before });
+        return patchEvent({ coverAssetId: asset.id, coverFrame: DEFAULT_FRAME, coverExpectedAssetId: before });
       }
       const it = latest.items.find(i => `item:${i.id}` === key);
       if (!it || it.imageAssetId !== before) return false;
       dispatchEvent(new CustomEvent("bz:photo-position-cancel", { detail: key }));
-      return patchItem(it, { imageAssetId: asset.id, imageFocal: { x: 0.5, y: 0.5 }, imageExpectedAssetId: before });
+      return patchItem(it, { imageAssetId: asset.id, imageFrame: DEFAULT_FRAME, imageExpectedAssetId: before });
     },
   };
   const noop: Nav = { openItem: id => { select({ kind: "item", id }, "item"); }, openSheet: () => flash("Bidding is off in the editor. Use Preview to try it."), tab: s => setScreen(s), back: () => setScreen("items"), watch: () => {} };
@@ -276,7 +347,7 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
                 nav={noop} now={now} editor join={screen === "welcome" || screen === "join"} onDone={() => {}} notify={() => {}} />
                 : <div data-edit-chrome className="pa is-canvas preview-unavailable">
                   <p role="status">Opening the guest preview… You can keep editing.</p>
-                  <Photo k="event" url={data.event.coverUrl} focal={data.event.coverFocal} className="hero" />
+                  <Photo k="event" url={data.event.coverUrl} frame={data.event.coverFrame} className="hero" />
                   <Ed k="event" field="name" value={data.event.name} as="h1" placeholder="Event name" max={200} />
                   <Ed k="event" field="welcome" value={data.event.welcome} as="p" multiline placeholder="Write a welcome" max={5000} />
                 </div>}
@@ -291,6 +362,11 @@ export function Canvas({ ctx, sel, select, screen, setScreen, addItem }: { ctx: 
 }
 
 // ---------------------------------------------------------------- inspectors
+/** Framing happens on the phone, over the real photo; this just starts it from the panel. */
+function AdjustButton({ photoKey }: { photoKey: string }) {
+  return <button type="button" className="sx-btn ghost sm adjust-btn" onClick={() => dispatchEvent(new CustomEvent("bz:frame-start", { detail: photoKey }))}><ICrop size={16} />Adjust photo</button>;
+}
+
 export function Inspector({ ctx, sel, select }: { ctx: SetupCtx; sel: Sel; select: (s: Sel, screen?: Screen) => void }) {
   if (sel.kind === "items") return null;
   if (sel.kind === "item") {
@@ -311,7 +387,7 @@ function EventPanel({ ctx }: { ctx: SetupCtx }) {
   return (
     <Panel title="Details" icon={<IInfo size={20} />}>
       <p className="on-phone"><IPhone size={16} />Edit the name, welcome and cover photo on the phone.</p>
-      {e.coverUrl && <AdjustPhoto photoKey="event" key={e.coverAssetId} url={e.coverUrl} focal={e.coverFocal} onSave={coverFocal => patchEvent({ coverFocal, coverExpectedAssetId: e.coverAssetId })} />}
+      {e.coverUrl && <AdjustButton photoKey="event" />}
       {e.coverUrl && <button type="button" className="sx-btn ghost sm" onClick={() => { dispatchEvent(new CustomEvent("bz:photo-cancel", { detail: "event" })); dispatchEvent(new CustomEvent("bz:photo-position-cancel", { detail: "event" })); patchEvent({ coverAssetId: null }); }}><ITrash size={16} />Remove cover photo</button>}
       <TextField label="Venue" value={e.venue} max={300} placeholder="Saturn Hall, Pasadena" onSave={v => patchEvent({ venue: v })} />
       <TextField label="Message to winners" value={e.winnerInstructions} multiline rows={3} placeholder="Congratulations! Pick up your item at the front desk before 8 PM."
@@ -424,7 +500,7 @@ function ItemPanel({ ctx, item, onDeleted, onAll }: { ctx: SetupCtx; item: Item;
         <CategoryInput value={item.category} categories={data.event.categories ?? []} counts={counts} label="Category" placeholder="Travel, Dining…" className="field" onSave={v => p({ category: v })} /></label>
       <TextField label="Provided by" value={item.donor} max={200} placeholder="Business that donated it" onSave={v => p({ donor: v })} />
       <TextField label="Description" value={item.description} multiline rows={4} max={10_000} placeholder="What’s included, dates, fine print" onSave={v => p({ description: v })} />
-      {item.imageUrl && <AdjustPhoto photoKey={`item:${item.id}`} key={item.imageAssetId} url={item.imageUrl} focal={item.imageFocal} onSave={imageFocal => p({ imageFocal, imageExpectedAssetId: item.imageAssetId })} />}
+      {item.imageUrl && <AdjustButton photoKey={`item:${item.id}`} />}
       {item.imageUrl && <button type="button" className="sx-btn ghost sm" onClick={() => { dispatchEvent(new CustomEvent("bz:photo-cancel", { detail: `item:${item.id}` })); dispatchEvent(new CustomEvent("bz:photo-position-cancel", { detail: `item:${item.id}` })); p({ imageAssetId: null }); }}><ITrash size={16} />Remove photo</button>}
       <p className="on-phone"><IPhone size={16} />Drop a photo onto the phone, or click any text there to edit it in place.</p>
       {item.ready && <Switch on={item.ready} disabled={locked} onChange={v => p({ ready: v })} label="Visible to guests" sub={locked ? "Items with bids stay visible." : live ? "Guests see it now." : "Guests see it once you go live."} />}
