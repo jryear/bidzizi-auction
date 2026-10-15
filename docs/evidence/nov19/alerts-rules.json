@@ -54,6 +54,24 @@
     "confirmationRecordedAt": "2026-10-15T17:59:39.033Z",
     "latencyMeasured": false
   },
-  "hostedApplicationProofPending": true,
-  "productionActivated": false
+  "hostedApplicationProofPending": false,
+  "productionActivated": false,
+  "digestDeliveryAdjustment": {
+    "at": "2026-10-15T18:22:23.070Z",
+    "project": "bidzizi-real-v1",
+    "url": "https://imogen-view.sentry.io/settings/projects/bidzizi-real-v1/alerts/",
+    "before": {
+      "minimumMinutes": 5,
+      "maximumMinutes": 30
+    },
+    "after": {
+      "minimumMinutes": 1,
+      "maximumMinutes": 1
+    },
+    "lowestSupportedByUiMinutes": 1,
+    "reason": "Measured real email arrival missed 60 seconds because events were grouped into digests; lower the existing project delivery intervals and repeat the same approved practice-event proof.",
+    "ruleThrottleMinutes": 5,
+    "productionApplicationActivated": false,
+    "persistedUiReadbackConfirmed": true
+  }
 }

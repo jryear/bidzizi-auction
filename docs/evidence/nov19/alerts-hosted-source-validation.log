@@ -1,0 +1,215 @@
+(node:55097) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/src/server/v1/alert-core.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS alert core: target/config guards, strict field allowlist/redaction, deferred send, first delivery, deduplication/expiry/eviction/pending bounds, once-only dispatch, failure retry, provider backoff, timeout, disarmed mode. No network access.
+(node:55098) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/src/server/v1/sentry-sdk.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS actual Sentry Next.js SDK: initialization, scope/error/log/metric rejection, exact envelope allowlist, deferred capture, HTTP acceptance vs rejection, one retry, timeout and 429 backoff. Stub transport only; no provider access.
+PASS local load target guards (no network access).
+PASS CPU sampler: owned trees, initial baseline, backend exit and replacement.
+The files belonging to this database system will be owned by user "jryear".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are enabled.
+
+fixing permissions on existing directory /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-xWlWsc ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... America/Los_Angeles
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    '/opt/homebrew/opt/postgresql@18/bin/pg_ctl' -D /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-xWlWsc -l logfile start
+
+waiting for server to start.... done
+server started
+CREATE EXTENSION
+applied 001_core.sql
+applied 002_theme.sql
+applied 003_operations.sql
+applied 004_bidder_visibility.sql
+applied 005_donations_follow_recipients.sql
+applied 006_look_and_sponsor_links.sql
+applied 007_photo_position.sql
+applied 008_item_categories.sql
+applied 009_client_reports.sql
+applied 010_photo_frame.sql
+migrations up to date
+Created staff account readiness@example.test.
+$ tsc --noEmit
+$ next build
+▲ Next.js 16.3.8 (Turbopack)
+✓ Running next.config.ts took 212ms
+- Experiments (use with caution):
+  · clientTraceMetadata
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 953ms
+  Running next.config.js provided runAfterProductionCompile ...
+✓ Completed runAfterProductionCompile in 86ms
+  Running TypeScript ...
+  Finished TypeScript in 360ms ...
+  Collecting page data using 15 workers ...
+  Generating static pages using 15 workers (0/8) ...
+  Generating static pages using 15 workers (2/8) 
+  Generating static pages using 15 workers (4/8) 
+  Generating static pages using 15 workers (6/8) 
+✓ Generating static pages using 15 workers (8/8) in 83ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/v1/[...path]
+├ ƒ /e/[code]
+├ ƒ /e/[code]/simple
+├ ○ /host
+├ ƒ /host/[id]
+├ ○ /host/set-password
+├ ○ /join
+├ ○ /staff/setup
+├ ○ /studio
+├ ƒ /studio/[id]
+├ ƒ /studio/[id]/print
+└ ƒ /studio/[id]/stage
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+▲ Next.js 16.3.8
+- Local:         http://127.0.0.1:3469
+- Network:       http://127.0.0.1:3469
+✓ Ready in 73ms
+✓ Running next.config.ts took 164ms
+Request failed: error
+BidZizi alert {"status":"accepted","eventId":"0017b0c5c48342968db394e83c806d46","category":"server-failure","check":"api-request","occurredAt":"2026-10-15T18:00:49.452Z","at":"2026-10-15T18:00:49.464Z","providerDate":"2026-10-15T18:00:49.000Z"}
+BidZizi alert {"status":"accepted","eventId":"0610b7749c774f488152cdd75ce8331d","category":"guest-blocked","check":"client-error","occurredAt":"2026-10-15T18:00:49.654Z","at":"2026-10-15T18:00:49.655Z","providerDate":"2026-10-15T18:00:49.000Z"}
+BidZizi alert {"status":"accepted","eventId":"925ac65ebb5d437ab09b0dbef9a7b4f9","category":"guest-blocked","check":"bid-sheet","occurredAt":"2026-10-15T18:00:52.428Z","at":"2026-10-15T18:00:52.429Z","providerDate":"2026-10-15T18:00:52.000Z"}
+BidZizi alert {"status":"failed","reason":"provider-delivery-failed","eventId":"6a286ee61b3b4b8db42415fa23f30d2d","category":"guest-blocked","check":"app-not-started","occurredAt":"2026-10-15T18:00:52.442Z","at":"2026-10-15T18:00:52.445Z"}
+PASS local alert integration: genuine 8s bid timeout → sanitized 503 with no bid/receipt; real uncaught browser error and blocking health → committed telemetry → filtered envelope after response; expected bid rejection/unknown health suppressed; fixture cleanup.
+$ node scripts/compat.mjs
+Compatibility: 66 JS/TS modules; all CSS; 0 blocking findings.
+ok   staff login rejects a wrong password with a generic error
+ok   staff login succeeds
+ok   mutations from another origin are refused
+ok   create event (retry returns the same event)
+ok   add items (default tiers apply)
+ok   draft event is invisible to participants
+ok   go live
+ok   stale event edit is refused
+ok   participants join with a name and business
+ok   lost join response: retry returns the same participant
+ok   bidding requires joining
+ok   first bid at the opening amount is accepted
+ok   leader can't outbid themselves
+ok   below the minimum is rejected with the minimum
+ok   duplicate taps record one bid; replay returns the original receipt
+ok   reusing a request id for a different bid is refused
+ok   simultaneous bids at the same amount: exactly one wins
+ok   lost bid response: the receipt endpoint answers 'did it go through?'
+ok   tier increments step up with the amount ($500 → $50 raise)
+ok   paused participant can't bid but still sees their receipts
+ok   starting amount locks once bidding starts
+ok   staff can shorten or extend a bid item's close with the five-minute safeguard
+ok   donations: pledge once, retry is idempotent, over $10,000 refused
+ok   winner can't be assigned before the item closes
+ok   after close: bids refused, winner assigned, retry is safe, winner sees it
+ok   fulfil with follow-up notes; stale revision refused
+ok   lost phone: staff rejoin code moves Alice to a new device
+ok   exports download as CSV
+ok   duplicate event copies setup and items, not activity
+ok   editing a participant changes the event identity shown on their phone
+ok   voiding an awarded bid clears the award, preserves receipt and reveals a no-winner state
+ok   practice event can be created and run by staff
+ok   void of current leader recalculates exact standing and sequence stays monotonic
+ok   voiding a nonleader preserves standing; concurrent bid and void serialize correctly
+ok   withdrawing a bid-holding item keeps a clear bidder message and blocks new bids
+ok   reset practice removes all people and bids, restores withdrawn item, and rotates join code
+ok   staff can delete practice and unjoined draft events; archived drafts vanish from join
+ok   another organization cannot manage this event or its staff
+ok   staff invitation and reset use one-time password setup and revoke old sessions
+ok   donations appear only while the event has a nonprofit, and close at the deadline (no switch)
+ok   look: one custom accent colour (validated) and sponsor links reach guests
+ok   bidder visibility defaults to name and business for other guests
+ok   business only: other guests and the stage never receive the bidder's name
+ok   anonymous: stable per-event bidder numbers; names and businesses never reach phones or the stage
+ok   anonymous: winners are masked for other guests; staff always see full identities
+ok   bidder numbers are unique under concurrent joins
+ok   new items: shown in a draft, hidden once published, and an explicit choice wins
+ok   categories are tidied, matched without case, and listed in staff order
+ok   category list: add before use, rename, merge, remove, reorder; guests see staff order
+ok   paste rows: all added in order or none; a retry replays without duplicates
+ok   bulk update: set category and visibility; an item with bids stays visible; stale photos are skipped
+ok   bulk delete: unbid items go, bid-on items stay; draft numbering closes up
+ok   concurrent edits, new categories, bulk changes and reorders never deadlock
+ok   duplicate keeps the category list and order
+ok   staff logout ends the session
+
+55/55 passed
+PASS chromium: visible/tappable at 390×844, 390×420 and 1440×1000; focus, inert background, Escape, sending and lost-response receipt recovery; exactly one bid
+PASS webkit: visible/tappable at 390×844, 390×420 and 1440×1000; focus, inert background, Escape, sending and lost-response receipt recovery; exactly one bid
+2/2 engines passed
+PASS chromium JavaScript disabled: join, detail, bid receipt/replay, My bids, donation replay, uncertain recovery, rejoin and CSRF; no duplicate bids or pledges
+PASS webkit JavaScript disabled: join, detail, bid receipt/replay, My bids, donation replay, uncertain recovery, rejoin and CSRF; no duplicate bids or pledges
+2/2 simple-mode journeys passed
+8/8 telemetry checks passed: draft isolation, validation/size/origin, concurrent device/IP limits, redaction, staff/tenant scoping and retention
+ok   existing/new references default to the centred cover fit
+ok   cover and item frames save atomically with their asset and reach all snapshots
+ok   server rejects malformed and out-of-range frames without changing revisions
+ok   an older Studio tab moving the focal point keeps the zoom
+ok   duplication preserves frames but later adjustments are independent
+ok   stale photo writes cannot overwrite a newer removal, even with a fresh revision
+ok   replacement resets the frame while immutable bytes retain transparency
+ok   guest cannot update staff photo framing
+ok   connected Studio frames, replaces and re-frames photos in place on the phone at 1440 and 390
+
+9/9 passed
+ok   saved frame reaches the cover and item hero
+ok   zoom autosaves from the in-place editor and the strips show other shapes
+ok   failed framing save keeps the confirmed frame and saves on the next change
+ok   confirmed image stays visible until the replacement PATCH succeeds
+ok   failed replacement retains the photo and can retry
+ok   removing a photo during upload cannot restore it
+ok   removing a photo cancels a pending framing edit without a false save failure
+ok   newer photo wins when two uploads finish out of order
+ok   leaving the photo editor ignores unfinished upload completion
+ok   canvas accepts a pasted image
+ok   failed sponsor upload save retains confirmed logo and retries
+
+11/11 passed
+ok   type rows: Enter adds an item and starts the next, keeping the category
+ok   an unfinished add row survives a reload, and asks for the missing starting bid
+ok   paste rows: review, fix a row, add them all; they arrive selected
+ok   bulk: set a new category on the selection, then hide it from guests
+ok   filters: hidden, category and search narrow the sheet; clearing restores it
+ok   inline cells save on leaving them: title, starting bid, category with an existing spelling
+ok   keyboard reorder: Space picks up, arrows move, Space drops; the order is saved
+ok   drag reorder with the pointer saves the new order
+ok   photo tray: upload never assigns; suggestions, undo, drag, tap-to-place and replace all go through the batch
+ok   photo tray: an undecodable HEIC stays in the tray and says to use JPEG
+ok   categories: rename merges into an existing name after confirming; guest order follows
+ok   published event: a new item starts hidden; Show makes it visible to guests
+ok   bulk delete keeps items people have bid on
+ok   sidebar list: compact past eight items, searchable, opens the workspace
+ok   phone: no sideways scrolling; tapping a title opens the item editor; add row works
+ok   no browser page errors
+
+16/16 passed
+PASS chromium: 4 poor-network scenarios
+PASS webkit: 4 poor-network scenarios
+waiting for server to shut down.... done
+server stopped
+Owned app and disposable Postgres stopped; temporary cluster removed.

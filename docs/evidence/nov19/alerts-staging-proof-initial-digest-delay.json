@@ -1,0 +1,229 @@
+{
+  "startedAt": "2026-10-15T18:04:02.245Z",
+  "sourceCommit": "c50cad0e441a75a8db045b3baf76054032b2821b",
+  "deploymentId": "dpl_AZZH3S67gBuDQvff6rmapwAUGKjr",
+  "orgId": "d6ba6a44-934b-425a-8d09-ecbad464c654",
+  "staffId": "84db3ee4-020c-4e07-be6d-fcb7095005fb",
+  "fixtureSlug": "nov19-alert-466337a97226",
+  "scenarios": {
+    "serverFailure": {
+      "requestStartedAt": "2026-10-15T18:04:11.235Z",
+      "responseAt": "2026-10-15T18:04:19.462Z",
+      "alertId": "fa51a5cb5b62436aa257861549734ce4",
+      "status": 503,
+      "observedLockWait": true,
+      "noBidOrReceiptCommitted": true,
+      "serverOccurredAt": "2026-10-15T18:04:19.370Z",
+      "ingestAcceptedAt": "2026-10-15T18:04:19.567Z",
+      "providerHttpDate": "2026-10-15T18:04:19.000Z",
+      "detectionTimestamp": {
+        "confirmed": true,
+        "source": "Sentry event JSON received field",
+        "at": "2026-10-15T18:04:19.534Z"
+      },
+      "sentry": {
+        "confirmed": true,
+        "verifiedBy": "Authenticated Sentry issue UI and visually read raw event JSON received field through Safari",
+        "eventId": "fa51a5cb5b62436aa257861549734ce4",
+        "receivedUnixSeconds": 1792087459.534243,
+        "receivedAt": "2026-10-15T18:04:19.534Z",
+        "eventJsonUrl": "https://us.sentry.io/api/0/projects/imogen-view/bidzizi-real-v1/events/fa51a5cb5b62436aa257861549734ce4/json/",
+        "environment": "staging",
+        "detectionAfterIncidentMs": 164.243,
+        "issueUrl": "https://imogen-view.sentry.io/issues/7794712365/"
+      },
+      "inboxReceivedAt": "2026-10-15T18:08:09.000Z",
+      "incidentOccurredAt": "2026-10-15T18:04:19.370Z",
+      "occurrenceToInboxSeconds": 229.63,
+      "notificationWithin60Seconds": false
+    },
+    "guestError": {
+      "alertId": "071efb3fdb784d88bd225bde86801c29",
+      "browserOccurredAt": "2026-10-15T18:04:20.297Z",
+      "responseAt": "2026-10-15T18:04:20.369Z",
+      "status": 202,
+      "committed": true,
+      "serverOccurredAt": "2026-10-15T18:04:20.356Z",
+      "ingestAcceptedAt": "2026-10-15T18:04:20.417Z",
+      "providerHttpDate": "2026-10-15T18:04:20.000Z",
+      "detectionTimestamp": {
+        "confirmed": true,
+        "source": "Sentry event JSON received field",
+        "at": "2026-10-15T18:04:20.389Z"
+      },
+      "sentry": {
+        "confirmed": true,
+        "verifiedBy": "Authenticated Sentry issue UI and visually read raw event JSON received field through Safari",
+        "eventId": "071efb3fdb784d88bd225bde86801c29",
+        "receivedUnixSeconds": 1792087460.389718,
+        "receivedAt": "2026-10-15T18:04:20.389Z",
+        "eventJsonUrl": "https://us.sentry.io/api/0/projects/imogen-view/bidzizi-real-v1/events/071efb3fdb784d88bd225bde86801c29/json/",
+        "environment": "staging",
+        "detectionAfterIncidentMs": 92.718
+      },
+      "inboxReceivedAt": "2026-10-15T18:08:09.000Z",
+      "incidentOccurredAt": "2026-10-15T18:04:20.297Z",
+      "occurrenceToInboxSeconds": 228.703,
+      "notificationWithin60Seconds": false
+    },
+    "blockingHealth": {
+      "alertId": "adad78e6c89749469391f1fb63934527",
+      "browserOccurredAt": "2026-10-15T18:04:20.870Z",
+      "responseAt": "2026-10-15T18:04:21.651Z",
+      "status": 202,
+      "realCoveredButtonCheck": true,
+      "committed": true,
+      "serverOccurredAt": "2026-10-15T18:04:21.639Z",
+      "ingestAcceptedAt": "2026-10-15T18:04:21.704Z",
+      "providerHttpDate": "2026-10-15T18:04:21.000Z",
+      "detectionTimestamp": {
+        "confirmed": true,
+        "source": "Sentry event JSON received field",
+        "at": "2026-10-15T18:04:21.676Z"
+      },
+      "sentry": {
+        "confirmed": true,
+        "verifiedBy": "Authenticated Sentry issue UI and visually read raw event JSON received field through Safari",
+        "eventId": "adad78e6c89749469391f1fb63934527",
+        "receivedUnixSeconds": 1792087461.676783,
+        "receivedAt": "2026-10-15T18:04:21.676Z",
+        "eventJsonUrl": "https://us.sentry.io/api/0/projects/imogen-view/bidzizi-real-v1/events/adad78e6c89749469391f1fb63934527/json/",
+        "environment": "staging",
+        "detectionAfterIncidentMs": 806.783
+      },
+      "inboxReceivedAt": "2026-10-15T18:08:09.000Z",
+      "incidentOccurredAt": "2026-10-15T18:04:20.870Z",
+      "occurrenceToInboxSeconds": 228.13,
+      "notificationWithin60Seconds": false
+    }
+  },
+  "inboxProof": {
+    "confirmed": true,
+    "confirmedBy": "Zack in chat: All three arrived",
+    "confirmationRecordedAt": "2026-10-15T18:12:15.579Z",
+    "latencyMeasured": true,
+    "latencyStatus": "Await exact email Received timestamps; user confirmation alone does not establish the 60-second target.",
+    "gmailConnector": "Read scope unavailable; using the already authenticated Safari Gmail UI for exact matching alerts.",
+    "method": "Authenticated Safari Gmail: exact controlled-alert conversation, first message Show original, Gmail Received header",
+    "receivedAt": "2026-10-15T18:08:09.000Z",
+    "receivedHeader": "Thu, 15 Oct 2026 11:08:09 -0700 (PDT)",
+    "messageId": "20261015180805.54.1693@md.getsentry.com",
+    "sender": "noreply@md.getsentry.com",
+    "format": "Grouped digest: 3 new alerts, containing all three controlled events",
+    "threadMessages": 2,
+    "allDisplayedInSame1108Minute": true,
+    "maximumAcceptedSeconds": 60,
+    "passed": false,
+    "reason": "First real inbox delivery took approximately 3 minutes 50 seconds, despite subsecond Sentry event reception. Investigate project email digest delay; do not claim the 60-second requirement passed."
+  },
+  "cleanup": {
+    "confirmed": true,
+    "at": "2026-10-15T18:04:22.297Z",
+    "stagingRemaining": {
+      "orgs": 0,
+      "staff": 0,
+      "events": 0,
+      "requests": 0,
+      "sessions": 0
+    },
+    "productionAbsence": {
+      "at": "2026-10-15T18:04:22.331Z",
+      "readOnly": true,
+      "orgs": 0,
+      "staff": 0,
+      "events": 0
+    }
+  },
+  "binding": {
+    "deploymentId": "dpl_AZZH3S67gBuDQvff6rmapwAUGKjr",
+    "sourceCommit": "c50cad0e441a75a8db045b3baf76054032b2821b",
+    "readyState": "READY",
+    "projectId": "prj_nQdWJzjZjFg0TY2MjlTf2hxWtBf9",
+    "productionUnchanged": true
+  },
+  "productionAbsenceBefore": {
+    "at": "2026-10-15T18:04:08.001Z",
+    "readOnly": true,
+    "orgs": 0,
+    "staff": 0,
+    "events": 0
+  },
+  "eventId": "e19bbbfb-08b5-4aec-a1c8-af097e5193cf",
+  "databaseBinding": {
+    "staging": {
+      "id": "e19bbbfb-08b5-4aec-a1c8-af097e5193cf",
+      "org_id": "d6ba6a44-934b-425a-8d09-ecbad464c654",
+      "is_practice": true
+    },
+    "production": {
+      "at": "2026-10-15T18:04:10.752Z",
+      "readOnly": true,
+      "orgs": 0,
+      "staff": 0,
+      "events": 0
+    }
+  },
+  "applicationProofPassed": true,
+  "finishedAt": "2026-10-15T18:04:22.429Z",
+  "stopCondition": null,
+  "deliveryNotices": [
+    {
+      "eventId": "adad78e6c89749469391f1fb63934527",
+      "status": "accepted",
+      "category": "guest-blocked",
+      "check": "bid-sheet",
+      "occurredAt": "2026-10-15T18:04:21.639Z",
+      "at": "2026-10-15T18:04:21.704Z",
+      "providerDate": "2026-10-15T18:04:21.000Z"
+    },
+    {
+      "eventId": "adad78e6c89749469391f1fb63934527",
+      "status": "accepted",
+      "category": "guest-blocked",
+      "check": "bid-sheet",
+      "occurredAt": "2026-10-15T18:04:21.639Z",
+      "at": "2026-10-15T18:04:21.704Z",
+      "providerDate": "2026-10-15T18:04:21.000Z"
+    },
+    {
+      "eventId": "071efb3fdb784d88bd225bde86801c29",
+      "status": "accepted",
+      "category": "guest-blocked",
+      "check": "client-error",
+      "occurredAt": "2026-10-15T18:04:20.356Z",
+      "at": "2026-10-15T18:04:20.417Z",
+      "providerDate": "2026-10-15T18:04:20.000Z"
+    },
+    {
+      "eventId": "071efb3fdb784d88bd225bde86801c29",
+      "status": "accepted",
+      "category": "guest-blocked",
+      "check": "client-error",
+      "occurredAt": "2026-10-15T18:04:20.356Z",
+      "at": "2026-10-15T18:04:20.417Z",
+      "providerDate": "2026-10-15T18:04:20.000Z"
+    },
+    {
+      "eventId": "fa51a5cb5b62436aa257861549734ce4",
+      "status": "accepted",
+      "category": "server-failure",
+      "check": "api-request",
+      "occurredAt": "2026-10-15T18:04:19.370Z",
+      "at": "2026-10-15T18:04:19.567Z",
+      "providerDate": "2026-10-15T18:04:19.000Z"
+    }
+  ],
+  "logCollection": {
+    "at": "2026-10-15T18:04:51.982Z",
+    "available": true,
+    "matched": 5
+  },
+  "hostedApplicationVerified": true,
+  "observability": {
+    "releaseTag": "unidentified-deployment",
+    "releaseSourceAttribution": "Exact source commit is verified through deployment metadata and correlated runtime log IDs; automatic Sentry release tagging is not established for CLI archive deploys.",
+    "sdkProviderLabel": "bidzizi-readiness/1.0 from the strict custom transport auth header; actual local dependency and runtime capture use @sentry/nextjs 11.8.0.",
+    "providerEnrichment": "Sentry derives synthetic trace context and server geography from ingestion. No guest IP, raw error, SQL, URL, user or request data was transmitted in the allowlisted payload."
+  },
+  "readinessAcceptancePassed": false
+}
