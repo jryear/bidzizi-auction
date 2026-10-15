@@ -24,7 +24,8 @@ try { execFileSync('/Users/jryear/.local/bin/vercel',['whoami','--scope','saturn
   {encoding:'utf8',stdio:['ignore','pipe','pipe'],timeout:20000}); }
 catch { throw new Error('Existing Vercel authentication unavailable; no provider mutation occurred. Raw output suppressed.'); }
 const auth = JSON.parse(await readFile('/Users/jryear/Library/Application Support/com.vercel.cli/auth.json','utf8'));
-const team = 'team_fOkqe9T0PRKMmdczUvnoMXct', stage = targets.staging, prod = targets.production;
+// Preserve the newer photo framing release observed on staging before this alert deploy.
+const team = 'team_fOkqe9T0PRKMmdczUvnoMXct', stage = { ...targets.staging, deployment: 'dpl_AqVVa22iSSFxtQTL6n5JtBCuw4bC' }, prod = targets.production;
 async function api(method,path,body) {
   const r = await fetch('https://api.vercel.com'+path+(path.includes('?')?'&':'?')+'teamId='+team, {method,redirect:'error',signal:AbortSignal.timeout(20000),
     headers:{Authorization:'Bearer '+auth.token,...(body?{'content-type':'application/json'}:{})},body:body?JSON.stringify(body):undefined});
@@ -32,6 +33,10 @@ async function api(method,path,body) {
 }
 const beforeAlias = await api('GET','/v4/aliases/'+stage.alias);
 assert.equal(beforeAlias.deployment?.id ?? beforeAlias.deploymentId,stage.deployment,'Staging changed since approved baseline; stop before mutation.');
+const served = await api('GET','/v13/deployments/'+stage.deployment);
+assert.equal(served.meta?.sourceCommit,'efc302b8960badcb8fb54c2d468cd86e34f6903a');
+assert.equal(served.projectId,stage.project); assert.equal(served.readyState,'READY');
+execFileSync('git',['merge-base','--is-ancestor',served.meta.sourceCommit,commit]);
 const beforeProd = await api('GET','/v4/aliases/'+prod.alias);
 assert.equal(beforeProd.deployment?.id ?? beforeProd.deploymentId,prod.deployment);
 const prodVars = await api('GET',`/v10/projects/${prod.project}/env`);

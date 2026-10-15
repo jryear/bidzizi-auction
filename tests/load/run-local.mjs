@@ -62,6 +62,8 @@ try {
   if (process.env.NOV19_ALERT_CHECKS === '1') await run(process.execPath, ['tests/alerts/journey.mjs']);
   await run('pnpm', ['compat']);
   for (const suite of ['journey', 'bid-sheet', 'simple-ui', 'compat-api']) await run(process.execPath, [`tests/v1/${suite}.mjs`]);
+  if (process.env.NOV19_ALERT_CHECKS === '1')
+    for (const suite of ['photos', 'photo-ui', 'items-ui']) await run(process.execPath, [`tests/v1/${suite}.mjs`]);
   await run(process.execPath, ['tests/load/resilience.mjs']);
 } finally {
   if (app && app.exitCode === null && app.signalCode === null) { app.kill('SIGTERM'); await new Promise(resolve => app.once('exit', resolve)); }

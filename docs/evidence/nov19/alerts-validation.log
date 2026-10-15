@@ -1,9 +1,9 @@
-(node:25476) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/src/server/v1/alert-core.ts is not specified and it doesn't parse as CommonJS.
+(node:55097) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/src/server/v1/alert-core.ts is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 To eliminate this warning, add "type": "module" to /Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
 PASS alert core: target/config guards, strict field allowlist/redaction, deferred send, first delivery, deduplication/expiry/eviction/pending bounds, once-only dispatch, failure retry, provider backoff, timeout, disarmed mode. No network access.
-(node:25477) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/src/server/v1/sentry-sdk.ts is not specified and it doesn't parse as CommonJS.
+(node:55098) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/src/server/v1/sentry-sdk.ts is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 To eliminate this warning, add "type": "module" to /Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
@@ -18,7 +18,7 @@ The default text search configuration will be set to "english".
 
 Data page checksums are enabled.
 
-fixing permissions on existing directory /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-7s9xgr ... ok
+fixing permissions on existing directory /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-xWlWsc ... ok
 creating subdirectories ... ok
 selecting dynamic shared memory implementation ... posix
 selecting default "max_connections" ... 100
@@ -31,7 +31,7 @@ syncing data to disk ... ok
 
 Success. You can now start the database server using:
 
-    '/opt/homebrew/opt/postgresql@18/bin/pg_ctl' -D /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-7s9xgr -l logfile start
+    '/opt/homebrew/opt/postgresql@18/bin/pg_ctl' -D /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-xWlWsc -l logfile start
 
 waiting for server to start.... done
 server started
@@ -45,27 +45,28 @@ applied 006_look_and_sponsor_links.sql
 applied 007_photo_position.sql
 applied 008_item_categories.sql
 applied 009_client_reports.sql
+applied 010_photo_frame.sql
 migrations up to date
 Created staff account readiness@example.test.
 $ tsc --noEmit
 $ next build
 ▲ Next.js 16.3.8 (Turbopack)
-✓ Running next.config.ts took 167ms
+✓ Running next.config.ts took 212ms
 - Experiments (use with caution):
   · clientTraceMetadata
 
   Creating an optimized production build ...
-✓ Compiled successfully in 217ms
+✓ Compiled successfully in 953ms
   Running next.config.js provided runAfterProductionCompile ...
-✓ Completed runAfterProductionCompile in 67ms
+✓ Completed runAfterProductionCompile in 86ms
   Running TypeScript ...
-  Finished TypeScript in 168ms ...
+  Finished TypeScript in 360ms ...
   Collecting page data using 15 workers ...
   Generating static pages using 15 workers (0/8) ...
   Generating static pages using 15 workers (2/8) 
   Generating static pages using 15 workers (4/8) 
   Generating static pages using 15 workers (6/8) 
-✓ Generating static pages using 15 workers (8/8) in 84ms
+✓ Generating static pages using 15 workers (8/8) in 83ms
   Finalizing page optimization ...
 
 Route (app)
@@ -94,13 +95,13 @@ Route (app)
 ✓ Ready in 73ms
 ✓ Running next.config.ts took 164ms
 Request failed: error
-BidZizi alert {"status":"accepted","eventId":"40f8a4988577487eb74d44f04b13d1b7","category":"server-failure","check":"api-request","occurredAt":"2026-10-15T17:31:42.696Z","at":"2026-10-15T17:31:42.705Z","providerDate":"2026-10-15T17:31:42.000Z"}
-BidZizi alert {"status":"accepted","eventId":"ad4dc1e5ae384d528f966e85de479ac4","category":"guest-blocked","check":"client-error","occurredAt":"2026-10-15T17:31:42.877Z","at":"2026-10-15T17:31:42.880Z","providerDate":"2026-10-15T17:31:42.000Z"}
-BidZizi alert {"status":"accepted","eventId":"6f843da88db0481384ab5f2ad2f54bc8","category":"guest-blocked","check":"bid-sheet","occurredAt":"2026-10-15T17:31:45.612Z","at":"2026-10-15T17:31:45.615Z","providerDate":"2026-10-15T17:31:45.000Z"}
-BidZizi alert {"status":"failed","reason":"provider-delivery-failed","eventId":"0033f99dd1b04a59b4bb69a1aa4c6b9f","category":"guest-blocked","check":"app-not-started","occurredAt":"2026-10-15T17:31:45.626Z","at":"2026-10-15T17:31:45.630Z"}
+BidZizi alert {"status":"accepted","eventId":"0017b0c5c48342968db394e83c806d46","category":"server-failure","check":"api-request","occurredAt":"2026-10-15T18:00:49.452Z","at":"2026-10-15T18:00:49.464Z","providerDate":"2026-10-15T18:00:49.000Z"}
+BidZizi alert {"status":"accepted","eventId":"0610b7749c774f488152cdd75ce8331d","category":"guest-blocked","check":"client-error","occurredAt":"2026-10-15T18:00:49.654Z","at":"2026-10-15T18:00:49.655Z","providerDate":"2026-10-15T18:00:49.000Z"}
+BidZizi alert {"status":"accepted","eventId":"925ac65ebb5d437ab09b0dbef9a7b4f9","category":"guest-blocked","check":"bid-sheet","occurredAt":"2026-10-15T18:00:52.428Z","at":"2026-10-15T18:00:52.429Z","providerDate":"2026-10-15T18:00:52.000Z"}
+BidZizi alert {"status":"failed","reason":"provider-delivery-failed","eventId":"6a286ee61b3b4b8db42415fa23f30d2d","category":"guest-blocked","check":"app-not-started","occurredAt":"2026-10-15T18:00:52.442Z","at":"2026-10-15T18:00:52.445Z"}
 PASS local alert integration: genuine 8s bid timeout → sanitized 503 with no bid/receipt; real uncaught browser error and blocking health → committed telemetry → filtered envelope after response; expected bid rejection/unknown health suppressed; fixture cleanup.
 $ node scripts/compat.mjs
-Compatibility: 64 JS/TS modules; all CSS; 0 blocking findings.
+Compatibility: 66 JS/TS modules; all CSS; 0 blocking findings.
 ok   staff login rejects a wrong password with a generic error
 ok   staff login succeeds
 ok   mutations from another origin are refused
@@ -165,6 +166,48 @@ PASS chromium JavaScript disabled: join, detail, bid receipt/replay, My bids, do
 PASS webkit JavaScript disabled: join, detail, bid receipt/replay, My bids, donation replay, uncertain recovery, rejoin and CSRF; no duplicate bids or pledges
 2/2 simple-mode journeys passed
 8/8 telemetry checks passed: draft isolation, validation/size/origin, concurrent device/IP limits, redaction, staff/tenant scoping and retention
+ok   existing/new references default to the centred cover fit
+ok   cover and item frames save atomically with their asset and reach all snapshots
+ok   server rejects malformed and out-of-range frames without changing revisions
+ok   an older Studio tab moving the focal point keeps the zoom
+ok   duplication preserves frames but later adjustments are independent
+ok   stale photo writes cannot overwrite a newer removal, even with a fresh revision
+ok   replacement resets the frame while immutable bytes retain transparency
+ok   guest cannot update staff photo framing
+ok   connected Studio frames, replaces and re-frames photos in place on the phone at 1440 and 390
+
+9/9 passed
+ok   saved frame reaches the cover and item hero
+ok   zoom autosaves from the in-place editor and the strips show other shapes
+ok   failed framing save keeps the confirmed frame and saves on the next change
+ok   confirmed image stays visible until the replacement PATCH succeeds
+ok   failed replacement retains the photo and can retry
+ok   removing a photo during upload cannot restore it
+ok   removing a photo cancels a pending framing edit without a false save failure
+ok   newer photo wins when two uploads finish out of order
+ok   leaving the photo editor ignores unfinished upload completion
+ok   canvas accepts a pasted image
+ok   failed sponsor upload save retains confirmed logo and retries
+
+11/11 passed
+ok   type rows: Enter adds an item and starts the next, keeping the category
+ok   an unfinished add row survives a reload, and asks for the missing starting bid
+ok   paste rows: review, fix a row, add them all; they arrive selected
+ok   bulk: set a new category on the selection, then hide it from guests
+ok   filters: hidden, category and search narrow the sheet; clearing restores it
+ok   inline cells save on leaving them: title, starting bid, category with an existing spelling
+ok   keyboard reorder: Space picks up, arrows move, Space drops; the order is saved
+ok   drag reorder with the pointer saves the new order
+ok   photo tray: upload never assigns; suggestions, undo, drag, tap-to-place and replace all go through the batch
+ok   photo tray: an undecodable HEIC stays in the tray and says to use JPEG
+ok   categories: rename merges into an existing name after confirming; guest order follows
+ok   published event: a new item starts hidden; Show makes it visible to guests
+ok   bulk delete keeps items people have bid on
+ok   sidebar list: compact past eight items, searchable, opens the workspace
+ok   phone: no sideways scrolling; tapping a title opens the item editor; add row works
+ok   no browser page errors
+
+16/16 passed
 PASS chromium: 4 poor-network scenarios
 PASS webkit: 4 poor-network scenarios
 waiting for server to shut down.... done
