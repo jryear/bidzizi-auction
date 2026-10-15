@@ -3,7 +3,7 @@
 // frame's point at the centre, clamped so the box is always filled). Percentages stay right while the box resizes at the
 // same shape; a shared ResizeObserver redoes the layout when the shape changes. No container units or object-view-box,
 // so it behaves the same on iOS 15/16 Safari. Until the photo has loaded it is a plain centred cover fit.
-import { useLayoutEffect, useRef, type CSSProperties, type HTMLAttributes, type ReactNode } from "react";
+import { useCallback, useLayoutEffect, useRef, type CSSProperties, type HTMLAttributes, type ReactNode } from "react";
 import { DEFAULT_FRAME, frameLayout, type Frame } from "./photo";
 
 let observer: ResizeObserver | null = null;
@@ -46,9 +46,12 @@ export function FramedPhoto({ src, frame, alt = "", as = "span", loading, childr
     return () => unwatch(b);
   }, [src]); // eslint-disable-line react-hooks/exhaustive-deps
   useLayoutEffect(place, [f.x, f.y, f.zoom]); // eslint-disable-line react-hooks/exhaustive-deps
+  // A stable ref callback: an inline one is detached (null) and re-attached on every render, and React re-attaches it
+  // only after children's layout effects run, so a child mounting in that render (the framing editor) would see no box.
+  const attach = useCallback((el: HTMLElement | null) => { box.current = el; if (boxRef) boxRef.current = el; }, [boxRef]);
   const Tag = as as "span";
   return (
-    <Tag ref={(el: HTMLElement | null) => { box.current = el; if (boxRef) boxRef.current = el; }} data-photo-frame="" {...rest}>
+    <Tag ref={attach} data-photo-frame="" {...rest}>
       <img ref={img} src={src} alt={alt} draggable={false} loading={loading} className={imgClassName} style={IMG} onLoad={place} />
       {children}
     </Tag>
