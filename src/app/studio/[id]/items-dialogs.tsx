@@ -11,7 +11,9 @@ import type { SetupCtx } from "./setup";
 
 function Dialog({ title, sub, onClose, children, foot, className = "", busy = false }: { title: string; sub?: ReactNode; onClose: () => void; children: ReactNode; foot?: ReactNode; className?: string; busy?: boolean }) {
   const ref = useRef<HTMLDialogElement>(null);
-  useEffect(() => { ref.current?.showModal(); }, []);
+  // showModal() moves focus to the first focusable element (Close), overriding React's autoFocus, which ran while the
+  // dialog was still closed. Put focus back on the field marked data-autofocus so staff can type or paste at once.
+  useEffect(() => { ref.current?.showModal(); ref.current?.querySelector<HTMLElement>("[data-autofocus]")?.focus(); }, []);
   return (
     <dialog ref={ref} className={`sx-dialog iw-dlg ${className}`} aria-labelledby="iw-dlg-title" onClose={onClose} onCancel={ev => { if (busy) ev.preventDefault(); }}>
       <div className="iw-dlg-head">
@@ -98,7 +100,7 @@ export function PasteDialog({ ctx, initial, onClose, onAdded }: { ctx: SetupCtx;
         <button type="button" className="sx-btn primary" disabled={!ready || busy} onClick={add}>{busy ? "Adding…" : `Add ${included.length ? plural(included.length, "item") : "items"}`}</button>
       </div>}>
       {!rows.length ? (
-        <textarea className="pd-paste" autoFocus value={text} onChange={ev => setText(ev.target.value)} aria-label="Paste spreadsheet rows here"
+        <textarea className="pd-paste" data-autofocus value={text} onChange={ev => setText(ev.target.value)} aria-label="Paste spreadsheet rows here"
           placeholder={"Item\tStarting bid\tCategory\tProvided by\nWeekend cabin\t$400\tTravel\tJuniper Cabins\nCoffee for a year\t$200\tFood & drink\tHarbor Roasters"} />
       ) : (
         <>

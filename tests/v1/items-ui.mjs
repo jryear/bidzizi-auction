@@ -81,7 +81,9 @@ await check("an unfinished add row survives a reload, and asks for the missing s
 
 await check("paste rows: review, fix a row, add them all; they arrive selected", async () => {
   await page.getByRole("button", { name: "Paste rows" }).click();
-  await page.getByLabel("Paste spreadsheet rows here").fill("Item\tStarting bid\tCategory\tDonated by\nOmakase for two\t$260\tDining\tKaito Sushi\nCoffee for a year\t150\tFood & drink\tHarbor Roasters\nMystery box\tfree\tGift cards\tSaturn\nYoga pass\t150\tWellness\tBlue Lotus\nGolf for four\t420\tExperiences\tBrookside");
+  // Opening the dialog must put the cursor in the paste box, so Cmd+V works straight away (staff never click into it).
+  await until("paste box focused", () => page.evaluate(() => document.activeElement?.getAttribute("aria-label") === "Paste spreadsheet rows here"), 3000);
+  await page.keyboard.insertText("Item\tStarting bid\tCategory\tDonated by\nOmakase for two\t$260\tDining\tKaito Sushi\nCoffee for a year\t150\tFood & drink\tHarbor Roasters\nMystery box\tfree\tGift cards\tSaturn\nYoga pass\t150\tWellness\tBlue Lotus\nGolf for four\t420\tExperiences\tBrookside");
   await page.getByText("1 row to fix or leave out").waitFor();
   await page.getByLabel("Row 3 starting bid").fill("100");
   await page.getByText("5 items ready").waitFor();
