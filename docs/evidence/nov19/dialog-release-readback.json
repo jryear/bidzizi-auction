@@ -1,0 +1,39 @@
+{
+  "verifiedAt": "2026-10-15T20:59:55.117Z",
+  "method": "Authenticated Vercel GET only; no application-domain requests or mutations",
+  "targets": {
+    "staging": {
+      "alias": "staging.bidzizi.com",
+      "project": "prj_nQdWJzjZjFg0TY2MjlTf2hxWtBf9",
+      "deployment": "dpl_AZZH3S67gBuDQvff6rmapwAUGKjr",
+      "sourceCommit": "c50cad0e441a75a8db045b3baf76054032b2821b",
+      "readyState": "READY",
+      "alertDsnConfigured": true
+    },
+    "production": {
+      "alias": "app.bidzizi.com",
+      "project": "prj_gJg1GmPcU3pxeXf9UCj5O7clYZf2",
+      "deployment": "dpl_kkAtoBzwqXeF72ieMkuLwUZyCgtT",
+      "sourceCommit": "4d6028f10b30e5cd8f5c33db060cce753114db77",
+      "readyState": "READY",
+      "alertDsnConfigured": false
+    }
+  },
+  "localGuardVerification": {
+    "passed": true,
+    "checks": [
+      "syntax",
+      "pins match fresh provider readback",
+      "both served sources retained as ancestors",
+      "merged src and migrations match live production source byte for byte",
+      "live staging binding and unchanged production via GET only"
+    ],
+    "binding": {
+      "deploymentId": "dpl_AZZH3S67gBuDQvff6rmapwAUGKjr",
+      "sourceCommit": "c50cad0e441a75a8db045b3baf76054032b2821b",
+      "readyState": "READY",
+      "projectId": "prj_nQdWJzjZjFg0TY2MjlTf2hxWtBf9",
+      "productionUnchanged": true
+    }
+  }
+}

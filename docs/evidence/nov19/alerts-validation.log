@@ -1,9 +1,9 @@
-(node:77982) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/src/server/v1/alert-core.ts is not specified and it doesn't parse as CommonJS.
+(node:69758) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/src/server/v1/alert-core.ts is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 To eliminate this warning, add "type": "module" to /Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
 PASS alert core: target/config guards, strict field allowlist/redaction, deferred send, first delivery, deduplication/expiry/eviction/pending bounds, once-only dispatch, failure retry, provider backoff, timeout, disarmed mode. No network access.
-(node:77983) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/src/server/v1/sentry-sdk.ts is not specified and it doesn't parse as CommonJS.
+(node:69759) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/src/server/v1/sentry-sdk.ts is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 To eliminate this warning, add "type": "module" to /Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
@@ -18,7 +18,7 @@ The default text search configuration will be set to "english".
 
 Data page checksums are enabled.
 
-fixing permissions on existing directory /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-iZ3Ife ... ok
+fixing permissions on existing directory /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-hPuMaW ... ok
 creating subdirectories ... ok
 selecting dynamic shared memory implementation ... posix
 selecting default "max_connections" ... 100
@@ -31,7 +31,7 @@ syncing data to disk ... ok
 
 Success. You can now start the database server using:
 
-    '/opt/homebrew/opt/postgresql@18/bin/pg_ctl' -D /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-iZ3Ife -l logfile start
+    '/opt/homebrew/opt/postgresql@18/bin/pg_ctl' -D /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-hPuMaW -l logfile start
 
 waiting for server to start.... done
 server started
@@ -51,22 +51,22 @@ Created staff account readiness@example.test.
 $ tsc --noEmit
 $ next build
 ▲ Next.js 16.3.8 (Turbopack)
-✓ Running next.config.ts took 231ms
+✓ Running next.config.ts took 197ms
 - Experiments (use with caution):
   · clientTraceMetadata
 
   Creating an optimized production build ...
-✓ Compiled successfully in 633ms
+✓ Compiled successfully in 639ms
   Running next.config.js provided runAfterProductionCompile ...
-✓ Completed runAfterProductionCompile in 88ms
+✓ Completed runAfterProductionCompile in 76ms
   Running TypeScript ...
-  Finished TypeScript in 200ms ...
+  Finished TypeScript in 180ms ...
   Collecting page data using 15 workers ...
   Generating static pages using 15 workers (0/8) ...
   Generating static pages using 15 workers (2/8) 
   Generating static pages using 15 workers (4/8) 
   Generating static pages using 15 workers (6/8) 
-✓ Generating static pages using 15 workers (8/8) in 80ms
+✓ Generating static pages using 15 workers (8/8) in 69ms
   Finalizing page optimization ...
 
 Route (app)
@@ -92,13 +92,13 @@ Route (app)
 ▲ Next.js 16.3.8
 - Local:         http://127.0.0.1:3469
 - Network:       http://127.0.0.1:3469
-✓ Ready in 78ms
-✓ Running next.config.ts took 168ms
+✓ Ready in 66ms
+✓ Running next.config.ts took 141ms
 Request failed: Error
-BidZizi alert {"status":"accepted","eventId":"f6e0a6079641491c94b7ab03e8db021e","category":"server-failure","check":"api-request","occurredAt":"2026-10-15T18:32:46.354Z","at":"2026-10-15T18:32:46.364Z","providerDate":"2026-10-15T18:32:46.000Z"}
-BidZizi alert {"status":"accepted","eventId":"61a4d43226fc44ff8fb0178908fce8f3","category":"guest-blocked","check":"client-error","occurredAt":"2026-10-15T18:32:46.756Z","at":"2026-10-15T18:32:46.759Z","providerDate":"2026-10-15T18:32:46.000Z"}
-BidZizi alert {"status":"accepted","eventId":"62471f8d12fd4504980261f6b8b5d767","category":"guest-blocked","check":"bid-sheet","occurredAt":"2026-10-15T18:32:48.598Z","at":"2026-10-15T18:32:48.600Z","providerDate":"2026-10-15T18:32:48.000Z"}
-BidZizi alert {"status":"failed","reason":"provider-delivery-failed","eventId":"52353fce5de44042bc72d8c2be2247c6","category":"guest-blocked","check":"app-not-started","occurredAt":"2026-10-15T18:32:48.614Z","at":"2026-10-15T18:32:48.616Z"}
+BidZizi alert {"status":"accepted","eventId":"2637f066c90547c4bc0bdc7c0644a56c","category":"server-failure","check":"api-request","occurredAt":"2026-10-15T21:00:29.312Z","at":"2026-10-15T21:00:29.337Z","providerDate":"2026-10-15T21:00:29.000Z"}
+BidZizi alert {"status":"accepted","eventId":"76ede8c593e84d9d97929883ea31b372","category":"guest-blocked","check":"client-error","occurredAt":"2026-10-15T21:00:29.719Z","at":"2026-10-15T21:00:29.722Z","providerDate":"2026-10-15T21:00:29.000Z"}
+BidZizi alert {"status":"accepted","eventId":"0cc114d1e1314402bc5ee7e2e4053ae1","category":"guest-blocked","check":"bid-sheet","occurredAt":"2026-10-15T21:00:32.459Z","at":"2026-10-15T21:00:32.462Z","providerDate":"2026-10-15T21:00:32.000Z"}
+BidZizi alert {"status":"failed","reason":"provider-delivery-failed","eventId":"97801c598bb84b02b13e6b7e9e9ce348","category":"guest-blocked","check":"app-not-started","occurredAt":"2026-10-15T21:00:32.478Z","at":"2026-10-15T21:00:32.481Z"}
 PASS local alert integration: genuine 8s bid timeout → sanitized 503 with no bid/receipt; real uncaught browser error and blocking health → committed telemetry → filtered envelope after response; expected bid rejection/unknown health suppressed; fixture cleanup.
 $ node scripts/compat.mjs
 Compatibility: 66 JS/TS modules; all CSS; 0 blocking findings.

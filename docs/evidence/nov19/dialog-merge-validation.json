@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "validatedAt": "2026-10-15T21:01:36.116Z",
+  "mergedBranch": "jryear/real-v1-claude-shell",
+  "mergedRevision": "80b512488a6ca362abfcc88521c280c996fcbe8d",
+  "mergeCommit": "d1c232640b1771258fd31c25d964f17a16edc972",
+  "productionSourceRetained": "4d6028f10b30e5cd8f5c33db060cce753114db77",
+  "productionDeployment": "dpl_kkAtoBzwqXeF72ieMkuLwUZyCgtT",
+  "serverMode": "next build then next start; no next dev",
+  "node": "24.4.1",
+  "pnpm": "12.4.2",
+  "database": "Disposable loopback bz_test_nov19; removed after checks",
+  "applicationDigest": "55b8cf8259096e4e8aed6ca86eb87215af6b1959920a368255e6b5f794a6e71f",
+  "validationReceipt": "alerts-validation.json",
+  "validationLog": "alerts-validation.log",
+  "checks": [
+    "alert core unit tests",
+    "actual Sentry SDK privacy/delivery tests",
+    "typecheck",
+    "production build",
+    "local alert integration/receiver failure",
+    "compatibility",
+    "55/55 journey",
+    "Chromium/WebKit bid-sheet",
+    "Chromium/WebKit simple mode",
+    "8/8 telemetry",
+    "photos/photo-ui/items-ui regression suites",
+    "Chromium/WebKit poor-network",
+    "client-bundle isolation"
+  ],
+  "itemsUi": "17/17 including paste autofocus/keyboard entry and uploaded thumbnail",
+  "cleanupConfirmed": true,
+  "stagingDeploymentPerformed": false,
+  "productionDialogOpened": false,
+  "limitations": [
+    "Current automated engines are not an independent Safari 17.4 engine rerun. The source release records that reproduction separately.",
+    "Emma reloading Studio and pasting on production remains the real-user confirmation."
+  ]
+}

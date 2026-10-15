@@ -1,7 +1,7 @@
 {
   "passed": true,
-  "validatedAt": "2026-10-15T18:33:52.898Z",
-  "appDigest": "d3bd9488de9b236c3691189464676f4efe81cdc8edba2a22f3d41a84fad1cd6b",
+  "validatedAt": "2026-10-15T21:01:36.116Z",
+  "appDigest": "55b8cf8259096e4e8aed6ca86eb87215af6b1959920a368255e6b5f794a6e71f",
   "manifest": {
     "next.config.ts": "f144fc876a7e0e443762ecea49af7e82214f72271c3fe81e364232524d1ed5ae",
     "package.json": "1967d87e16a68b73664171a3163151767843f350a4a0d7b25852bcd3018816ef",
@@ -39,7 +39,7 @@
     "src/app/studio/[id]/devices.tsx": "4039510cf1379e4bacb6c77e66bfe662b171daf1f2fada089b6fe1c1674e18f2",
     "src/app/studio/[id]/golive.tsx": "cc8bdb8e251d87904c2fcf4164996839bb4572fdc6f73a8e3fd015179d06e64e",
     "src/app/studio/[id]/housekeeping.tsx": "51497ce87493ae5534138a447fa37f8ccf1669c0210d8c5a56b6e27d4db4c004",
-    "src/app/studio/[id]/items-dialogs.tsx": "28a71ffe7c34c88a69b2b87471b105c31dbda473dac97c871ef8a79e0c353273",
+    "src/app/studio/[id]/items-dialogs.tsx": "bceee9e89f53e15f7aa41a0b9e7a8b8bda5a933bd4aadbaea0a0e1167c6fb540",
     "src/app/studio/[id]/items.tsx": "4dc089996231739e559ecb49443e79840dd490808b1395c2f6755d50f42d5c18",
     "src/app/studio/[id]/live.tsx": "645b6e90cd6fc3cd93d701ea572295bd06d1a2f9ca2817284e3fdfbfe33e87ea",
     "src/app/studio/[id]/page.tsx": "c06f7a31221b03a2a5213421e1eb176380dd3aff11c010654053b90b4503acd2",
@@ -55,7 +55,7 @@
     "src/app/studio/category-input.tsx": "a716e1536ae2af96d5e537f76a657e14b394c3e064a5e75d1c8509f4e2f460d4",
     "src/app/studio/data.ts": "5e873611153fde71233c62772f6ea5552245ff885ece6f4d4b6617670a936204",
     "src/app/studio/frame-editor.tsx": "5989f09fda1f623297aff07d9bd266ea5f19e58d1fcc593e8fd1b96fea1be365",
-    "src/app/studio/items.css": "d13bd4e527e1a7a5ba872b2b7f23f7060571a72f7e95df30373e76b2dc94e147",
+    "src/app/studio/items.css": "885b532aaae345715fb0757aa2675191df7176b61fd288adc43d9084933107a4",
     "src/app/studio/kit.tsx": "d92364a1d456f483de6770fd87ce5742533b9a24ee0174e4b6b61e7ee5c73417",
     "src/app/studio/new-event.tsx": "c62b5f8ba0370cebe6012370cc82f961373107e72a2648a8025b1a15b03101fb",
     "src/app/studio/page.tsx": "58d1f75863fc0a72ff2191c3bb8d1033114f62b7919ebf231c7632fa0ec9b7ba",

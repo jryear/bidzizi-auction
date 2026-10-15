@@ -9,8 +9,8 @@
   "origin": "http://127.0.0.1:3469",
   "database": "Disposable loopback bz_test_nov19",
   "applicationDigest": "d3bd9488de9b236c3691189464676f4efe81cdc8edba2a22f3d41a84fad1cd6b",
-  "validationReceipt": "alerts-validation.json",
-  "validationLog": "alerts-validation.log",
+  "validationReceipt": "thumbnail-source-validation.json",
+  "validationLog": "thumbnail-source-validation.log",
   "browserSuites": {
     "bid-sheet": "Chromium and WebKit, both passed",
     "simple-ui": "JavaScript disabled, Chromium and WebKit, both passed",

@@ -7,8 +7,8 @@ export const targets = {
     branch: 'br-crimson-mountain-arsolcfe', endpoint: 'ep-orange-cake-aryndhab', deployment: 'dpl_AZZH3S67gBuDQvff6rmapwAUGKjr',
     sourceCommit: 'c50cad0e441a75a8db045b3baf76054032b2821b' },
   production: { project: 'prj_gJg1GmPcU3pxeXf9UCj5O7clYZf2', alias: 'app.bidzizi.com',
-    branch: 'br-cold-glitter-arx1msrh', endpoint: 'ep-broad-credit-arcrxgvi', deployment: 'dpl_Ap9xYPp7CcbWUxr7TrBFvjC85MQ5',
-    sourceCommit: 'c2b98e6971ccb2f742a6a58b21400ef5c127df6a' },
+    branch: 'br-cold-glitter-arx1msrh', endpoint: 'ep-broad-credit-arcrxgvi', deployment: 'dpl_kkAtoBzwqXeF72ieMkuLwUZyCgtT',
+    sourceCommit: '4d6028f10b30e5cd8f5c33db060cce753114db77' },
 };
 const project = 'delicate-math-48681189', team = 'team_fOkqe9T0PRKMmdczUvnoMXct';
 export async function providers() {

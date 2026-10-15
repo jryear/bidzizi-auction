@@ -24,7 +24,7 @@ try { execFileSync('/Users/jryear/.local/bin/vercel',['whoami','--scope','saturn
   {encoding:'utf8',stdio:['ignore','pipe','pipe'],timeout:20000}); }
 catch { throw new Error('Existing Vercel authentication unavailable; no provider mutation occurred. Raw output suppressed.'); }
 const auth = JSON.parse(await readFile('/Users/jryear/Library/Application Support/com.vercel.cli/auth.json','utf8'));
-// Pins were refreshed by read-only provider checks after the production photos release.
+// Pins were refreshed by read-only provider checks after the production dialog fixes.
 const team = 'team_fOkqe9T0PRKMmdczUvnoMXct', stage = targets.staging, prod = targets.production;
 async function api(method,path,body) {
   const r = await fetch('https://api.vercel.com'+path+(path.includes('?')?'&':'?')+'teamId='+team, {method,redirect:'error',signal:AbortSignal.timeout(20000),
@@ -43,6 +43,8 @@ assert.equal(beforeProd.deployment?.id ?? beforeProd.deploymentId,prod.deploymen
 const productionServed = await api('GET','/v13/deployments/'+prod.deployment);
 assert.equal(productionServed.projectId,prod.project); assert.equal(productionServed.readyState,'READY');
 assert.equal(productionServed.meta?.sourceCommit,prod.sourceCommit);
+// Any next staging release must preserve both fixes already served in production.
+execFileSync('git',['merge-base','--is-ancestor',prod.sourceCommit,commit]);
 const prodVars = await api('GET',`/v10/projects/${prod.project}/env`);
 const envList = data => { const list=Array.isArray(data)?data:data.envs;assert.ok(Array.isArray(list),'Unexpected env readback shape; values suppressed.');return list; };
 assert.ok(!envList(prodVars).some(x=>x.key==='BIDZIZI_SENTRY_DSN'),'Production alert activation must remain gated.');
