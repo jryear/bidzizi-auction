@@ -25,15 +25,23 @@ export function FrameEditor({ box, url, frame: initial, shapes, onChange, onDone
   const [rect, setRect] = useState<Rect | null>(null), [size, setSize] = useState<{ w: number; h: number } | null>(null);
   const [frame, setFrame] = useState(initial), [active, setActive] = useState(false), [panelTop, setPanelTop] = useState(false);
   const root = useRef<HTMLDivElement>(null), panel = useRef<HTMLDivElement>(null);
+  const placed = area !== null;
   const live = useRef({ frame, rect, size, area }); live.current = { frame, rect, size, area };
   const pointers = useRef(new Map<number, Pt>()), gesture = useRef<{ frame: Frame; pts: Pt[] } | null>(null);
   const report = useRef<ReturnType<typeof setTimeout>>(undefined), reported = useRef(initial);
   const cb = useRef({ onChange, onDone, onCancel }); cb.current = { onChange, onDone, onCancel };
 
   // Find the phone and the photo's natural size; bring the photo into view.
+  // The box can still be detached during this layout pass (a parent attaching its ref after its children); look again
+  // on the next frame rather than never opening.
+  const [retry, setRetry] = useState(0);
   useLayoutEffect(() => {
     const b = box.current, d = b?.closest<HTMLElement>("[data-preview-device]");
-    if (!b || !d) return;
+    if (!b || !d) {
+      if (retry > 30) return;
+      const raf = requestAnimationFrame(() => setRetry(n => n + 1));
+      return () => cancelAnimationFrame(raf);
+    }
     setDevice(d);
     const r = b.getBoundingClientRect(), s = d.getBoundingClientRect();
     if (r.top < s.top + 40 || r.bottom > s.bottom - 160) b.scrollIntoView({ block: r.height > s.height - 200 ? "start" : "center" });
@@ -41,7 +49,7 @@ export function FrameEditor({ box, url, frame: initial, shapes, onChange, onDone
     const take = () => { if (img?.naturalWidth) setSize({ w: img.naturalWidth, h: img.naturalHeight }); };
     take(); img?.addEventListener("load", take);
     return () => img?.removeEventListener("load", take);
-  }, [box]);
+  }, [box, retry]);
   // Follow the photo's box (layout shifts, resizes, scrolling) for as long as the editor is open.
   useEffect(() => {
     if (!device) return;
@@ -66,7 +74,8 @@ export function FrameEditor({ box, url, frame: initial, shapes, onChange, onDone
     tick();
     return () => cancelAnimationFrame(raf);
   }, [device, box]);
-  useEffect(() => { root.current?.focus({ preventScroll: true }); }, [device]);
+  // Focus once the editor is placed (it isn't mounted before the phone screen is measured).
+  useEffect(() => { if (placed) root.current?.focus({ preventScroll: true }); }, [placed]);
 
   /** Scale the photo by `scale` about `from`, then move that point to `to` (device pixels). Clamped to the frame. */
   const transform = (start: Frame, scale: number, from: Pt, to: Pt): Frame => {
@@ -114,9 +123,10 @@ export function FrameEditor({ box, url, frame: initial, shapes, onChange, onDone
       el.removeEventListener("wheel", onWheel);
       el.removeEventListener("gesturestart", onGestureStart); el.removeEventListener("gesturechange", onGestureChange); el.removeEventListener("gestureend", onGestureEnd);
     };
-  }, [device]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [device, placed]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!device) return null;
+  // Nothing is mounted until the editor is placed over the phone: whatever can see it can use it.
+  if (!device || !placed) return null;
   const L = rect && size ? frameLayout(rect.w, rect.h, size.w, size.h, frame) : null;
   const zoomBy = (k: number) => { const c = centre(); set(transform(live.current.frame, k, c, c), true); };
   const finish = () => { clearTimeout(report.current); const f = live.current.frame; reported.current = f; cb.current.onDone(f); };
