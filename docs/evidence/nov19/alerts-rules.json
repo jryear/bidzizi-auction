@@ -1,0 +1,56 @@
+{
+  "verifiedAt": "2026-10-15T17:57:36.148Z",
+  "method": "Authenticated Safari UI through Computer Use; saved detail pages and first-rule edit readback",
+  "organization": "imogen-view",
+  "project": "bidzizi-real-v1",
+  "projectId": "4512261389418496",
+  "recipient": {
+    "member": "jryr",
+    "email": "zackj13@gmail.com",
+    "issueAlerts": "On",
+    "deliveryMethod": "Email",
+    "preferencesChanged": false
+  },
+  "rules": [
+    {
+      "id": "6175180",
+      "name": "Nov19 server failure",
+      "url": "https://imogen-view.sentry.io/monitors/alerts/6175180/",
+      "categoryTag": "server-failure",
+      "enabled": true,
+      "sourceProject": "bidzizi-real-v1",
+      "trigger": "An event or issue activity is captured",
+      "filtersRequireAll": true,
+      "issueCategory": "error",
+      "environmentAttributeEquals": "staging",
+      "environmentDropdown": "All environments (staging is enforced by explicit required event attribute filter)",
+      "throttleMinutes": 5,
+      "action": "Notify member jryr on preferred channel: Email"
+    },
+    {
+      "id": "6175205",
+      "name": "Nov19 guest blocked",
+      "url": "https://imogen-view.sentry.io/monitors/alerts/6175205/",
+      "categoryTag": "guest-blocked",
+      "enabled": true,
+      "sourceProject": "bidzizi-real-v1",
+      "trigger": "An event or issue activity is captured",
+      "filtersRequireAll": true,
+      "issueCategory": "error",
+      "environmentAttributeEquals": "staging",
+      "environmentDropdown": "All environments (staging is enforced by explicit required event attribute filter)",
+      "throttleMinutes": 5,
+      "action": "Notify member jryr on preferred channel: Email"
+    }
+  ],
+  "dsnFileValid": true,
+  "dsnProjectBindingConfirmed": true,
+  "dsnValueSuppressed": true,
+  "testNotification": {
+    "ruleId": "6175180",
+    "uiResult": "Notification fired!",
+    "inboxConfirmed": false
+  },
+  "hostedApplicationProofPending": true,
+  "productionActivated": false
+}
