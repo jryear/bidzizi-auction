@@ -41,6 +41,17 @@ Zack authorized merge, checks, staging and production for the Studio phone previ
 
 Rollback: `vercel rollback dpl_Fa7b2Zh9rYAiv5zqpRvnNeigFmgk --scope saturn-ea53` from a checkout linked to the production project, then verify `app.bidzizi.com`. No database step is needed. [Receipt](../evidence/preview-attach-release-20261014/receipt.json).
 
+## Paste-rows focus fix — production, 2026-10-15
+
+Zack: "prod now". **Current production:** `dpl_2NhtVPqraU9Gv427PMGvNLxadnNE`, source `fad66b0` (`jryear/real-v1-claude-shell`, pushed) = production source `c2b98e6` merged with `73c2cbc`. Previous: `dpl_Ap9xYPp7CcbWUxr7TrBFvjC85MQ5`.
+
+- Fix: opening "Paste rows" left focus on Close (`showModal()` overrides React's `autoFocus`), so Cmd+V did nothing until staff clicked the box. Reported from Emma's MacBook Air as "small window, field unreachable"; the focus bug reproduced, the small-window part did not (Chromium/WebKit, 1440×789 to 600×860 and 735×420, empty and 18-row review).
+- App diff against `c2b98e6`: only `src/app/studio/[id]/items-dialogs.tsx`. No migration, no environment change, no restore branch needed.
+- Merged tree, production build: typecheck, items-ui 17/17 (its paste check now asserts focus and pastes by keyboard; it failed before the fix). Both engines: focus in the paste box and a keyboard paste reaches the review.
+- Live: provider readback and served HTML identify the new deployment; `/studio`, `/join`, `/e/FZZGY3`, `/e/FZZGY3/simple`, `/e/MYPLES` 200; signed-out host API 401. The live Studio chunk `16roqq_710la9.js` contains the fix.
+
+Rollback: `vercel rollback dpl_Ap9xYPp7CcbWUxr7TrBFvjC85MQ5 --scope saturn-ea53`.
+
 ## Photos framing + tray thumbnails — production, 2026-10-15
 
 Zack: "I'm ready to get this to prod" (old-iPhone pass waived: events are not created on phones for now). **Current production:** `dpl_Ap9xYPp7CcbWUxr7TrBFvjC85MQ5`, source `c2b98e6` (`jryear/real-v1-nov19-execution`, pushed to origin). Previous: `dpl_qWNvq4UCk7P6FKZGRJSdt1fqXAie`.
