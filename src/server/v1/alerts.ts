@@ -1,9 +1,11 @@
 import "server-only";
 import { after } from "next/server";
 import { alertConfig, createAlertSender, type AlertInput } from "./alert-core";
+import { initializeSentry } from "../../sentry.server.config";
 
-let sender: ReturnType<typeof createAlertSender> | undefined;
-const getSender = () => sender ??= createAlertSender(alertConfig(process.env), {
+const state = globalThis as typeof globalThis & { __bidziziAlertSender?: ReturnType<typeof createAlertSender> };
+const getSender = () => state.__bidziziAlertSender ??= createAlertSender(alertConfig(process.env), {
+  deliver: initializeSentry(),
   log: notice => console.info("BidZizi alert " + JSON.stringify(notice)),
 });
 

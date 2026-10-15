@@ -22,6 +22,8 @@
     "test:compat": "node scripts/test-compat.mjs"
   },
   "dependencies": {
+    "@sentry/core": "11.8.0",
+    "@sentry/nextjs": "11.8.0",
     "@vercel/functions": "^3.9.9",
     "next": "16.3.8",
     "pg": "^8.23.1",

@@ -50,7 +50,7 @@ await writeFile('docs/evidence/nov19/alerts-deployment.json',JSON.stringify(rece
 const directory=await mkdtemp(join(tmpdir(),'bz-alerts-deploy-'));
 try {
   const names=execFileSync('git',['ls-tree','-r','--name-only',commit],{encoding:'utf8'}).trim().split('\n').filter(p=>
-    p.startsWith('src/')||p.startsWith('public/')||['package.json','pnpm-lock.yaml','tsconfig.json','next.config.ts','postcss.config.mjs','vercel.json'].includes(p));
+    p.startsWith('src/')||p.startsWith('public/')||['package.json','pnpm-lock.yaml','pnpm-workspace.yaml','tsconfig.json','next.config.ts','postcss.config.mjs','vercel.json'].includes(p));
   assert.ok(names.includes('src/server/v1/alerts.ts') && !names.some(p=>p.includes('.env')));
   const archive=execFileSync('git',['archive','--format=tar',commit,...names],{maxBuffer:100*1024*1024});
   const unpack=spawnSync('tar',['-xf','-','-C',directory],{input:archive,stdio:['pipe','pipe','pipe']}); assert.equal(unpack.status,0);

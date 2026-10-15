@@ -15,16 +15,16 @@
           "method": "POST",
           "isBid": true,
           "bodyBytes": 324,
-          "milliseconds": 843.3897920000009
+          "milliseconds": 843.6113749999995
         },
         {
           "method": "GET",
           "isBid": false,
           "bodyBytes": 2526,
-          "milliseconds": 967.2246249999998
+          "milliseconds": 963.4959159999999
         }
       ],
-      "elapsedSeconds": 7.357,
+      "elapsedSeconds": 7.384,
       "passed": true
     },
     {
@@ -40,16 +40,16 @@
           "method": "POST",
           "isBid": true,
           "bodyBytes": 324,
-          "milliseconds": 852.0548340000005
+          "milliseconds": 844.4777910000012
         },
         {
           "method": "GET",
           "isBid": false,
           "bodyBytes": 2524,
-          "milliseconds": 969.661666
+          "milliseconds": 965.400834
         }
       ],
-      "elapsedSeconds": 7.569,
+      "elapsedSeconds": 7.491,
       "passed": true
     }
   ]

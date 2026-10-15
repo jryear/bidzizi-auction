@@ -1,27 +1,27 @@
 {
   "localOnly": true,
-  "startedAt": "2026-10-15T02:30:32.122Z",
+  "startedAt": "2026-10-15T17:31:34.542Z",
   "scenarios": {
     "serverTimeout": {
-      "requestStartedAt": "2026-10-15T02:30:32.271Z",
+      "requestStartedAt": "2026-10-15T17:31:34.692Z",
       "observedLockWait": true,
       "responseStatus": 503,
-      "eventId": "2e7b106c6fa84ec9b39b267736273a8e",
-      "occurredAt": "2026-10-15T02:30:40.277Z",
-      "receiverAt": "2026-10-15T02:30:40.283Z",
+      "eventId": "40f8a4988577487eb74d44f04b13d1b7",
+      "occurredAt": "2026-10-15T17:31:42.696Z",
+      "receiverAt": "2026-10-15T17:31:42.703Z",
       "noBidOrReceiptCommitted": true
     },
     "browserError": {
-      "eventId": "a90e47316f5a48bfa5cf0a8d3da39ab3",
-      "occurredAt": "2026-10-15T02:30:40.478Z",
-      "receiverAt": "2026-10-15T02:30:40.479Z",
+      "eventId": "ad4dc1e5ae384d528f966e85de479ac4",
+      "occurredAt": "2026-10-15T17:31:42.877Z",
+      "receiverAt": "2026-10-15T17:31:42.879Z",
       "committedRows": 1,
       "strictFiltering": true
     },
     "blockingHealth": {
-      "eventId": "15fea79dc7f942b9a388aef46e17b36f",
-      "occurredAt": "2026-10-15T02:30:43.248Z",
-      "receiverAt": "2026-10-15T02:30:43.249Z",
+      "eventId": "6f843da88db0481384ab5f2ad2f54bc8",
+      "occurredAt": "2026-10-15T17:31:45.612Z",
+      "receiverAt": "2026-10-15T17:31:45.613Z",
       "realCoveredButtonCheck": true
     },
     "providerFailure": {

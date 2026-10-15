@@ -1,3 +1,13 @@
+(node:25476) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/src/server/v1/alert-core.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS alert core: target/config guards, strict field allowlist/redaction, deferred send, first delivery, deduplication/expiry/eviction/pending bounds, once-only dispatch, failure retry, provider backoff, timeout, disarmed mode. No network access.
+(node:25477) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/src/server/v1/sentry-sdk.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/jryear/orca/workspaces/integration/real-v1-nov19-execution/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS actual Sentry Next.js SDK: initialization, scope/error/log/metric rejection, exact envelope allowlist, deferred capture, HTTP acceptance vs rejection, one retry, timeout and 429 backoff. Stub transport only; no provider access.
 PASS local load target guards (no network access).
 PASS CPU sampler: owned trees, initial baseline, backend exit and replacement.
 The files belonging to this database system will be owned by user "jryear".
@@ -8,7 +18,7 @@ The default text search configuration will be set to "english".
 
 Data page checksums are enabled.
 
-fixing permissions on existing directory /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-FrDbzE ... ok
+fixing permissions on existing directory /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-7s9xgr ... ok
 creating subdirectories ... ok
 selecting dynamic shared memory implementation ... posix
 selecting default "max_connections" ... 100
@@ -21,7 +31,7 @@ syncing data to disk ... ok
 
 Success. You can now start the database server using:
 
-    '/opt/homebrew/opt/postgresql@18/bin/pg_ctl' -D /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-FrDbzE -l logfile start
+    '/opt/homebrew/opt/postgresql@18/bin/pg_ctl' -D /var/folders/5k/l4c971c10693qw4vwrvxb_s80000gn/T/bz-nov19-7s9xgr -l logfile start
 
 waiting for server to start.... done
 server started
@@ -40,18 +50,22 @@ Created staff account readiness@example.test.
 $ tsc --noEmit
 $ next build
 ▲ Next.js 16.3.8 (Turbopack)
-✓ Running next.config.ts took 58ms
+✓ Running next.config.ts took 167ms
+- Experiments (use with caution):
+  · clientTraceMetadata
 
   Creating an optimized production build ...
-✓ Compiled successfully in 361ms
+✓ Compiled successfully in 217ms
+  Running next.config.js provided runAfterProductionCompile ...
+✓ Completed runAfterProductionCompile in 67ms
   Running TypeScript ...
-  Finished TypeScript in 138ms ...
+  Finished TypeScript in 168ms ...
   Collecting page data using 15 workers ...
   Generating static pages using 15 workers (0/8) ...
   Generating static pages using 15 workers (2/8) 
   Generating static pages using 15 workers (4/8) 
   Generating static pages using 15 workers (6/8) 
-✓ Generating static pages using 15 workers (8/8) in 81ms
+✓ Generating static pages using 15 workers (8/8) in 84ms
   Finalizing page optimization ...
 
 Route (app)
@@ -77,13 +91,13 @@ Route (app)
 ▲ Next.js 16.3.8
 - Local:         http://127.0.0.1:3469
 - Network:       http://127.0.0.1:3469
-✓ Ready in 70ms
-✓ Running next.config.ts took 16ms
+✓ Ready in 73ms
+✓ Running next.config.ts took 164ms
 Request failed: error
-BidZizi alert {"status":"accepted","eventId":"2e7b106c6fa84ec9b39b267736273a8e","category":"server-failure","check":"api-request","occurredAt":"2026-10-15T02:30:40.277Z","at":"2026-10-15T02:30:40.285Z","providerDate":"2026-10-15T02:30:40.000Z"}
-BidZizi alert {"status":"accepted","eventId":"a90e47316f5a48bfa5cf0a8d3da39ab3","category":"guest-blocked","check":"client-error","occurredAt":"2026-10-15T02:30:40.478Z","at":"2026-10-15T02:30:40.479Z","providerDate":"2026-10-15T02:30:40.000Z"}
-BidZizi alert {"status":"accepted","eventId":"15fea79dc7f942b9a388aef46e17b36f","category":"guest-blocked","check":"bid-sheet","occurredAt":"2026-10-15T02:30:43.248Z","at":"2026-10-15T02:30:43.249Z","providerDate":"2026-10-15T02:30:43.000Z"}
-BidZizi alert {"status":"failed","reason":"provider-delivery-failed","eventId":"07428136eac94a51a9280a942aa2afdd","category":"guest-blocked","check":"app-not-started","occurredAt":"2026-10-15T02:30:43.263Z","at":"2026-10-15T02:30:43.266Z"}
+BidZizi alert {"status":"accepted","eventId":"40f8a4988577487eb74d44f04b13d1b7","category":"server-failure","check":"api-request","occurredAt":"2026-10-15T17:31:42.696Z","at":"2026-10-15T17:31:42.705Z","providerDate":"2026-10-15T17:31:42.000Z"}
+BidZizi alert {"status":"accepted","eventId":"ad4dc1e5ae384d528f966e85de479ac4","category":"guest-blocked","check":"client-error","occurredAt":"2026-10-15T17:31:42.877Z","at":"2026-10-15T17:31:42.880Z","providerDate":"2026-10-15T17:31:42.000Z"}
+BidZizi alert {"status":"accepted","eventId":"6f843da88db0481384ab5f2ad2f54bc8","category":"guest-blocked","check":"bid-sheet","occurredAt":"2026-10-15T17:31:45.612Z","at":"2026-10-15T17:31:45.615Z","providerDate":"2026-10-15T17:31:45.000Z"}
+BidZizi alert {"status":"failed","reason":"provider-delivery-failed","eventId":"0033f99dd1b04a59b4bb69a1aa4c6b9f","category":"guest-blocked","check":"app-not-started","occurredAt":"2026-10-15T17:31:45.626Z","at":"2026-10-15T17:31:45.630Z"}
 PASS local alert integration: genuine 8s bid timeout → sanitized 503 with no bid/receipt; real uncaught browser error and blocking health → committed telemetry → filtered envelope after response; expected bid rejection/unknown health suppressed; fixture cleanup.
 $ node scripts/compat.mjs
 Compatibility: 64 JS/TS modules; all CSS; 0 blocking findings.

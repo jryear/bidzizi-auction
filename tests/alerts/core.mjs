@@ -19,7 +19,7 @@ assert.equal(alertConfig({ ...local, BIDZIZI_ALERT_TEST_RECEIVER: undefined, BID
 
 let time = 1_000_000, sequence = 0, calls = [], notices = [];
 const opts = { now: () => time, id: () => (++sequence).toString(16).padStart(32, '0'),
-  log: n => notices.push(n), fetch: async (url, init) => { calls.push({ url, init }); return new Response('{}', { status: 200, headers: { date: new Date(time).toUTCString() } }); } };
+  log: n => notices.push(n), deliver: async (event, signal) => { calls.push({ event, signal }); return new Response('{}', { status: 200, headers: { date: new Date(time).toUTCString() } }); } };
 const sender = createAlertSender(alertConfig(env), opts);
 const secret = 'password=sensitive-person@example.test token=do-not-send SELECT * FROM staff https://provider.test/?key=secret';
 const job = sender.prepare({ category: 'guest-blocked', check: 'client-error', browser: 'Safari', message: secret, detail: secret, error: new Error(secret), headers: { cookie: secret } });
@@ -28,14 +28,12 @@ assert.equal(calls.length, 0, 'Preparing/scheduling never sends inside applicati
 assert.equal(sender.prepare({ category: 'guest-blocked', check: 'client-error' }), null, 'Pending job deduplicates');
 await Promise.all([job.run(), job.run()]);
 assert.equal(calls.length, 1, 'Job dispatch is once-only even if invoked twice');
-const lines = calls[0].init.body.trim().split('\n'), event = JSON.parse(lines[2]);
-assert.equal(JSON.parse(lines[1]).length, Buffer.byteLength(lines[2]));
-assert.equal(JSON.parse(lines[0]).event_id, job.eventId);
+const event = calls[0].event;
 assert.deepEqual(Object.keys(event).sort(), ['environment','event_id','extra','fingerprint','level','logger','message','platform','release','tags','timestamp'].sort());
 assert.deepEqual(event.tags, { category: 'guest-blocked', check: 'client-error', browser: 'Safari' });
-assert.ok(!calls[0].init.body.includes(secret) && !calls[0].init.body.includes(dsn));
+assert.ok(!JSON.stringify(calls[0].event).includes(secret) && !JSON.stringify(calls[0].event).includes(dsn));
 assert.ok(!JSON.stringify(notices).includes(secret) && !JSON.stringify(notices).includes(dsn));
-assert.equal(calls[0].init.redirect, 'error');
+
 assert.equal(notices[0].status, 'accepted');
 assert.equal(sender.prepare({ category: 'server-failure', check: 'arbitrary' }), null);
 assert.equal(sender.prepare({ category: 'device', check: 'client-error' }), null);
@@ -43,7 +41,7 @@ assert.equal(sender.prepare({ category: 'server-failure', check: 'client-error' 
 time += 60_001;
 const repeat = sender.prepare({ category: 'guest-blocked', check: 'client-error', browser: secret });
 await repeat.run();
-assert.equal(JSON.parse(calls[1].init.body.trim().split('\n')[2]).tags.browser, 'unknown');
+assert.equal(calls[1].event.tags.browser, 'unknown');
 
 const bounded = createAlertSender(alertConfig(env), { ...opts, maxEntries: 2, maxPending: 2 });
 const a = bounded.prepare({ category: 'server-failure', check: 'api-request' });
@@ -55,7 +53,7 @@ assert.equal(bounded.stats().recent, 2, 'Dedup entries bounded'); c.cancel();
 assert.equal(bounded.stats().pending, 0); await c.run();
 
 let attempts = 0;
-const failing = createAlertSender(alertConfig(env), { ...opts, fetch: async () => { attempts++; throw new Error(secret); } });
+const failing = createAlertSender(alertConfig(env), { ...opts, deliver: async () => { attempts++; throw new Error(secret); } });
 await failing.prepare({ category: 'server-failure', check: 'api-request' }).run();
 assert.equal(attempts, 2, 'Only one retry');
 assert.equal(failing.stats().pending, 0);
@@ -63,14 +61,14 @@ assert.ok(failing.prepare({ category: 'server-failure', check: 'api-request' }),
 assert.equal(notices.at(-1).status, 'failed');
 
 let rateCalls = 0;
-const rate = createAlertSender(alertConfig(env), { ...opts, fetch: async () => { rateCalls++; return new Response('', { status: 429 }); } });
+const rate = createAlertSender(alertConfig(env), { ...opts, deliver: async () => { rateCalls++; return new Response('', { status: 429 }); } });
 await rate.prepare({ category: 'server-failure', check: 'api-request' }).run();
 assert.equal(rateCalls, 1); assert.equal(rate.prepare({ category: 'guest-blocked', check: 'client-error' }), null);
 time += 60_001; assert.ok(rate.prepare({ category: 'guest-blocked', check: 'client-error' }));
 
-const slow = createAlertSender(alertConfig(env), { ...opts, timeoutMs: 20, fetch: async (_url, init) => new Promise((_, reject) => {
+const slow = createAlertSender(alertConfig(env), { ...opts, timeoutMs: 20, deliver: async (_event, signal) => new Promise((_, reject) => {
   const keepAlive = setTimeout(() => reject(new Error('test deadline')), 1000);
-  init.signal.addEventListener('abort', () => { clearTimeout(keepAlive); reject(new Error(secret)); }, { once: true });
+  signal.addEventListener('abort', () => { clearTimeout(keepAlive); reject(new Error(secret)); }, { once: true });
 }) });
 const start = performance.now(); await slow.prepare({ category: 'server-failure', check: 'api-request' }).run();
 assert.ok(performance.now() - start < 500, 'Timeout/retry bounded');

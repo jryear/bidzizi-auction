@@ -2,7 +2,7 @@
 import { randomUUID } from "node:crypto";
 
 export type AlertInput = { category: "server-failure" | "guest-blocked"; check: string; browser?: string };
-export type AlertConfig = { endpoint: string; auth?: string; environment: "local" | "staging" | "production"; release: string };
+export type AlertConfig = { endpoint: string; auth?: string; dsn?: string; environment: "local" | "staging" | "production"; release: string };
 const CHECKS = new Set(["api-request", "framework-request", "client-error", "app-not-started", "error-boundary", "bid-sheet"]);
 const BROWSERS = new Set(["Safari", "Chrome", "Firefox", "Edge", "Opera", "Samsung Internet", "Android WebView", "iOS WebView"]);
 
@@ -26,17 +26,18 @@ export function alertConfig(env: Record<string, string | undefined>): AlertConfi
     const u = new URL(env.BIDZIZI_SENTRY_DSN);
     if (u.protocol !== "https:" || !/^o\d+\.ingest(?:\.(?:us|de))?\.sentry\.io$/.test(u.hostname) ||
       !/^[a-f0-9]{32}$/.test(u.username) || u.password || u.port || !/^\/[1-9]\d*$/.test(u.pathname) || u.search || u.hash) return null;
-    return { endpoint: `https://${u.hostname}/api${u.pathname}/envelope/`,
+    return { endpoint: `https://${u.hostname}/api${u.pathname}/envelope/`, dsn: env.BIDZIZI_SENTRY_DSN,
       auth: `Sentry sentry_version=7, sentry_client=bidzizi-readiness/1.0, sentry_key=${u.username}`, environment, release };
   } catch { return null; }
 }
 
+export type AlertEvent = { event_id: string; timestamp: number; platform: string; level: "error"; logger: string; environment: string; release: string; message: string; fingerprint: string[]; tags: { category: string; check: string; browser: string }; extra: { occurredAt: string; correlationId: string } };
 type Notice = { status: "accepted" | "failed" | "suppressed"; reason?: string; eventId: string; category: string; check: string; occurredAt: string; at: string; providerDate?: string };
 export function createAlertSender(config: AlertConfig | null, deps: {
-  fetch?: typeof fetch; now?: () => number; id?: () => string; log?: (notice: Notice) => void;
+  deliver?: (event: AlertEvent, signal: AbortSignal) => Promise<Response>; now?: () => number; id?: () => string; log?: (notice: Notice) => void;
   ttlMs?: number; maxEntries?: number; maxPending?: number; timeoutMs?: number;
 } = {}) {
-  const sendFetch = deps.fetch ?? fetch, now = deps.now ?? Date.now, makeId = deps.id ?? (() => randomUUID().replace(/-/g, ""));
+  const deliver = deps.deliver ?? (async () => { throw new Error("Alert transport unavailable"); }), now = deps.now ?? Date.now, makeId = deps.id ?? (() => randomUUID().replace(/-/g, ""));
   const log = deps.log ?? (() => {}), ttl = deps.ttlMs ?? 60_000, maxEntries = deps.maxEntries ?? 256;
   const maxPending = deps.maxPending ?? 4, timeout = deps.timeoutMs ?? 1500;
   const recent = new Map<string, { at: number; id: string }>();
@@ -54,11 +55,11 @@ export function createAlertSender(config: AlertConfig | null, deps: {
     recent.set(key, { at, id: eventId }); pending++;
     const occurredAt = new Date(at).toISOString();
     // Construct every field anew. Never spread caller data or include an Error object.
-    const event = { event_id: eventId, timestamp: at / 1000, platform: "node", level: "error", logger: "bidzizi.readiness",
+    const event: AlertEvent = { event_id: eventId, timestamp: at / 1000, platform: "node", level: "error", logger: "bidzizi.readiness",
       environment: config.environment, release: config.release,
       message: `BidZizi ${input.category}: ${input.check} [${eventId}]`,
       fingerprint: ["bidzizi-readiness", config.environment, input.category, input.check],
-      tags: { category: input.category, check: input.check, browser: BROWSERS.has(input.browser ?? "") ? input.browser : "unknown" },
+      tags: { category: input.category, check: input.check, browser: BROWSERS.has(input.browser ?? "") ? input.browser! : "unknown" },
       extra: { occurredAt, correlationId: eventId } };
     let completed = false, running = false;
     function cancel() { if (!completed && !running) { completed = true; pending--; if (recent.get(key)?.id === eventId) recent.delete(key); } }
@@ -68,13 +69,9 @@ export function createAlertSender(config: AlertConfig | null, deps: {
       let accepted = false;
       try {
         for (let attempt = 0; attempt < 2; attempt++) {
-          const payload = JSON.stringify(event);
-          const envelope = JSON.stringify({ event_id: eventId, sent_at: new Date(now()).toISOString() }) + "\n" +
-            JSON.stringify({ type: "event", length: Buffer.byteLength(payload), content_type: "application/json" }) + "\n" + payload + "\n";
           let response: Response;
           try {
-            response = await sendFetch(config!.endpoint, { method: "POST", redirect: "error", signal: AbortSignal.timeout(timeout),
-              headers: { "content-type": "application/x-sentry-envelope", ...(config!.auth ? { "X-Sentry-Auth": config!.auth } : {}) }, body: envelope });
+            response = await deliver(event, AbortSignal.timeout(timeout));
           } catch { if (attempt === 0) continue; break; }
           await response.body?.cancel().catch(() => {}); // never log or retain provider body
           if (response.ok) {
