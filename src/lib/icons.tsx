@@ -55,3 +55,5 @@ export const IGift = ({ size, ...r }: P) => <svg {...base(size, r)}><rect x="3.5
 export const ISignOut = ({ size, ...r }: P) => <svg {...base(size, r)}><path d="M9.5 20.5H6a2 2 0 0 1-2-2v-13a2 2 0 0 1 2-2h3.5M16 16.5l4.5-4.5L16 7.5M20.5 12H9.5" /></svg>;
 export const IHistory = ({ size, ...r }: P) => <svg {...base(size, r)}><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6L3.5 8.5" /><path d="M3.5 4v4.5H8M12 8v4.5l3 1.8" /></svg>;
 export const IStore = ({ size, ...r }: P) => <svg {...base(size, r)}><path d="M4 9.5 5.5 4h13L20 9.5M4 9.5h16v0a2.7 2.7 0 0 1-5.3 0 2.7 2.7 0 0 1-5.4 0 2.7 2.7 0 0 1-5.3 0zM5.5 12v8.5h13V12M10 20.5v-5h4v5" /></svg>;
+export const ICrop = ({ size, ...r }: P) => <svg {...base(size, r)}><path d="M6.5 2.5v13.5a1.5 1.5 0 0 0 1.5 1.5h13.5M2.5 6.5H16a1.5 1.5 0 0 1 1.5 1.5v13.5" /></svg>;
+export const IReset = ({ size, ...r }: P) => <svg {...base(size, r)}><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3L4.5 9" /><path d="M4.5 4.5V9H9" /></svg>;

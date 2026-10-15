@@ -231,6 +231,8 @@ function SetupMode({ onMode, ctx, sel, select, screen, setScreen, pane, setPane,
   const handled = useRef(addRequest);
   useEffect(() => { if (addRequest !== handled.current) { handled.current = addRequest; openAdd(); } }, [addRequest, openAdd]);
   const steps = useSteps(ctx, (s, sc) => { select(s, sc); setPane(s.kind === "item" || sc ? "canvas" : "edit"); }, openAdd);
+  // Photos are framed on the phone, so starting from the panel brings the phone forward on narrow screens.
+  useEffect(() => { const show = () => setPane("canvas"); addEventListener("bz:frame-start", show); return () => removeEventListener("bz:frame-start", show); }, [setPane]);
   if (sel.kind === "items") return <ItemsWorkspace ctx={ctx} sel={sel} select={(s, sc) => { select(s, sc); if (s.kind === "item") setPane(innerWidth <= 1080 ? "edit" : "canvas"); }} />;
   return (
     <>

@@ -1,0 +1,55 @@
+{
+  "origin": "https://staging.bidzizi.com",
+  "expectDpl": "dpl_84j5YvYHCn18XZxycpMckLTf5ftf",
+  "http": {
+    "/studio": 200,
+    "/join": 200,
+    "/e/FZZGY3": 200,
+    "/e/FZZGY3/simple": 200,
+    "/api/v1/host/events": 401,
+    "/api/v1/host/events/00000000-0000-0000-0000-000000000000/preview": 401,
+    "/api/v1/host/events/1/preview": 401
+  },
+  "checks": {
+    "servedDeploymentIds": [
+      "dpl_84j5YvYHCn18XZxycpMckLTf5ftf"
+    ],
+    "simpleScriptNone": true,
+    "signIn": {
+      "status": 200,
+      "inputs": 2,
+      "buttons": [
+        "Bid $450",
+        "Bid $450",
+        "Sign in"
+      ],
+      "overflowX": false,
+      "brokenImages": 0,
+      "textStart": "One bid. Every phone. The big screen. BidZizi HOLIDAY TRADE SHOW LIVE Item 01 NEW BID Weekend cabin in Big Bear Provided by Pine Ridge Rentals TOP BID $425 Harb"
+    },
+    "guestJoin": {
+      "status": 200,
+      "inputs": 0,
+      "buttons": [
+        "I have a rejoin code"
+      ],
+      "overflowX": false,
+      "brokenImages": 0,
+      "textStart": "OLD JOANNE FABRIC STORE PUYALLUP Holiday Trade Show Bidding has ended WHEN Tue, Oct 13 BIDDING 1:00 PM – 4:00 PM ITEMS 3 Welcome! Browse the items and bid from "
+    },
+    "joinPage": {
+      "status": 200,
+      "inputs": 1,
+      "buttons": [
+        "Join"
+      ],
+      "overflowX": false,
+      "brokenImages": 0,
+      "textStart": "BidZizi Join an event Type the 6-character code shown at the event. Event code Join Hosting an event? Staff sign in"
+    },
+    "pageErrors": []
+  },
+  "failures": [],
+  "pass": true,
+  "at": "2026-10-14T21:50:24.449Z"
+}

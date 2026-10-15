@@ -1,5 +1,5 @@
 import "server-only";
-import { CENTER, validFocal } from "../../lib/photo";
+import { DEFAULT_FRAME, frameOf, validFocal, validFrame, type Frame } from "../../lib/photo";
 import { randomInt } from "node:crypto";
 import { normalizeAsset } from "./asset-codec";
 import { now, tx, type Db } from "./db";
@@ -100,7 +100,7 @@ export async function listEvents(request: Request): Promise<Response> {
     return { serverNow: at, events: rows.map(e => ({
       id: e.id, name: e.name, code: e.join_code, status: e.status, startsAt: e.starts_at, endsAt: e.ends_at,
       stage: e.status === "draft" ? "draft" : at < e.starts_at ? "upcoming" : at < e.ends_at ? "running" : "ended",
-      coverUrl: assetUrl(e.cover_asset_id), coverFocal: e.cover_focal, itemCount: e.item_count, participantCount: e.participant_count, bidCount: e.bid_count,
+      coverUrl: assetUrl(e.cover_asset_id), coverFrame: frameOf(e.cover_focal), itemCount: e.item_count, participantCount: e.participant_count, bidCount: e.bid_count,
       isPractice: e.is_practice, archivedAt: e.archived_at,
     })) };
   }));
@@ -269,7 +269,7 @@ export async function workspace(request: Request, eventId: string): Promise<Resp
       serverNow: at,
       event: {
         id: e.id, code: e.join_code, name: e.name, welcome: e.welcome, venue: e.venue, winnerInstructions: e.winner_instructions,
-        coverAssetId: e.cover_asset_id, coverUrl: assetUrl(e.cover_asset_id), coverFocal: e.cover_focal, timezone: e.timezone,
+        coverAssetId: e.cover_asset_id, coverUrl: assetUrl(e.cover_asset_id), coverFrame: frameOf(e.cover_focal), timezone: e.timezone,
         startsAt: e.starts_at, endsAt: e.ends_at, accessEndsAt: e.access_ends_at, status: e.status, entryOpen: e.entry_open,
         bidMode: e.bid_mode, tiers: e.tiers, fixedIncrementMinor: num(e.fixed_increment_minor),
         donationsEnabled: e.donations_enabled, donationDeadline: e.donation_deadline, revision: e.revision, theme: e.theme,
@@ -282,7 +282,7 @@ export async function workspace(request: Request, eventId: string): Promise<Resp
         const current = num(i.current_minor), override = num(i.increment_override_minor);
         return {
           id: i.id, position: i.position, title: i.title, short: i.short, description: i.description, category: i.category, donor: i.donor,
-          imageAssetId: i.image_asset_id, imageUrl: assetUrl(i.image_asset_id), imageFocal: i.image_focal, openingMinor: Number(i.opening_minor),
+          imageAssetId: i.image_asset_id, imageUrl: assetUrl(i.image_asset_id), imageFrame: frameOf(i.image_focal), openingMinor: Number(i.opening_minor),
           incrementOverrideMinor: override, opensAt: i.opens_at, closesAt: i.closes_at,
           effectiveOpensAt: opensOf(e, i), effectiveClosesAt: closesOf(e, i), ready: i.ready, revision: i.revision,
           withdrawn: i.withdrawn_at !== null, withdrawalMessage: i.withdrawal_message,
@@ -332,7 +332,7 @@ export async function stageView(request: Request, eventId: string): Promise<Resp
       event: { id: e.id, name: e.name, code: e.join_code, theme: e.theme, status: e.status, startsAt: e.starts_at, endsAt: e.ends_at,
         phase: e.status === "draft" ? "draft" : eventPhase(e, items, at), bidderDisplay: e.bidder_display, accentColor: e.accent_color },
       items: items.map(i => ({
-        id: i.id, position: i.position, title: i.title, donor: i.donor, category: i.category, imageUrl: assetUrl(i.image_asset_id), imageFocal: i.image_focal,
+        id: i.id, position: i.position, title: i.title, donor: i.donor, category: i.category, imageUrl: assetUrl(i.image_asset_id), imageFrame: frameOf(i.image_focal),
         openingMinor: Number(i.opening_minor), currentMinor: i.current_minor === null ? null : Number(i.current_minor), bidCount: i.bid_count,
         phase: phaseOf(e, i, at), effectiveClosesAt: closesOf(e, i),
         leader: i.leader_number === null ? null : show(i.leader_name!, i.leader_business!, i.leader_number),
@@ -357,12 +357,9 @@ export async function updateEvent(request: Request, eventId: string): Promise<Re
     if ("venue" in input) next.venue = str(input.venue, 300);
     if ("winnerInstructions" in input) next.winner_instructions = str(input.winnerInstructions, 5000, { trim: false });
     if ("coverAssetId" in input) next.cover_asset_id = input.coverAssetId === null ? null : id(input.coverAssetId);
-    if ("coverAssetId" in input && next.cover_asset_id !== e.cover_asset_id) next.cover_focal = CENTER;
-    if ("coverFocal" in input) {
-      if (!validFocal(input.coverFocal)) throw invalid("Choose a position within the photo.");
-      next.cover_focal = input.coverFocal;
-    }
-    if (!next.cover_asset_id) next.cover_focal = CENTER;
+    if ("coverAssetId" in input && next.cover_asset_id !== e.cover_asset_id) next.cover_focal = DEFAULT_FRAME;
+    next.cover_focal = framed(input, "cover", next.cover_focal);
+    if (!next.cover_asset_id) next.cover_focal = DEFAULT_FRAME;
     if ("timezone" in input) {
       next.timezone = str(input.timezone, 100);
       try { new Intl.DateTimeFormat("en-US", { timeZone: next.timezone }); } catch { throw invalid("Choose a valid time zone."); }
@@ -427,6 +424,20 @@ export async function updateEvent(request: Request, eventId: string): Promise<Re
 
 // ---------------------------------------------------------------- items
 
+/** `<use>Frame` sets the whole frame. `<use>Focal` (older Studio tabs) moves the centre and keeps the zoom. */
+function framed(input: Record<string, unknown>, use: "cover" | "image", current: Partial<Frame> | null | undefined): Frame {
+  const frame = input[`${use}Frame`], focal = input[`${use}Focal`];
+  if (`${use}Frame` in input) {
+    if (!validFrame(frame)) throw invalid("Choose a frame within the photo.");
+    return { x: frame.x, y: frame.y, zoom: frame.zoom };
+  }
+  if (`${use}Focal` in input) {
+    if (!validFocal(focal)) throw invalid("Choose a position within the photo.");
+    return { ...frameOf(current), x: focal.x, y: focal.y };
+  }
+  return frameOf(current);
+}
+
 function itemFields(input: Record<string, unknown>, base: Partial<ItemRow>) {
   const out = { ...base } as ItemRow;
   if ("title" in input) out.title = str(input.title, 200, { required: true });
@@ -435,12 +446,9 @@ function itemFields(input: Record<string, unknown>, base: Partial<ItemRow>) {
   if ("category" in input) out.category = tidyCategory(str(input.category, CATEGORY_MAX));
   if ("donor" in input) out.donor = str(input.donor, 200);
   if ("imageAssetId" in input) out.image_asset_id = input.imageAssetId === null ? null : id(input.imageAssetId);
-  if ("imageAssetId" in input && out.image_asset_id !== base.image_asset_id) out.image_focal = CENTER;
-  if ("imageFocal" in input) {
-    if (!validFocal(input.imageFocal)) throw invalid("Choose a position within the photo.");
-    out.image_focal = input.imageFocal;
-  }
-  if (!out.image_asset_id) out.image_focal = CENTER;
+  if ("imageAssetId" in input && out.image_asset_id !== base.image_asset_id) out.image_focal = DEFAULT_FRAME;
+  out.image_focal = framed(input, "image", out.image_focal);
+  if (!out.image_asset_id) out.image_focal = DEFAULT_FRAME;
   if ("openingMinor" in input) out.opening_minor = String(cents(input.openingMinor));
   if ("incrementOverrideMinor" in input) { const v = optionalCents(input.incrementOverrideMinor, 100_000_000); out.increment_override_minor = v === null ? null : String(v); }
   if ("opensAt" in input) out.opens_at = optionalWhen(input.opensAt);
@@ -458,7 +466,7 @@ async function insertItem(db: Db, staff: Staff, e: EventRow, input: Record<strin
   const row = (await db.query<{ id: string }>(
     `INSERT INTO items (event_id, org_id, position, title, short, description, category, donor, image_asset_id, opening_minor, increment_override_minor, opens_at, closes_at, ready, image_focal)
      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING id`,
-    [e.id, staff.orgId, position, i.title, i.short, i.description, i.category, i.donor, i.image_asset_id, i.opening_minor, i.increment_override_minor, i.opens_at, i.closes_at, i.ready, JSON.stringify(i.image_focal ?? CENTER)])).rows[0];
+    [e.id, staff.orgId, position, i.title, i.short, i.description, i.category, i.donor, i.image_asset_id, i.opening_minor, i.increment_override_minor, i.opens_at, i.closes_at, i.ready, JSON.stringify(i.image_focal ?? DEFAULT_FRAME)])).rows[0];
   await db.query("INSERT INTO standings (item_id, event_id) VALUES ($1, $2)", [row.id, e.id]);
   return { id: row.id, ready: i.ready };
 }
@@ -654,7 +662,7 @@ export async function updateItems(request: Request, eventId: string): Promise<Re
     if (!raw || typeof raw !== "object" || Array.isArray(raw)) throw invalid();
     const c = raw as Record<string, unknown>;
     const fields: Record<string, unknown> = {};
-    for (const k of ["category", "ready", "imageAssetId", "imageFocal"]) if (k in c) fields[k] = c[k];
+    for (const k of ["category", "ready", "imageAssetId", "imageFrame", "imageFocal"]) if (k in c) fields[k] = c[k];
     if ("ready" in fields && typeof fields.ready !== "boolean") throw invalid();
     if (!Object.keys(fields).length) throw invalid();
     return { id: id(c.id), fields, expected: "imageExpectedAssetId" in c ? c.imageExpectedAssetId : undefined };

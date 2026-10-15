@@ -1,0 +1,48 @@
+{
+  "releasedAt": "2026-10-14",
+  "sourceCommit": "088e3b0316cc42914a17d80ca4ef04cf3f3d3761",
+  "sourceBranch": "jryear/real-v1-claude-shell",
+  "merges": {
+    "real-v1/preview-attach@ca7d17c": "8afde65d00c92866116ca65139184aeb8e0ce637",
+    "real-v1/fix-operations-ui@84ba167": "088e3b0316cc42914a17d80ca4ef04cf3f3d3761"
+  },
+  "previousSource": "8246e7f (application source identical to 84f09fb)",
+  "migrationsChanged": false,
+  "environmentChanges": false,
+  "localChecks": {
+    "node": "24.4.1",
+    "database": "disposable loopback Postgres 18 database, migrated 001-009, dropped afterward",
+    "typecheck": "pass",
+    "build": "pass (Next.js 16.3.8, Turbopack)",
+    "compat": "pass, 0 blocking findings",
+    "display-logic": "10/10",
+    "items-logic": "10/10",
+    "compat-logic": "10/10",
+    "journey": "55/55",
+    "operations-ui": "PASS",
+    "items-ui": "15/15",
+    "studio-saving": "7/7",
+    "bid-sheet": "2/2 engines",
+    "photos": "8/8",
+    "simple-ui": "2/2 simple-mode journeys",
+    "reruns": "none needed; all passed first run"
+  },
+  "staging": {
+    "project": "prj_nQdWJzjZjFg0TY2MjlTf2hxWtBf9",
+    "deployment": "dpl_84j5YvYHCn18XZxycpMckLTf5ftf",
+    "previous": "dpl_4CFSMuZVSnaa5ExaFJXHKJrw3G45",
+    "aliasReadback": "staging.bidzizi.com -> dpl_84j5YvYHCn18XZxycpMckLTf5ftf",
+    "smoke": "pass (staging-smoke.json)",
+    "signedInPreviewCheck": "skipped: no staging staff credentials available without provisioning against the staging database"
+  },
+  "production": {
+    "project": "prj_gJg1GmPcU3pxeXf9UCj5O7clYZf2",
+    "deployment": "dpl_qWNvq4UCk7P6FKZGRJSdt1fqXAie",
+    "rollbackTarget": "dpl_Fa7b2Zh9rYAiv5zqpRvnNeigFmgk",
+    "aliasReadback": "app.bidzizi.com -> dpl_qWNvq4UCk7P6FKZGRJSdt1fqXAie",
+    "smoke": "pass (production-smoke.json), read-only",
+    "writesDuringVerification": "one automatic guest-page device report (POST /api/v1/e/FZZGY3/telemetry -> 202); no events, participants, bids or pledges"
+  },
+  "gitPush": false,
+  "mainMerge": false
+}
