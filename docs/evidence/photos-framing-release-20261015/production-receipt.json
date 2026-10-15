@@ -1,0 +1,207 @@
+{
+ "releasedAt": "2026-10-15T18:42Z",
+ "authorizedBy": "Zack: \"I'm ready to get this to prod\" (2026-10-15)",
+ "sourceCommit": "c2b98e6971ccb2f742a6a58b21400ef5c127df6a",
+ "sourceBranch": "jryear/real-v1-nov19-execution",
+ "sourceContains": [
+  "efc302b photos framing",
+  "213d477 tray thumbnails (merged at d51e087)",
+  "Sentry server-only alerts (inert: no BIDZIZI_SENTRY_DSN in production)"
+ ],
+ "productionBuildValidation": "../../../docs/evidence/nov19/thumbnail-merge-validation.json on jryear/real-v1-nov19-execution",
+ "previousProduction": "dpl_qWNvq4UCk7P6FKZGRJSdt1fqXAie",
+ "newProduction": "dpl_Ap9xYPp7CcbWUxr7TrBFvjC85MQ5",
+ "deploymentUrl": "https://bidzizi-production-3jwbwj8gd-saturn-ea53.vercel.app",
+ "build": {
+  "pnpm": "12.4.2",
+  "functionsRegion": "pdx1"
+ },
+ "productionEnvNames": [
+  "BIDZIZI_DATABASE_URL",
+  "APP_ORIGIN",
+  "BIDZIZI_APP_MODE"
+ ],
+ "envChanged": false,
+ "restoreBranch": {
+  "name": "before-photos-release-20261015",
+  "id": "br-blue-water-ar13j577",
+  "parent": "br-cold-glitter-arx1msrh",
+  "lsn": "0/23C0810",
+  "createdAt": "2026-10-15T18:40:15Z",
+  "compute": false
+ },
+ "preMigration": {
+  "tls": [
+   true,
+   "TLSv1.3"
+  ],
+  "migrations": [
+   {
+    "name": "001_core.sql",
+    "match": true
+   },
+   {
+    "name": "002_theme.sql",
+    "match": true
+   },
+   {
+    "name": "003_operations.sql",
+    "match": true
+   },
+   {
+    "name": "004_bidder_visibility.sql",
+    "match": true
+   },
+   {
+    "name": "005_donations_follow_recipients.sql",
+    "match": true
+   },
+   {
+    "name": "006_look_and_sponsor_links.sql",
+    "match": true
+   },
+   {
+    "name": "007_photo_position.sql",
+    "match": true
+   },
+   {
+    "name": "008_item_categories.sql",
+    "match": true
+   },
+   {
+    "name": "009_client_reports.sql",
+    "match": true
+   }
+  ],
+  "pending": [
+   "010_photo_frame.sql"
+  ],
+  "rowCounts": {
+   "assets": 17,
+   "award_log": 7,
+   "awards": 4,
+   "bid_receipts": 33,
+   "bids": 33,
+   "client_reports": 983,
+   "events": 3,
+   "items": 13,
+   "login_attempts": 11,
+   "orgs": 1,
+   "participants": 11,
+   "pledges": 0,
+   "recipients": 1,
+   "rejoin_codes": 0,
+   "schema_migrations": 9,
+   "sponsors": 2,
+   "staff": 3,
+   "staff_password_tokens": 3,
+   "staff_requests": 12,
+   "staff_sessions": 8,
+   "standings": 13,
+   "watches": 6
+  }
+ },
+ "migration": "applied 010_photo_frame.sql via scripts/prod-migrate.mjs, direct endpoint, verified TLS",
+ "afterMigration": {
+  "diffWithZoomStripped": {
+   "schema_migrations": {
+    "before": 9,
+    "after": 10,
+    "sameHash": false
+   }
+  },
+  "missingZoom": {
+   "ev": 0,
+   "it": 0
+  },
+  "constraints": [
+   "events_cover_frame_check",
+   "items_image_frame_check"
+  ],
+  "oldAppStatus": {
+   "/studio": 200,
+   "/join": 200
+  }
+ },
+ "promotion": {
+  "providerReadback": "dpl_Ap9xYPp7CcbWUxr7TrBFvjC85MQ5",
+  "servedHtml": "dpl_Ap9xYPp7CcbWUxr7TrBFvjC85MQ5"
+ },
+ "liveHttp": {
+  "/studio": 200,
+  "/join": 200,
+  "/e/FZZGY3": 200,
+  "/e/FZZGY3/simple": 200,
+  "/e/MYPLES": 200,
+  "/e/MYPLES/simple": 200,
+  "/api/v1/host/events (signed out)": "401 SIGNED_OUT, no data",
+  "simpleCsp": "script-src 'none'"
+ },
+ "browserSmoke390": {
+  "engines": [
+   "chromium",
+   "webkit"
+  ],
+  "paths": [
+   "/studio",
+   "/join",
+   "/e/FZZGY3",
+   "/e/MYPLES"
+  ],
+  "pageErrors": 0,
+  "horizontalOverflow": false,
+  "brokenImages": "0 on join and guest events; /studio flagged 1: a lazy hero/dinner.webp inside a hidden element that is never fetched \u2014 the same file loads elsewhere on the page and serves 200 image/webp"
+ },
+ "afterRelease": {
+  "diffWithZoomStripped": {
+   "client_reports": {
+    "before": 983,
+    "after": 989,
+    "sameHash": false
+   },
+   "events": {
+    "before": 3,
+    "after": 3,
+    "sameHash": false
+   },
+   "schema_migrations": {
+    "before": 9,
+    "after": 10,
+    "sameHash": false
+   }
+  },
+  "explanation": {
+   "schema_migrations": "010 row",
+   "client_reports": "5 passive guest device reports from this smoke's page loads + 1 from a staff member",
+   "events": "draft YYXTWE saved by a staff member at 18:43:15Z (revision 12) on the new deployment; not caused by the release"
+  },
+  "unchanged": [
+   "assets",
+   "award_log",
+   "awards",
+   "bid_receipts",
+   "bids",
+   "items",
+   "login_attempts",
+   "orgs",
+   "participants",
+   "pledges",
+   "recipients",
+   "rejoin_codes",
+   "sponsors",
+   "staff",
+   "staff_password_tokens",
+   "staff_requests",
+   "staff_sessions",
+   "standings",
+   "watches"
+  ]
+ },
+ "syntheticProductionData": "none: no participants, bids, pledges or events created",
+ "rollback": "vercel rollback dpl_qWNvq4UCk7P6FKZGRJSdt1fqXAie --scope saturn-ea53; leave 010 in place (old app ignores zoom)",
+ "notCovered": [
+  "Real old-iPhone run of this build (Zack waived: events are not created on phones for now)",
+  "Real HEIC device upload into the tray",
+  "Production alert activation (DSN not set; Sentry rules are staging-filtered)"
+ ]
+}

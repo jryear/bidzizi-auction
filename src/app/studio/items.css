@@ -383,7 +383,8 @@ html.tray-dragging, html.tray-dragging * { cursor: grabbing !important; }
 .iw-dlg-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 24px 24px 14px; border-bottom: 1px solid var(--line); }
 .iw-dlg-head h2 { font: 600 28px/1.1 var(--serif); letter-spacing: -.02em; }
 .iw-dlg-head p { margin-top: 6px; font-size: 14.5px; color: var(--ink-2); max-width: 60ch; }
-.iw-dlg-body { flex: 1; min-height: 0; overflow: auto; padding: 18px 24px; }
+/* flex-basis auto, not 0%: the dialog has only a max-height, and some Safari versions collapse a 0% basis to its padding. */
+.iw-dlg-body { flex: 1 1 auto; min-height: 0; overflow: auto; padding: 18px 24px; }
 .iw-dlg-foot { padding: 14px 24px 18px; border-top: 1px solid var(--line); background: var(--panel-2); border-radius: 0 0 26px 26px; }
 .pd-foot { display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 10px; }
 .pd-foot .sx-error { flex: 1 1 100%; }
