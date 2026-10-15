@@ -1,0 +1,56 @@
+{
+  "databaseMismatchGuard": "passed: read-only HTTP rejection and local fixture cleanup",
+  "profile": "API-only 400ms each way; 128kbit/s download; 64kbit/s upload; offline and three flaps",
+  "evidence": [
+    {
+      "engine": "chromium",
+      "scenarios": [
+        "Offline snapshot shows stale timestamp; bid disabled; online recovery",
+        "API 3G approximation keeps Sending until durable receipt, then confirms",
+        "Lost response, failed receipt on reload and three flaps preserve original request; receipt recovery records one bid",
+        "JavaScript disabled: lost form response recovers durable receipt; unknown receipt offers only original request retry"
+      ],
+      "slowRequests": [
+        {
+          "method": "POST",
+          "isBid": true,
+          "bodyBytes": 324,
+          "milliseconds": 852.4440829999994
+        },
+        {
+          "method": "GET",
+          "isBid": false,
+          "bodyBytes": 2526,
+          "milliseconds": 965.864834
+        }
+      ],
+      "elapsedSeconds": 7.377,
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "scenarios": [
+        "Offline snapshot shows stale timestamp; bid disabled; online recovery",
+        "API 3G approximation keeps Sending until durable receipt, then confirms",
+        "Lost response, failed receipt on reload and three flaps preserve original request; receipt recovery records one bid",
+        "JavaScript disabled: lost form response recovers durable receipt; unknown receipt offers only original request retry"
+      ],
+      "slowRequests": [
+        {
+          "method": "POST",
+          "isBid": true,
+          "bodyBytes": 324,
+          "milliseconds": 842.4718749999993
+        },
+        {
+          "method": "GET",
+          "isBid": false,
+          "bodyBytes": 2524,
+          "milliseconds": 963.6905829999996
+        }
+      ],
+      "elapsedSeconds": 7.478,
+      "passed": true
+    }
+  ]
+}

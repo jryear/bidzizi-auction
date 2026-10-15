@@ -1,0 +1,70 @@
+import assert from 'node:assert/strict';
+import Sentry from '@sentry/nextjs';
+import { createSentryDelivery } from '../../src/server/v1/sentry-sdk.ts';
+import { createAlertSender } from '../../src/server/v1/alert-core.ts';
+
+const config = { endpoint: 'http://127.0.0.1:3470/envelope', environment: 'local', release: 'local' };
+const calls = [], notices = [];
+let mode = 200;
+const secret = 'do-not-send password=secret person@example.test postgres://secret SELECT * FROM staff';
+const deliver = createSentryDelivery(config, async (url, init) => {
+  calls.push({ url, init });
+  if (mode === 'timeout') return new Promise((_, reject) => {
+    const timer = setTimeout(() => reject(new Error('test deadline')), 1000);
+    init.signal.addEventListener('abort', () => { clearTimeout(timer); reject(new Error(secret)); }, { once: true });
+  });
+  return new Response(null, { status: mode });
+});
+const client = Sentry.getClient();
+assert.ok(client);
+assert.equal(client.getOptions().defaultIntegrations, false);
+assert.equal(client.getOptions().enableOpenTelemetrySetup, false);
+assert.equal(client.getOptions().tracesSampleRate, 0);
+assert.equal(client.getOptions().sendClientReports, false);
+assert.equal(client.getOptions().dataCollection.httpHeaders, false);
+Sentry.setUser({ email: secret, ip_address: secret });
+Sentry.setContext('request', { headers: secret, cookie: secret });
+Sentry.setTag('unexpected', secret);
+Sentry.addBreadcrumb({ message: secret });
+// Neither accidental SDK capture nor logs/metrics may bypass the application allowlist.
+Sentry.captureException(new Error(secret));
+Sentry.logger.error(secret);
+Sentry.metrics.count('unapproved', 1);
+await client.flush(1000);
+assert.equal(calls.length, 0);
+
+const sender = createAlertSender(config, { deliver, log: n => notices.push(n), timeoutMs: 30 });
+const job = sender.prepare({ category: 'server-failure', check: 'api-request' });
+assert.equal(calls.length, 0);
+await job.run();
+assert.equal(notices.at(-1).status, 'accepted');
+assert.equal(calls.length, 1);
+const [header, item, payload, ...rest] = calls[0].init.body.split('\n');
+const event = JSON.parse(payload);
+assert.equal(rest.filter(Boolean).length, 0, 'One event item only');
+assert.deepEqual(Object.keys(JSON.parse(header)).sort(), ['event_id', 'sent_at']);
+assert.deepEqual(JSON.parse(item), { type: 'event' });
+assert.equal(JSON.parse(header).event_id, job.eventId);
+assert.deepEqual(Object.keys(event).sort(), ['environment','event_id','extra','fingerprint','level','logger','message','platform','release','tags','timestamp'].sort());
+assert.ok(!calls[0].init.body.includes(secret));
+assert.ok(!/dsn|sentry_key|breadcrumbs|exception|contexts|unexpected|email|ip_address/.test(calls[0].init.body));
+assert.equal(calls[0].url, config.endpoint);
+assert.equal(calls[0].init.redirect, 'error');
+
+mode = 503;
+await sender.prepare({ category: 'guest-blocked', check: 'client-error' }).run();
+assert.equal(calls.length, 3, 'SDK HTTP rejection retries once');
+assert.equal(notices.at(-1).status, 'failed', 'Flush success cannot masquerade as ingest acceptance');
+mode = 'timeout';
+const start = performance.now();
+await sender.prepare({ category: 'guest-blocked', check: 'bid-sheet' }).run();
+assert.ok(performance.now() - start < 500);
+assert.equal(calls.length, 5);
+assert.equal(notices.at(-1).status, 'failed');
+mode = 429;
+await sender.prepare({ category: 'guest-blocked', check: 'app-not-started' }).run();
+assert.equal(calls.length, 6);
+assert.equal(sender.prepare({ category: 'guest-blocked', check: 'error-boundary' }), null);
+assert.ok(!JSON.stringify(notices).includes(secret));
+await client.close(1000);
+console.log('PASS actual Sentry Next.js SDK: initialization, scope/error/log/metric rejection, exact envelope allowlist, deferred capture, HTTP acceptance vs rejection, one retry, timeout and 429 backoff. Stub transport only; no provider access.');

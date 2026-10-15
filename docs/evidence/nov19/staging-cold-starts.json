@@ -1,0 +1,248 @@
+{
+  "collectedAt": "2026-10-14T23:26:02.811Z",
+  "source": "Vercel function_invocation.count grouped by functionStartType",
+  "scope": "Guest API requests for each unique rehearsal event, including join/watch, excluded warm-up, measured burst, receipt recovery and close probe. Host setup/deletion is excluded.",
+  "attribution": "Vercel rounds time windows to minutes. Unique event request-path filters prevent cross-ramp contamination. Cold counts cannot be assigned precisely to warm-up versus measurement within boundary minutes.",
+  "functionInstanceCounts": {
+    "measured": false,
+    "reason": "No trustworthy VM instance identifier/count source; omitted as explicitly allowed. Invocation IDs are not instance IDs."
+  },
+  "runs": [
+    {
+      "phones": 50,
+      "eventId": "854423db-3825-4822-8474-63bc0b8bfa95",
+      "query": {
+        "metric": "vercel.function_invocation.count",
+        "aggregation": "count",
+        "groupBy": [
+          "functionStartType"
+        ],
+        "filter": "(requestPath:/api/v1/e/C43SL7*) AND (deploymentId:\"dpl_84j5YvYHCn18XZxycpMckLTf5ftf\")",
+        "startTime": "2026-10-14T23:14:00.000Z",
+        "endTime": "2026-10-14T23:23:00.000Z",
+        "granularity": {
+          "minutes": 1
+        },
+        "orderBy": "count",
+        "orderDirection": "desc"
+      },
+      "counts": {
+        "hot": 2731,
+        "cold": 20
+      },
+      "coldStarts": 20,
+      "totalInvocations": 2751,
+      "expectedGuestRequests": 2751,
+      "ingestionMatchesHttpCount": true,
+      "nullBuckets": 0,
+      "minuteBuckets": [
+        {
+          "timestamp": "2026-10-14T23:14:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 836
+        },
+        {
+          "timestamp": "2026-10-14T23:14:00.000Z",
+          "functionStartType": "cold",
+          "vercel_function_invocation_count_count": 20
+        },
+        {
+          "timestamp": "2026-10-14T23:15:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 1084
+        },
+        {
+          "timestamp": "2026-10-14T23:15:00.000Z",
+          "functionStartType": "cold",
+          "vercel_function_invocation_count_count": 0
+        },
+        {
+          "timestamp": "2026-10-14T23:16:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 811
+        },
+        {
+          "timestamp": "2026-10-14T23:16:00.000Z",
+          "functionStartType": "cold",
+          "vercel_function_invocation_count_count": 0
+        },
+        {
+          "timestamp": "2026-10-14T23:17:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 0
+        },
+        {
+          "timestamp": "2026-10-14T23:17:00.000Z",
+          "functionStartType": "cold",
+          "vercel_function_invocation_count_count": 0
+        },
+        {
+          "timestamp": "2026-10-14T23:18:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 0
+        },
+        {
+          "timestamp": "2026-10-14T23:18:00.000Z",
+          "functionStartType": "cold",
+          "vercel_function_invocation_count_count": 0
+        },
+        {
+          "timestamp": "2026-10-14T23:19:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 0
+        },
+        {
+          "timestamp": "2026-10-14T23:19:00.000Z",
+          "functionStartType": "cold",
+          "vercel_function_invocation_count_count": 0
+        },
+        {
+          "timestamp": "2026-10-14T23:20:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 0
+        },
+        {
+          "timestamp": "2026-10-14T23:20:00.000Z",
+          "functionStartType": "cold",
+          "vercel_function_invocation_count_count": 0
+        },
+        {
+          "timestamp": "2026-10-14T23:21:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 0
+        },
+        {
+          "timestamp": "2026-10-14T23:21:00.000Z",
+          "functionStartType": "cold",
+          "vercel_function_invocation_count_count": 0
+        },
+        {
+          "timestamp": "2026-10-14T23:22:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 0
+        },
+        {
+          "timestamp": "2026-10-14T23:22:00.000Z",
+          "functionStartType": "cold",
+          "vercel_function_invocation_count_count": 0
+        }
+      ],
+      "note": "Counts are an ingestion-time provider readback. Retain a later independent readback if totals are still changing."
+    },
+    {
+      "phones": 150,
+      "eventId": "4cf680fa-473b-487a-8c96-45d329ef6983",
+      "query": {
+        "metric": "vercel.function_invocation.count",
+        "aggregation": "count",
+        "groupBy": [
+          "functionStartType"
+        ],
+        "filter": "(requestPath:/api/v1/e/9UEM3N*) AND (deploymentId:\"dpl_84j5YvYHCn18XZxycpMckLTf5ftf\")",
+        "startTime": "2026-10-14T23:16:00.000Z",
+        "endTime": "2026-10-14T23:23:00.000Z",
+        "granularity": {
+          "minutes": 1
+        },
+        "orderBy": "count",
+        "orderDirection": "desc"
+      },
+      "counts": {
+        "hot": 8101
+      },
+      "coldStarts": 0,
+      "totalInvocations": 8101,
+      "expectedGuestRequests": 8101,
+      "ingestionMatchesHttpCount": true,
+      "nullBuckets": 0,
+      "minuteBuckets": [
+        {
+          "timestamp": "2026-10-14T23:16:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 563
+        },
+        {
+          "timestamp": "2026-10-14T23:17:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 2734
+        },
+        {
+          "timestamp": "2026-10-14T23:18:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 3177
+        },
+        {
+          "timestamp": "2026-10-14T23:19:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 1627
+        },
+        {
+          "timestamp": "2026-10-14T23:20:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 0
+        },
+        {
+          "timestamp": "2026-10-14T23:21:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 0
+        },
+        {
+          "timestamp": "2026-10-14T23:22:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 0
+        }
+      ],
+      "note": "Counts are an ingestion-time provider readback. Retain a later independent readback if totals are still changing."
+    },
+    {
+      "phones": 300,
+      "eventId": "6c95adaa-62e6-4024-b092-bdd30520cd40",
+      "query": {
+        "metric": "vercel.function_invocation.count",
+        "aggregation": "count",
+        "groupBy": [
+          "functionStartType"
+        ],
+        "filter": "(requestPath:/api/v1/e/8DHZ6L*) AND (deploymentId:\"dpl_84j5YvYHCn18XZxycpMckLTf5ftf\")",
+        "startTime": "2026-10-14T23:19:00.000Z",
+        "endTime": "2026-10-14T23:23:00.000Z",
+        "granularity": {
+          "minutes": 1
+        },
+        "orderBy": "count",
+        "orderDirection": "desc"
+      },
+      "counts": {
+        "hot": 16183
+      },
+      "coldStarts": 0,
+      "totalInvocations": 16183,
+      "expectedGuestRequests": 16201,
+      "ingestionMatchesHttpCount": false,
+      "nullBuckets": 0,
+      "minuteBuckets": [
+        {
+          "timestamp": "2026-10-14T23:19:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 1989
+        },
+        {
+          "timestamp": "2026-10-14T23:20:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 5856
+        },
+        {
+          "timestamp": "2026-10-14T23:21:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 6327
+        },
+        {
+          "timestamp": "2026-10-14T23:22:00.000Z",
+          "functionStartType": "hot",
+          "vercel_function_invocation_count_count": 2011
+        }
+      ],
+      "note": "Counts are an ingestion-time provider readback. Retain a later independent readback if totals are still changing."
+    }
+  ]
+}

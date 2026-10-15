@@ -1,0 +1,176 @@
+{
+  "startedAt": "2026-10-15T18:22:23.293Z",
+  "sourceCommit": "c50cad0e441a75a8db045b3baf76054032b2821b",
+  "deploymentId": "dpl_AZZH3S67gBuDQvff6rmapwAUGKjr",
+  "orgId": "6ff288cf-3e9c-4afa-bae6-2e9140305b47",
+  "staffId": "40c6b46c-3c9b-45bd-84e3-2ebc4668412f",
+  "fixtureSlug": "nov19-alert-5f692926a1ee",
+  "scenarios": {
+    "serverFailure": {
+      "requestStartedAt": "2026-10-15T18:22:28.477Z",
+      "responseAt": "2026-10-15T18:22:36.638Z",
+      "alertId": "3b604e31f8cb422999f54c489a35f725",
+      "status": 503,
+      "observedLockWait": true,
+      "noBidOrReceiptCommitted": true,
+      "serverOccurredAt": "2026-10-15T18:22:36.615Z",
+      "ingestAcceptedAt": "2026-10-15T18:22:36.820Z",
+      "providerHttpDate": "2026-10-15T18:22:36.000Z",
+      "detectionTimestamp": {
+        "confirmed": true,
+        "method": "Matching Sentry-generated digest displays this incident and its check/occurrence time",
+        "exactSentryReceivedTimestampCollected": false,
+        "detectedNoLaterThan": "2026-10-15T18:23:27.727Z",
+        "note": "Exact Sentry received timestamps were independently read for the initial cycle; repeat detection is bounded by its matching inbox receipt."
+      },
+      "occurrenceToInboxSeconds": 51.112,
+      "within60Seconds": true
+    },
+    "guestError": {
+      "alertId": "094cd9d04ff14f5b92a0db0eed39c38c",
+      "browserOccurredAt": "2026-10-15T18:22:38.409Z",
+      "responseAt": "2026-10-15T18:22:38.480Z",
+      "status": 202,
+      "committed": true,
+      "serverOccurredAt": "2026-10-15T18:22:38.464Z",
+      "ingestAcceptedAt": "2026-10-15T18:22:38.532Z",
+      "providerHttpDate": "2026-10-15T18:22:38.000Z",
+      "detectionTimestamp": {
+        "confirmed": true,
+        "method": "Matching Sentry-generated digest displays this incident and its check/occurrence time",
+        "exactSentryReceivedTimestampCollected": false,
+        "detectedNoLaterThan": "2026-10-15T18:23:27.727Z",
+        "note": "Exact Sentry received timestamps were independently read for the initial cycle; repeat detection is bounded by its matching inbox receipt."
+      },
+      "occurrenceToInboxSeconds": 49.318,
+      "within60Seconds": true
+    },
+    "blockingHealth": {
+      "alertId": "dcdd2940cbd94eb1aef4a833e2a0893d",
+      "browserOccurredAt": "2026-10-15T18:22:41.262Z",
+      "responseAt": "2026-10-15T18:22:42.035Z",
+      "status": 202,
+      "realCoveredButtonCheck": true,
+      "committed": true,
+      "serverOccurredAt": "2026-10-15T18:22:42.021Z",
+      "ingestAcceptedAt": "2026-10-15T18:22:42.079Z",
+      "providerHttpDate": "2026-10-15T18:22:42.000Z",
+      "detectionTimestamp": {
+        "confirmed": true,
+        "method": "Matching Sentry-generated digest displays this incident and its check/occurrence time",
+        "exactSentryReceivedTimestampCollected": false,
+        "detectedNoLaterThan": "2026-10-15T18:23:27.727Z",
+        "note": "Exact Sentry received timestamps were independently read for the initial cycle; repeat detection is bounded by its matching inbox receipt."
+      },
+      "occurrenceToInboxSeconds": 46.465,
+      "within60Seconds": true
+    }
+  },
+  "inboxProof": {
+    "confirmed": true,
+    "destination": "zackj13@gmail.com",
+    "method": "Authenticated Safari Gmail, matching Sentry digest, Show original Received and X-Received headers",
+    "receivedAt": "2026-10-15T18:23:27.727Z",
+    "receivedHeader": "Thu, 15 Oct 2026 11:23:27 -0700 (PDT)",
+    "xReceivedEpochMilliseconds": 1792088607727,
+    "messageId": "20261015182324.57.14612@md.getsentry.com",
+    "sender": "noreply@md.getsentry.com",
+    "format": "One digest containing all three controlled alerts",
+    "maximumAcceptedSeconds": 60,
+    "passed": true,
+    "userConfirmedFirstCycle": true,
+    "repeatReceiptIndependentlyVerifiedInGmailUi": true
+  },
+  "cleanup": {
+    "confirmed": true,
+    "at": "2026-10-15T18:22:42.656Z",
+    "stagingRemaining": {
+      "orgs": 0,
+      "staff": 0,
+      "events": 0,
+      "requests": 0,
+      "sessions": 0
+    },
+    "productionAbsence": {
+      "at": "2026-10-15T18:22:42.688Z",
+      "readOnly": true,
+      "orgs": 0,
+      "staff": 0,
+      "events": 0
+    }
+  },
+  "binding": {
+    "deploymentId": "dpl_AZZH3S67gBuDQvff6rmapwAUGKjr",
+    "sourceCommit": "c50cad0e441a75a8db045b3baf76054032b2821b",
+    "readyState": "READY",
+    "projectId": "prj_nQdWJzjZjFg0TY2MjlTf2hxWtBf9",
+    "productionUnchanged": true
+  },
+  "productionAbsenceBefore": {
+    "at": "2026-10-15T18:22:27.364Z",
+    "readOnly": true,
+    "orgs": 0,
+    "staff": 0,
+    "events": 0
+  },
+  "eventId": "e408cef7-7460-4773-a033-847b90650af4",
+  "databaseBinding": {
+    "staging": {
+      "id": "e408cef7-7460-4773-a033-847b90650af4",
+      "org_id": "6ff288cf-3e9c-4afa-bae6-2e9140305b47",
+      "is_practice": true
+    },
+    "production": {
+      "at": "2026-10-15T18:22:28.020Z",
+      "readOnly": true,
+      "orgs": 0,
+      "staff": 0,
+      "events": 0
+    }
+  },
+  "applicationProofPassed": true,
+  "finishedAt": "2026-10-15T18:22:42.765Z",
+  "stopCondition": null,
+  "deliveryNotices": [
+    {
+      "eventId": "dcdd2940cbd94eb1aef4a833e2a0893d",
+      "status": "accepted",
+      "category": "guest-blocked",
+      "check": "bid-sheet",
+      "occurredAt": "2026-10-15T18:22:42.021Z",
+      "at": "2026-10-15T18:22:42.079Z",
+      "providerDate": "2026-10-15T18:22:42.000Z"
+    },
+    {
+      "eventId": "094cd9d04ff14f5b92a0db0eed39c38c",
+      "status": "accepted",
+      "category": "guest-blocked",
+      "check": "client-error",
+      "occurredAt": "2026-10-15T18:22:38.464Z",
+      "at": "2026-10-15T18:22:38.532Z",
+      "providerDate": "2026-10-15T18:22:38.000Z"
+    },
+    {
+      "eventId": "3b604e31f8cb422999f54c489a35f725",
+      "status": "accepted",
+      "category": "server-failure",
+      "check": "api-request",
+      "occurredAt": "2026-10-15T18:22:36.615Z",
+      "at": "2026-10-15T18:22:36.820Z",
+      "providerDate": "2026-10-15T18:22:36.000Z"
+    }
+  ],
+  "logCollection": {
+    "at": "2026-10-15T18:23:48.816Z",
+    "available": true,
+    "matched": 5,
+    "uniqueMatched": 3
+  },
+  "readinessAcceptancePassed": true,
+  "observabilityLimitations": {
+    "releaseTag": "unidentified-deployment",
+    "sourceBinding": "Exact source is bound by Vercel deployment sourceCommit metadata and matching alert IDs; Sentry runtime release attribution is not verified.",
+    "sdkDisplayLabel": "bidzizi-readiness/1.0 from custom transport header; actual installed Next.js SDK 11.8.0 is verified locally.",
+    "emailDelivery": "Observed pass only; free email digest minimum is one minute, leaving little margin and no latency guarantee."
+  }
+}

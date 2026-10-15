@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "validatedAt": "2026-10-15T18:33:52.898Z",
+  "mergedSourceCommit": "40b7a6d81a08204e5ff378d3b319b337272d6129",
+  "mergeCommit": "d51e08703ea72926b6f6d1e29bda6579b5c1babb",
+  "serverMode": "next build followed by next start; no next dev",
+  "node": "24.4.1",
+  "pnpm": "12.4.2",
+  "origin": "http://127.0.0.1:3469",
+  "database": "Disposable loopback bz_test_nov19",
+  "applicationDigest": "d3bd9488de9b236c3691189464676f4efe81cdc8edba2a22f3d41a84fad1cd6b",
+  "validationReceipt": "alerts-validation.json",
+  "validationLog": "alerts-validation.log",
+  "browserSuites": {
+    "bid-sheet": "Chromium and WebKit, both passed",
+    "simple-ui": "JavaScript disabled, Chromium and WebKit, both passed",
+    "photos": "Chromium, 9/9",
+    "photo-ui": "Chromium, 11/11",
+    "items-ui": "Chromium, 17/17 including no-local-preview thumbnail regression",
+    "resilience": "Chromium and WebKit, four scenarios each"
+  },
+  "otherChecks": [
+    "alert core and actual SDK privacy/delivery tests",
+    "typecheck",
+    "production build",
+    "compatibility",
+    "55/55 disposable database journey",
+    "8/8 telemetry checks",
+    "client bundle server-data isolation"
+  ],
+  "cleanupConfirmed": true,
+  "stagingDeploymentPerformed": false,
+  "currentStagingAlertProofSource": "c50cad0e441a75a8db045b3baf76054032b2821b",
+  "limitations": [
+    "Thumbnail regression uses JPEG bytes with a HEIC filename to exercise absent local preview; it is not a real iOS HEIC-device rehearsal.",
+    "The merged candidate has local production-build evidence and has not been deployed by this task."
+  ]
+}

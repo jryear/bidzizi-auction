@@ -1,0 +1,26 @@
+{
+  "completedAt": "2026-10-14T23:06:15.739Z",
+  "projectId": "prj_gJg1GmPcU3pxeXf9UCj5O7clYZf2",
+  "action": "Removed unused production Protection Bypass for Automation key",
+  "audit": "bypass-audit.json",
+  "oldKeyAbsent": true,
+  "remainingAutomationKeys": 0,
+  "replacementGenerated": false,
+  "deploymentIdBefore": "dpl_qWNvq4UCk7P6FKZGRJSdt1fqXAie",
+  "deploymentIdAfter": "dpl_qWNvq4UCk7P6FKZGRJSdt1fqXAie",
+  "deploymentProtectionUnchanged": true,
+  "functionDefaultsUnchanged": true,
+  "publicJoin": {
+    "before": {
+      "status": 200,
+      "bodySha256": "0a118076cd080e119d17bc3e58b30c53a477e3a89f36cb58fdd938fd25b600f2"
+    },
+    "after": {
+      "status": 200,
+      "bodySha256": "0a118076cd080e119d17bc3e58b30c53a477e3a89f36cb58fdd938fd25b600f2"
+    },
+    "byteIdentical": true
+  },
+  "productionApplicationRequests": 2,
+  "scope": "Only the approved unused automation-bypass key was revoked. No deployment, domain, database, application or other configuration change."
+}

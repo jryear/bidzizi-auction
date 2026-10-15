@@ -1,0 +1,165 @@
+{
+  "readAt": "2026-10-14T22:45:58.008Z",
+  "localRevision": "824f6fa25000ef7f01feb3d0cf4141bfe3d05cfa",
+  "scope": "Provider GETs and read-only pg_settings/pg_roles queries only. No application requests or business-data queries.",
+  "targets": [
+    {
+      "label": "staging",
+      "vercelProjectId": "prj_nQdWJzjZjFg0TY2MjlTf2hxWtBf9",
+      "deploymentId": "dpl_84j5YvYHCn18XZxycpMckLTf5ftf",
+      "deploymentState": "READY",
+      "sourceCommit": "088e3b0316cc42914a17d80ca4ef04cf3f3d3761",
+      "servedRegions": [
+        "pdx1"
+      ],
+      "nodeVersion": "24.x",
+      "projectDefaultRegions": [
+        "iad1"
+      ],
+      "function": {
+        "type": "fluid",
+        "memoryType": "standard",
+        "timeoutSeconds": 300,
+        "activeCpu": true,
+        "elasticConcurrencyEnabled": false
+      },
+      "firewall": {
+        "activeConfigPresent": false,
+        "activeVersion": null,
+        "firewallEnabled": null,
+        "botIdEnabled": null,
+        "customRuleCount": 0,
+        "ipRuleCount": 0,
+        "attackChallengeMode": {
+          "enabled": false,
+          "activeUntil": null,
+          "securityFieldPresent": false,
+          "interpretation": "Missing security block means disabled in the official Vercel Terraform GetAttackChallengeMode implementation."
+        },
+        "activeAttackAnomalyCount": 0
+      },
+      "neon": {
+        "project": "delicate-math-48681189",
+        "branch": "br-crimson-mountain-arsolcfe",
+        "endpoint": "ep-orange-cake-aryndhab",
+        "region": "aws-us-west-2",
+        "stateBeforeSqlRead": "active",
+        "minCu": 0.25,
+        "maxCu": 0.25,
+        "autosuspendSeconds": 300,
+        "poolerMode": "transaction",
+        "apiPoolerEnabledField": false,
+        "postgresLimits": {
+          "max_connections": 112,
+          "reserved_connections": 0,
+          "superuser_reserved_connections": 4
+        },
+        "roleConnectionLimit": -1,
+        "verifiedTls": true,
+        "pooledReadSucceeded": true,
+        "poolerLimits": {
+          "documentedMaxClients": 10000,
+          "documentedQueryWaitSeconds": 120,
+          "documentedServerPoolFormula": "90% of max_connections per user/database",
+          "derivedServerPoolBeforeRounding": 100.8,
+          "evidenceLevel": "PgBouncer limits are official documented defaults; live PgBouncer SHOW CONFIG was not available. Postgres limits above are live reads."
+        }
+      },
+      "deploymentDatabaseBinding": "Not independently established: project database environment variable is sensitive/redacted by Vercel."
+    },
+    {
+      "label": "production",
+      "vercelProjectId": "prj_gJg1GmPcU3pxeXf9UCj5O7clYZf2",
+      "deploymentId": "dpl_qWNvq4UCk7P6FKZGRJSdt1fqXAie",
+      "deploymentState": "READY",
+      "sourceCommit": "088e3b0316cc42914a17d80ca4ef04cf3f3d3761",
+      "servedRegions": [
+        "pdx1"
+      ],
+      "nodeVersion": "24.x",
+      "projectDefaultRegions": [
+        "pdx1"
+      ],
+      "function": {
+        "type": "fluid",
+        "memoryType": "standard",
+        "timeoutSeconds": 300,
+        "activeCpu": true,
+        "elasticConcurrencyEnabled": false
+      },
+      "firewall": {
+        "activeConfigPresent": false,
+        "activeVersion": null,
+        "firewallEnabled": null,
+        "botIdEnabled": null,
+        "customRuleCount": 0,
+        "ipRuleCount": 0,
+        "attackChallengeMode": {
+          "enabled": false,
+          "activeUntil": null,
+          "securityFieldPresent": false,
+          "interpretation": "Missing security block means disabled in the official Vercel Terraform GetAttackChallengeMode implementation."
+        },
+        "activeAttackAnomalyCount": 0
+      },
+      "neon": {
+        "project": "delicate-math-48681189",
+        "branch": "br-cold-glitter-arx1msrh",
+        "endpoint": "ep-broad-credit-arcrxgvi",
+        "region": "aws-us-west-2",
+        "stateBeforeSqlRead": "active",
+        "minCu": 0.25,
+        "maxCu": 8,
+        "autosuspendSeconds": 0,
+        "poolerMode": "transaction",
+        "apiPoolerEnabledField": false,
+        "postgresLimits": {
+          "max_connections": 901,
+          "reserved_connections": 0,
+          "superuser_reserved_connections": 4
+        },
+        "roleConnectionLimit": -1,
+        "verifiedTls": true,
+        "pooledReadSucceeded": true,
+        "poolerLimits": {
+          "documentedMaxClients": 10000,
+          "documentedQueryWaitSeconds": 120,
+          "documentedServerPoolFormula": "90% of max_connections per user/database",
+          "derivedServerPoolBeforeRounding": 810.9,
+          "evidenceLevel": "PgBouncer limits are official documented defaults; live PgBouncer SHOW CONFIG was not available. Postgres limits above are live reads."
+        }
+      },
+      "deploymentDatabaseBinding": "Not independently established: project database environment variable is sensitive/redacted by Vercel."
+    }
+  ],
+  "observabilityCapability": {
+    "coldStartMetricAvailable": true,
+    "window": {
+      "start": "2026-10-14T21:46:00.000Z",
+      "end": "2026-10-14T22:47:00.000Z"
+    },
+    "historicalSummary": [
+      {
+        "startType": "hot",
+        "invocations": 37
+      },
+      {
+        "startType": "cold",
+        "invocations": 4
+      },
+      {
+        "startType": "prewarmed",
+        "invocations": 4
+      }
+    ],
+    "note": "Historical staging traffic, not rehearsal evidence. No load has run. Function instance counts and DB peaks remain unmeasured.",
+    "functionInstanceCountSource": "Not established. The public function-invocation metric schema has no instance ID dimension; request/invocation IDs must not be counted as VM instances."
+  },
+  "rehearsal": {
+    "started": false,
+    "fixturesCreated": 0,
+    "applicationRequests": 0,
+    "reason": "Material compute/autosuspend mismatch; stop under user approval conditions. No configuration/deployment changes.",
+    "stagingProductionSourceMetadataMatches": true
+  }
+}

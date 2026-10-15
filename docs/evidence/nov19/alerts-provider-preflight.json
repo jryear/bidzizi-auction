@@ -1,0 +1,73 @@
+{
+  "at": "2026-10-15T18:01:23.884Z",
+  "readOnly": true,
+  "targets": {
+    "staging": {
+      "deploymentId": "dpl_AqVVa22iSSFxtQTL6n5JtBCuw4bC",
+      "sourceCommit": "efc302b8960badcb8fb54c2d468cd86e34f6903a",
+      "nodeVersion": "24.x",
+      "regions": [
+        "pdx1"
+      ],
+      "function": {
+        "type": "fluid",
+        "memoryType": "standard",
+        "timeoutSeconds": 300,
+        "activeCpu": true
+      },
+      "compute": {
+        "minCu": 0.25,
+        "maxCu": 0.25,
+        "autosuspendSeconds": 300
+      },
+      "firewall": {
+        "activePresent": false,
+        "enabled": null,
+        "rules": 0,
+        "ips": 0,
+        "attackModeEnabled": false,
+        "attackAnomalies": 0
+      }
+    },
+    "production": {
+      "deploymentId": "dpl_qWNvq4UCk7P6FKZGRJSdt1fqXAie",
+      "sourceCommit": "088e3b0316cc42914a17d80ca4ef04cf3f3d3761",
+      "nodeVersion": "24.x",
+      "regions": [
+        "pdx1"
+      ],
+      "function": {
+        "type": "fluid",
+        "memoryType": "standard",
+        "timeoutSeconds": 300,
+        "activeCpu": true
+      },
+      "compute": {
+        "minCu": 0.25,
+        "maxCu": 8,
+        "autosuspendSeconds": 0
+      },
+      "firewall": {
+        "activePresent": false,
+        "enabled": null,
+        "rules": 0,
+        "ips": 0,
+        "attackModeEnabled": false,
+        "attackAnomalies": 0
+      }
+    }
+  },
+  "schema": {
+    "001_core.sql": "already applied; hash matches",
+    "002_theme.sql": "already applied; hash matches",
+    "003_operations.sql": "already applied; hash matches",
+    "004_bidder_visibility.sql": "already applied; hash matches",
+    "005_donations_follow_recipients.sql": "already applied; hash matches",
+    "006_look_and_sponsor_links.sql": "already applied; hash matches",
+    "007_photo_position.sql": "already applied; hash matches",
+    "008_item_categories.sql": "already applied; hash matches",
+    "009_client_reports.sql": "already applied; hash matches",
+    "010_photo_frame.sql": "already applied; hash matches"
+  },
+  "passed": true
+}

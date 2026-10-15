@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import { cpuTracker } from './cpu.mjs';
+const row = (pid, ppid, seconds) => ({ pid, ppid, seconds });
+let rows = [row(10, 1, 50), row(11, 10, 20), row(20, 1, 100), row(21, 20, 30), row(999, 1, 1000)];
+const sample = cpuTracker([10, 20], () => rows);
+assert.deepEqual(sample(), [0, 0], 'Pre-existing CPU is a baseline, not workload CPU');
+rows = [row(10, 1, 51), row(11, 10, 21), row(20, 1, 100.5), row(21, 20, 31), row(999, 1, 2000)];
+assert.deepEqual(sample(), [2, 1.5], 'Only owned descendants contribute');
+rows = [row(10, 1, 52), row(11, 10, 22), row(20, 1, 101), row(22, 20, .25)];
+assert.deepEqual(sample(), [4, 2.25], 'Backend exit cannot subtract CPU; new backend contributes CPU since spawn');
+rows = [row(10, 1, 52), row(20, 1, 101), row(22, 20, .5)];
+assert.deepEqual(sample(), [4, 2.5], 'Reaped app child cannot subtract CPU');
+console.log('PASS CPU sampler: owned trees, initial baseline, backend exit and replacement.');
