@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BidZizi · Bid Shop Give prototype</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/guest.css">
+<link rel="stylesheet" href="css/studio.css">
+</head>
+<body>
+<div class="study" id="study">
+  <div class="study-id"><b>Prototype</b><span>Synthetic data, saved in this browser only. No real event, guests or payments.</span></div>
+  <div class="study-ctl">
+    <div class="sg" role="group" aria-label="Show"><span>Show</span><button data-view="both">Both</button><button data-view="phone">Guest</button><button data-view="studio">Studio</button></div>
+    <div class="sg" role="group" aria-label="Guest shell"><span>Guest</span><button data-g="a">A · Inherit</button><button data-g="b">B · Transform</button></div>
+    <div class="sg" role="group" aria-label="Studio model"><span>Studio</span><button data-s="a">A · One list</button><button data-s="b">B · Shop workspace</button></div>
+    <div class="sg sim" role="group" aria-label="Simulate"><span>Simulate</span><button data-sim="rush" title="Other guests buy and bid">Rush</button><button data-sim="window" title="Open or close bidding and buying">Close</button><button data-sim="fault" title="The next guest confirm commits, but the phone never hears back">Drop next reply</button><button data-sim="reset">Reset</button></div>
+  </div>
+</div>
+<div class="stage" id="stage">
+  <div class="phone-col"><div class="phone"><div id="guest" class="g"></div></div><p class="phone-cap" id="phone-cap"></p></div>
+  <div class="studio-col"><div id="studio" class="s"></div></div>
+</div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
