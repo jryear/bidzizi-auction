@@ -1,5 +1,5 @@
 import { handle, notFound } from "../../../../server/v1/http";
-import { inviteStaff, listStaff, login, logout, resetStaffPassword, setStaffPassword } from "../../../../server/v1/auth";
+import { deactivateStaff, inviteStaff, listStaff, login, logout, resetStaffPassword, setStaffPassword } from "../../../../server/v1/auth";
 import { bidReceipt, join, placeBid, pledge, rejoin, snapshot, previewSnapshot, watch } from "../../../../server/v1/engine";
 import * as host from "../../../../server/v1/host";
 import * as telemetry from "../../../../server/v1/telemetry";
@@ -35,6 +35,7 @@ async function route(method: string, request: Request, ctx: Ctx): Promise<Respon
     if (method === "GET" && at("host", "staff")) return listStaff(request);
     if (method === "POST" && at("host", "staff", "invites")) return inviteStaff(request);
     if (method === "POST" && at("host", "staff", "*", "password-reset")) return resetStaffPassword(request, p[2]);
+    if (method === "POST" && at("host", "staff", "*", "deactivate")) return deactivateStaff(request, p[2]);
     if (method === "POST" && at("host", "assets")) return host.uploadAsset(request);
     if (method === "GET" && at("host", "events")) return host.listEvents(request);
     if (method === "POST" && at("host", "events")) return host.createEvent(request);

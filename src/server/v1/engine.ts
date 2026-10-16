@@ -173,6 +173,9 @@ export async function join(request: Request, code: string): Promise<Response> {
   const token = randomBytes(32).toString("base64url");
   const result = await tx(async db => {
     const e = await eventByCode(db, code, "FOR SHARE"), at = await now(db);
+    // Serialize this join request first, so a retry racing the original waits and then replays it
+    // instead of colliding on the unique request ID.
+    await db.query("SELECT pg_advisory_xact_lock(hashtextextended($1, 0))", [`join:${e.id}:${requestId}`]);
     // A retry of the same join (lost response) re-issues the device credential for the same participant.
     const prior = (await db.query<{ id: string; created_at: Date }>(
       "SELECT id, created_at FROM participants WHERE event_id = $1 AND join_request_id = $2 FOR UPDATE", [e.id, requestId])).rows[0];

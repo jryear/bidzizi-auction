@@ -9,7 +9,7 @@ import { standing, type Item, type PendingBid, type Snapshot } from "./model";
 import type { Nav } from "./participant";
 import { Amount, EmptyState, ItemArt, Pill, TimeLeft } from "./ui";
 
-type Props = { snap: Snapshot; now: number; nav: Nav; code: string; stale: boolean; pending: PendingBid | null };
+type Props = { snap: Snapshot; now: number; nav: Nav; code: string; stale: boolean; pending: PendingBid[] };
 
 const GROUPS = [
   { key: "attention", title: "Outbid" },
@@ -19,8 +19,8 @@ const GROUPS = [
   { key: "closed", title: "Closed" },
 ] as const;
 
-function groupOf(item: Item, pendingId?: string): typeof GROUPS[number]["key"] {
-  const k = standing(item, item.id === pendingId).key;
+function groupOf(item: Item, pendingIds: Set<string>): typeof GROUPS[number]["key"] {
+  const k = standing(item, pendingIds.has(item.id)).key;
   if (k === "outbid" || k === "unconfirmed") return "attention";
   if (k === "won") return "won";
   if (k === "leading") return "leading";
@@ -29,7 +29,8 @@ function groupOf(item: Item, pendingId?: string): typeof GROUPS[number]["key"] {
 }
 
 export function MyBids({ snap, now, nav, code, stale, pending }: Props) {
-  const mine = snap.items.filter(i => i.myBidCount > 0 || i.award?.isMe || i.id === pending?.itemId);
+  const pendingIds = new Set(pending.map(p => p.itemId));
+  const mine = snap.items.filter(i => i.myBidCount > 0 || i.award?.isMe || pendingIds.has(i.id));
   const pledges = snap.me!.pledges;
   const leadingTotal = mine.filter(i => i.leader?.isMe && i.phase === "open").reduce((s, i) => s + (i.currentMinor ?? 0), 0);
   const wonTotal = mine.filter(i => i.award?.isMe).reduce((s, i) => s + (i.award?.amountMinor ?? 0), 0);
@@ -61,12 +62,12 @@ export function MyBids({ snap, now, nav, code, stale, pending }: Props) {
       ) : (
         <div className="bids">
           {GROUPS.map(g => {
-            const list = mine.filter(i => groupOf(i, pending?.itemId) === g.key);
+            const list = mine.filter(i => groupOf(i, pendingIds) === g.key);
             if (!list.length) return null;
             return (
               <section key={g.key} className={`b-sec g-${g.key}`}>
                 <h2>{g.title}<span className="b-count">{list.length}</span></h2>
-                <div className="tickets">{list.map(i => <Ticket key={i.id} item={i} now={now} nav={nav} code={code} stale={stale} unconfirmed={i.id === pending?.itemId} tz={snap.event.timezone} />)}</div>
+                <div className="tickets">{list.map(i => <Ticket key={i.id} item={i} now={now} nav={nav} code={code} stale={stale} unconfirmed={pendingIds.has(i.id)} tz={snap.event.timezone} />)}</div>
               </section>
             );
           })}

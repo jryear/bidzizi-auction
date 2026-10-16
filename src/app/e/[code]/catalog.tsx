@@ -7,7 +7,7 @@ import { closingSoon, countdown, sortItems, standing, type PendingBid, type Snap
 import type { Nav } from "./participant";
 import { EmptyState, ItemCard, ItemRow, Mark, TimeLeft, useEdit } from "./ui";
 
-type Props = { snap: Snapshot; now: number; nav: Nav; code: string; stale: boolean; pending: PendingBid | null; cameFrom: string | null; watching?: boolean };
+type Props = { snap: Snapshot; now: number; nav: Nav; code: string; stale: boolean; pending: PendingBid[]; cameFrom: string | null; watching?: boolean };
 
 export function EventClock({ snap, now }: { snap: Snapshot; now: number }) {
   const e = snap.event;
@@ -88,7 +88,7 @@ export function Catalog({ snap, now, nav, stale, pending, cameFrom, watching = f
         ) : (
           <div className={view === "cards" ? "cards" : "rows"}>
             {list.map(item => {
-              const card = <Comp key={item.id} item={item} now={now} stale={stale} here={item.id === cameFrom} unconfirmed={pending?.itemId === item.id}
+              const card = <Comp key={item.id} item={item} now={now} stale={stale} here={item.id === cameFrom} unconfirmed={pending.some(p => p.itemId === item.id)}
                 onOpen={() => nav.openItem(item.id)} onWatch={on => nav.watch(item, on)} onRebid={() => nav.openSheet(item, item.minimumNextMinor ?? undefined)} />;
               return edit?.decorateItem ? edit.decorateItem(item, card) : card;
             })}

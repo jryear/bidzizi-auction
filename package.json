@@ -19,7 +19,10 @@
     "test:v1": "node tests/v1/journey.mjs",
     "compat": "node scripts/compat.mjs",
     "test:ios": "node scripts/test-ios.mjs",
-    "test:compat": "node scripts/test-compat.mjs"
+    "test:compat": "node scripts/test-compat.mjs",
+    "test:db": "node tests/db/migrate.mjs",
+    "test:races": "node tests/db/races.mjs",
+    "test:recovery": "node tests/v1/recovery.mjs"
   },
   "dependencies": {
     "@sentry/core": "11.8.0",

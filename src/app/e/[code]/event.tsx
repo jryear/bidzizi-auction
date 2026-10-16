@@ -6,7 +6,7 @@ import type { Nav } from "./participant";
 import { EventClock } from "./catalog";
 import { EventHero, Facts, Mark, SponsorGrid, useEdit } from "./ui";
 
-type Props = { snap: Snapshot; now: number; nav: Nav; code: string; stale: boolean; pending: PendingBid | null };
+type Props = { snap: Snapshot; now: number; nav: Nav; code: string; stale: boolean; pending: PendingBid[] };
 
 export function EventPage({ snap, now, nav, code }: Props) {
   const e = snap.event, me = snap.me!;

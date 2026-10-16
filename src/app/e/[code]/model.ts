@@ -34,6 +34,27 @@ export type Receipt = {
 };
 export type PendingBid = { requestId: string; itemId: string; amountMinor: number };
 
+/** Bids sent without a confirmed answer, one per item, kept on this device until the server decides each one. */
+export function readPendingBids(key: string): PendingBid[] {
+  try {
+    const raw = localStorage.getItem(key); if (!raw) return [];
+    const v = JSON.parse(raw) as PendingBid | PendingBid[];
+    return (Array.isArray(v) ? v : [v]).filter(p => p && typeof p.requestId === "string" && typeof p.itemId === "string");
+  } catch { return []; }
+}
+/** Clears one request once the server has decided it, unless a newer request has replaced it. */
+export function clearPendingRequest(key: string, requestId: string): PendingBid[] {
+  const list = readPendingBids(key), next = list.filter(x => x.requestId !== requestId);
+  if (next.length !== list.length) try { if (next.length) localStorage.setItem(key, JSON.stringify(next)); else localStorage.removeItem(key); } catch { /* storage unavailable */ }
+  return next;
+}
+/** Sets (or, with null, clears) the pending bid for one item, leaving other items' pending bids alone. */
+export function writePendingBid(key: string, itemId: string, p: PendingBid | null): PendingBid[] {
+  const next = [...readPendingBids(key).filter(x => x.itemId !== itemId), ...(p ? [p] : [])];
+  try { if (next.length) localStorage.setItem(key, JSON.stringify(next)); else localStorage.removeItem(key); } catch { /* storage unavailable */ }
+  return next;
+}
+
 export type Tone = "green" | "red" | "amber" | "hatch" | "marigold" | "dashed" | "grey" | "ink" | "none";
 export type Standing = {
   key: "leading" | "outbid" | "won" | "awaiting" | "lost" | "sold" | "closed" | "scheduled" | "open" | "unconfirmed" | "withdrawn" | "voided";

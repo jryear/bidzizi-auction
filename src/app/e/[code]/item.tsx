@@ -8,11 +8,11 @@ import { closingSoon, countdown, standing, type Item, type PendingBid, type Snap
 import type { Nav } from "./participant";
 import { Amount, Ed, ItemArt, LotTab, Mark, Photo, Pill, TimeLeft, useEdit, Watch } from "./ui";
 
-type Props = { snap: Snapshot; now: number; nav: Nav; code: string; stale: boolean; pending: PendingBid | null; item: Item };
+type Props = { snap: Snapshot; now: number; nav: Nav; code: string; stale: boolean; pending: PendingBid[]; item: Item };
 
 export function ItemPage({ snap, now, nav, code, stale, pending, item }: Props) {
   const me = snap.me!;
-  const unconfirmed = pending?.itemId === item.id;
+  const unconfirmed = pending.some(p => p.itemId === item.id);
   const s = standing(item, unconfirmed), head = headline(item, unconfirmed);
   const tz = snap.event.timezone;
   const edit = useEdit();

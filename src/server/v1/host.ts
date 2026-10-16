@@ -857,7 +857,12 @@ export async function decideAward(request: Request, itemId: string): Promise<Res
   const action = str(input.action, 20);
   if (!["assign", "no_winner", "fulfilled", "unfulfilled", "notes"].includes(action)) throw invalid();
   return json(await staffTx(request, async (db, staff) => {
-    const { item, event } = await ownItem(db, staff, itemId);
+    // Same lock order as bids and withdrawals (event, item, standing), so a withdrawal or schedule change can't
+    // commit between reading the item and deciding: phase and withdrawal are checked on locked rows.
+    const target = (await db.query<{ event_id: string }>("SELECT event_id FROM items WHERE id = $1 AND org_id = $2", [id(itemId), staff.orgId])).rows[0];
+    if (!target) throw notFound("This item");
+    const event = await ownEvent(db, staff, target.event_id, "FOR SHARE");
+    const item = (await db.query<ItemRow>("SELECT * FROM items WHERE id = $1 AND event_id = $2 FOR SHARE", [itemId, target.event_id])).rows[0];
     // Standing lock: waits for any in-flight bid, and serializes winner decisions on this item.
     const standing = (await db.query<{ leading_bid_id: string | null }>("SELECT leading_bid_id FROM standings WHERE item_id = $1 FOR UPDATE", [item.id])).rows[0];
     const at = await now(db);

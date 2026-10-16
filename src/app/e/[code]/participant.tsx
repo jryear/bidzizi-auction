@@ -5,7 +5,7 @@ import { addTransitionType, startTransition, useCallback, useEffect, useLayoutEf
 import { api } from "../../../lib/api";
 import { formatMoney } from "../../../lib/money";
 import { IWifiOff } from "../../../lib/icons";
-import { type Item, type PendingBid, type Snapshot, wasSeen } from "./model";
+import { type Item, type PendingBid, type Snapshot, readPendingBids, wasSeen } from "./model";
 import { BidSheet, ResumePending } from "./sheet";
 import { Alerts, Celebration, type Alert } from "./moments";
 import { startReporting } from "../../../lib/telemetry";
@@ -50,7 +50,7 @@ export default function Participant({ code }: { code: string }) {
   const [sheet, setSheet] = useState<SheetState>(null);
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [celebrate, setCelebrate] = useState<Item | null>(null);
-  const [pending, setPending] = useState<PendingBid | null>(null);
+  const [pending, setPending] = useState<PendingBid[]>([]);
   const [cameFrom, setCameFrom] = useState<string | null>(null);
   const snapRef = useRef<Snapshot | null>(null);
   const scrolls = useRef<Record<string, number>>({});
@@ -102,7 +102,7 @@ export default function Participant({ code }: { code: string }) {
     return () => { stop = true; clearTimeout(timer); clearInterval(clock); document.removeEventListener("visibilitychange", wake); window.removeEventListener("online", wake); };
   }, [load]);
 
-  useEffect(() => { try { const raw = localStorage.getItem(pendingKey); setPending(raw ? JSON.parse(raw) : null); } catch { /* ignore */ } }, [pendingKey]);
+  useEffect(() => { setPending(readPendingBids(pendingKey)); }, [pendingKey]);
 
   // Browsers abort a view transition when the viewport resizes mid-animation (mobile address bars do this). The navigation
   // still completes without the animation, so that abort is not an error worth surfacing.
@@ -174,7 +174,7 @@ export default function Participant({ code }: { code: string }) {
   return <GuestShell snap={snap} code={code} route={route} nav={nav} now={serverNow} stale={offline} asOf={asOf} pending={pending} cameFrom={cameFrom} onDone={load} notify={notify}>
       {sheetItem && <BidSheet key={sheetItem.id} item={sheetItem} me={me!} code={code} pendingKey={pendingKey} initialAmount={sheet?.amount} offline={offline}
         onPending={setPending} onClose={closeSheet} onSettled={load} notify={notify} />}
-      <ResumePending code={code} pendingKey={pendingKey} onResolved={(text, ok) => { setPending(null); notify({ key: "resume", tone: ok ? "green" : "ink", title: text }); load(); }} />
+      <ResumePending code={code} pendingKey={pendingKey} onResolved={(text, ok) => { setPending(readPendingBids(pendingKey)); notify({ key: `resume-${text}`, tone: ok ? "green" : "ink", title: text }); load(); }} />
       <Alerts alerts={alerts.filter(a => !redundant(a, route))} onDismiss={dismiss} onAct={a => { dismiss(a.id); const it = snap.items.find(i => i.id === a.itemId); if (it) nav.openSheet(it, a.action?.amount); }} />
       {celebrate && <Celebration item={celebrate} code={code} instructions={me?.winnerInstructions ?? ""} onClose={target => {
         setCelebrate(null);

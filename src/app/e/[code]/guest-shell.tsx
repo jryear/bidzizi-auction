@@ -16,8 +16,8 @@ import { Mark } from "./ui";
 
 const SECTIONS: Section[] = ["items", "watching", "mine", "event", "give"];
 
-export function GuestShell({ snap, code, route, nav, now, stale = false, pending = null, cameFrom = null, asOf = null, editor = false, join = false, onDone, notify, children }: {
-  snap: Snapshot; code: string; route: { s: Section; i: string | null }; nav: Nav; now: number; stale?: boolean; pending?: PendingBid | null;
+export function GuestShell({ snap, code, route, nav, now, stale = false, pending = [], cameFrom = null, asOf = null, editor = false, join = false, onDone, notify, children }: {
+  snap: Snapshot; code: string; route: { s: Section; i: string | null }; nav: Nav; now: number; stale?: boolean; pending?: PendingBid[];
   cameFrom?: string | null; asOf?: number | null; editor?: boolean; join?: boolean; onDone: () => Promise<boolean> | void;
   notify: (a: Omit<Alert, "id">) => void; children?: ReactNode;
 }) {

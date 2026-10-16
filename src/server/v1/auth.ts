@@ -24,13 +24,13 @@ async function verifyPassword(password: string, stored: string): Promise<boolean
 let dummyHash: Promise<string> | undefined;
 const dummy = () => (dummyHash ??= hashPassword(randomBytes(16).toString("hex")));
 
-export type Staff = { id: string; orgId: string; orgName: string; name: string; email: string };
+export type Staff = { id: string; orgId: string; orgName: string; name: string; email: string; role: "owner" | "staff" };
 
 export async function staffFrom(db: Db, request: Request): Promise<Staff> {
   const token = readCookie(request, STAFF_COOKIE);
   if (!token || !/^[A-Za-z0-9_-]{43}$/.test(token)) throw signedOut();
   const row = (await db.query<Staff>(
-    `SELECT s.id, s.org_id AS "orgId", o.name AS "orgName", s.name, s.email
+    `SELECT s.id, s.org_id AS "orgId", o.name AS "orgName", s.name, s.email, s.role
        FROM staff_sessions x JOIN staff s ON s.id = x.staff_id JOIN orgs o ON o.id = s.org_id
       WHERE x.token_hash = $1 AND x.revoked_at IS NULL AND x.expires_at > clock_timestamp() AND s.active`,
     [sha256(token)])).rows[0];
@@ -43,23 +43,35 @@ export async function login(request: Request): Promise<Response> {
   const email = str(input.email, 254).toLowerCase(), password = str(input.password, 200, { trim: false });
   const ip = (request.headers.get("x-forwarded-for") ?? "").split(",")[0].trim() || "unknown";
   const emailHash = sha256(`email:${email}`), ipHash = sha256(`ip:${ip}`);
+  // Reserve the attempt before the (expensive) password check: the count and the reservation happen under
+  // per-email and per-IP locks, so a parallel burst can't run more checks than the limits allow.
+  // The reservation counts as a failure until the password is confirmed.
   const found = await tx(async db => {
+    await db.query("SELECT pg_advisory_xact_lock(hashtextextended($1, 0)), pg_advisory_xact_lock(hashtextextended($2, 0))", [emailHash, ipHash]);
     const recent = (await db.query<{ email: string; ip: string }>(
       `SELECT count(*) FILTER (WHERE email_hash = $1)::text AS email, count(*) FILTER (WHERE ip_hash = $2)::text AS ip
          FROM login_attempts WHERE NOT succeeded AND at > now() - interval '15 minutes' AND (email_hash = $1 OR ip_hash = $2)`,
       [emailHash, ipHash])).rows[0];
     if (Number(recent.email) >= 5 || Number(recent.ip) >= 20) return { limited: true as const };
+    const attempt = (await db.query<{ id: string }>(
+      "INSERT INTO login_attempts (email_hash, ip_hash, succeeded) VALUES ($1, $2, false) RETURNING id::text", [emailHash, ipHash])).rows[0].id;
     const staff = (await db.query<{ id: string; password_hash: string }>(
       "SELECT id, password_hash FROM staff WHERE email = $1 AND active", [email])).rows[0];
-    return { limited: false as const, staff };
+    return { limited: false as const, attempt, staff };
   });
   if (found.limited) throw new ApiError(429, "TOO_MANY_ATTEMPTS", "Too many attempts. Wait a few minutes and try again.");
-  const ok = await verifyPassword(password, found.staff?.password_hash ?? await dummy()) && Boolean(found.staff);
+  const verified = await verifyPassword(password, found.staff?.password_hash ?? await dummy()) && Boolean(found.staff);
   const token = randomBytes(32).toString("base64url");
-  await tx(async db => {
-    await db.query("INSERT INTO login_attempts (email_hash, ip_hash, succeeded) VALUES ($1, $2, $3)", [emailHash, ipHash, ok]);
-    if (ok) await db.query(`INSERT INTO staff_sessions (token_hash, staff_id, expires_at) VALUES ($1, $2, now() + interval '${STAFF_HOURS} hours')`,
+  const ok = verified && await tx(async db => {
+    // The password must still be the one we checked, and the account still active: a reset or
+    // deactivation that committed meanwhile wins, and one that comes later revokes this session.
+    const current = (await db.query("SELECT 1 FROM staff WHERE id = $1 AND active AND password_hash = $2 FOR SHARE",
+      [found.staff!.id, found.staff!.password_hash])).rows[0];
+    if (!current) return false;
+    await db.query("UPDATE login_attempts SET succeeded = true WHERE id = $1", [found.attempt]);
+    await db.query(`INSERT INTO staff_sessions (token_hash, staff_id, expires_at) VALUES ($1, $2, now() + interval '${STAFF_HOURS} hours')`,
       [sha256(token), found.staff!.id]);
+    return true;
   });
   if (!ok) throw new ApiError(401, "LOGIN_FAILED", "That email and password don't match.");
   return json({ ok: true }, 200, { "Set-Cookie": cookie(STAFF_COOKIE, token, STAFF_HOURS * 3600, secureCookies()) });
@@ -88,9 +100,13 @@ async function issuePasswordToken(db: Db, staffId: string, issuedBy: string, kin
 export async function listStaff(request: Request): Promise<Response> {
   return json(await tx(async db => {
     const actor = await staffFrom(db, request);
-    const rows = (await db.query<{ id: string; name: string; email: string; active: boolean; created_at: Date }>(
-      "SELECT id, name, email, active, created_at FROM staff WHERE org_id=$1 ORDER BY created_at", [actor.orgId])).rows;
-    return { staff: rows.map(s => ({ id: s.id, name: s.name, email: s.email, active: s.active, createdAt: s.created_at })) };
+    const rows = (await db.query<{ id: string; name: string; email: string; active: boolean; role: string; deactivated_at: Date | null; created_at: Date }>(
+      "SELECT id, name, email, active, role, deactivated_at, created_at FROM staff WHERE org_id=$1 ORDER BY deactivated_at NULLS FIRST, created_at", [actor.orgId])).rows;
+    return {
+      you: { id: actor.id, role: actor.role },
+      staff: rows.map(s => ({ id: s.id, name: s.name, email: s.email, role: s.role, active: s.active,
+        status: s.deactivated_at ? "deactivated" : s.active ? "active" : "invited", createdAt: s.created_at })),
+    };
   }));
 }
 
@@ -110,13 +126,35 @@ export async function inviteStaff(request: Request): Promise<Response> {
   }), 201);
 }
 
+const ownersOnly = () => new ApiError(403, "OWNER_ONLY", "Only an owner can do this. Ask an owner of your organization.");
+
+/** Owners issue reset or invite links for anyone in their org (including reactivating a removed account); anyone can reset their own. */
 export async function resetStaffPassword(request: Request, staffId: string): Promise<Response> {
   await readJson(request);
   return json(await tx(async db => {
     const actor = await staffFrom(db, request);
     const target = (await db.query<{ id: string; active: boolean }>("SELECT id, active FROM staff WHERE id=$1 AND org_id=$2 FOR UPDATE", [id(staffId), actor.orgId])).rows[0];
     if (!target) throw notFound("This staff member");
+    if (target.id !== actor.id && actor.role !== "owner") throw ownersOnly();
     return issuePasswordToken(db, target.id, actor.id, target.active ? "reset" : "invite", request);
+  }));
+}
+
+/** Removes a colleague's access now: signs them out everywhere and voids their unused links. Owners only, never yourself. */
+export async function deactivateStaff(request: Request, staffId: string): Promise<Response> {
+  await readJson(request);
+  return json(await tx(async db => {
+    const actor = await staffFrom(db, request);
+    if (actor.role !== "owner") throw ownersOnly();
+    const target = (await db.query<{ id: string; deactivated_at: Date | null }>(
+      "SELECT id, deactivated_at FROM staff WHERE id=$1 AND org_id=$2 FOR UPDATE", [id(staffId), actor.orgId])).rows[0];
+    if (!target) throw notFound("This staff member");
+    if (target.id === actor.id) throw conflict("You can't remove your own access.");
+    if (target.deactivated_at) return { ok: true, replay: true };
+    await db.query("UPDATE staff SET active=false, deactivated_at=now(), deactivated_by=$2 WHERE id=$1", [target.id, actor.id]);
+    await db.query("UPDATE staff_sessions SET revoked_at=now() WHERE staff_id=$1 AND revoked_at IS NULL", [target.id]);
+    await db.query("UPDATE staff_password_tokens SET used_at=now() WHERE staff_id=$1 AND used_at IS NULL", [target.id]);
+    return { ok: true, replay: false };
   }));
 }
 
@@ -132,7 +170,7 @@ export async function setStaffPassword(request: Request): Promise<Response> {
       `SELECT staff_id, kind FROM staff_password_tokens WHERE token_hash=$1 AND used_at IS NULL AND expires_at > clock_timestamp() FOR UPDATE`,
       [sha256(`staff-password:${token}`)])).rows[0];
     if (!row) throw invalid("This setup link is invalid or expired.");
-    await db.query("UPDATE staff SET password_hash=$2, active=true WHERE id=$1", [row.staff_id, hash]);
+    await db.query("UPDATE staff SET password_hash=$2, active=true, deactivated_at=NULL, deactivated_by=NULL WHERE id=$1", [row.staff_id, hash]);
     await db.query("UPDATE staff_sessions SET revoked_at=now() WHERE staff_id=$1 AND revoked_at IS NULL", [row.staff_id]);
     await db.query("UPDATE staff_password_tokens SET used_at=now() WHERE staff_id=$1 AND used_at IS NULL", [row.staff_id]);
     return { ok: true };

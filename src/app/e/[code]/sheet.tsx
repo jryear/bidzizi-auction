@@ -7,18 +7,18 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { api, dollarsInput, errorText, fmtClock, newId, parseDollars } from "../../../lib/api";
 import { formatMoney } from "../../../lib/money";
 import { IAlert, ICheck, IClose, IMinus, IPlus, IWifiOff } from "../../../lib/icons";
-import { REASONS, type Item, type Me, type PendingBid, type Receipt } from "./model";
+import { REASONS, clearPendingRequest, readPendingBids, writePendingBid, type Item, type Me, type PendingBid, type Receipt } from "./model";
 import type { Alert } from "./moments";
 import { ItemArt, Mark } from "./ui";
 
 type State = "edit" | "sending" | "landed" | "rejected" | "unconfirmed";
 type Props = {
   item: Item; me: Me; code: string; pendingKey: string; initialAmount?: number; offline: boolean;
-  onPending: (p: PendingBid | null) => void; onClose: () => void; onSettled: () => void; notify: (a: Omit<Alert, "id">) => void;
+  onPending: (p: PendingBid[]) => void; onClose: () => void; onSettled: () => void; notify: (a: Omit<Alert, "id">) => void;
 };
 
 function readPending(key: string, itemId: string): PendingBid | null {
-  try { const raw = localStorage.getItem(key); const p = raw ? JSON.parse(raw) as PendingBid : null; return p?.itemId === itemId ? p : null; } catch { return null; }
+  return readPendingBids(key).find(p => p.itemId === itemId) ?? null;
 }
 
 export function BidSheet({ item, me, code, pendingKey, initialAmount, offline, onPending, onClose, onSettled, notify }: Props) {
@@ -91,7 +91,7 @@ export function BidSheet({ item, me, code, pendingKey, initialAmount, offline, o
   const picks = [minimum, minimum + item.incrementMinor, minimum + item.incrementMinor * 3];
   const busy = state === "sending";
   const close = () => { if (!busy) finish(); };
-  const remember = (p: PendingBid | null) => { try { if (p) localStorage.setItem(pendingKey, JSON.stringify(p)); else localStorage.removeItem(pendingKey); } catch { /* ignore */ } onPending(p); };
+  const remember = (p: PendingBid | null) => onPending(writePendingBid(pendingKey, item.id, p));
 
   function settle(receipt: Receipt) {
     remember(null);
@@ -220,23 +220,24 @@ function Landed({ receipt, item, onDone }: { receipt: Receipt; item: Item; onDon
   );
 }
 
-/** After a reload, resolves a bid whose response never arrived. */
+/** After a reload, resolves bids whose responses never arrived. A lookup that finds no receipt is not proof the bid
+ * failed: the original request may still be committing. Those stay pending until the guest taps Check status, which
+ * replays the same request id and so gets the one durable decision. */
 export function ResumePending({ code, pendingKey, onResolved }: { code: string; pendingKey: string; onResolved: (text: string, ok: boolean) => void }) {
   const report = useRef(onResolved);
   report.current = onResolved;
   // Runs once per page load, so it never races a bid being sent from this page.
   useEffect(() => {
-    let raw: string | null = null;
-    try { raw = localStorage.getItem(pendingKey); } catch { return; }
-    if (!raw) return;
-    const pending = JSON.parse(raw) as PendingBid;
-    api<{ receipt: Receipt | null }>("GET", `/api/v1/e/${code}/receipt/${pending.requestId}`).then(r => {
-      if (!r.ok) return;
-      localStorage.removeItem(pendingKey);
-      if (r.data.receipt?.accepted) { report.current(`Your ${formatMoney(pending.amountMinor)} bid went through`, true); }
-      else if (r.data.receipt) report.current(`Your ${formatMoney(pending.amountMinor)} bid wasn’t placed`, false);
-      else report.current(`Your ${formatMoney(pending.amountMinor)} bid didn’t reach us. Nothing was placed.`, false);
-    }).catch(() => {});
+    for (const pending of readPendingBids(pendingKey)) {
+      api<{ receipt: Receipt | null }>("GET", `/api/v1/e/${code}/receipt/${pending.requestId}`).then(r => {
+        if (!r.ok) return;
+        const receipt = r.data.receipt, amount = formatMoney(pending.amountMinor);
+        if (!receipt) { report.current(`Your ${amount} bid isn\u2019t confirmed yet. Open the item and tap Check bid status.`, false); return; }
+        clearPendingRequest(pendingKey, pending.requestId);
+        if (receipt.accepted) report.current(`Your ${amount} bid went through`, true);
+        else report.current(`Your ${amount} bid wasn\u2019t placed`, false);
+      }).catch(() => {});
+    }
   }, [code, pendingKey]);
   return null;
 }

@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState, type CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import { api, errorText, fmtClock, fmtTime, newId, parseDollars } from "../../../lib/api";
 import { formatMoney } from "../../../lib/money";
 import { ICheck, IChevL, IHeart } from "../../../lib/icons";
@@ -8,29 +8,44 @@ import type { Nav } from "./participant";
 import type { Alert } from "./moments";
 import { EmptyState, Mark } from "./ui";
 
-type Props = { snap: Snapshot; now: number; nav: Nav; code: string; stale: boolean; pending: PendingBid | null; onDone: () => void; readOnly?: boolean; notify: (a: Omit<Alert, "id">) => void };
+/** A donation sent without a confirmed answer. Kept on this device so a reload, navigation or "Change" can't turn
+ * one intended pledge into two: until the server decides, the only action is to resend this exact request. */
+type HeldPledge = { requestId: string; recipientId: string; amountMinor: number };
+const heldKey = (code: string) => `bz_pledge_${code}`;
+function readHeld(code: string): HeldPledge | null {
+  try { const raw = localStorage.getItem(heldKey(code)); const v = raw ? JSON.parse(raw) as HeldPledge : null; return v && typeof v.requestId === "string" ? v : null; } catch { return null; }
+}
+function writeHeld(code: string, v: HeldPledge | null) {
+  try { if (v) localStorage.setItem(heldKey(code), JSON.stringify(v)); else localStorage.removeItem(heldKey(code)); } catch { /* storage unavailable */ }
+}
+const UNCERTAIN = "We couldn\u2019t confirm it. Tap Confirm again \u2014 it won\u2019t be recorded twice.";
+
+type Props = { snap: Snapshot; now: number; nav: Nav; code: string; stale: boolean; pending: PendingBid[]; onDone: () => void; readOnly?: boolean; notify: (a: Omit<Alert, "id">) => void };
 
 export function Give({ snap, code, nav, onDone, readOnly = false }: Props) {
   const d = snap.event.donations, me = snap.me!;
-  const [recipient, setRecipient] = useState(d.recipients.length === 1 ? d.recipients[0].id : "");
-  const [amount, setAmount] = useState<number | null>(5000), [custom, setCustom] = useState("");
-  const [step, setStep] = useState<"pick" | "review" | "sending" | "done">("pick"), [error, setError] = useState("");
+  const [held, setHeld] = useState<HeldPledge | null>(() => typeof window === "undefined" ? null : readHeld(code));
+  const [recipient, setRecipient] = useState(held?.recipientId ?? (d.recipients.length === 1 ? d.recipients[0].id : ""));
+  const [amount, setAmount] = useState<number | null>(held?.amountMinor ?? 5000), [custom, setCustom] = useState("");
+  const [step, setStep] = useState<"pick" | "review" | "sending" | "done">(held ? "review" : "pick"), [error, setError] = useState(held ? UNCERTAIN : "");
   const [last, setLast] = useState<{ amountMinor: number; recipientName: string } | null>(null);
-  const request = useRef<string | null>(null);
   const chosen = d.recipients.find(r => r.id === recipient);
   const value = amount ?? parseDollars(custom);
+  const hold = (v: HeldPledge | null) => { writeHeld(code, v); setHeld(v); };
   const valid = Boolean(chosen && value && value >= 100 && value <= d.capMinor);
   const given = me.pledges.reduce((s, p) => s + p.amountMinor, 0);
 
   async function confirm() {
     if (readOnly) return;
-    request.current ??= newId();
+    // Saved before sending: if the answer is lost, this exact request is what gets resent.
+    const pledge = held ?? { requestId: newId(), recipientId: recipient, amountMinor: value! };
+    hold(pledge);
     setStep("sending"); setError("");
     try {
-      const r = await api("POST", `/api/v1/e/${code}/pledge`, { requestId: request.current, recipientId: recipient, amountMinor: value });
-      if (r.ok) { request.current = null; setLast({ amountMinor: value!, recipientName: chosen!.name }); setStep("done"); onDone(); return; }
-      if (r.status >= 500) { setStep("review"); setError("We couldn\u2019t confirm it. Tap Confirm again \u2014 it won\u2019t be recorded twice."); return; }
-      request.current = null; setStep("review"); setError(errorText(r));
+      const r = await api("POST", `/api/v1/e/${code}/pledge`, pledge);
+      if (r.ok) { hold(null); setLast({ amountMinor: pledge.amountMinor, recipientName: d.recipients.find(x => x.id === pledge.recipientId)?.name ?? "" }); setStep("done"); onDone(); return; }
+      if (r.status >= 500) { setStep("review"); setError(UNCERTAIN); return; }
+      hold(null); setStep("review"); setError(errorText(r));
     } catch { setStep("review"); setError("Connection lost. Tap Confirm again \u2014 it won\u2019t be recorded twice."); }
   }
 
@@ -42,7 +57,8 @@ export function Give({ snap, code, nav, onDone, readOnly = false }: Props) {
   );
 
   if (!d.enabled) return <>{head}<EmptyState icon={<IHeart size={28} />} title="No donations at this event" /></>;
-  if (!d.open) return <>{head}<EmptyState icon={<IHeart size={28} />} title="Donations are closed"><p>Thank you to everyone who gave.</p></EmptyState></>;
+  // An unconfirmed donation still gets resolved after donations close: the server replays a recorded request.
+  if (!d.open && !held) return <>{head}<EmptyState icon={<IHeart size={28} />} title="Donations are closed"><p>Thank you to everyone who gave.</p></EmptyState></>;
 
   if (step === "done" && last) return (
     <div className="give-layout">
@@ -94,7 +110,7 @@ export function Give({ snap, code, nav, onDone, readOnly = false }: Props) {
         </>
       ) : (
         <section className="give-review">
-          <button type="button" className="back-link" disabled={step === "sending"} onClick={() => { request.current = null; setStep("pick"); setError(""); }}><IChevL size={18} />Change</button>
+          {!held && <button type="button" className="back-link" disabled={step === "sending"} onClick={() => { setStep("pick"); setError(""); }}><IChevL size={18} />Change</button>}
           <div className="pa-stub give-stub">
             <div className="stub-main"><span className="lbl">Donation to</span><b className="gs-to">{chosen?.name}</b><span className="lbl">From</span><span>{me.businessName} · {me.displayName}</span></div>
             <div className="stub-side"><span className="lbl">Amount</span><b className="n amt">{formatMoney(value!)}</b></div>
