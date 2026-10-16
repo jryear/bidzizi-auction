@@ -1,0 +1,33 @@
+{
+  "startedAt": "2026-10-16T00:25:00.544Z",
+  "project": "delicate-math-48681189",
+  "parentBranch": "br-cold-glitter-arx1msrh",
+  "branchName": "nov19-restore-drill-20261016T002309",
+  "restorePoint": {
+    "at": "2026-10-16T00:23:09.454Z",
+    "lsn": "0/2777BF0"
+  },
+  "productionSqlReadOnly": true,
+  "applicationSettingsChanged": false,
+  "cleanupConfirmed": true,
+  "historyRetentionSeconds": 86400,
+  "branchesBefore": [
+    "br-blue-water-ar13j577",
+    "br-cold-glitter-arx1msrh",
+    "br-crimson-mountain-arsolcfe",
+    "br-plain-poetry-ar3kh24n"
+  ],
+  "branchId": "br-tiny-river-arr4ychc",
+  "parentLsnReadback": "0/2777BF0",
+  "createSeconds": 0.47143833299999993,
+  "endpointId": "ep-frosty-cake-ar64dily",
+  "failure": {
+    "type": "TimeoutError",
+    "code": null,
+    "reason": "Restore drill failed; raw provider/database output suppressed."
+  },
+  "cleanupFailure": "Verify/delete only the recorded owned drill branch; provider output suppressed.",
+  "finishedAt": "2026-10-16T00:27:16.921Z",
+  "cleanupAt": "2026-10-16T16:20:44.920Z",
+  "cleanupFollowup": "Existing Neon CLI authentication refreshed; exact owned branch/parent/name checked, branch removed, endpoint absent and all pre-existing branches retained."
+}
