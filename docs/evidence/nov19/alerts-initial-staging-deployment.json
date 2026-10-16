@@ -1,0 +1,24 @@
+{
+  "startedAt": "2026-10-15T18:02:43.903Z",
+  "sourceCommit": "c50cad0e441a75a8db045b3baf76054032b2821b",
+  "projectId": "prj_nQdWJzjZjFg0TY2MjlTf2hxWtBf9",
+  "productionProjectUntouched": true,
+  "priorStagingDeployment": "dpl_AqVVa22iSSFxtQTL6n5JtBCuw4bC",
+  "productionDeployment": "dpl_qWNvq4UCk7P6FKZGRJSdt1fqXAie",
+  "productionDsnAbsent": true,
+  "stagingEnv": {
+    "key": "BIDZIZI_SENTRY_DSN",
+    "type": "sensitive",
+    "target": [
+      "production"
+    ],
+    "id": "Cgu6ofNEPN79WOpJ",
+    "interpretation": "production is the deployment target INSIDE the isolated staging project, not the production application project."
+  },
+  "deploymentId": "dpl_AZZH3S67gBuDQvff6rmapwAUGKjr",
+  "deploymentUrl": "bidzizi-real-v1-staging-vmbq6d9uk-saturn-ea53.vercel.app",
+  "readyState": "READY",
+  "completedAt": "2026-10-15T18:03:13.583Z",
+  "aliased": true,
+  "productionUnchanged": true
+}

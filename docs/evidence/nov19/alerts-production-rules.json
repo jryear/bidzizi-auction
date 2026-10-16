@@ -1,0 +1,40 @@
+{
+  "verifiedAt": "2026-10-16T00:10:54.329374+00:00",
+  "method": "Authenticated Safari UI saved detail readback",
+  "organization": "imogen-view",
+  "project": "bidzizi-real-v1",
+  "destination": "zackj13@gmail.com",
+  "member": "jryr",
+  "existingStagingRulesRetained": true,
+  "digestMinutes": {
+    "minimum": 1,
+    "maximum": 1,
+    "source": "Previously persisted project setting; unchanged by production rule creation"
+  },
+  "rules": [
+    {
+      "id": "6176797",
+      "name": "Nov19 production server failure",
+      "categoryTag": "server-failure",
+      "enabled": true,
+      "filtersRequireAll": true,
+      "issueCategory": "error",
+      "environmentAttributeEquals": "production",
+      "trigger": "An event or issue activity is captured",
+      "throttleMinutes": 5,
+      "action": "Notify jryr on preferred Email channel"
+    },
+    {
+      "id": "6176804",
+      "name": "Nov19 production guest blocked",
+      "categoryTag": "guest-blocked",
+      "enabled": true,
+      "filtersRequireAll": true,
+      "issueCategory": "error",
+      "environmentAttributeEquals": "production",
+      "trigger": "An event or issue activity is captured",
+      "throttleMinutes": 5,
+      "action": "Notify jryr on preferred Email channel"
+    }
+  ]
+}
