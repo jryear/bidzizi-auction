@@ -1,0 +1,265 @@
+{
+  "version": 1,
+  "status": "PASS_STATIC_PACKET_ONLY_AFTER_T_F1_T_F2_T_F3_REPAIRS",
+  "recordedUTC": "2026-10-08T08:02:18.223397+00:00",
+  "checkCount": 58,
+  "checks": [
+    {
+      "check": "valid source JSON",
+      "pass": true
+    },
+    {
+      "check": "AGENTS exact pinned375 bytes",
+      "pass": true
+    },
+    {
+      "check": "DRAFT exact pinned375 bytes",
+      "pass": true
+    },
+    {
+      "check": "STAFF exact pinned375 bytes",
+      "pass": true
+    },
+    {
+      "check": "AUTH exact pinned375 bytes",
+      "pass": true
+    },
+    {
+      "check": "CATALOG exact pinned375 bytes",
+      "pass": true
+    },
+    {
+      "check": "BIDS exact pinned375 bytes",
+      "pass": true
+    },
+    {
+      "check": "BOARD_MODEL exact pinned375 bytes",
+      "pass": true
+    },
+    {
+      "check": "MODEL exact pinned375 bytes",
+      "pass": true
+    },
+    {
+      "check": "STUDIO exact pinned375 bytes",
+      "pass": true
+    },
+    {
+      "check": "AUDIENCE_DATA exact pinned375 bytes",
+      "pass": true
+    },
+    {
+      "check": "AUDIENCE_VIEWS exact pinned375 bytes",
+      "pass": true
+    },
+    {
+      "check": "AUDIENCE_BIDDING exact pinned375 bytes",
+      "pass": true
+    },
+    {
+      "check": "SCHEMA_001 exact pinned375 bytes",
+      "pass": true
+    },
+    {
+      "check": "SCHEMA_002 exact pinned375 bytes",
+      "pass": true
+    },
+    {
+      "check": "SCHEMA_003 exact pinned375 bytes",
+      "pass": true
+    },
+    {
+      "check": "ENTRY_WRAPPER exact pinned375 bytes",
+      "pass": true
+    },
+    {
+      "check": "TIMING_MAP bound read-only source bytes",
+      "pass": true
+    },
+    {
+      "check": "PUBLICATION_MAP bound read-only source bytes",
+      "pass": true
+    },
+    {
+      "check": "DELIVERY_MAP bound read-only source bytes",
+      "pass": true
+    },
+    {
+      "check": "TIMELINE bound read-only source bytes",
+      "pass": true
+    },
+    {
+      "check": "GROUPS bound read-only source bytes",
+      "pass": true
+    },
+    {
+      "check": "007_DELTA bound read-only source bytes",
+      "pass": true
+    },
+    {
+      "check": "007_PREP bound read-only source bytes",
+      "pass": true
+    },
+    {
+      "check": "WORKSPACE bound read-only source bytes",
+      "pass": true
+    },
+    {
+      "check": "INTEGRATED bound read-only source bytes",
+      "pass": true
+    },
+    {
+      "check": "RELEASE bound read-only source bytes",
+      "pass": true
+    },
+    {
+      "check": "OLD_ACL_RECEIPT bound read-only source bytes",
+      "pass": true
+    },
+    {
+      "check": "ASSETS_PROPOSAL bound read-only source bytes",
+      "pass": true
+    },
+    {
+      "check": "A_PREVIEW_DATA exact pinned375 bytes",
+      "pass": true
+    },
+    {
+      "check": "A_PREVIEW_VIEWS exact pinned375 bytes",
+      "pass": true
+    },
+    {
+      "check": "CONTRACT.md local link INTERFACES.md",
+      "pass": true
+    },
+    {
+      "check": "CONTRACT.md local link SQL_AND_PERMISSIONS.md",
+      "pass": true
+    },
+    {
+      "check": "CONTRACT.md local link EVIDENCE_PLAN.md",
+      "pass": true
+    },
+    {
+      "check": "both policy bindings pending",
+      "pass": true
+    },
+    {
+      "check": "no007 schema grant request",
+      "pass": true
+    },
+    {
+      "check": "no bidder ellipsis route",
+      "pass": true
+    },
+    {
+      "check": "exact route /api/v2/bidder/events/:eventId/context",
+      "pass": true
+    },
+    {
+      "check": "exact route /api/v2/bidder/events/:eventId/lots/:lotId/standing",
+      "pass": true
+    },
+    {
+      "check": "exact route /api/v2/bidder/events/:eventId/lots/:lotId/bids",
+      "pass": true
+    },
+    {
+      "check": "exact route /api/v2/bidder/events/:eventId/lots/:lotId/bid-receipts/:requestId",
+      "pass": true
+    },
+    {
+      "check": "concrete BidderContextV2",
+      "pass": true
+    },
+    {
+      "check": "concrete ManualBidInputV2",
+      "pass": true
+    },
+    {
+      "check": "concrete StandingV2",
+      "pass": true
+    },
+    {
+      "check": "concrete BidReceiptV2",
+      "pass": true
+    },
+    {
+      "check": "concrete StandingResponseV2",
+      "pass": true
+    },
+    {
+      "check": "concrete AcceptedBidResponseV2",
+      "pass": true
+    },
+    {
+      "check": "concrete RejectedBidResponseV2",
+      "pass": true
+    },
+    {
+      "check": "concrete OwnedBidReceiptResponseV2",
+      "pass": true
+    },
+    {
+      "check": "concrete CatalogLotResponseV2",
+      "pass": true
+    },
+    {
+      "check": "context phase-independent",
+      "pass": true
+    },
+    {
+      "check": "scheduled own standing explicit",
+      "pass": true
+    },
+    {
+      "check": "receipt vs projection explicit",
+      "pass": true
+    },
+    {
+      "check": "all public reserved metadata stripping",
+      "pass": true
+    },
+    {
+      "check": "manifest target marker fail unavailable",
+      "pass": true
+    },
+    {
+      "check": "create lock exception in both docs",
+      "pass": true
+    },
+    {
+      "check": "deferred continuation no claim",
+      "pass": true
+    },
+    {
+      "check": "evidence outline unexecuted",
+      "pass": true
+    }
+  ],
+  "packetSha256": {
+    "CONTRACT.md": "849416086b3cfacf03b03e88afb13b901fc8145de2098c8cf1db78bbd7a4e6ac",
+    "EVIDENCE_PLAN.md": "a1e37fef26c43432b04ebb19cf0f893603286652cb34d7b8412b9577e7fc8c75",
+    "INTERFACES.md": "6cc281092b2e37b0122dc0a50bdc0b8eff4c7dbfed0f1ad31f827d449a76ed0e",
+    "LEAST_PERMISSION_ASSESSMENT.md": "393926af944fa5243d6911355ddc30591f60e6dc1cbe29c45b05047e1e798ccb",
+    "SOURCE_BINDING.json": "39c9f2fd945954872a255b6302d084d69b268d2316981e54959802ad2becf4b3",
+    "SQL_AND_PERMISSIONS.md": "6c9ce817c058f47238cfe20b0daa0a1cc7aa411a9e52e7768ca2b441e3ee1d7b"
+  },
+  "productSourcesPinnedTo375": 18,
+  "readOnlyReferenceSources": 12,
+  "liveWorkspaceProductChangesOutsidePacket": [],
+  "applicationTestsRun": false,
+  "baselineRedObserved": false,
+  "candidateGreenObserved": false,
+  "negativeControlsRun": false,
+  "independentRereviewCompleted": false,
+  "runtimeStarted": false,
+  "schemaGrantsOrProviderMutation": false,
+  "remaining": [
+    "fresh independent rereview",
+    "owner bounds/publication answers",
+    "accepted ASSETS/INCREMENTS/008 and009010 consumer rebind",
+    "future committed executable evidence finite baseline and controls",
+    "implementation, exact candidate review and hosted journey"
+  ]
+}

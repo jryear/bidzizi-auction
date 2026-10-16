@@ -1,0 +1,1094 @@
+{
+  "version": 1,
+  "status": "PASS_STATIC_FINAL_E_F1_E_F4_STRENGTHENINGS_ONLY",
+  "recordedUTC": "2026-10-08T10:19:03.776534+00:00",
+  "observedCommit": "0176459bfa37b4960ffaa6e538110e7791c860ce",
+  "checks": [
+    {
+      "check": "Unchanged external kernel schema2 metadata validator only",
+      "pass": true
+    },
+    {
+      "check": "No freeze and no selected product base",
+      "pass": true
+    },
+    {
+      "check": "No007 schema or grant proposed",
+      "pass": true
+    },
+    {
+      "check": "No private mobile or upstream publication",
+      "pass": true
+    },
+    {
+      "check": "Three exact policy holds explicit",
+      "pass": true
+    },
+    {
+      "check": "Group0 exact name",
+      "pass": true
+    },
+    {
+      "check": "Group0 exact kind",
+      "pass": true
+    },
+    {
+      "check": "Group0 exact timeout",
+      "pass": true
+    },
+    {
+      "check": "Group0 exact assertions",
+      "pass": true
+    },
+    {
+      "check": "Group0 exact baseline_failures",
+      "pass": true
+    },
+    {
+      "check": "Group0 literal runtime entry argv",
+      "pass": true
+    },
+    {
+      "check": "Group0 exact complete chain/evidence",
+      "pass": true
+    },
+    {
+      "check": "Group0 one coherent assertion",
+      "pass": true
+    },
+    {
+      "check": "Group1 exact name",
+      "pass": true
+    },
+    {
+      "check": "Group1 exact kind",
+      "pass": true
+    },
+    {
+      "check": "Group1 exact timeout",
+      "pass": true
+    },
+    {
+      "check": "Group1 exact assertions",
+      "pass": true
+    },
+    {
+      "check": "Group1 exact baseline_failures",
+      "pass": true
+    },
+    {
+      "check": "Group1 literal runtime entry argv",
+      "pass": true
+    },
+    {
+      "check": "Group1 exact complete chain/evidence",
+      "pass": true
+    },
+    {
+      "check": "Group1 one coherent assertion",
+      "pass": true
+    },
+    {
+      "check": "Group2 exact name",
+      "pass": true
+    },
+    {
+      "check": "Group2 exact kind",
+      "pass": true
+    },
+    {
+      "check": "Group2 exact timeout",
+      "pass": true
+    },
+    {
+      "check": "Group2 exact assertions",
+      "pass": true
+    },
+    {
+      "check": "Group2 exact baseline_failures",
+      "pass": true
+    },
+    {
+      "check": "Group2 literal runtime entry argv",
+      "pass": true
+    },
+    {
+      "check": "Group2 exact complete chain/evidence",
+      "pass": true
+    },
+    {
+      "check": "Group2 one coherent assertion",
+      "pass": true
+    },
+    {
+      "check": "Group3 exact name",
+      "pass": true
+    },
+    {
+      "check": "Group3 exact kind",
+      "pass": true
+    },
+    {
+      "check": "Group3 exact timeout",
+      "pass": true
+    },
+    {
+      "check": "Group3 exact assertions",
+      "pass": true
+    },
+    {
+      "check": "Group3 exact baseline_failures",
+      "pass": true
+    },
+    {
+      "check": "Group3 literal runtime entry argv",
+      "pass": true
+    },
+    {
+      "check": "Group3 exact complete chain/evidence",
+      "pass": true
+    },
+    {
+      "check": "Group3 one coherent assertion",
+      "pass": true
+    },
+    {
+      "check": "Group4 exact name",
+      "pass": true
+    },
+    {
+      "check": "Group4 exact kind",
+      "pass": true
+    },
+    {
+      "check": "Group4 exact timeout",
+      "pass": true
+    },
+    {
+      "check": "Group4 exact assertions",
+      "pass": true
+    },
+    {
+      "check": "Group4 exact baseline_failures",
+      "pass": true
+    },
+    {
+      "check": "Group4 literal runtime entry argv",
+      "pass": true
+    },
+    {
+      "check": "Group4 exact complete chain/evidence",
+      "pass": true
+    },
+    {
+      "check": "Group4 one coherent assertion",
+      "pass": true
+    },
+    {
+      "check": "Group5 exact name",
+      "pass": true
+    },
+    {
+      "check": "Group5 exact kind",
+      "pass": true
+    },
+    {
+      "check": "Group5 exact timeout",
+      "pass": true
+    },
+    {
+      "check": "Group5 exact assertions",
+      "pass": true
+    },
+    {
+      "check": "Group5 exact baseline_failures",
+      "pass": true
+    },
+    {
+      "check": "Group5 literal runtime entry argv",
+      "pass": true
+    },
+    {
+      "check": "Group5 exact complete chain/evidence",
+      "pass": true
+    },
+    {
+      "check": "Group5 one coherent assertion",
+      "pass": true
+    },
+    {
+      "check": "Six distinct exact assertion-map IDs",
+      "pass": true
+    },
+    {
+      "check": "Every planned observation unexecuted",
+      "pass": true
+    },
+    {
+      "check": "Broader pending coverage explicit",
+      "pass": true
+    },
+    {
+      "check": "Every helper exists without duplicates",
+      "pass": true
+    },
+    {
+      "check": "Historical375 exact nonempty path set",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source public/staging-admin/index.html",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source public/staging-admin/model.js",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source public/staging-admin/studio.css",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source public/staging-admin/studio.js",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source public/staging-bidder-preview/src/app.js",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source public/staging-bidder-preview/src/data.js",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source public/staging-bidder-preview/src/store.js",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source public/staging-bidder-preview/src/ui.js",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source public/staging-bidder-preview/src/views.js",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source public/staging-bidder-preview/styles.css",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source public/staging-catalog/app.js",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source public/staging-catalog/bidding.js",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source public/staging-catalog/data.js",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source public/staging-catalog/store.js",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source public/staging-catalog/styles.css",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source public/staging-catalog/ui.js",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source public/staging-catalog/views.js",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/app/api/admin/events/[id]/catalog-approval/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/app/api/admin/events/[id]/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/app/api/admin/events/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/app/api/bidder/events/[eventId]/context/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/app/api/bidder/events/[eventId]/lots/[lotId]/bid-receipts/[requestId]/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/app/api/bidder/events/[eventId]/lots/[lotId]/bids/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/app/api/bidder/events/[eventId]/lots/[lotId]/standing/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/app/api/catalog/events/[id]/lots/[lotId]/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/app/api/catalog/events/[id]/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/app/api/session/logout/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 absent is null src/app/api/v2/admin/events/[id]/catalog-approval/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 absent is null src/app/api/v2/admin/events/[id]/draft-lots/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 absent is null src/app/api/v2/admin/events/[id]/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 absent is null src/app/api/v2/admin/events/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 absent is null src/app/api/v2/bidder/events/[eventId]/context/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 absent is null src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/bid-receipts/[requestId]/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 absent is null src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/bids/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 absent is null src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/standing/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 absent is null src/app/api/v2/catalog/events/[id]/lots/[lotId]/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 absent is null src/app/api/v2/catalog/events/[id]/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/app/events/[id]/event-access.tsx",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/features/staging-display-results/authorized-read-view.tsx",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/features/staging-display-results/read-model.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/server/auth.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/server/catalog.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/server/config.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/server/db.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/server/demo-entry.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/server/draft.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/server/http.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/server/manual-bids.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 existing source src/server/staff.ts",
+      "pass": true
+    },
+    {
+      "check": "Historical375 absent is null src/server/timing.ts",
+      "pass": true
+    },
+    {
+      "check": "Exact absent-file set persisted",
+      "pass": true
+    },
+    {
+      "check": "Node24 syntax only run.mjs",
+      "pass": true
+    },
+    {
+      "check": "Node24 syntax only cases.mjs",
+      "pass": true
+    },
+    {
+      "check": "Node24 syntax only fixture.mjs",
+      "pass": true
+    },
+    {
+      "check": "Node24 syntax only oracles.mjs",
+      "pass": true
+    },
+    {
+      "check": "Node24 syntax only controls.mjs",
+      "pass": true
+    },
+    {
+      "check": "Literal runtime bytes",
+      "pass": true
+    },
+    {
+      "check": "External unchanged trust anchor verify.py",
+      "pass": true
+    },
+    {
+      "check": "External unchanged trust anchor kernel_runtime.py",
+      "pass": true
+    },
+    {
+      "check": "External unchanged trust anchor kernel_report.py",
+      "pass": true
+    },
+    {
+      "check": "External unchanged trust anchor VERSION",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staff-drafts/harness.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staging-staff-timing/oracles.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staging-staff-timing/fixture.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staging-studio-composition/observe.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staff-drafts/harness.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staging-staff-timing/oracles.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staff-drafts/harness.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staging-studio-composition/fixture.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staff-drafts/harness.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staging-staff-timing/oracles.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staff-drafts/harness.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staff-drafts/harness.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staging-studio-composition/cleanup.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staging-staff-timing/fixture.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staging-staff-timing/cases.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staging-staff-timing/controls.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staging-staff-timing/oracles.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staff-drafts/harness.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staff-drafts/protocol.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staff-drafts/harness.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staging-studio-composition/observe.mjs",
+      "pass": true
+    },
+    {
+      "check": "Local import declared tests/acceptance/staging-studio-composition/cleanup.mjs",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned public/staging-admin/index.html",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned public/staging-admin/model.js",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned public/staging-admin/studio.css",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned public/staging-admin/studio.js",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned public/staging-bidder-preview/src/app.js",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned public/staging-bidder-preview/src/data.js",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned public/staging-bidder-preview/src/store.js",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned public/staging-bidder-preview/src/ui.js",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned public/staging-bidder-preview/src/views.js",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned public/staging-bidder-preview/styles.css",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned public/staging-catalog/app.js",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned public/staging-catalog/bidding.js",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned public/staging-catalog/data.js",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned public/staging-catalog/store.js",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned public/staging-catalog/styles.css",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned public/staging-catalog/ui.js",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned public/staging-catalog/views.js",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/admin/events/[id]/catalog-approval/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/admin/events/[id]/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/admin/events/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/bidder/events/[eventId]/context/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/bidder/events/[eventId]/lots/[lotId]/bid-receipts/[requestId]/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/bidder/events/[eventId]/lots/[lotId]/bids/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/bidder/events/[eventId]/lots/[lotId]/standing/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/catalog/events/[id]/lots/[lotId]/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/catalog/events/[id]/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/session/logout/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/v2/admin/events/[id]/catalog-approval/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/v2/admin/events/[id]/draft-lots/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/v2/admin/events/[id]/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/v2/admin/events/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/v2/bidder/events/[eventId]/context/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/bid-receipts/[requestId]/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/bids/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/standing/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/v2/catalog/events/[id]/lots/[lotId]/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/api/v2/catalog/events/[id]/route.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/app/events/[id]/event-access.tsx",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/features/staging-display-results/authorized-read-view.tsx",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/features/staging-display-results/read-model.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/server/auth.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/server/catalog.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/server/config.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/server/db.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/server/demo-entry.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/server/draft.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/server/http.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/server/manual-bids.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/server/staff.ts",
+      "pass": true
+    },
+    {
+      "check": "Finite product path assigned src/server/timing.ts",
+      "pass": true
+    },
+    {
+      "check": "Executed case exact ID TIMING_NATIVE_DEFAULT_GROUP_SAVED_A",
+      "pass": true
+    },
+    {
+      "check": "Executed case exact ID TIMING_PREOPEN_OWN_PHASE_IMMUTABLE",
+      "pass": true
+    },
+    {
+      "check": "Executed case exact ID TIMING_LOCAL_TIME_AND_RECOVERY",
+      "pass": true
+    },
+    {
+      "check": "Executed case exact ID TIMING_POSTWAIT_AUTH_CLOCK",
+      "pass": true
+    },
+    {
+      "check": "Executed case exact ID TIMING_RETAINED_V1",
+      "pass": true
+    },
+    {
+      "check": "No terminal schema result on interruption",
+      "pass": true
+    },
+    {
+      "check": "Owned cleanup reused",
+      "pass": true
+    },
+    {
+      "check": "Known native focus settle reused",
+      "pass": true
+    },
+    {
+      "check": "Real held lock/expiry observation",
+      "pass": true
+    },
+    {
+      "check": "Invalid-time cases isolate unrelated groups",
+      "pass": true
+    },
+    {
+      "check": "E-F1 unavailable guard before ordinary API/native assertions",
+      "pass": true
+    },
+    {
+      "check": "E-F1 deliberate corruption declaration after actual SQL injection",
+      "pass": true
+    },
+    {
+      "check": "E-F1 classification controls declared",
+      "pass": true
+    },
+    {
+      "check": "E-F2 exact logout with anonymous ack/durable owned revocation",
+      "pass": true
+    },
+    {
+      "check": "E-F2 shipped logout source pinned and protected",
+      "pass": true
+    },
+    {
+      "check": "E-F3 complete known private API and SQL saves",
+      "pass": true
+    },
+    {
+      "check": "E-F3 one revision and exact owned operation/frozen JSON/private visibility",
+      "pass": true
+    },
+    {
+      "check": "E-F4 known immutable accepted tuple",
+      "pass": true
+    },
+    {
+      "check": "E-F4 known-key full durable bid/standing and DB bracket",
+      "pass": true
+    },
+    {
+      "check": "E-F4 SQL Date comparisons preserve timestamps",
+      "pass": true
+    },
+    {
+      "check": "E-F4 independent accepted tuple negative controls",
+      "pass": true
+    },
+    {
+      "check": "E-F5 actual live A groups replace message-only group oracle",
+      "pass": true
+    },
+    {
+      "check": "E-F5 visible selected-item complete local endpoints/timezone",
+      "pass": true
+    },
+    {
+      "check": "E-F5 concrete module/markup seams explicitly proposed",
+      "pass": true
+    },
+    {
+      "check": "E-F5 live schedule negative controls",
+      "pass": true
+    },
+    {
+      "check": "E-F6 independent Pacific UTC values in existing case",
+      "pass": true
+    },
+    {
+      "check": "E-F7 absence never hash-empty",
+      "pass": true
+    },
+    {
+      "check": "Seven review repairs recorded",
+      "pass": true
+    },
+    {
+      "check": "No bounds/late-publication policy fixture",
+      "pass": true
+    },
+    {
+      "check": "Final E-F1 same normal healthy routes before and after restored corruption",
+      "pass": true
+    },
+    {
+      "check": "Final E-F4 full SQL no writes across all after-close recovery requests",
+      "pass": true
+    },
+    {
+      "check": "Five syntax checks and unchanged kernel six-group metadata validator repeated after final repairs",
+      "pass": true
+    },
+    {
+      "check": "All unrelated stable packet/helper bytes remain exact",
+      "pass": true
+    }
+  ],
+  "checkCount": 224,
+  "packetSHA256": {
+    ".gitignore": "b40b44b310bdb19d8baa2e267161c1e02553cd457d7b6e83cfdebc8826561641",
+    "AGENTS.md": "22aeb173ad2c7e6b183055e81237704169f8fe44d3ffedbe2bba3b102a983237",
+    "docs/proposed/staff-timing/CONTRACT.md": "849416086b3cfacf03b03e88afb13b901fc8145de2098c8cf1db78bbd7a4e6ac",
+    "docs/proposed/staff-timing/EVIDENCE_PLAN.md": "e9df644ad69547df3cba687b24dce25ebfb1a52c453cd1074aaace22faf1ffe0",
+    "docs/proposed/staff-timing/INTERFACES.md": "525850a18852f5a0971d9c3928c95af4a87402f3742e35a0598c058e0cc8ac9b",
+    "docs/proposed/staff-timing/LEAST_PERMISSION_ASSESSMENT.md": "393926af944fa5243d6911355ddc30591f60e6dc1cbe29c45b05047e1e798ccb",
+    "docs/proposed/staff-timing/SOURCE_BINDING.json": "39c9f2fd945954872a255b6302d084d69b268d2316981e54959802ad2becf4b3",
+    "docs/proposed/staff-timing/SQL_AND_PERMISSIONS.md": "6c9ce817c058f47238cfe20b0daa0a1cc7aa411a9e52e7768ca2b441e3ee1d7b",
+    "docs/proposed/staff-timing/STATIC_CHECK.json": "79934aacb6c2bd17262895a7d34c7e702e9fa1527cbdea986c95377bbcf166a1",
+    "migrations/001_staging_staff.sql": "2441f79c5458cdb22aaf7bc62eca6af4da30c33a785b77a364fab0d59896842a",
+    "migrations/002_staging_catalog.sql": "84c0dae8b5c85745ad3b49f3ee2fc3ee0c3adf3ad535f2e83050d149e755d2c3",
+    "migrations/003_staging_manual_bid.sql": "e8e985e67aa5f47df7cd9f9baf56c19fb30915fa99662b3a4e469a9a98e36cf8",
+    "migrations/009_demo_attendee_entry.sql": "c4e87a9bb9b591228a62d4557865de76f7b391354b468c7876ba06bd305e4b4e",
+    "next-env.d.ts": "0f70629890b72a0a82e91972cc032c04b658b26c265373cb711cf576bfbf8fcc",
+    "next.config.ts": "dbb2046b5e03ff053711679f392c7caaa08fc79e2e0a4ae7efd0152254a7be72",
+    "package.json": "33e14f23b472c46939ded502b0eb7aa7e1f00ab1d2d8d93de36863e2206ce722",
+    "pnpm-lock.yaml": "4d034c5147ca042fcfb57c8429d0766705d25ad4e7c39269a2cfcf34213d9c2a",
+    "tasks/staging-staff-timing-007-successor.toml": "820112197a3482459b2f33e0de03fba985ca1d58ea36524c9146d28e02b96525",
+    "tests/acceptance/staff-drafts/harness.mjs": "15a4a30eb54e0c71607a88cdcaaf6fce6f574689c2f67cb0b9fa6e6d1e08aed0",
+    "tests/acceptance/staff-drafts/protocol.mjs": "82a5995daf969b5c2d1e4f0cba0d355cf026d4166635645d014979466976b636",
+    "tests/acceptance/staff-drafts/seed.sql": "e476babf9ecc5e498b461b2396926a4773ba50b5dbe41722a89b1ce4270c909f",
+    "tests/acceptance/staging-staff-timing/ASSERTION_REQUIREMENT_MAP.json": "3149362e11b511c5c9076a9324278f9f7a4ad5bf428b4ad8a567c713d2cd1688",
+    "tests/acceptance/staging-staff-timing/CHECKS.json": "4af316e99ad1d6319c998c091890bc95ef14362640dbdb6da38aebf64528da06",
+    "tests/acceptance/staging-staff-timing/README.md": "e435564c407635c8ab4ca7394f483a3426f9c005e90fb9dab63a790e3993f882",
+    "tests/acceptance/staging-staff-timing/REQUIREMENT_DELTA.md": "5f3548a59ffbacab551a8a09cfafd763d86c44d6a9ae9971a1a01d986116b52f",
+    "tests/acceptance/staging-staff-timing/SOURCE_BINDING.json": "a0aaecee5a5eacba029c05a03422d8eb50318a46d4f1981a4b365896aff0344f",
+    "tests/acceptance/staging-staff-timing/cases.mjs": "e2433f17b349e660340bf62ff9023ab68cf8aaa82db039b39b018f73aa6b276f",
+    "tests/acceptance/staging-staff-timing/controls.mjs": "f11e8518bf4ddcfba88e1b8f469bd3f35d9f2d2377b48a30863d5e617b439418",
+    "tests/acceptance/staging-staff-timing/fixture.mjs": "ce34e5b4372d14c0707e141e244b96080d6a197e7e65a809878040bf50253428",
+    "tests/acceptance/staging-staff-timing/oracles.mjs": "7e927a227148e055cd482d9c3749278c34cf0f27e12652a5a4864bf0f9358167",
+    "tests/acceptance/staging-staff-timing/run.mjs": "6fbc865c1f1f2569dee2bc8552355182090e385970e66d9cbf8e90a45b2a90eb",
+    "tests/acceptance/staging-studio-composition/cleanup.mjs": "aaa641515606c792e85140dc323ce62fc01972aae2f56127009058fcdbd014c8",
+    "tests/acceptance/staging-studio-composition/fixture.mjs": "be3067d7d72a77604cc3b638d15f37ee8d91b5cbce4bedfdceacd883d58af860",
+    "tests/acceptance/staging-studio-composition/observe.mjs": "1be34bf9937327f9ce825f39517c6cf0a9c8a4f66b54b00554ba68c79ca4cbb6",
+    "tsconfig.json": "6e3e1fba1547e5d6ffe754598bdda409e008dd043476ac82513eb778c12ccdd0"
+  },
+  "importClosure": [
+    {
+      "from": "tests/acceptance/staff-drafts/protocol.mjs",
+      "to": "tests/acceptance/staff-drafts/harness.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-staff-timing/cases.mjs",
+      "to": "tests/acceptance/staging-staff-timing/oracles.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-staff-timing/cases.mjs",
+      "to": "tests/acceptance/staging-staff-timing/fixture.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-staff-timing/cases.mjs",
+      "to": "tests/acceptance/staging-studio-composition/observe.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-staff-timing/cases.mjs",
+      "to": "tests/acceptance/staff-drafts/harness.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-staff-timing/controls.mjs",
+      "to": "tests/acceptance/staging-staff-timing/oracles.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-staff-timing/controls.mjs",
+      "to": "tests/acceptance/staff-drafts/harness.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-staff-timing/fixture.mjs",
+      "to": "tests/acceptance/staging-studio-composition/fixture.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-staff-timing/fixture.mjs",
+      "to": "tests/acceptance/staff-drafts/harness.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-staff-timing/fixture.mjs",
+      "to": "tests/acceptance/staging-staff-timing/oracles.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-staff-timing/oracles.mjs",
+      "to": "tests/acceptance/staff-drafts/harness.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-staff-timing/run.mjs",
+      "to": "tests/acceptance/staff-drafts/harness.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-staff-timing/run.mjs",
+      "to": "tests/acceptance/staging-studio-composition/cleanup.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-staff-timing/run.mjs",
+      "to": "tests/acceptance/staging-staff-timing/fixture.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-staff-timing/run.mjs",
+      "to": "tests/acceptance/staging-staff-timing/cases.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-staff-timing/run.mjs",
+      "to": "tests/acceptance/staging-staff-timing/controls.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-staff-timing/run.mjs",
+      "to": "tests/acceptance/staging-staff-timing/oracles.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-studio-composition/cleanup.mjs",
+      "to": "tests/acceptance/staff-drafts/harness.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-studio-composition/fixture.mjs",
+      "to": "tests/acceptance/staff-drafts/protocol.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-studio-composition/fixture.mjs",
+      "to": "tests/acceptance/staff-drafts/harness.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-studio-composition/fixture.mjs",
+      "to": "tests/acceptance/staging-studio-composition/observe.mjs"
+    },
+    {
+      "from": "tests/acceptance/staging-studio-composition/fixture.mjs",
+      "to": "tests/acceptance/staging-studio-composition/cleanup.mjs"
+    }
+  ],
+  "historicalAbsentFiles": [
+    "src/app/api/v2/admin/events/[id]/catalog-approval/route.ts",
+    "src/app/api/v2/admin/events/[id]/draft-lots/route.ts",
+    "src/app/api/v2/admin/events/[id]/route.ts",
+    "src/app/api/v2/admin/events/route.ts",
+    "src/app/api/v2/bidder/events/[eventId]/context/route.ts",
+    "src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/bid-receipts/[requestId]/route.ts",
+    "src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/bids/route.ts",
+    "src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/standing/route.ts",
+    "src/app/api/v2/catalog/events/[id]/lots/[lotId]/route.ts",
+    "src/app/api/v2/catalog/events/[id]/route.ts",
+    "src/server/timing.ts"
+  ],
+  "historicalInitialContractReview": {
+    "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/timing-contract-review.json",
+    "sha256": "e99b4a9b76b2bdb8cad500d1e6055bcb623ad53b3117ac97e940c0db4a1e510a",
+    "result": "GO_FOR_EXECUTABLE_PREPARATION_ONLY"
+  },
+  "reviewRepairInput": {
+    "path": "/Users/jryear/Documents/Codex/2026-10-07/task-18/evidence/timing-executable-review.json",
+    "sha256": "c35f01ead3fcc21ad0b9fb8249ee19b8dd65ee2a2a9f1f07bb5dff356f9d8c4d",
+    "status": "REPAIR_REQUIRED_BEFORE_STATIC_EXECUTABLE_PREPARATION_GO",
+    "ids": [
+      "E-F1",
+      "E-F2",
+      "E-F3",
+      "E-F4",
+      "E-F5",
+      "E-F6",
+      "E-F7"
+    ]
+  },
+  "changedSinceHistoricalStaticPacket": [
+    "EVIDENCE_PLAN.md",
+    "INTERFACES.md"
+  ],
+  "historicalStaticRecordRetained": true,
+  "applicationTestsRun": false,
+  "baselineRedObserved": false,
+  "candidateGreenObserved": false,
+  "negativeControlsRun": false,
+  "runtimeStartedByAuthor": false,
+  "productSourceChangedByAuthor": false,
+  "schemaGrantsOrProviderMutation": false,
+  "freshExecutableRereviewCompleted": false,
+  "remaining": [
+    "Root must bind actual accepted Studio/ASSETS source and immutable helper bytes, replacing historical375 baseline map with the exact selected product/base map.",
+    "Fresh independent review of executable packet, including actual selectors, DTOs, SQL, cleanup, source closure and mutation controls.",
+    "Root obtains owner policy answers and adds only their exact required cases before freeze.",
+    "Accepted009/010/ASSETS consumer evidence and inherited contract rebind are separate mandatory completion gates; this bounded packet does not execute all historic59 checks.",
+    "Commit complete reviewed contract/evidence before root invokes unchanged external kernel with independently selected trusted CLI base; no trusted base is supplied in TOML."
+  ],
+  "priorStaticRecord": {
+    "sha256": "6a16a26bf89a16c9703547ec2476576732d1da3bdec3e13a94e2002a7b285004",
+    "recordedUTC": "2026-10-08T10:12:08.608842+00:00",
+    "checkCount": 220,
+    "retainedResult": "PASS_STATIC_AFTER_E_F1_TO_E_F7_AUTHOR_REPAIRS_ONLY"
+  },
+  "finalRereviewStrengthenings": [
+    "E-F1 same three normal healthy200 routes before injection and after exact restoration; no exception on healthy reads",
+    "E-F4 full bounded SQL snapshot after CLOSED rejection brackets accepted/owned/foreign-denial/original-approval recovery without writes"
+  ]
+}

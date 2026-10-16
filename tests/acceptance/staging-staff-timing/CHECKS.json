@@ -1,0 +1,156 @@
+{
+  "version": 1,
+  "status": "DRAFT_UNFROZEN_UNEXECUTED",
+  "sourcePaths": [
+    "public/staging-admin/index.html",
+    "public/staging-admin/model.js",
+    "public/staging-admin/studio.css",
+    "public/staging-admin/studio.js",
+    "public/staging-bidder-preview/src/app.js",
+    "public/staging-bidder-preview/src/data.js",
+    "public/staging-bidder-preview/src/store.js",
+    "public/staging-bidder-preview/src/ui.js",
+    "public/staging-bidder-preview/src/views.js",
+    "public/staging-bidder-preview/styles.css",
+    "public/staging-catalog/app.js",
+    "public/staging-catalog/bidding.js",
+    "public/staging-catalog/data.js",
+    "public/staging-catalog/store.js",
+    "public/staging-catalog/styles.css",
+    "public/staging-catalog/ui.js",
+    "public/staging-catalog/views.js",
+    "src/app/api/admin/events/[id]/catalog-approval/route.ts",
+    "src/app/api/admin/events/[id]/route.ts",
+    "src/app/api/admin/events/route.ts",
+    "src/app/api/bidder/events/[eventId]/context/route.ts",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/bid-receipts/[requestId]/route.ts",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/bids/route.ts",
+    "src/app/api/bidder/events/[eventId]/lots/[lotId]/standing/route.ts",
+    "src/app/api/catalog/events/[id]/lots/[lotId]/route.ts",
+    "src/app/api/catalog/events/[id]/route.ts",
+    "src/app/api/session/logout/route.ts",
+    "src/app/api/v2/admin/events/[id]/catalog-approval/route.ts",
+    "src/app/api/v2/admin/events/[id]/draft-lots/route.ts",
+    "src/app/api/v2/admin/events/[id]/route.ts",
+    "src/app/api/v2/admin/events/route.ts",
+    "src/app/api/v2/bidder/events/[eventId]/context/route.ts",
+    "src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/bid-receipts/[requestId]/route.ts",
+    "src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/bids/route.ts",
+    "src/app/api/v2/bidder/events/[eventId]/lots/[lotId]/standing/route.ts",
+    "src/app/api/v2/catalog/events/[id]/lots/[lotId]/route.ts",
+    "src/app/api/v2/catalog/events/[id]/route.ts",
+    "src/app/events/[id]/event-access.tsx",
+    "src/features/staging-display-results/authorized-read-view.tsx",
+    "src/features/staging-display-results/read-model.ts",
+    "src/server/auth.ts",
+    "src/server/catalog.ts",
+    "src/server/config.ts",
+    "src/server/db.ts",
+    "src/server/demo-entry.ts",
+    "src/server/draft.ts",
+    "src/server/http.ts",
+    "src/server/manual-bids.ts",
+    "src/server/staff.ts",
+    "src/server/timing.ts"
+  ],
+  "helperPaths": [
+    ".gitignore",
+    "AGENTS.md",
+    "docs/proposed/staff-timing/CONTRACT.md",
+    "docs/proposed/staff-timing/EVIDENCE_PLAN.md",
+    "docs/proposed/staff-timing/INTERFACES.md",
+    "docs/proposed/staff-timing/LEAST_PERMISSION_ASSESSMENT.md",
+    "docs/proposed/staff-timing/SOURCE_BINDING.json",
+    "docs/proposed/staff-timing/SQL_AND_PERMISSIONS.md",
+    "docs/proposed/staff-timing/STATIC_CHECK.json",
+    "migrations/001_staging_staff.sql",
+    "migrations/002_staging_catalog.sql",
+    "migrations/003_staging_manual_bid.sql",
+    "migrations/009_demo_attendee_entry.sql",
+    "next-env.d.ts",
+    "next.config.ts",
+    "package.json",
+    "pnpm-lock.yaml",
+    "tasks/staging-staff-timing-007-successor.toml",
+    "tests/acceptance/staff-drafts/harness.mjs",
+    "tests/acceptance/staff-drafts/protocol.mjs",
+    "tests/acceptance/staff-drafts/seed.sql",
+    "tests/acceptance/staging-staff-timing/ASSERTION_REQUIREMENT_MAP.json",
+    "tests/acceptance/staging-staff-timing/CHECKS.json",
+    "tests/acceptance/staging-staff-timing/README.md",
+    "tests/acceptance/staging-staff-timing/REQUIREMENT_DELTA.md",
+    "tests/acceptance/staging-staff-timing/SOURCE_BINDING.json",
+    "tests/acceptance/staging-staff-timing/STATIC_PREPARATION.json",
+    "tests/acceptance/staging-staff-timing/cases.mjs",
+    "tests/acceptance/staging-staff-timing/controls.mjs",
+    "tests/acceptance/staging-staff-timing/fixture.mjs",
+    "tests/acceptance/staging-staff-timing/oracles.mjs",
+    "tests/acceptance/staging-staff-timing/run.mjs",
+    "tests/acceptance/staging-studio-composition/cleanup.mjs",
+    "tests/acceptance/staging-studio-composition/fixture.mjs",
+    "tests/acceptance/staging-studio-composition/observe.mjs",
+    "tsconfig.json"
+  ],
+  "checks": [
+    {
+      "name": "Native fresh default/group timing and known durable saved A",
+      "kind": "acceptance",
+      "timeout": 360,
+      "assertions": [
+        "TIMING_NATIVE_DEFAULT_GROUP_SAVED_A"
+      ],
+      "baseline_failures": [
+        "TIMING_NATIVE_DEFAULT_GROUP_SAVED_A"
+      ]
+    },
+    {
+      "name": "Preopening own phases immutable receipt and physical bid history",
+      "kind": "acceptance",
+      "timeout": 480,
+      "assertions": [
+        "TIMING_PREOPEN_OWN_PHASE_IMMUTABLE"
+      ],
+      "baseline_failures": [
+        "TIMING_PREOPEN_OWN_PHASE_IMMUTABLE"
+      ]
+    },
+    {
+      "name": "Strict local time denial and exact Save approval recovery",
+      "kind": "acceptance",
+      "timeout": 360,
+      "assertions": [
+        "TIMING_LOCAL_TIME_AND_RECOVERY"
+      ],
+      "baseline_failures": [
+        "TIMING_LOCAL_TIME_AND_RECOVERY"
+      ]
+    },
+    {
+      "name": "Held event expiry current authority and owned replay denial",
+      "kind": "adversarial",
+      "timeout": 360,
+      "assertions": [
+        "TIMING_POSTWAIT_AUTH_CLOCK"
+      ],
+      "baseline_failures": []
+    },
+    {
+      "name": "Retained genuine v1 null main receipt bid and FK meaning",
+      "kind": "regression",
+      "timeout": 360,
+      "assertions": [
+        "TIMING_RETAINED_V1"
+      ],
+      "baseline_failures": []
+    },
+    {
+      "name": "Bounded independent observation negative controls",
+      "kind": "regression",
+      "timeout": 60,
+      "assertions": [
+        "TIMING_EVIDENCE_CONTROLS"
+      ],
+      "baseline_failures": []
+    }
+  ]
+}

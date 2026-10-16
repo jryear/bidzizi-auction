@@ -1,0 +1,61 @@
+{
+  "status": "DRAFT_UNFROZEN_UNEXECUTED",
+  "frozenSource": "tests/acceptance/staging-catalog/harness.mjs",
+  "frozenSourceSha256": "bde6a547ac3ec2afe1d4ae614d465d18ced3347183787d5fee3b1f27d0299b0f",
+  "successor": "tests/acceptance/staging-staff-assets/harness.mjs",
+  "successorSha256": "2ec9f3028762bd8aafd4ad54654a2540386409a95f9867fd9d45f3c9fd050a58",
+  "prepend": "// Scoped lifecycle successor of frozen staging-catalog/harness.mjs.\n// Exact delta is reconstructable from HARNESS_SUCCESSOR.json; historical bytes stay untouched.\n",
+  "exactReplacements": [
+    {
+      "before": "mkdir,mkdtemp,rm,writeFile,readdir,access,readFile}",
+      "after": "mkdir,mkdtemp,rm,writeFile,readdir,access,readFile,cp,symlink}"
+    },
+    {
+      "before": "const pgBin=",
+      "after": "export const pgBin="
+    },
+    {
+      "before": "export async function withFixture(run){",
+      "after": "export async function withFixture(run,{onOwned=async()=>{}}={}){"
+    },
+    {
+      "before": "  const scratch=await mkdtemp('/tmp/task-root/bz-cat-'),cluster=join(scratch,'pg'),socket=join(scratch,'s');\n  const passwordFile=join(scratch,'pw'),dbPort=await port();",
+      "after": "  const scratch=await mkdtemp('/tmp/task-root/bz-cat-');\n  await onOwned({kind:'scratch',scratch});\n  const cluster=join(scratch,'pg'),socket=join(scratch,'s');\n  // Next-generated output belongs to an owned credential-free source copy.\n  const applicationTree=join(scratch,'app');let dbPort;\n  try{\n    await mkdir(applicationTree);\n    for(const name of ['src','public','migrations','package.json','pnpm-lock.yaml','tsconfig.json','next-env.d.ts','next.config.ts','next.config.mjs','next.config.js','postcss.config.mjs']){\n      try{await access(join(repo,name));}catch(e){if(e.code==='ENOENT')continue;throw e;}\n      await cp(join(repo,name),join(applicationTree,name),{recursive:true,filter:path=>!/(?:^|\\/)\\.env(?:\\.|$)/.test(path)});\n    }\n    await access(join(repo,'node_modules/next/dist/bin/next'));\n    await symlink(join(repo,'node_modules'),join(applicationTree,'node_modules'),'dir');\n    dbPort=await port();\n  }catch(e){await onOwned({kind:'before-remove',scratch});await rm(scratch,{recursive:true,force:true});throw new HarnessError('Owned source/port setup unavailable.');}\n  const passwordFile=join(scratch,'pw');"
+    },
+    {
+      "before": "    admin=new pg.Client(connection);",
+      "after": "    await onOwned({kind:'postgres',pid:Number((await readFile(join(cluster,'postmaster.pid'),'utf8')).split('\\n')[0]),cluster});\n    admin=new pg.Client(connection);"
+    },
+    {
+      "before": "{cwd:repo,env:env({DATABASE_URL:",
+      "after": "{cwd:applicationTree,env:env({DATABASE_URL:"
+    },
+    {
+      "before": "      const deadline=Date.now()+60_000;",
+      "after": "      await onOwned({kind:'next',group:child.pid,port:p});\n      const deadline=Date.now()+60_000;"
+    },
+    {
+      "before": "    await rm(scratch,{recursive:true,force:true});",
+      "after": "    await onOwned({kind:'before-remove',scratch});\n    await rm(scratch,{recursive:true,force:true});"
+    },
+    {
+      "before": "async function stop(child){\n  if(!child||child.exitCode!==null)return;\n  try{process.kill(-child.pid,'SIGTERM');}catch{}\n  await Promise.race([new Promise(done=>child.once('exit',done)),new Promise(done=>setTimeout(done,5000))]);\n  if(child.exitCode===null){try{process.kill(-child.pid,'SIGKILL');}catch{}}\n}",
+      "after": "async function stop(child,onOwned){\n  if(!child)return;\n  // Every normal/restart/finally signal is authorized by the current registered\n  // birth identity, with bounded group absence proof before restart/removal.\n  await onOwned({kind:'stop-next',group:child.pid});\n}"
+    },
+    {
+      "before": "await stop(app.child);app=await start(skew);",
+      "after": "await stop(app.child,onOwned);app=await start(skew);"
+    },
+    {
+      "before": "for(const child of children.reverse())await stop(child);",
+      "after": "for(const child of children.reverse())await stop(child,onOwned);"
+    }
+  ],
+  "preserved": "001/002 initialization, seed, authority/runtime grants, guards, app clocks and bounded deadlines; no changed product or substitute ASSETS implementation. Successor uses explicit lifecycle callbacks and owned source-copy cwd only.",
+  "cleanupProvenance": {
+    "path": "tests/acceptance/staging-staff-event-entry/cleanup.mjs",
+    "sha256": "5112eafb8ab6907afc59cd8a3fac23145f78cbc196dd24d5210e0bbdc45155e8",
+    "basis": "Previously inspected independently reviewed ADMISSION R4 cleanup pattern; informational provenance only, not a runtime/import/chain dependency. ASSETS current bytes require fresh review."
+  },
+  "limits": "Cancellation handling is authored/static-only; no runtime result. SIGKILL/host failure leaves private registry for parent exact-owned recovery. Missing/reused identity never authorizes signals."
+}
