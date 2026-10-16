@@ -1,0 +1,8 @@
+docs
+prototypes
+tests
+tools
+.shots
+*.png
+.env*
+!.env.example
