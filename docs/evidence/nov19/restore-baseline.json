@@ -1,17 +1,17 @@
 {
-  "preparedAt": "2026-10-16T00:23:09.853Z",
+  "preparedAt": "2026-10-16T16:22:32.767Z",
   "project": "delicate-math-48681189",
   "parentBranch": "br-cold-glitter-arx1msrh",
   "historyRetentionSeconds": 86400,
   "restorePoint": {
-    "at": "2026-10-16T00:23:09.454Z",
-    "lsn": "0/2777BF0"
+    "at": "2026-10-16T16:22:32.394Z",
+    "lsn": "0/2824DA0"
   },
   "baseline": {
     "eventId": "11f18f46-ffe8-4242-a421-078982300d54",
     "point": {
-      "at": "2026-10-16T00:23:09.454Z",
-      "lsn": "0/2777BF0"
+      "at": "2026-10-16T16:22:32.394Z",
+      "lsn": "0/2824DA0"
     },
     "tables": {
       "events": {
@@ -43,8 +43,8 @@
   "stabilityReadback": {
     "eventId": "11f18f46-ffe8-4242-a421-078982300d54",
     "point": {
-      "at": "2026-10-16T00:23:09.819Z",
-      "lsn": "0/2777BF0"
+      "at": "2026-10-16T16:22:32.723Z",
+      "lsn": "0/2824DA0"
     },
     "tables": {
       "events": {
@@ -73,7 +73,7 @@
       }
     }
   },
-  "branchName": "nov19-restore-drill-20261016T002309",
+  "branchName": "nov19-restore-drill-20261016T162232",
   "branchLifetimeMinutes": 30,
   "compute": {
     "cu": 0.25,

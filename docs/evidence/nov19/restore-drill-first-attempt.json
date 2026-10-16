@@ -29,5 +29,5 @@
   "cleanupFailure": "Verify/delete only the recorded owned drill branch; provider output suppressed.",
   "finishedAt": "2026-10-16T00:27:16.921Z",
   "cleanupAt": "2026-10-16T16:20:44.920Z",
-  "cleanupFollowup": "Existing Neon CLI authentication refreshed; exact owned branch/parent/name checked, branch removed, endpoint absent and all pre-existing branches retained."
+  "cleanupFollowup": "Fresh authenticated GETs confirm the drill branch and endpoint absent after their expiry elapsed; all pre-existing branches remain. No surviving drill resource required deletion at follow-up."
 }

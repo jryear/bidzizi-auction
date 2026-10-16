@@ -1,0 +1,84 @@
+{
+  "preparedAt": "2026-10-16T00:23:09.853Z",
+  "project": "delicate-math-48681189",
+  "parentBranch": "br-cold-glitter-arx1msrh",
+  "historyRetentionSeconds": 86400,
+  "restorePoint": {
+    "at": "2026-10-16T00:23:09.454Z",
+    "lsn": "0/2777BF0"
+  },
+  "baseline": {
+    "eventId": "11f18f46-ffe8-4242-a421-078982300d54",
+    "point": {
+      "at": "2026-10-16T00:23:09.454Z",
+      "lsn": "0/2777BF0"
+    },
+    "tables": {
+      "events": {
+        "rows": 1,
+        "sha256": "109cf4329a8d7d46562df481d98df3272d4f6c2aae1681b2aaed6e4654f354c4"
+      },
+      "items": {
+        "rows": 20,
+        "sha256": "f32f3698741845fa0fb7642003edeb3f2530a253de5e2179447b76860a014c84"
+      },
+      "bids": {
+        "rows": 25,
+        "sha256": "edb18c60af7457cb4ce5292fadd72637dd32e07aace793be2cc09fff19ee6c45"
+      },
+      "receipts": {
+        "rows": 26,
+        "sha256": "fd4a6a7c241219766c5a98aadf3480b49b9488bf0b82592df280ae41f08e9fe4"
+      },
+      "standings": {
+        "rows": 20,
+        "sha256": "b15d5ea8b7d4266a5bd00ffba74aac0c46119907891494e793cc3b2f1e4260d9"
+      },
+      "participants": {
+        "rows": 5,
+        "sha256": "746a023cc92c764d2dab6d997927fc110d1681b8ea213ff825fdaa26e6713f58"
+      }
+    }
+  },
+  "stabilityReadback": {
+    "eventId": "11f18f46-ffe8-4242-a421-078982300d54",
+    "point": {
+      "at": "2026-10-16T00:23:09.819Z",
+      "lsn": "0/2777BF0"
+    },
+    "tables": {
+      "events": {
+        "rows": 1,
+        "sha256": "109cf4329a8d7d46562df481d98df3272d4f6c2aae1681b2aaed6e4654f354c4"
+      },
+      "items": {
+        "rows": 20,
+        "sha256": "f32f3698741845fa0fb7642003edeb3f2530a253de5e2179447b76860a014c84"
+      },
+      "bids": {
+        "rows": 25,
+        "sha256": "edb18c60af7457cb4ce5292fadd72637dd32e07aace793be2cc09fff19ee6c45"
+      },
+      "receipts": {
+        "rows": 26,
+        "sha256": "fd4a6a7c241219766c5a98aadf3480b49b9488bf0b82592df280ae41f08e9fe4"
+      },
+      "standings": {
+        "rows": 20,
+        "sha256": "b15d5ea8b7d4266a5bd00ffba74aac0c46119907891494e793cc3b2f1e4260d9"
+      },
+      "participants": {
+        "rows": 5,
+        "sha256": "746a023cc92c764d2dab6d997927fc110d1681b8ea213ff825fdaa26e6713f58"
+      }
+    }
+  },
+  "branchName": "nov19-restore-drill-20261016T002309",
+  "branchLifetimeMinutes": 30,
+  "compute": {
+    "cu": 0.25,
+    "autosuspendSeconds": 300
+  },
+  "productionReadOnly": true,
+  "branchCreated": false
+}
