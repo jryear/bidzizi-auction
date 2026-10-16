@@ -92,7 +92,10 @@
     "format": "Client error individually; server failure and bid-sheet together in a two-alert digest",
     "maximumAcceptedSeconds": 60,
     "passed": false,
-    "userConfirmationPending": true
+    "userConfirmationPending": false,
+    "userConfirmed": true,
+    "userConfirmation": "Yes, all three incidents arrived",
+    "confirmationRecordedAt": "2026-10-16T00:25:00.374099+00:00"
   },
   "cleanup": {
     "confirmed": true,
