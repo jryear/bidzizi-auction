@@ -1,0 +1,189 @@
+{
+  "startedAt": "2026-10-16T00:15:20.324Z",
+  "sourceCommit": "a55dc11264584fd65650731d27943ecb1fce7e42",
+  "deploymentId": "dpl_9kMq1rKxWtkEUVEJJ6SggrLK1Xkj",
+  "orgId": "6ad4e65f-e0e4-4a80-b4c7-60d9ada20be8",
+  "staffId": "be597bf5-3b09-45a2-baa0-69ec08e7c724",
+  "fixtureSlug": "nov19-alert-d66c233b214d",
+  "scenarios": {
+    "serverFailure": {
+      "requestStartedAt": "2026-10-16T00:15:29.088Z",
+      "responseAt": "2026-10-16T00:15:37.263Z",
+      "alertId": "c88359bcbcea464f9ea3e0f7238c4826",
+      "status": 503,
+      "observedLockWait": true,
+      "noBidOrReceiptCommitted": true,
+      "serverOccurredAt": "2026-10-16T00:15:37.247Z",
+      "ingestAcceptedAt": "2026-10-16T00:15:37.475Z",
+      "providerHttpDate": "2026-10-16T00:15:37.000Z",
+      "detectionTimestamp": {
+        "confirmed": true,
+        "exactReceivedTimestampCollected": false,
+        "source": "Matching Sentry-generated notification shows this incident/check and production rule",
+        "detectedNoLaterThan": "2026-10-16T00:17:21.097Z"
+      },
+      "inboxReceivedAt": "2026-10-16T00:17:21.097Z",
+      "occurrenceToInboxSeconds": 103.85,
+      "within60Seconds": false,
+      "inboxEvidence": {
+        "method": "Authenticated Safari Gmail, exact custom-rule notification, Show original X-Received header",
+        "xReceivedEpochMilliseconds": 1792109841097,
+        "messageId": "20261016001719.5178.7177@md.getsentry.com",
+        "customRuleId": "6176797"
+      }
+    },
+    "guestError": {
+      "alertId": "c0d90d9dcba34d56990ef27d828fafa2",
+      "browserOccurredAt": "2026-10-16T00:15:39.469Z",
+      "responseAt": "2026-10-16T00:15:39.548Z",
+      "status": 202,
+      "committed": true,
+      "serverOccurredAt": "2026-10-16T00:15:39.530Z",
+      "ingestAcceptedAt": "2026-10-16T00:15:39.590Z",
+      "providerHttpDate": "2026-10-16T00:15:39.000Z",
+      "detectionTimestamp": {
+        "confirmed": true,
+        "exactReceivedTimestampCollected": false,
+        "source": "Matching Sentry-generated notification shows this incident/check and production rule",
+        "detectedNoLaterThan": "2026-10-16T00:16:06.428Z"
+      },
+      "inboxReceivedAt": "2026-10-16T00:16:06.428Z",
+      "occurrenceToInboxSeconds": 26.959,
+      "within60Seconds": true,
+      "inboxEvidence": {
+        "method": "Authenticated Safari Gmail, exact custom-rule notification, Show original X-Received header",
+        "xReceivedEpochMilliseconds": 1792109766428,
+        "messageId": "20261016001604.3769.17681@md.getsentry.com",
+        "customRuleId": "6176804"
+      }
+    },
+    "blockingHealth": {
+      "alertId": "6ef9edfefc78469e969934f1cc0826d6",
+      "browserOccurredAt": "2026-10-16T00:15:42.245Z",
+      "responseAt": "2026-10-16T00:15:43.035Z",
+      "status": 202,
+      "realCoveredButtonCheck": true,
+      "committed": true,
+      "serverOccurredAt": "2026-10-16T00:15:43.009Z",
+      "ingestAcceptedAt": "2026-10-16T00:15:43.206Z",
+      "providerHttpDate": "2026-10-16T00:15:43.000Z",
+      "detectionTimestamp": {
+        "confirmed": true,
+        "exactReceivedTimestampCollected": false,
+        "source": "Matching Sentry-generated notification shows this incident/check and production rule",
+        "detectedNoLaterThan": "2026-10-16T00:17:21.097Z"
+      },
+      "inboxReceivedAt": "2026-10-16T00:17:21.097Z",
+      "occurrenceToInboxSeconds": 98.852,
+      "within60Seconds": false,
+      "inboxEvidence": {
+        "method": "Authenticated Safari Gmail, exact custom-rule notification, Show original X-Received header",
+        "xReceivedEpochMilliseconds": 1792109841097,
+        "messageId": "20261016001719.5178.7177@md.getsentry.com",
+        "customRuleId": "6176804"
+      }
+    }
+  },
+  "inboxProof": {
+    "confirmed": true,
+    "destination": "zackj13@gmail.com",
+    "method": "Independent authenticated Gmail UI; matching production rules and incident IDs/times, exact millisecond X-Received stamps",
+    "customRuleEmails": 2,
+    "format": "Client error individually; server failure and bid-sheet together in a two-alert digest",
+    "maximumAcceptedSeconds": 60,
+    "passed": false,
+    "userConfirmationPending": true
+  },
+  "cleanup": {
+    "confirmed": true,
+    "at": "2026-10-16T00:15:43.702Z",
+    "productionRemaining": {
+      "orgs": 0,
+      "staff": 0,
+      "events": 0,
+      "requests": 0,
+      "sessions": 0
+    },
+    "stagingAbsence": {
+      "at": "2026-10-16T00:15:43.727Z",
+      "readOnly": true,
+      "orgs": 0,
+      "staff": 0,
+      "events": 0
+    }
+  },
+  "binding": {
+    "deploymentId": "dpl_9kMq1rKxWtkEUVEJJ6SggrLK1Xkj",
+    "sourceCommit": "a55dc11264584fd65650731d27943ecb1fce7e42",
+    "readyState": "READY",
+    "projectId": "prj_gJg1GmPcU3pxeXf9UCj5O7clYZf2",
+    "stagingUnchanged": true
+  },
+  "stagingAbsenceBefore": {
+    "at": "2026-10-16T00:15:24.847Z",
+    "readOnly": true,
+    "orgs": 0,
+    "staff": 0,
+    "events": 0
+  },
+  "eventId": "e7c24fbc-1a31-42bf-a1ee-99905983cc91",
+  "databaseBinding": {
+    "production": {
+      "id": "e7c24fbc-1a31-42bf-a1ee-99905983cc91",
+      "org_id": "6ad4e65f-e0e4-4a80-b4c7-60d9ada20be8",
+      "is_practice": true
+    },
+    "staging": {
+      "at": "2026-10-16T00:15:28.323Z",
+      "readOnly": true,
+      "orgs": 0,
+      "staff": 0,
+      "events": 0
+    }
+  },
+  "applicationProofPassed": true,
+  "finishedAt": "2026-10-16T00:15:43.798Z",
+  "stopCondition": null,
+  "deliveryNotices": [
+    {
+      "eventId": "6ef9edfefc78469e969934f1cc0826d6",
+      "status": "accepted",
+      "category": "guest-blocked",
+      "check": "bid-sheet",
+      "occurredAt": "2026-10-16T00:15:43.009Z",
+      "at": "2026-10-16T00:15:43.206Z",
+      "providerDate": "2026-10-16T00:15:43.000Z"
+    },
+    {
+      "eventId": "c0d90d9dcba34d56990ef27d828fafa2",
+      "status": "accepted",
+      "category": "guest-blocked",
+      "check": "client-error",
+      "occurredAt": "2026-10-16T00:15:39.530Z",
+      "at": "2026-10-16T00:15:39.590Z",
+      "providerDate": "2026-10-16T00:15:39.000Z"
+    },
+    {
+      "eventId": "c88359bcbcea464f9ea3e0f7238c4826",
+      "status": "accepted",
+      "category": "server-failure",
+      "check": "api-request",
+      "occurredAt": "2026-10-16T00:15:37.247Z",
+      "at": "2026-10-16T00:15:37.475Z",
+      "providerDate": "2026-10-16T00:15:37.000Z"
+    }
+  ],
+  "logCollection": {
+    "at": "2026-10-16T00:15:49.835Z",
+    "available": true,
+    "matched": 3
+  },
+  "deliveryDemonstrated": true,
+  "readinessAcceptancePassed": false,
+  "openRisk": "Two of three real production notifications missed 60 seconds despite project digest minimum/maximum already set to one minute. No latency guarantee is claimed.",
+  "observabilityLimitations": {
+    "releaseTag": "unidentified-deployment",
+    "sourceBinding": "Vercel sourceCommit metadata plus matching incident IDs",
+    "defaultHighPriorityRule": "Existing default rule also sends duplicate notifications for new issues; it was not changed."
+  }
+}

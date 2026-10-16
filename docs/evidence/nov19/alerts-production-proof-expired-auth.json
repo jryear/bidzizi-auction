@@ -1,0 +1,31 @@
+{
+  "startedAt": "2026-10-16T00:14:40.104Z",
+  "sourceCommit": "a55dc11264584fd65650731d27943ecb1fce7e42",
+  "deploymentId": "dpl_9kMq1rKxWtkEUVEJJ6SggrLK1Xkj",
+  "orgId": "be3e294b-a2c3-40e0-a308-553d03b86d1f",
+  "staffId": "9b7226cd-f5b0-4694-ae52-3ced0e05002e",
+  "fixtureSlug": "nov19-alert-fb301874ec3c",
+  "scenarios": {},
+  "inboxProof": {
+    "confirmed": false,
+    "destination": "zackj13@gmail.com"
+  },
+  "cleanup": {
+    "confirmed": true,
+    "reason": "No fixture transaction committed."
+  },
+  "binding": {
+    "deploymentId": "dpl_9kMq1rKxWtkEUVEJJ6SggrLK1Xkj",
+    "sourceCommit": "a55dc11264584fd65650731d27943ecb1fce7e42",
+    "readyState": "READY",
+    "projectId": "prj_gJg1GmPcU3pxeXf9UCj5O7clYZf2",
+    "stagingUnchanged": true
+  },
+  "failure": {
+    "type": "AssertionError",
+    "code": "ERR_ASSERTION",
+    "reason": "Controlled proof failed; raw error suppressed."
+  },
+  "finishedAt": "2026-10-16T00:14:41.074Z",
+  "stopCondition": null
+}

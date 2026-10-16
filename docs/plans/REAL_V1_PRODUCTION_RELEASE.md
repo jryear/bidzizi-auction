@@ -41,6 +41,14 @@ Zack authorized merge, checks, staging and production for the Studio phone previ
 
 Rollback: `vercel rollback dpl_Fa7b2Zh9rYAiv5zqpRvnNeigFmgk --scope saturn-ea53` from a checkout linked to the production project, then verify `app.bidzizi.com`. No database step is needed. [Receipt](../evidence/preview-attach-release-20261014/receipt.json).
 
+## Production alerts — 2026-10-15 PDT / Oct 16 UTC
+
+Zack approved production alert activation. Current production: `dpl_9kMq1rKxWtkEUVEJJ6SggrLK1Xkj`, source `a55dc11264584fd65650731d27943ecb1fce7e42`. Application bytes match the passed production-build suite and refreshed staging. Photos, thumbnail, paste-focus and Safari dialog fixes are retained. The only production configuration change is the sensitive server-held Sentry DSN; two production-filtered email rules are enabled. No database migration.
+
+The isolated practice-event proof delivered all three notifications and independently confirmed complete cleanup. Latencies were 26.959s / 103.850s / 98.852s: delivery works, but the strict 60s requirement missed twice. [Full proof and limitations](NOV19_PRODUCTION_ALERTS.md). Production was not tested with a real staff login or real event mutation. The owned fixture alone was used.
+
+Application rollback: `vercel rollback dpl_kkAtoBzwqXeF72ieMkuLwUZyCgtT --scope saturn-ea53`. That prior deployment retains the dialog fixes but predates the alert DSN, so it would disarm alerts. Rollback was not performed.
+
 ## Items dialog Safari 17 collapse — production, 2026-10-15
 
 Zack: "prod". **Current production:** `dpl_kkAtoBzwqXeF72ieMkuLwUZyCgtT`, source `4d6028f` (`jryear/real-v1-claude-shell`, pushed). Previous: `dpl_2NhtVPqraU9Gv427PMGvNLxadnNE`.

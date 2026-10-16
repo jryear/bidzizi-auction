@@ -1,0 +1,24 @@
+{
+  "startedAt": "2026-10-16T00:14:02.693Z",
+  "sourceCommit": "a55dc11264584fd65650731d27943ecb1fce7e42",
+  "projectId": "prj_gJg1GmPcU3pxeXf9UCj5O7clYZf2",
+  "previousProduction": "dpl_kkAtoBzwqXeF72ieMkuLwUZyCgtT",
+  "previousProductionSource": "4d6028f10b30e5cd8f5c33db060cce753114db77",
+  "stagingDeployment": "dpl_9E34vwRSHXbU5TfXE69Ggzxpucgh",
+  "stagingSource": "9f1d2582d938fdb2573bf3cca2b40acc35c6b806",
+  "applicationMatchesStaging": true,
+  "productionEnv": {
+    "key": "BIDZIZI_SENTRY_DSN",
+    "type": "sensitive",
+    "target": [
+      "production"
+    ],
+    "id": "8qpqECHKqBMYbNAE"
+  },
+  "deploymentId": "dpl_9kMq1rKxWtkEUVEJJ6SggrLK1Xkj",
+  "deploymentUrl": "bidzizi-production-563vsfb0e-saturn-ea53.vercel.app",
+  "readyState": "READY",
+  "completedAt": "2026-10-16T00:14:26.795Z",
+  "aliased": true,
+  "stagingUnchanged": true
+}

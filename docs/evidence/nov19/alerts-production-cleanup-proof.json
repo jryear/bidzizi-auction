@@ -1,0 +1,35 @@
+{
+  "verifiedAt": "2026-10-16T00:15:49.874Z",
+  "readOnly": true,
+  "targets": {
+    "staging": {
+      "orgs": 0,
+      "staff": 0,
+      "events": 0,
+      "items": 0,
+      "participants": 0,
+      "bids": 0,
+      "standings": 0,
+      "staff_requests": 0,
+      "staff_sessions": 0,
+      "staff_password_tokens": 0,
+      "client_reports": 0,
+      "login_attempts": 0
+    },
+    "production": {
+      "orgs": 0,
+      "staff": 0,
+      "events": 0,
+      "items": 0,
+      "participants": 0,
+      "bids": 0,
+      "standings": 0,
+      "staff_requests": 0,
+      "staff_sessions": 0,
+      "staff_password_tokens": 0,
+      "client_reports": 0,
+      "login_attempts": 0
+    }
+  },
+  "confirmed": true
+}

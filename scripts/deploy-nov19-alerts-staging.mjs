@@ -47,9 +47,10 @@ assert.equal(productionServed.meta?.sourceCommit,prod.sourceCommit);
 execFileSync('git',['merge-base','--is-ancestor',prod.sourceCommit,commit]);
 const prodVars = await api('GET',`/v10/projects/${prod.project}/env`);
 const envList = data => { const list=Array.isArray(data)?data:data.envs;assert.ok(Array.isArray(list),'Unexpected env readback shape; values suppressed.');return list; };
-assert.ok(!envList(prodVars).some(x=>x.key==='BIDZIZI_SENTRY_DSN'),'Production alert activation must remain gated.');
+const productionDsnPresent=envList(prodVars).some(x=>x.key==='BIDZIZI_SENTRY_DSN');
+assert.equal(productionDsnPresent,prod.alertsEnabled===true,'Production alert configuration changed; stop before staging mutation.');
 const receipt={startedAt:new Date().toISOString(),sourceCommit:commit,projectId:stage.project,productionProjectUntouched:true,
-  priorStagingDeployment:stage.deployment,productionDeployment:prod.deployment,productionDsnAbsent:true};
+  priorStagingDeployment:stage.deployment,productionDeployment:prod.deployment,productionDsnAbsent:!productionDsnPresent,productionAlertsEnabled:productionDsnPresent};
 await api('POST',`/v10/projects/${stage.project}/env?upsert=true`, {key:'BIDZIZI_SENTRY_DSN',value:dsn,type:'sensitive',target:['production'],
   comment:'Approved Nov19 server-only alerts; staging project only. Production app activation remains gated.'});
 const envs = await api('GET',`/v10/projects/${stage.project}/env`);
@@ -81,7 +82,7 @@ try {
   await api('POST',`/v2/deployments/${id}/aliases`,{alias:stage.alias});
   const afterAlias=await api('GET','/v4/aliases/'+stage.alias); assert.equal(afterAlias.deployment?.id ?? afterAlias.deploymentId,id);
   const afterProd=await api('GET','/v4/aliases/'+prod.alias); assert.equal(afterProd.deployment?.id ?? afterProd.deploymentId,prod.deployment);
-  const prodAfter=await api('GET',`/v10/projects/${prod.project}/env`); assert.ok(!envList(prodAfter).some(x=>x.key==='BIDZIZI_SENTRY_DSN'));
+  const prodAfter=await api('GET',`/v10/projects/${prod.project}/env`); assert.equal(envList(prodAfter).some(x=>x.key==='BIDZIZI_SENTRY_DSN'),productionDsnPresent);
   receipt.completedAt=new Date().toISOString(); receipt.aliased=true; receipt.productionUnchanged=true;
   await writeFile('docs/evidence/nov19/alerts-deployment.json',JSON.stringify(receipt,null,2)+'\n');
   console.log(JSON.stringify({sourceCommit:commit,stagingDeployment:id,ready:true,stagingAlias:stage.alias,productionUnchanged:true,dsnValueSuppressed:true}));

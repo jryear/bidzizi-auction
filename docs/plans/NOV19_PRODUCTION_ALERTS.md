@@ -11,3 +11,19 @@ The production proof creates one random disposable org/staff identity and one AP
 Cleanup discovers all practice events under the unique owned org, deletes through the app when possible, and uses scoped SQL only for that fixture if needed. It removes the owned staff/session/request/diagnostic/login records and org, then independently verifies absence through fresh read-only connections. Provider credentials, DSN, fixture password and connection strings never enter receipts or Git. A separate production-proof adapter is used; the normal provider still forbids production write clients.
 
 Operational scripts passed syntax and authorization/origin/429 stop checks against a stub transport. The existing manifest proves the application still matches the passed next build/next start browser suite. Deployment and inbox proof are pending until execution receipts exist. The deployment script requires a clean committed tree and validates source hashes before any mutation.
+
+## Executed proof
+
+Staging refresh: READY `dpl_9E34vwRSHXbU5TfXE69Ggzxpucgh`, source `9f1d2582d938fdb2573bf3cca2b40acc35c6b806`; read-only Chromium/WebKit sign-in/join smoke passed. Production activation: READY `dpl_9kMq1rKxWtkEUVEJJ6SggrLK1Xkj`, source `a55dc11264584fd65650731d27943ecb1fce7e42`, same tested application bytes. Only the sensitive production DSN variable was added; existing variables retained their identities. No migration occurred.
+
+The first proof attempt stopped before fixtures because the Neon access token expired (401); the existing CLI refreshed authentication and the repeat succeeded. The real standing timeout left zero bids/receipts, and browser error/health reports committed before forwarding. Cleanup succeeded and an independent fresh read-only query confirmed zero owned records across 12 tables in production and staging.
+
+| Incident | Occurred UTC, Oct 16 | Gmail X-Received UTC | Seconds | ≤60s |
+| --- | --- | --- | --- | --- |
+| server-failure/api-request | 00:15:37.247 | 00:17:21.097 | 103.850 | No |
+| guest-blocked/client-error | 00:15:39.469 | 00:16:06.428 | 26.959 | Yes |
+| guest-blocked/bid-sheet | 00:15:42.245 | 00:17:21.097 | 98.852 | No |
+
+Delivery is demonstrated, but the strict latency criterion missed for two incidents. Gmail's custom-rule messages contained the exact matching IDs/checks and rules 6176797/6176804; one individual email and one two-alert digest were received. Existing default high-priority notifications add duplicate emails for new issues. The supported project digest minimum/maximum are already one minute. Do not present this as a guaranteed subminute channel or erase the misses. User confirmation is requested separately; independent inbox evidence is recorded.
+
+Receipts: [deployment](../evidence/nov19/alerts-production-deployment.json), [proof](../evidence/nov19/alerts-production-proof.json), [independent cleanup](../evidence/nov19/alerts-production-cleanup-proof.json). Runtime source attribution remains Vercel metadata because the Sentry release tag is unidentified-deployment. Application rollback target is `dpl_kkAtoBzwqXeF72ieMkuLwUZyCgtT`; that immutable deployment predates the DSN and would disarm alerts on rollback. It has not been rolled back.
