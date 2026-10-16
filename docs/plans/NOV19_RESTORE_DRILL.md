@@ -13,3 +13,9 @@ The SQL manifest helper is locally testable against a disposable database; provi
 Execution results belong in `docs/evidence/nov19/restore-drill.json`. A passed comparison is evidence for the selected event at the recorded LSN; it is not a whole-project application recovery or an RTO guarantee under show-day load.
 
 The first attempt created br-tiny-river-arr4ychc at the initial point but timed out before read verification; cleanup was subsequently confirmed after expiry, with the endpoint absent and all pre-existing branches retained. That failed attempt and its baseline are retained separately. The fresh retry point is `2026-10-16T16:22:32.394Z`, LSN `0/2824DA0`, branch name `nov19-restore-drill-20261016T162232`, with the same 1/20/25/26/20/5 entity counts. The retry refreshes existing Neon authentication and waits for branch readiness before database metadata and connection calls.
+
+## Successful retry
+
+Branch `br-little-darkness-ar7iubzf` restored the fresh LSN exactly. Full-row hashes/counts agreed for all six entity groups. Verified TLS and read-only SQL were used; create took 0.419s and connection plus comparison 0.826s. Cleanup at 2026-10-16T16:22:56.950Z confirmed the branch and endpoint gone and every pre-existing branch still present. [Receipt](../evidence/nov19/restore-drill.json). The first failed attempt remains separately recorded and is not relabeled as a pass.
+
+For an actual incident: keep writes stopped while an engineer determines the last known good point and any later accepted bids/pledges. Restore into a new branch first, compare durable records, and obtain explicit production recovery authorization before changing application credentials, promoting a branch or discarding any post-point activity. This drill does not authorize those steps. Never reset the live branch as an exploratory test.

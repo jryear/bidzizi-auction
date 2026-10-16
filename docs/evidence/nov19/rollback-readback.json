@@ -1,0 +1,18 @@
+{
+  "at": "2026-10-16T16:25:53.934Z",
+  "method": "Vercel GET only; rollback not executed",
+  "deployments": {
+    "current": {
+      "id": "dpl_9kMq1rKxWtkEUVEJJ6SggrLK1Xkj",
+      "url": "bidzizi-production-563vsfb0e-saturn-ea53.vercel.app",
+      "sourceCommit": "a55dc11264584fd65650731d27943ecb1fce7e42",
+      "readyState": "READY"
+    },
+    "rollback": {
+      "id": "dpl_kkAtoBzwqXeF72ieMkuLwUZyCgtT",
+      "url": "bidzizi-production-jx7n9021y-saturn-ea53.vercel.app",
+      "sourceCommit": "4d6028f10b30e5cd8f5c33db060cce753114db77",
+      "readyState": "READY"
+    }
+  }
+}
