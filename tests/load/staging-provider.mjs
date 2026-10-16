@@ -4,8 +4,8 @@ import pg from 'pg';
 
 export const targets = {
   staging: { project: 'prj_nQdWJzjZjFg0TY2MjlTf2hxWtBf9', alias: 'staging.bidzizi.com',
-    branch: 'br-crimson-mountain-arsolcfe', endpoint: 'ep-orange-cake-aryndhab', deployment: 'dpl_AZZH3S67gBuDQvff6rmapwAUGKjr',
-    sourceCommit: 'c50cad0e441a75a8db045b3baf76054032b2821b' },
+    branch: 'br-crimson-mountain-arsolcfe', endpoint: 'ep-orange-cake-aryndhab', deployment: 'dpl_9E34vwRSHXbU5TfXE69Ggzxpucgh',
+    sourceCommit: '9f1d2582d938fdb2573bf3cca2b40acc35c6b806' },
   production: { project: 'prj_gJg1GmPcU3pxeXf9UCj5O7clYZf2', alias: 'app.bidzizi.com',
     branch: 'br-cold-glitter-arx1msrh', endpoint: 'ep-broad-credit-arcrxgvi', deployment: 'dpl_kkAtoBzwqXeF72ieMkuLwUZyCgtT',
     sourceCommit: '4d6028f10b30e5cd8f5c33db060cce753114db77' },
