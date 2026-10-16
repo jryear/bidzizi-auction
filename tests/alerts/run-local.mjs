@@ -43,6 +43,6 @@ try {
   for (const p of bundleFiles) assert.ok(!/BIDZIZI_SENTRY_DSN|sentry_key=|BidZizi alert /.test(await readFile(p,'utf8')), 'Server alert credentials/transport must not enter client bundles');
   await writeFile('docs/evidence/nov19/alerts-validation.json', JSON.stringify({ passed: true, validatedAt: new Date().toISOString(),
     appDigest: createHash('sha256').update(JSON.stringify(manifest)).digest('hex'), manifest,
-    checks: ['alert core unit tests','actual Sentry SDK privacy/delivery tests','typecheck','production build','local alert integration/receiver failure','compatibility','55/55 journey','Chromium/WebKit bid-sheet','Chromium/WebKit simple mode','8/8 telemetry','photos/photo-ui/items-ui regression suites','Chromium/WebKit poor-network','client-bundle isolation'],
+    checks: ['alert core unit tests','actual Sentry SDK privacy/delivery tests','typecheck','production build','local alert integration/receiver failure','compatibility','55/55 journey','Chromium/WebKit bid-sheet','Chromium/WebKit simple mode','8/8 telemetry','photos/photo-ui/items-ui regression suites','Chromium/WebKit poor-network','client-bundle isolation',...(process.env.NOV19_PREFLIGHT_CHECKS==='1'?['preflight failure/TLS tests','preflight real practice cleanup and restore manifest']:[])],
     clientBundlesScanned: bundleFiles.length }, null, 2) + '\n');
 } finally { await new Promise(resolve => server.close(resolve)); }

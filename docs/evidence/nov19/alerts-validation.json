@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "validatedAt": "2026-10-15T21:01:36.116Z",
+  "validatedAt": "2026-10-16T16:37:39.866Z",
   "appDigest": "55b8cf8259096e4e8aed6ca86eb87215af6b1959920a368255e6b5f794a6e71f",
   "manifest": {
     "next.config.ts": "f144fc876a7e0e443762ecea49af7e82214f72271c3fe81e364232524d1ed5ae",
@@ -110,7 +110,9 @@
     "8/8 telemetry",
     "photos/photo-ui/items-ui regression suites",
     "Chromium/WebKit poor-network",
-    "client-bundle isolation"
+    "client-bundle isolation",
+    "preflight failure/TLS tests",
+    "preflight real practice cleanup and restore manifest"
   ],
   "clientBundlesScanned": 31
 }

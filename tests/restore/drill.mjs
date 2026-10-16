@@ -5,7 +5,7 @@ assert.deepEqual(process.argv.slice(2),['--restore-drill-approved']);assert.matc
 const baseline=JSON.parse(await readFile('docs/evidence/nov19/restore-baseline.json','utf8'));
 assert.equal(baseline.project,'delicate-math-48681189');assert.equal(baseline.parentBranch,'br-cold-glitter-arx1msrh');assert.match(baseline.branchName,/^nov19-restore-drill-\d{8}T\d{6}$/);assert.match(baseline.restorePoint.lsn,/^[0-9A-F]+\/[0-9A-F]+$/);
 assert.ok(Date.now()-Date.parse(baseline.preparedAt)<3600000,'Prepare a fresh baseline.');
-function refreshAuth(){execFileSync('/Users/jryear/.local/bin/neon',['projects','get',baseline.project,'--output','json'],{encoding:'utf8',stdio:['ignore','pipe','pipe'],timeout:25000});}
+function refreshAuth(){try{execFileSync('/Users/jryear/.local/bin/neon',['projects','get',baseline.project,'--output','json'],{encoding:'utf8',stdio:['ignore','pipe','pipe'],timeout:25000});}catch{throw new Error('Existing Neon authentication refresh failed; raw output suppressed.');}}
 refreshAuth();
 const root='https://console.neon.tech/api/v2/projects/'+baseline.project;
 async function api(method,path,body){

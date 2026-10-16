@@ -37,6 +37,7 @@ for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => { current?.
 try {
   await run(process.execPath, ['tests/load/guards.mjs']);
   await run(process.execPath, ['tests/load/cpu-check.mjs']);
+  if (process.env.NOV19_PREFLIGHT_CHECKS === '1') await run(process.execPath, ['tests/preflight/unit.mjs']);
   await run(join(pgBin, 'initdb'), ['-D', directory, '-U', 'bz', '-A', 'trust', '--no-locale', '--encoding=UTF8']);
   await run(join(pgBin, 'pg_ctl'), ['-D', directory, '-l', join(directory, 'postgres.log'), '-o', `-h 127.0.0.1 -p ${pgPort} -k ${directory} -c shared_preload_libraries=pg_stat_statements`, '-w', 'start']);
   pgStarted = true;
@@ -64,6 +65,7 @@ try {
   for (const suite of ['journey', 'bid-sheet', 'simple-ui', 'compat-api']) await run(process.execPath, [`tests/v1/${suite}.mjs`]);
   if (process.env.NOV19_ALERT_CHECKS === '1')
     for (const suite of ['photos', 'photo-ui', 'items-ui']) await run(process.execPath, [`tests/v1/${suite}.mjs`]);
+  if (process.env.NOV19_PREFLIGHT_CHECKS === '1') await run(process.execPath, ['tests/preflight/local.mjs']);
   await run(process.execPath, ['tests/load/resilience.mjs']);
 } finally {
   if (app && app.exitCode === null && app.signalCode === null) { app.kill('SIGTERM'); await new Promise(resolve => app.once('exit', resolve)); }

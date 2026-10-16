@@ -1,0 +1,14 @@
+{
+  "origin": "https://app.bidzizi.com",
+  "verifiedAt": "2026-10-16T16:36:26.953Z",
+  "deploymentId": "dpl_9kMq1rKxWtkEUVEJJ6SggrLK1Xkj",
+  "sourceCommit": "a55dc11264584fd65650731d27943ecb1fce7e42",
+  "dsnConfigured": true,
+  "rulesEnabled": true,
+  "rulesVerification": "Engineer-confirmed authenticated Sentry UI readback; not an automated Sentry management API check",
+  "rulesReadbackAt": "2026-10-16T16:36:18.359594+00:00",
+  "deliveryDemonstrated": true,
+  "deliveryProofSource": "a55dc11264584fd65650731d27943ecb1fce7e42",
+  "subminuteProofPassed": false,
+  "observedMaxSeconds": 103.85
+}

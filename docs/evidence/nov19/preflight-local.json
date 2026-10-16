@@ -1,0 +1,93 @@
+{
+  "at": "2026-10-16T16:37:24.196Z",
+  "passed": true,
+  "server": "next start after production build",
+  "readonly": {
+    "at": "2026-10-16T16:37:24.111Z",
+    "origin": "http://127.0.0.1:3469",
+    "eventCode": "SBK5XC",
+    "readOnly": true,
+    "checks": [
+      {
+        "name": "HTTPS and reachability",
+        "passed": true
+      },
+      {
+        "name": "Event status",
+        "passed": true
+      },
+      {
+        "name": "Expected event times",
+        "passed": true
+      },
+      {
+        "name": "Visible items",
+        "passed": true
+      },
+      {
+        "name": "Alert readiness",
+        "passed": true
+      }
+    ],
+    "warnings": [
+      "Measured email delivery exceeded 60 seconds. Keep direct staff-to-engineer escalation available."
+    ],
+    "passed": true
+  },
+  "practice": {
+    "at": "2026-10-16T16:37:24.117Z",
+    "origin": "http://127.0.0.1:3469",
+    "eventCode": "SBK5XC",
+    "readOnly": false,
+    "checks": [
+      {
+        "name": "HTTPS and reachability",
+        "passed": true
+      },
+      {
+        "name": "Event status",
+        "passed": true
+      },
+      {
+        "name": "Expected event times",
+        "passed": true
+      },
+      {
+        "name": "Visible items",
+        "passed": true
+      },
+      {
+        "name": "Alert readiness",
+        "passed": true
+      },
+      {
+        "name": "Practice join",
+        "passed": true
+      },
+      {
+        "name": "Practice cleanup",
+        "passed": true
+      },
+      {
+        "name": "Practice host session logout",
+        "passed": true
+      }
+    ],
+    "warnings": [
+      "Measured email delivery exceeded 60 seconds. Keep direct staff-to-engineer escalation available."
+    ],
+    "passed": true,
+    "practice": {
+      "name": "Preflight practice 0dd073a0-6cbb-4924-a32b-052c8c992ff4",
+      "created": true,
+      "joined": true,
+      "cleanupConfirmed": true,
+      "eventId": "8896d202-4228-4619-82e6-5afff28e8b67"
+    }
+  },
+  "independentSqlCleanup": {
+    "events": 0,
+    "items": 0,
+    "participants": 0
+  }
+}
