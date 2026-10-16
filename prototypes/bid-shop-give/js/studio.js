@@ -153,7 +153,7 @@ export function mountStudio(root, variant) {
     const nA = st().items.filter(i => i.kind === "auction").length, nS = st().items.filter(i => i.kind === "shop").length;
     const row = (id, label, sub, on) => `<button class="s-nav-row${on ? " on" : ""}" data-act="${id}">${label}<small>${sub}</small></button>`;
     return `<nav class="s-nav"><span class="s-nav-h">Event</span>${row("noop", "Welcome &amp; details", "Holiday Trade Show")}${row("noop", "Schedule", "11:51 AM – 3:01 PM")}${row("noop", "Look", "Classic")}${row("noop", "Bidding rules", "Name and business")}${row("noop", "Donations", "2 nonprofits")}
-      <span class="s-nav-h">${v() === "b" ? "Selling" : "Items"}</span>${v() === "b" ? `${row("noop", "Auction items", `${nA} items`, true)}${row("goshop", "Shop", `${nS} products · edit in Shop`)}` : row("noop", "All items", `${nA} auction · ${nS} shop`, true)}</nav>`;
+      <span class="s-nav-h">${v() === "b" ? "Selling" : "Items"}</span>${v() === "b" ? `${row("goitems", "Auction items", `${nA} items`, ui.mode === "setup")}${row("goshop", "Shop", `${nS} products`, ui.mode === "shop")}` : row("noop", "All items", `${nA} auction · ${nS} shop`, true)}</nav>`;
   }
 
   // ------------------------------------------------------------------ render
@@ -161,7 +161,7 @@ export function mountStudio(root, variant) {
     root.className = `s s-${v()}`;
     let main;
     if (ui.mode === "setup") main = `<div class="s-setup">${setupNav()}<div class="s-ws">${itemsWorkspace()}</div>${editor()}</div>`;
-    else if (ui.mode === "shop") main = `<div class="s-setup no-nav"><div class="s-ws">${shopMode()}</div>${ui.shopTab === "products" ? editor() : ""}</div>`;
+    else if (ui.mode === "shop") main = `<div class="s-setup">${setupNav()}<div class="s-ws">${shopMode()}</div>${ui.shopTab === "products" ? editor() : ""}</div>`;
     else if (ui.mode === "live") main = `<div class="s-page">${livePage()}</div>`;
     else main = `<div class="s-page">${results()}</div>`;
     const keep = document.activeElement?.closest?.(".s") ? document.activeElement.dataset.act ?? document.activeElement.dataset.e : null;
@@ -177,6 +177,7 @@ export function mountStudio(root, variant) {
     if (["q", "pq", "desk"].includes(act)) return;
     switch (act) {
       case "mode": ui.mode = val; ui.edit = null; ui.confirm = null; render(); break;
+      case "goitems": ui.mode = "setup"; ui.edit = null; render(); break;
       case "goshop": ui.mode = "shop"; ui.shopTab = "products"; ui.edit = null; render(); break;
       case "type": ui.type = val; render(); break;
       case "edit": if (e.target.closest("button[data-act='stock']")) return; ui.edit = ui.edit === val ? null : val; render(); break;

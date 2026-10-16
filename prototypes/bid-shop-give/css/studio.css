@@ -29,7 +29,6 @@
 
 /* set up: navigator + workspace + drawer */
 .s-setup { display: grid; grid-template-columns: 236px minmax(0, 1fr) auto; min-height: 100%; }
-.s-setup.no-nav { grid-template-columns: minmax(0, 1fr) auto; }
 .s-nav { padding: 16px 12px; border-right: 1px solid var(--line); background: var(--card); }
 .s-nav-h { display: block; margin: 16px 10px 6px; font: 650 11px/1 var(--sans); letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); }
 .s-nav-h:first-child { margin-top: 0; }

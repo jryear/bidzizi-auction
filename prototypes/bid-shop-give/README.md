@@ -33,9 +33,8 @@ Run it with `node prototypes/bid-shop-give/serve.mjs` and open http://127.0.0.1:
 5. **Studio B:** go to Shop → Pickup desk. Find Jo Park and press "Paid and handed over". Mine on the phone updates.
 6. Switch Guest A and B on the same screens. Decide which shell, which Studio model, and which pieces to borrow from the other.
 
-## Decision to make
+## Decision
 
-- Which guest shell, and anything worth borrowing from the other (for example B's pickups grouped by place in Mine)?
-- Studio A or B, or A's single Items list with B's Pickup desk?
+Zack chose **Guest B** and **Studio B** on 2026-10-16, with the event sidebar kept visible in Shop mode (done). Purchases stay separate from auction results, and staff check off purchases in Purchases and at the Pickup desk. The A variants remain here for reference only.
 
-Evidence is in `evidence/`, captured at 390×844 (phone) and 1600×1000 (Studio). Nothing is accepted until Zack chooses.
+Evidence is in `evidence/`, captured at 390×844 (phone) and 1600×1000 (Studio).

@@ -30,7 +30,8 @@ Success: a Saturn guest buys a gift box on their phone in under 30 seconds witho
 | Filters | **Bid · Shop · Give** |
 | Navigation | Bottom tabs **Browse · Mine · Event**. Browse holds the Bid/Shop/Give switch. Mine collects bids, purchases, donations and watched items. |
 | Pickup | Each shop item has an optional pickup line ("Table 4, until 8 PM"), shown on the guest's purchase. |
-| Studio | Undecided. Phase A prototypes both: shop items in the same Items list with a type, or a separate Shop section. |
+| Guest shell | **B · Transform** (chosen 2026-10-16): mode cards with counts, dense bid rows, 2-column shop grid, one-tap cause cards, pickups grouped by place in Mine. |
+| Studio | **B · Shop workspace** (chosen 2026-10-16): Shop is its own mode beside Set up / Live / Results, with Products, Purchases and Pickup desk. Purchases stay completely separate from auction results. The event sidebar stays visible in Shop (Selling → Auction items / Shop), so navigation never leaves. |
 | Multi-quantity auctions (phase 2) | Top N bids win; each winner pays their own bid; one unit per guest. |
 
 ## Data model (phase B)
@@ -89,7 +90,7 @@ Every reader of `opening_minor`, `standings`, `closesOf`/`phaseOf`, winner propo
 - **Item editor** for a shop item: Price, Quantity, Per-guest limit (optional), Pickup. Starting bid and increment are hidden. Paste rows accepts a `Type` column (Auction or Shop) and `Price` / `Quantity` / `Limit` headers.
 - **Purchases:** a list (buyer, business, item, quantity, amount, status, time) with Mark paid, Mark picked up and Cancel. Cancel asks first and states that the stock returns. Filters by status. CSV export.
 - **Live:** units sold, revenue committed, and "just sold out".
-- Layout (same list with a type vs a separate Shop section) is decided from the phase A prototypes.
+- Layout: a separate Shop mode (Studio B), with the event sidebar kept visible.
 
 ## Proof (phase B)
 
@@ -127,4 +128,4 @@ These states were exercised in Chromium, with no page errors:
 
 Not yet checked: WebKit and older iOS, which apply to phase B code, not this prototype.
 
-**Pending: Zack's visual choice** of guest shell and Studio model. No direction is accepted yet.
+**Accepted (Zack, 2026-10-16): Guest B and Studio B**, with one change: the event sidebar stays in Shop mode instead of disappearing. Zack singled out the separation of purchases from auction results and the staff check-off workflow (Purchases, Pickup desk) as what to keep. Reference: the prototype at the commit that records this decision, with `evidence/guest-b-*.png` and `evidence/studio-b-shop-nav.png`. Phase B builds this combination; variants A stay in the prototype for reference only.
